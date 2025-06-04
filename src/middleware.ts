@@ -1,6 +1,8 @@
 import { getToken } from 'next-auth/jwt';
 import { withAuth } from 'next-auth/middleware';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+
+const AUTH_ROUTES = ['/auth/signin', '/auth/signup'];
 
 export default withAuth(
     async function middleware(request: NextRequest) {
@@ -8,7 +10,27 @@ export default withAuth(
             req: request,
             secret: process.env.NEXTAUTH_SECRET,
         });
-        console.log(`Middleware: \n` + JSON.stringify(token));
+        const { pathname } = request.nextUrl;
+
+        const isAuthRoute = AUTH_ROUTES.includes(pathname);
+        const isAuthenticated = !!token;
+
+        if (pathname === '/') {
+            return NextResponse.redirect(
+                new URL(
+                    isAuthenticated ? '/dashboard' : '/auth/signin',
+                    request.url
+                )
+            );
+        }
+
+        if (isAuthenticated && isAuthRoute) {
+            return NextResponse.redirect(new URL('/dashboard', request.url));
+        }
+
+        if (!isAuthenticated && !isAuthRoute) {
+            return NextResponse.redirect(new URL('/auth/signin', request.url));
+        }
     },
     {
         callbacks: {
@@ -33,5 +55,8 @@ export default withAuth(
 );
 
 export const config = {
-    matcher: ['/dashboard', '/api/:path*'],
+    matcher: [
+        '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+        '/api/:path*',
+    ],
 };

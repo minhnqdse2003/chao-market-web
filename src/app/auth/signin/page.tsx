@@ -70,7 +70,7 @@ export default function SignIn() {
     };
 
     const handleSocialLogin = (provider: string) => {
-        signIn(provider, { redirect: true, callbackUrl: '/dashboard' });
+        signIn(provider, { callbackUrl: '/dashboard' });
     };
 
     const handleSendOtp = async () => {
