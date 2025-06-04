@@ -4,6 +4,7 @@ import './globals.css';
 import { siteConfig } from '@/config/site.config';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
+import NextAuthSessionProvider from '@/components/provider/session-provider';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -41,15 +42,18 @@ export default function RootLayout({
                     `${geistSans.variable} ${geistMono.variable} antialiased`,
                     'min-h-svh bg-background'
                 )}
+                suppressHydrationWarning
             >
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    {children}
-                </ThemeProvider>
+                <NextAuthSessionProvider>
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="system"
+                        enableSystem
+                        disableTransitionOnChange
+                    >
+                        {children}
+                    </ThemeProvider>
+                </NextAuthSessionProvider>
             </body>
         </html>
     );
