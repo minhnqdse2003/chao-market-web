@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { sendOtpCode, verifiedOtpCode } from '@/app/server/auth';
+import { sendOtpCode, verifiedOtpCode } from '@/services/auth';
 
 export default function SignUp() {
     const [formData, setFormData] = useState({

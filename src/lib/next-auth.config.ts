@@ -4,25 +4,14 @@ import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import EmailProvider from 'next-auth/providers/email';
-import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import { db } from '@/lib/db';
-import {
-    users,
-    otpCodes,
-    accounts,
-    sessions,
-    verificationTokens,
-} from '@/db/schema';
+import { users, otpCodes } from '@/db/schema';
 import { eq, and, gt, isNotNull } from 'drizzle-orm';
 import bcrypt from 'bcryptjs';
+import { CustomAdapter } from './next-auth.adapter';
 
 export const authOptions: NextAuthOptions = {
-    adapter: DrizzleAdapter(db, {
-        usersTable: users,
-        accountsTable: accounts,
-        sessionsTable: sessions,
-        verificationTokensTable: verificationTokens,
-    }),
+    adapter: CustomAdapter,
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -31,7 +20,6 @@ export const authOptions: NextAuthOptions = {
                 return {
                     ...profile,
                     id: profile.sub,
-                    role: profile.role ?? 'user',
                 };
             },
         }),
@@ -110,7 +98,6 @@ export const authOptions: NextAuthOptions = {
                         email: user.email,
                         name: user.name,
                         image: user.image,
-                        role: 'User',
                     };
                 }
 
@@ -132,7 +119,6 @@ export const authOptions: NextAuthOptions = {
                         email: user.email,
                         name: user.name,
                         image: user.image,
-                        role: `User`,
                     };
                 }
 
@@ -147,11 +133,17 @@ export const authOptions: NextAuthOptions = {
         signIn: '/auth/signin',
         newUser: '/dashboard',
     },
+    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
+                const [existingUser] = await db
+                    .select()
+                    .from(users)
+                    .where(eq(users.id, user.id))
+                    .limit(1);
                 token.id = user.id;
-                token.role = (user as any).role ?? 'User';
+                token.role = existingUser.role ?? 'USER';
             }
             return token;
         },

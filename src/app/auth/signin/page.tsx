@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { sendOtpCode, verifiedEmail, verifiedOtpCode } from '@/app/server/auth';
+import { sendOtpCode, verifiedEmail, verifiedOtpCode } from '@/services/auth';
+import { BaseResponse } from '@/types/base-response';
+import { VerifyEmailResponse } from '@/types/user/response/verify-response';
 
 export default function SignIn() {
     const searchParams = useSearchParams();
@@ -48,12 +50,14 @@ export default function SignIn() {
 
         try {
             const response = await verifiedEmail(email);
+            const result: BaseResponse<VerifyEmailResponse> =
+                await response.json();
 
-            if ('error' in response) {
-                throw new Error(response.error);
+            if (!response.ok) {
+                throw new Error(result.message);
             }
 
-            if (response.emailVerified) {
+            if (result.data?.emailVerified) {
                 setIsEmailConfirmed(true);
             } else {
                 await handleSendOtp();
@@ -102,6 +106,7 @@ export default function SignIn() {
         }
     };
 
+    // Check next-auth's callback errors
     useEffect(() => {
         const errorParam = searchParams.get('error');
 

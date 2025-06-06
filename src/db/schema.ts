@@ -6,9 +6,12 @@ import {
     boolean,
     primaryKey,
     uuid,
+    pgEnum,
 } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import type { AdapterAccount } from '@auth/core/adapters';
+
+export const userRoleEnum = pgEnum('user_role', ['ADMIN', 'USER']);
 
 export const users = pgTable('user', {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
@@ -19,6 +22,7 @@ export const users = pgTable('user', {
     password: text('password'),
     phone: text('phone'),
     phoneVerified: timestamp('phoneVerified', { mode: 'date' }),
+    role: userRoleEnum('role').default('USER').notNull(),
 });
 
 export const accounts = pgTable(

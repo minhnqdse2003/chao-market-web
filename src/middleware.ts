@@ -8,7 +8,6 @@ export default withAuth(
     async function middleware(request: NextRequest) {
         const token = await getToken({
             req: request,
-            secret: process.env.NEXTAUTH_SECRET,
         });
         const { pathname } = request.nextUrl;
 
@@ -28,7 +27,7 @@ export default withAuth(
             return NextResponse.redirect(new URL('/dashboard', request.url));
         }
 
-        if (!isAuthenticated && !isAuthRoute) {
+        if (!isAuthenticated && !isAuthRoute && !pathname.startsWith('/api')) {
             return NextResponse.redirect(new URL('/auth/signin', request.url));
         }
     },
@@ -37,14 +36,6 @@ export default withAuth(
             authorized: ({ token, req }) => {
                 // Protect dashboard routes
                 if (req.nextUrl.pathname.startsWith('/dashboard')) {
-                    return !!token;
-                }
-
-                // Protect API routes (except auth routes)
-                if (
-                    req.nextUrl.pathname.startsWith('/api') &&
-                    !req.nextUrl.pathname.startsWith('/api/auth')
-                ) {
                     return !!token;
                 }
 

@@ -1,9 +1,4 @@
-export type VerifyResponse =
-    | {
-          email: string;
-          emailVerified: boolean;
-          phoneVerified: boolean;
-      }
-    | {
-          error: string;
-      };
+export type VerifyEmailResponse = {
+    email: string;
+    emailVerified: boolean;
+};
