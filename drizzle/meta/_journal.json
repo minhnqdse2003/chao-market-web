@@ -15,6 +15,13 @@
       "when": 1749164463152,
       "tag": "0001_nervous_mantis",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1749268331975,
+      "tag": "0002_milky_zeigeist",
+      "breakpoints": true
     }
   ]
 }
