@@ -8,7 +8,6 @@ export const zodPaginationSchema = {
         .refine(val => !isNaN(val) && val >= 0, {
             message: 'pageIndex must be a non-negative integer',
         })
-        .optional()
         .default(DEFAULT_PAGE_INDEX.toString()),
     pageSize: z
         .string()
@@ -16,7 +15,6 @@ export const zodPaginationSchema = {
         .refine(val => !isNaN(val) && val > 0, {
             message: 'pageSize must be a positive integer',
         })
-        .optional()
         .default(DEFAULT_PAGE_SIZE.toString()),
 };
 

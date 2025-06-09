@@ -1,6 +1,7 @@
 import { withAuth } from '@/lib/api-route-middleware';
 import { db } from '@/lib/db';
 import { BaseResponse } from '@/types/base-response';
+import { ApiError } from 'next/dist/server/api-utils';
 import { NextRequest, NextResponse } from 'next/server';
 
 const getTransactionByCartId = async (
@@ -12,12 +13,7 @@ const getTransactionByCartId = async (
         with: { cart: { with: { items: true } } },
     });
     if (!transaction) {
-        return NextResponse.json(
-            {
-                message: 'Transaction not found for this cart id.',
-            } as BaseResponse,
-            { status: 400 }
-        );
+        throw new ApiError(400, `Transaction not found for this cart id`);
     }
     return NextResponse.json(
         {

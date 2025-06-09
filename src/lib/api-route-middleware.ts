@@ -2,6 +2,7 @@
 import { BaseResponse } from '@/types/base-response';
 import { ROLE } from '@/types/role';
 import { getToken } from 'next-auth/jwt';
+import { ApiError } from 'next/dist/server/api-utils';
 import { NextRequest, NextResponse } from 'next/server';
 
 type Handler = (req: NextRequest, context?: any) => Promise<Response>;
@@ -15,6 +16,7 @@ export const withAuth = (
             const token = await getToken({
                 req,
             });
+
             const isAuthorized = roles.includes((token as any)?.role);
             if (roles.length > 0 && !isAuthorized) {
                 const unauthenticatedResponse: BaseResponse = {
@@ -25,9 +27,14 @@ export const withAuth = (
                 });
             }
 
-            return handler(req, context);
+            return await handler(req, context);
         } catch (error) {
-            console.log('500: {} ' + error);
+            if (error instanceof ApiError) {
+                return NextResponse.json(
+                    { message: error.message },
+                    { status: error.statusCode }
+                );
+            }
             return NextResponse.json(
                 { message: 'Internal Server Error' },
                 { status: 500 }

@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { sendOtpCode, verifiedEmail, verifiedOtpCode } from '@/services/auth';
 import { BaseResponse } from '@/types/base-response';
-import { VerifyEmailResponse } from '@/types/user/response/verify-response';
+import { VerifyEmail } from '@/types/user/response/verify-response';
 
 export default function SignIn() {
     const searchParams = useSearchParams();
@@ -50,8 +50,7 @@ export default function SignIn() {
 
         try {
             const response = await verifiedEmail(email);
-            const result: BaseResponse<VerifyEmailResponse> =
-                await response.json();
+            const result: BaseResponse<VerifyEmail> = await response.json();
 
             if (!response.ok) {
                 throw new Error(result.message);

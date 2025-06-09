@@ -1,4 +1,4 @@
-export type VerifyEmailResponse = {
+export type VerifyEmail = {
     email: string;
     emailVerified: boolean;
 };

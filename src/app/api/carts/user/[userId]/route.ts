@@ -2,6 +2,7 @@ import { Cart, CartItem } from '@/db/schema';
 import { withAuth } from '@/lib/api-route-middleware';
 import { db } from '@/lib/db';
 import { BaseResponse } from '@/types/base-response';
+import { ApiError } from 'next/dist/server/api-utils';
 import { NextRequest, NextResponse } from 'next/server';
 
 const getUserCartById = async (
@@ -13,12 +14,7 @@ const getUserCartById = async (
         with: { items: true },
     });
     if (!cart) {
-        return NextResponse.json(
-            {
-                message: 'Cart not found',
-            } as BaseResponse,
-            { status: 400 }
-        );
+        throw new ApiError(400, 'Cart not found');
     }
     return NextResponse.json(
         {

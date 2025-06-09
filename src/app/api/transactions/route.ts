@@ -1,24 +1,21 @@
 import { NewTransaction, transactions } from '@/db/schema';
 import { withAuth } from '@/lib/api-route-middleware';
 import { db } from '@/lib/db';
-import { BaseResponse } from '@/types/base-response';
 import { PaginatedResponse } from '@/types/pagination';
 import { transactionQuerySchema } from '@/types/transaction/request/transaction-request-params';
 import { and, eq, gte, sql } from 'drizzle-orm';
+import { ApiError } from 'next/dist/server/api-utils';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod/v4';
 
 const getAllTransactions = async (request: NextRequest) => {
-    const searchParams = request.nextUrl.searchParams.entries();
-    const parsed = transactionQuerySchema.safeParse(
-        Object.fromEntries(searchParams)
+    const searchParams = Object.fromEntries(
+        request.nextUrl.searchParams.entries()
     );
+    const parsed = transactionQuerySchema.safeParse(searchParams);
 
     if (!parsed.success) {
-        return NextResponse.json(
-            { message: z.prettifyError(parsed.error) } as BaseResponse,
-            { status: 400 }
-        );
+        throw new ApiError(400, z.prettifyError(parsed.error));
     }
 
     const { pageIndex, pageSize, status, totalAmount, createdAt, updatedAt } =

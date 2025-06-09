@@ -2,6 +2,7 @@ import { Transaction } from '@/db/schema';
 import { withAuth } from '@/lib/api-route-middleware';
 import { db } from '@/lib/db';
 import { BaseResponse } from '@/types/base-response';
+import { ApiError } from 'next/dist/server/api-utils';
 import { NextRequest, NextResponse } from 'next/server';
 
 const getTransactionById = async (
@@ -13,10 +14,7 @@ const getTransactionById = async (
         with: { user: true },
     });
     if (!transaction) {
-        return NextResponse.json(
-            { message: `Transaction(${params.id}) not found` } as BaseResponse,
-            { status: 400 }
-        );
+        throw new ApiError(400, `Transaction(${params.id}) not found`);
     }
     return NextResponse.json({
         data: transaction,

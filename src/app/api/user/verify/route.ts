@@ -4,7 +4,7 @@ import { users } from '@/db/schema';
 import { and, eq, isNotNull } from 'drizzle-orm';
 import { BaseResponse } from '@/types/base-response';
 import { withAuth } from '@/lib/api-route-middleware';
-import { VerifyEmailResponse } from '@/types/user/response/verify-response';
+import { VerifyEmail } from '@/types/user/response/verify-response';
 
 async function verifyEmail(request: NextRequest) {
     try {
@@ -29,7 +29,7 @@ async function verifyEmail(request: NextRequest) {
             );
         }
 
-        const result: BaseResponse<VerifyEmailResponse> = {
+        const result: BaseResponse<VerifyEmail> = {
             data: {
                 email: user.email,
                 emailVerified: !!user.emailVerified,
