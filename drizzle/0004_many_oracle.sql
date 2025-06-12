@@ -1,0 +1,1 @@
+ALTER TABLE "post" ALTER COLUMN "referenceSource" DROP DEFAULT;

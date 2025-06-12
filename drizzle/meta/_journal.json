@@ -22,6 +22,20 @@
       "when": 1749268331975,
       "tag": "0002_milky_zeigeist",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1749759463462,
+      "tag": "0003_steady_proemial_gods",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1749760041452,
+      "tag": "0004_many_oracle",
+      "breakpoints": true
     }
   ]
 }

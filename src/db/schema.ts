@@ -7,6 +7,7 @@ import {
     primaryKey,
     uuid,
     pgEnum,
+    jsonb,
 } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import type { AdapterAccount } from '@auth/core/adapters';
@@ -129,6 +130,19 @@ export const transactions = pgTable('transaction', {
     updatedAt: timestamp('updatedAt', { mode: 'date' }).defaultNow().notNull(),
 });
 
+export const posts = pgTable('post', {
+    id: uuid('id').defaultRandom().primaryKey().notNull(),
+    content: jsonb('content').notNull(),
+    userId: uuid('userId')
+        .notNull()
+        .references(() => users.id, { onDelete: 'cascade' }),
+    likes: integer('likes').default(0).notNull(),
+    dislikes: integer('dislikes').default(0).notNull(),
+    views: integer('views').default(0).notNull(),
+    referenceSource: text('referenceSource'),
+    createdAt: timestamp('createdAt', { mode: 'date' }).defaultNow().notNull(),
+});
+
 // Relations
 export const usersRelations = relations(users, ({ many }) => ({
     accounts: many(accounts),
@@ -136,6 +150,7 @@ export const usersRelations = relations(users, ({ many }) => ({
     otpCodes: many(otpCodes),
     carts: many(carts),
     transactions: many(transactions),
+    posts: many(posts),
 }));
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
@@ -173,6 +188,10 @@ export const transactionRelations = relations(transactions, ({ one }) => ({
     cart: one(carts, { fields: [transactions.cartId], references: [carts.id] }),
 }));
 
+export const postsRelations = relations(posts, ({ one }) => ({
+    user: one(users, { fields: [posts.userId], references: [users.id] }),
+}));
+
 // Types
 export type User = typeof users.$inferSelect;
 export type Account = typeof accounts.$inferSelect;
@@ -183,6 +202,7 @@ export type Product = typeof products.$inferSelect;
 export type Cart = typeof carts.$inferSelect;
 export type CartItem = typeof cartItems.$inferSelect;
 export type Transaction = typeof transactions.$inferSelect;
+export type Post = typeof posts.$inferSelect;
 
 export type NewUser = typeof users.$inferInsert;
 export type NewAccount = typeof accounts.$inferInsert;
@@ -193,3 +213,4 @@ export type NewProduct = typeof products.$inferInsert;
 export type NewCart = typeof carts.$inferInsert;
 export type NewCartItem = typeof cartItems.$inferInsert;
 export type NewTransaction = typeof transactions.$inferInsert;
+export type NewPost = typeof posts.$inferInsert;
