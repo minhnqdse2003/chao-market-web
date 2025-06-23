@@ -1,7 +1,9 @@
 'use client';
+
 import * as React from 'react';
-import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import { Sun, Moon } from 'lucide-react';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -9,30 +11,61 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useSidebar } from './ui/sidebar';
 
 const ThemeToggle = () => {
-    const { setTheme } = useTheme();
+    const { theme, setTheme } = useTheme();
+    const [mounted, setMounted] = React.useState(false);
+    const { open: isCollapsed, isMobile } = useSidebar();
+
+    React.useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return null;
+
+    const currentTheme =
+        theme === 'light' || theme === 'dark' ? theme : 'light';
+    const isCompact = isMobile || !isCollapsed;
+
+    if (isCompact) {
+        return (
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="icon">
+                        <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                        <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                        <span className="sr-only">Toggle theme</span>
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" side="right">
+                    <DropdownMenuItem onClick={() => setTheme('light')}>
+                        <Sun className="mr-2 h-4 w-4" /> Light
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTheme('dark')}>
+                        <Moon className="mr-2 h-4 w-4" /> Dark
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        );
+    }
+
+    // Render Tabs for wider screen or expanded sidebar
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon">
-                    <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-                    <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-                    <span className="sr-only">Toggle theme</span>
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setTheme('light')}>
-                    Light
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme('dark')}>
-                    Dark
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme('system')}>
-                    System
-                </DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
+        <Tabs
+            defaultValue={currentTheme}
+            onValueChange={value => setTheme(value)}
+            className="w-fit"
+        >
+            <TabsList className="grid grid-cols-2">
+                <TabsTrigger value="light">
+                    <Sun className="mr-1 h-4 w-4" /> Light
+                </TabsTrigger>
+                <TabsTrigger value="dark">
+                    <Moon className="mr-1 h-4 w-4" /> Dark
+                </TabsTrigger>
+            </TabsList>
+        </Tabs>
     );
 };
 

@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
     experimental: {
-        useLightningcss: true,
+        useLightningcss: false,
     },
     images: {
         remotePatterns: [

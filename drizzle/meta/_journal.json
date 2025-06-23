@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1749021692088,
-      "tag": "0000_classy_zuras",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1749164463152,
-      "tag": "0001_nervous_mantis",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1749268331975,
-      "tag": "0002_milky_zeigeist",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1749759463462,
-      "tag": "0003_steady_proemial_gods",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1749760041452,
-      "tag": "0004_many_oracle",
+      "when": 1750659736678,
+      "tag": "0000_violet_impossible_man",
       "breakpoints": true
     }
   ]
