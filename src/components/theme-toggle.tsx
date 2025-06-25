@@ -32,7 +32,11 @@ const ThemeToggle = () => {
         return (
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="icon">
+                    <Button
+                        variant="outline"
+                        size="icon"
+                        className="bg-transparent border-none"
+                    >
                         <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                         <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                         <span className="sr-only">Toggle theme</span>
@@ -57,11 +61,17 @@ const ThemeToggle = () => {
             onValueChange={value => setTheme(value)}
             className="w-fit"
         >
-            <TabsList className="grid grid-cols-2">
-                <TabsTrigger value="light">
+            <TabsList className="grid grid-cols-2 bg-[oklch(0.708 0 0)]">
+                <TabsTrigger
+                    value="light"
+                    className="text-white bg-[oklch(0.708 0 0)] data-[state=active]:text-[var(--brand-color)] data-[state=active]:bg-[oklch(0.708 0 0)] data-[state=active]:border-gray-400/60"
+                >
                     <Sun className="mr-1 h-4 w-4" /> Light
                 </TabsTrigger>
-                <TabsTrigger value="dark">
+                <TabsTrigger
+                    value="dark"
+                    className=" dark:data-[state=active]:text-[var(--brand-color)] text-white"
+                >
                     <Moon className="mr-1 h-4 w-4" /> Dark
                 </TabsTrigger>
             </TabsList>

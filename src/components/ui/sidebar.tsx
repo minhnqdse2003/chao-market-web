@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, VariantProps } from 'class-variance-authority';
-import { PanelLeftIcon } from 'lucide-react';
+import { ArrowLeftToLine, PanelLeftIcon } from 'lucide-react';
 
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
@@ -276,7 +276,6 @@ function SidebarTrigger({
         <Button
             data-sidebar="trigger"
             data-slot="sidebar-trigger"
-            variant="ghost"
             size="icon"
             className={cn('size-7', className)}
             onClick={event => {
@@ -285,7 +284,7 @@ function SidebarTrigger({
             }}
             {...props}
         >
-            <PanelLeftIcon />
+            <ArrowLeftToLine className="size-3" />
             <span className="sr-only">Toggle Sidebar</span>
         </Button>
     );
@@ -543,11 +542,9 @@ function SidebarMenuButton({
 
     if (!tooltip) {
         return button;
-    }
-
-    if (typeof tooltip === 'string') {
+    } else {
         tooltip = {
-            children: tooltip,
+            children: tooltip as React.ReactNode,
         };
     }
 
@@ -558,6 +555,8 @@ function SidebarMenuButton({
                 side="right"
                 align="center"
                 hidden={state !== 'collapsed' || isMobile}
+                sideOffset={5}
+                className="bg-gray-600 [&>span>svg]:bg-gray-600 [&>span>svg]:fill-gray-600 text-white"
                 {...tooltip}
             />
         </Tooltip>
