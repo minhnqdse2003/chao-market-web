@@ -55,7 +55,9 @@ export default async function RootLayout({
                     >
                         <SidebarProvider>
                             <AppSidebar />
-                            <main className="w-full mx-8 my-4">{children}</main>
+                            <main className="w-full px-8 py-4 dark:bg-sidebar">
+                                {children}
+                            </main>
                         </SidebarProvider>
                     </ThemeProvider>
                 </NextAuthSessionProvider>

@@ -1,51 +1,64 @@
-import React from 'react';
-import { columns, HomeNewFlow } from './columns';
-import { DataTable } from '@/components/data-table';
+'use server';
 
-const mockData: HomeNewFlow[] = [
+import React from 'react';
+import {
+    columns,
+    ExchangeRate,
+    exchangeRateColumns,
+    goldPriceColumns,
+    GoldPriceData,
+    HomeNewFlow,
+    interestRateColumns,
+    InterestRateData,
+} from './columns';
+import { DataTable } from '@/components/data-table';
+import { getTabData } from './data-utils';
+import { AppTabs } from '@/components/app-tabs';
+
+// Tab list with dynamic content rendering
+const tabsList = [
     {
-        date: new Date('2025-06-27'),
-        category: 'Technology',
-        headline: 'AI Breakthrough in Natural Language Processing',
-        rate: 4.75,
-        view: 1200,
+        title: 'News Flow',
+        value: 'newsFlow',
+        renderContent: async () => {
+            const data = (await getTabData('newsFlow')) as HomeNewFlow[];
+            return <DataTable columns={columns} data={data} />;
+        },
     },
     {
-        date: new Date('2025-06-26'),
-        category: 'Finance',
-        headline: 'Stock Market Surges to Record Highs',
-        rate: 3.2,
-        view: 850,
+        title: 'Exchange Rate',
+        value: 'exchangeRate',
+        renderContent: async () => {
+            const data = (await getTabData('exchangeRate')) as ExchangeRate[];
+            return <DataTable columns={exchangeRateColumns} data={data} />;
+        },
     },
     {
-        date: new Date('2025-06-25'),
-        category: 'Health',
-        headline: 'New Vaccine Shows Promising Results',
-        rate: 4.1,
-        view: 2000,
+        title: 'Interest Rate',
+        value: 'interestRate',
+        renderContent: async () => {
+            const data = (await getTabData(
+                'interestRate'
+            )) as InterestRateData[];
+            return <DataTable columns={interestRateColumns} data={data} />;
+        },
     },
     {
-        date: new Date('2025-06-24'),
-        category: 'Entertainment',
-        headline: 'Blockbuster Movie Breaks Box Office Records',
-        rate: 2.95,
-        view: 3200,
-    },
-    {
-        date: new Date('2025-06-23'),
-        category: 'Science',
-        headline: 'Scientists Discover New Exoplanet',
-        rate: 4.5,
-        view: 650,
+        title: 'Gold Price (Vietnam)',
+        value: 'goldPriceVietnam',
+        renderContent: async () => {
+            const data = (await getTabData(
+                'goldPriceVietnam'
+            )) as GoldPriceData[];
+            return <DataTable columns={goldPriceColumns} data={data} />;
+        },
     },
 ];
-const Page = () => {
+
+const Page = async () => {
     return (
         <div>
-            <DataTable
-                columns={columns}
-                data={[...mockData, ...mockData, ...mockData]}
-            />
+            <AppTabs tabsList={tabsList} />
         </div>
     );
 };
