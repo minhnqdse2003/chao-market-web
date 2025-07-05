@@ -7,6 +7,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import NextAuthSessionProvider from '@/components/provider/session-provider';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/app-sidebar';
+import { getServerSession } from 'next-auth';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -37,6 +38,7 @@ export default async function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const session = await getServerSession();
     return (
         <html lang="en" suppressHydrationWarning>
             <body
@@ -54,7 +56,7 @@ export default async function RootLayout({
                         disableTransitionOnChange
                     >
                         <SidebarProvider>
-                            <AppSidebar />
+                            {session && <AppSidebar />}
                             <main className="w-full px-8 py-4 dark:bg-sidebar">
                                 {children}
                             </main>
