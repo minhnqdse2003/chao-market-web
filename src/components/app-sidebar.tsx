@@ -40,7 +40,7 @@ const data = {
         },
         {
             title: "Client's account",
-            url: '#',
+            url: 'client-account',
             icon: IdCard,
         },
         {
