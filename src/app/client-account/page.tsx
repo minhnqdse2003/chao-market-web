@@ -11,6 +11,9 @@ import { Progress } from '@/components/ui/progress';
 import { EyeIcon } from 'lucide-react';
 import { useState } from 'react';
 import NavSeparator from '@/components/nav-separator';
+import AppDropdown from '@/components/app-dropdown';
+import ClientAccountFilterDialog from './components/filter-dialog';
+import { SORT_BY_OPTIONS } from './utils/filter-options';
 
 // Mock data generation
 const dataList = [
@@ -218,161 +221,177 @@ export default function Page() {
     const selectedData = activeCard !== null ? dataList[activeCard] : null;
 
     return (
-        <div className="w-full flex flex-row max-h-svh overflow-hidden">
-            <div className="flex flex-wrap items-center gap-[1rem] min-w-2/3 max-w-full max-h-[95svh] overflow-y-auto">
-                {dataList.map((data, index) => (
-                    <Card
-                        key={index}
-                        onClick={() => handleCardClick(index)}
-                        className={`h-fit cursor-pointer transition-all duration-500 ease-in-out ${activeCard === index ? 'border-[var(--brand-color)]' : ''} ${activeCard !== null ? 'w-[calc(50%-1rem)]' : 'w-[calc(33.33%-1rem)]'}`}
-                    >
-                        <CardHeader>
-                            <div className="flex items-center justify-center gap-2 w-full">
-                                <Avatar className="rounded-sm">
-                                    <AvatarImage
-                                        src={data.avatar.src}
-                                        alt={data.avatar.alt}
-                                    />
-                                    <AvatarFallback>
-                                        {data.avatar.fallback}
-                                    </AvatarFallback>
-                                </Avatar>
-                                <CardTitle>
-                                    Market:{' '}
-                                    <span className="text-[var(--brand-color)] uppercase">
-                                        {data.market}
-                                    </span>
-                                </CardTitle>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="flex justify-between text-xs mb-1.5">
-                                <p>Account</p>
-                                <strong>{data.account.name}</strong>
-                            </div>
-                            <div className="flex justify-between text-xs mb-1.5">
-                                <p>Start date</p>
-                                <strong>{data.account.startDate}</strong>
-                            </div>
-                            <div className="flex justify-between text-xs mb-1.5">
-                                <p>Deposit</p>
-                                <strong>{data.account.deposit}</strong>
-                            </div>
-                            <div className="flex justify-between text-xs text-green-500 mb-1.5">
-                                <p>Profit</p>
-                                <strong>{data.account.profit}</strong>
-                            </div>
-                        </CardContent>
-                        <CardFooter className="text-xs font-semibold flex justify-between">
-                            <p className="italic">Algo Trading</p>
-                            <Progress
-                                isValueVisible={true}
-                                value={data.progress}
-                                className="w-1/2 min-h-[18px] bg-white [&>div]:bg-blue-500"
-                            />
-                            <p className="italic">Manual Trading</p>
-                        </CardFooter>
-                        <CardFooter className="flex justify-center items-center text-xs gap-2">
-                            <EyeIcon size={16} />
-                            {data.views}
-                        </CardFooter>
-                    </Card>
-                ))}
+        <div>
+            <div className="max-h-[4svh] mb-2 flex items-center justify-between w-full">
+                <ClientAccountFilterDialog
+                    onApply={(value: unknown) => console.log(value)}
+                />
+                <AppDropdown
+                    label="Sort by"
+                    options={SORT_BY_OPTIONS}
+                    defaultValue="average"
+                    buttonClassName="max-h-[20px] font-light text-xs"
+                    contentClassName="w-44"
+                    onValueChange={value => console.log(`Selected: ${value}`)}
+                />
             </div>
-            <Card
-                className={`w-full ml-4 h-[95svh] text-xs p-0 transition-all duration-500 ease-in-out ${
-                    activeCard !== null
-                        ? 'opacity-100'
-                        : 'opacity-0 w-0 overflow-hidden'
-                }`}
-            >
-                <CardHeader className="flex flex-row items-center p-4 gap-2">
-                    <h2 className="font-semibold">
-                        {selectedData?.account.name}
-                    </h2>
-                    <span className="border-[var(--brand-color)] border text-[var(--brand-color)] font-thin px-3 py-1 rounded-2xl">
-                        {selectedData?.market}
-                    </span>
-                </CardHeader>
-                <CardContent className="p-4 space-y-0.5">
-                    <div className="flex flex-col">
-                        <div className="flex justify-between">
-                            <p className="text-gray-400">Start date</p>
-                            <p className="font-medium">
-                                {selectedData?.account.startDate}
-                            </p>
+
+            <div className="w-full flex flex-row max-h-[90svh] overflow-hidden">
+                <div className="flex flex-wrap items-center gap-[1rem] min-w-2/3 max-w-full max-h-[95svh] overflow-y-auto">
+                    {dataList.map((data, index) => (
+                        <Card
+                            key={index}
+                            onClick={() => handleCardClick(index)}
+                            className={`h-fit cursor-pointer transition-all duration-500 ease-in-out ${activeCard === index ? 'border-[var(--brand-color)]' : ''} ${activeCard !== null ? 'w-[calc(50%-1rem)]' : 'w-[calc(33.33%-1rem)]'}`}
+                        >
+                            <CardHeader>
+                                <div className="flex items-center justify-center gap-2 w-full">
+                                    <Avatar className="rounded-sm">
+                                        <AvatarImage
+                                            src={data.avatar.src}
+                                            alt={data.avatar.alt}
+                                        />
+                                        <AvatarFallback>
+                                            {data.avatar.fallback}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                    <CardTitle>
+                                        Market:{' '}
+                                        <span className="text-[var(--brand-color)] uppercase">
+                                            {data.market}
+                                        </span>
+                                    </CardTitle>
+                                </div>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="flex justify-between text-xs mb-1.5">
+                                    <p>Account</p>
+                                    <strong>{data.account.name}</strong>
+                                </div>
+                                <div className="flex justify-between text-xs mb-1.5">
+                                    <p>Start date</p>
+                                    <strong>{data.account.startDate}</strong>
+                                </div>
+                                <div className="flex justify-between text-xs mb-1.5">
+                                    <p>Deposit</p>
+                                    <strong>{data.account.deposit}</strong>
+                                </div>
+                                <div className="flex justify-between text-xs text-green-500 mb-1.5">
+                                    <p>Profit</p>
+                                    <strong>{data.account.profit}</strong>
+                                </div>
+                            </CardContent>
+                            <CardFooter className="text-xs font-semibold flex justify-between">
+                                <p className="italic">Algo Trading</p>
+                                <Progress
+                                    isValueVisible={true}
+                                    value={data.progress}
+                                    className="w-1/2 min-h-[18px] bg-white [&>div]:bg-blue-500"
+                                />
+                                <p className="italic">Manual Trading</p>
+                            </CardFooter>
+                            <CardFooter className="flex justify-center items-center text-xs gap-2">
+                                <EyeIcon size={16} />
+                                {data.views}
+                            </CardFooter>
+                        </Card>
+                    ))}
+                </div>
+                <Card
+                    className={`w-full ml-4 h-full text-xs p-0 transition-all duration-500 ease-in-out ${
+                        activeCard !== null
+                            ? 'opacity-100'
+                            : 'opacity-0 w-0 overflow-hidden'
+                    }`}
+                >
+                    <CardHeader className="flex flex-row items-center p-4 gap-2">
+                        <h2 className="font-semibold">
+                            {selectedData?.account.name}
+                        </h2>
+                        <span className="border-[var(--brand-color)] border text-[var(--brand-color)] font-thin px-3 py-1 rounded-2xl">
+                            {selectedData?.market}
+                        </span>
+                    </CardHeader>
+                    <CardContent className="p-4 space-y-0.5">
+                        <div className="flex flex-col">
+                            <div className="flex justify-between">
+                                <p className="text-gray-400">Start date</p>
+                                <p className="font-medium">
+                                    {selectedData?.account.startDate}
+                                </p>
+                            </div>
+                            <div className="flex justify-between text-green-500">
+                                <p>Deposit</p>
+                                <p className="font-medium">
+                                    {selectedData?.account.deposit}
+                                </p>
+                            </div>
+                            <div className="flex justify-between text-red-500">
+                                <p>Withdraw</p>
+                                <p className="font-medium">5% monthly</p>
+                            </div>
                         </div>
-                        <div className="flex justify-between text-green-500">
-                            <p>Deposit</p>
-                            <p className="font-medium">
-                                {selectedData?.account.deposit}
-                            </p>
+                        <NavSeparator isTrigger={false} />
+                        <div className="flex flex-col">
+                            <div className="flex justify-between">
+                                <p className="text-gray-400">Gain</p>
+                                <p className="font-medium text-green-500">
+                                    +52.82%
+                                </p>
+                            </div>
+                            <div className="flex justify-between">
+                                <p className="text-gray-400">Abs. Gain</p>
+                                <p className="font-medium text-green-500">
+                                    +46.94%
+                                </p>
+                            </div>
+                            <div className="flex justify-between">
+                                <p className="text-gray-400">Daily</p>
+                                <p className="font-medium">0.14%</p>
+                            </div>
+                            <div className="flex justify-between">
+                                <p className="text-gray-400">Monthly</p>
+                                <p className="font-medium">4.18%</p>
+                            </div>
+                            <div className="flex justify-between">
+                                <p className="text-gray-400">Drawdown</p>
+                                <p className="font-medium">62.95%</p>
+                            </div>
                         </div>
-                        <div className="flex justify-between text-red-500">
-                            <p>Withdraw</p>
-                            <p className="font-medium">5% monthly</p>
+                        <NavSeparator isTrigger={false} />
+                        <div className="flex flex-col">
+                            <div className="flex justify-between">
+                                <p className="text-gray-400">Balance</p>
+                                <p className="font-medium">156,176.88 USD</p>
+                            </div>
+                            <div className="flex justify-between">
+                                <p className="text-gray-400">Equity</p>
+                                <p className="font-medium">
+                                    (140,810.40 USD (90.16%))
+                                </p>
+                            </div>
+                            <div className="flex justify-between">
+                                <p className="text-gray-400">Highest</p>
+                                <p className="font-medium">
+                                    156,176.88 USD (Apr 16)
+                                </p>
+                            </div>
+                            <div className="flex justify-between">
+                                <p className="text-gray-400">Profit</p>
+                                <p className="font-medium text-green-500">
+                                    54,245.75 USD
+                                </p>
+                            </div>
+                            <div className="flex justify-between">
+                                <p className="text-gray-400">Interest</p>
+                                <p className="font-medium text-red-500">
+                                    -347.25 USD
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <NavSeparator isTrigger={false} />
-                    <div className="flex flex-col">
-                        <div className="flex justify-between">
-                            <p className="text-gray-400">Gain</p>
-                            <p className="font-medium text-green-500">
-                                +52.82%
-                            </p>
-                        </div>
-                        <div className="flex justify-between">
-                            <p className="text-gray-400">Abs. Gain</p>
-                            <p className="font-medium text-green-500">
-                                +46.94%
-                            </p>
-                        </div>
-                        <div className="flex justify-between">
-                            <p className="text-gray-400">Daily</p>
-                            <p className="font-medium">0.14%</p>
-                        </div>
-                        <div className="flex justify-between">
-                            <p className="text-gray-400">Monthly</p>
-                            <p className="font-medium">4.18%</p>
-                        </div>
-                        <div className="flex justify-between">
-                            <p className="text-gray-400">Drawdown</p>
-                            <p className="font-medium">62.95%</p>
-                        </div>
-                    </div>
-                    <NavSeparator isTrigger={false} />
-                    <div className="flex flex-col">
-                        <div className="flex justify-between">
-                            <p className="text-gray-400">Balance</p>
-                            <p className="font-medium">156,176.88 USD</p>
-                        </div>
-                        <div className="flex justify-between">
-                            <p className="text-gray-400">Equity</p>
-                            <p className="font-medium">
-                                (140,810.40 USD (90.16%))
-                            </p>
-                        </div>
-                        <div className="flex justify-between">
-                            <p className="text-gray-400">Highest</p>
-                            <p className="font-medium">
-                                156,176.88 USD (Apr 16)
-                            </p>
-                        </div>
-                        <div className="flex justify-between">
-                            <p className="text-gray-400">Profit</p>
-                            <p className="font-medium text-green-500">
-                                54,245.75 USD
-                            </p>
-                        </div>
-                        <div className="flex justify-between">
-                            <p className="text-gray-400">Interest</p>
-                            <p className="font-medium text-red-500">
-                                -347.25 USD
-                            </p>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     );
 }
