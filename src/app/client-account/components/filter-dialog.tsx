@@ -107,7 +107,7 @@ const ClientAccountFilterDialog = ({ onApply, initialSearchValue = '' }) => {
             </AlertDialogCancel>
             <Button
                 variant="default"
-                className="uppercase"
+                className="uppercase bg-[var(--brand-color)] hover:"
                 onClick={handleApply}
             >
                 Apply

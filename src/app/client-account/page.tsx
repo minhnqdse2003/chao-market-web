@@ -8,12 +8,14 @@ import {
 } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
-import { EyeIcon } from 'lucide-react';
+import { EyeIcon, Info } from 'lucide-react';
 import { useState } from 'react';
 import NavSeparator from '@/components/nav-separator';
 import AppDropdown from '@/components/app-dropdown';
 import ClientAccountFilterDialog from './components/filter-dialog';
 import { SORT_BY_OPTIONS } from './utils/filter-options';
+import AppTooltips from '@/components/app-tooltips';
+import { Button } from '@/components/ui/button';
 
 // Mock data generation
 const dataList = [
@@ -334,7 +336,42 @@ export default function Page() {
                         <NavSeparator isTrigger={false} />
                         <div className="flex flex-col">
                             <div className="flex justify-between">
-                                <p className="text-gray-400">Gain</p>
+                                <p className="text-gray-400 flex flex-row items-center">
+                                    Gain
+                                    <AppTooltips
+                                        contents={
+                                            <div className="max-w-[24rem] flex flex-col gap-2">
+                                                <strong>Gain</strong>
+                                                <p>
+                                                    Time-Weighted Return TWR
+                                                    performance dollar invested
+                                                    system inception measurement
+                                                    required Global Investment
+                                                    Performance Standards CFA
+                                                    Institute cash inflows
+                                                    outflows amounts periods
+                                                    impact return efficiency
+                                                    yield profit growth rate
+                                                    analysis evaluation metric
+                                                    standard benchmark finance
+                                                    investment portfolio rate
+                                                    return calculation
+                                                    assessment monitoring
+                                                    progress achievement success
+                                                    result outcome effectiveness
+                                                    productivity gain loss
+                                                    comparison study review
+                                                    appraisal valuation
+                                                </p>
+                                            </div>
+                                        }
+                                        trigger={
+                                            <Button variant="ghost">
+                                                <Info className="size-3" />
+                                            </Button>
+                                        }
+                                    />
+                                </p>
                                 <p className="font-medium text-green-500">
                                     +52.82%
                                 </p>
