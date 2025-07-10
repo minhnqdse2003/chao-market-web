@@ -20,7 +20,7 @@ const NavSeparator = ({
                     {isTrigger && (
                         <SidebarTrigger
                             className={cn(
-                                'absolute bg-gray-600 -right-0 top-1/2 transform -translate-y-1/2 translate-x-9/10 cursor-pointer hover:bg-gray-500 z-21 text-white'
+                                'absolute dark:bg-[var(--brand-grey)] -right-0 top-1/2 transform -translate-y-1/2 translate-x-9/10 cursor-pointer z-21 text-white'
                             )}
                         />
                     )}

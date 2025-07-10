@@ -1,6 +1,6 @@
-'use server';
+'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 
@@ -14,19 +14,33 @@ type TabComponentProps = {
     tabsList: TabItem[];
 };
 
-export async function AppTabs({ tabsList }: Readonly<TabComponentProps>) {
+export function AppTabs({ tabsList }: Readonly<TabComponentProps>) {
+    const [activeTab, setActiveTab] = useState(tabsList[0]?.value || '');
+    const [contentMap, setContentMap] = useState<
+        Record<string, React.ReactNode>
+    >({});
+
+    useEffect(() => {
+        const loadContent = async () => {
+            const tab = tabsList.find(t => t.value === activeTab);
+            if (tab && !contentMap[activeTab]) {
+                const content = await tab.renderContent();
+                setContentMap(prev => ({ ...prev, [activeTab]: content }));
+            }
+        };
+
+        loadContent();
+    }, [activeTab, tabsList, contentMap]);
+
     return (
-        <Tabs
-            defaultValue={tabsList[0]?.value || 'newsFlow'}
-            className="w-full"
-        >
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="bg-transparent">
                 {tabsList.map(tab => (
                     <TabsTrigger
                         key={tab.value}
                         value={tab.value}
                         className={cn(
-                            'text-white border-0 cursor-pointer rounded-none border-b-2 border-muted-foreground dark:data-[state=active]:bg-transparent dark:data-[state=active]:text-yellow-400 dark:data-[state=active]:border-yellow-400',
+                            'text-[var(--brand-grey-light)] border-[var(--brand-grey-light)] data-[state=active]:shadow-none  data-[state=active]:text-black data-[state=active]:border-black border-0 cursor-pointer rounded-none border-b-2 dark:border-[var(--brand-grey)] dark:data-[state=active]:bg-transparent dark:data-[state=active]:text-yellow-400 dark:data-[state=active]:border-yellow-400',
                             'px-4 py-2 transition-colors'
                         )}
                     >
@@ -34,9 +48,12 @@ export async function AppTabs({ tabsList }: Readonly<TabComponentProps>) {
                     </TabsTrigger>
                 ))}
             </TabsList>
-            {tabsList.map(async tab => (
+
+            {tabsList.map(tab => (
                 <TabsContent key={tab.value} value={tab.value}>
-                    {await tab.renderContent()}
+                    {contentMap[tab.value] ?? (
+                        <div className="text-muted">Loading...</div>
+                    )}
                 </TabsContent>
             ))}
         </Tabs>

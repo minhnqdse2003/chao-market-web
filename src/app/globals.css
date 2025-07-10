@@ -43,6 +43,10 @@
     --radius-xl: calc(var(--radius) + 4px);
     --brand-color: #ffe400;
     --brand-color-foreground: #fffe41;
+    --brand-grey: #525252;
+    --brand-grey-foreground: #949494;
+    --brand-grey-light: #c4c4c4;
+    --brand-grey-foreground: #949494;
 }
 
 :root {

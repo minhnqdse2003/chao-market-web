@@ -1,3 +1,4 @@
+'use client';
 import AppDialog from '@/components/app-dialog';
 import { AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
@@ -7,34 +8,29 @@ import { ListFilter, SearchIcon } from 'lucide-react';
 import React from 'react';
 import AppFilterSelect from '@/components/app-filter-select';
 import AppDateRangePicker from '@/components/app-date-range-picker';
-import {
-    ACCOUNT_OPTIONS,
-    ALGO_TRADING_OPTIONS,
-    MARKET_OPTIONS,
-    PROFIT_OPTIONS,
-    VIEW_OPTIONS,
-} from '../utils/filter-options';
 import { BaseFilterParams, useFilter } from '@/hooks/use-filter';
+import { TIME_OPTIONS, SOURCE_OPTIONS } from '../utils/filter-options';
+import AppDropdown from '@/components/app-dropdown';
+import { SORT_BY_OPTIONS } from '@/app/client-account/utils/filter-options';
 
 interface FilterParams extends BaseFilterParams {
-    market?: string;
-    account?: string;
-    profit?: string;
-    views?: string;
-    algoTrading?: string;
+    search?: string;
+    time?: string;
     date?: {
         startDate?: Date;
         endDate?: Date;
     };
+    sources?: string;
+    sortBy?: string;
 }
 
 const initialValues: FilterParams = {};
 
-const ClientAccountFilterDialog = ({
+const NewsEventFilterDialogComp = ({
     onApply,
     initialSearchValue = initialValues,
 }: {
-    onApply: (value: unknown) => void;
+    onApply: (value: FilterParams) => void;
     initialSearchValue?: FilterParams;
 }) => {
     const {
@@ -52,7 +48,9 @@ const ClientAccountFilterDialog = ({
     // Dialog Header
     const headerContent = (
         <div className="w-full flex justify-between items-center">
-            <AlertDialogTitle className="uppercase">Filter By</AlertDialogTitle>
+            <AlertDialogTitle className="uppercase">
+                Filter News
+            </AlertDialogTitle>
             <Button
                 variant="ghost"
                 className="text-[var(--brand-color)]"
@@ -69,47 +67,32 @@ const ClientAccountFilterDialog = ({
             <div className="relative flex items-center border-b">
                 <Input
                     type="text"
-                    placeholder="Search"
+                    placeholder="Search news"
                     className="border-0 focus-visible:ring-0 bg-transparent! shadow-none"
                     onChange={handleSearchChange}
+                    value={filterParams.search || ''}
                 />
                 <SearchIcon className="size-4" />
             </div>
             <AppFilterSelect
-                options={MARKET_OPTIONS}
-                label="Market"
-                valueOptions={filterParams.market}
-                onChange={value => handleFilterChange('market', value)}
-            />
-            <AppFilterSelect
-                options={ACCOUNT_OPTIONS}
-                label="Account"
-                onChange={value => handleFilterChange('account', value)}
-                valueOptions={filterParams.account}
-            />
-            <AppFilterSelect
-                options={PROFIT_OPTIONS}
-                label="Profit"
-                onChange={value => handleFilterChange('profit', value)}
-                valueOptions={filterParams.profit}
-            />
-            <AppFilterSelect
-                options={VIEW_OPTIONS}
-                label="Views"
-                onChange={value => handleFilterChange('views', value)}
-                valueOptions={filterParams.views}
-            />
-            <AppFilterSelect
-                options={ALGO_TRADING_OPTIONS}
-                label="Algo trading"
+                options={TIME_OPTIONS}
+                label="Time"
                 type="radio"
-                onChange={value => handleFilterChange('algoTrading', value)}
-                valueOptions={filterParams.algoTrading}
+                valueOptions={filterParams.time}
+                onChange={value => handleFilterChange('time', value)}
             />
-            <AppDateRangePicker
-                label="Date"
-                value={filterParams.date}
-                onChange={range => handleFilterChange('date', range)}
+            {filterParams.time === 'custom' && (
+                <AppDateRangePicker
+                    label="Custom Date Range"
+                    value={filterParams.date}
+                    onChange={range => handleFilterChange('date', range)}
+                />
+            )}
+            <AppFilterSelect
+                options={SOURCE_OPTIONS}
+                label="Sources"
+                valueOptions={filterParams.sources}
+                onChange={value => handleFilterChange('sources', value)}
             />
         </div>
     );
@@ -122,7 +105,7 @@ const ClientAccountFilterDialog = ({
             </AlertDialogCancel>
             <Button
                 variant="default"
-                className="uppercase bg-[var(--brand-color)] hover:"
+                className="uppercase bg-[var(--brand-color)]"
                 onClick={handleApply}
             >
                 Apply
@@ -131,18 +114,28 @@ const ClientAccountFilterDialog = ({
     );
 
     return (
-        <AppDialog
-            trigger={
-                <Button variant="ghost">
-                    <ListFilter /> Filter
-                </Button>
-            }
-            headerContent={headerContent}
-            mainContent={mainContent}
-            footerContent={footerContent}
-            triggerClassName="inline-flex"
-        />
+        <div className="flex w-full justify-between items-center">
+            <AppDialog
+                trigger={
+                    <Button variant="ghost">
+                        <ListFilter /> Filter
+                    </Button>
+                }
+                headerContent={headerContent}
+                mainContent={mainContent}
+                footerContent={footerContent}
+                triggerClassName="inline-flex"
+            />
+            <AppDropdown
+                label="Sort by"
+                options={SORT_BY_OPTIONS}
+                defaultValue="average"
+                buttonClassName="max-h-[20px] font-light text-xs"
+                contentClassName="w-44"
+                onValueChange={value => handleFilterChange('sortBy', value)}
+            />
+        </div>
     );
 };
 
-export default ClientAccountFilterDialog;
+export default NewsEventFilterDialogComp;

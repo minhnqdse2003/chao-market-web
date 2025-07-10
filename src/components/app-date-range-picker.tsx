@@ -8,45 +8,38 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from '@/components/ui/popover';
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { format } from 'date-fns';
 
 interface AppDateRangePickerProps {
-    initialStartDate?: Date;
-    initialEndDate?: Date;
     onChange: (range: { startDate?: Date; endDate?: Date }) => void;
     label?: string;
+    value?: {
+        startDate?: Date;
+        endDate?: Date;
+    };
 }
 
 const AppDateRangePicker = ({
-    initialStartDate,
-    initialEndDate,
     onChange,
+    value,
     label = 'Date Range',
 }: AppDateRangePickerProps) => {
     const [open, setOpen] = useState<{ start: boolean; end: boolean }>({
         start: false,
         end: false,
     });
-    const [startDate, setStartDate] = useState<Date | undefined>(
-        initialStartDate
+
+    const handleOpenPopover = useCallback(
+        (key: keyof typeof open, value: boolean) => {
+            setOpen(prev => ({
+                ...prev,
+                [key]: value,
+            }));
+        },
+        []
     );
-    const [endDate, setEndDate] = useState<Date | undefined>(initialEndDate);
-
-    const handleOpenPopover = (key: keyof typeof open, value: boolean) => {
-        setOpen(prev => ({
-            ...prev,
-            [key]: value,
-        }));
-    };
-
-    // Notify parent of date range changes
-    useEffect(() => {
-        if (onChange) {
-            onChange({ startDate, endDate });
-        }
-    }, [startDate, endDate, onChange]);
 
     return (
         <div className="flex flex-col gap-3 w-full">
@@ -62,8 +55,8 @@ const AppDateRangePicker = ({
                             id="start-date"
                             className="w-[calc(50%-1.5rem)] justify-between font-normal"
                         >
-                            {startDate
-                                ? format(startDate, 'dd-MM-yyyy')
+                            {value?.startDate
+                                ? format(value.startDate, 'dd-MM-yyyy')
                                 : 'Select start date'}
                             <CalendarSearch />
                         </Button>
@@ -74,14 +67,17 @@ const AppDateRangePicker = ({
                     >
                         <Calendar
                             mode="single"
-                            selected={startDate}
+                            selected={value?.startDate}
                             captionLayout="dropdown"
                             onSelect={date => {
-                                setStartDate(date);
+                                onChange({
+                                    startDate: date,
+                                    endDate: value?.endDate,
+                                });
                                 handleOpenPopover('start', false);
                             }}
                             disabled={date =>
-                                endDate ? date > endDate : false
+                                value?.endDate ? date > value?.endDate : false
                             }
                             className="dark:[&_*_.rdp-dropdown]:text-white dark:[&_*_.rdp-dropdown]:bg-background"
                         />
@@ -98,8 +94,8 @@ const AppDateRangePicker = ({
                             id="end-date"
                             className="w-[calc(50%-1.5rem)] justify-between font-normal"
                         >
-                            {endDate
-                                ? format(endDate, 'dd-MM-yyyy')
+                            {value?.endDate
+                                ? format(value.endDate, 'dd-MM-yyyy')
                                 : 'Select end date'}
                             <CalendarSearch />
                         </Button>
@@ -110,14 +106,19 @@ const AppDateRangePicker = ({
                     >
                         <Calendar
                             mode="single"
-                            selected={endDate}
+                            selected={value?.endDate}
                             captionLayout="dropdown"
                             onSelect={date => {
-                                setEndDate(date);
+                                onChange({
+                                    startDate: value?.startDate,
+                                    endDate: date,
+                                });
                                 handleOpenPopover('end', false);
                             }}
                             disabled={date =>
-                                startDate ? date < startDate : false
+                                value?.startDate
+                                    ? date < value.startDate
+                                    : false
                             }
                             className="dark:[&_*_.rdp-dropdown]:text-white dark:[&_*_.rdp-dropdown]:bg-background"
                         />

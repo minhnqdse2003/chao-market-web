@@ -13,10 +13,12 @@ export default function AppFilterSelect({
     options,
     label,
     onChange,
+    valueOptions,
     type = 'tab',
 }: Readonly<{
     options: AppFilterOptionsType[];
     label: string;
+    valueOptions?: string;
     onChange: (value: string) => void;
     type?: FilterSelectType;
 }>) {
@@ -26,6 +28,7 @@ export default function AppFilterSelect({
             <Tabs
                 defaultValue={options[0].value}
                 className="max-w-xs w-full"
+                value={valueOptions}
                 onValueChange={value => onChange(value)}
             >
                 <p className="text-sm">{label}</p>
@@ -53,6 +56,7 @@ export default function AppFilterSelect({
                     defaultValue={options[0]?.value}
                     onValueChange={value => onChange(value)}
                     className="flex flex-col gap-2"
+                    value={valueOptions}
                 >
                     {options.map(option => (
                         <div
