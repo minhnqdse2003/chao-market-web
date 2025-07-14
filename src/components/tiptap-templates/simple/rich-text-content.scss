@@ -1,0 +1,23 @@
+.rich-text-content blockquote {
+  border-left: .25rem solid var(--brand-color);
+  padding: .5rem 1rem;
+  background-color: rgba(var(--brand-grey-foreground-rgb, 248, 249, 250), 0.1);
+  margin: 1.75rem 0;
+  font-style: italic;
+}
+
+.rich-text-content h1 {
+  font-size: 3rem;
+}
+
+.rich-text-content p {
+  font-size: 1rem;
+  color: var(--brand-grey-foreground);
+  line-height: 1.75rem;
+  min-height: 1.75rem;
+}
+
+.rich-text-content strong {
+  font-size: 1.25rem;
+  color: white;
+}
