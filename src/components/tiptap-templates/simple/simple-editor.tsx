@@ -71,11 +71,11 @@ import { ThemeToggle } from '@/components/tiptap-templates/simple/theme-toggle';
 
 // --- Lib ---
 import { handleImageUpload, MAX_FILE_SIZE } from '@/lib/tiptap-utils';
-import DOMPurify from 'dompurify';
 
 // --- Styles ---
 import '@/components/tiptap-templates/simple/simple-editor.scss';
-import '@/components/tiptap-templates/simple/rich-text-content.scss';
+import DialogPreview from '@/app/post/dialog-preview';
+import RichTextPreview from '@/components/rich-text-preview';
 
 const MainToolbarContent = ({
     onHighlighterClick,
@@ -225,6 +225,7 @@ export function SimpleEditor() {
                 limit: 3,
                 upload: handleImageUpload,
                 onError: error => console.error('Upload failed:', error),
+                allowBase64: true,
             }),
             TrailingNode,
             Link.configure({ openOnClick: false }),
@@ -254,13 +255,21 @@ export function SimpleEditor() {
                           }
                         : {}
                 }
+                className='rounded-xl border-2! dark:border-[var(--brand-grey)]! py-2!'
             >
                 {mobileView === 'main' ? (
-                    <MainToolbarContent
-                        onHighlighterClick={() => setMobileView('highlighter')}
-                        onLinkClick={() => setMobileView('link')}
-                        isMobile={isMobile}
-                    />
+                    <>
+                        <MainToolbarContent
+                            onHighlighterClick={() =>
+                                setMobileView('highlighter')
+                            }
+                            onLinkClick={() => setMobileView('link')}
+                            isMobile={isMobile}
+                        />
+                        <DialogPreview classNameButton='ml-2' onClick={() => setHtml(editor?.getHTML())}>
+                            {html && <RichTextPreview contents={html} />}
+                        </DialogPreview>
+                    </>
                 ) : (
                     <MobileToolbarContent
                         type={
@@ -280,24 +289,6 @@ export function SimpleEditor() {
                     className="simple-editor-content"
                 />
             </div>
-            <Button
-                onClick={() => {
-                    setHtml(editor?.getHTML());
-                }}
-            >
-                Get Contents
-            </Button>
-            {html && (
-                <div
-                    dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(html, {
-                            ADD_TAGS: ['mark'],
-                            ADD_ATTR: ['style'],
-                        }),
-                    }}
-                    className="rich-text-content"
-                />
-            )}
         </EditorContext.Provider>
     );
 }

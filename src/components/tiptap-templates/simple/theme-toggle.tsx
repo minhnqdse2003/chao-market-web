@@ -8,9 +8,15 @@ import { Button } from '@/components/tiptap-ui-primitive/button';
 // --- Icons ---
 import { MoonStarIcon } from '@/components/tiptap-icons/moon-star-icon';
 import { SunIcon } from '@/components/tiptap-icons/sun-icon';
+import { useTheme } from 'next-themes';
 
 export function ThemeToggle() {
     const [isDarkMode, setIsDarkMode] = React.useState<boolean>(false);
+    const { theme, setTheme } = useTheme();
+
+    const currentTheme =
+        theme === 'light' || theme === 'dark' ? theme : 'light';
+
 
     React.useEffect(() => {
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -29,7 +35,12 @@ export function ThemeToggle() {
 
     React.useEffect(() => {
         document.documentElement.classList.toggle('dark', isDarkMode);
+        setTheme(isDarkMode ? 'dark' : 'light');
     }, [isDarkMode]);
+
+    React.useEffect(() => {
+        setIsDarkMode(isDarkMode ? true : false);
+    },[currentTheme])
 
     const toggleDarkMode = () => setIsDarkMode(isDark => !isDark);
 

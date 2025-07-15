@@ -16,8 +16,32 @@ const Page = () => {
             },
         },
         {
-            title: 'test',
-            value: 'test',
+            title: 'Recommended',
+            value: 'recommended',
+            renderContent: async () => {
+                const data = await getMockData();
+                return <NewsComp news={data} />;
+            },
+        },
+        {
+            title: 'Hottest',
+            value: 'hottest',
+            renderContent: async () => {
+                const data = await getMockData();
+                return <NewsComp news={data} />;
+            },
+        },
+        {
+            title: 'Most Viewed',
+            value: 'mostViewed',
+            renderContent: async () => {
+                const data = await getMockData();
+                return <NewsComp news={data} />;
+            },
+        },
+        {
+            title: 'Top Rated',
+            value: 'topRated',
             renderContent: async () => {
                 const data = await getMockData();
                 return <NewsComp news={data} />;
