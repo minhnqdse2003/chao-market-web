@@ -89,7 +89,7 @@ export default function SignUp() {
                 setSuccess(
                     'Email verified successfully! Redirecting to sign in...'
                 );
-                setTimeout(() => router.push('/auth/signin'), 2000);
+                setTimeout(() => router.push('/auth/login'), 2000);
             } else {
                 const data = await response.json();
                 setError(data.error || 'OTP verification failed');
@@ -225,7 +225,7 @@ export default function SignUp() {
                     <p className="text-sm text-gray-600">
                         Already have an account?{' '}
                         <Link
-                            href="/auth/signin"
+                            href="/auth/login"
                             className="text-blue-600 hover:underline"
                         >
                             Sign In

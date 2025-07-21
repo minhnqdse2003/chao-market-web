@@ -58,7 +58,7 @@ export function NavUser() {
                         variant="outline"
                         className="flex-1 bg-[bg-[oklch(0.708 0 0)]"
                     >
-                        <Link href="/auth/signin">Log in</Link>
+                        <Link href="/auth/login">Log in</Link>
                     </Button>
                     <Button
                         asChild
