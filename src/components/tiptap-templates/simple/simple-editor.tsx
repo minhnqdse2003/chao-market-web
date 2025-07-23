@@ -74,7 +74,7 @@ import { handleImageUpload, MAX_FILE_SIZE } from '@/lib/tiptap-utils';
 
 // --- Styles ---
 import '@/components/tiptap-templates/simple/simple-editor.scss';
-import DialogPreview from '@/app/post/dialog-preview';
+import DialogPreview from '@/app/(user-layout)/post/dialog-preview';
 import RichTextPreview from '@/components/rich-text-preview';
 
 const MainToolbarContent = ({
@@ -255,7 +255,7 @@ export function SimpleEditor() {
                           }
                         : {}
                 }
-                className='rounded-xl border-2! dark:border-[var(--brand-grey)]! py-2!'
+                className="rounded-xl border-2! dark:border-[var(--brand-grey)]! py-2!"
             >
                 {mobileView === 'main' ? (
                     <>
@@ -266,7 +266,10 @@ export function SimpleEditor() {
                             onLinkClick={() => setMobileView('link')}
                             isMobile={isMobile}
                         />
-                        <DialogPreview classNameButton='ml-2' onClick={() => setHtml(editor?.getHTML())}>
+                        <DialogPreview
+                            classNameButton="ml-2"
+                            onClick={() => setHtml(editor?.getHTML())}
+                        >
                             {html && <RichTextPreview contents={html} />}
                         </DialogPreview>
                     </>

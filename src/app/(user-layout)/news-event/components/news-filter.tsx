@@ -11,7 +11,7 @@ import AppDateRangePicker from '@/components/app-date-range-picker';
 import { BaseFilterParams, useFilter } from '@/hooks/use-filter';
 import { TIME_OPTIONS, SOURCE_OPTIONS } from '../utils/filter-options';
 import AppDropdown from '@/components/app-dropdown';
-import { SORT_BY_OPTIONS } from '@/app/client-account/utils/filter-options';
+import { SORT_BY_OPTIONS } from '@/app/(user-layout)/client-account/utils/filter-options';
 
 interface FilterParams extends BaseFilterParams {
     search?: string;

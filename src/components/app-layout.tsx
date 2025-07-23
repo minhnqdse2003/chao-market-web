@@ -1,19 +1,42 @@
-'use client';
-
-import { AppSidebar } from '@/components/app-sidebar';
-import { usePathname } from 'next/navigation';
 import React from 'react';
+import { cn } from '@/lib/utils';
+import NextAuthSessionProvider from '@/components/provider/session-provider';
+import { ThemeProvider } from '@/components/theme-provider';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { Geist, Geist_Mono } from 'next/font/google';
+import '@/app/globals.css';
 
-const SIDEBAR_VISIBLE_ROUTES = ['/auth/signin', '/auth/signup'];
+const geistSans = Geist({
+    variable: '--font-geist-sans',
+    subsets: ['latin'],
+});
+
+const geistMono = Geist_Mono({
+    variable: '--font-geist-mono',
+    subsets: ['latin'],
+});
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
-    const pathname = usePathname();
-    const shouldSidebarVisible = !SIDEBAR_VISIBLE_ROUTES.includes(pathname);
-
     return (
-        <div className="flex w-full">
-            {shouldSidebarVisible && <AppSidebar />}
-            <main className="w-full dark:bg-sidebar">{children}</main>
-        </div>
+        <html lang="en" suppressHydrationWarning>
+            <body
+                className={cn(
+                    `${geistSans.variable} ${geistMono.variable} antialiased`,
+                    'min-h-svh bg-background'
+                )}
+                suppressHydrationWarning
+            >
+                <NextAuthSessionProvider>
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="system"
+                        enableSystem
+                        disableTransitionOnChange
+                    >
+                        <SidebarProvider>{children}</SidebarProvider>
+                    </ThemeProvider>
+                </NextAuthSessionProvider>
+            </body>
+        </html>
     );
 }

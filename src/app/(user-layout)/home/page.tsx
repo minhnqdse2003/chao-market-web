@@ -58,7 +58,7 @@ const Page = () => {
     ];
 
     return (
-        <div>
+        <div className="w-full">
             <AppTabs tabsList={tabsList} />
         </div>
     );
