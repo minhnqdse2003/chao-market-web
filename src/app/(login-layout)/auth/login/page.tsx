@@ -10,8 +10,13 @@ import { VerifyEmail } from '@/types/user/response/verify-response';
 import React from 'react';
 import Image from 'next/image';
 import { Label } from '@/components/ui/label';
-import { Facebook, Google } from '@image/index';
 import TabAuthMode from '@/app/(login-layout)/auth/components/tab-auth-mode';
+import {
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSlot,
+} from '@/components/ui/input-otp';
+import { Facebook, Google } from '@image/index';
 
 export default function Login() {
     const searchParams = useSearchParams();
@@ -241,41 +246,42 @@ export default function Login() {
 
                         {isEmailConfirmed === false && (
                             <>
-                                <div>
-                                    <p className="text-sm text-gray-600 mb-4">
-                                        We&apos;ve sent a verification code to{' '}
-                                        <span className="font-bold">
-                                            {email}
-                                        </span>
-                                    </p>
-                                    <input
-                                        type="text"
-                                        placeholder="Enter 6-digit OTP"
-                                        value={otp}
-                                        onChange={e => setOtp(e.target.value)}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        maxLength={6}
-                                    />
-                                </div>
+                                <div className="space-y-12">
+                                    <div>
+                                        <p className="text-sm text-white font-light mb-4">
+                                            We&apos;ve sent a verification code
+                                            to{' '}
+                                            <span className="font-bold">
+                                                {email}
+                                            </span>
+                                        </p>
+                                        <InputOTP
+                                            maxLength={6}
+                                            value={otp}
+                                            onChange={value => setOtp(value)}
+                                        >
+                                            <InputOTPGroup className="flex gap-4 [&>div[data-slot=input-otp-slot]]:rounded-lg [&>div[data-slot=input-otp-slot]]:outline-0 [&>div[data-slot=input-otp-slot]]:ring-[var(--brand-color)] [&>div[data-slot=input-otp-slot]]:size-12 [&>div[data-slot=input-otp-slot]]:text-xl mx-auto [&>div[data-slot=input-otp-slot]]:border-2">
+                                                <InputOTPSlot index={0} />
+                                                <InputOTPSlot index={1} />
+                                                <InputOTPSlot index={2} />
+                                                <InputOTPSlot index={3} />
+                                                <InputOTPSlot index={4} />
+                                                <InputOTPSlot index={5} />
+                                            </InputOTPGroup>
+                                        </InputOTP>
+                                    </div>
 
-                                <div className="flex space-x-2">
-                                    <button
-                                        onClick={handleVerifyOtp}
-                                        disabled={loading}
-                                        className="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px
-                                    4 rounded disabled:opacity-50"
-                                    >
-                                        {loading
-                                            ? 'Verifying...'
-                                            : 'Verify OTP'}
-                                    </button>
-                                    <button
-                                        onClick={handleSendOtp}
-                                        disabled={loading}
-                                        className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
-                                    >
-                                        Resend OTP
-                                    </button>
+                                    <div className="flex space-x-2">
+                                        <button
+                                            onClick={handleVerifyOtp}
+                                            disabled={loading}
+                                            className="flex-1  text-black bg-[var(--brand-color)] cursor-pointer rounded-3xl font-bold py-2 px-4 disabled:opacity-50"
+                                        >
+                                            {loading
+                                                ? 'Continue...'
+                                                : 'Continue'}
+                                        </button>
+                                    </div>
                                 </div>
                             </>
                         )}
@@ -293,7 +299,7 @@ export default function Login() {
                                     <button
                                         onClick={handleCredentialsLogin}
                                         disabled={loading}
-                                        className="bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:opacity-50 w-full"
+                                        className="bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:opacity-50 w-full mt-6"
                                     >
                                         {loading ? 'Logging in...' : 'Log In'}
                                     </button>

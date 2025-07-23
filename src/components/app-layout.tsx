@@ -5,6 +5,8 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { Geist, Geist_Mono } from 'next/font/google';
 import '@/app/globals.css';
+import { cookies } from 'next/headers';
+import { COOKIE_SIDEBAR_STATE_NAME } from '@/app/constants';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -16,7 +18,10 @@ const geistMono = Geist_Mono({
     subsets: ['latin'],
 });
 
-export function AppLayout({ children }: { children: React.ReactNode }) {
+export async function AppLayout({ children }: { children: React.ReactNode }) {
+    const cookieStore = await cookies();
+    const defaultOpen =
+        cookieStore.get(COOKIE_SIDEBAR_STATE_NAME)?.value === 'true';
     return (
         <html lang="en" suppressHydrationWarning>
             <body
@@ -33,7 +38,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                         enableSystem
                         disableTransitionOnChange
                     >
-                        <SidebarProvider>{children}</SidebarProvider>
+                        <SidebarProvider defaultOpen={defaultOpen}>
+                            {children}
+                        </SidebarProvider>
                     </ThemeProvider>
                 </NextAuthSessionProvider>
             </body>

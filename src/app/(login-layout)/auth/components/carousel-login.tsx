@@ -52,15 +52,15 @@ export default function CarouselLogin() {
         >
             <CarouselContent>
                 {Array.from({ length: 3 }).map((_, index) => (
-                    <CarouselItem key={index} className="pl-0">
-                        <Card>
+                    <CarouselItem key={index} className="pl-0 ">
+                        <Card className="text-carousel-fallback">
                             <CardContent className="relative flex h-full w-full aspect-square items-center justify-center p-0">
                                 <Image
                                     width={1920}
                                     height={1080}
                                     src={LoginTheme}
                                     alt="Market Graph"
-                                    className="object-cover"
+                                    className="object-cover carousel-image"
                                     unoptimized
                                 />
                             </CardContent>
@@ -68,7 +68,7 @@ export default function CarouselLogin() {
                     </CarouselItem>
                 ))}
             </CarouselContent>
-            <div className="w-full absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <div className="w-full absolute z-2 bottom-8 left-1/2 transform -translate-x-1/2">
                 <div className="w-full flex items-center justify-center gap-4 relative">
                     {Array.from({ length: 3 }).map((_, index) => (
                         <button
@@ -90,11 +90,12 @@ export default function CarouselLogin() {
             </div>
             <Link
                 href="#"
-                className="absolute top-2 right-2 flex gap-2 bg-[var(--brand-grey)] rounded-3xl border border-[var(--brand-grey-foreground)] px-6 py-2 text-xs"
+                className="absolute top-2 right-2 z-2 flex gap-2 bg-[var(--brand-grey)] rounded-3xl border border-[var(--brand-grey-foreground)] px-6 py-2 text-xs"
             >
                 <Undo2 className="size-4" />
                 Back to website
             </Link>
+            <div className="text-carousel-overlay z-1 pointer-events-none absolute top-0 left-0 w-full h-full flex items-center justify-center" />
         </Carousel>
     );
 }

@@ -7,7 +7,6 @@ import {
     primaryKey,
     uuid,
     pgEnum,
-    jsonb,
 } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import type { AdapterAccount } from '@auth/core/adapters';
@@ -132,14 +131,16 @@ export const transactions = pgTable('transaction', {
 
 export const posts = pgTable('post', {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
-    content: jsonb('content').notNull(),
+    title: text('title').notNull(),
+    description: text('description').notNull(),
+    content: text('content').notNull(),
     userId: uuid('userId')
         .notNull()
         .references(() => users.id, { onDelete: 'cascade' }),
     likes: integer('likes').default(0).notNull(),
     dislikes: integer('dislikes').default(0).notNull(),
     views: integer('views').default(0).notNull(),
-    referenceSource: text('referenceSource'),
+    referenceSource: text('referenceSource').notNull(),
     createdAt: timestamp('createdAt', { mode: 'date' }).defaultNow().notNull(),
 });
 

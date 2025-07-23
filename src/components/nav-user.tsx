@@ -25,7 +25,6 @@ import {
     useSidebar,
 } from '@/components/ui/sidebar';
 import { signOut, useSession } from 'next-auth/react';
-import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -33,21 +32,8 @@ export function NavUser() {
     const { isMobile, open } = useSidebar();
     const { data: session, status } = useSession();
 
-    if (status === 'loading') {
-        return (
-            <SidebarMenu>
-                <SidebarMenuItem>
-                    <Skeleton className="h-12 w-full rounded-lg flex items-center justify-center px-4">
-                        <div className="flex space-x-1">
-                            <span className="inline-block h-2 w-2 rounded-full bg-foreground/50 animate-bounce [animation-delay:0ms]"></span>
-                            <span className="inline-block h-2 w-2 rounded-full bg-foreground/50 animate-bounce [animation-delay:150ms]"></span>
-                            <span className="inline-block h-2 w-2 rounded-full bg-foreground/50 animate-bounce [animation-delay:300ms]"></span>
-                        </div>
-                    </Skeleton>
-                </SidebarMenuItem>
-            </SidebarMenu>
-        );
-    }
+    // We don't need to handle loading state here anymore as it's handled at the AppSidebar level
+    // This prevents duplicate loading states
 
     if (status === 'unauthenticated' && !isMobile && open) {
         return (

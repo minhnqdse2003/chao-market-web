@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
+import { Editor, EditorContent, EditorContext, useEditor } from '@tiptap/react';
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from '@tiptap/starter-kit';
@@ -74,8 +74,9 @@ import { handleImageUpload, MAX_FILE_SIZE } from '@/lib/tiptap-utils';
 
 // --- Styles ---
 import '@/components/tiptap-templates/simple/simple-editor.scss';
-import DialogPreview from '@/app/(user-layout)/post/dialog-preview';
 import RichTextPreview from '@/components/rich-text-preview';
+import { forwardRef } from 'react';
+import DialogPreview from '@/app/(user-layout)/post/dialog-preview';
 
 const MainToolbarContent = ({
     onHighlighterClick,
@@ -188,110 +189,130 @@ const MobileToolbarContent = ({
     </>
 );
 
-export function SimpleEditor() {
-    const isMobile = useIsMobile();
-    const windowSize = useWindowSize();
-    const [mobileView, setMobileView] = React.useState<
-        'main' | 'highlighter' | 'link'
-    >('main');
-    const toolbarRef = React.useRef<HTMLDivElement>(null);
-
-    const editor = useEditor({
-        immediatelyRender: false,
-        editorProps: {
-            attributes: {
-                autocomplete: 'off',
-                autocorrect: 'off',
-                autocapitalize: 'off',
-                'aria-label': 'Main content area, start typing to enter text.',
-            },
-        },
-        extensions: [
-            StarterKit,
-            TextAlign.configure({ types: ['heading', 'paragraph'] }),
-            Underline,
-            TaskList,
-            TaskItem.configure({ nested: true }),
-            Highlight.configure({ multicolor: true }),
-            Image,
-            Typography,
-            Superscript,
-            Subscript,
-
-            Selection,
-            ImageUploadNode.configure({
-                accept: 'image/*',
-                maxSize: MAX_FILE_SIZE,
-                limit: 3,
-                upload: handleImageUpload,
-                onError: error => console.error('Upload failed:', error),
-                allowBase64: true,
-            }),
-            TrailingNode,
-            Link.configure({ openOnClick: false }),
-        ],
-    });
-
-    const [html, setHtml] = React.useState<string | undefined>('');
-    const bodyRect = useCursorVisibility({
-        editor,
-        overlayHeight: toolbarRef.current?.getBoundingClientRect().height ?? 0,
-    });
-
-    React.useEffect(() => {
-        if (!isMobile && mobileView !== 'main') {
-            setMobileView('main');
-        }
-    }, [isMobile, mobileView]);
-
-    return (
-        <EditorContext.Provider value={{ editor }}>
-            <Toolbar
-                ref={toolbarRef}
-                style={
-                    isMobile
-                        ? {
-                              bottom: `calc(100% - ${windowSize.height - bodyRect.y}px)`,
-                          }
-                        : {}
-                }
-                className="rounded-xl border-2! dark:border-[var(--brand-grey)]! py-2!"
-            >
-                {mobileView === 'main' ? (
-                    <>
-                        <MainToolbarContent
-                            onHighlighterClick={() =>
-                                setMobileView('highlighter')
-                            }
-                            onLinkClick={() => setMobileView('link')}
-                            isMobile={isMobile}
-                        />
-                        <DialogPreview
-                            classNameButton="ml-2"
-                            onClick={() => setHtml(editor?.getHTML())}
-                        >
-                            {html && <RichTextPreview contents={html} />}
-                        </DialogPreview>
-                    </>
-                ) : (
-                    <MobileToolbarContent
-                        type={
-                            mobileView === 'highlighter'
-                                ? 'highlighter'
-                                : 'link'
-                        }
-                        onBack={() => setMobileView('main')}
-                    />
-                )}
-            </Toolbar>
-
-            <div className="content-wrapper">
-                <EditorContent
-                    editor={editor}
-                    role="presentation"
-                    className="simple-editor-content"
-                />
-            </div>
-        </EditorContext.Provider>
-    );
+interface SimpleEditorProps {
+    children?: React.ReactNode;
 }
+
+export interface EditorRef {
+    getHTML: () => string | undefined;
+    getEditor: () => Editor | null;
+}
+
+export const SimpleEditor = forwardRef<EditorRef, SimpleEditorProps>(
+    ({ children }, ref) => {
+        const isMobile = useIsMobile();
+        const windowSize = useWindowSize();
+        const [mobileView, setMobileView] = React.useState<
+            'main' | 'highlighter' | 'link'
+        >('main');
+        const toolbarRef = React.useRef<HTMLDivElement>(null);
+
+        const editor = useEditor({
+            immediatelyRender: false,
+            editorProps: {
+                attributes: {
+                    autocomplete: 'off',
+                    autocorrect: 'off',
+                    autocapitalize: 'off',
+                    'aria-label':
+                        'Main content area, start typing to enter text.',
+                },
+            },
+            extensions: [
+                StarterKit,
+                TextAlign.configure({ types: ['heading', 'paragraph'] }),
+                Underline,
+                TaskList,
+                TaskItem.configure({ nested: true }),
+                Highlight.configure({ multicolor: true }),
+                Image,
+                Typography,
+                Superscript,
+                Subscript,
+
+                Selection,
+                ImageUploadNode.configure({
+                    accept: 'image/*',
+                    maxSize: MAX_FILE_SIZE,
+                    limit: 3,
+                    upload: handleImageUpload,
+                    onError: error => console.error('Upload failed:', error),
+                }),
+                TrailingNode,
+                Link.configure({ openOnClick: false }),
+            ],
+        });
+
+        const [html, setHtml] = React.useState<string | undefined>('');
+        const bodyRect = useCursorVisibility({
+            editor,
+            overlayHeight:
+                toolbarRef.current?.getBoundingClientRect().height ?? 0,
+        });
+
+        React.useEffect(() => {
+            if (!isMobile && mobileView !== 'main') {
+                setMobileView('main');
+            }
+        }, [isMobile, mobileView]);
+
+        React.useImperativeHandle(ref, () => ({
+            getHTML: () => editor?.getHTML(),
+            getEditor: () => editor,
+        }));
+
+        return (
+            <EditorContext.Provider value={{ editor }}>
+                {children}
+                <Toolbar
+                    ref={toolbarRef}
+                    style={
+                        isMobile
+                            ? {
+                                  bottom: `calc(100% - ${windowSize.height - bodyRect.y}px)`,
+                              }
+                            : {}
+                    }
+                    className="rounded-xl border-2! dark:border-[var(--brand-grey)]! py-2!"
+                >
+                    {mobileView === 'main' ? (
+                        <>
+                            <MainToolbarContent
+                                onHighlighterClick={() =>
+                                    setMobileView('highlighter')
+                                }
+                                onLinkClick={() => setMobileView('link')}
+                                isMobile={isMobile}
+                            />
+                            <DialogPreview
+                                classNameButton="ml-2"
+                                onClick={() => setHtml(editor?.getHTML())}
+                            >
+                                {html && <RichTextPreview contents={html} />}
+                            </DialogPreview>
+                        </>
+                    ) : (
+                        <MobileToolbarContent
+                            type={
+                                mobileView === 'highlighter'
+                                    ? 'highlighter'
+                                    : 'link'
+                            }
+                            onBack={() => setMobileView('main')}
+                        />
+                    )}
+                </Toolbar>
+
+                <div className="content-wrapper">
+                    <EditorContent
+                        editor={editor}
+                        role="presentation"
+                        className="simple-editor-content"
+                    />
+                </div>
+            </EditorContext.Provider>
+        );
+    }
+);
+
+SimpleEditor.displayName = 'SimpleEditor';

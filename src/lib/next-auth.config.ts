@@ -109,6 +109,7 @@ export const authOptions: NextAuthOptions = {
                     );
                     if (!isValid) {
                         console.log('Password not matching');
+                        console.log(user.password);
                         return null;
                     } else {
                         console.log('Password match');

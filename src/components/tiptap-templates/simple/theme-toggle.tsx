@@ -10,13 +10,13 @@ import { MoonStarIcon } from '@/components/tiptap-icons/moon-star-icon';
 import { SunIcon } from '@/components/tiptap-icons/sun-icon';
 import { useTheme } from 'next-themes';
 
+/* eslint-disable react-hooks/exhaustive-deps */
 export function ThemeToggle() {
     const [isDarkMode, setIsDarkMode] = React.useState<boolean>(false);
     const { theme, setTheme } = useTheme();
 
     const currentTheme =
         theme === 'light' || theme === 'dark' ? theme : 'light';
-
 
     React.useEffect(() => {
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -39,8 +39,8 @@ export function ThemeToggle() {
     }, [isDarkMode]);
 
     React.useEffect(() => {
-        setIsDarkMode(isDarkMode ? true : false);
-    },[currentTheme])
+        setIsDarkMode(isDarkMode);
+    }, [currentTheme]);
 
     const toggleDarkMode = () => setIsDarkMode(isDark => !isDark);
 

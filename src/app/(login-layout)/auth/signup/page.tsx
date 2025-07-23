@@ -5,6 +5,11 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { sendOtpCode, verifiedOtpCode } from '@/services/auth';
 import TabAuthMode from '@/app/(login-layout)/auth/components/tab-auth-mode';
+import {
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSlot,
+} from '@/components/ui/input-otp';
 
 export default function SignUp() {
     const [formData, setFormData] = useState({
@@ -175,13 +180,13 @@ export default function SignUp() {
                         <button
                             onClick={handleRegister}
                             disabled={loading}
-                            className="w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:opacity-50]"
+                            className="w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:opacity-50] mt-6"
                         >
                             {loading ? 'Creating account...' : 'Sign Up'}
                         </button>
                     </>
                 ) : (
-                    <>
+                    <div className="space-y-12">
                         <div>
                             <p className="text-sm text-white font-light mb-4">
                                 We&apos;ve sent a verification code to{' '}
@@ -189,14 +194,20 @@ export default function SignUp() {
                                     {formData.email}
                                 </span>
                             </p>
-                            <input
-                                type="text"
-                                placeholder="Enter 6-digit OTP"
-                                value={otp}
-                                onChange={e => setOtp(e.target.value)}
-                                className="app-text-input"
+                            <InputOTP
                                 maxLength={6}
-                            />
+                                value={otp}
+                                onChange={value => setOtp(value)}
+                            >
+                                <InputOTPGroup className="flex gap-4 [&>div[data-slot=input-otp-slot]]:rounded-lg [&>div[data-slot=input-otp-slot]]:outline-0 [&>div[data-slot=input-otp-slot]]:ring-[var(--brand-color)] [&>div[data-slot=input-otp-slot]]:size-12 [&>div[data-slot=input-otp-slot]]:text-xl mx-auto [&>div[data-slot=input-otp-slot]]:border-2">
+                                    <InputOTPSlot index={0} />
+                                    <InputOTPSlot index={1} />
+                                    <InputOTPSlot index={2} />
+                                    <InputOTPSlot index={3} />
+                                    <InputOTPSlot index={4} />
+                                    <InputOTPSlot index={5} />
+                                </InputOTPGroup>
+                            </InputOTP>
                         </div>
 
                         <div className="flex space-x-2">
@@ -208,7 +219,7 @@ export default function SignUp() {
                                 {loading ? 'Continue...' : 'Continue'}
                             </button>
                         </div>
-                    </>
+                    </div>
                 )}
             </div>
 
