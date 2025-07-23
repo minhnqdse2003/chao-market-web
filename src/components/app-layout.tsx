@@ -7,6 +7,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import '@/app/globals.css';
 import { cookies } from 'next/headers';
 import { COOKIE_SIDEBAR_STATE_NAME } from '@/app/constants';
+import { Providers } from '@/context/provider/query-client';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -38,9 +39,11 @@ export async function AppLayout({ children }: { children: React.ReactNode }) {
                         enableSystem
                         disableTransitionOnChange
                     >
-                        <SidebarProvider defaultOpen={defaultOpen}>
-                            {children}
-                        </SidebarProvider>
+                        <Providers>
+                            <SidebarProvider defaultOpen={defaultOpen}>
+                                {children}
+                            </SidebarProvider>
+                        </Providers>
                     </ThemeProvider>
                 </NextAuthSessionProvider>
             </body>
