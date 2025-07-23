@@ -2,7 +2,7 @@ import { getToken } from 'next-auth/jwt';
 import { withAuth } from 'next-auth/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 
-const AUTH_ROUTES = ['/auth/signin', '/auth/signup'];
+const AUTH_ROUTES = ['/auth/login', '/auth/signup'];
 
 export default withAuth(
     async function middleware(request: NextRequest) {
@@ -17,7 +17,7 @@ export default withAuth(
         if (pathname === '/') {
             return NextResponse.redirect(
                 new URL(
-                    isAuthenticated ? '/dashboard' : '/auth/signin',
+                    isAuthenticated ? '/dashboard' : '/auth/login',
                     request.url
                 )
             );
@@ -28,7 +28,7 @@ export default withAuth(
         }
 
         if (!isAuthenticated && !isAuthRoute && !pathname.startsWith('/api')) {
-            return NextResponse.redirect(new URL('/auth/signin', request.url));
+            return NextResponse.redirect(new URL('/auth/login', request.url));
         }
     },
     {
@@ -47,7 +47,7 @@ export default withAuth(
 
 export const config = {
     matcher: [
-        '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+        '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\..*).*)',
         '/api/:path*',
     ],
 };

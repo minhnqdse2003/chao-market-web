@@ -109,6 +109,7 @@ export const authOptions: NextAuthOptions = {
                     );
                     if (!isValid) {
                         console.log('Password not matching');
+                        console.log(user.password);
                         return null;
                     } else {
                         console.log('Password match');
@@ -130,7 +131,7 @@ export const authOptions: NextAuthOptions = {
         strategy: 'jwt',
     },
     pages: {
-        signIn: '/auth/signin',
+        signIn: '/auth/login',
         newUser: '/dashboard',
     },
     secret: process.env.NEXTAUTH_SECRET,

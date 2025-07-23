@@ -64,13 +64,15 @@ const createNewPost = async (request: NextRequest) => {
         throw new ApiError(400, z.prettifyError(parsed.error));
     }
 
-    const { content, referenceSource } = parsed.data;
+    const { content, referenceSource, title, description } = parsed.data;
     const [result] = await db
         .insert(posts)
         .values({
             userId: token.sub as UUID,
             content,
             referenceSource,
+            title,
+            description,
         })
         .returning();
 
@@ -81,4 +83,4 @@ const createNewPost = async (request: NextRequest) => {
 };
 
 export const GET = withAuth(getAllPosts);
-export const POST = withAuth(createNewPost, ['ADMIN']);
+export const POST = withAuth(createNewPost, ['USER']);

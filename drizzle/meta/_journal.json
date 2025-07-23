@@ -8,6 +8,20 @@
       "when": 1750659736678,
       "tag": "0000_violet_impossible_man",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1753081746098,
+      "tag": "0001_deep_marauders",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1753153382594,
+      "tag": "0002_small_magus",
+      "breakpoints": true
     }
   ]
 }
