@@ -6,7 +6,7 @@ import { SidebarProvider } from '@/components/ui/sidebar';
 import { Geist, Geist_Mono } from 'next/font/google';
 import '@/app/globals.css';
 import { cookies } from 'next/headers';
-import { COOKIE_SIDEBAR_STATE_NAME } from '@/app/constants';
+import { APP_THEME_STATE_NAME, COOKIE_SIDEBAR_STATE_NAME } from '@/constant';
 import { Providers } from '@/context/provider/query-client';
 
 const geistSans = Geist({
@@ -35,9 +35,9 @@ export async function AppLayout({ children }: { children: React.ReactNode }) {
                 <NextAuthSessionProvider>
                     <ThemeProvider
                         attribute="class"
-                        defaultTheme="system"
+                        defaultTheme="dark"
                         enableSystem
-                        disableTransitionOnChange
+                        storageKey={APP_THEME_STATE_NAME}
                     >
                         <Providers>
                             <SidebarProvider defaultOpen={defaultOpen}>

@@ -1,4 +1,5 @@
 import BlockContents, { BlockContentsProps } from './components/block-contents';
+import { GeneralBanner } from '@/components/app-banner';
 
 const contents: BlockContentsProps[] = [
     {
@@ -191,6 +192,7 @@ const contents: BlockContentsProps[] = [
 const Page = () => {
     return (
         <div className="flex flex-col gap-6 [&>div:not(:last-child)]:mb-10">
+            <GeneralBanner />
             {contents.map((item, idx) => (
                 <BlockContents
                     key={idx}

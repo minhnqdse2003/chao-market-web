@@ -5,6 +5,8 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import Image from 'next/image';
+import { LogoBrand } from '@image/index';
 
 export function NavHead({
     headers: data,
@@ -22,7 +24,13 @@ export function NavHead({
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg">
                         <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                            <teams.logo className="size-4" />
+                            <Image
+                                src={LogoBrand}
+                                alt="Logo Brand"
+                                width={1920}
+                                height={1080}
+                                className="size-8"
+                            />
                         </div>
                         <div className="grid flex-1 text-left text-sm leading-tight">
                             <span className="truncate font-medium">

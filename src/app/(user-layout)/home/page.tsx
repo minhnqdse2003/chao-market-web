@@ -14,6 +14,7 @@ import {
 import { DataTable } from '@/components/data-table';
 import { getTabData } from './data-utils';
 import { AppTabs } from '@/components/app-tabs';
+import { GeneralBanner } from '@/components/app-banner';
 
 const Page = () => {
     const tabsList = [
@@ -59,6 +60,7 @@ const Page = () => {
 
     return (
         <div className="w-full">
+            <GeneralBanner />
             <AppTabs tabsList={tabsList} />
         </div>
     );

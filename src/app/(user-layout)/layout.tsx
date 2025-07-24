@@ -8,7 +8,9 @@ export default function UserLayout({
     return (
         <div className="flex w-full max-w-svw ">
             <AppSidebar />
-            <div className="flex w-full">{children}</div>
+            <div className="flex w-full px-12 py-4 dark:bg-[var(--brand-black-bg)]">
+                {children}
+            </div>
         </div>
     );
 }

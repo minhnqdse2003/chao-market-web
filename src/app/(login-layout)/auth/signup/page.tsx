@@ -10,6 +10,7 @@ import {
     InputOTPGroup,
     InputOTPSlot,
 } from '@/components/ui/input-otp';
+import LoadingComponent from '@/components/loading-spiner';
 
 export default function SignUp() {
     const [formData, setFormData] = useState({
@@ -180,9 +181,9 @@ export default function SignUp() {
                         <button
                             onClick={handleRegister}
                             disabled={loading}
-                            className="w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:opacity-50] mt-6"
+                            className="w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:bg-transparent disabled:p-0 disabled:opacity-50 mt-6"
                         >
-                            {loading ? 'Creating account...' : 'Sign Up'}
+                            {loading ? <LoadingComponent /> : 'Sign Up'}
                         </button>
                     </>
                 ) : (
@@ -214,9 +215,9 @@ export default function SignUp() {
                             <button
                                 onClick={handleVerifyOtp}
                                 disabled={loading}
-                                className="flex-1  text-black bg-[var(--brand-color)] cursor-pointer rounded-3xl font-bold py-2 px-4 disabled:opacity-50"
+                                className="flex-1  text-black bg-[var(--brand-color)] cursor-pointer rounded-3xl font-bold py-2 px-4 disabled:bg-transparent disabled:p-0 disabled:opacity-50"
                             >
-                                {loading ? 'Continue...' : 'Continue'}
+                                {loading ? <LoadingComponent /> : 'Continue'}
                             </button>
                         </div>
                     </div>

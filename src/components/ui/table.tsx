@@ -53,7 +53,7 @@ function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
         <tr
             data-slot="table-row"
             className={cn(
-                'hover:bg-muted/50 data-[state=selected]:bg-muted transition-colors',
+                'hover:bg-[var(--brand-grey-foreground)] data-[state=selected]:bg-muted transition-colors',
                 // table header styling
                 ' [&>th]:border-x-2 [&>th:first-child]:border-l-0 [&>th:last-child]:border-r-0 [&>th:first-child]:rounded-tl-md [&>th:first-child]:rounded-bl-md [&>th:last-child]:rounded-tr-md [&>th:last-child]:rounded-br-md',
                 // table cell

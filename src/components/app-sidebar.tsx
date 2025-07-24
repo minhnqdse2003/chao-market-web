@@ -42,28 +42,28 @@ const data = {
         },
         {
             title: "Client's account",
-            url: 'client-account',
+            url: '/client-account',
             icon: IdCard,
         },
         {
             title: 'Products',
-            url: '#',
+            url: '/products',
             icon: BriefcaseBusiness,
             children: [
-                { title: 'Consulting Personal Finance', url: '#' },
-                { title: 'Managing Investment Portfolio', url: '#' },
-                { title: 'Building Trading System', url: '#' },
-                { title: 'Analysing Trading Account', url: '#' },
-                { title: 'Financial Investment Course', url: '#' },
+                { title: 'Consulting Personal Finance', url: '/products' },
+                { title: 'Managing Investment Portfolio', url: '/products' },
+                { title: 'Building Trading System', url: '/products' },
+                { title: 'Analysing Trading Account', url: '/products' },
+                { title: 'Financial Investment Course', url: '/products' },
             ],
         },
         {
             title: 'News & Events',
-            url: '#',
+            url: '/news-event',
             icon: Megaphone,
             children: [
-                { title: 'News', url: '#' },
-                { title: 'Events', url: '#' },
+                { title: 'News', url: '/news-event' },
+                { title: 'Events', url: '/news-event' },
             ],
         },
         {

@@ -17,6 +17,7 @@ import {
     InputOTPSlot,
 } from '@/components/ui/input-otp';
 import { Facebook, Google } from '@image/index';
+import LoadingComponent from '@/components/loading-spiner';
 
 export default function Login() {
     const searchParams = useSearchParams();
@@ -185,9 +186,13 @@ export default function Login() {
                                 <button
                                     onClick={handleEmailVerify}
                                     disabled={loading}
-                                    className="w-full mb-6 mt-12 flex-1 bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:opacity-50"
+                                    className="w-full mb-6 mt-12 flex-1 bg-[var(--brand-color)] disabled:bg-transparent disabled:m-0 cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:opacity-50"
                                 >
-                                    {loading ? 'Continue...' : 'Continue'}
+                                    {loading ? (
+                                        <LoadingComponent />
+                                    ) : (
+                                        'Continue'
+                                    )}
                                 </button>
 
                                 <div className="mb-4 mt-4 relative">
@@ -275,11 +280,13 @@ export default function Login() {
                                         <button
                                             onClick={handleVerifyOtp}
                                             disabled={loading}
-                                            className="flex-1  text-black bg-[var(--brand-color)] cursor-pointer rounded-3xl font-bold py-2 px-4 disabled:opacity-50"
+                                            className="flex-1 text-black bg-[var(--brand-color)] disabled:bg-transparent disabled:p-0 cursor-pointer rounded-3xl font-bold py-2 px-4 disabled:opacity-50"
                                         >
-                                            {loading
-                                                ? 'Continue...'
-                                                : 'Continue'}
+                                            {loading ? (
+                                                <LoadingComponent />
+                                            ) : (
+                                                'Continue'
+                                            )}
                                         </button>
                                     </div>
                                 </div>
@@ -299,9 +306,13 @@ export default function Login() {
                                     <button
                                         onClick={handleCredentialsLogin}
                                         disabled={loading}
-                                        className="bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:opacity-50 w-full mt-6"
+                                        className="bg-[var(--brand-color)] cursor-pointer disabled:bg-transparent disabled:p-0 text-black font-bold py-2 px-4 rounded-3xl disabled:opacity-50 w-full mt-6"
                                     >
-                                        {loading ? 'Logging in...' : 'Log In'}
+                                        {loading ? (
+                                            <LoadingComponent />
+                                        ) : (
+                                            'Log In'
+                                        )}
                                     </button>
                                 </div>
                             </div>

@@ -6,8 +6,7 @@ import {
 } from '@/components/tiptap-templates/simple/simple-editor';
 import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { useAppQuery } from '@/hooks/react-query/use-custom-query';
-import { createPost, getPost, getPosts } from '@/app/api/posts';
+import { createPost } from '@/app/api/posts';
 import { useAppMutation } from '@/hooks/react-query/use-custom-mutation';
 import { Post } from '@/db/schema';
 import { Input } from '@/components/ui/input';
@@ -28,16 +27,6 @@ export default function PostPage() {
         referenceSource: '',
     });
     const [errors, setErrors] = useState<string | null>(null);
-
-    const { data: posts, isFetching } = useAppQuery({
-        queryFn: getPosts,
-        queryKey: ['posts'],
-    });
-
-    const { data: post, isFetching: postFetching } = useAppQuery({
-        queryFn: () => getPost('1'),
-        queryKey: ['posts', 1],
-    });
 
     const { mutate, isSuccess, isPending, reset } = useAppMutation<
         unknown,
@@ -87,16 +76,29 @@ export default function PostPage() {
     return (
         <div className="w-full h-[90svh] overflow-y-auto p-4">
             <div>
-                <Label>Content *</Label>
                 <SimpleEditor ref={editorRef}>
                     <form
                         onSubmit={e =>
                             handleSubmit(e, editorRef.current?.getHTML())
                         }
-                        className="space-y-4"
+                        className="space-y-4 [&_*_input]:mt-2 [&_*_input:last-child]:mb-6"
                     >
                         <div>
-                            <Label htmlFor="title">Title *</Label>
+                            <Label
+                                htmlFor="title"
+                                className="flex justify-between items-end"
+                            >
+                                <span>Title *</span>
+                                <Button
+                                    type="submit"
+                                    disabled={isPending}
+                                    className="mt-4 bg-[var(--brand-color)] hover:bg-[var(--brand-color)] text-black"
+                                >
+                                    {isPending
+                                        ? 'Creating Post...'
+                                        : 'Create Post'}
+                                </Button>
+                            </Label>
                             <Input
                                 id="title"
                                 value={formData.title}
@@ -146,19 +148,9 @@ export default function PostPage() {
                                 required={false}
                             />
                         </div>
-                        <Button
-                            type="submit"
-                            disabled={isPending}
-                            className="mt-4"
-                        >
-                            {isPending ? 'Creating Post...' : 'Create Post'}
-                        </Button>
                     </form>
                 </SimpleEditor>
             </div>
-
-            <Button disabled={isFetching}>{JSON.stringify(posts)}</Button>
-            <Button disabled={postFetching}>{JSON.stringify(post)}</Button>
         </div>
     );
 }
