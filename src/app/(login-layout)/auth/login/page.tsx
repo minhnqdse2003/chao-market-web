@@ -47,7 +47,7 @@ export default function Login() {
             if (result?.error) {
                 setError('Invalid credentials');
             } else {
-                router.push('/dashboard');
+                router.push('/client-account');
             }
         } catch {
             setError('An error occurred during sign in');
@@ -87,7 +87,7 @@ export default function Login() {
 
     // Login with SSO
     const handleSocialLogin = (provider: string) => {
-        signIn(provider, { callbackUrl: '/dashboard' });
+        signIn(provider, { callbackUrl: '/client-account' });
     };
 
     // Send otp to api

@@ -32,7 +32,7 @@ export default function TabAuthMode() {
                 <Link
                     className="w-full signin-link-button"
                     data-state={mode === 'signin' ? 'active' : 'inactive'}
-                    href="/auth/signin"
+                    href="/auth/login"
                 >
                     Sign In
                 </Link>

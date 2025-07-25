@@ -89,7 +89,7 @@ export default function CarouselLogin() {
                 </div>
             </div>
             <Link
-                href="#"
+                href="/home"
                 className="absolute top-2 right-2 z-2 flex gap-2 bg-[var(--brand-grey)] rounded-3xl border border-[var(--brand-grey-foreground)] px-6 py-2 text-xs"
             >
                 <Undo2 className="size-4" />
