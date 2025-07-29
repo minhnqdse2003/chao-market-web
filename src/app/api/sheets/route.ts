@@ -22,7 +22,7 @@ export async function GET() {
         });
 
         const sheets = google.sheets({ version: 'v4', auth });
-        const range = 'TimeLine!A1:G'; // Fetch data from TimeLine sheet (7 columns)
+        const range = 'TimeLine!A1:G';
 
         const response = await sheets.spreadsheets.values.get({
             spreadsheetId: process.env.GOOGLE_SHEETS_SPREADSHEET_ID,

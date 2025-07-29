@@ -244,7 +244,7 @@ export default function Page() {
                         <Card
                             key={index}
                             onClick={() => handleCardClick(index)}
-                            className={`h-fit cursor-pointer transition-all! duration-300 ease-in-out ${activeCard === index ? 'border-[var(--brand-color)]' : ''} ${activeCard !== null ? 'w-[calc(50%-1rem)]' : 'w-[calc(33.33%-1rem)]'}`}
+                            className={`h-fit cursor-pointer transition-all! bg-[var(--brand-black-bg)] duration-300 ease-in-out ${activeCard === index ? 'border-[var(--brand-color)]' : ''} ${activeCard !== null ? 'w-[calc(50%-1rem)]' : 'w-[calc(33.33%-1rem)]'}`}
                         >
                             <CardHeader>
                                 <div className="flex items-center justify-center gap-2 w-full">
@@ -300,7 +300,7 @@ export default function Page() {
                     ))}
                 </div>
                 <Card
-                    className={`w-full ml-4 h-full text-xs p-0 transition-all! duration-300 ease-in-out [&[data-state=inactive]]:w-0 [&[data-state=inactive]]:opacity-0 [&[data-state=active]]:opacity-100`}
+                    className={`w-full ml-4 h-full bg-[var(--brand-black-bg)] text-xs p-0 transition-all! duration-300 ease-in-out [&[data-state=inactive]]:w-0 [&[data-state=inactive]]:opacity-0 [&[data-state=active]]:opacity-100`}
                     data-state={activeCard !== null ? 'active' : 'inactive'}
                 >
                     <CardHeader className="flex flex-row items-center p-4 gap-2">
