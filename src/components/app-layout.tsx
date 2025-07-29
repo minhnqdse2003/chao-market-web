@@ -8,6 +8,7 @@ import '@/app/globals.css';
 import { cookies } from 'next/headers';
 import { APP_THEME_STATE_NAME, COOKIE_SIDEBAR_STATE_NAME } from '@/constant';
 import { Providers } from '@/context/provider/query-client';
+import Head from 'next/head';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -25,6 +26,12 @@ export async function AppLayout({ children }: { children: React.ReactNode }) {
         cookieStore.get(COOKIE_SIDEBAR_STATE_NAME)?.value === 'true';
     return (
         <html lang="en" suppressHydrationWarning>
+            <Head>
+                <meta
+                    name="google-site-verification"
+                    content="rrSHqLDbd4l1mddFBwIoXTV-XmI0ClyITWrHq1sMklk"
+                />
+            </Head>
             <body
                 className={cn(
                     `${geistSans.variable} ${geistMono.variable} antialiased`,
