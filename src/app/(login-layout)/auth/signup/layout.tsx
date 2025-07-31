@@ -1,10 +1,15 @@
 import type { Metadata } from 'next';
-import SignUp from '@/app/(login-layout)/auth/signup/page';
+import React from 'react';
 
 export const metadata: Metadata = {
     title: 'Sign Up',
+    description: 'Create an account to get started with Chao Market.',
 };
 
-export default async function LoginLayout() {
-    return <SignUp />;
+export default function SignUpLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    return <>{children}</>;
 }

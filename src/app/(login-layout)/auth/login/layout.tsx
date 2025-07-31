@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
-import Login from '@/app/(login-layout)/auth/login/page';
+import React from 'react';
 
 export const metadata: Metadata = {
-    title: 'Login - Chao Market',
+    title: 'Login',
     description:
         'Login to your Chao Market account to access exclusive features and personalized content.',
     keywords: ['login', 'chao market', 'sign in', 'account access'],
     openGraph: {
-        title: 'Login - Chao Market',
+        title: 'Login',
         description:
             'Login to your Chao Market account to access exclusive features and personalized content.',
     },
@@ -19,6 +19,11 @@ export const metadata: Metadata = {
     },
 };
 
-export default async function LoginLayout() {
-    return <Login />;
+// The function has been corrected to accept and render children.
+export default function LoginLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    return <>{children}</>;
 }
