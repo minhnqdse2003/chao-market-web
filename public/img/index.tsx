@@ -4,3 +4,7 @@ export { default as Google } from './google.svg';
 export { default as Facebook } from './facebook.svg';
 export { default as HomeBanner } from './home-banner.svg';
 export { default as NewsEventBannerImg } from './news-events-banner.svg';
+export { default as BrandLogoFtHat } from './brand-logo-with-hat.svg';
+export { default as GeneralHelp } from './general-help.svg';
+export { default as BugHelp } from './bug-help.svg';
+export { default as Warning3D } from './warning-3d.svg';

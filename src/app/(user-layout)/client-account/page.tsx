@@ -8,20 +8,22 @@ import {
 } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
-import { EyeIcon, Info } from 'lucide-react';
-import { useState } from 'react';
+import { CircleX, EyeIcon, Info } from 'lucide-react';
+import React, { useState } from 'react';
 import NavSeparator from '@/components/nav-separator';
 import AppDropdown from '@/components/app-dropdown';
 import ClientAccountFilterDialog from './components/filter-dialog';
 import { SORT_BY_OPTIONS } from './utils/filter-options';
 import AppTooltips from '@/components/app-tooltips';
 import { Button } from '@/components/ui/button';
+import { ClientAccountBanner } from '@/components/app-banner';
+import { AppTabs, TabItem } from '@/components/app-tabs';
 
 // Mock data generation
 const dataList = [
     {
         avatar: {
-            src: `https://i.pravatar.cc/150?img=1`,
+            src: 'https://i.pravatar.cc/150?img=1',
             alt: 'user1',
             fallback: 'JD',
         },
@@ -29,7 +31,7 @@ const dataList = [
         account: {
             name: 'John Doe',
             startDate: '01-01-2024',
-            deposit: '5000.00 USD',
+            deposit: '5,000.00 USD',
             profit: '5.0% monthly',
         },
         progress: 80,
@@ -37,7 +39,55 @@ const dataList = [
     },
     {
         avatar: {
-            src: `https://i.pravatar.cc/150?img=2`,
+            src: 'https://i.pravatar.cc/150?img=1',
+            alt: 'user1',
+            fallback: 'JD',
+        },
+        market: 'STOCK',
+        account: {
+            name: 'John Doe',
+            startDate: '01-01-2024',
+            deposit: '5,000.00 USD',
+            profit: '5.0% monthly',
+        },
+        progress: 80,
+        views: 150,
+    },
+    {
+        avatar: {
+            src: 'https://i.pravatar.cc/150?img=1',
+            alt: 'user1',
+            fallback: 'JD',
+        },
+        market: 'STOCK',
+        account: {
+            name: 'John Doe',
+            startDate: '01-01-2024',
+            deposit: '5,000.00 USD',
+            profit: '5.0% monthly',
+        },
+        progress: 80,
+        views: 150,
+    },
+    {
+        avatar: {
+            src: 'https://i.pravatar.cc/150?img=1',
+            alt: 'user1',
+            fallback: 'JD',
+        },
+        market: 'STOCK',
+        account: {
+            name: 'John Doe',
+            startDate: '01-01-2024',
+            deposit: '5,000.00 USD',
+            profit: '5.0% monthly',
+        },
+        progress: 80,
+        views: 150,
+    },
+    {
+        avatar: {
+            src: 'https://i.pravatar.cc/150?img=2',
             alt: 'user2',
             fallback: 'JS',
         },
@@ -45,7 +95,7 @@ const dataList = [
         account: {
             name: 'Jane Smith',
             startDate: '15-03-2024',
-            deposit: '7500.00 USD',
+            deposit: '7,500.00 USD',
             profit: '7.5% monthly',
         },
         progress: 65,
@@ -53,7 +103,7 @@ const dataList = [
     },
     {
         avatar: {
-            src: `https://i.pravatar.cc/150?img=3`,
+            src: 'https://i.pravatar.cc/150?img=3',
             alt: 'user3',
             fallback: 'AJ',
         },
@@ -61,7 +111,7 @@ const dataList = [
         account: {
             name: 'Alex Johnson',
             startDate: '10-06-2024',
-            deposit: '3000.00 USD',
+            deposit: '3,000.00 USD',
             profit: '4.2% monthly',
         },
         progress: 90,
@@ -69,7 +119,7 @@ const dataList = [
     },
     {
         avatar: {
-            src: `https://i.pravatar.cc/150?img=4`,
+            src: 'https://i.pravatar.cc/150?img=4',
             alt: 'user4',
             fallback: 'EB',
         },
@@ -77,7 +127,7 @@ const dataList = [
         account: {
             name: 'Emma Brown',
             startDate: '20-08-2024',
-            deposit: '4200.00 USD',
+            deposit: '4,200.00 USD',
             profit: '6.1% monthly',
         },
         progress: 75,
@@ -85,7 +135,7 @@ const dataList = [
     },
     {
         avatar: {
-            src: `https://i.pravatar.cc/150?img=5`,
+            src: 'https://i.pravatar.cc/150?img=5',
             alt: 'user5',
             fallback: 'MC',
         },
@@ -93,7 +143,7 @@ const dataList = [
         account: {
             name: 'Michael Chen',
             startDate: '05-10-2024',
-            deposit: '6800.00 USD',
+            deposit: '6,800.00 USD',
             profit: '8.0% monthly',
         },
         progress: 85,
@@ -101,7 +151,7 @@ const dataList = [
     },
     {
         avatar: {
-            src: `https://i.pravatar.cc/150?img=6`,
+            src: 'https://i.pravatar.cc/150?img=6',
             alt: 'user6',
             fallback: 'SL',
         },
@@ -109,107 +159,39 @@ const dataList = [
         account: {
             name: 'Sarah Lee',
             startDate: '12-12-2024',
-            deposit: '5500.00 USD',
+            deposit: '5,500.00 USD',
             profit: '5.8% monthly',
         },
         progress: 70,
         views: 180,
     },
+];
+
+const tabsList: TabItem[] = [
     {
-        avatar: {
-            src: `https://i.pravatar.cc/150?img=4`,
-            alt: 'user4',
-            fallback: 'EB',
-        },
-        market: 'COMMODITIES',
-        account: {
-            name: 'Emma Brown',
-            startDate: '20-08-2024',
-            deposit: '4200.00 USD',
-            profit: '6.1% monthly',
-        },
-        progress: 75,
-        views: 250,
+        title: 'All',
+        value: 'all',
+        renderContent: () => <></>,
     },
     {
-        avatar: {
-            src: `https://i.pravatar.cc/150?img=5`,
-            alt: 'user5',
-            fallback: 'MC',
-        },
-        market: 'STOCK',
-        account: {
-            name: 'Michael Chen',
-            startDate: '05-10-2024',
-            deposit: '6800.00 USD',
-            profit: '8.0% monthly',
-        },
-        progress: 85,
-        views: 400,
+        title: '$0-$1,000',
+        value: '1000',
+        renderContent: () => <></>,
     },
     {
-        avatar: {
-            src: `https://i.pravatar.cc/150?img=6`,
-            alt: 'user6',
-            fallback: 'SL',
-        },
-        market: 'CRYPTO',
-        account: {
-            name: 'Sarah Lee',
-            startDate: '12-12-2024',
-            deposit: '5500.00 USD',
-            profit: '5.8% monthly',
-        },
-        progress: 70,
-        views: 180,
+        title: '$1,000-$3,000',
+        value: '3000',
+        renderContent: () => <></>,
     },
     {
-        avatar: {
-            src: `https://i.pravatar.cc/150?img=4`,
-            alt: 'user4',
-            fallback: 'EB',
-        },
-        market: 'COMMODITIES',
-        account: {
-            name: 'Emma Brown',
-            startDate: '20-08-2024',
-            deposit: '4200.00 USD',
-            profit: '6.1% monthly',
-        },
-        progress: 75,
-        views: 250,
+        title: '$3,000-$5,000',
+        value: '5000',
+        renderContent: () => <></>,
     },
     {
-        avatar: {
-            src: `https://i.pravatar.cc/150?img=5`,
-            alt: 'user5',
-            fallback: 'MC',
-        },
-        market: 'STOCK',
-        account: {
-            name: 'Michael Chen',
-            startDate: '05-10-2024',
-            deposit: '6800.00 USD',
-            profit: '8.0% monthly',
-        },
-        progress: 85,
-        views: 400,
-    },
-    {
-        avatar: {
-            src: `https://i.pravatar.cc/150?img=6`,
-            alt: 'user6',
-            fallback: 'SL',
-        },
-        market: 'CRYPTO',
-        account: {
-            name: 'Sarah Lee',
-            startDate: '12-12-2024',
-            deposit: '5500.00 USD',
-            profit: '5.8% monthly',
-        },
-        progress: 70,
-        views: 180,
+        title: '$5,000+',
+        value: '5001',
+        renderContent: () => <></>,
     },
 ];
 
@@ -223,7 +205,10 @@ export default function Page() {
     const selectedData = activeCard !== null ? dataList[activeCard] : null;
 
     return (
-        <div>
+        <div className="w-full">
+            <ClientAccountBanner />
+            <AppTabs tabsList={tabsList} />
+
             <div className="max-h-[4svh] mb-2 flex items-center justify-between w-full">
                 <ClientAccountFilterDialog
                     onApply={(value: unknown) => console.log(value)}
@@ -238,8 +223,8 @@ export default function Page() {
                 />
             </div>
 
-            <div className="w-full flex flex-row max-h-[90svh] overflow-hidden">
-                <div className="flex flex-wrap items-center gap-[1rem] min-w-2/3 max-w-full max-h-[95svh] overflow-y-auto">
+            <div className="w-full flex flex-row max-h-[65svh] overflow-hidden">
+                <div className="flex flex-wrap w-full items-center gap-[1rem] min-w-2/3 max-w-full max-h-[65svh] overflow-y-auto">
                     {dataList.map((data, index) => (
                         <Card
                             key={index}
@@ -303,13 +288,20 @@ export default function Page() {
                     className={`w-full ml-4 h-full bg-[var(--brand-black-bg)] text-xs p-0 transition-all! duration-300 ease-in-out [&[data-state=inactive]]:w-0 [&[data-state=inactive]]:opacity-0 [&[data-state=active]]:opacity-100`}
                     data-state={activeCard !== null ? 'active' : 'inactive'}
                 >
-                    <CardHeader className="flex flex-row items-center p-4 gap-2">
-                        <h2 className="font-semibold">
-                            {selectedData?.account.name}
-                        </h2>
-                        <span className="border-[var(--brand-color)] border text-[var(--brand-color)] font-thin px-3 py-1 rounded-2xl">
-                            {selectedData?.market}
-                        </span>
+                    <CardHeader className="flex flex-row items-center justify-between p-4">
+                        <div className="flex flex-row items-center gap-2">
+                            <h2 className="font-semibold text-lg">
+                                {selectedData?.account.name}
+                            </h2>
+                            <span className="border-[var(--brand-color)] border text-[var(--brand-color)] font-semibold px-3 py-1 rounded-2xl">
+                                {selectedData?.market}
+                            </span>
+                        </div>
+                        <CircleX
+                            size={24}
+                            onClick={() => setActiveCard(null)}
+                            className="cursor-pointer hover:text-[var(--brand-color)]"
+                        />
                     </CardHeader>
                     <CardContent className="p-4 space-y-0.5">
                         <div className="flex flex-col">

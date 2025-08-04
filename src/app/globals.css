@@ -124,7 +124,9 @@
 @layer base {
     * {
         @apply border-border outline-ring/50;
+        scrollbar-width: thin;
     }
+
 
     body {
         @apply bg-background text-foreground;
@@ -132,6 +134,11 @@
 
     .app-text-input {
         @apply w-full focus-visible:ring-0 focus-visible:outline-0 placeholder:text-[var(--brand-grey-foreground)] border-b p-4 border-[var(--brand-grey-foreground)]
+    }
+
+    .vertical-text {
+        writing-mode: sideways-lr;
+        text-orientation: mixed;
     }
 
     .text-carousel-overlay {

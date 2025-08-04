@@ -101,7 +101,7 @@ const ClientAccountFilterDialog = ({
             />
             <AppFilterSelect
                 options={ALGO_TRADING_OPTIONS}
-                label="Algo trading"
+                label="Algo Trading"
                 type="radio"
                 onChange={value => handleFilterChange('algoTrading', value)}
                 valueOptions={filterParams.algoTrading}
@@ -117,12 +117,12 @@ const ClientAccountFilterDialog = ({
     // Dialog Footer
     const footerContent = (
         <div className="w-full flex justify-end items-center gap-4">
-            <AlertDialogCancel className="cursor-pointer">
+            <AlertDialogCancel className="cursor-pointer dark:hover:text-black dark:hover:bg-[var(--brand-color)] px-4 py-2 rounded-lg">
                 Close
             </AlertDialogCancel>
             <Button
                 variant="default"
-                className="uppercase bg-[var(--brand-color)] hover:"
+                className="dark:hover:bg-[var(--brand-color)] dark:hover:text-black text-[var(--brand-color)] dark:bg-transparent"
                 onClick={handleApply}
             >
                 Apply

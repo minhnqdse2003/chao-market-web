@@ -37,7 +37,7 @@ export default function AppFilterSelect({
                         <TabsTrigger
                             key={tab.value}
                             value={tab.value}
-                            className="border px-4 py-2 rounded-2xl border-transparent data-[state=active]:border-[var(--brand-color)] data-[state=active]:text-[var(--brand-color)] dark:data-[state=active]:border-[var(--brand-color)] dark:data-[state=active]:text-[var(--brand-color)]"
+                            className="border px-4 py-2 rounded-lg border-transparent data-[state=active]:border-[var(--brand-color)] data-[state=active]:text-[var(--brand-color)] dark:data-[state=active]:border-[var(--brand-color)] dark:data-[state=active]:text-[var(--brand-color)]"
                         >
                             <p className="text-xs font-light">{tab.name}</p>
                         </TabsTrigger>

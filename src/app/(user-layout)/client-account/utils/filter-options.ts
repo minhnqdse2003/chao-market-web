@@ -48,28 +48,28 @@ export const PROFIT_OPTIONS: AppFilterOptionsType[] = [
 
 export const VIEW_OPTIONS: AppFilterOptionsType[] = [
     {
-        name: 'low to high',
+        name: 'Low to high',
         value: 'low-to-high',
     },
     {
-        name: 'high to low',
+        name: 'High to low',
         value: 'high-to-low',
     },
 ];
 
 export const ALGO_TRADING_OPTIONS: AppFilterOptionsType[] = [
     {
-        name: 'less than Manual trading',
+        name: 'Less than manual trading',
         value: 'less',
     },
     {
-        name: 'more than Manual trading',
+        name: 'More than manual trading',
         value: 'more',
     },
 ];
 
 export const SORT_BY_OPTIONS: DropdownOption[] = [
-    { value: 'high-to-low', label: 'high to low' },
-    { value: 'low-to-high', label: 'low to high' },
-    { value: 'average', label: 'average' },
+    { value: 'high-to-low', label: 'High to low' },
+    { value: 'low-to-high', label: 'Low to high' },
+    { value: 'average', label: 'Average' },
 ];

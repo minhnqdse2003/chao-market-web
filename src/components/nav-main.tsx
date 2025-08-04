@@ -16,6 +16,7 @@ import {
     SidebarMenuSubButton,
     SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
+import { redirect, usePathname } from 'next/navigation';
 
 export function NavMain({
     items,
@@ -32,6 +33,7 @@ export function NavMain({
         }[];
     }[];
 }>) {
+    const path = usePathname();
     return (
         <SidebarGroup className="sidebar-scroll">
             <SidebarMenu className="sidebar-scroll">
@@ -39,8 +41,8 @@ export function NavMain({
                     <Collapsible
                         key={item.title}
                         asChild
-                        defaultOpen={true}
-                        className="group/collapsible"
+                        defaultOpen={!path.startsWith('/home')}
+                        className='group/collapsible [&>a[data-slot="sidebar-menu-button"]]:rounded-none [&>button[data-slot="collapsible-trigger"]]:rounded-none [&>a[data-active=true]]:border-l-6 [&>a[data-active=true]]:border-[var(--brand-color)]'
                     >
                         <SidebarMenuItem>
                             {item.children ? (
@@ -73,6 +75,8 @@ export function NavMain({
                                                     </div>
                                                 ) : undefined
                                             }
+                                            isActive={path.startsWith(item.url)}
+                                            onClick={() => redirect(item.url)}
                                         >
                                             {item.icon && <item.icon />}
                                             <span>{item.title}</span>
@@ -80,13 +84,14 @@ export function NavMain({
                                         </SidebarMenuButton>
                                     </CollapsibleTrigger>
                                     <CollapsibleContent>
-                                        <SidebarMenuSub>
+                                        <SidebarMenuSub className="border-none pl-4 list-disc [&>li]:marker:text-xs [&>li]:marker:text-[var(--brand-grey)]">
                                             {item.children.map(subItem => (
                                                 <SidebarMenuSubItem
                                                     key={subItem.title}
                                                 >
                                                     <SidebarMenuSubButton
                                                         asChild
+                                                        className="rounded-none"
                                                     >
                                                         <a href={subItem.url}>
                                                             <span className="text-xs">
@@ -100,7 +105,10 @@ export function NavMain({
                                     </CollapsibleContent>
                                 </>
                             ) : (
-                                <SidebarMenuButton asChild>
+                                <SidebarMenuButton
+                                    asChild
+                                    isActive={path.startsWith(item.url)}
+                                >
                                     <a href={item.url}>
                                         {item.icon && <item.icon />}
                                         <span>{item.title}</span>

@@ -41,7 +41,7 @@ const data = {
             icon: Home,
         },
         {
-            title: "Client's account",
+            title: "Client's Account",
             url: '/client-account',
             icon: IdCard,
         },
