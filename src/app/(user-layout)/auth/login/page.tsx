@@ -10,7 +10,7 @@ import { VerifyEmail } from '@/types/user/response/verify-response';
 import React from 'react';
 import Image from 'next/image';
 import { Label } from '@/components/ui/label';
-import TabAuthMode from '@/app/(login-layout)/auth/components/tab-auth-mode';
+import TabAuthMode from '@/app/(user-layout)/auth/components/tab-auth-mode';
 import {
     InputOTP,
     InputOTPGroup,

@@ -27,6 +27,7 @@ import {
 import { signOut, useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { Separator } from '@/components/ui/separator';
 
 export function NavUser() {
     const { isMobile, open } = useSidebar();
@@ -38,17 +39,18 @@ export function NavUser() {
     if (status === 'unauthenticated' && !isMobile && open) {
         return (
             <SidebarMenu>
-                <SidebarMenuItem className="flex gap-2">
+                <SidebarMenuItem className="flex gap-4">
                     <Button
                         asChild
                         variant="outline"
-                        className="flex-1 bg-[bg-[oklch(0.708 0 0)]"
+                        className="flex-0.5 border-none rounded-3xl"
                     >
                         <Link href="/auth/login">Log in</Link>
                     </Button>
+                    <Separator orientation="vertical" className="flex-0.5" />
                     <Button
                         asChild
-                        className="flex-1 bg-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] text-black"
+                        className="flex-1 bg-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] rounded-3xl text-black"
                     >
                         <Link href="/auth/signup">Sign up</Link>
                     </Button>

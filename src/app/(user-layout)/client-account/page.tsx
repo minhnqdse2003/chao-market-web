@@ -1,11 +1,5 @@
 'use client';
-import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { CircleX, EyeIcon, Info } from 'lucide-react';
@@ -229,7 +223,7 @@ export default function Page() {
                         <Card
                             key={index}
                             onClick={() => handleCardClick(index)}
-                            className={`h-fit cursor-pointer transition-all! bg-[var(--brand-black-bg)] duration-300 ease-in-out ${activeCard === index ? 'border-[var(--brand-color)]' : ''} ${activeCard !== null ? 'w-[calc(50%-1rem)]' : 'w-[calc(33.33%-1rem)]'}`}
+                            className={`h-fit py-4 cursor-pointer transition-all! gap-0 max-h-1/3 bg-[var(--brand-black-bg)] duration-300 ease-in-out ${activeCard === index ? 'border-[var(--brand-color)]' : ''} ${activeCard !== null ? 'w-[calc(50%-1rem)]' : 'w-[calc(33.33%-1rem)]'}`}
                         >
                             <CardHeader>
                                 <div className="flex items-center justify-center gap-2 w-full">
@@ -267,20 +261,20 @@ export default function Page() {
                                     <p>Profit</p>
                                     <strong>{data.account.profit}</strong>
                                 </div>
+                                <div className="text-xs font-semibold flex justify-between mb-2">
+                                    <p className="italic">Algo Trading</p>
+                                    <Progress
+                                        isValueVisible={true}
+                                        value={data.progress}
+                                        className="w-1/2 min-h-[18px] bg-white [&>div]:bg-blue-500"
+                                    />
+                                    <p className="italic">Manual Trading</p>
+                                </div>
+                                <div className="flex justify-center items-center text-xs gap-2">
+                                    <EyeIcon size={16} />
+                                    {data.views}
+                                </div>
                             </CardContent>
-                            <CardFooter className="text-xs font-semibold flex justify-between">
-                                <p className="italic">Algo Trading</p>
-                                <Progress
-                                    isValueVisible={true}
-                                    value={data.progress}
-                                    className="w-1/2 min-h-[18px] bg-white [&>div]:bg-blue-500"
-                                />
-                                <p className="italic">Manual Trading</p>
-                            </CardFooter>
-                            <CardFooter className="flex justify-center items-center text-xs gap-2">
-                                <EyeIcon size={16} />
-                                {data.views}
-                            </CardFooter>
                         </Card>
                     ))}
                 </div>

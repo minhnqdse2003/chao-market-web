@@ -41,7 +41,7 @@ const data = {
             icon: Home,
         },
         {
-            title: "Client's Account",
+            title: "Client's Accounts",
             url: '/client-account',
             icon: IdCard,
         },
@@ -148,6 +148,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarHeader>
                         <NavHead headers={data.headers} />
                         <SearchForm />
+                        <NavUser />
                     </SidebarHeader>
                     <NavSeparator />
                     <SidebarContent>
@@ -155,10 +156,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </SidebarContent>
                     <NavSeparator isTrigger={false} className="my-2" />
                     <NavInformation />
-                    <SidebarFooter>
-                        <NavUser />
-                    </SidebarFooter>
-                    <SidebarRail />
                 </>
             )}
         </Sidebar>

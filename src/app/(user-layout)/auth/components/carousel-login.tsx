@@ -7,9 +7,7 @@ import {
 } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
-import { LoginTheme } from '../../../../../public/img';
-import Link from 'next/link';
-import { Undo2 } from 'lucide-react';
+import { LoginTheme } from '@image/index';
 import React, { useEffect, useState } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 
@@ -88,13 +86,6 @@ export default function CarouselLogin() {
                     </h2>
                 </div>
             </div>
-            <Link
-                href="/home"
-                className="absolute top-2 right-2 z-2 flex gap-2 bg-[var(--brand-grey)] rounded-3xl border border-[var(--brand-grey-foreground)] px-6 py-2 text-xs"
-            >
-                <Undo2 className="size-4" />
-                Back to website
-            </Link>
             <div className="text-carousel-overlay z-1 pointer-events-none absolute top-0 left-0 w-full h-full flex items-center justify-center" />
         </Carousel>
     );

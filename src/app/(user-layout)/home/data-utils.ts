@@ -18,14 +18,14 @@ export const generateMockData = async (
         date.setDate(baseDate.getDate() - i);
 
         data.push({
-            date,
+            date, // Keep Date object here
             category: type === 'newsFlow' ? 'News' : type,
             headline:
                 type === 'newsFlow'
                     ? `Breaking ${type.replace(/([A-Z])/g, ' $1').trim()} Update ${i + 1}`
                     : `${type.replace(/([A-Z])/g, ' $1').trim()} Report ${i + 1}`,
-            rate: Math.random() * 5,
-            view: Math.floor(Math.random() * 3500) + 500,
+            rate: parseFloat((Math.random() * 100).toFixed(2)), // 0-100 percent as number
+            view: Math.floor(Math.random() * 3500) + 500, // keep number here
         });
     }
     return data;
@@ -111,7 +111,7 @@ export const generateGoldPriceData = async (): Promise<GoldPriceData[]> => {
     const data: GoldPriceData[] = [];
     const typeOfGold = 'SJC gold bar (approximately 37.5 grams)';
 
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 5; i++) {
         data.push({
             typeOfGold,
             sellingPriceVND:

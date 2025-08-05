@@ -134,7 +134,7 @@ const ClientAccountFilterDialog = ({
         <AppDialog
             trigger={
                 <Button variant="ghost">
-                    <ListFilter /> Filter
+                    <ListFilter /> Filter:
                 </Button>
             }
             headerContent={headerContent}

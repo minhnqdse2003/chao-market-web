@@ -1,6 +1,8 @@
 'use client';
 import { DataTableColumnHeader } from '@/components/data-table-column-header';
 import { ColumnDef } from '@tanstack/react-table';
+import Image from 'next/image';
+import { FilledThumpsUp } from '@image/index';
 
 export type HomeNewFlow = {
     date: Date;
@@ -38,7 +40,8 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
         ),
         cell: ({ row }) => {
             const date = row.original.date;
-            return date.toLocaleDateString(); // Format date for display
+            // Format in dd/mm/yyyy:
+            return date.toLocaleDateString('en-GB');
         },
     },
     {
@@ -56,11 +59,22 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
     {
         accessorKey: 'rate',
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Rate" />
+            <DataTableColumnHeader column={column} title="Rate (%)" />
         ),
         cell: ({ row }) => {
             const rate = row.original.rate;
-            return rate.toFixed(2);
+            return (
+                <div className="flex items-center justify-center gap-4">
+                    <Image
+                        src={FilledThumpsUp}
+                        alt={'thumps-up icons'}
+                        width={1920}
+                        height={1080}
+                        className="size-6"
+                    />
+                    <span>{rate.toFixed(2)}%</span>
+                </div>
+            );
         },
     },
     {
@@ -68,6 +82,11 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Views" />
         ),
+        cell: ({ row }) => {
+            const view = row.original.view;
+            // Adding commas to thousands
+            return view.toLocaleString('en-US');
+        },
     },
 ];
 

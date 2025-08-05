@@ -40,7 +40,12 @@ export function AppTabs({ tabsList }: Readonly<TabComponentProps>) {
                         key={tab.value}
                         value={tab.value}
                         className={cn(
-                            'text-[var(--brand-grey-light)] border-[var(--brand-grey-light)] data-[state=active]:shadow-none  data-[state=active]:text-black data-[state=active]:border-black border-0 cursor-pointer rounded-none border-b-2 dark:border-[var(--brand-grey)] dark:data-[state=active]:bg-transparent dark:data-[state=active]:text-yellow-400 dark:data-[state=active]:border-yellow-400',
+                            'text-[var(--brand-grey-light)] border-[var(--brand-grey-light)]' +
+                                ' data-[state=active]:shadow-none  data-[state=active]:text-black' +
+                                ' data-[state=active]:border-black border-0 cursor-pointer rounded-none border-b-2' +
+                                ' dark:border-[var(--brand-grey)] dark:data-[state=active]:bg-transparent' +
+                                ' dark:data-[state=active]:text-[var(--brand-color)]' +
+                                ' dark:data-[state=active]:border-[var(--brand-color)]',
                             'px-4 py-2 transition-colors!'
                         )}
                     >

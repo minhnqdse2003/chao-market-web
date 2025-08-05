@@ -22,18 +22,18 @@ export default function UserLayout({
             <AppSidebar />
             <div className="flex flex-col w-full gap-8 dark:bg-sidebar ">
                 <div className="flex flex-col w-full px-12 py-4 dark:bg-sidebar relative">
-                    {children}
+                    <div className="min-h-svh">{children}</div>
 
                     {/* Dialog Container*/}
                     <Dialog>
                         <DialogTrigger asChild>
                             <Button
-                                className="fixed top-1/2 right-0 transform -translate-y-1/2
+                                className="fixed top-1/2 right-0 transition-all! ease-out duration-300 transform translate-x-3/4 hover:translate-x-0 -translate-y-1/2
                          bg-[var(--brand-color)] text-black px-4 py-2 rounded-none rounded-l-xl
-                         shadow-lg hover:bg-[var(--brand-color-foreground)] vertical-text uppercase h-fit z-50"
+                         shadow-lg hover:bg-[var(--brand-color-foreground)] font-semibold vertical-text h-fit z-50"
                                 aria-label="Open dialog"
                             >
-                                Contact &amp; feedback
+                                Help &amp; Feedback
                             </Button>
                         </DialogTrigger>
                         <DialogContent className='[&_*_div[data-slot="Container"]:last-child]:mb-8 [&_*_div[data-slot="Container"]>div]:px-6 [&_*_div[data-slot="Container"]>div]:py-4 [&_*_div[data-slot="Container"]>a]:px-6 [&_*_div[data-slot="Container"]>a]:py-4 [&_*_div[data-slot="Container"]>a:hover]:bg-[var(--brand-black-bg)] [&_*_div[data-slot="Container"]>a:hover]:rounded-lg'>

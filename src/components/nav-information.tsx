@@ -15,7 +15,7 @@ const NavInformation = () => {
     const path = usePathname();
     const { open } = useSidebar();
     return (
-        <SidebarGroup>
+        <SidebarGroup className="p-0">
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton
@@ -35,8 +35,11 @@ const NavInformation = () => {
                     </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
+                    <ThemeToggle />
+                </SidebarMenuItem>
+                <SidebarMenuItem>
                     <SidebarMenuButton
-                        className="flex justify-between bg-[var(--brand-black-bg)] py-6 px-4 font-semibold"
+                        className="flex justify-center cursor-pointer bg-[var(--brand-black-bg)] mt-2 py-6 px-4 rounded-none rounded-t-3xl font-semibold"
                         tooltip={<p>Disclaimer</p>}
                     >
                         {open ? (
@@ -48,9 +51,6 @@ const NavInformation = () => {
                             <Info className="w-4 h-4" />
                         )}
                     </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                    <ThemeToggle />
                 </SidebarMenuItem>
             </SidebarMenu>
         </SidebarGroup>

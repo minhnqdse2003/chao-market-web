@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { sendOtpCode, verifiedOtpCode } from '@/services/auth';
-import TabAuthMode from '@/app/(login-layout)/auth/components/tab-auth-mode';
+import TabAuthMode from '@/app/(user-layout)/auth/components/tab-auth-mode';
 import {
     InputOTP,
     InputOTPGroup,

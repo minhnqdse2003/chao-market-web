@@ -41,7 +41,7 @@ export function NavMain({
                     <Collapsible
                         key={item.title}
                         asChild
-                        defaultOpen={!path.startsWith('/home')}
+                        open={path.startsWith(item.url) ?? undefined}
                         className='group/collapsible [&>a[data-slot="sidebar-menu-button"]]:rounded-none [&>button[data-slot="collapsible-trigger"]]:rounded-none [&>a[data-active=true]]:border-l-6 [&>a[data-active=true]]:border-[var(--brand-color)]'
                     >
                         <SidebarMenuItem>
