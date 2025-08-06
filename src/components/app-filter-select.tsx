@@ -37,7 +37,7 @@ export default function AppFilterSelect({
                         <TabsTrigger
                             key={tab.value}
                             value={tab.value}
-                            className="border px-4 py-2 rounded-lg border-transparent data-[state=active]:border-[var(--brand-color)] data-[state=active]:text-[var(--brand-color)] dark:data-[state=active]:border-[var(--brand-color)] dark:data-[state=active]:text-[var(--brand-color)]"
+                            className="border px-4 py-2 rounded-lg cursor-pointer border-transparent data-[state=active]:border-[var(--brand-color)] data-[state=active]:text-[var(--brand-color)] dark:data-[state=active]:border-[var(--brand-color)] dark:data-[state=active]:text-[var(--brand-color)]"
                         >
                             <p className="text-xs font-light">{tab.name}</p>
                         </TabsTrigger>
@@ -66,11 +66,11 @@ export default function AppFilterSelect({
                             <RadioGroupItem
                                 value={option.value}
                                 id={option.value}
-                                className="dark:data-[state=checked]:border-[var(--brand-color)] [&_*_svg]:fill-[var(--brand-color)] [&_*_svg]:stroke-[var(--brand-color)]"
+                                className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer [&_*_svg]:fill-[var(--brand-color)] [&_*_svg]:stroke-[var(--brand-color)]"
                             />
                             <Label
                                 htmlFor={option.value}
-                                className="text-xs font-light"
+                                className="text-xs font-light cursor-pointer"
                             >
                                 {option.name}
                             </Label>

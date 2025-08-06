@@ -43,14 +43,14 @@ export function NavUser() {
                     <Button
                         asChild
                         variant="outline"
-                        className="flex-0.5 border-none rounded-3xl"
+                        className="flex-3/7 border-none rounded-3xl"
                     >
                         <Link href="/auth/login">Log in</Link>
                     </Button>
                     <Separator orientation="vertical" className="flex-0.5" />
                     <Button
                         asChild
-                        className="flex-1 bg-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] rounded-3xl text-black"
+                        className="flex-4/7 bg-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] rounded-3xl text-black"
                     >
                         <Link href="/auth/signup">Sign up</Link>
                     </Button>

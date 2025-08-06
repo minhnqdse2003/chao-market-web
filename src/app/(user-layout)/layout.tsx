@@ -20,9 +20,9 @@ export default function UserLayout({
     return (
         <div className="flex w-full max-w-svw ">
             <AppSidebar />
-            <div className="flex flex-col w-full gap-8 dark:bg-sidebar ">
-                <div className="flex flex-col w-full px-12 py-4 dark:bg-sidebar relative">
-                    <div className="min-h-svh">{children}</div>
+            <div className="flex flex-col w-full dark:bg-sidebar ">
+                <div className="flex flex-col w-full dark:bg-sidebar relative">
+                    <div className="min-h-svh px-12 py-8">{children}</div>
 
                     {/* Dialog Container*/}
                     <Dialog>

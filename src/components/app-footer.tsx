@@ -1,6 +1,13 @@
-import React from 'react';
+'use client';
+import { usePathname } from 'next/navigation';
 
 export default function AppFooter() {
+    const pathname = usePathname();
+
+    if (pathname.startsWith('/auth')) {
+        return null;
+    }
+
     return (
         <footer className="dark:bg-sidebar border-t px-4 py-10">
             <div className="max-w-[80svw] flex flex-col mx-auto space-y-8">

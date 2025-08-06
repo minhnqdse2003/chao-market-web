@@ -86,7 +86,7 @@ export default function CarouselLogin() {
                     </h2>
                 </div>
             </div>
-            <div className="text-carousel-overlay z-1 pointer-events-none absolute top-0 left-0 w-full h-full flex items-center justify-center" />
+            <div className="text-carousel-overlay z-1 rounded-3xl overflow-hidden  pointer-events-none absolute top-0 left-0 w-full h-full flex items-center justify-center" />
         </Carousel>
     );
 }

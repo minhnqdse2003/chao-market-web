@@ -8,11 +8,20 @@ export interface BlockContentsProps {
         title: string;
         href: string;
     };
+    id: string;
 }
 
-const BlockContents = ({ title, children, buttonComp }: BlockContentsProps) => {
+const BlockContents = ({
+    id,
+    title,
+    children,
+    buttonComp,
+}: BlockContentsProps) => {
     return (
-        <div className="w-full flex flex-col [&>p]:mb-4 [&>p:not(:first-child)]:font-light [&>p:not(:first-child)]:text-lg [&>p:last-child]:mb-0 [&>p:first-child]:mb-6 [&_*_ul]:list-disc [&_*_ul]:list-inside">
+        <div
+            className="w-full flex flex-col [&>p]:mb-4 [&>p:not(:first-child)]:font-light [&>p:not(:first-child)]:text-lg [&>p:last-child]:mb-0 [&>p:first-child]:mb-6 [&_*_ul]:list-disc [&_*_ul]:list-inside"
+            id={id}
+        >
             <p className="font-bold text-3xl">{title}</p>
             <span className="text-[var(--brand-grey-foreground)] [&>p]:mb-6 tracking-wide leading-relaxed">
                 {children}

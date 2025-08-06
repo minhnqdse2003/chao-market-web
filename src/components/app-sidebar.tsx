@@ -50,11 +50,11 @@ const data = {
             url: '/products',
             icon: BriefcaseBusiness,
             children: [
-                { title: 'Consulting Personal Finance', url: '/products' },
-                { title: 'Managing Investment Portfolio', url: '/products' },
-                { title: 'Building Trading System', url: '/products' },
-                { title: 'Analysing Trading Account', url: '/products' },
-                { title: 'Financial Investment Course', url: '/products' },
+                { title: 'Consulting Personal Finance', url: '/products#1' },
+                { title: 'Managing Investment Portfolio', url: '/products#2' },
+                { title: 'Building Trading System', url: '/products#3' },
+                { title: 'Analysing Trading Account', url: '/products#4' },
+                { title: 'Financial Investment Course', url: '/products#5' },
             ],
         },
         {

@@ -1,7 +1,7 @@
 import BlockContents, { BlockContentsProps } from './components/block-contents';
 import { GeneralBanner } from '@/components/app-banner';
 
-const contents: BlockContentsProps[] = [
+const contents: Partial<BlockContentsProps>[] = [
     {
         title: 'Personal Financial Advisory',
         buttonComp: {
@@ -196,8 +196,9 @@ const Page = () => {
             {contents.map((item, idx) => (
                 <BlockContents
                     key={idx}
-                    buttonComp={item.buttonComp}
-                    title={item.title}
+                    buttonComp={item.buttonComp!}
+                    title={item.title!}
+                    id={`${idx + 1}`}
                 >
                     {item.children}
                 </BlockContents>

@@ -1,4 +1,6 @@
 'use-client';
+
+import { redirect } from 'next/navigation';
 import React from 'react';
 import { NewsType } from '../utils/data-utils';
 import { Eye, Share, ThumbsDownIcon, ThumbsUpIcon } from 'lucide-react';
@@ -11,8 +13,9 @@ const NewsComp = ({ news }: { news: NewsType[] }) => {
         <>
             {news.map((item, idx) => (
                 <div
-                    className="flex flex-col w-full items-end"
+                    className="flex flex-col w-full items-end cursor-pointer"
                     key={item.title}
+                    onClick={() => redirect('/news-event/news-detail')}
                 >
                     <div className="flex w-full gap-[2rem]">
                         {/* Image Block */}

@@ -9,3 +9,4 @@ export { default as GeneralHelp } from './general-help.svg';
 export { default as BugHelp } from './bug-help.svg';
 export { default as Warning3D } from './warning-3d.svg';
 export { default as FilledThumpsUp } from './thumps-up-filled.svg';
+export { default as NewsEventMockBanner } from './news-events-mock-banner.svg';
