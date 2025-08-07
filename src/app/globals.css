@@ -128,17 +128,17 @@
     }
 
     ::-webkit-scrollbar {
-        width: 0.25rem;
-        height: 0.25rem;
+        width: 0.4rem;
+        height: 0.4rem;
     }
 
     ::-webkit-scrollbar-track-piece {
-        background: var(--brand-grey-foreground);
+        background: var(--brand-grey);
         border-radius: var(--radius-xl);
     }
 
     ::-webkit-scrollbar-thumb {
-        background: var(--brand-color);
+        background: var(--brand-grey-foreground);
         border-radius: var(--radius-2xl);
     }
 
