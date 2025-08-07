@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from 'react';
 import { Info } from 'lucide-react';
 import Image from 'next/image';
 import { BrandLogoFtHat } from '@image/index';
-import { useSidebar } from '@/components/ui/sidebar';
 
 export default function FunnelPopover() {
     const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +12,6 @@ export default function FunnelPopover() {
     const autoCloseTimeout = useRef<NodeJS.Timeout | null>(null);
     const countdownInterval = useRef<NodeJS.Timeout | null>(null);
     const isAutoPopup = useRef(false); // track if current open is auto popup
-    const { open } = useSidebar();
 
     useEffect(() => {
         const hasSeen = sessionStorage.getItem('funnelPopoverSeen');
@@ -88,17 +86,9 @@ export default function FunnelPopover() {
             <button
                 ref={btnRef}
                 onClick={togglePopover}
-                className="px-4 py-2 font-semibold text-sm rounded-t-3xl w-full flex gap-2 justify-center items-center transition-all! transform translate-y-2/3 cursor-pointer [&>p]:opacity-0 [&:hover>p]:opacity-100 [&>svg]:opacity-0 [&:hover>svg]:opacity-100 hover:translate-0 hover:text-[var(--brand-color)] bg-[var(--brand-grey)]"
+                className="px-4 fixed left-0 bottom-0 py-2 pb-0 w-[var(--sidebar-width)] font-semibold text-sm rounded-t-3xl cursor-pointer hover:pb-2 transition-[padding]! ease-out duration-300 flex gap-2 justify-center items-center hover:text-[var(--brand-color)] bg-[var(--brand-grey)]"
             >
-                <p
-                    className={`transition-all! duration-300 ease-in-out ${
-                        !open
-                            ? 'w-0 opacity-0 fixed invisible'
-                            : 'w-fit' + ' opacity-100'
-                    }`}
-                >
-                    Disclaimer
-                </p>
+                <p>Disclaimer</p>
                 <Info className="size-5" />
             </button>
 
