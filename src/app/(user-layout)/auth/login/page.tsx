@@ -153,7 +153,7 @@ export default function Login() {
             <div className="h-full w-full flex items-center justify-center">
                 <div className="w-full space-y-8 ">
                     <h2 className="mt-6 text-2xl font-bold text-white">
-                        Hello there, welcome back
+                        Hello there! Welcome back.
                     </h2>
 
                     <div className="space-y-4">

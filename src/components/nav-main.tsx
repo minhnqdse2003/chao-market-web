@@ -63,10 +63,13 @@ function CollapsibleItem({
     };
     path: string;
 }) {
+    const [hash, setHash] = useState('');
     // Determine if the item should be open based on current path
+    const fullPath = path + hash;
+
     const shouldExpand =
-        item.children?.some(child => path === child.url) ||
-        path.startsWith(item.url);
+        item.children?.some(child => fullPath === child.url) ||
+        fullPath.startsWith(item.url);
     const [open, setOpen] = useState(shouldExpand);
 
     // Sync open state when path changes
@@ -75,6 +78,18 @@ function CollapsibleItem({
             setOpen(true);
         }
     }, [shouldExpand]);
+
+    useEffect(() => {
+        function onHashChange() {
+            setHash(window.location.hash);
+        }
+
+        // Capture hash on mount
+        setHash(window.location.hash);
+
+        window.addEventListener('hashchange', onHashChange);
+        return () => window.removeEventListener('hashchange', onHashChange);
+    }, []);
 
     const handleClick = (e: React.MouseEvent) => {
         if (item.children && path.startsWith(item.url)) {
@@ -127,6 +142,10 @@ function CollapsibleItem({
                                         <SidebarMenuSubButton
                                             asChild
                                             className="rounded-none"
+                                            isActive={
+                                                path === subItem.url ||
+                                                fullPath === subItem.url
+                                            }
                                         >
                                             <a href={subItem.url}>
                                                 <span className="text-xs">

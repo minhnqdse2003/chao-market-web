@@ -393,7 +393,7 @@ export default function Page() {
                             <div className="flex justify-between">
                                 <p className="text-gray-400">Highest</p>
                                 <p className="font-medium">
-                                    156,176.88 USD (Apr 16)
+                                    156,176.88 USD (Apr 16, 2025)
                                 </p>
                             </div>
                             <div className="flex justify-between">

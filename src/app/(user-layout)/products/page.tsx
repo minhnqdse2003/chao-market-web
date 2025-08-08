@@ -3,7 +3,7 @@ import { GeneralBanner } from '@/components/app-banner';
 
 const contents: Partial<BlockContentsProps>[] = [
     {
-        title: 'Personal Financial Advisory',
+        title: 'Consulting Personal Finance',
         buttonComp: {
             title: 'Get Started',
             href: '#',
@@ -38,7 +38,7 @@ const contents: Partial<BlockContentsProps>[] = [
         ),
     },
     {
-        title: 'Portfolio Management',
+        title: 'Managing Investment Portfolio',
         buttonComp: {
             title: 'Get Started',
             href: '#',
@@ -72,7 +72,7 @@ const contents: Partial<BlockContentsProps>[] = [
         ),
     },
     {
-        title: 'Trading System Development Service',
+        title: 'Building Trading System',
         buttonComp: {
             title: 'Get Started',
             href: '#',
@@ -110,7 +110,7 @@ const contents: Partial<BlockContentsProps>[] = [
         ),
     },
     {
-        title: 'Real Trading Account Analysis',
+        title: 'Analysing Trading Account',
         buttonComp: {
             title: 'Get Started',
             href: '#',

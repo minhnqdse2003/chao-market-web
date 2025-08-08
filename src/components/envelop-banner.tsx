@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { Info } from 'lucide-react';
-import Image from 'next/image';
-import { BrandLogoFtHat } from '@image/index';
 
 export default function FunnelPopover() {
     const [isOpen, setIsOpen] = useState(false);
@@ -86,14 +84,14 @@ export default function FunnelPopover() {
             <button
                 ref={btnRef}
                 onClick={togglePopover}
-                className="px-4 fixed left-0 bottom-0 py-2 pb-0 w-[var(--sidebar-width)] font-semibold text-sm rounded-t-3xl cursor-pointer hover:pb-2 transition-[padding]! ease-out duration-300 flex gap-2 justify-center items-center hover:text-[var(--brand-color)] bg-[var(--brand-grey)]"
+                className="px-4 fixed left-0 bottom-0 py-1 pb-0 w-[var(--sidebar-width)] font-semibold text-xs rounded-t-3xl cursor-pointer hover:pb-2 transition-[padding]! ease-out duration-300 flex gap-2 justify-center items-end text-center hover:text-[var(--brand-color)] bg-[var(--brand-grey)]"
             >
                 <p>Disclaimer</p>
-                <Info className="size-5" />
+                <Info className="size-3" />
             </button>
 
             <div
-                className={`fixed inset-0 z-10 bg-black/50 bg-opacity-50 transition-opacity duration-400 ease-in-out ${
+                className={`fixed inset-0 z-22 bg-black/50 bg-opacity-50 transition-opacity duration-400 ease-in-out ${
                     isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
                 }`}
                 onClick={togglePopover}
@@ -102,7 +100,7 @@ export default function FunnelPopover() {
 
             {/* Popover */}
             <div
-                className={`fixed bg-black z-20 shadow-lg text-sm text-white rounded-lg p-6 transition-all! duration-400 ease-in-out
+                className={`fixed bg-black z-23 border border-[var(--brand-color)] shadow-lg text-sm text-white rounded-lg p-6 transition-all! duration-400 ease-in-out
                 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
                 `}
                 style={{
@@ -114,51 +112,23 @@ export default function FunnelPopover() {
                         : 'translate(-50%, 0) scaleX(0.5) scaleY(0.3)',
                 }}
             >
-                <div
-                    className={
-                        'w-full flex flex-col mb-6 justify-center items-center'
-                    }
-                >
-                    <Image
-                        alt={'logo-brand-ft-hat'}
-                        src={BrandLogoFtHat}
-                        width={1920}
-                        height={1080}
-                        className="size-22"
-                    />
-                    <p className="text-[var(--brand-color)] text-xl font-semibold">
-                        Chào Market
-                    </p>
+                <div className={'w-full mb-6'}>
+                    <p>Disclaimer</p>
                 </div>
-                <p>
-                    The information provided here is for general informational
-                    purposes only. While we strive to keep the content accurate
-                    and up to date, we make no guarantees of any kind, express
-                    or implied, about the completeness, accuracy, reliability,
-                    suitability, or availability with respect to the
-                    information, products, services, or related graphics
-                    contained in this popover for any purpose. Any reliance you
-                    place on such information is therefore strictly at your own
-                    risk.
-                    <br />
-                    <br />
-                    In no event will we be liable for any loss or damage
-                    including without limitation, indirect or consequential loss
-                    or damage, or any loss or damage whatsoever arising from
-                    loss of data or profits arising out of, or in connection
-                    with, the use of this popover or the information contained
-                    herein.
-                    <br />
-                    <br />
-                    Please consult with professionals or official sources for
-                    specific advice related to your situation. If you want a
-                    shorter version or a more formal/legal text, just let me
-                    know!
+                <p
+                    className={`text-[var(--brand-color)] text-center mb-4 text-lg leading-relaxed`}
+                >
+                    &#34;The information provided by Chào Market does not
+                    constitute and shall not be considered as investment advice,
+                    financial advice, a recommendation, or a solicitation to
+                    buy, sell, or hold any financial asset. All investment
+                    decisions carry financial risks, and you are solely
+                    responsible for your own decisions&#34;
                 </p>
 
                 {/* Auto-close countdown message */}
                 {isOpen && isAutoPopup.current && countdown > 0 && (
-                    <p className="mt-4 text-sm text-[var(--brand-color)] italic text-center">
+                    <p className="mt-4 text-sm text-[var(--brand-grey-foreground)] italic text-center">
                         This will automatically close in {countdown} second
                         {countdown > 1 ? 's' : ''}.
                     </p>

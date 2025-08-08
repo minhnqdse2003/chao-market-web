@@ -42,15 +42,15 @@ export function NavUser() {
                 <SidebarMenuItem className="flex gap-4">
                     <Button
                         asChild
-                        variant="outline"
-                        className="flex-3/7 border-none rounded-3xl"
+                        className="flex-1/2 bg-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] rounded-lg text-black"
                     >
                         <Link href="/auth/login">Log in</Link>
                     </Button>
                     <Separator orientation="vertical" className="flex-0.5" />
                     <Button
                         asChild
-                        className="flex-4/7 bg-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] rounded-3xl text-black"
+                        variant="outline"
+                        className="flex-1/2 border-none rounded-lg"
                     >
                         <Link href="/auth/signup">Sign up</Link>
                     </Button>

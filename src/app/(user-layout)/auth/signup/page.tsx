@@ -109,7 +109,7 @@ export default function SignUp() {
     };
 
     return (
-        <div className="w-full space-y-8 [&_*_h2]:text-3xl [&_*_h2]:font-extrabold [&_*_h2]:text-white">
+        <div className="w-5/6 space-y-8 [&_*_h2]:text-3xl [&_*_h2]:font-extrabold [&_*_h2]:text-white">
             <TabAuthMode />
             <div>
                 <h2 className="mt-6 ">Create your account</h2>

@@ -19,7 +19,7 @@ const BlockContents = ({
 }: BlockContentsProps) => {
     return (
         <div
-            className="w-full flex flex-col [&>p]:mb-4 [&>p:not(:first-child)]:font-light [&>p:not(:first-child)]:text-lg [&>p:last-child]:mb-0 [&>p:first-child]:mb-6 [&_*_ul]:list-disc [&_*_ul]:list-inside"
+            className="w-full flex flex-col [&>p]:mb-4 min-h-[50svh] pt-5 [&>p:not(:first-child)]:font-light [&>p:not(:first-child)]:text-lg [&>p:last-child]:mb-0 [&>p:first-child]:mb-6 [&_*_ul]:list-disc [&_*_ul]:list-inside"
             id={id}
         >
             <p className="font-bold text-3xl">{title}</p>
