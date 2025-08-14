@@ -55,7 +55,7 @@ const ClientAccountFilterDialog = ({
             <AlertDialogTitle className="uppercase">Filter By</AlertDialogTitle>
             <Button
                 variant="ghost"
-                className="text-[var(--brand-color)]"
+                className="text-[var(--brand-color)] hover:bg-[var(--brand-color)] hover:text-black dark:hover:text-black dark:hover:bg-[var(--brand-color)]"
                 onClick={handleClearAll}
             >
                 Clear all
@@ -67,13 +67,13 @@ const ClientAccountFilterDialog = ({
     const mainContent = (
         <div className="flex flex-col gap-4">
             <div className="relative flex items-center border-b">
+                <SearchIcon className="size-4 text-[var(--brand-grey)]" />
                 <Input
                     type="text"
                     placeholder="Search"
                     className="border-0 focus-visible:ring-0 bg-transparent! shadow-none"
                     onChange={handleSearchChange}
                 />
-                <SearchIcon className="size-4" />
             </div>
             <AppFilterSelect
                 options={MARKET_OPTIONS}
@@ -133,7 +133,7 @@ const ClientAccountFilterDialog = ({
     return (
         <AppDialog
             trigger={
-                <Button variant="ghost">
+                <Button variant="ghost" className="font-normal">
                     <ListFilter /> Filter:
                 </Button>
             }

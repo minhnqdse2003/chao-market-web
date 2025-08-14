@@ -208,9 +208,8 @@ export default function Page() {
                     onApply={(value: unknown) => console.log(value)}
                 />
                 <AppDropdown
-                    label="Sort by"
                     options={SORT_BY_OPTIONS}
-                    defaultValue="average"
+                    defaultValue="featured"
                     buttonClassName="max-h-[20px] font-light text-xs"
                     contentClassName="w-44"
                     onValueChange={value => console.log(`Selected: ${value}`)}

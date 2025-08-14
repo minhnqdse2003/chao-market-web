@@ -68,8 +68,52 @@ export const ALGO_TRADING_OPTIONS: AppFilterOptionsType[] = [
     },
 ];
 
+const CLIENT_ACCOUNT_GROUP = {
+    DEPOSIT: 'Deposit',
+    START_DATE: 'Start date',
+    MARKET: 'Market',
+    DEFAULT: 'Default',
+};
+
 export const SORT_BY_OPTIONS: DropdownOption[] = [
-    { value: 'high-to-low', label: 'High to low' },
-    { value: 'low-to-high', label: 'Low to high' },
-    { value: 'average', label: 'Average' },
+    {
+        value: 'stock',
+        label: 'Stock',
+        group: CLIENT_ACCOUNT_GROUP.MARKET,
+    },
+    {
+        value: 'crypto',
+        label: 'Crypto',
+        group: CLIENT_ACCOUNT_GROUP.MARKET,
+    },
+    {
+        value: 'forex',
+        label: 'Forex',
+        group: CLIENT_ACCOUNT_GROUP.MARKET,
+    },
+    {
+        value: 'desc',
+        label: 'Newest first',
+        group: CLIENT_ACCOUNT_GROUP.START_DATE,
+    },
+    {
+        value: 'asc',
+        label: 'Oldest first',
+        group: CLIENT_ACCOUNT_GROUP.START_DATE,
+    },
+    {
+        value: 'high-to-low',
+        label: 'High to low',
+        group: CLIENT_ACCOUNT_GROUP.DEPOSIT,
+    },
+    {
+        value: 'low-to-high',
+        label: 'Low to high',
+        group: CLIENT_ACCOUNT_GROUP.DEPOSIT,
+    },
+    {
+        value: 'featured',
+        label: 'Featured',
+        group: CLIENT_ACCOUNT_GROUP.DEFAULT,
+    },
 ];

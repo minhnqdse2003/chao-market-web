@@ -3,11 +3,11 @@ import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuLabel,
     DropdownMenuRadioGroup,
     DropdownMenuRadioItem,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { ChevronsUpDown, LucideIcon } from 'lucide-react';
 import { useState } from 'react';
@@ -17,10 +17,10 @@ export interface DropdownOption {
     label: string;
     icon?: LucideIcon;
     iconColor?: string;
+    group: string;
 }
 
 interface AppDropdownProps {
-    label?: string;
     options: DropdownOption[];
     defaultValue?: string;
     buttonClassName?: string;
@@ -28,8 +28,13 @@ interface AppDropdownProps {
     onValueChange?: (value: string) => void;
 }
 
+// Helper type for grouping
+interface GroupedOptions {
+    groupName: string;
+    items: DropdownOption[];
+}
+
 const AppDropdown = ({
-    label = 'Select Option',
     options,
     defaultValue = options[0]?.value || '',
     buttonClassName = 'max-h-[20px] font-light text-xs',
@@ -49,35 +54,54 @@ const AppDropdown = ({
         options.find(option => option.value === selectedValue)?.label ??
         selectedValue;
 
+    // Grouping logic
+    const groupedOptions = options.reduce<GroupedOptions[]>((acc, option) => {
+        const existingGroup = acc.find(g => g.groupName === option.group);
+        if (existingGroup) {
+            existingGroup.items.push(option);
+        } else {
+            acc.push({ groupName: option.group, items: [option] });
+        }
+        return acc;
+    }, []);
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className={buttonClassName}>
-                    Sort by:{' '}
-                    <strong className="font-bold">{selectedLabel}</strong>
+                    Sort by: <p>{selectedLabel}</p>
                     <ChevronsUpDown />
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className={contentClassName}>
-                <DropdownMenuLabel>{label}</DropdownMenuLabel>
-                <DropdownMenuSeparator />
                 <DropdownMenuRadioGroup
                     value={selectedValue}
                     onValueChange={handleValueChange}
                 >
-                    {options.map(option => (
-                        <DropdownMenuRadioItem
-                            key={option.value}
-                            value={option.value}
-                        >
-                            {option.icon && (
-                                <option.icon
-                                    className={`mr-2 h-4 w-4 ${option.iconColor || ''}`}
-                                />
-                            )}
+                    {groupedOptions.map(group => (
+                        <div key={group.groupName}>
+                            <DropdownMenuSeparator />
 
-                            {option.label}
-                        </DropdownMenuRadioItem>
+                            {/* Group Label */}
+                            <DropdownMenuLabel className="text-xs font-semibold text-muted-foreground">
+                                {group.groupName}
+                            </DropdownMenuLabel>
+
+                            {/* Render group items */}
+                            {group.items.map(option => (
+                                <DropdownMenuRadioItem
+                                    key={option.value}
+                                    value={option.value}
+                                >
+                                    {option.icon && (
+                                        <option.icon
+                                            className={`mr-2 h-4 w-4 ${option.iconColor || ''}`}
+                                        />
+                                    )}
+                                    {option.label}
+                                </DropdownMenuRadioItem>
+                            ))}
+                        </div>
                     ))}
                 </DropdownMenuRadioGroup>
             </DropdownMenuContent>

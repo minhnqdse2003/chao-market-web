@@ -63,8 +63,8 @@ const data = {
             url: '/news-event',
             icon: Megaphone,
             children: [
-                { title: 'News', url: '/news-event' },
-                { title: 'Events', url: '/news-event' },
+                { title: 'News', url: '/news-event#1' },
+                { title: 'Events', url: '/news-event#2' },
             ],
         },
         {

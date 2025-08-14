@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Info } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function FunnelPopover() {
     const [isOpen, setIsOpen] = useState(false);
@@ -84,7 +85,7 @@ export default function FunnelPopover() {
             <button
                 ref={btnRef}
                 onClick={togglePopover}
-                className="px-4 fixed left-0 bottom-0 py-1 pb-0 w-[var(--sidebar-width)] font-semibold text-xs rounded-t-3xl cursor-pointer hover:pb-2 transition-[padding]! ease-out duration-300 flex gap-2 justify-center items-end text-center hover:text-[var(--brand-color)] bg-[var(--brand-grey)]"
+                className="px-4 fixed left-0 bottom-0 py-1 pb-1 w-[var(--sidebar-width)] font-semibold text-xs rounded-t-3xl cursor-pointer hover:pb-2 transition-[padding]! ease-out duration-300 flex gap-2 justify-center items-end text-center hover:text-[var(--brand-color)] bg-[var(--brand-grey)]"
             >
                 <p>Disclaimer</p>
                 <Info className="size-3" />
@@ -100,7 +101,7 @@ export default function FunnelPopover() {
 
             {/* Popover */}
             <div
-                className={`fixed bg-black z-23 border border-[var(--brand-color)] shadow-lg text-sm text-white rounded-lg p-6 transition-all! duration-400 ease-in-out
+                className={`fixed bg-black z-23 border flex flex-col items-center border-[var(--brand-color)] shadow-lg text-sm text-white rounded-lg p-6 transition-all! duration-400 ease-in-out
                 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
                 `}
                 style={{
@@ -125,6 +126,13 @@ export default function FunnelPopover() {
                     decisions carry financial risks, and you are solely
                     responsible for your own decisions&#34;
                 </p>
+
+                <Button
+                    className="font-bold bg-[var(--brand-color)] text-black hover:bg-[var(--brand-color-foreground)] mx-auto my-0"
+                    onClick={togglePopover}
+                >
+                    I Agree
+                </Button>
 
                 {/* Auto-close countdown message */}
                 {isOpen && isAutoPopup.current && countdown > 0 && (

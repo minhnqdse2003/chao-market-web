@@ -127,9 +127,8 @@ const NewsEventFilterDialogComp = ({
                 triggerClassName="inline-flex"
             />
             <AppDropdown
-                label="Sort by"
                 options={SORT_BY_OPTIONS}
-                defaultValue="average"
+                defaultValue="featured"
                 buttonClassName="max-h-[20px] font-light text-xs"
                 contentClassName="w-44"
                 onValueChange={value => handleFilterChange('sortBy', value)}

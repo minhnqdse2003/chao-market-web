@@ -49,7 +49,10 @@ const AppDateRangePicker = ({
                     open={open.start}
                     onOpenChange={value => handleOpenPopover('start', value)}
                 >
-                    <PopoverTrigger asChild>
+                    <PopoverTrigger
+                        className="text-[var(--brand-grey)] hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out"
+                        asChild
+                    >
                         <Button
                             variant="outline"
                             id="start-date"
@@ -88,7 +91,10 @@ const AppDateRangePicker = ({
                     open={open.end}
                     onOpenChange={value => handleOpenPopover('end', value)}
                 >
-                    <PopoverTrigger asChild>
+                    <PopoverTrigger
+                        className="text-[var(--brand-grey)] hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out"
+                        asChild
+                    >
                         <Button
                             variant="outline"
                             id="end-date"
