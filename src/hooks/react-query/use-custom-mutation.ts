@@ -9,7 +9,7 @@ interface UseAppMutationOptions<
     mutationFn: (variables: TVariables) => Promise<TData>;
     mutationKey?: unknown[];
     onSuccess?: (data: TData) => void | Promise<void>;
-    onError?: (error: Error) => void;
+    onError?: (error: Error) => void | Promise<void>;
     onSuccessMessage?: string;
     onErrorMessage?: string;
     options?: Omit<
@@ -21,8 +21,15 @@ interface UseAppMutationOptions<
 export function useAppMutation<TData, TVariables = unknown, TContext = unknown>(
     props: UseAppMutationOptions<TData, TVariables, TContext>
 ) {
-    const { mutationFn, mutationKey, options, onSuccess, onSuccessMessage } =
-        props;
+    const {
+        mutationFn,
+        mutationKey,
+        options,
+        onSuccess,
+        onSuccessMessage,
+        onError,
+        onErrorMessage,
+    } = props;
 
     return useMutation<TData, Error, TVariables, TContext>({
         mutationFn,
@@ -31,6 +38,12 @@ export function useAppMutation<TData, TVariables = unknown, TContext = unknown>(
             await onSuccess?.(data);
             if (onSuccessMessage) {
                 toast.success(onSuccessMessage);
+            }
+        },
+        onError: async error => {
+            await onError?.(error);
+            if (onErrorMessage) {
+                toast.error(onErrorMessage);
             }
         },
         ...options,

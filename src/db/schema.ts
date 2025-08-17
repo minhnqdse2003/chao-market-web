@@ -129,6 +129,18 @@ export const transactions = pgTable('transaction', {
     updatedAt: timestamp('updatedAt', { mode: 'date' }).defaultNow().notNull(),
 });
 
+export const transactionItems = pgTable('transaction_item', {
+    id: uuid('id').defaultRandom().primaryKey().notNull(),
+    transactionId: uuid('transactionId')
+        .notNull()
+        .references(() => transactions.id, { onDelete: 'cascade' }),
+    productId: uuid('productId')
+        .notNull()
+        .references(() => products.id, { onDelete: 'cascade' }),
+    quantity: integer('quantity').notNull(),
+    price: integer('price').notNull(), // Store price at time of transaction
+});
+
 export const posts = pgTable('post', {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
     title: text('title').notNull(),
@@ -184,10 +196,34 @@ export const cartItemRelations = relations(cartItems, ({ one }) => ({
     }),
 }));
 
-export const transactionRelations = relations(transactions, ({ one }) => ({
-    user: one(users, { fields: [transactions.userId], references: [users.id] }),
-    cart: one(carts, { fields: [transactions.cartId], references: [carts.id] }),
-}));
+export const transactionRelations = relations(
+    transactions,
+    ({ one, many }) => ({
+        user: one(users, {
+            fields: [transactions.userId],
+            references: [users.id],
+        }),
+        cart: one(carts, {
+            fields: [transactions.cartId],
+            references: [carts.id],
+        }),
+        items: many(transactionItems),
+    })
+);
+
+export const transactionItemRelations = relations(
+    transactionItems,
+    ({ one }) => ({
+        transaction: one(transactions, {
+            fields: [transactionItems.transactionId],
+            references: [transactions.id],
+        }),
+        product: one(products, {
+            fields: [transactionItems.productId],
+            references: [products.id],
+        }),
+    })
+);
 
 export const postsRelations = relations(posts, ({ one }) => ({
     user: one(users, { fields: [posts.userId], references: [users.id] }),
@@ -203,6 +239,7 @@ export type Product = typeof products.$inferSelect;
 export type Cart = typeof carts.$inferSelect;
 export type CartItem = typeof cartItems.$inferSelect;
 export type Transaction = typeof transactions.$inferSelect;
+export type TransactionItem = typeof transactionItems.$inferSelect;
 export type Post = typeof posts.$inferSelect;
 
 export type NewUser = typeof users.$inferInsert;
@@ -214,4 +251,5 @@ export type NewProduct = typeof products.$inferInsert;
 export type NewCart = typeof carts.$inferInsert;
 export type NewCartItem = typeof cartItems.$inferInsert;
 export type NewTransaction = typeof transactions.$inferInsert;
+export type NewTransactionItem = typeof transactionItems.$inferInsert;
 export type NewPost = typeof posts.$inferInsert;

@@ -10,3 +10,18 @@ export { default as BugHelp } from './bug-help.svg';
 export { default as Warning3D } from './warning-3d.svg';
 export { default as FilledThumpsUp } from './thumps-up-filled.svg';
 export { default as NewsEventMockBanner } from './news-events-mock-banner.svg';
+export { default as EmptyCart } from './empty-cart.png';
+
+import { default as ConsultingService } from './product-service-2.png';
+import { default as MngInvestProfile } from './product-service-1.png';
+import { default as TradingSystem } from './trading-system.png';
+import { default as FinInvestment } from './fin-invest-course.png';
+import { default as AnalysingTrade } from './analysing-trading.png';
+
+export const ProductServiceImg = {
+    'product-service-2': ConsultingService,
+    'product-service-1': MngInvestProfile,
+    'product-service-3': TradingSystem,
+    'product-service-5': AnalysingTrade,
+    'product-service-4': FinInvestment,
+};

@@ -26,6 +26,7 @@ import { SearchForm } from './search-form';
 import NavSeparator from './nav-separator';
 import NavInformation from './nav-information';
 import FunnelPopover from '@/components/envelop-banner';
+import SimpleCartButton from '@/components/nav-user-cart';
 
 const data = {
     headers: [
@@ -149,6 +150,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarHeader>
                         <NavHead headers={data.headers} />
                         <SearchForm />
+                        <SimpleCartButton />
                         <NavUser />
                     </SidebarHeader>
                     <NavSeparator />
