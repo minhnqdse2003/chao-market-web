@@ -7,7 +7,6 @@ import {
     DropdownMenuRadioItem,
     DropdownMenuTrigger,
     DropdownMenuLabel,
-    DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { ChevronsUpDown, LucideIcon } from 'lucide-react';
 import { useState } from 'react';
@@ -80,10 +79,8 @@ const AppDropdown = ({
                 >
                     {groupedOptions.map(group => (
                         <div key={group.groupName}>
-                            <DropdownMenuSeparator />
-
                             {/* Group Label */}
-                            <DropdownMenuLabel className="text-xs font-semibold text-muted-foreground">
+                            <DropdownMenuLabel className="text-xs font-semibold">
                                 {group.groupName}
                             </DropdownMenuLabel>
 
@@ -92,6 +89,7 @@ const AppDropdown = ({
                                 <DropdownMenuRadioItem
                                     key={option.value}
                                     value={option.value}
+                                    className="text-muted-foreground"
                                 >
                                     {option.icon && (
                                         <option.icon

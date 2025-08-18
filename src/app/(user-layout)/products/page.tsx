@@ -6,7 +6,7 @@ const contents: Partial<BlockContentsProps>[] = [
         title: 'Consulting Personal Finance',
         buttonComp: {
             title: 'Get Started',
-            href: '#',
+            id: '18ff56d7-7c1c-4880-a243-12290893cada',
         },
         children: (
             <>
@@ -41,7 +41,7 @@ const contents: Partial<BlockContentsProps>[] = [
         title: 'Managing Investment Portfolio',
         buttonComp: {
             title: 'Get Started',
-            href: '#',
+            id: '35f103a7-8ca5-4072-89a3-02548c28d5ae',
         },
         children: (
             <>
@@ -75,7 +75,7 @@ const contents: Partial<BlockContentsProps>[] = [
         title: 'Building Trading System',
         buttonComp: {
             title: 'Get Started',
-            href: '#',
+            id: '850f6aa6-f2b5-4b89-a303-98660d887ec7',
         },
         children: (
             <>
@@ -113,7 +113,7 @@ const contents: Partial<BlockContentsProps>[] = [
         title: 'Analysing Trading Account',
         buttonComp: {
             title: 'Get Started',
-            href: '#',
+            id: '91aa5027-325b-4cef-9503-8a03e0790074',
         },
         children: (
             <>
@@ -150,7 +150,10 @@ const contents: Partial<BlockContentsProps>[] = [
     },
     {
         title: 'Financial Investment Course',
-        buttonComp: { title: 'Get Started', href: '#' },
+        buttonComp: {
+            title: 'Get Started',
+            id: 'c3d2e0cc-484d-475c-8051-03c70b4e40d6',
+        },
         children: (
             <>
                 <p>

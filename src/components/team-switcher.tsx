@@ -4,6 +4,7 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    useSidebar,
 } from '@/components/ui/sidebar';
 import Image from 'next/image';
 import { LogoBrand } from '@image/index';
@@ -17,26 +18,33 @@ export function NavHead({
         plan: string;
     }[];
 }>) {
+    const { open } = useSidebar();
     const teams = data[0];
     return (
         <SidebarGroup className="pl-0">
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg">
-                        <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                        <div
+                            className={
+                                'bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square' +
+                                ' items-center justify-center rounded-lg ' +
+                                `${open ? 'size-12' : 'size-8'}`
+                            }
+                        >
                             <Image
                                 src={LogoBrand}
                                 alt="Logo Brand"
                                 width={1920}
                                 height={1080}
-                                className="size-8"
+                                className={open ? 'size-12' : 'size-8'}
                             />
                         </div>
-                        <div className="grid flex-1 text-left text-sm leading-tight">
+                        <div className="grid flex-1 text-left text-base leading-tight">
                             <span className="truncate font-medium">
                                 {teams.name}
                             </span>
-                            <span className="truncate text-xs">
+                            <span className="truncate text-sm">
                                 {teams.plan}
                             </span>
                         </div>

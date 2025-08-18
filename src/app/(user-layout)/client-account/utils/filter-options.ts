@@ -3,19 +3,19 @@ import { AppFilterOptionsType } from '@/components/app-filter-select';
 
 export const MARKET_OPTIONS: AppFilterOptionsType[] = [
     {
-        name: 'STOCK',
+        name: 'Stock',
         value: 'stock',
     },
     {
-        name: 'FOREX',
-        value: 'forex',
-    },
-    {
-        name: 'CRYPTO',
+        name: 'Crypto',
         value: 'crypto',
     },
     {
-        name: 'COMMODITY',
+        name: 'Forex',
+        value: 'forex',
+    },
+    {
+        name: 'Commodity',
         value: 'commodity',
     },
 ];

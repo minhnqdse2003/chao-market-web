@@ -52,14 +52,7 @@ const ClientAccountFilterDialog = ({
     // Dialog Header
     const headerContent = (
         <div className="w-full flex justify-between items-center">
-            <AlertDialogTitle className="uppercase">Filter By</AlertDialogTitle>
-            <Button
-                variant="ghost"
-                className="text-[var(--brand-color)] hover:bg-[var(--brand-color)] hover:text-black dark:hover:text-black dark:hover:bg-[var(--brand-color)]"
-                onClick={handleClearAll}
-            >
-                Clear all
-            </Button>
+            <AlertDialogTitle>Filter By</AlertDialogTitle>
         </div>
     );
 
@@ -116,17 +109,26 @@ const ClientAccountFilterDialog = ({
 
     // Dialog Footer
     const footerContent = (
-        <div className="w-full flex justify-end items-center gap-4">
-            <AlertDialogCancel className="cursor-pointer dark:hover:text-black dark:hover:bg-[var(--brand-color)] px-4 py-2 rounded-lg">
-                Close
-            </AlertDialogCancel>
+        <div className="w-full flex justify-between items-center gap-4">
             <Button
-                variant="default"
-                className="dark:hover:bg-[var(--brand-color)] dark:hover:text-black text-[var(--brand-color)] dark:bg-transparent"
-                onClick={handleApply}
+                variant="ghost"
+                className="text-white border border-white dark:hover:text-black dark:hover:bg-[var(--brand-color)] hover:border-transparent transition-colors! duration-300 ease-in-out"
+                onClick={handleClearAll}
             >
-                Apply
+                Clear all
             </Button>
+            <div className="flex gap-2">
+                <AlertDialogCancel className="text-white border border-white cursor-pointer px-3 py-1 rounded-md hover:text-black hover:bg-[var(--brand-color)] hover:border-transparent transition-colors! duration-300 ease-in-out">
+                    Close
+                </AlertDialogCancel>
+                <Button
+                    variant="default"
+                    className="dark:hover:bg-[var(--brand-color)] dark:hover:text-black text-[var(--brand-color)] dark:bg-transparent transition-colors! duration-300 ease-in-out"
+                    onClick={handleApply}
+                >
+                    Apply
+                </Button>
+            </div>
         </div>
     );
 

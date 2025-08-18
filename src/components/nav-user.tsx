@@ -42,7 +42,7 @@ export function NavUser() {
                 <SidebarMenuItem className="flex gap-4">
                     <Button
                         asChild
-                        className="flex-1/2 bg-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] rounded-lg text-black"
+                        className="flex-1/2 bg-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] rounded-lg text-black font-bold"
                     >
                         <Link href="/auth/login">Log in</Link>
                     </Button>
@@ -73,14 +73,14 @@ export function NavUser() {
                         <DropdownMenuTrigger asChild>
                             <SidebarMenuButton
                                 size="lg"
-                                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                                className={`data-[state=open]:text-sidebar-accent-foreground dark:text-black ${open ? 'dark:bg-[var(--brand-color)]' : ''}`}
                             >
                                 <Avatar className="h-8 w-8 rounded-lg">
                                     <AvatarImage
                                         src={user.avatar}
                                         alt={user.name}
                                     />
-                                    <AvatarFallback className="rounded-lg bg-black">
+                                    <AvatarFallback className="rounded-lg bg-black text-[var(--brand-color)]">
                                         {user.name[0]}
                                     </AvatarFallback>
                                 </Avatar>

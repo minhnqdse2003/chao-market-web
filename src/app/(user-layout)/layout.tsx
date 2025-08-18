@@ -18,7 +18,7 @@ export default function UserLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="flex w-full max-w-svw ">
+        <div className="flex w-full max-w-svw">
             <AppSidebar />
             <div className="flex flex-col w-full dark:bg-sidebar ">
                 <div className="flex flex-col w-full dark:bg-sidebar relative">
