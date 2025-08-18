@@ -8,17 +8,12 @@ import { withAuth } from '@/lib/api-route-middleware';
 import { BaseResponse } from '@/types/base-response';
 import { ApiError } from 'next/dist/server/api-utils';
 import { and, eq, inArray } from 'drizzle-orm';
+import { baseUserInfoSchema } from '@/schema/user-infor-schema';
 
-export const checkoutSchema = z.object({
-    firstName: z.string().min(1),
-    lastName: z.string().min(1),
-    dateOfBirth: z.string().min(1),
-    email: z.email(),
-    phoneNumber: z.string().min(1),
-    socialNetwork: z.string().optional(),
-    contactMethods: z.array(z.string()).min(1),
-    message: z.string().optional(),
-    cartItemIds: z.array(z.string()).min(1), // Selected items for checkout
+export const checkoutSchema = baseUserInfoSchema.extend({
+    dateOfBirth: z.string().min(1), // Keep required for checkout
+    contactMethods: z.array(z.string()).min(1), // Keep required for checkout
+    cartItemIds: z.array(z.string()).min(1), // Checkout-specific field
 });
 
 export type CheckoutData = z.infer<typeof checkoutSchema>;
@@ -67,12 +62,21 @@ async function UserCheckout(req: NextRequest) {
 
         // Create transaction record
         const transaction = await db.transaction(async tx => {
-            // Insert transaction
+            // Insert transaction with user information
             const [newTransaction] = await tx
                 .insert(transactions)
                 .values({
                     cartId: cart.id,
                     userId: token.sub!,
+                    // User information from validated data
+                    firstName: validatedData.firstName,
+                    lastName: validatedData.lastName,
+                    dateOfBirth: validatedData.dateOfBirth,
+                    email: validatedData.email,
+                    phoneNumber: validatedData.phoneNumber,
+                    socialNetwork: validatedData.socialNetwork,
+                    contactMethods: validatedData.contactMethods,
+                    message: validatedData.message,
                     totalAmount,
                     status: 'pending',
                 })

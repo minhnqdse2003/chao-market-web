@@ -7,6 +7,7 @@ import {
     primaryKey,
     uuid,
     pgEnum,
+    uniqueIndex,
 } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import type { AdapterAccount } from '@auth/core/adapters';
@@ -24,6 +25,38 @@ export const users = pgTable('user', {
     phoneVerified: timestamp('phoneVerified', { mode: 'date' }),
     role: userRoleEnum('role').default('USER').notNull(),
 });
+
+export const userProfiles = pgTable(
+    'user_profile',
+    {
+        id: uuid('id').defaultRandom().primaryKey().notNull(),
+        userId: uuid('userId')
+            .notNull()
+            .references(() => users.id, { onDelete: 'cascade' }),
+        firstName: text('firstName').notNull(),
+        lastName: text('lastName').notNull(),
+        dateOfBirth: text('dateOfBirth'), // Consider using timestamp
+        email: text('email').notNull(),
+        phoneNumber: text('phoneNumber').notNull(),
+        socialNetwork: text('socialNetwork'),
+        contactMethods: text('contactMethods').array(),
+        message: text('message'),
+        createdAt: timestamp('createdAt', { mode: 'date' })
+            .defaultNow()
+            .notNull(),
+        updatedAt: timestamp('updatedAt', { mode: 'date' })
+            .defaultNow()
+            .notNull(),
+    },
+    table => {
+        return {
+            // Ensure one profile per user
+            userIdUnique: uniqueIndex('user_profile_user_id_unique').on(
+                table.userId
+            ),
+        };
+    }
+);
 
 export const accounts = pgTable(
     'account',
@@ -121,6 +154,15 @@ export const transactions = pgTable('transaction', {
     userId: uuid('userId')
         .notNull()
         .references(() => users.id, { onDelete: 'cascade' }),
+    // New columns for user information
+    firstName: text('firstName').notNull(),
+    lastName: text('lastName').notNull(),
+    dateOfBirth: text('dateOfBirth').notNull(), // Consider using timestamp for better date handling
+    email: text('email').notNull(),
+    phoneNumber: text('phoneNumber').notNull(),
+    socialNetwork: text('socialNetwork'),
+    contactMethods: text('contactMethods').array().notNull(), // Store as text array
+    message: text('message'),
     totalAmount: integer('totalAmount').notNull(),
     status: text('status')
         .$type<'pending' | 'completed' | 'cancelled' | 'failed'>()
@@ -138,7 +180,7 @@ export const transactionItems = pgTable('transaction_item', {
         .notNull()
         .references(() => products.id, { onDelete: 'cascade' }),
     quantity: integer('quantity').notNull(),
-    price: integer('price').notNull(), // Store price at time of transaction
+    price: integer('price').notNull(),
 });
 
 export const posts = pgTable('post', {
@@ -164,6 +206,10 @@ export const usersRelations = relations(users, ({ many }) => ({
     carts: many(carts),
     transactions: many(transactions),
     posts: many(posts),
+}));
+
+export const userProfileRelations = relations(userProfiles, ({ one }) => ({
+    user: one(users, { fields: [userProfiles.userId], references: [users.id] }),
 }));
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
@@ -231,6 +277,7 @@ export const postsRelations = relations(posts, ({ one }) => ({
 
 // Types
 export type User = typeof users.$inferSelect;
+export type UserProfile = typeof userProfiles.$inferSelect;
 export type Account = typeof accounts.$inferSelect;
 export type Session = typeof sessions.$inferSelect;
 export type VerificationToken = typeof verificationTokens.$inferSelect;
@@ -243,6 +290,7 @@ export type TransactionItem = typeof transactionItems.$inferSelect;
 export type Post = typeof posts.$inferSelect;
 
 export type NewUser = typeof users.$inferInsert;
+export type NewUserProfile = typeof userProfiles.$inferInsert;
 export type NewAccount = typeof accounts.$inferInsert;
 export type NewSession = typeof sessions.$inferInsert;
 export type NewVerificationToken = typeof verificationTokens.$inferInsert;

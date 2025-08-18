@@ -286,7 +286,7 @@ export default function Page() {
                             <h2 className="font-semibold text-lg">
                                 {selectedData?.account.name}
                             </h2>
-                            <span className="border-[var(--brand-color)] border text-[var(--brand-color)] font-semibold px-3 py-1 rounded-2xl">
+                            <span className="border-[var(--brand-color)] border text-[var(--brand-color)] font-semibold px-3 py-1 rounded-lg">
                                 {selectedData?.market}
                             </span>
                         </div>

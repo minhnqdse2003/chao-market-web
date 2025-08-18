@@ -15,8 +15,8 @@ export function useUserCheckout() {
         mutationFn: (payload: z.infer<typeof checkoutSchema>) =>
             cartApis.UserCheckoutServerAction(payload),
         onSuccessMessage: 'Checkout submitted successfully',
-        onSuccess: () => {
-            queryClient.invalidateQueries({
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
                 predicate: query => {
                     return query.queryKey.includes(APP_QUERY_KEY.USER_CART);
                 },

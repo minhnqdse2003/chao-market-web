@@ -29,6 +29,20 @@
       "when": 1755432630819,
       "tag": "0003_sloppy_king_cobra",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1755519119224,
+      "tag": "0004_brainy_lorna_dane",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1755524355102,
+      "tag": "0005_square_menace",
+      "breakpoints": true
     }
   ]
 }

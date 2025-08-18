@@ -2,11 +2,6 @@
 
 import LoadingComponent from '@/components/loading-spiner';
 import { APP_SERVICES } from '@/constant/app-service';
-import {
-    useUserCartQuery,
-    useUserCheckout,
-    useUserRemoveCartItem,
-} from '@/hooks/react-query/carts';
 import Image from 'next/image';
 import { EmptyCart, ProductServiceImg } from '@image/index';
 import CheckOutTransactionForm, {
@@ -15,14 +10,25 @@ import CheckOutTransactionForm, {
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
-import { useMemo, useState } from 'react';
-import { redirect } from 'next/navigation';
+import { useMemo, useState, useEffect } from 'react';
+import { redirect, useRouter } from 'next/navigation';
+import { useUserProfile } from '@/hooks/react-query/user';
+import {
+    useUserRemoveCartItem,
+    useUserCheckout,
+    useUserCartQuery,
+} from '@/hooks/react-query/carts';
 
 export default function CartItemsPage() {
-    const { data: response, isLoading } = useUserCartQuery();
+    const { data: response, isLoading: isCartLoading } = useUserCartQuery();
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    const router = useRouter();
 
-    // Hooks for API calls
+    // Profile hooks
+    const { saveProfileAsync, isSaving, profile, isProfileLoading } =
+        useUserProfile();
+
+    // Cart hooks
     const removeCartItemMutation = useUserRemoveCartItem();
     const checkoutMutation = useUserCheckout();
 
@@ -33,6 +39,11 @@ export default function CartItemsPage() {
                 ?.url,
         };
     });
+
+    // Auto-fill form when profile loads
+    useEffect(() => {
+        // The form will handle the initial data via props
+    }, [profile]);
 
     // Toggle selection of a single item
     const toggleItemSelection = (productId: string) => {
@@ -58,8 +69,6 @@ export default function CartItemsPage() {
 
         try {
             await removeCartItemMutation.mutateAsync(selectedItems);
-            // Optionally refetch to ensure UI is in sync
-            // await refetch();
         } catch (error) {
             console.error('Error removing items:', error);
         }
@@ -74,6 +83,7 @@ export default function CartItemsPage() {
 
             if (result.data) {
                 console.log('Checkout successful:', result.data);
+                router.push('/cart-items/complete');
             }
         } catch (error) {
             console.error('Error submitting form:', error);
@@ -82,7 +92,8 @@ export default function CartItemsPage() {
 
     const handleOnSave = async (data: CheckoutFormData) => {
         try {
-            console.log('Saving data:', data);
+            await saveProfileAsync(data);
+            console.log('Profile saved successfully');
         } catch (error) {
             console.error('Error saving form:', error);
         }
@@ -95,6 +106,7 @@ export default function CartItemsPage() {
     // Loading states
     const isRemoving = removeCartItemMutation.isPending;
     const isCheckingOut = checkoutMutation.isPending;
+    const isLoading = isCartLoading || isProfileLoading;
 
     if (isLoading || !filteredItem) return <LoadingComponent />;
 
@@ -180,17 +192,6 @@ export default function CartItemsPage() {
                                 <p className="text-xs max-w-2/3 truncate">
                                     {item.product.description}
                                 </p>
-                                <div className="flex justify-between items-center mt-2">
-                                    <span className="text-sm font-semibold">
-                                        $
-                                        {(
-                                            item.product.price * item.quantity
-                                        ).toFixed(2)}
-                                    </span>
-                                    <span className="text-sm text-gray-400">
-                                        Qty: {item.quantity}
-                                    </span>
-                                </div>
                             </div>
                         </div>
                     ))}
@@ -216,7 +217,7 @@ export default function CartItemsPage() {
                 </div>
             </div>
 
-            <div className="w-2/5">
+            <div className="w-full">
                 <h1 className="text-xl text-[var(--brand-color)] font-bold mb-6">
                     Your Information
                 </h1>
@@ -224,8 +225,9 @@ export default function CartItemsPage() {
                     onSubmit={handleSubmit}
                     saveForLater={handleOnSave}
                     isDisableSubmitButton={
-                        isDisableSubmitButton || isCheckingOut
+                        isDisableSubmitButton || isCheckingOut || isSaving
                     }
+                    initialData={profile} // Pass profile data for auto-fill
                 />
             </div>
         </div>

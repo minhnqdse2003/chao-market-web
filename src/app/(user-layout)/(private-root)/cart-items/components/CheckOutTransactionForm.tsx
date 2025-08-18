@@ -12,19 +12,17 @@ import {
     FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
+import { UserProfile } from '@/db/schema';
 
 // Define the validation schema
 const checkoutSchema = z.object({
     firstName: z.string().min(1, 'First name is required'),
     lastName: z.string().min(1, 'Last name is required'),
     dateOfBirth: z.string().min(1, 'Date of birth is required'),
-    email: z
-        .string()
-        .email('Invalid email address')
-        .min(1, 'Email is required'),
+    email: z.email('Invalid email address').min(1, 'Email is required'),
     phoneNumber: z.string().min(1, 'Phone number is required'),
     socialNetwork: z.string().optional(),
     contactMethods: z
@@ -35,15 +33,19 @@ const checkoutSchema = z.object({
 
 export type CheckoutFormData = z.infer<typeof checkoutSchema>;
 
+interface CheckOutTransactionFormProps {
+    onSubmit: (data: CheckoutFormData) => Promise<void>;
+    saveForLater: (data: CheckoutFormData) => Promise<void>;
+    isDisableSubmitButton: boolean;
+    initialData?: UserProfile | null;
+}
+
 export default function CheckOutTransactionForm({
     onSubmit,
     saveForLater,
     isDisableSubmitButton,
-}: {
-    onSubmit: (data: CheckoutFormData) => Promise<void>;
-    saveForLater: (data: CheckoutFormData) => Promise<void>;
-    isDisableSubmitButton: boolean;
-}) {
+    initialData,
+}: CheckOutTransactionFormProps) {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Create form instance with Zod resolver
@@ -60,6 +62,24 @@ export default function CheckOutTransactionForm({
             message: '',
         },
     });
+
+    // Auto-fill form when initialData changes
+    useEffect(() => {
+        if (initialData) {
+            form.reset({
+                firstName: initialData.firstName || '',
+                lastName: initialData.lastName || '',
+                dateOfBirth: initialData.dateOfBirth || '',
+                email: initialData.email || '',
+                phoneNumber: initialData.phoneNumber || '',
+                socialNetwork: initialData.socialNetwork || '',
+                contactMethods: Array.isArray(initialData.contactMethods)
+                    ? initialData.contactMethods
+                    : [],
+                message: initialData.message || '',
+            });
+        }
+    }, [initialData, form]);
 
     // Function to handle form submission
     const handleSubmit = async (data: CheckoutFormData) => {
@@ -80,11 +100,12 @@ export default function CheckOutTransactionForm({
         try {
             await saveForLater(data);
         } catch (error) {
-            console.error('Submission error:', error);
+            console.error('Save error:', error);
         } finally {
             setIsSubmitting(false);
         }
     };
+
     return (
         <Form {...form}>
             <form
@@ -119,7 +140,7 @@ export default function CheckOutTransactionForm({
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel className="text-[var(--brand-color)] font-medium">
-                                Last name
+                                Last name (*)
                             </FormLabel>
                             <FormControl>
                                 <Input
@@ -377,7 +398,7 @@ export default function CheckOutTransactionForm({
                 <div className="mt-4 flex gap-4">
                     <button
                         type="button"
-                        onClick={() => form.handleSubmit(handleOnSave)()}
+                        onClick={form.handleSubmit(handleOnSave)}
                         disabled={isSubmitting}
                         className="text-[var(--brand-color)] border border-[var(--brand-color)] hover:bg-[var(--brand-color)] cursor-pointer hover:text-black px-6 py-2 rounded-md transition-colors! ease-in-out font-semibold duration-300 disabled:opacity-50"
                     >
@@ -385,7 +406,7 @@ export default function CheckOutTransactionForm({
                     </button>
                     <button
                         type="button"
-                        onClick={() => form.handleSubmit(handleSubmit)()}
+                        onClick={form.handleSubmit(handleSubmit)}
                         disabled={isSubmitting || isDisableSubmitButton}
                         className="bg-[var(--brand-color)] not-disabled:hover:bg-transparent not-disabled:hover:border not-disabled:hover:border-[var(--brand-color)] not-disabled:hover:text-[var(--brand-color)] not-disabled:cursor-pointer text-black px-6 py-2 rounded-md transition-colors disabled:opacity-50"
                     >
@@ -398,27 +419,3 @@ export default function CheckOutTransactionForm({
         </Form>
     );
 }
-
-// Usage example in another component
-/*
-function CheckoutPage() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleSubmit = async (data: CheckoutFormData) => {
-    try {
-      // Your API call here
-      await api.post('/checkout', data);
-      setIsSubmitted(true);
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    }
-  };
-
-  return (
-    <div>
-      <CheckOutTransactionForm onSubmit={handleSubmit} />
-      {isSubmitted && <p>Thank you for your order!</p>}
-    </div>
-  );
-}
-*/

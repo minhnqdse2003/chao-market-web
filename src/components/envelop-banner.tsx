@@ -92,7 +92,7 @@ export default function FunnelPopover() {
             </button>
 
             <div
-                className={`fixed inset-0 z-22 bg-black/50 bg-opacity-50 transition-opacity duration-400 ease-in-out ${
+                className={`fixed inset-0 z-22 bg-black/75 bg-opacity-50 transition-opacity duration-400 ease-in-out ${
                     isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
                 }`}
                 onClick={togglePopover}

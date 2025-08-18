@@ -5,6 +5,11 @@ const APP_CART_QUERY_KEY = {
     USER_CART: 'cart-summary',
 };
 
+const APP_USER_QUERY_KEY = {
+    USER_PROFILE: 'user-profile',
+};
+
 export const APP_QUERY_KEY = {
     ...APP_CART_QUERY_KEY,
+    ...APP_USER_QUERY_KEY,
 };

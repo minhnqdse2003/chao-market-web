@@ -1,4 +1,4 @@
-import { Cart, CartItem, Product } from '@/db/schema';
+import { Cart, CartItem, carts, Product } from '@/db/schema';
 import { withAuth } from '@/lib/api-route-middleware';
 import { db } from '@/lib/db';
 import { BaseResponse } from '@/types/base-response';
@@ -25,7 +25,8 @@ const getUserCartById = async (req: NextRequest) => {
     if (!token || token.sub === undefined)
         throw new ApiError(401, 'Unauthorized');
 
-    const cart = await db.query.carts.findFirst({
+    // Try to find existing cart
+    let cart = await db.query.carts.findFirst({
         where: (cart, { eq }) => eq(cart.userId, token.sub!),
         with: {
             items: {
@@ -36,8 +37,26 @@ const getUserCartById = async (req: NextRequest) => {
         },
     });
 
+    // If no cart exists, create a new one
     if (!cart) {
-        throw new ApiError(400, 'Cart not found');
+        try {
+            const [newCart] = await db
+                .insert(carts)
+                .values({
+                    userId: token.sub!,
+                    isCheckedOut: false,
+                })
+                .returning();
+
+            // Return the new cart with empty items array
+            cart = {
+                ...newCart,
+                items: [],
+            };
+        } catch (error) {
+            console.error('Error creating new cart:', error);
+            throw new ApiError(500, 'Failed to create cart');
+        }
     }
 
     return NextResponse.json(

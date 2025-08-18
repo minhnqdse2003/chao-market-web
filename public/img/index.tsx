@@ -11,6 +11,7 @@ export { default as Warning3D } from './warning-3d.svg';
 export { default as FilledThumpsUp } from './thumps-up-filled.svg';
 export { default as NewsEventMockBanner } from './news-events-mock-banner.svg';
 export { default as EmptyCart } from './empty-cart.png';
+export { default as CompleteCheckout } from './complete-checkout.png';
 
 import { default as ConsultingService } from './product-service-2.png';
 import { default as MngInvestProfile } from './product-service-1.png';

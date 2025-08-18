@@ -33,7 +33,7 @@ const data = {
         {
             name: 'Chào Market',
             logo: GalleryVerticalEnd,
-            plan: 'Mange Market Risk',
+            plan: 'Manage Your Risk',
         },
     ],
     items: [
