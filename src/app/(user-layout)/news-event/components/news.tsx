@@ -1,28 +1,25 @@
-'use-client';
-
-import { redirect } from 'next/navigation';
-import React from 'react';
 import { NewsType } from '../utils/data-utils';
 import { Eye, Share, ThumbsDownIcon, ThumbsUpIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import NavSeparator from '@/components/nav-separator';
+import Link from 'next/link';
 
 const NewsComp = ({ news }: { news: NewsType[] }) => {
     return (
         <>
             {news.map((item, idx) => (
-                <div
+                <Link
                     className="flex flex-col w-full items-end cursor-pointer"
                     key={item.title}
-                    onClick={() => redirect('/news-event/news-detail')}
+                    href={`/news-event/${item.slug}`}
                 >
                     <div className="flex w-full gap-[2rem]">
                         {/* Image Block */}
                         <Image
-                            width={1920}
-                            height={1080}
-                            className="object-cover w-full max-w-3/10 h-[10rem] rounded-lg"
+                            width={100}
+                            height={100}
+                            className="object-contain w-full max-w-3/10 h-[10rem] rounded-lg"
                             src={item.image}
                             alt="news-image"
                         />
@@ -76,7 +73,7 @@ const NewsComp = ({ news }: { news: NewsType[] }) => {
                     {idx !== news.length - 1 && (
                         <NavSeparator isTrigger={false} />
                     )}
-                </div>
+                </Link>
             ))}
         </>
     );

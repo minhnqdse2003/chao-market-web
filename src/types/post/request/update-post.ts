@@ -1,9 +1,6 @@
 import { z } from 'zod';
-import { CreateNewPost } from './create-post';
+import { createPostSchema } from './create-post';
 
-export type UpdatePost = CreateNewPost;
+export type UpdatePost = z.infer<typeof updatePostSchema>;
 
-export const updatePostSchema = z.object({
-    content: z.object({}).passthrough().optional(),
-    referenceSource: z.string().url().optional(),
-});
+export const updatePostSchema = createPostSchema.extend({});

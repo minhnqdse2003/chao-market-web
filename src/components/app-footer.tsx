@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 export default function AppFooter() {
     const pathname = usePathname();
 
-    if (pathname.startsWith('/auth')) {
+    if (pathname.startsWith('/auth') || pathname.startsWith('/post')) {
         return null;
     }
 
