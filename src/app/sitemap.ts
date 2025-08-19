@@ -4,10 +4,13 @@ import { db } from '@/lib/db';
 import { posts } from '@/db/schema';
 import { desc } from 'drizzle-orm';
 
+export const dynamic = 'force-dynamic'; // Disable caching
+export const revalidate = 0; // No static generation
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
 
-    // Static pages including auth routes
+    // Static pages
     const staticPages: MetadataRoute.Sitemap = [
         {
             url: `${baseUrl}/home`,
@@ -62,11 +65,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
         return [...staticPages, ...dynamicPages];
     } catch (error) {
-        console.error(
-            '⚠️ Sitemap generation warning - falling back to static pages:',
-            error
-        );
-        // Always return static pages even if dynamic generation fails
+        console.error('⚠️ Sitemap generation warning:', error);
         return staticPages;
     }
 }

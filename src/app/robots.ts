@@ -5,11 +5,7 @@ import { MetadataRoute } from 'next';
 export default function robots(): MetadataRoute.Robots {
     const baseUrl = process.env.NEXTAUTH_URL;
 
-    // Ensure the base URL is available, otherwise the sitemap URL will be incomplete
     if (!baseUrl) {
-        // You can return a default robots configuration or null
-        // Returning null will prevent the robots.txt file from being generated.
-        // It's better to throw an error during build to catch missing env vars.
         throw new Error(
             'Missing NEXTAUTH_URL environment variable. Cannot generate robots.txt'
         );
@@ -18,15 +14,21 @@ export default function robots(): MetadataRoute.Robots {
     return {
         rules: [
             {
-                userAgent: '*', // This rule applies to all bots
-                allow: '/', // Allow crawling of all pages by default
+                userAgent: '*', // Rule applies to all web crawlers (bots)
+
+                // This is the key part:
+                // 'allow: "/"' means crawlers are permitted to access the entire site,
+                // starting from the root directory. This IS the "allow all" command.
+                allow: '/',
+
+                // The 'disallow' rules below act as exceptions to the general 'allow' rule.
                 disallow: [
-                    // But disallow crawling of these specific paths
-                    '/_next/', // Next.js internal files
-                    '/api/', // API routes
+                    '/_next/', // Don't crawl Next.js internal build/asset folders.
+                    '/api/', // Don't crawl API routes as they aren't pages.
+                    // Add any other specific paths you want to block here, e.g., '/admin/'
                 ],
             },
         ],
-        sitemap: `${baseUrl}/sitemap.xml`, // The full URL to your sitemap
+        sitemap: `${baseUrl}/sitemap.xml`,
     };
 }
