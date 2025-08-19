@@ -27,12 +27,14 @@ interface FilterParams extends BaseFilterParams {
 const initialValues: FilterParams = {};
 
 const NewsEventFilterDialogComp = ({
-    onApply,
     initialSearchValue = initialValues,
 }: {
-    onApply: (value: FilterParams) => void;
     initialSearchValue?: FilterParams;
 }) => {
+    const onApply = (value: unknown) => {
+        console.log(value);
+    };
+
     const {
         filterParams,
         handleSearchChange,

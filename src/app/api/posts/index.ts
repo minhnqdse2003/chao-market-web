@@ -1,7 +1,12 @@
 import { Post } from '@/db/schema';
+import { PostRequestParams } from '@/types/post/request/post-params';
+import { buildURLSearchParams } from '@/utils/api/query-params-build';
 
-export async function getPosts() {
-    const response = await fetch(`/api/posts`);
+export async function getPosts(requestParams: PostRequestParams) {
+    const transformParams = buildURLSearchParams(requestParams);
+    const response = await fetch(
+        `${process.env.NEXTAUTH_URL}/api/posts?${transformParams}`
+    );
 
     if (!response.ok) {
         throw new Error('Failed to fetch posts');

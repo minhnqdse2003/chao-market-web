@@ -73,4 +73,5 @@ export type NewsType = {
     views: number;
     date: string;
     referenceSource: string;
+    slug: string;
 };

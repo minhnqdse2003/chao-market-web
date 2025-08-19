@@ -13,6 +13,11 @@ import { relations } from 'drizzle-orm';
 import type { AdapterAccount } from '@auth/core/adapters';
 
 export const userRoleEnum = pgEnum('user_role', ['ADMIN', 'USER']);
+export const postTypeEnum = pgEnum('post_type', [
+    'news',
+    'events',
+    'community',
+]);
 
 export const users = pgTable('user', {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
@@ -186,6 +191,7 @@ export const transactionItems = pgTable('transaction_item', {
 export const posts = pgTable('post', {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
     title: text('title').notNull(),
+    slug: text('slug').notNull().unique(),
     description: text('description').notNull(),
     content: text('content').notNull(),
     userId: uuid('userId')
@@ -195,7 +201,37 @@ export const posts = pgTable('post', {
     dislikes: integer('dislikes').default(0).notNull(),
     views: integer('views').default(0).notNull(),
     referenceSource: text('referenceSource').notNull(),
+    type: postTypeEnum('type').notNull(),
+    readingTime: integer('readingTime').notNull().default(1),
     createdAt: timestamp('createdAt', { mode: 'date' }).defaultNow().notNull(),
+
+    // SEO Metadata Fields
+    seoTitle: text('seoTitle'), // Custom title for SEO
+    seoDescription: text('seoDescription'), // Meta description
+    seoKeywords: text('seoKeywords').array(), // Array of keywords
+    ogImage: text('ogImage'), // Image for social sharing
+    canonicalUrl: text('canonicalUrl'), // Preferred URL
+    robots: text('robots'), // e.g., "index, follow"
+});
+
+export const postTags = pgTable(
+    'post_tag',
+    {
+        postId: uuid('postId')
+            .notNull()
+            .references(() => posts.id, { onDelete: 'cascade' }),
+        tagId: uuid('tagId')
+            .notNull()
+            .references(() => tags.id, { onDelete: 'cascade' }),
+    },
+    table => ({
+        pk: primaryKey({ columns: [table.postId, table.tagId] }),
+    })
+);
+
+export const tags = pgTable('tag', {
+    id: uuid('id').defaultRandom().primaryKey().notNull(),
+    name: text('name').notNull().unique(),
 });
 
 // Relations
@@ -271,8 +307,24 @@ export const transactionItemRelations = relations(
     })
 );
 
-export const postsRelations = relations(posts, ({ one }) => ({
+export const postsRelations = relations(posts, ({ one, many }) => ({
     user: one(users, { fields: [posts.userId], references: [users.id] }),
+    postTags: many(postTags),
+}));
+
+export const tagRelations = relations(tags, ({ many }) => ({
+    postTags: many(postTags),
+}));
+
+export const postTagRelations = relations(postTags, ({ one }) => ({
+    post: one(posts, {
+        fields: [postTags.postId],
+        references: [posts.id],
+    }),
+    tag: one(tags, {
+        fields: [postTags.tagId],
+        references: [tags.id],
+    }),
 }));
 
 // Types
@@ -288,6 +340,8 @@ export type CartItem = typeof cartItems.$inferSelect;
 export type Transaction = typeof transactions.$inferSelect;
 export type TransactionItem = typeof transactionItems.$inferSelect;
 export type Post = typeof posts.$inferSelect;
+export type Tag = typeof tags.$inferSelect;
+export type PostTag = typeof postTags.$inferSelect;
 
 export type NewUser = typeof users.$inferInsert;
 export type NewUserProfile = typeof userProfiles.$inferInsert;
@@ -301,3 +355,5 @@ export type NewCartItem = typeof cartItems.$inferInsert;
 export type NewTransaction = typeof transactions.$inferInsert;
 export type NewTransactionItem = typeof transactionItems.$inferInsert;
 export type NewPost = typeof posts.$inferInsert;
+export type NewTag = typeof tags.$inferInsert;
+export type NewPostTag = typeof postTags.$inferInsert;

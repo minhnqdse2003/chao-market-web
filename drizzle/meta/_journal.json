@@ -43,6 +43,20 @@
       "when": 1755524355102,
       "tag": "0005_square_menace",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1755581703842,
+      "tag": "0006_puzzling_carnage",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1755589650823,
+      "tag": "0007_lively_nicolaos",
+      "breakpoints": true
     }
   ]
 }

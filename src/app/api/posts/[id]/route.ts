@@ -1,38 +1,74 @@
-import { Post, posts } from '@/db/schema';
+import { Post, posts, postTags, tags } from '@/db/schema';
 import { withAuth } from '@/lib/api-route-middleware';
 import { db } from '@/lib/db';
 import { BaseResponse } from '@/types/base-response';
 import { UpdatePost, updatePostSchema } from '@/types/post/request/update-post';
-import { eq, sql } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { getToken } from 'next-auth/jwt';
 import { ApiError } from 'next/dist/server/api-utils';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod/v4';
 
-const getPostById = async (
+const getPostByIdOrSlug = async (
     request: NextRequest,
     { params }: { params: { id: string } }
 ) => {
     const { id } = params;
-    if (!z.uuid().safeParse(id).success) {
-        throw new ApiError(400, 'Invalid post ID');
+
+    if (!id) {
+        throw new ApiError(400, 'Post ID or slug is required');
     }
 
-    const [post] = await db
-        .select()
-        .from(posts)
-        .where(eq(posts.id, id))
-        .limit(1);
+    // Check if it's a valid UUID
+    const isUuid = z.string().uuid().safeParse(id).success;
+
+    let post;
+
+    if (isUuid) {
+        // Fetch by ID
+        [post] = await db.select().from(posts).where(eq(posts.id, id)).limit(1);
+    } else {
+        // Fetch by slug
+        [post] = await db
+            .select()
+            .from(posts)
+            .where(eq(posts.slug, id))
+            .limit(1);
+    }
+
     if (!post) {
         throw new ApiError(404, 'Post not found');
     }
 
-    // Increment view count
-    await viewPost(id);
+    // Fetch associated tags
+    const tagRelatedPost = await db
+        .select({
+            id: tags.id,
+            name: tags.name,
+        })
+        .from(postTags)
+        .innerJoin(tags, eq(postTags.tagId, tags.id))
+        .where(eq(postTags.postId, post.id));
 
-    return NextResponse.json({ data: post } as BaseResponse<Post>, {
-        status: 200,
-    });
+    const postWithTags = {
+        ...post,
+        tags: tagRelatedPost,
+    };
+
+    // Increment view count (only for slug requests to avoid double counting)
+    if (!isUuid) {
+        await db
+            .update(posts)
+            .set({ views: post.views + 1 })
+            .where(eq(posts.id, post.id));
+    }
+
+    return NextResponse.json(
+        { data: postWithTags } as BaseResponse<typeof postWithTags>,
+        {
+            status: 200,
+        }
+    );
 };
 
 const updatePost = async (
@@ -132,22 +168,6 @@ const deletePost = async (
     );
 };
 
-const viewPost = async (id: string) => {
-    if (!z.string().uuid().safeParse(id).success) {
-        throw new ApiError(400, 'Invalid post ID');
-    }
-
-    const [post] = await db
-        .update(posts)
-        .set({ views: sql`${posts.views} + 1` })
-        .where(eq(posts.id, id))
-        .returning();
-
-    if (!post) {
-        throw new ApiError(404, 'Post not found');
-    }
-};
-
-export const GET = withAuth(getPostById);
+export const GET = withAuth(getPostByIdOrSlug);
 export const PUT = withAuth(updatePost, ['ADMIN']);
 export const DELETE = withAuth(deletePost, ['ADMIN']);

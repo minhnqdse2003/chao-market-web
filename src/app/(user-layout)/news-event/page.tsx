@@ -1,24 +1,44 @@
-'use client';
-import { AppTabs, TabItem } from '@/components/app-tabs';
 import React from 'react';
 import { NewsType } from './utils/data-utils';
-import NewsComp from './components/news';
 import NewsEventFilterDialogComp from './components/news-filter';
-import { useAppQuery } from '@/hooks/react-query/use-custom-query';
 import { getPosts } from '@/app/api/posts';
 import { Post } from '@/db/schema';
 import { PaginatedResponse } from '@/types/pagination';
 import { NewsEventsBanner } from '@/components/app-banner';
-import LoadingComponent from '@/components/loading-spiner';
+import AppTabsServerSide, {
+    TabServerSide,
+} from '@/components/app-tabs-server-side';
+import NewsComp from '@/app/(user-layout)/news-event/components/news';
+import { Pagination } from '@/components/app-pagination-server-side';
+import { BrandLogoFtHat } from '@image/index';
 
-// Loading component for Suspense fallback
+interface PageProps {
+    searchParams: {
+        type?: string;
+        filterBy?: string;
+        pageIndex?: string;
+        pageSize?: string;
+    };
+}
 
-const Page = () => {
-    const { data: postsData, isFetching } = useAppQuery<
-        PaginatedResponse<Post>
-    >({
-        queryFn: getPosts,
-        queryKey: ['posts'],
+const Page = async ({ searchParams }: PageProps) => {
+    const { type, filterBy, pageIndex, pageSize } = searchParams;
+
+    // Convert string parameters to numbers with defaults
+    const pageNum = pageIndex ? parseInt(pageIndex, 10) : 0;
+    const pageSizeNum = pageSize ? parseInt(pageSize, 10) : 10;
+
+    // Fetch posts with query parameters
+    const postsData: PaginatedResponse<Post> = await getPosts({
+        type: type as 'news' | 'events' | undefined,
+        filterBy: filterBy as
+            | 'recommended'
+            | 'hottest'
+            | 'mostViewed'
+            | 'topRated'
+            | undefined,
+        pageIndex: pageNum,
+        pageSize: pageSizeNum,
     });
 
     // Map posts data to NewsType format
@@ -28,7 +48,7 @@ const Page = () => {
         return postsData?.data.map(post => ({
             title: post.title,
             description: post.description,
-            image: 'https://i.pravatar.cc/150?img=9', // Placeholder image
+            image: BrandLogoFtHat, // Placeholder image
             like: post.likes,
             dislike: post.dislikes,
             views: post.views,
@@ -36,69 +56,79 @@ const Page = () => {
                 ? new Date(post.createdAt).toISOString().split('T')[0]
                 : '',
             referenceSource: post.referenceSource,
+            slug: post.slug,
         }));
     };
 
-    const tabs: TabItem[] = [
+    const tabs: TabServerSide[] = [
         {
             title: 'All',
-            value: 'all',
-            renderContent: async () => {
-                const data = mapPostsToNewsType();
-                return <NewsComp news={data} />;
-            },
+            href: '/news-event',
+        },
+        {
+            title: 'News',
+            href: '/news-event?type=news',
+        },
+        {
+            title: 'Events',
+            href: '/news-event?type=events',
         },
         {
             title: 'Recommended',
-            value: 'recommended',
-            renderContent: async () => {
-                const data = mapPostsToNewsType();
-                return <NewsComp news={data} />;
-            },
+            href: '/news-event?filterBy=recommended',
         },
         {
             title: 'Hottest',
-            value: 'hottest',
-            renderContent: async () => {
-                const data = mapPostsToNewsType();
-                return <NewsComp news={data} />;
-            },
+            href: '/news-event?filterBy=hottest',
         },
         {
             title: 'Most Viewed',
-            value: 'mostViewed',
-            renderContent: async () => {
-                const data = mapPostsToNewsType();
-                return <NewsComp news={data} />;
-            },
+            href: '/news-event?filterBy=mostViewed',
         },
         {
             title: 'Top Rated',
-            value: 'topRated',
-            renderContent: async () => {
-                const data = mapPostsToNewsType();
-                return <NewsComp news={data} />;
-            },
+            href: '/news-event?filterBy=topRated',
         },
     ];
 
-    const onApply = (value: unknown) => {
-        console.log(value);
-    };
+    // Get current posts data
+    const newsData = mapPostsToNewsType();
+
+    const validSearchParams: Record<string, string> = {};
+    Object.entries(searchParams).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+            validSearchParams[key] = String(value);
+        }
+    });
 
     return (
         <div>
             <NewsEventsBanner />
-            {isFetching ? (
-                <LoadingComponent />
-            ) : (
-                <div className="mt-12">
-                    <NewsEventFilterDialogComp
-                        onApply={value => onApply(value)}
+            <div className="mt-12">
+                <NewsEventFilterDialogComp />
+                <AppTabsServerSide
+                    tabs={tabs}
+                    currentSearchParams={new URLSearchParams(
+                        validSearchParams
+                    ).toString()}
+                />
+                <NewsComp news={newsData} />
+
+                {/* Pagination Section */}
+                <div className="mt-8">
+                    <Pagination
+                        currentPage={postsData.pageIndex + 1}
+                        totalPages={postsData.totalPages}
+                        basePath="/news-event"
+                        searchParams={validSearchParams}
                     />
-                    <AppTabs tabsList={tabs} />
                 </div>
-            )}
+
+                {/* Stats Section */}
+                <div className="mt-4 text-center text-sm text-gray-500">
+                    <p>Total {postsData.totalItems} items</p>
+                </div>
+            </div>
         </div>
     );
 };

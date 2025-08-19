@@ -1,9 +1,14 @@
 import { dislikePost } from './dislike';
 import { likePost } from './like';
-import { Post } from '@/db/schema';
+import { Post, Tag } from '@/db/schema';
+import { BaseResponse } from '@/types/base-response';
 
-const getPost = async (postId: string) => {
-    const response = await fetch(`/api/posts/${postId}`);
+const getPost = async (
+    postId: string
+): Promise<BaseResponse<Post & { tags: Tag[] }>> => {
+    const response = await fetch(
+        `${process.env.NEXTAUTH_URL}/api/posts/${postId}`
+    );
 
     if (!response.ok) {
         throw new Error('Failed to fetch post');
