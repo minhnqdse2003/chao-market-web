@@ -44,7 +44,7 @@ export function NavHead({
                             <span className="truncate font-medium">
                                 {teams.name}
                             </span>
-                            <span className="truncate text-sm">
+                            <span className="truncate text-xs">
                                 {teams.plan}
                             </span>
                         </div>

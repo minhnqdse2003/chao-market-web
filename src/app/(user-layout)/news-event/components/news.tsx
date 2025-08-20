@@ -5,14 +5,20 @@ import Image from 'next/image';
 import NavSeparator from '@/components/nav-separator';
 import Link from 'next/link';
 
-const NewsComp = ({ news }: { news: NewsType[] }) => {
+const NewsComp = ({
+    news,
+    baseHref = '/news-event',
+}: {
+    news: NewsType[];
+    baseHref?: string;
+}) => {
     return (
         <>
             {news.map((item, idx) => (
                 <Link
                     className="flex flex-col w-full items-end cursor-pointer"
                     key={item.title}
-                    href={`/news-event/${item.slug}`}
+                    href={`${baseHref}/${item.slug}`}
                 >
                     <div className="flex w-full gap-[2rem]">
                         {/* Image Block */}

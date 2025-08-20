@@ -80,15 +80,15 @@ export function NavUser() {
                                         src={user.avatar}
                                         alt={user.name}
                                     />
-                                    <AvatarFallback className="rounded-lg bg-black text-[var(--brand-color)]">
+                                    <AvatarFallback className="rounded-lg bg-black font-semibold text-[var(--brand-color)]">
                                         {user.name[0]}
                                     </AvatarFallback>
                                 </Avatar>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate font-medium">
+                                    <span className="truncate font-semibold">
                                         {user.name}
                                     </span>
-                                    <span className="truncate text-xs">
+                                    <span className="truncate text-xs text-black/50">
                                         {user.email}
                                     </span>
                                 </div>

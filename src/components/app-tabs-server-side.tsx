@@ -18,29 +18,48 @@ export default function AppTabsServerSide({
     const searchParams = new URLSearchParams(currentSearchParams);
 
     // Get current tab value from URL parameters
-    const currentTabValue =
-        searchParams.get('type') || searchParams.get('filterBy') || ''; // Empty string for default "All" tab
+    const currentType = searchParams.get('type') || '';
+    const currentFilterBy = searchParams.get('filterBy') || '';
+    const currentMainTag = searchParams.get('mainTag') || '';
+
+    // Get current tab value (priority: mainTag > type > filterBy)
+    const currentTabValue = currentMainTag || currentType || currentFilterBy;
 
     // Find the current tab by matching the tab href with current parameters
     const getCurrentTabHref = () => {
-        // For the "All" tab (no params), match tabs with no type/filterBy
+        // For the "All" tab (no params), match tabs with no type/filterBy/mainTag
         if (!currentTabValue) {
             const allTab = tabs.find(
                 tab =>
                     !tab.href.includes('type=') &&
-                    !tab.href.includes('filterBy=')
+                    !tab.href.includes('filterBy=') &&
+                    !tab.href.includes('mainTag=')
             );
             return allTab ? allTab.href : tabs[0]?.href;
         }
 
-        // For tabs with params, find exact match
-        const matchingTab = tabs.find(
-            tab =>
-                tab.href.includes(`type=${currentTabValue}`) ||
-                tab.href.includes(`filterBy=${currentTabValue}`)
-        );
+        // For tabs with params, find exact match based on the parameter type
+        if (currentMainTag) {
+            // Look for mainTag match
+            const matchingTab = tabs.find(tab =>
+                tab.href.includes(`mainTag=${currentMainTag}`)
+            );
+            return matchingTab ? matchingTab.href : tabs[0]?.href;
+        } else if (currentType) {
+            // Look for type match
+            const matchingTab = tabs.find(tab =>
+                tab.href.includes(`type=${currentType}`)
+            );
+            return matchingTab ? matchingTab.href : tabs[0]?.href;
+        } else if (currentFilterBy) {
+            // Look for filterBy match
+            const matchingTab = tabs.find(tab =>
+                tab.href.includes(`filterBy=${currentFilterBy}`)
+            );
+            return matchingTab ? matchingTab.href : tabs[0]?.href;
+        }
 
-        return matchingTab ? matchingTab.href : tabs[0]?.href;
+        return tabs[0]?.href;
     };
 
     const currentTabHref = getCurrentTabHref();

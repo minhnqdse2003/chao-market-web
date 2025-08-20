@@ -3,21 +3,11 @@ import { cn } from '@/lib/utils';
 import NextAuthSessionProvider from '@/components/provider/session-provider';
 import { ThemeProvider } from '@/components/theme-provider';
 import { SidebarProvider } from '@/components/ui/sidebar';
-import { Geist, Geist_Mono } from 'next/font/google';
 import '@/app/globals.css';
 import { cookies } from 'next/headers';
 import { APP_THEME_STATE_NAME, COOKIE_SIDEBAR_STATE_NAME } from '@/constant';
 import { Providers } from '@/context/provider/query-client';
-
-const geistSans = Geist({
-    variable: '--font-geist-sans',
-    subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-    variable: '--font-geist-mono',
-    subsets: ['latin'],
-});
+import '@fontsource/barlow';
 
 export async function AppLayout({ children }: { children: React.ReactNode }) {
     const cookieStore = await cookies();
@@ -26,10 +16,7 @@ export async function AppLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" suppressHydrationWarning>
             <body
-                className={cn(
-                    `${geistSans.variable} ${geistMono.variable} antialiased`,
-                    'min-h-svh bg-background'
-                )}
+                className={cn(`antialiased`, 'min-h-svh bg-background')}
                 suppressHydrationWarning
             >
                 <NextAuthSessionProvider>

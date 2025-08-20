@@ -6,8 +6,14 @@ export type PostRequestParams = z.infer<typeof postQuerySchema>;
 export const postQuerySchema = z.object({
     ...zodPaginationSchema,
     createdAt: zodTimeStampModifiedSchema.createdAt,
-    type: z.enum(['news', 'events', 'community']).optional(),
+    type: z
+        .union([
+            z.enum(['news', 'events', 'community']),
+            z.array(z.enum(['news', 'events', 'community'])),
+        ])
+        .optional(),
     filterBy: z
         .enum(['recommended', 'hottest', 'mostViewed', 'topRated'])
         .optional(),
+    mainTag: z.string().optional(),
 });

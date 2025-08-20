@@ -2,19 +2,14 @@
 import RichTextPreview from '@/components/rich-text-preview';
 import Image from 'next/image';
 import { NewsEventMockBanner } from '@image/index';
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from '@/components/ui/accordion';
 import { Label } from '@/components/ui/label';
 import Tag from '@/app/(user-layout)/news-event/[slug]/components/tags';
 import { notFound } from 'next/navigation';
 import { format } from 'date-fns';
 import { getPost } from '@/app/api/posts';
+import { TableOfContents } from '@/app/(user-layout)/news-event/[slug]/components/table-of-contents';
 
-interface PageProps {
+export interface PageProps {
     params: {
         slug: string;
     };
@@ -110,45 +105,7 @@ export default async function NewsEventPage({ params }: PageProps) {
                     {/* Sidebar */}
                     <div className="basis-1/4 space-y-6">
                         {/* Table of Contents */}
-                        <Accordion
-                            type="single"
-                            className="bg-[var(--brand-black-bg)] w-full rounded-2xl px-6 py-1 overflow-hidden"
-                            collapsible
-                            defaultValue={'item-1'}
-                        >
-                            <AccordionItem value="item-1">
-                                <AccordionTrigger className="text-lg cursor-pointer font-semibold">
-                                    Table of content
-                                </AccordionTrigger>
-                                <AccordionContent className="text-base font-thin leading-tight">
-                                    <ul className="list-decimal list-inside space-y-6">
-                                        <li>
-                                            <a href="#">
-                                                Giá vàng miếng SJC sáng 19-5
-                                                tăng mạnh 800.000 đồng/lượng
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Đồng USD vẫn duy trì ở mức cao
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Kim loại quý này dự kiến tiếp
-                                                tục biến động mạnh
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Rủi ro kinh tế toàn cầu có thể
-                                                đẩy giá vàng tăng
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </AccordionContent>
-                            </AccordionItem>
-                        </Accordion>
+                        <TableOfContents content={post.content} />
 
                         {/* Tags Section */}
                         <div className="bg-[var(--brand-black-bg)] w-full rounded-2xl p-6 overflow-hidden space-y-4">

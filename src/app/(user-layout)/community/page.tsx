@@ -1,6 +1,4 @@
 import React from 'react';
-import { NewsType } from './utils/data-utils';
-import NewsEventFilterDialogComp from './components/news-filter';
 import { getPosts } from '@/app/api/posts';
 import { Post } from '@/db/schema';
 import { PaginatedResponse } from '@/types/pagination';
@@ -11,48 +9,30 @@ import AppTabsServerSide, {
 import NewsComp from '@/app/(user-layout)/news-event/components/news';
 import { Pagination } from '@/components/app-pagination-server-side';
 import { BrandLogoFtHat } from '@image/index';
+import NewsEventFilterDialogComp from '@/app/(user-layout)/news-event/components/news-filter';
+import { NewsType } from '@/app/(user-layout)/news-event/utils/data-utils';
 
 interface PageProps {
     searchParams: {
-        type?: string | string[];
-        filterBy?: string;
+        mainTag?: string;
         pageIndex?: string;
         pageSize?: string;
     };
 }
 
-const Page = async ({ searchParams }: PageProps) => {
-    const { type, filterBy, pageIndex, pageSize } = searchParams;
+const CommunityPage = async ({ searchParams }: PageProps) => {
+    const { mainTag, pageIndex, pageSize } = searchParams;
 
     // Convert string parameters to numbers with defaults
     const pageNum = pageIndex ? parseInt(pageIndex, 10) : 0;
     const pageSizeNum = pageSize ? parseInt(pageSize, 10) : 10;
 
-    // Handle type parameter - default to ['news', 'events'] if not provided
-    const typeArray = (() => {
-        if (type === undefined || type === null) {
-            return ['news', 'events'];
-        }
-        if (Array.isArray(type)) {
-            return type;
-        }
-        if (typeof type === 'string') {
-            return type ? [type] : ['news', 'events'];
-        }
-        return ['news', 'events'];
-    })();
-
-    // Fetch posts with query parameters
+    // Fetch posts filtered by tag
     const postsData: PaginatedResponse<Post> = await getPosts({
-        type: typeArray as ('news' | 'events' | 'community')[],
-        filterBy: filterBy as
-            | 'recommended'
-            | 'hottest'
-            | 'mostViewed'
-            | 'topRated'
-            | undefined,
+        mainTag: mainTag, // Pass tag as query param
         pageIndex: pageNum,
         pageSize: pageSizeNum,
+        type: 'community',
     });
 
     // Map posts data to NewsType format
@@ -77,31 +57,27 @@ const Page = async ({ searchParams }: PageProps) => {
     const tabs: TabServerSide[] = [
         {
             title: 'All',
-            href: '/news-event',
+            href: '/community',
         },
         {
-            title: 'News',
-            href: '/news-event?type=news',
+            title: 'Our Market Insights',
+            href: '/community?mainTag=market-insights',
         },
         {
-            title: 'Events',
-            href: '/news-event?type=events',
+            title: 'Free Courses',
+            href: '/community?mainTag=free-courses',
         },
         {
-            title: 'Recommended',
-            href: '/news-event?filterBy=recommended',
+            title: 'Conferences',
+            href: '/community?mainTag=conferences',
         },
         {
-            title: 'Hottest',
-            href: '/news-event?filterBy=hottest',
+            title: 'Videos',
+            href: '/community?mainTag=videos',
         },
         {
-            title: 'Most Viewed',
-            href: '/news-event?filterBy=mostViewed',
-        },
-        {
-            title: 'Top Rated',
-            href: '/news-event?filterBy=topRated',
+            title: 'Images',
+            href: '/community?mainTag=images',
         },
     ];
 
@@ -119,21 +95,21 @@ const Page = async ({ searchParams }: PageProps) => {
         <div>
             <NewsEventsBanner />
             <div className="mt-12">
-                <NewsEventFilterDialogComp />
+                <NewsEventFilterDialogComp title={'Filter Community'} />
                 <AppTabsServerSide
                     tabs={tabs}
                     currentSearchParams={new URLSearchParams(
                         validSearchParams
                     ).toString()}
                 />
-                <NewsComp news={newsData} />
+                <NewsComp news={newsData} baseHref={'/community'} />
 
                 {/* Pagination Section */}
                 <div className="mt-8">
                     <Pagination
                         currentPage={postsData.pageIndex + 1}
                         totalPages={postsData.totalPages}
-                        basePath="/news-event"
+                        basePath="/community"
                         searchParams={validSearchParams}
                     />
                 </div>
@@ -147,4 +123,4 @@ const Page = async ({ searchParams }: PageProps) => {
     );
 };
 
-export default Page;
+export default CommunityPage;

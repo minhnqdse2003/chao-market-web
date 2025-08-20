@@ -1,5 +1,5 @@
 // app/api/posts/route.ts (or wherever your route handler is)
-import { Post, posts, postTags } from '@/db/schema';
+import { Post, posts, postTags, tags } from '@/db/schema';
 import { withAuth } from '@/lib/api-route-middleware';
 import { db } from '@/lib/db';
 import { BaseResponse } from '@/types/base-response';
@@ -7,7 +7,7 @@ import { PaginatedResponse } from '@/types/pagination';
 import { createPostSchema } from '@/types/post/request/create-post';
 import { postQuerySchema } from '@/types/post/request/post-params';
 import { UUID } from 'crypto';
-import { and, desc, eq, gte, sql } from 'drizzle-orm';
+import { and, desc, eq, gte, inArray, sql } from 'drizzle-orm';
 import { getToken } from 'next-auth/jwt';
 import { ApiError } from 'next/dist/server/api-utils';
 import { NextRequest, NextResponse } from 'next/server';
@@ -19,22 +19,72 @@ const getAllPosts = async (request: NextRequest) => {
     const searchParams = Object.fromEntries(
         request.nextUrl.searchParams.entries()
     );
+
+    if (searchParams.type && typeof searchParams.type === 'string') {
+        const typesArray = searchParams.type.split(',').map(t => t.trim());
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        searchParams.type = typesArray;
+    }
+
     const parsed = postQuerySchema.safeParse(searchParams);
 
     if (!parsed.success) {
         throw new ApiError(400, z.prettifyError(parsed.error));
     }
 
-    const { pageIndex, pageSize, createdAt, type, filterBy } = parsed.data;
+    const { pageIndex, pageSize, createdAt, type, filterBy, mainTag } =
+        parsed.data;
     const conditions = [];
 
     if (createdAt) conditions.push(gte(posts.createdAt, createdAt));
-    if (type) conditions.push(eq(posts.type, type));
+    if (type && Array.isArray(type) && type.length > 0) {
+        conditions.push(inArray(posts.type, type));
+    }
 
     const whereClause = conditions.length ? and(...conditions) : undefined;
 
-    // Build query with ordering to maintain proper type
-    let query = db.select().from(posts).where(whereClause);
+    // Build base query
+    let query = db
+        .select({
+            id: posts.id,
+            title: posts.title,
+            slug: posts.slug,
+            description: posts.description,
+            content: posts.content,
+            userId: posts.userId,
+            likes: posts.likes,
+            dislikes: posts.dislikes,
+            views: posts.views,
+            referenceSource: posts.referenceSource,
+            type: posts.type,
+            readingTime: posts.readingTime,
+            createdAt: posts.createdAt,
+            seoTitle: posts.seoTitle,
+            seoDescription: posts.seoDescription,
+            seoKeywords: posts.seoKeywords,
+            ogImage: posts.ogImage,
+            canonicalUrl: posts.canonicalUrl,
+            robots: posts.robots,
+        })
+        .from(posts);
+
+    // Add join and filter by tag if mainTag is provided
+    if (mainTag) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        query = query
+            .innerJoin(postTags, eq(posts.id, postTags.postId))
+            .innerJoin(tags, eq(postTags.tagId, tags.id))
+            .where(and(whereClause, eq(tags.name, mainTag)));
+    } else {
+        // Apply where clause without tag filtering
+        if (whereClause) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            query = query.where(whereClause);
+        }
+    }
 
     // Apply ordering based on filterBy
     if (filterBy) {
@@ -45,10 +95,6 @@ const getAllPosts = async (request: NextRequest) => {
                 query = query.orderBy(desc(posts.likes));
                 break;
             case 'hottest':
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-expect-error
-                query = query.orderBy(desc(posts.views));
-                break;
             case 'mostViewed':
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
@@ -73,10 +119,25 @@ const getAllPosts = async (request: NextRequest) => {
     // Execute the query with pagination
     const items = await query.limit(pageSize).offset(pageIndex * pageSize);
 
-    const total = await db
-        .select({ count: sql<number>`count(*)` })
-        .from(posts)
-        .where(whereClause);
+    // Build count query
+    let countQuery = db.select({ count: sql<number>`count(*)` }).from(posts);
+
+    if (mainTag) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        countQuery = countQuery
+            .innerJoin(postTags, eq(posts.id, postTags.postId))
+            .innerJoin(tags, eq(postTags.tagId, tags.id))
+            .where(and(whereClause, eq(tags.name, mainTag)));
+    } else {
+        if (whereClause) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            countQuery = countQuery.where(whereClause);
+        }
+    }
+
+    const total = await countQuery;
 
     return NextResponse.json(
         {

@@ -28,8 +28,10 @@ const initialValues: FilterParams = {};
 
 const NewsEventFilterDialogComp = ({
     initialSearchValue = initialValues,
+    title = 'Filter News',
 }: {
     initialSearchValue?: FilterParams;
+    title?: string;
 }) => {
     const onApply = (value: unknown) => {
         console.log(value);
@@ -50,9 +52,7 @@ const NewsEventFilterDialogComp = ({
     // Dialog Header
     const headerContent = (
         <div className="w-full flex justify-between items-center">
-            <AlertDialogTitle className="uppercase">
-                Filter News
-            </AlertDialogTitle>
+            <AlertDialogTitle className="uppercase">{title}</AlertDialogTitle>
             <Button
                 variant="ghost"
                 className="text-[var(--brand-color)]"
