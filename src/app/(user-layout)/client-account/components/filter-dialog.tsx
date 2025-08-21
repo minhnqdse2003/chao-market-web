@@ -112,13 +112,13 @@ const ClientAccountFilterDialog = ({
         <div className="w-full flex justify-between items-center gap-4">
             <Button
                 variant="ghost"
-                className="text-white border border-white dark:hover:text-black dark:hover:bg-[var(--brand-color)] hover:border-transparent transition-colors! duration-300 ease-in-out"
+                className="text-white dark:hover:text-black dark:hover:bg-[var(--brand-color)] hover:border-transparent transition-colors! duration-300 ease-in-out"
                 onClick={handleClearAll}
             >
                 Clear all
             </Button>
             <div className="flex gap-2">
-                <AlertDialogCancel className="text-white border border-white cursor-pointer px-3 py-1 rounded-md hover:text-black hover:bg-[var(--brand-color)] hover:border-transparent transition-colors! duration-300 ease-in-out">
+                <AlertDialogCancel className="text-white cursor-pointer px-3 py-1 rounded-md hover:text-black hover:bg-[var(--brand-color)] hover:border-transparent transition-colors! duration-300 ease-in-out">
                     Close
                 </AlertDialogCancel>
                 <Button

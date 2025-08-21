@@ -91,20 +91,21 @@ function CollapsibleItem({
         return () => window.removeEventListener('hashchange', onHashChange);
     }, []);
 
-    const handleClick = (e: React.MouseEvent) => {
+    const handleClick = () => {
         if (item.children && path.startsWith(item.url)) {
-            e.preventDefault(); // Prevent redirect
             setOpen(prev => !prev);
         } else {
-            redirect(item.url);
+            onRedirect(item.url);
         }
     };
+
+    const onRedirect = (url: string) => redirect(url);
 
     return (
         <Collapsible
             asChild
             open={open}
-            className='group/collapsible [&>a[data-slot="sidebar-menu-button"]]:rounded-none [&>button[data-slot="collapsible-trigger"]]:rounded-none [&>a[data-active=true]]:border-l-6 [&>a[data-active=true]]:border-[var(--brand-color)] [&>button[data-active=true]]:border-l-6 [&>button[data-active=true]]:border-[var(--brand-color)]'
+            className='group/collapsible [&>button[data-slot="collapsible-trigger"]]:rounded-none [&>button[data-active=true]]:border-l-6 [&>button[data-active=true]]:border-[var(--brand-color)] [&>button[data-active=true]]:rounded-none [&>button]:cursor-pointer'
         >
             <SidebarMenuItem>
                 {item.children ? (
@@ -140,18 +141,18 @@ function CollapsibleItem({
                                 {item.children.map(subItem => (
                                     <SidebarMenuSubItem key={subItem.title}>
                                         <SidebarMenuSubButton
-                                            asChild
                                             className="rounded-none"
                                             isActive={
                                                 path === subItem.url ||
                                                 fullPath === subItem.url
                                             }
+                                            onClick={() =>
+                                                onRedirect(subItem.url)
+                                            }
                                         >
-                                            <a href={subItem.url}>
-                                                <span className="text-xs">
-                                                    {subItem.title}
-                                                </span>
-                                            </a>
+                                            <span className="text-xs">
+                                                {subItem.title}
+                                            </span>
                                         </SidebarMenuSubButton>
                                     </SidebarMenuSubItem>
                                 ))}
@@ -160,14 +161,11 @@ function CollapsibleItem({
                     </>
                 ) : (
                     <SidebarMenuButton
-                        asChild
                         isActive={path.startsWith(item.url)}
-                        onClick={handleClick}
+                        onClick={() => onRedirect(item.url)}
                     >
-                        <a href={item.url}>
-                            {item.icon && <item.icon />}
-                            <span>{item.title}</span>
-                        </a>
+                        {item.icon && <item.icon />}
+                        <span>{item.title}</span>
                     </SidebarMenuButton>
                 )}
             </SidebarMenuItem>

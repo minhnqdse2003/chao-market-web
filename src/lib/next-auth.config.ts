@@ -5,8 +5,8 @@ import FacebookProvider from 'next-auth/providers/facebook';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import EmailProvider from 'next-auth/providers/email';
 import { db } from '@/lib/db';
-import { users, otpCodes } from '@/db/schema';
-import { eq, and, gt, isNotNull } from 'drizzle-orm';
+import { users } from '@/db/schema';
+import { eq, and, isNotNull } from 'drizzle-orm';
 import bcrypt from 'bcryptjs';
 import { CustomAdapter } from './next-auth.adapter';
 
@@ -65,40 +65,6 @@ export const authOptions: NextAuthOptions = {
                 if (!user) {
                     console.log('User not found {}');
                     return null;
-                }
-
-                // If OTP is provided, verify it
-                if (!credentials.otp) {
-                    const [otpRecord] = await db
-                        .select()
-                        .from(otpCodes)
-                        .where(
-                            and(
-                                eq(otpCodes.userId, user.id),
-                                eq(otpCodes.code, credentials.otp),
-                                eq(otpCodes.verified, false),
-                                gt(otpCodes.expires, new Date())
-                            )
-                        )
-                        .limit(1);
-
-                    if (!otpRecord) {
-                        console.log('Otp record not found {}');
-                        return null;
-                    }
-
-                    // Mark OTP as verified
-                    await db
-                        .update(otpCodes)
-                        .set({ verified: true })
-                        .where(eq(otpCodes.id, otpRecord.id));
-
-                    return {
-                        id: user.id,
-                        email: user.email,
-                        name: user.name,
-                        image: user.image,
-                    };
                 }
 
                 // Verify password

@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation';
 import { format } from 'date-fns';
 import { getPost } from '@/app/api/posts';
 import { TableOfContents } from '@/app/(user-layout)/news-event/[slug]/components/table-of-contents';
+import { Clock } from 'lucide-react';
 
 export interface PageProps {
     params: {
@@ -83,15 +84,26 @@ export default async function NewsEventPage({ params }: PageProps) {
 
                 {/* Post Header */}
                 <div className="mb-8">
+                    <div
+                        className={
+                            'flex gap-2 items-center text-[var(--brand-grey-foreground)]'
+                        }
+                    >
+                        <Clock className={'size-4'} />
+                        {post.readingTime} min read
+                    </div>
                     <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
                     <div className="flex items-center text-[var(--brand-grey-foreground)] mb-4">
                         <span>
-                            {format(new Date(post.createdAt), 'MM/dd/yyyy')}
+                            {format(
+                                new Date(post.createdAt),
+                                'MM-dd-yyyy, HH:mm'
+                            )}
                         </span>
-                        <span className="mx-2">•</span>
-                        <span>{post.readingTime} min read</span>
-                        <span className="mx-2">•</span>
-                        <span>{post.views} views</span>
+                        <span className={'mx-2'} />
+                        <span className={'text-white'}>
+                            -Source: {post.referenceSource}
+                        </span>
                     </div>
                 </div>
 

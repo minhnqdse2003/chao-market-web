@@ -26,6 +26,7 @@ export const generateMockData = async (
                     : `${type.replace(/([A-Z])/g, ' $1').trim()} Report ${i + 1}`,
             rate: parseFloat((Math.random() * 100).toFixed(2)), // 0-100 percent as number
             view: Math.floor(Math.random() * 3500) + 500, // keep number here
+            weekday: date.toLocaleDateString('en-US', { weekday: 'long' }),
         });
     }
     return data;

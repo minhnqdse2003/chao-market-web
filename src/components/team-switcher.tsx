@@ -41,7 +41,7 @@ export function NavHead({
                             />
                         </div>
                         <div className="grid flex-1 text-left text-base leading-tight">
-                            <span className="truncate font-medium">
+                            <span className="truncate font-semibold">
                                 {teams.name}
                             </span>
                             <span className="truncate text-xs">

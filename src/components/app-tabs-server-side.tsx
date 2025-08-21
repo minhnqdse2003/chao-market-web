@@ -8,27 +8,34 @@ export interface TabServerSide {
 interface AppTabsServerSideProps {
     tabs: TabServerSide[];
     currentSearchParams: string;
+    isSubTabPresent?: boolean;
 }
 
 export default function AppTabsServerSide({
     tabs,
     currentSearchParams,
+    isSubTabPresent = false,
 }: AppTabsServerSideProps) {
     // Parse current search params
     const searchParams = new URLSearchParams(currentSearchParams);
 
-    // Get current tab value from URL parameters
+    // Get current tab values from URL parameters
     const currentType = searchParams.get('type') || '';
     const currentFilterBy = searchParams.get('filterBy') || '';
     const currentMainTag = searchParams.get('mainTag') || '';
 
-    // Get current tab value (priority: mainTag > type > filterBy)
-    const currentTabValue = currentMainTag || currentType || currentFilterBy;
-
     // Find the current tab by matching the tab href with current parameters
     const getCurrentTabHref = () => {
-        // For the "All" tab (no params), match tabs with no type/filterBy/mainTag
-        if (!currentTabValue) {
+        // Build current URL params string for comparison
+        const currentParams = new URLSearchParams();
+        if (currentType) currentParams.set('type', currentType);
+        if (currentFilterBy) currentParams.set('filterBy', currentFilterBy);
+        if (currentMainTag) currentParams.set('mainTag', currentMainTag);
+
+        const currentParamString = currentParams.toString();
+
+        // If no params, find the "All" tab (no type, filterBy, or mainTag)
+        if (!currentParamString) {
             const allTab = tabs.find(
                 tab =>
                     !tab.href.includes('type=') &&
@@ -38,21 +45,37 @@ export default function AppTabsServerSide({
             return allTab ? allTab.href : tabs[0]?.href;
         }
 
-        // For tabs with params, find exact match based on the parameter type
+        // Try to find exact match with current parameters
+        const matchingTab = tabs.find(tab => {
+            try {
+                const tabUrl = new URL(tab.href, 'http://localhost');
+                const tabParams = tabUrl.searchParams;
+
+                // Compare the parameter strings directly
+                const tabParamString = tabParams.toString();
+                return tabParamString === currentParamString;
+            } catch {
+                return false;
+            }
+        });
+
+        // If exact match found, return it
+        if (matchingTab) {
+            return matchingTab.href;
+        }
+
+        // Fallback logic - match based on priority
         if (currentMainTag) {
-            // Look for mainTag match
             const matchingTab = tabs.find(tab =>
                 tab.href.includes(`mainTag=${currentMainTag}`)
             );
             return matchingTab ? matchingTab.href : tabs[0]?.href;
         } else if (currentType) {
-            // Look for type match
             const matchingTab = tabs.find(tab =>
                 tab.href.includes(`type=${currentType}`)
             );
             return matchingTab ? matchingTab.href : tabs[0]?.href;
         } else if (currentFilterBy) {
-            // Look for filterBy match
             const matchingTab = tabs.find(tab =>
                 tab.href.includes(`filterBy=${currentFilterBy}`)
             );
@@ -65,7 +88,7 @@ export default function AppTabsServerSide({
     const currentTabHref = getCurrentTabHref();
 
     return (
-        <div className={'mb-8'}>
+        <div className={isSubTabPresent ? '' : 'mb-8'}>
             <div className="border-b border-[var(--brand-grey)]">
                 <nav className="-mb-px flex space-x-8">
                     {tabs.map(tab => (
@@ -75,7 +98,8 @@ export default function AppTabsServerSide({
                             className={`${
                                 currentTabHref === tab.href
                                     ? 'border-[var(--brand-color)] text-[var(--brand-color)]'
-                                    : 'border-transparent text-[var(--brand-grey)] hover:text-[var(--brand-grey-foreground)] hover:border-[var(--brand-grey-foreground)]'
+                                    : 'border-transparent text-[var(--brand-grey-foreground)]' +
+                                      ' hover:text-[var(--brand-grey-foreground)] hover:border-[var(--brand-grey-foreground)]'
                             } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-center text-sm transition-all! duration-300 ease-in-out min-w-[9rem]`}
                         >
                             {tab.title}

@@ -36,7 +36,7 @@ interface GroupedOptions {
 const AppDropdown = ({
     options,
     defaultValue = options[0]?.value || '',
-    buttonClassName = 'max-h-[20px] font-light text-xs',
+    buttonClassName = 'max-h-[20px] font-semibold text-lg',
     contentClassName = 'w-44',
     onValueChange,
 }: AppDropdownProps) => {
@@ -89,7 +89,7 @@ const AppDropdown = ({
                                 <DropdownMenuRadioItem
                                     key={option.value}
                                     value={option.value}
-                                    className="text-muted-foreground"
+                                    className='text-muted-foreground dark:hover:bg-[var(--brand-color)] dark:hover:text-black cursor-pointer transition-colors! duration-200 ease-in-out [&[aria-checked="true"]]:text-[var(--brand-color)]'
                                 >
                                     {option.icon && (
                                         <option.icon

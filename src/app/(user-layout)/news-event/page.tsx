@@ -28,21 +28,15 @@ const Page = async ({ searchParams }: PageProps) => {
     const pageNum = pageIndex ? parseInt(pageIndex, 10) : 0;
     const pageSizeNum = pageSize ? parseInt(pageSize, 10) : 10;
 
-    // Handle type parameter - default to ['news', 'events'] if not provided
+    // Handle type parameter
     const typeArray = (() => {
-        if (type === undefined || type === null) {
-            return ['news', 'events'];
-        }
-        if (Array.isArray(type)) {
-            return type;
-        }
-        if (typeof type === 'string') {
-            return type ? [type] : ['news', 'events'];
-        }
+        if (type === undefined || type === null) return ['news', 'events'];
+        if (Array.isArray(type)) return type;
+        if (typeof type === 'string') return type ? [type] : ['news', 'events'];
         return ['news', 'events'];
     })();
 
-    // Fetch posts with query parameters
+    // Fetch posts
     const postsData: PaginatedResponse<Post> = await getPosts({
         type: typeArray as ('news' | 'events' | 'community')[],
         filterBy: filterBy as
@@ -58,11 +52,10 @@ const Page = async ({ searchParams }: PageProps) => {
     // Map posts data to NewsType format
     const mapPostsToNewsType = (): NewsType[] => {
         if (!postsData?.data) return [];
-
-        return postsData?.data.map(post => ({
+        return postsData.data.map(post => ({
             title: post.title,
             description: post.description,
-            image: BrandLogoFtHat, // Placeholder image
+            image: BrandLogoFtHat,
             like: post.likes,
             dislike: post.dislikes,
             views: post.views,
@@ -74,7 +67,22 @@ const Page = async ({ searchParams }: PageProps) => {
         }));
     };
 
-    const tabs: TabServerSide[] = [
+    const newsData = mapPostsToNewsType();
+
+    // Prepare current search params (excluding tab-related ones)
+    const validSearchParams: Record<string, string> = {};
+    Object.entries(searchParams).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+            validSearchParams[key] = String(value);
+        }
+    });
+
+    // --- Refactored Tabs Logic ---
+    const currentType = Array.isArray(type) ? type[0] : type;
+    const hasValidType = currentType === 'news' || currentType === 'events';
+
+    // Type Tabs
+    const typeTabs: TabServerSide[] = [
         {
             title: 'All',
             href: '/news-event',
@@ -87,48 +95,62 @@ const Page = async ({ searchParams }: PageProps) => {
             title: 'Events',
             href: '/news-event?type=events',
         },
+    ];
+
+    // Filter Tabs - dynamically build href with or without type
+    const filterTabs: TabServerSide[] = [
         {
             title: 'Recommended',
-            href: '/news-event?filterBy=recommended',
+            href: hasValidType
+                ? `/news-event?type=${currentType}&filterBy=recommended`
+                : '/news-event?filterBy=recommended',
         },
         {
             title: 'Hottest',
-            href: '/news-event?filterBy=hottest',
+            href: hasValidType
+                ? `/news-event?type=${currentType}&filterBy=hottest`
+                : '/news-event?filterBy=hottest',
         },
         {
             title: 'Most Viewed',
-            href: '/news-event?filterBy=mostViewed',
+            href: hasValidType
+                ? `/news-event?type=${currentType}&filterBy=mostViewed`
+                : '/news-event?filterBy=mostViewed',
         },
         {
             title: 'Top Rated',
-            href: '/news-event?filterBy=topRated',
+            href: hasValidType
+                ? `/news-event?type=${currentType}&filterBy=topRated`
+                : '/news-event?filterBy=topRated',
         },
     ];
-
-    // Get current posts data
-    const newsData = mapPostsToNewsType();
-
-    const validSearchParams: Record<string, string> = {};
-    Object.entries(searchParams).forEach(([key, value]) => {
-        if (value !== undefined && value !== null) {
-            validSearchParams[key] = String(value);
-        }
-    });
 
     return (
         <div>
             <NewsEventsBanner />
             <div className="mt-12">
                 <NewsEventFilterDialogComp />
+
+                {/* Type Tabs */}
                 <AppTabsServerSide
-                    tabs={tabs}
+                    tabs={typeTabs}
+                    currentSearchParams={new URLSearchParams(
+                        validSearchParams
+                    ).toString()}
+                    isSubTabPresent={true}
+                />
+
+                {/* Filter Tabs */}
+                <AppTabsServerSide
+                    tabs={filterTabs}
                     currentSearchParams={new URLSearchParams(
                         validSearchParams
                     ).toString()}
                 />
+
                 <NewsComp news={newsData} />
 
-                {/* Pagination Section */}
+                {/* Pagination */}
                 <div className="mt-8">
                     <Pagination
                         currentPage={postsData.pageIndex + 1}
@@ -138,7 +160,7 @@ const Page = async ({ searchParams }: PageProps) => {
                     />
                 </div>
 
-                {/* Stats Section */}
+                {/* Stats */}
                 <div className="mt-4 text-center text-sm text-gray-500">
                     <p>Total {postsData.totalItems} items</p>
                 </div>

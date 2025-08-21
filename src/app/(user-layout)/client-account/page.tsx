@@ -210,14 +210,14 @@ export default function Page() {
                 <AppDropdown
                     options={SORT_BY_OPTIONS}
                     defaultValue="featured"
-                    buttonClassName="max-h-[20px] font-light text-xs"
+                    buttonClassName="max-h-[20px] font-medium text-sm"
                     contentClassName="w-44"
                     onValueChange={value => console.log(`Selected: ${value}`)}
                 />
             </div>
 
-            <div className="w-full flex flex-row max-h-[65svh] overflow-hidden">
-                <div className="flex flex-wrap w-full items-center gap-[1rem] min-w-2/3 max-w-full max-h-[65svh] overflow-y-auto">
+            <div className="w-full flex flex-row max-h-[80svh] overflow-hidden">
+                <div className="flex flex-wrap w-full items-center gap-[1rem] min-w-2/3 max-w-full max-h-[80svh] overflow-y-auto">
                     {dataList.map((data, index) => (
                         <Card
                             key={index}

@@ -10,6 +10,7 @@ export type HomeNewFlow = {
     headline: string;
     rate: number;
     view: number;
+    weekday?: string;
 };
 
 export type ExchangeRate = {
@@ -43,6 +44,12 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
             // Format in dd/mm/yyyy:
             return date.toLocaleDateString('en-GB');
         },
+    },
+    {
+        accessorKey: 'weekday',
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Weekday" />
+        ),
     },
     {
         accessorKey: 'category',

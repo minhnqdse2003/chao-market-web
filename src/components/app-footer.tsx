@@ -10,15 +10,12 @@ export default function AppFooter() {
 
     return (
         <footer className="dark:bg-sidebar border-t px-4 py-10">
-            <div className="max-w-[80svw] flex flex-col mx-auto space-y-8">
+            <div className="max-w-[80svw] flex flex-col justify-center space-y-8">
                 {/* Footer Columns */}
-                <div className="flex flex-col md:flex-row md:justify-center md:space-x-16">
+                <div className="flex flex-col md:flex-row md:justify-between md:px-8">
                     {/* Get to Know Us Column */}
                     <div className="mb-8 md:mb-0">
-                        <span className="text-lg text-[var(--brand-grey)] font-semibold">
-                            Section
-                        </span>
-                        <h3 className="font-semibold pl-8 text-white text-center mb-4 text-lg">
+                        <h3 className="font-semibold uppercase text-white text-center mb-4 text-lg">
                             Get to know us
                         </h3>
                         <ul className="space-y-3 text-normal text-[var(--brand-grey)] min-w-2/3 [&_*_a:first-child]:font-semibold">
@@ -47,10 +44,7 @@ export default function AppFooter() {
 
                     {/* Let us help you Column */}
                     <div>
-                        <span className="text-lg text-[var(--brand-grey)] font-semibold">
-                            Section
-                        </span>
-                        <h3 className="font-semibold text-white text-center pl-8 mb-4 text-lg">
+                        <h3 className="font-semibold uppercase text-white mb-4 text-lg">
                             Let us help you
                         </h3>
                         <ul className="space-y-3 text-normal text-[var(--brand-grey)] min-w-2/3 [&_*_span:first-child]:font-semibold [&_*_span:last-child]:font-bold [&_*_span:last-child]:text-[var(--brand-grey-foreground)]">
@@ -72,20 +66,29 @@ export default function AppFooter() {
                             </li>
                         </ul>
                     </div>
-                </div>
 
-                {/* Footer warning/disclaimer */}
-                <div className="text-center text-normal mt-2">
-                    <div className="text-[var(--brand-color)]">
-                        The information on this website is for informational
-                        purposes only and should not be considered as investment
-                        advice.
-                        <br />
-                        All investment decisions carry financial risks, and you
-                        are solely responsible for your own decisions.
-                        <br />
-                        We encourage you to seek advice from independent
-                        financial professionals before making any transactions.
+                    <div>
+                        <h3 className="font-semibold uppercase text-white mb-4 text-lg">
+                            Follow us
+                        </h3>
+                        <ul className="space-y-3 text-normal text-[var(--brand-grey)] min-w-2/3 [&_*_span:first-child]:font-semibold [&_*_span:last-child]:font-bold [&_*_span:last-child]:text-[var(--brand-grey-foreground)]">
+                            <li className="flex justify-between gap-12">
+                                <span>Facebook</span>
+                                <span>face</span>
+                            </li>
+                            <li className="flex justify-between gap-12">
+                                <span>Instagram</span>
+                                <span>insta</span>
+                            </li>
+                            <li className="flex justify-between gap-12">
+                                <span>Tiktok</span>
+                                <span>tiktok</span>
+                            </li>
+                            <li className="flex justify-between gap-12">
+                                <span>Other</span>
+                                <span>other</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 

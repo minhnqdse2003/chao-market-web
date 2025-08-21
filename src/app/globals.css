@@ -49,7 +49,7 @@
     --brand-grey: #525252;
     --brand-grey-foreground: #949494;
     --brand-grey-light: #c4c4c4;
-    --brand-black-bg: #252525;
+    --brand-black-bg: #363636;
 }
 
 :root {
@@ -111,7 +111,7 @@
     --chart-3: oklch(0.769 0.188 70.08);
     --chart-4: oklch(0.627 0.265 303.9);
     --chart-5: oklch(0.645 0.246 16.439);
-    --sidebar: oklch(0.205 0 0);
+    --sidebar: #252525;
     --sidebar-foreground: oklch(0.985 0 0);
     --sidebar-primary: oklch(0.488 0.243 264.376);
     --sidebar-primary-foreground: oklch(0.985 0 0);
@@ -148,7 +148,7 @@
     }
 
     .app-text-input {
-        @apply w-full focus-visible:ring-0 focus-visible:outline-0 placeholder:text-[var(--brand-grey-foreground)] border-b p-4 border-[var(--brand-grey-foreground)]
+        @apply w-full! focus-visible:ring-0! focus-visible:outline-0! placeholder:text-[var(--brand-grey-foreground)]! border-0! border-b! rounded-none! p-4! border-[var(--brand-grey-foreground)]! bg-transparent! placeholder:font-semibold
     }
 
     .vertical-text {
