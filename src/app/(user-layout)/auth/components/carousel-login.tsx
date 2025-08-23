@@ -51,14 +51,14 @@ export default function CarouselLogin() {
             <CarouselContent>
                 {Array.from({ length: 3 }).map((_, index) => (
                     <CarouselItem key={index} className="pl-0 ">
-                        <Card className="text-carousel-fallback">
+                        <Card className="text-carousel-fallback py-0">
                             <CardContent className="relative flex h-full w-full aspect-square items-center justify-center p-0">
                                 <Image
                                     width={1920}
                                     height={1080}
                                     src={LoginTheme}
                                     alt="Market Graph"
-                                    className="object-cover carousel-image"
+                                    className="object-cover h-full w-full"
                                     unoptimized
                                 />
                             </CardContent>

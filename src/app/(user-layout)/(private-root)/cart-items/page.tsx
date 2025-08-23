@@ -114,9 +114,12 @@ export default function CartItemsPage() {
         <div className="container flex gap-6">
             <div className="w-3/5">
                 <div className="flex justify-between items-center mb-6">
-                    <h1 className="text-xl text-[var(--brand-color)] font-bold">
-                        Your cart <span>({filteredItem.length})</span>
-                    </h1>
+                    <div>
+                        <h1 className="text-xl text-[var(--brand-color)] font-bold">
+                            Your cart
+                        </h1>
+                        <p>You have {filteredItem.length} items in your cart</p>
+                    </div>
 
                     <Button
                         size="sm"
@@ -218,9 +221,12 @@ export default function CartItemsPage() {
             </div>
 
             <div className="w-full">
-                <h1 className="text-xl text-[var(--brand-color)] font-bold mb-6">
-                    Your Information
-                </h1>
+                <div className={'mb-6'}>
+                    <h1 className="text-xl text-[var(--brand-color)] font-bold">
+                        Your Information
+                    </h1>
+                    <p>Please tell us about yourself</p>
+                </div>
                 <CheckOutTransactionForm
                     onSubmit={handleSubmit}
                     saveForLater={handleOnSave}

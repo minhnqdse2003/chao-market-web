@@ -8,13 +8,15 @@ export interface TabServerSide {
 interface AppTabsServerSideProps {
     tabs: TabServerSide[];
     currentSearchParams: string;
-    isSubTabPresent?: boolean;
+    isParentOfSubTab?: boolean;
+    isSubTab?: boolean;
 }
 
 export default function AppTabsServerSide({
     tabs,
     currentSearchParams,
-    isSubTabPresent = false,
+    isParentOfSubTab = false,
+    isSubTab = false,
 }: AppTabsServerSideProps) {
     // Parse current search params
     const searchParams = new URLSearchParams(currentSearchParams);
@@ -88,8 +90,10 @@ export default function AppTabsServerSide({
     const currentTabHref = getCurrentTabHref();
 
     return (
-        <div className={isSubTabPresent ? '' : 'mb-8'}>
-            <div className="border-b border-[var(--brand-grey)]">
+        <div className={isParentOfSubTab ? '' : 'mb-8'}>
+            <div
+                className={`${isSubTab ? '' : 'border-b border-[var(--brand-grey)]'}`}
+            >
                 <nav className="-mb-px flex space-x-8">
                     {tabs.map(tab => (
                         <Link
@@ -97,9 +101,15 @@ export default function AppTabsServerSide({
                             href={tab.href}
                             className={`${
                                 currentTabHref === tab.href
-                                    ? 'border-[var(--brand-color)] text-[var(--brand-color)]'
-                                    : 'border-transparent text-[var(--brand-grey-foreground)]' +
-                                      ' hover:text-[var(--brand-grey-foreground)] hover:border-[var(--brand-grey-foreground)]'
+                                    ? isSubTab
+                                        ? 'border-none text-[var(--brand-color)] hover:text-[var(--brand-color-foreground)]'
+                                        : 'border-[var(--brand-color)] text-[var(--brand-color)]' +
+                                          ' hover:text-[var(--brand-color-foreground)] hover:border-[var(--brand-color-foreground)]'
+                                    : isSubTab
+                                      ? 'border-none text-[var(--brand-grey-foreground)]' +
+                                        ' hover:text-[var(--brand-grey-light)]'
+                                      : 'hover:border-[var(--brand-grey-foreground)]' +
+                                        ' text-[var(--brand-grey-foreground)] border-transparent'
                             } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-center text-sm transition-all! duration-300 ease-in-out min-w-[9rem]`}
                         >
                             {tab.title}

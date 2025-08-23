@@ -5,10 +5,10 @@ import { NewsEventMockBanner } from '@image/index';
 import { Label } from '@/components/ui/label';
 import Tag from '@/app/(user-layout)/news-event/[slug]/components/tags';
 import { notFound } from 'next/navigation';
-import { format } from 'date-fns';
 import { getPost } from '@/app/api/posts';
 import { TableOfContents } from '@/app/(user-layout)/news-event/[slug]/components/table-of-contents';
 import { Clock } from 'lucide-react';
+import { dateTimeFormat } from '@/utils/date-time-format';
 
 export interface PageProps {
     params: {
@@ -94,12 +94,7 @@ export default async function NewsEventPage({ params }: PageProps) {
                     </div>
                     <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
                     <div className="flex items-center text-[var(--brand-grey-foreground)] mb-4">
-                        <span>
-                            {format(
-                                new Date(post.createdAt),
-                                'MM-dd-yyyy, HH:mm'
-                            )}
-                        </span>
+                        <span>{dateTimeFormat(new Date(post.createdAt))}</span>
                         <span className={'mx-2'} />
                         <span className={'text-white'}>
                             -Source: {post.referenceSource}

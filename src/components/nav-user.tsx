@@ -88,7 +88,7 @@ export function NavUser() {
                                     <span className="truncate font-semibold">
                                         {user.name}
                                     </span>
-                                    <span className="truncate text-xs font-semibold text-black/50">
+                                    <span className="truncate text-xs font-semibold text-[var(--brand-grey)]">
                                         {user.email}
                                     </span>
                                 </div>

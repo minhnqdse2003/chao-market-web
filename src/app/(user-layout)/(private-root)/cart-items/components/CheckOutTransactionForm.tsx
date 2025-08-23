@@ -400,7 +400,7 @@ export default function CheckOutTransactionForm({
                         type="button"
                         onClick={form.handleSubmit(handleOnSave)}
                         disabled={isSubmitting}
-                        className="text-[var(--brand-color)] border border-[var(--brand-color)] hover:bg-[var(--brand-color)] cursor-pointer hover:text-black px-6 py-2 rounded-md transition-colors! ease-in-out font-semibold duration-300 disabled:opacity-50"
+                        className="text-[var(--brand-color)] hover:bg-[var(--brand-color)] cursor-pointer hover:text-black px-6 py-2 rounded-md transition-colors! ease-in-out font-semibold duration-300 disabled:opacity-50"
                     >
                         {isSubmitting ? 'Processing...' : 'Save For Later'}
                     </button>
@@ -408,7 +408,7 @@ export default function CheckOutTransactionForm({
                         type="button"
                         onClick={form.handleSubmit(handleSubmit)}
                         disabled={isSubmitting || isDisableSubmitButton}
-                        className="bg-[var(--brand-color)] not-disabled:hover:bg-transparent not-disabled:hover:border not-disabled:hover:border-[var(--brand-color)] not-disabled:hover:text-[var(--brand-color)] not-disabled:cursor-pointer text-black px-6 py-2 rounded-md transition-colors disabled:opacity-50"
+                        className="not-disabled:hover:bg-[var(--brand-color)] not-disabled:hover:text-black not-disabled:cursor-pointer text-[var(--brand-color)] px-6 py-2 rounded-md disabled:opacity-50 transition-all! duration-300 ease-in-out font-semibold"
                     >
                         {isSubmitting
                             ? 'Processing...'

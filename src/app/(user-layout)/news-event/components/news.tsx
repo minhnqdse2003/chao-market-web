@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import NavSeparator from '@/components/nav-separator';
 import Link from 'next/link';
+import { dateTimeFormat } from '@/utils/date-time-format';
 
 const NewsComp = ({
     news,
@@ -65,11 +66,11 @@ const NewsComp = ({
                     </div>
                     <div className="w-[calc(70%-2rem)] flex justify-between">
                         {/* Date & Reference source */}
-                        <div className="flex w-fit gap-4">
+                        <div className="flex w-fit text-sm gap-4">
                             <p className="dark:text-[var(--brand-grey-foreground)] font-semibold">
-                                {item.date}
+                                {dateTimeFormat(new Date(item.date))}
                             </p>
-                            <p>{item.referenceSource}</p>
+                            <p>Source: {item.referenceSource}</p>
                         </div>
                         <Button className="dark:bg-[#525252] dark:text-white rounded-3xl font-normal">
                             <Share />

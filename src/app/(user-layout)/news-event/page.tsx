@@ -137,7 +137,7 @@ const Page = async ({ searchParams }: PageProps) => {
                     currentSearchParams={new URLSearchParams(
                         validSearchParams
                     ).toString()}
-                    isSubTabPresent={true}
+                    isParentOfSubTab={true}
                 />
 
                 {/* Filter Tabs */}
@@ -146,6 +146,7 @@ const Page = async ({ searchParams }: PageProps) => {
                     currentSearchParams={new URLSearchParams(
                         validSearchParams
                     ).toString()}
+                    isSubTab={true}
                 />
 
                 <NewsComp news={newsData} />
