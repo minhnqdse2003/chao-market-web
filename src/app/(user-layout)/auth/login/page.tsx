@@ -336,7 +336,7 @@ export default function Login() {
                                 disabled={loading}
                                 className="w-full my-6 flex-1 bg-[var(--brand-color)] disabled:bg-transparent disabled:m-0 cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:opacity-50"
                             >
-                                {loading ? <LoadingComponent /> : 'Continue'}
+                                {loading ? <LoadingComponent /> : 'Log in'}
                             </button>
                         </form>
                     </Form>
@@ -348,7 +348,7 @@ export default function Login() {
                             <div className="absolute inset-0 flex items-center">
                                 <div className="w-full border-t border-[var(--brand-grey-foreground)]" />
                             </div>
-                            <div className="relative flex w-fit mx-auto px-2 justify-center text-sm bg-[var(--brand-black-bg)]">
+                            <div className="relative flex w-fit mx-auto px-2 justify-center text-sm bg-sidebar">
                                 <span className="px-2 text-white">
                                     Or continue with
                                 </span>
@@ -386,7 +386,7 @@ export default function Login() {
                         <div className="text-center text-sm">
                             <Link
                                 href="/auth/signup"
-                                className="text-white font-medium"
+                                className="text-white font-semibold"
                             >
                                 Don&apos;t have an account?{' '}
                                 <span

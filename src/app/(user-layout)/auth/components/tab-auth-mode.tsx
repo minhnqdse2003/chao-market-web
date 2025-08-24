@@ -11,9 +11,9 @@ export default function TabAuthMode() {
                     height={1080}
                     src={LogoBrand}
                     alt="Chao market logo"
-                    className="size-18"
+                    className="size-14"
                 />
-                <h1 className="text-[var(--brand-color)] text-4xl font-bold">
+                <h1 className="text-[var(--brand-color)] text-2xl font-bold">
                     Chào Market
                 </h1>
             </div>
