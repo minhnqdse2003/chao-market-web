@@ -1,4 +1,4 @@
-// types/tag/index.ts
+// types/tag/index.tsx
 import { Tag } from '@/db/schema';
 
 export type { Tag };

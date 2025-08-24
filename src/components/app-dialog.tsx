@@ -13,6 +13,7 @@ interface AlertDialogInfoProps {
     mainContent?: ReactNode;
     footerContent?: ReactNode;
     triggerClassName?: string;
+    contentContainerClassName?: string;
 }
 
 const AppDialog = ({
@@ -21,13 +22,14 @@ const AppDialog = ({
     mainContent = null,
     footerContent = null,
     triggerClassName = '',
+    contentContainerClassName = '',
 }: AlertDialogInfoProps) => {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
                 {trigger && <div className={triggerClassName}>{trigger}</div>}
             </AlertDialogTrigger>
-            <AlertDialogContent>
+            <AlertDialogContent className={contentContainerClassName}>
                 {headerContent && (
                     <div className="alert-dialog-header">{headerContent}</div>
                 )}

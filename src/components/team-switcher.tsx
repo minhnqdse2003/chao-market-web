@@ -24,7 +24,7 @@ export function NavHead({
         <SidebarGroup className="pl-0">
             <SidebarMenu>
                 <SidebarMenuItem>
-                    <SidebarMenuButton size="lg">
+                    <SidebarMenuButton size="lg" className={'hover:text-white'}>
                         <div
                             className={
                                 'bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square' +
@@ -41,7 +41,7 @@ export function NavHead({
                             />
                         </div>
                         <div className="grid flex-1 text-left text-base leading-tight">
-                            <span className="truncate font-semibold">
+                            <span className="truncate font-semibold text-[var(--brand-color)]">
                                 {teams.name}
                             </span>
                             <span className="truncate text-xs">

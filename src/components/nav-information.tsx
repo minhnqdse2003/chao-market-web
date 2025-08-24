@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Globe, PhoneCall } from 'lucide-react';
+import { CircleX, Globe, PhoneCall } from 'lucide-react';
 import {
     SidebarGroup,
     SidebarMenu,
@@ -9,6 +9,29 @@ import {
 } from '@/components/ui/sidebar';
 import ThemeToggle from './theme-toggle';
 import { usePathname } from 'next/navigation';
+import AppDialog from '@/components/app-dialog';
+import {
+    AlertDialogCancel,
+    AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import { LanguageToggle } from '@/components/language-toggle';
+
+const DialogHeader = (
+    <AlertDialogTitle
+        className={'w-full flex items-center justify-center relative'}
+    >
+        Select languages
+        <AlertDialogCancel
+            className={
+                'absolute top-0 right-0 p-0! border-none bg-transparent! hover:bg-transparent! cursor-pointer w-fit h-fit'
+            }
+        >
+            <CircleX className={'size-5'} />
+        </AlertDialogCancel>
+    </AlertDialogTitle>
+);
+
+const DialogContent = <LanguageToggle />;
 
 const NavInformation = () => {
     const path = usePathname();
@@ -27,10 +50,17 @@ const NavInformation = () => {
                     </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                    <SidebarMenuButton tooltip={<p>languages</p>}>
-                        <Globe className="mr-2 h-4 w-4" />
-                        <span>Languages</span>
-                    </SidebarMenuButton>
+                    <AppDialog
+                        trigger={
+                            <SidebarMenuButton tooltip={<p>languages</p>}>
+                                <Globe className="mr-2 h-4 w-4" />
+                                <span>Languages</span>
+                            </SidebarMenuButton>
+                        }
+                        contentContainerClassName={'max-w-sm!'}
+                        headerContent={DialogHeader}
+                        mainContent={DialogContent}
+                    />
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                     <ThemeToggle />
