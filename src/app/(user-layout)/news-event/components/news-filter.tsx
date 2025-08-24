@@ -52,14 +52,7 @@ const NewsEventFilterDialogComp = ({
     // Dialog Header
     const headerContent = (
         <div className="w-full flex justify-between items-center">
-            <AlertDialogTitle className="uppercase">{title}</AlertDialogTitle>
-            <Button
-                variant="ghost"
-                className="text-[var(--brand-color)]"
-                onClick={handleClearAll}
-            >
-                Clear all
-            </Button>
+            <AlertDialogTitle>{title}</AlertDialogTitle>
         </div>
     );
 
@@ -69,7 +62,7 @@ const NewsEventFilterDialogComp = ({
             <div className="relative flex items-center border-b">
                 <Input
                     type="text"
-                    placeholder="Search news"
+                    placeholder="Search ..."
                     className="border-0 focus-visible:ring-0 bg-transparent! shadow-none"
                     onChange={handleSearchChange}
                     value={filterParams.search || ''}
@@ -101,17 +94,26 @@ const NewsEventFilterDialogComp = ({
 
     // Dialog Footer
     const footerContent = (
-        <div className="w-full flex justify-end items-center gap-4">
-            <AlertDialogCancel className="cursor-pointer">
-                Close
-            </AlertDialogCancel>
+        <div className="w-full flex justify-between items-center gap-4">
             <Button
-                variant="default"
-                className="uppercase bg-[var(--brand-color)]"
-                onClick={handleApply}
+                variant="ghost"
+                className="text-white dark:hover:text-black dark:hover:bg-[var(--brand-color)] hover:border-transparent transition-colors! duration-300 ease-in-out"
+                onClick={handleClearAll}
             >
-                Apply
+                Clear All
             </Button>
+            <div className="flex gap-2">
+                <AlertDialogCancel className="text-white cursor-pointer px-3 py-1 rounded-md hover:text-black hover:bg-[var(--brand-color)] hover:border-transparent transition-colors! duration-300 ease-in-out">
+                    Close
+                </AlertDialogCancel>
+                <Button
+                    variant="default"
+                    className="dark:hover:bg-[var(--brand-color)] dark:hover:text-black text-[var(--brand-color)] dark:bg-transparent transition-colors! duration-300 ease-in-out"
+                    onClick={handleApply}
+                >
+                    Apply
+                </Button>
+            </div>
         </div>
     );
 
@@ -119,8 +121,8 @@ const NewsEventFilterDialogComp = ({
         <div className="flex w-full justify-between items-center">
             <AppDialog
                 trigger={
-                    <Button variant="ghost">
-                        <ListFilter /> Filter
+                    <Button variant="ghost" className={'text-sm'}>
+                        <ListFilter /> Filter:
                     </Button>
                 }
                 headerContent={headerContent}
@@ -131,7 +133,7 @@ const NewsEventFilterDialogComp = ({
             <AppDropdown
                 options={SORT_BY_OPTIONS}
                 defaultValue="featured"
-                buttonClassName="max-h-[20px] font-light text-xs"
+                buttonClassName="max-h-[20px] font-light text-sm"
                 contentClassName="w-44"
                 onValueChange={value => handleFilterChange('sortBy', value)}
             />

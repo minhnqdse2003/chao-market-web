@@ -233,7 +233,7 @@ export default function CartItemsPage() {
                     isDisableSubmitButton={
                         isDisableSubmitButton || isCheckingOut || isSaving
                     }
-                    initialData={profile} // Pass profile data for auto-fill
+                    initialData={profile}
                 />
             </div>
         </div>

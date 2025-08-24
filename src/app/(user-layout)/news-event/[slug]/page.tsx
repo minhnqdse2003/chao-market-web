@@ -9,6 +9,7 @@ import { getPost } from '@/app/api/posts';
 import { TableOfContents } from '@/app/(user-layout)/news-event/[slug]/components/table-of-contents';
 import { Clock } from 'lucide-react';
 import { dateTimeFormat } from '@/utils/date-time-format';
+import AppInteractionBlock from '@/components/app-interaction-block';
 
 export interface PageProps {
     params: {
@@ -83,7 +84,7 @@ export default async function NewsEventPage({ params }: PageProps) {
                 />
 
                 {/* Post Header */}
-                <div className="mb-8">
+                <div className="mb-8 w-full relative">
                     <div
                         className={
                             'flex gap-2 items-center text-[var(--brand-grey-foreground)]'
@@ -97,9 +98,17 @@ export default async function NewsEventPage({ params }: PageProps) {
                         <span>{dateTimeFormat(new Date(post.createdAt))}</span>
                         <span className={'mx-2'} />
                         <span className={'text-white'}>
-                            -Source: {post.referenceSource}
+                            Source: {post.referenceSource}
                         </span>
                     </div>
+                    <AppInteractionBlock
+                        like={post.likes}
+                        dislike={post.dislikes}
+                        views={post.views}
+                        containerClass={
+                            'absolute top-0 right-0 flex gap-4 [&_*_svg]:size-4 text-sm'
+                        }
+                    />
                 </div>
 
                 {/* Main Content */}

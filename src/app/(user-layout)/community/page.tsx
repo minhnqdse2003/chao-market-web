@@ -15,13 +15,14 @@ import { NewsType } from '@/app/(user-layout)/news-event/utils/data-utils';
 interface PageProps {
     searchParams: {
         mainTag?: string;
+        filterBy?: string;
         pageIndex?: string;
         pageSize?: string;
     };
 }
 
 const CommunityPage = async ({ searchParams }: PageProps) => {
-    const { mainTag, pageIndex, pageSize } = searchParams;
+    const { mainTag, filterBy, pageIndex, pageSize } = searchParams;
 
     // Convert string parameters to numbers with defaults
     const pageNum = pageIndex ? parseInt(pageIndex, 10) : 0;
@@ -29,7 +30,13 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
 
     // Fetch posts filtered by tag
     const postsData: PaginatedResponse<Post> = await getPosts({
-        mainTag: mainTag, // Pass tag as query param
+        mainTag: mainTag,
+        filterBy: filterBy as
+            | 'recommended'
+            | 'hottest'
+            | 'mostViewed'
+            | 'topRated'
+            | undefined,
         pageIndex: pageNum,
         pageSize: pageSizeNum,
         type: 'community',
@@ -54,7 +61,8 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
         }));
     };
 
-    const tabs: TabServerSide[] = [
+    // Main Tag Tabs
+    const mainTagTabs: TabServerSide[] = [
         {
             title: 'All',
             href: '/community',
@@ -81,6 +89,35 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
         },
     ];
 
+    // Filter Tabs - dynamically build href with or without mainTag
+    const hasMainTag = !!mainTag;
+    const filterTabs: TabServerSide[] = [
+        {
+            title: 'Recommended',
+            href: hasMainTag
+                ? `/community?mainTag=${mainTag}&filterBy=recommended`
+                : '/community?filterBy=recommended',
+        },
+        {
+            title: 'Hottest',
+            href: hasMainTag
+                ? `/community?mainTag=${mainTag}&filterBy=hottest`
+                : '/community?filterBy=hottest',
+        },
+        {
+            title: 'Most Viewed',
+            href: hasMainTag
+                ? `/community?mainTag=${mainTag}&filterBy=mostViewed`
+                : '/community?filterBy=mostViewed',
+        },
+        {
+            title: 'Top Rated',
+            href: hasMainTag
+                ? `/community?mainTag=${mainTag}&filterBy=topRated`
+                : '/community?filterBy=topRated',
+        },
+    ];
+
     // Get current posts data
     const newsData = mapPostsToNewsType();
 
@@ -94,14 +131,27 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
     return (
         <div>
             <NewsEventsBanner />
-            <div className="mt-12">
-                <NewsEventFilterDialogComp title={'Filter Community'} />
+            <div className="mt-2">
+                <NewsEventFilterDialogComp title={'Filter by'} />
+
+                {/* Main Tag Tabs */}
                 <AppTabsServerSide
-                    tabs={tabs}
+                    tabs={mainTagTabs}
                     currentSearchParams={new URLSearchParams(
                         validSearchParams
                     ).toString()}
+                    isParentOfSubTab={true}
                 />
+
+                {/* Filter Tabs */}
+                <AppTabsServerSide
+                    tabs={filterTabs}
+                    currentSearchParams={new URLSearchParams(
+                        validSearchParams
+                    ).toString()}
+                    isSubTab={true}
+                />
+
                 <NewsComp news={newsData} baseHref={'/community'} />
 
                 {/* Pagination Section */}

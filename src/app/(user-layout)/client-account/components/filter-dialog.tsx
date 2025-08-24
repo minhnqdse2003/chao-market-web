@@ -52,7 +52,7 @@ const ClientAccountFilterDialog = ({
     // Dialog Header
     const headerContent = (
         <div className="w-full flex justify-between items-center">
-            <AlertDialogTitle>Filter By</AlertDialogTitle>
+            <AlertDialogTitle>Filter by</AlertDialogTitle>
         </div>
     );
 
@@ -115,7 +115,7 @@ const ClientAccountFilterDialog = ({
                 className="text-white dark:hover:text-black dark:hover:bg-[var(--brand-color)] hover:border-transparent transition-colors! duration-300 ease-in-out"
                 onClick={handleClearAll}
             >
-                Clear all
+                Clear All
             </Button>
             <div className="flex gap-2">
                 <AlertDialogCancel className="text-white cursor-pointer px-3 py-1 rounded-md hover:text-black hover:bg-[var(--brand-color)] hover:border-transparent transition-colors! duration-300 ease-in-out">

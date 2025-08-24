@@ -1,10 +1,11 @@
 import { NewsType } from '../utils/data-utils';
-import { Eye, Share, ThumbsDownIcon, ThumbsUpIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import NavSeparator from '@/components/nav-separator';
 import Link from 'next/link';
 import { dateTimeFormat } from '@/utils/date-time-format';
+import { ShareIcon } from '@image/index';
+import AppInteractionBlock from '@/components/app-interaction-block';
 
 const NewsComp = ({
     news,
@@ -36,29 +37,11 @@ const NewsComp = ({
                             <div className="flex justify-between">
                                 <p className="font-bold">{item.title}</p>
                                 {/* Interaction block */}
-                                <div className="flex gap-4 [&_*_svg]:size-3 text-sm">
-                                    {/* Like */}
-                                    <div className="flex items-center gap-1">
-                                        <div>
-                                            <ThumbsUpIcon />
-                                        </div>
-                                        {item.like}
-                                    </div>
-                                    {/* Dislike */}
-                                    <div className="flex items-center gap-1">
-                                        <div>
-                                            <ThumbsDownIcon />
-                                        </div>
-                                        {item.dislike}
-                                    </div>
-                                    {/* Views */}
-                                    <div className="flex items-center gap-1">
-                                        <div>
-                                            <Eye />
-                                        </div>
-                                        {item.views}
-                                    </div>
-                                </div>
+                                <AppInteractionBlock
+                                    dislike={item.dislike}
+                                    like={item.like}
+                                    views={item.views}
+                                />
                             </div>
                             {/* Description section */}
                             <div>{item.description}</div>
@@ -73,7 +56,13 @@ const NewsComp = ({
                             <p>Source: {item.referenceSource}</p>
                         </div>
                         <Button className="dark:bg-[#525252] dark:text-white rounded-3xl font-normal">
-                            <Share />
+                            <Image
+                                src={ShareIcon}
+                                alt={'share-icon'}
+                                width={100}
+                                height={100}
+                                className="size-4"
+                            />
                             Share
                         </Button>
                     </div>

@@ -118,14 +118,14 @@ export default function CheckOutTransactionForm({
                     name="firstName"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="text-[var(--brand-color)] font-medium">
+                            <FormLabel className="font-medium">
                                 First name (*)
                             </FormLabel>
                             <FormControl>
                                 <Input
                                     placeholder="Your given name"
                                     {...field}
-                                    className="bg-gray-700 border-gray-600 text-white focus:border-yellow-500"
+                                    className="bg-gray-700 border-none focus-visible:ring-0 border-gray-600 text-white"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -139,14 +139,14 @@ export default function CheckOutTransactionForm({
                     name="lastName"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="text-[var(--brand-color)] font-medium">
+                            <FormLabel className="font-medium">
                                 Last name (*)
                             </FormLabel>
                             <FormControl>
                                 <Input
                                     placeholder="Your family name"
                                     {...field}
-                                    className="bg-gray-700 border-gray-600 text-white focus:border-yellow-500"
+                                    className="bg-gray-700 border-none focus-visible:ring-0 border-gray-600 text-white"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -160,7 +160,7 @@ export default function CheckOutTransactionForm({
                     name="dateOfBirth"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="text-[var(--brand-color)] font-medium">
+                            <FormLabel className="font-medium">
                                 Date of birth (*)
                             </FormLabel>
                             <FormControl>
@@ -168,7 +168,7 @@ export default function CheckOutTransactionForm({
                                     type="date"
                                     placeholder="Your birthday"
                                     {...field}
-                                    className="bg-gray-700 border-gray-600 text-white focus:border-yellow-500"
+                                    className="bg-gray-700 border-none focus-visible:ring-0 border-gray-600 text-white [&::-webkit-datetime-edit]:text-[var(--brand-grey-foreground)] [&::-webkit-datetime-edit-text]:text-white [&::-webkit-datetime-edit-year-field]:text-white [&::-webkit-datetime-edit-month-field]:text-white [&::-webkit-datetime-edit-day-field]:text-white"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -182,7 +182,7 @@ export default function CheckOutTransactionForm({
                     name="email"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="text-[var(--brand-color)] font-medium">
+                            <FormLabel className="font-medium">
                                 Email address (*)
                             </FormLabel>
                             <FormControl>
@@ -190,7 +190,7 @@ export default function CheckOutTransactionForm({
                                     type="email"
                                     placeholder="Your email"
                                     {...field}
-                                    className="bg-gray-700 border-gray-600 text-white focus:border-yellow-500"
+                                    className="bg-gray-700 border-none focus-visible:ring-0 border-gray-600 text-white"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -204,7 +204,7 @@ export default function CheckOutTransactionForm({
                     name="phoneNumber"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="text-[var(--brand-color)] font-medium">
+                            <FormLabel className="font-medium">
                                 Phone number (*)
                             </FormLabel>
                             <FormControl>
@@ -212,7 +212,7 @@ export default function CheckOutTransactionForm({
                                     type="tel"
                                     placeholder="Your phone number"
                                     {...field}
-                                    className="bg-gray-700 border-gray-600 text-white focus:border-yellow-500"
+                                    className="bg-gray-700 border-none focus-visible:ring-0 border-gray-600 text-white"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -226,14 +226,14 @@ export default function CheckOutTransactionForm({
                     name="socialNetwork"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="text-[var(--brand-color)] font-medium">
+                            <FormLabel className="font-medium">
                                 Social network (optional)
                             </FormLabel>
                             <FormControl>
                                 <Input
                                     placeholder="Your link"
                                     {...field}
-                                    className="bg-gray-700 border-gray-600 text-white focus:border-yellow-500"
+                                    className="bg-gray-700 border-none focus-visible:ring-0 border-gray-600 text-white"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -247,7 +247,7 @@ export default function CheckOutTransactionForm({
                     name="contactMethods"
                     render={() => (
                         <FormItem className="space-y-2">
-                            <FormLabel className="text-[var(--brand-color)] font-medium">
+                            <FormLabel className="font-medium">
                                 How would you like us to contact you? (*)
                             </FormLabel>
                             <div className="flex flex-wrap gap-4">
@@ -282,7 +282,13 @@ export default function CheckOutTransactionForm({
                                             />
                                             <label
                                                 htmlFor="email"
-                                                className="text-sm font-medium text-gray-300 cursor-pointer"
+                                                className={`text-sm font-medium cursor-pointer ${
+                                                    field.value?.includes(
+                                                        'email'
+                                                    )
+                                                        ? 'text-white'
+                                                        : 'text-[var(--brand-grey-foreground)]'
+                                                }`}
                                             >
                                                 Email
                                             </label>
@@ -320,7 +326,13 @@ export default function CheckOutTransactionForm({
                                             />
                                             <label
                                                 htmlFor="phone"
-                                                className="text-sm font-medium text-gray-300 cursor-pointer"
+                                                className={`text-sm font-medium cursor-pointer ${
+                                                    field.value?.includes(
+                                                        'phone'
+                                                    )
+                                                        ? 'text-white'
+                                                        : 'text-[var(--brand-grey-foreground)]'
+                                                }`}
                                             >
                                                 Phone
                                             </label>
@@ -358,7 +370,13 @@ export default function CheckOutTransactionForm({
                                             />
                                             <label
                                                 htmlFor="social-network"
-                                                className="text-sm font-medium text-gray-300 cursor-pointer"
+                                                className={`text-sm font-medium cursor-pointer ${
+                                                    field.value?.includes(
+                                                        'social-network'
+                                                    )
+                                                        ? 'text-white'
+                                                        : 'text-[var(--brand-grey-foreground)]'
+                                                }`}
                                             >
                                                 Social network
                                             </label>
@@ -377,14 +395,14 @@ export default function CheckOutTransactionForm({
                     name="message"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="text-[var(--brand-color)] font-medium">
+                            <FormLabel className="font-medium">
                                 Your message:
                             </FormLabel>
                             <FormControl>
                                 <Textarea
                                     placeholder="Your special requests"
                                     {...field}
-                                    className="bg-gray-700 border-gray-600 text-white focus:border-yellow-500"
+                                    className="bg-gray-700 border-none focus-visible:ring-0 border-gray-600 text-white"
                                 />
                             </FormControl>
                             <FormMessage />
