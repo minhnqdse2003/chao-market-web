@@ -78,7 +78,7 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
         cell: ({ row }) => {
             const rate = row.original.rate;
             return (
-                <div className="flex items-center justify-center">
+                <div className="flex gap-1 items-center justify-center">
                     <Image
                         src={FilledThumpsUp}
                         alt={'thumps-up icons'}
@@ -86,7 +86,7 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
                         height={1080}
                         className="size-4"
                     />
-                    <span className="w-1/4">{rate.toFixed(2)}%</span>
+                    <span className="w-1/4 text-left">{rate.toFixed(2)}%</span>
                 </div>
             );
         },

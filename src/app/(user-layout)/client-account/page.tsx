@@ -12,6 +12,7 @@ import AppTooltips from '@/components/app-tooltips';
 import { Button } from '@/components/ui/button';
 import { ClientAccountBanner } from '@/components/app-banner';
 import { AppTabs, TabItem } from '@/components/app-tabs';
+import { formatToTwoDecimals } from '@/utils/number-parsing';
 
 // Mock data generation
 const dataList = [
@@ -168,17 +169,17 @@ const tabsList: TabItem[] = [
         renderContent: () => <></>,
     },
     {
-        title: '$0-$1,000',
+        title: '$0 - $1,000',
         value: '1000',
         renderContent: () => <></>,
     },
     {
-        title: '$1,000-$3,000',
+        title: '$1,000 - $3,000',
         value: '3000',
         renderContent: () => <></>,
     },
     {
-        title: '$3,000-$5,000',
+        title: '$3,000 - $5,000',
         value: '5000',
         renderContent: () => <></>,
     },
@@ -258,16 +259,21 @@ export default function Page() {
                                 </div>
                                 <div className="flex justify-between text-xs text-green-500 mb-1.5">
                                     <p>Profit</p>
-                                    <strong>{data.account.profit}</strong>
+                                    <strong>
+                                        {formatToTwoDecimals(
+                                            data.account.profit
+                                        )}
+                                        % / month
+                                    </strong>
                                 </div>
                                 <div className="text-xs font-semibold flex justify-between mb-2">
-                                    <p className="italic">Algo Trading</p>
+                                    <p>Algo Trading</p>
                                     <Progress
                                         isValueVisible={true}
                                         value={data.progress}
                                         className="w-1/2 min-h-[18px] bg-white [&>div]:bg-blue-500"
                                     />
-                                    <p className="italic">Manual Trading</p>
+                                    <p>Manual Trading</p>
                                 </div>
                                 <div className="flex justify-center items-center text-xs gap-2">
                                     <EyeIcon size={16} />

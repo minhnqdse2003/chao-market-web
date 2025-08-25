@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ChevronsUpDown, LucideIcon } from 'lucide-react';
 import { useState } from 'react';
+import { cn } from '@/lib/utils';
 
 export interface DropdownOption {
     value: string;
@@ -72,7 +73,9 @@ const AppDropdown = ({
                     <ChevronsUpDown />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className={contentClassName}>
+            <DropdownMenuContent
+                className={cn(contentClassName, 'bg-brand-dropdown')}
+            >
                 <DropdownMenuRadioGroup
                     value={selectedValue}
                     onValueChange={handleValueChange}

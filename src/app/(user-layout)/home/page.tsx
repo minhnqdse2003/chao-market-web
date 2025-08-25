@@ -15,6 +15,7 @@ import { DataTable } from '@/components/data-table';
 import { getTabData } from './data-utils';
 import { AppTabs } from '@/components/app-tabs';
 import { GeneralBanner } from '@/components/app-banner';
+import { AppDatePicker } from '@/components/app-date-picker';
 
 const Page = () => {
     const tabsList = [
@@ -33,7 +34,15 @@ const Page = () => {
                 const data = (await getTabData(
                     'exchangeRate'
                 )) as ExchangeRate[];
-                return <DataTable columns={exchangeRateColumns} data={data} />;
+                const onDateChange = (date: Date | undefined) => {
+                    console.log(date);
+                };
+                return (
+                    <div>
+                        <AppDatePicker onDateChange={onDateChange} />
+                        <DataTable columns={exchangeRateColumns} data={data} />
+                    </div>
+                );
             },
         },
         {
@@ -43,7 +52,15 @@ const Page = () => {
                 const data = (await getTabData(
                     'interestRate'
                 )) as InterestRateData[];
-                return <DataTable columns={interestRateColumns} data={data} />;
+                const onDateChange = (date: Date | undefined) => {
+                    console.log(date);
+                };
+                return (
+                    <div>
+                        <AppDatePicker onDateChange={onDateChange} />
+                        <DataTable columns={interestRateColumns} data={data} />
+                    </div>
+                );
             },
         },
         {
@@ -53,7 +70,15 @@ const Page = () => {
                 const data = (await getTabData(
                     'goldPriceVietnam'
                 )) as GoldPriceData[];
-                return <DataTable columns={goldPriceColumns} data={data} />;
+                const onDateChange = (date: Date | undefined) => {
+                    console.log(date);
+                };
+                return (
+                    <div>
+                        <AppDatePicker onDateChange={onDateChange} />
+                        <DataTable columns={goldPriceColumns} data={data} />
+                    </div>
+                );
             },
         },
     ];

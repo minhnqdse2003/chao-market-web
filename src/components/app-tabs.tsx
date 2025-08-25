@@ -34,7 +34,7 @@ export function AppTabs({ tabsList }: Readonly<TabComponentProps>) {
 
     return (
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="bg-transparent w-full mb-12">
+            <TabsList className="bg-transparent w-full mb-2">
                 {tabsList.map(tab => (
                     <TabsTrigger
                         key={tab.value}
@@ -46,7 +46,7 @@ export function AppTabs({ tabsList }: Readonly<TabComponentProps>) {
                                 ' dark:border-[var(--brand-grey)] dark:data-[state=active]:bg-transparent' +
                                 ' dark:data-[state=active]:text-[var(--brand-color)]' +
                                 ' dark:data-[state=active]:border-[var(--brand-color)]',
-                            'px-4 py-2 transition-colors!'
+                            'px-4 py-2 transition-colors! text-base font-bold'
                         )}
                     >
                         {tab.title}

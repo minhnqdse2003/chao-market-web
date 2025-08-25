@@ -32,12 +32,12 @@ export default function AppFilterSelect({
                 onValueChange={value => onChange(value)}
             >
                 <p className="text-sm">{label}</p>
-                <TabsList className="p-0 h-auto bg-background gap-1">
+                <TabsList className="p-0 h-auto bg-brand-dialog shadow-none gap-1">
                     {options.map(tab => (
                         <TabsTrigger
                             key={tab.value}
                             value={tab.value}
-                            className="border px-4 py-2 rounded-lg cursor-pointer border-transparent data-[state=active]:border-none data-[state=active]:text-[var(--brand-color)] dark:data-[state=active]:border-none dark:data-[state=active]:text-[var(--brand-color)]"
+                            className="border px-4 py-2 rounded-lg cursor-pointer border-transparent data-[state=active]:border-none data-[state=active]:text-[var(--brand-color)] dark:data-[state=active]:border-none dark:data-[state=active]:text-[var(--brand-color)] data-[state=inactive]:hover:bg-[var(--brand-color)] data-[state=inactive]:hover:text-black transition-all! duration-300 ease-in-out"
                         >
                             <p className="text-xs font-light">{tab.name}</p>
                         </TabsTrigger>
@@ -70,7 +70,7 @@ export default function AppFilterSelect({
                             />
                             <Label
                                 htmlFor={option.value}
-                                className="text-xs text-[var(--brand-grey)] font-normal cursor-pointer"
+                                className="text-xs text-[var(--brand-grey-foreground)] font-normal cursor-pointer"
                             >
                                 {option.name}
                             </Label>

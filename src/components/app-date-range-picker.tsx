@@ -50,7 +50,7 @@ const AppDateRangePicker = ({
                     onOpenChange={value => handleOpenPopover('start', value)}
                 >
                     <PopoverTrigger
-                        className="text-[var(--brand-grey)] hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out"
+                        className="text-[var(--brand-grey-foreground)] hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out"
                         asChild
                     >
                         <Button
@@ -86,13 +86,13 @@ const AppDateRangePicker = ({
                         />
                     </PopoverContent>
                 </Popover>
-                <Separator className="w-full max-w-[1rem]" />
+                <Separator className="w-full bg-[var(--brand-grey-foreground)] max-w-[1rem]" />
                 <Popover
                     open={open.end}
                     onOpenChange={value => handleOpenPopover('end', value)}
                 >
                     <PopoverTrigger
-                        className="text-[var(--brand-grey)] hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out"
+                        className="text-[var(--brand-grey-foreground)] hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out"
                         asChild
                     >
                         <Button

@@ -50,6 +50,9 @@
     --brand-grey-foreground: #949494;
     --brand-grey-light: #c4c4c4;
     --brand-black-bg: #363636;
+    --color-brand-floating-btn: #ffe400;
+    --color-brand-dialog: #2e2e2e;
+    --color-brand-dropdown: #2e2e2e;
 }
 
 :root {

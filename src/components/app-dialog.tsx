@@ -6,6 +6,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 
 interface AlertDialogInfoProps {
     trigger?: ReactNode;
@@ -29,7 +30,9 @@ const AppDialog = ({
             <AlertDialogTrigger asChild>
                 {trigger && <div className={triggerClassName}>{trigger}</div>}
             </AlertDialogTrigger>
-            <AlertDialogContent className={contentContainerClassName}>
+            <AlertDialogContent
+                className={cn(contentContainerClassName, 'bg-brand-dialog')}
+            >
                 {headerContent && (
                     <div className="alert-dialog-header">{headerContent}</div>
                 )}

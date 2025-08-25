@@ -29,8 +29,8 @@ export default function UserLayout({
                         <DialogTrigger asChild>
                             <Button
                                 className="fixed top-1/2 right-0 transition-all! ease-out duration-300 transform translate-x-6/7 hover:translate-x-0 -translate-y-1/2
-                         bg-[var(--brand-color)] text-black px-4 py-1 rounded-none rounded-l-xl
-                         shadow-lg hover:bg-[var(--brand-color-foreground)] font-semibold vertical-text h-fit"
+                         bg-brand-floating-btn text-black px-4 py-1 rounded-none rounded-l-xl
+                         shadow-lg hover:bg-brand-floating-btn font-semibold vertical-text h-fit"
                                 aria-label="Open dialog"
                             >
                                 Help &amp; Feedback
