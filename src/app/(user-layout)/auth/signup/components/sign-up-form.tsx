@@ -149,7 +149,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                         </FormLabel>
                                         <FormControl>
                                             <Input
-                                                placeholder="First name"
+                                                placeholder="Enter your first name"
                                                 className="app-text-input"
                                                 {...field}
                                             />
@@ -169,7 +169,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                         </FormLabel>
                                         <FormControl>
                                             <Input
-                                                placeholder="Last name"
+                                                placeholder="Enter your last name"
                                                 className="app-text-input"
                                                 {...field}
                                             />
@@ -332,7 +332,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                     <FormControl>
                                         <Input
                                             type="email"
-                                            placeholder="Email address"
+                                            placeholder="Enter your email"
                                             className="app-text-input"
                                             {...field}
                                         />
@@ -353,7 +353,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                     <FormControl>
                                         <Input
                                             type="password"
-                                            placeholder="Password"
+                                            placeholder="Enter your password"
                                             className="app-text-input"
                                             {...field}
                                         />
@@ -374,7 +374,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                     <FormControl>
                                         <Input
                                             type="password"
-                                            placeholder="Confirm password"
+                                            placeholder="Enter your confirm password"
                                             className="app-text-input"
                                             {...field}
                                         />
