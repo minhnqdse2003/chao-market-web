@@ -101,7 +101,7 @@ export default function FunnelPopover() {
 
             {/* Popover */}
             <div
-                className={`fixed bg-black z-23 border flex flex-col items-center border-[var(--brand-color)] shadow-lg text-sm text-white rounded-lg p-6 transition-all! duration-400 ease-in-out
+                className={`fixed bg-brand-dialog z-23 border flex flex-col items-center border-[var(--brand-color)] shadow-lg text-sm text-white rounded-lg p-6 transition-all! duration-400 ease-in-out
                 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
                 `}
                 style={{
@@ -122,9 +122,10 @@ export default function FunnelPopover() {
                     &#34;The information provided by Chào Market does not
                     constitute and shall not be considered as investment advice,
                     financial advice, a recommendation, or a solicitation to
-                    buy, sell, or hold any financial asset. All investment
-                    decisions carry financial risks, and you are solely
-                    responsible for your own decisions&#34;
+                    buy, sell, or hold any financial asset.
+                    <br />
+                    All investment decisions carry financial risks, and you are
+                    solely responsible for your own decisions&#34;
                 </p>
 
                 <Button
@@ -137,7 +138,11 @@ export default function FunnelPopover() {
                 {/* Auto-close countdown message */}
                 {isOpen && isAutoPopup.current && countdown > 0 && (
                     <p className="mt-4 text-sm text-[var(--brand-grey-foreground)] italic text-center">
-                        This will automatically close in {countdown} second
+                        This will automatically close in{' '}
+                        <span className={'text-[var(--brand-color)]'}>
+                            {countdown}
+                        </span>{' '}
+                        second
                         {countdown > 1 ? 's' : ''}.
                     </p>
                 )}

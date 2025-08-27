@@ -10,10 +10,7 @@ import {
 import ThemeToggle from './theme-toggle';
 import { usePathname } from 'next/navigation';
 import AppDialog from '@/components/app-dialog';
-import {
-    AlertDialogCancel,
-    AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+import { AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { LanguageToggle } from '@/components/language-toggle';
 
 const DialogHeader = (
@@ -21,15 +18,10 @@ const DialogHeader = (
         className={'w-full flex items-center justify-center relative'}
     >
         Select languages
-        <AlertDialogCancel
-            className={
-                'absolute top-0 right-0 p-0! border-none bg-transparent! hover:bg-transparent! cursor-pointer w-fit h-fit'
-            }
-        >
-            <CircleX className={'size-5'} />
-        </AlertDialogCancel>
     </AlertDialogTitle>
 );
+
+const FloatingCancelButton = <CircleX className={'size-5'} />;
 
 const DialogContent = <LanguageToggle />;
 
@@ -60,6 +52,7 @@ const NavInformation = () => {
                         contentContainerClassName={'max-w-sm!'}
                         headerContent={DialogHeader}
                         mainContent={DialogContent}
+                        floatingCancelButton={FloatingCancelButton}
                     />
                 </SidebarMenuItem>
                 <SidebarMenuItem>

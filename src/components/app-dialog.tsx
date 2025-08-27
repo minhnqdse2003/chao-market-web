@@ -1,6 +1,7 @@
 'use client';
 import {
     AlertDialog,
+    AlertDialogCancel,
     AlertDialogContent,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
@@ -15,6 +16,7 @@ interface AlertDialogInfoProps {
     footerContent?: ReactNode;
     triggerClassName?: string;
     contentContainerClassName?: string;
+    floatingCancelButton?: ReactNode;
 }
 
 const AppDialog = ({
@@ -24,10 +26,14 @@ const AppDialog = ({
     footerContent = null,
     triggerClassName = '',
     contentContainerClassName = '',
+    floatingCancelButton,
 }: AlertDialogInfoProps) => {
     return (
         <AlertDialog>
-            <AlertDialogTrigger asChild>
+            <AlertDialogTrigger
+                className={'data-[state=open]:text-[var(--brand-color)]'}
+                asChild
+            >
                 {trigger && <div className={triggerClassName}>{trigger}</div>}
             </AlertDialogTrigger>
             <AlertDialogContent
@@ -43,6 +49,16 @@ const AppDialog = ({
                     <div className="alert-dialog-footer mt-4">
                         {footerContent}
                     </div>
+                )}
+                {floatingCancelButton && (
+                    <AlertDialogCancel
+                        className={
+                            'absolute top-2 right-2 p-0! border-none bg-transparent! hover:bg-transparent!' +
+                            ' cursor-pointer w-fit h-fit'
+                        }
+                    >
+                        {floatingCancelButton}
+                    </AlertDialogCancel>
                 )}
             </AlertDialogContent>
         </AlertDialog>

@@ -33,7 +33,7 @@ export default function AppInteractionBlock(item: AppInteractionBlockProps) {
                 <div>
                     <Eye />
                 </div>
-                {item.views} {'  '}Views
+                {item.views}
             </div>
         </div>
     );

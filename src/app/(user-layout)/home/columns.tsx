@@ -50,13 +50,6 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Weekday" />
         ),
-        cell: ({ row }) => (
-            <div className="text-center flex items-center justify-center">
-                <p className={'w-[5.875rem] text-left'}>
-                    {row.getValue('weekday')}
-                </p>
-            </div>
-        ),
     },
     {
         accessorKey: 'category',

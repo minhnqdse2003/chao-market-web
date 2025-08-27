@@ -35,7 +35,9 @@ const NewsComp = ({
                         <div className="w-7/10 flex flex-col gap-4">
                             {/* Title section */}
                             <div className="flex justify-between">
-                                <p className="font-bold">{item.title}</p>
+                                <p className="text-lg font-bold">
+                                    {item.title}
+                                </p>
                                 {/* Interaction block */}
                                 <AppInteractionBlock
                                     dislike={item.dislike}
@@ -49,10 +51,8 @@ const NewsComp = ({
                     </div>
                     <div className="w-[calc(70%-2rem)] flex justify-between">
                         {/* Date & Reference source */}
-                        <div className="flex w-fit text-sm gap-4">
-                            <p className="dark:text-[var(--brand-grey-foreground)] font-semibold">
-                                {dateTimeFormat(new Date(item.date))}
-                            </p>
+                        <div className="flex w-fit text-sm gap-4 dark:text-[var(--brand-grey-foreground)] font-semibold">
+                            <p>{dateTimeFormat(new Date(item.date))}</p>
                             <p>Source: {item.referenceSource}</p>
                         </div>
                         <Button className="dark:bg-[#525252] dark:text-white rounded-3xl font-normal">
@@ -61,7 +61,7 @@ const NewsComp = ({
                                 alt={'share-icon'}
                                 width={100}
                                 height={100}
-                                className="size-4"
+                                className="size-3"
                             />
                             Share
                         </Button>

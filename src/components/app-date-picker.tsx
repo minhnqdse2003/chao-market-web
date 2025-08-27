@@ -14,6 +14,7 @@ import {
 import { ClassValue } from 'clsx';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
+import '@/app/globals.css';
 
 interface AppDatePickerProps {
     containerClass?: ClassValue;
@@ -36,9 +37,9 @@ export function AppDatePicker({
     };
 
     return (
-        <div className={cn(containerClass, 'flex flex-col gap-1 mb-4')}>
+        <div className={cn(containerClass, 'flex flex-col gap-2 mb-4')}>
             <Label htmlFor="date" className="px-1">
-                Last updated
+                Date:
             </Label>
             <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild>
@@ -63,6 +64,20 @@ export function AppDatePicker({
                         selected={date}
                         captionLayout="dropdown"
                         onSelect={handleDateSelect}
+                        className={'app-date-picker'}
+                        classNames={{
+                            selected:
+                                'dark:[&>button]:bg-[var(--brand-color)]' +
+                                ' dark:[&:hover>button]:bg-[var(--brand-color-foreground)]' +
+                                ' dark:text-black dark:[&:hover>button]:text-black',
+                            today:
+                                'dark:[&>button]:text-[var(--brand-color)] border border-[var(--brand-color)]' +
+                                ' rounded-md' +
+                                ' dark:[&:hover>button]:text-[var(--brand-color-foreground)]' +
+                                ' dark:hover:border-[var(--brand-color-foreground)]',
+                            months_dropdown:
+                                'app-months-dropdown [&_option]:hover:!bg-red-500',
+                        }}
                     />
                 </PopoverContent>
             </Popover>

@@ -40,7 +40,7 @@ export function LanguageToggle() {
                         ' [&[state-checked="checked"]]:pointer-events-none cursor-pointer' +
                         ' [&:hover[state-checked="unchecked"]]:bg-[var(--brand-grey)]' +
                         ' [&[state-checked="checked"]>.check-icon]:visible' +
-                        ' transition-all! duration-300 ease-in-out'
+                        ' transition-all! duration-300 ease-in-out [&[state-checked="checked"]]:text-[var(--brand-color)]'
                     }
                     onClick={() => setLocale(lang.code)}
                 >
