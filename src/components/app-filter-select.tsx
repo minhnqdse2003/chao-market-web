@@ -58,7 +58,7 @@ export default function AppFilterSelect({
                     className="flex flex-col gap-2"
                     value={valueOptions}
                 >
-                    {options.map(option => (
+                    {options.map((option, idx) => (
                         <div
                             key={option.value}
                             className="flex items-center space-x-2"
@@ -66,11 +66,11 @@ export default function AppFilterSelect({
                             <RadioGroupItem
                                 value={option.value}
                                 id={option.value}
-                                className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer [&_*_svg]:fill-[var(--brand-color)] [&_*_svg]:stroke-[var(--brand-color)]"
+                                className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer [&_*_svg]:fill-[var(--brand-color)] [&_*_svg]:stroke-[var(--brand-color)] "
                             />
                             <Label
                                 htmlFor={option.value}
-                                className="text-xs text-[var(--brand-grey-foreground)] font-normal cursor-pointer"
+                                className={`text-xs text-[var(--brand-grey-foreground)] font-normal cursor-pointer ${valueOptions === option.value || (valueOptions === undefined && idx === 0) ? 'text-[var(--brand-color)]' : ''}`}
                             >
                                 {option.name}
                             </Label>

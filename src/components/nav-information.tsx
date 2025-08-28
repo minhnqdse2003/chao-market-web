@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { CircleX, Globe, PhoneCall } from 'lucide-react';
+import { Globe, PhoneCall } from 'lucide-react';
 import {
     SidebarGroup,
     SidebarMenu,
@@ -10,18 +10,13 @@ import {
 import ThemeToggle from './theme-toggle';
 import { usePathname } from 'next/navigation';
 import AppDialog from '@/components/app-dialog';
-import { AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { LanguageToggle } from '@/components/language-toggle';
 
 const DialogHeader = (
-    <AlertDialogTitle
-        className={'w-full flex items-center justify-center relative'}
-    >
+    <div className={'w-full flex items-center justify-center relative'}>
         Select languages
-    </AlertDialogTitle>
+    </div>
 );
-
-const FloatingCancelButton = <CircleX className={'size-5'} />;
 
 const DialogContent = <LanguageToggle />;
 
@@ -52,7 +47,6 @@ const NavInformation = () => {
                         contentContainerClassName={'max-w-sm!'}
                         headerContent={DialogHeader}
                         mainContent={DialogContent}
-                        floatingCancelButton={FloatingCancelButton}
                     />
                 </SidebarMenuItem>
                 <SidebarMenuItem>

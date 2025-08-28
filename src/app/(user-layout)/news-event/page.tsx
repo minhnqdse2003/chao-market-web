@@ -129,7 +129,7 @@ const Page = async ({ searchParams }: PageProps) => {
         <div>
             <NewsEventsBanner />
             <div className="mt-2">
-                <NewsEventFilterDialogComp title={'Filter by'} />
+                <NewsEventFilterDialogComp title={'Filter By'} />
 
                 {/* Type Tabs */}
                 <AppTabsServerSide

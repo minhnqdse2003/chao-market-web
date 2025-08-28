@@ -74,7 +74,9 @@ export function AppDatePicker({
                                 'dark:[&>button]:text-[var(--brand-color)] border border-[var(--brand-color)]' +
                                 ' rounded-md' +
                                 ' dark:[&:hover>button]:text-[var(--brand-color-foreground)]' +
-                                ' dark:hover:border-[var(--brand-color-foreground)]',
+                                ' dark:hover:border-[var(--brand-color-foreground)]' +
+                                ' dark:[&[data-selected="true"]>button]:text-black' +
+                                ' dark:[&[data-selected="true"]]:border-transparent',
                             months_dropdown:
                                 'app-months-dropdown [&_option]:hover:!bg-red-500',
                         }}

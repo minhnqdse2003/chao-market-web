@@ -82,7 +82,22 @@ const AppDateRangePicker = ({
                             disabled={date =>
                                 value?.endDate ? date > value?.endDate : false
                             }
-                            className="dark:[&_*_.rdp-dropdown]:text-white dark:[&_*_.rdp-dropdown]:bg-background"
+                            className="app-date-picker"
+                            classNames={{
+                                selected:
+                                    'dark:[&>button]:bg-[var(--brand-color)]' +
+                                    ' dark:[&:hover>button]:bg-[var(--brand-color-foreground)]' +
+                                    ' dark:text-black dark:[&:hover>button]:text-black',
+                                today:
+                                    'dark:[&>button]:text-[var(--brand-color)] border border-[var(--brand-color)]' +
+                                    ' rounded-md' +
+                                    ' dark:[&:hover>button]:text-[var(--brand-color-foreground)]' +
+                                    ' dark:hover:border-[var(--brand-color-foreground)]' +
+                                    ' dark:[&[data-selected="true"]>button]:text-black' +
+                                    ' dark:[&[data-selected="true"]]:border-transparent',
+                                months_dropdown:
+                                    'app-months-dropdown [&_option]:hover:!bg-red-500',
+                            }}
                         />
                     </PopoverContent>
                 </Popover>
@@ -126,7 +141,22 @@ const AppDateRangePicker = ({
                                     ? date < value.startDate
                                     : false
                             }
-                            className="dark:[&_*_.rdp-dropdown]:text-white dark:[&_*_.rdp-dropdown]:bg-background"
+                            className="app-date-picker"
+                            classNames={{
+                                selected:
+                                    'dark:[&>button]:bg-[var(--brand-color)]' +
+                                    ' dark:[&:hover>button]:bg-[var(--brand-color-foreground)]' +
+                                    ' dark:text-black dark:[&:hover>button]:text-black',
+                                today:
+                                    'dark:[&>button]:text-[var(--brand-color)] border border-[var(--brand-color)]' +
+                                    ' rounded-md' +
+                                    ' dark:[&:hover>button]:text-[var(--brand-color-foreground)]' +
+                                    ' dark:hover:border-[var(--brand-color-foreground)]' +
+                                    ' dark:[&[data-selected="true"]>button]:text-black' +
+                                    ' dark:[&[data-selected="true"]]:border-transparent',
+                                months_dropdown:
+                                    'app-months-dropdown [&_option]:hover:!bg-red-500',
+                            }}
                         />
                     </PopoverContent>
                 </Popover>

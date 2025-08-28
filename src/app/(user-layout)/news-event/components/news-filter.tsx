@@ -1,9 +1,7 @@
 'use client';
 import AppDialog from '@/components/app-dialog';
-import { AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { AlertDialogCancel } from '@radix-ui/react-alert-dialog';
 import { ListFilter, SearchIcon } from 'lucide-react';
 import React from 'react';
 import AppFilterSelect from '@/components/app-filter-select';
@@ -52,7 +50,7 @@ const NewsEventFilterDialogComp = ({
     // Dialog Header
     const headerContent = (
         <div className="w-full flex justify-between items-center">
-            <AlertDialogTitle>{title}</AlertDialogTitle>
+            <h2 className="text-lg font-semibold">{title}</h2>
         </div>
     );
 
@@ -102,18 +100,13 @@ const NewsEventFilterDialogComp = ({
             >
                 Clear All
             </Button>
-            <div className="flex gap-2">
-                <AlertDialogCancel className="text-white cursor-pointer px-3 py-1 rounded-md hover:text-black hover:bg-[var(--brand-color)] hover:border-transparent transition-colors! duration-300 ease-in-out">
-                    Close
-                </AlertDialogCancel>
-                <Button
-                    variant="default"
-                    className="dark:hover:bg-[var(--brand-color)] dark:hover:text-black text-[var(--brand-color)] dark:bg-transparent transition-colors! duration-300 ease-in-out"
-                    onClick={handleApply}
-                >
-                    Apply
-                </Button>
-            </div>
+            <Button
+                variant="default"
+                className="dark:hover:bg-[var(--brand-color)] dark:hover:text-black text-[var(--brand-color)] dark:bg-transparent transition-colors! duration-300 ease-in-out"
+                onClick={handleApply}
+            >
+                Apply
+            </Button>
         </div>
     );
 

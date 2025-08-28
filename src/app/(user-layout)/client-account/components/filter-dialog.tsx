@@ -1,8 +1,6 @@
 import AppDialog from '@/components/app-dialog';
-import { AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { AlertDialogCancel } from '@radix-ui/react-alert-dialog';
 import { ListFilter, SearchIcon } from 'lucide-react';
 import React from 'react';
 import AppFilterSelect from '@/components/app-filter-select';
@@ -52,7 +50,9 @@ const ClientAccountFilterDialog = ({
     // Dialog Header
     const headerContent = (
         <div className="w-full flex justify-between items-center">
-            <AlertDialogTitle>Filter by</AlertDialogTitle>
+            <h2 className="text-lg font-semibold" id="filter-dialog-title">
+                Filter By
+            </h2>
         </div>
     );
 
@@ -66,6 +66,7 @@ const ClientAccountFilterDialog = ({
                     placeholder="Search"
                     className="border-0 focus-visible:ring-0 bg-transparent! shadow-none"
                     onChange={handleSearchChange}
+                    aria-label="Search"
                 />
             </div>
             <AppFilterSelect
@@ -117,18 +118,13 @@ const ClientAccountFilterDialog = ({
             >
                 Clear All
             </Button>
-            <div className="flex gap-2">
-                <AlertDialogCancel className="text-white cursor-pointer px-3 py-1 rounded-md hover:text-black hover:bg-[var(--brand-color)] hover:border-transparent transition-colors! duration-300 ease-in-out">
-                    Close
-                </AlertDialogCancel>
-                <Button
-                    variant="default"
-                    className="dark:hover:bg-[var(--brand-color)] dark:hover:text-black text-[var(--brand-color)] dark:bg-transparent transition-colors! duration-300 ease-in-out"
-                    onClick={handleApply}
-                >
-                    Apply
-                </Button>
-            </div>
+            <Button
+                variant="default"
+                className="dark:hover:bg-[var(--brand-color)] dark:hover:text-black text-[var(--brand-color)] dark:bg-transparent transition-colors! duration-300 ease-in-out"
+                onClick={handleApply}
+            >
+                Apply
+            </Button>
         </div>
     );
 
@@ -143,6 +139,7 @@ const ClientAccountFilterDialog = ({
             mainContent={mainContent}
             footerContent={footerContent}
             triggerClassName="inline-flex"
+            contentContainerClassName="[&>div]:pt-6"
         />
     );
 };

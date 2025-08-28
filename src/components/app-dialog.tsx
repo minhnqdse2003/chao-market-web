@@ -1,22 +1,23 @@
 'use client';
 import {
-    AlertDialog,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
-interface AlertDialogInfoProps {
+interface DialogProps {
     trigger?: ReactNode;
     headerContent?: ReactNode;
     mainContent?: ReactNode;
     footerContent?: ReactNode;
     triggerClassName?: string;
     contentContainerClassName?: string;
-    floatingCancelButton?: ReactNode;
+    floatingCloseButton?: ReactNode;
 }
 
 const AppDialog = ({
@@ -26,42 +27,47 @@ const AppDialog = ({
     footerContent = null,
     triggerClassName = '',
     contentContainerClassName = '',
-    floatingCancelButton,
-}: AlertDialogInfoProps) => {
+    floatingCloseButton,
+}: DialogProps) => {
     return (
-        <AlertDialog>
-            <AlertDialogTrigger
+        <Dialog>
+            <DialogTrigger
                 className={'data-[state=open]:text-[var(--brand-color)]'}
                 asChild
             >
                 {trigger && <div className={triggerClassName}>{trigger}</div>}
-            </AlertDialogTrigger>
-            <AlertDialogContent
-                className={cn(contentContainerClassName, 'bg-brand-dialog')}
+            </DialogTrigger>
+            <DialogContent
+                className={cn(
+                    contentContainerClassName,
+                    'bg-brand-dialog max-h-[90svh] [&>.dialog-header]:pt-0 [&>.dialog-footer]:p-0' +
+                        ' [&>.dialog-content]:p-0' +
+                        ' [&_.dialog-footer]:m-0 [&_[data-slot="dialog-close"]]:cursor-pointer'
+                )}
             >
                 {headerContent && (
-                    <div className="alert-dialog-header">{headerContent}</div>
+                    <DialogTitle className="sr-only p-0!">
+                        {typeof headerContent === 'string'
+                            ? headerContent
+                            : 'Dialog Header'}
+                    </DialogTitle>
+                )}
+                {headerContent && (
+                    <div className="dialog-header">{headerContent}</div>
                 )}
                 {mainContent && (
-                    <div className="alert-dialog-content">{mainContent}</div>
+                    <div className="dialog-content">{mainContent}</div>
                 )}
                 {footerContent && (
-                    <div className="alert-dialog-footer mt-4">
+                    <div className="dialog-footer mt-4 dark:[&>_*_button:hover]:font-semibold">
                         {footerContent}
                     </div>
                 )}
-                {floatingCancelButton && (
-                    <AlertDialogCancel
-                        className={
-                            'absolute top-2 right-2 p-0! border-none bg-transparent! hover:bg-transparent!' +
-                            ' cursor-pointer w-fit h-fit'
-                        }
-                    >
-                        {floatingCancelButton}
-                    </AlertDialogCancel>
+                {floatingCloseButton && (
+                    <DialogClose>{floatingCloseButton}</DialogClose>
                 )}
-            </AlertDialogContent>
-        </AlertDialog>
+            </DialogContent>
+        </Dialog>
     );
 };
 
