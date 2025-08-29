@@ -35,12 +35,14 @@ export function LanguageToggle() {
                         locale === lang.code ? 'checked' : 'unchecked'
                     }
                     className={
-                        'relative [&[state-checked="checked"]]:bg-[var(--brand-grey)] px-2' +
+                        'relative px-2' +
                         ' py-4 rounded-lg [&[state-checked="checked"]]:cursor-pointer' +
                         ' [&[state-checked="checked"]]:pointer-events-none cursor-pointer' +
-                        ' [&:hover[state-checked="unchecked"]]:bg-[var(--brand-grey)]' +
+                        ' [&[state-checked="unchecked"]]:hover:text-[var(--brand-color)]' +
+                        ' [&[state-checked="unchecked"]]:hover:font-semibold' +
                         ' [&[state-checked="checked"]>.check-icon]:visible' +
-                        ' transition-all! duration-300 ease-in-out [&[state-checked="checked"]]:text-[var(--brand-color)]'
+                        ' transition-all! duration-75 ease-in-out' +
+                        ' [&[state-checked="checked"]]:text-[var(--brand-color)]'
                     }
                     onClick={() => setLocale(lang.code)}
                 >

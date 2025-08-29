@@ -12,18 +12,16 @@ import { usePathname } from 'next/navigation';
 import AppDialog from '@/components/app-dialog';
 import { LanguageToggle } from '@/components/language-toggle';
 
-const DialogHeader = (
-    <div className={'w-full flex items-center justify-center relative'}>
-        Select languages
-    </div>
+const LanguageDialogHeader = (
+    <div className={'w-full flex items-center relative'}>Select Languages</div>
 );
 
-const DialogContent = <LanguageToggle />;
+const LanguageDialogContent = <LanguageToggle />;
 
 const NavInformation = () => {
     const path = usePathname();
     return (
-        <SidebarGroup className="px-2 mb-6">
+        <SidebarGroup className="px-2 mb-8">
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton
@@ -45,8 +43,8 @@ const NavInformation = () => {
                             </SidebarMenuButton>
                         }
                         contentContainerClassName={'max-w-sm!'}
-                        headerContent={DialogHeader}
-                        mainContent={DialogContent}
+                        headerContent={LanguageDialogHeader}
+                        mainContent={LanguageDialogContent}
                     />
                 </SidebarMenuItem>
                 <SidebarMenuItem>

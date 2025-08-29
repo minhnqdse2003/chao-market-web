@@ -8,6 +8,7 @@ import {
     Megaphone,
     Users,
     GalleryVerticalEnd,
+    Info,
 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 
@@ -25,8 +26,8 @@ import { NavMain } from './nav-main';
 import { SearchForm } from './search-form';
 import NavSeparator from './nav-separator';
 import NavInformation from './nav-information';
-import FunnelPopover from '@/components/envelop-banner';
 import SimpleCartButton from '@/components/nav-user-cart';
+import DisclaimerDialog from '@/components/disclaimer-dialog';
 
 const data = {
     headers: [
@@ -169,7 +170,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </SidebarContent>
                     <NavSeparator isTrigger={false} className="my-2" />
                     <NavInformation />
-                    <FunnelPopover />
+                    <DisclaimerDialog
+                        trigger={
+                            <>
+                                <Info className={'h-4 w-4'} />
+                                <span>Disclaimer</span>
+                            </>
+                        }
+                    />
                 </>
             )}
         </Sidebar>

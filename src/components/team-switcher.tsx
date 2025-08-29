@@ -40,11 +40,11 @@ export function NavHead({
                                 className={open ? 'size-12' : 'size-8'}
                             />
                         </div>
-                        <div className="grid flex-1 text-left text-base leading-tight">
+                        <div className="grid flex-1 text-left text-lg leading-tight">
                             <span className="truncate font-semibold text-[var(--brand-color)]">
                                 {teams.name}
                             </span>
-                            <span className="truncate text-xs">
+                            <span className="truncate text-sm">
                                 {teams.plan}
                             </span>
                         </div>

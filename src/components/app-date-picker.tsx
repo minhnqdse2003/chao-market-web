@@ -79,6 +79,8 @@ export function AppDatePicker({
                                 ' dark:[&[data-selected="true"]]:border-transparent',
                             months_dropdown:
                                 'app-months-dropdown [&_option]:hover:!bg-red-500',
+                            month_caption:
+                                'text-[var(--brand-color)]! [&>_*_svg]:text-[var(--brand-color)]!',
                         }}
                     />
                 </PopoverContent>

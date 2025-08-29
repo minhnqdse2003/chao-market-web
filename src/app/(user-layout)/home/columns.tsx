@@ -3,6 +3,7 @@ import { DataTableColumnHeader } from '@/components/data-table-column-header';
 import { ColumnDef } from '@tanstack/react-table';
 import Image from 'next/image';
 import { FilledThumpsUp } from '@image/index';
+import { percentageFormat, priceFormat } from '@/utils/number-parsing';
 
 export type HomeNewFlow = {
     date: Date;
@@ -41,7 +42,6 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
         ),
         cell: ({ row }) => {
             const date = row.original.date;
-            // Format in dd/mm/yyyy:
             return date.toLocaleDateString('en-GB');
         },
     },
@@ -79,7 +79,9 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
                         height={1080}
                         className="size-4"
                     />
-                    <span className="w-1/4 text-left">{rate.toFixed(2)}%</span>
+                    <span className="w-1/4 text-left">
+                        {percentageFormat(rate)}
+                    </span>
                 </div>
             );
         },
@@ -91,7 +93,6 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
         ),
         cell: ({ row }) => {
             const view = row.original.view;
-            // Adding commas to thousands
             return view.toLocaleString('en-US');
         },
     },
@@ -131,7 +132,7 @@ export const exchangeRateColumns: ColumnDef<ExchangeRate>[] = [
                 className="text-center"
             />
         ),
-        cell: ({ row }) => `$${row.original.cashBuying.toFixed(2)}`,
+        cell: ({ row }) => `$${priceFormat(row.original.cashBuying)}`,
         enableSorting: true,
         enableColumnFilter: true,
     },
@@ -144,7 +145,7 @@ export const exchangeRateColumns: ColumnDef<ExchangeRate>[] = [
                 className="text-center"
             />
         ),
-        cell: ({ row }) => `$${row.original.telegraphicBuying.toFixed(2)}`,
+        cell: ({ row }) => `$${priceFormat(row.original.telegraphicBuying)}`,
         enableSorting: true,
         enableColumnFilter: true,
     },
@@ -157,7 +158,7 @@ export const exchangeRateColumns: ColumnDef<ExchangeRate>[] = [
                 className="text-center"
             />
         ),
-        cell: ({ row }) => `$${row.original.selling.toFixed(2)}`,
+        cell: ({ row }) => `$${priceFormat(row.original.selling)}`,
         enableSorting: true,
         enableColumnFilter: true,
     },
@@ -175,21 +176,21 @@ export const interestRateColumns: ColumnDef<InterestRateData>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="VND Rate" />
         ),
-        cell: ({ row }) => `${(row.original.vndRate * 100).toFixed(2)}%`,
+        cell: ({ row }) => percentageFormat(row.original.vndRate * 100),
     },
     {
         accessorKey: 'eurRate',
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="EUR Rate" />
         ),
-        cell: ({ row }) => `${(row.original.eurRate * 100).toFixed(2)}%`,
+        cell: ({ row }) => percentageFormat(row.original.eurRate * 100),
     },
     {
         accessorKey: 'usdRate',
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="USD Rate" />
         ),
-        cell: ({ row }) => `${(row.original.usdRate * 100).toFixed(2)}%`,
+        cell: ({ row }) => percentageFormat(row.original.usdRate * 100),
     },
 ];
 
@@ -205,6 +206,10 @@ export const goldPriceColumns: ColumnDef<GoldPriceData>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Giá Bán (VND)" />
         ),
-        cell: ({ row }) => row.original.sellingPriceVND || 'N/A',
+        cell: ({ row }) => {
+            const price = row.original.sellingPriceVND;
+            if (!price || price === 'N/A') return 'N/A';
+            return priceFormat(price);
+        },
     },
 ];

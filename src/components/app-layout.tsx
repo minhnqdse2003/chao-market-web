@@ -11,8 +11,9 @@ import '@fontsource/barlow';
 
 export async function AppLayout({ children }: { children: React.ReactNode }) {
     const cookieStore = await cookies();
-    const defaultOpen =
-        cookieStore.get(COOKIE_SIDEBAR_STATE_NAME)?.value === 'true';
+    const cookieValue = cookieStore.get(COOKIE_SIDEBAR_STATE_NAME)?.value;
+    const defaultOpen = cookieValue === 'true' || cookieValue === undefined;
+
     return (
         <html lang="en" suppressHydrationWarning>
             <body

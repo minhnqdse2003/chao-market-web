@@ -17,7 +17,7 @@ const AppTooltips = ({
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger asChild>{trigger}</TooltipTrigger>
-                <TooltipContent className="bg-gray-600 [&>span>svg]:bg-gray-600 [&>span>svg]:fill-gray-600 text-white">
+                <TooltipContent className="bg-brand-dialog [&>span>svg]:bg-brand-dialog [&>span>svg]:fill-brand-dialog text-white">
                     {contents}
                 </TooltipContent>
             </Tooltip>
