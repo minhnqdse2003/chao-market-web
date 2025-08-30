@@ -56,7 +56,7 @@ export function TableOfContents({ content }: TableOfContentsProps) {
                 </AccordionTrigger>
                 <AccordionContent className="text-base font-thin leading-tight pt-4">
                     {headlines.length > 0 ? (
-                        <ul className="list-decimal list-inside space-y-4">
+                        <ul className="list-decimal list-inside text-[var(--brand-grey-foreground)] space-y-4">
                             {headlines.map((text, index) => (
                                 <li key={`${text}-${index}`}>
                                     <a href="#">{text}</a>

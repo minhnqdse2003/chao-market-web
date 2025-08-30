@@ -1,11 +1,11 @@
 import { NewsType } from '../utils/data-utils';
-import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import NavSeparator from '@/components/nav-separator';
 import Link from 'next/link';
 import { dateTimeFormat } from '@/utils/date-time-format';
-import { ShareIcon } from '@image/index';
 import AppInteractionBlock from '@/components/app-interaction-block';
+import { endPointBuild } from '@/utils/end-point-build';
+import AppShareButton from '@/components/app-share-button';
 
 const NewsComp = ({
     news,
@@ -17,12 +17,14 @@ const NewsComp = ({
     return (
         <>
             {news.map((item, idx) => (
-                <Link
+                <div
                     className="flex flex-col w-full items-end cursor-pointer"
                     key={item.title}
-                    href={`${baseHref}/${item.slug}`}
                 >
-                    <div className="flex w-full gap-[2rem]">
+                    <Link
+                        className="flex w-full gap-[2rem]"
+                        href={endPointBuild(baseHref, item.slug)}
+                    >
                         {/* Image Block */}
                         <Image
                             width={100}
@@ -35,7 +37,7 @@ const NewsComp = ({
                         <div className="w-7/10 flex flex-col gap-4">
                             {/* Title section */}
                             <div className="flex justify-between">
-                                <p className="text-lg font-bold">
+                                <p className="text-xl font-semibold leading-relaxed">
                                     {item.title}
                                 </p>
                                 {/* Interaction block */}
@@ -46,30 +48,27 @@ const NewsComp = ({
                                 />
                             </div>
                             {/* Description section */}
-                            <div>{item.description}</div>
+                            <div
+                                className={
+                                    'text-[var(--brand-grey-foreground)] leading-relaxed'
+                                }
+                            >
+                                {item.description}
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                     <div className="w-[calc(70%-2rem)] flex justify-between">
                         {/* Date & Reference source */}
                         <div className="flex w-fit text-sm gap-4 dark:text-[var(--brand-grey-foreground)] font-semibold">
                             <p>{dateTimeFormat(new Date(item.date))}</p>
                             <p>Source: {item.referenceSource}</p>
                         </div>
-                        <Button className="dark:bg-[#525252] dark:text-white rounded-3xl font-normal">
-                            <Image
-                                src={ShareIcon}
-                                alt={'share-icon'}
-                                width={100}
-                                height={100}
-                                className="size-3"
-                            />
-                            Share
-                        </Button>
+                        <AppShareButton slug={item.slug} />
                     </div>
                     {idx !== news.length - 1 && (
                         <NavSeparator isTrigger={false} />
                     )}
-                </Link>
+                </div>
             ))}
         </>
     );

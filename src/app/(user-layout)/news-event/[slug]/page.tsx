@@ -2,14 +2,13 @@
 import RichTextPreview from '@/components/rich-text-preview';
 import Image from 'next/image';
 import { NewsEventMockBanner } from '@image/index';
-import { Label } from '@/components/ui/label';
-import Tag from '@/app/(user-layout)/news-event/[slug]/components/tags';
 import { notFound } from 'next/navigation';
 import { getPost } from '@/app/api/posts';
 import { TableOfContents } from '@/app/(user-layout)/news-event/[slug]/components/table-of-contents';
 import { Clock } from 'lucide-react';
 import { dateTimeFormat } from '@/utils/date-time-format';
 import AppInteractionBlock from '@/components/app-interaction-block';
+import TagsAccordion from '@/app/(user-layout)/news-event/[slug]/components/tags';
 
 export interface PageProps {
     params: {
@@ -84,7 +83,7 @@ export default async function NewsEventPage({ params }: PageProps) {
                 />
 
                 {/* Post Header */}
-                <div className="mb-8 w-full relative">
+                <div className="flex flex-col gap-2 mb-4 w-full relative">
                     <div
                         className={
                             'flex gap-2 items-center text-[var(--brand-grey-foreground)]'
@@ -93,11 +92,11 @@ export default async function NewsEventPage({ params }: PageProps) {
                         <Clock className={'size-4'} />
                         {post.readingTime} min read
                     </div>
-                    <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-                    <div className="flex items-center text-[var(--brand-grey-foreground)] mb-4">
+                    <h1 className="text-3xl font-bold">{post.title}</h1>
+                    <div className="flex items-center text-[var(--brand-grey-foreground)]">
                         <span>{dateTimeFormat(new Date(post.createdAt))}</span>
                         <span className={'mx-2'} />
-                        <span className={'text-white'}>
+                        <span className={'text-[var(--brand-grey-foreground)]'}>
                             Source: {post.referenceSource}
                         </span>
                     </div>
@@ -108,6 +107,7 @@ export default async function NewsEventPage({ params }: PageProps) {
                         containerClass={
                             'absolute top-0 right-0 flex gap-4 [&_*_svg]:size-4 text-sm'
                         }
+                        isShareButtonVisible={true}
                     />
                 </div>
 
@@ -124,30 +124,7 @@ export default async function NewsEventPage({ params }: PageProps) {
                         <TableOfContents content={post.content} />
 
                         {/* Tags Section */}
-                        <div className="bg-[var(--brand-black-bg)] w-full rounded-2xl p-6 overflow-hidden space-y-4">
-                            <Label className="text-lg">Tags</Label>
-                            <div className="flex flex-wrap gap-1">
-                                {post.tags && post.tags.length > 0
-                                    ? post.tags.map(tag => (
-                                          <Tag
-                                              key={tag.id} // Unique key from database
-                                              label={`#${tag.name}`}
-                                          />
-                                      ))
-                                    : // Fallback tags
-                                      [
-                                          '#tỷlệ',
-                                          '#kinhtê',
-                                          '#chính sách',
-                                          '#xuấtkhẩu',
-                                          '#vàngbạc',
-                                          '#lợinhuận',
-                                          '#niêmyết',
-                                      ].map((tag, index) => (
-                                          <Tag key={index} label={tag} />
-                                      ))}
-                            </div>
-                        </div>
+                        <TagsAccordion tags={post.tags} />
                     </div>
                 </div>
             </div>

@@ -17,3 +17,13 @@ export function percentageFormat(value: string | number): string {
     const num = parseFloat(value.toString());
     return isNaN(num) ? '0.00' : `${num.toFixed(2)}%`;
 }
+
+export function formatNumberOfViews(num: number): string {
+    if (num >= 1000000) {
+        return (num / 1000000).toFixed(1) + 'M';
+    }
+    if (num >= 1000) {
+        return num.toLocaleString();
+    }
+    return num.toString();
+}

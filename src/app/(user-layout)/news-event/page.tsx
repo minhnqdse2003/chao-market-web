@@ -1,3 +1,7 @@
+export const dynamic = 'force-dynamic'; // or 'force-dynamic'
+export const revalidate = 3600;
+export const fetchCache = 'force-cache';
+
 import React from 'react';
 import { NewsType } from './utils/data-utils';
 import NewsEventFilterDialogComp from './components/news-filter';
@@ -22,6 +26,8 @@ interface PageProps {
 }
 
 const Page = async ({ searchParams }: PageProps) => {
+    console.time('Page Render');
+
     const { type, filterBy, pageIndex, pageSize } = searchParams;
 
     // Convert string parameters to numbers with defaults
@@ -124,6 +130,9 @@ const Page = async ({ searchParams }: PageProps) => {
                 : '/news-event?filterBy=topRated',
         },
     ];
+
+    console.timeEnd('Page Render');
+    console.log('Posts fetched:', postsData?.data?.length);
 
     return (
         <div>

@@ -118,7 +118,13 @@ export default function CartItemsPage() {
                         <h1 className="text-xl text-[var(--brand-color)] font-bold">
                             Your cart
                         </h1>
-                        <p>You have {filteredItem.length} items in your cart</p>
+                        <p>
+                            You have{' '}
+                            <span className={'text-[var(--brand-color)]'}>
+                                {filteredItem.length}
+                            </span>{' '}
+                            items in your cart
+                        </p>
                     </div>
 
                     <Button
@@ -200,7 +206,7 @@ export default function CartItemsPage() {
                     ))}
 
                     {filteredItem.length === 0 && (
-                        <div className="text-center flex flex-col gap-4 items-center justify-center py-8 text-gray-500">
+                        <div className="text-center flex flex-col gap-4 items-center justify-center py-8 text-[var(--brand-grey-foreground)]">
                             <Image
                                 src={EmptyCart}
                                 alt={'empty-cart'}

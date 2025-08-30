@@ -13,7 +13,6 @@ import {
     FormLabel,
     FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import LoadingComponent from '@/components/loading-spiner';
 import TabAuthMode from '@/app/(user-layout)/auth/components/tab-auth-mode';
@@ -21,6 +20,8 @@ import { sendOtpCode } from '@/services/auth';
 import { SignUpFormData, signUpSchema } from '@/schema/auth-schema';
 import { OtpVerificationFormProps } from '@/app/(user-layout)/auth/components/otp-verification-form';
 import { Checkbox } from '@/components/ui/checkbox';
+import { FloatingLabelInput } from '@/components/ui/floating-input';
+import SocialLogin from '@/app/(user-layout)/auth/components/social-login';
 
 interface SignUpFormProps {
     onSignUpSuccess: (user: OtpVerificationFormProps) => void;
@@ -115,7 +116,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
         <div className="flex flex-col w-full h-full [&_*_h2]:text-2xl [&_*_h2]:font-extrabold [&_*_h2]:text-white">
             <div className={'h-fit'}>
                 <TabAuthMode />
-                <div className="w-full">
+                <div className="mt-2 w-full">
                     <h2>Create your account.</h2>
                 </div>
             </div>
@@ -136,7 +137,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="h-full space-y-4"
+                        className="h-fit my-auto space-y-4"
                     >
                         <div className="flex space-x-2">
                             <FormField
@@ -144,12 +145,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                 name="firstName"
                                 render={({ field }) => (
                                     <FormItem className="flex-1">
-                                        <FormLabel className="text-white font-semibold">
-                                            First Name *
-                                        </FormLabel>
                                         <FormControl>
-                                            <Input
-                                                placeholder="Enter your first name"
+                                            <FloatingLabelInput
+                                                label="First Name *"
                                                 className="app-text-input"
                                                 {...field}
                                             />
@@ -164,12 +162,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                 name="lastName"
                                 render={({ field }) => (
                                     <FormItem className="flex-1">
-                                        <FormLabel className="text-white font-semibold">
-                                            Last Name *
-                                        </FormLabel>
                                         <FormControl>
-                                            <Input
-                                                placeholder="Enter your last name"
+                                            <FloatingLabelInput
+                                                label="Last Name *"
                                                 className="app-text-input"
                                                 {...field}
                                             />
@@ -185,34 +180,40 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                             name="gender"
                             render={({ field }) => (
                                 <FormItem className="space-y-1">
-                                    <FormLabel className="text-white font-semibold">
-                                        Gender *
-                                    </FormLabel>
                                     <FormControl>
                                         <RadioGroup
                                             onValueChange={field.onChange}
                                             defaultValue={field.value}
                                             className="flex items-center"
                                         >
-                                            <FormItem className="flex items-center space-x-3 space-y-0">
+                                            <FormItem className="flex items-center space-x-1 space-y-0 ">
                                                 <FormControl>
-                                                    <RadioGroupItem value="male" />
+                                                    <RadioGroupItem
+                                                        className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer [&_*_svg]:fill-[var(--brand-color)] [&_*_svg]:stroke-[var(--brand-color)]"
+                                                        value="male"
+                                                    />
                                                 </FormControl>
                                                 <FormLabel className="font-normal text-white">
                                                     Male
                                                 </FormLabel>
                                             </FormItem>
-                                            <FormItem className="flex items-center space-x-3 space-y-0">
+                                            <FormItem className="flex items-center space-x-1 space-y-0">
                                                 <FormControl>
-                                                    <RadioGroupItem value="female" />
+                                                    <RadioGroupItem
+                                                        className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer [&_*_svg]:fill-[var(--brand-color)] [&_*_svg]:stroke-[var(--brand-color)]"
+                                                        value="female"
+                                                    />
                                                 </FormControl>
                                                 <FormLabel className="font-normal text-white">
                                                     Female
                                                 </FormLabel>
                                             </FormItem>
-                                            <FormItem className="flex items-center space-x-3 space-y-0">
+                                            <FormItem className="flex items-center space-x-1 space-y-0">
                                                 <FormControl>
-                                                    <RadioGroupItem value="other" />
+                                                    <RadioGroupItem
+                                                        className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer [&_*_svg]:fill-[var(--brand-color)] [&_*_svg]:stroke-[var(--brand-color)]"
+                                                        value="other"
+                                                    />
                                                 </FormControl>
                                                 <FormLabel className="font-normal text-white">
                                                     Other
@@ -228,8 +229,8 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                                 render={({ field }) => (
                                                     <FormItem className="ml-4">
                                                         <FormControl>
-                                                            <Input
-                                                                placeholder="Prefer to self-describe"
+                                                            <FloatingLabelInput
+                                                                label="Prefer to self-describe"
                                                                 className="app-text-input"
                                                                 {...field}
                                                             />
@@ -246,22 +247,16 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                         />
 
                         <div className="space-y-2">
-                            <FormLabel className="text-white font-semibold">
-                                Date of Birth *
-                            </FormLabel>
-                            <div className="flex space-x-2 px-4">
+                            <div className="flex space-x-2">
                                 <FormField
                                     control={form.control}
                                     name="dateOfBirth.day"
                                     render={({ field }) => (
                                         <FormItem className="flex-1">
                                             <div className="flex items-center space-x-2">
-                                                <FormLabel className="text-white whitespace-nowrap">
-                                                    Day
-                                                </FormLabel>
                                                 <FormControl>
-                                                    <Input
-                                                        placeholder="dd"
+                                                    <FloatingLabelInput
+                                                        label="Day"
                                                         className="app-text-input"
                                                         {...field}
                                                         maxLength={2}
@@ -279,12 +274,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                     render={({ field }) => (
                                         <FormItem className="flex-1">
                                             <div className="flex items-center space-x-2">
-                                                <FormLabel className="text-white whitespace-nowrap">
-                                                    Month
-                                                </FormLabel>
                                                 <FormControl>
-                                                    <Input
-                                                        placeholder="mm"
+                                                    <FloatingLabelInput
+                                                        label="Month"
                                                         className="app-text-input"
                                                         {...field}
                                                         maxLength={2}
@@ -302,12 +294,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                     render={({ field }) => (
                                         <FormItem className="flex-1">
                                             <div className="flex items-center space-x-2">
-                                                <FormLabel className="text-white whitespace-nowrap">
-                                                    Year
-                                                </FormLabel>
                                                 <FormControl>
-                                                    <Input
-                                                        placeholder="yyyy"
+                                                    <FloatingLabelInput
+                                                        label="Year"
                                                         className="app-text-input"
                                                         {...field}
                                                         maxLength={4}
@@ -326,13 +315,10 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                             name="email"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="text-white font-semibold">
-                                        Email Address *
-                                    </FormLabel>
                                     <FormControl>
-                                        <Input
+                                        <FloatingLabelInput
                                             type="email"
-                                            placeholder="Enter your email"
+                                            label="Email Address *"
                                             className="app-text-input"
                                             {...field}
                                         />
@@ -347,13 +333,10 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                             name="password"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="text-white font-semibold">
-                                        Password *
-                                    </FormLabel>
                                     <FormControl>
-                                        <Input
+                                        <FloatingLabelInput
                                             type="password"
-                                            placeholder="Enter your password"
+                                            label="Password *"
                                             className="app-text-input"
                                             {...field}
                                         />
@@ -368,13 +351,10 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                             name="confirmPassword"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="text-white font-semibold">
-                                        Confirm Password *
-                                    </FormLabel>
                                     <FormControl>
-                                        <Input
+                                        <FloatingLabelInput
                                             type="password"
-                                            placeholder="Enter your confirm password"
+                                            label="Confirm Password *"
                                             className="app-text-input"
                                             {...field}
                                         />
@@ -399,14 +379,14 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                             >
                                 By creating an account, I agree to{' '}
                                 <Link
-                                    href="#"
+                                    href="/privacy-policy"
                                     className="text-[var(--brand-color)] hover:underline"
                                 >
                                     Privacy notice
                                 </Link>{' '}
                                 and{' '}
                                 <Link
-                                    href="#"
+                                    href="/terms-of-use"
                                     className="text-[var(--brand-color)] hover:underline"
                                 >
                                     Term of use
@@ -417,14 +397,15 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                         <Button
                             type="submit"
                             disabled={loading || !termsAccepted}
-                            className="w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:p-0 disabled:opacity-50 mt-4 hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out"
+                            className="w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:p-0 disabled:opacity-75 mt-4 hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out text-base"
                         >
                             {loading ? <LoadingComponent /> : 'Sign Up'}
                         </Button>
                     </form>
                 </Form>
                 <div className="text-center mt-4">
-                    <p className="text-sm text-white font-semibold">
+                    <SocialLogin />
+                    <p className="text-lg text-white font-semibold">
                         Already have an account?{' '}
                         <Link
                             href="/auth/login"

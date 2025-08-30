@@ -16,17 +16,12 @@ export default withAuth(
 
         if (pathname === '/') {
             return NextResponse.redirect(
-                new URL(
-                    isAuthenticated ? '/client-account' : '/home',
-                    request.url
-                )
+                new URL(isAuthenticated ? '/home' : '/home', request.url)
             );
         }
 
         if (isAuthenticated && isAuthRoute) {
-            return NextResponse.redirect(
-                new URL('/client-account', request.url)
-            );
+            return NextResponse.redirect(new URL('/home', request.url));
         }
     },
     {

@@ -18,11 +18,13 @@ import '@/app/globals.css';
 
 interface AppDatePickerProps {
     containerClass?: ClassValue;
+    buttonClass?: ClassValue;
     onDateChange?: (date: Date | undefined) => void;
 }
 
 export function AppDatePicker({
     containerClass = '',
+    buttonClass = '',
     onDateChange,
 }: AppDatePickerProps) {
     const [open, setOpen] = React.useState(false);
@@ -46,7 +48,10 @@ export function AppDatePicker({
                     <Button
                         variant="outline"
                         id="date"
-                        className="w-48 justify-between font-normal"
+                        className={cn(
+                            'w-48 justify-between font-normal',
+                            buttonClass
+                        )}
                     >
                         <div className={'flex gap-1 items-center'}>
                             <CalendarIcon className="h-4 w-4" />
@@ -64,7 +69,7 @@ export function AppDatePicker({
                         selected={date}
                         captionLayout="dropdown"
                         onSelect={handleDateSelect}
-                        className={'app-date-picker'}
+                        className={'app-date-picker w-full'}
                         classNames={{
                             selected:
                                 'dark:[&>button]:bg-[var(--brand-color)]' +
@@ -77,10 +82,8 @@ export function AppDatePicker({
                                 ' dark:hover:border-[var(--brand-color-foreground)]' +
                                 ' dark:[&[data-selected="true"]>button]:text-black' +
                                 ' dark:[&[data-selected="true"]]:border-transparent',
-                            months_dropdown:
-                                'app-months-dropdown [&_option]:hover:!bg-red-500',
-                            month_caption:
-                                'text-[var(--brand-color)]! [&>_*_svg]:text-[var(--brand-color)]!',
+                            months_dropdown: 'app-months-dropdown',
+                            years_dropdown: 'app-years-dropdown',
                         }}
                     />
                 </PopoverContent>

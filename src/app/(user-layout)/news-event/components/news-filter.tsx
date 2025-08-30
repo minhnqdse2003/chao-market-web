@@ -58,14 +58,15 @@ const NewsEventFilterDialogComp = ({
     const mainContent = (
         <div className="flex flex-col gap-4">
             <div className="relative flex items-center border-b">
+                <SearchIcon className="size-4 text-[var(--brand-grey)]" />
                 <Input
                     type="text"
-                    placeholder="Search ..."
+                    placeholder="Search"
                     className="border-0 focus-visible:ring-0 bg-transparent! shadow-none"
+                    aria-label="Search"
                     onChange={handleSearchChange}
                     value={filterParams.search || ''}
                 />
-                <SearchIcon className="size-4" />
             </div>
             <AppFilterSelect
                 options={TIME_OPTIONS}

@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { BrandLogoFtHat, BugHelp, GeneralHelp } from '@image/index';
+import { BugHelp, GeneralHelp, LogoBrand } from '@image/index';
 import { CircleQuestionMark, Headset } from 'lucide-react';
 import AppFooter from '@/components/app-footer';
 
@@ -36,17 +36,20 @@ export default function UserLayout({
                                 Help &amp; Feedback
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className='[&_*_div[data-slot="Container"]:last-child]:mb-8 [&_*_div[data-slot="Container"]>div]:px-6 [&_*_div[data-slot="Container"]>div]:py-4 [&_*_div[data-slot="Container"]>a]:px-6 [&_*_div[data-slot="Container"]>a]:py-4 [&_*_div[data-slot="Container"]>a:hover]:bg-[var(--brand-black-bg)] [&_*_div[data-slot="Container"]>a:hover]:rounded-lg'>
+                        <DialogContent className='[&_*_div[data-slot="Container"]:last-child]:mb-8 [&_*_div[data-slot="Container"]>div]:px-6 [&_*_div[data-slot="Container"]>div]:py-6 [&_*_div[data-slot="Container"]>a]:px-6 [&_*_div[data-slot="Container"]>a]:py-6 [&_*_div[data-slot="Container"]>a:hover]:bg-[var(--brand-black-bg)] [&_*_div[data-slot="Container"]>a:hover]:rounded-lg bg-brand-dialog'>
                             <DialogHeader className="flex flex-col items-center justify-center">
                                 <Image
                                     alt={'logo-brand-ft-hat'}
-                                    src={BrandLogoFtHat}
+                                    src={LogoBrand}
                                     width={1920}
                                     height={1080}
-                                    className="size-22"
+                                    className="size-16"
                                 />
-                                <DialogTitle className="text-[var(--brand-color)] text-xl font-semibold">
-                                    Chào Market
+                                <DialogTitle className="text-[var(--brand-color)] text-center text-lg font-semibold">
+                                    <p>Chào Market</p>
+                                    <p className={'text-sm text-white'}>
+                                        Manage Your Risk
+                                    </p>
                                 </DialogTitle>
                             </DialogHeader>
                             <div className="flex flex-col gap-1">
@@ -57,8 +60,12 @@ export default function UserLayout({
                                             <p className="font-semibold text-xl">
                                                 Support request
                                             </p>
-                                            <p>
-                                                What do you need us to support
+                                            <p
+                                                className={
+                                                    'text-[var(--brand-grey-foreground)]'
+                                                }
+                                            >
+                                                What do you need us to support ?
                                             </p>
                                         </div>
                                     </div>
@@ -76,7 +83,13 @@ export default function UserLayout({
                                             <p className="font-semibold text-xl">
                                                 Report a bug
                                             </p>
-                                            <p>Let’s us know what broken</p>
+                                            <p
+                                                className={
+                                                    'text-[var(--brand-grey-foreground)]'
+                                                }
+                                            >
+                                                Let’s us know what broken
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +106,13 @@ export default function UserLayout({
                                             <p className="font-semibold text-xl">
                                                 General feedback
                                             </p>
-                                            <p>Tell us how we can improve</p>
+                                            <p
+                                                className={
+                                                    'text-[var(--brand-grey-foreground)]'
+                                                }
+                                            >
+                                                Tell us how we can improve
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +126,13 @@ export default function UserLayout({
                                             <p className="font-semibold text-xl">
                                                 Contact us
                                             </p>
-                                            <p>FAQs and usage introduction</p>
+                                            <p
+                                                className={
+                                                    'text-[var(--brand-grey-foreground)]'
+                                                }
+                                            >
+                                                FAQs and usage introduction
+                                            </p>
                                         </div>
                                     </a>
                                 </div>

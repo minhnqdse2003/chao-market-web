@@ -42,7 +42,7 @@ export default function CarouselLogin() {
         <Carousel
             plugins={[plugin.current]}
             setApi={setCarouselApi}
-            className="w-full h-full relative"
+            className="w-full overflow-hidden h-full relative"
             onMouseEnter={plugin.current.stop}
             onMouseLeave={() => {
                 plugin.current.play();
@@ -51,8 +51,8 @@ export default function CarouselLogin() {
             <CarouselContent>
                 {Array.from({ length: 3 }).map((_, index) => (
                     <CarouselItem key={index} className="pl-0 ">
-                        <Card className="text-carousel-fallback py-0">
-                            <CardContent className="relative flex h-full w-full aspect-square items-center justify-center p-0">
+                        <Card className="h-full w-auto max-h-[90svh] py-0">
+                            <CardContent className="relative flex h-full w-full items-center justify-center p-0">
                                 <Image
                                     width={1920}
                                     height={1080}

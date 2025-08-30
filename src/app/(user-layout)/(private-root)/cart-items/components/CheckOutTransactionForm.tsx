@@ -8,14 +8,16 @@ import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel,
     FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { useState, useEffect } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { UserProfile } from '@/db/schema';
+import { FloatingLabelInput } from '@/components/ui/floating-input';
+import { AppDatePicker } from '@/components/app-date-picker';
+import { format } from 'date-fns';
+import { Label } from '@/components/ui/label';
 
 // Define the validation schema
 const checkoutSchema = z.object({
@@ -118,14 +120,11 @@ export default function CheckOutTransactionForm({
                     name="firstName"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="font-medium">
-                                First name (*)
-                            </FormLabel>
                             <FormControl>
-                                <Input
-                                    placeholder="Your given name"
+                                <FloatingLabelInput
+                                    label="First name (*)"
                                     {...field}
-                                    className="bg-gray-700 border-none focus-visible:ring-0 border-gray-600 text-white"
+                                    className="app-text-input"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -139,14 +138,11 @@ export default function CheckOutTransactionForm({
                     name="lastName"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="font-medium">
-                                Last name (*)
-                            </FormLabel>
                             <FormControl>
-                                <Input
-                                    placeholder="Your family name"
+                                <FloatingLabelInput
+                                    label="Last name (*)"
                                     {...field}
-                                    className="bg-gray-700 border-none focus-visible:ring-0 border-gray-600 text-white"
+                                    className="app-text-input"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -160,15 +156,19 @@ export default function CheckOutTransactionForm({
                     name="dateOfBirth"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="font-medium">
-                                Date of birth (*)
-                            </FormLabel>
                             <FormControl>
-                                <Input
-                                    type="date"
-                                    placeholder="Your birthday"
-                                    {...field}
-                                    className="bg-gray-700 border-none focus-visible:ring-0 border-gray-600 text-white [&::-webkit-datetime-edit]:text-[var(--brand-grey-foreground)] [&::-webkit-datetime-edit-text]:text-white [&::-webkit-datetime-edit-year-field]:text-white [&::-webkit-datetime-edit-month-field]:text-white [&::-webkit-datetime-edit-day-field]:text-white"
+                                <AppDatePicker
+                                    onDateChange={date => {
+                                        field.onChange(
+                                            date
+                                                ? format(date, 'yyyy-MM-dd')
+                                                : ''
+                                        );
+                                    }}
+                                    buttonClass={
+                                        'w-full dark:bg-transparent dark:hover:bg-transparent' +
+                                        ' dark:hover:text-[var(--brand-color)] transition-all! duration-200 ease-in-out'
+                                    }
                                 />
                             </FormControl>
                             <FormMessage />
@@ -182,15 +182,12 @@ export default function CheckOutTransactionForm({
                     name="email"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="font-medium">
-                                Email address (*)
-                            </FormLabel>
                             <FormControl>
-                                <Input
+                                <FloatingLabelInput
                                     type="email"
-                                    placeholder="Your email"
+                                    label="Email address (*)"
                                     {...field}
-                                    className="bg-gray-700 border-none focus-visible:ring-0 border-gray-600 text-white"
+                                    className="app-text-input"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -204,15 +201,12 @@ export default function CheckOutTransactionForm({
                     name="phoneNumber"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="font-medium">
-                                Phone number (*)
-                            </FormLabel>
                             <FormControl>
-                                <Input
+                                <FloatingLabelInput
                                     type="tel"
-                                    placeholder="Your phone number"
+                                    label="Phone number (*)"
                                     {...field}
-                                    className="bg-gray-700 border-none focus-visible:ring-0 border-gray-600 text-white"
+                                    className="app-text-input"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -226,14 +220,11 @@ export default function CheckOutTransactionForm({
                     name="socialNetwork"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="font-medium">
-                                Social network (optional)
-                            </FormLabel>
                             <FormControl>
-                                <Input
-                                    placeholder="Your link"
+                                <FloatingLabelInput
+                                    label="Social network (optional)"
                                     {...field}
-                                    className="bg-gray-700 border-none focus-visible:ring-0 border-gray-600 text-white"
+                                    className="app-text-input"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -247,9 +238,9 @@ export default function CheckOutTransactionForm({
                     name="contactMethods"
                     render={() => (
                         <FormItem className="space-y-2">
-                            <FormLabel className="font-medium">
+                            <div className="text-sm font-medium">
                                 How would you like us to contact you? (*)
-                            </FormLabel>
+                            </div>
                             <div className="flex flex-wrap gap-4">
                                 <FormField
                                     control={form.control}
@@ -278,15 +269,15 @@ export default function CheckOutTransactionForm({
                                                         );
                                                     }
                                                 }}
-                                                className="border-gray-600 bg-gray-700 data-checked:bg-yellow-500"
+                                                className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:bg-[var(--brand-color)] data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
                                             />
                                             <label
                                                 htmlFor="email"
-                                                className={`text-sm font-medium cursor-pointer ${
+                                                className={`text-sm font-medium cursor-pointer transition-all! duration-200 ease-in-out ${
                                                     field.value?.includes(
                                                         'email'
                                                     )
-                                                        ? 'text-white'
+                                                        ? 'text-[var(--brand-color)]'
                                                         : 'text-[var(--brand-grey-foreground)]'
                                                 }`}
                                             >
@@ -322,15 +313,15 @@ export default function CheckOutTransactionForm({
                                                         );
                                                     }
                                                 }}
-                                                className="border-gray-600 bg-gray-700 data-checked:bg-yellow-500"
+                                                className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:bg-[var(--brand-color)] data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
                                             />
                                             <label
                                                 htmlFor="phone"
-                                                className={`text-sm font-medium cursor-pointer ${
+                                                className={`text-sm font-medium cursor-pointer transition-all! duration-200 ease-in-out ${
                                                     field.value?.includes(
                                                         'phone'
                                                     )
-                                                        ? 'text-white'
+                                                        ? 'text-[var(--brand-color)]'
                                                         : 'text-[var(--brand-grey-foreground)]'
                                                 }`}
                                             >
@@ -366,15 +357,15 @@ export default function CheckOutTransactionForm({
                                                         );
                                                     }
                                                 }}
-                                                className="border-gray-600 bg-gray-700 data-checked:bg-yellow-500"
+                                                className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:bg-[var(--brand-color)] data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
                                             />
                                             <label
                                                 htmlFor="social-network"
-                                                className={`text-sm font-medium cursor-pointer ${
+                                                className={`text-sm font-medium cursor-pointer transition-all! duration-200 ease-in-out ${
                                                     field.value?.includes(
                                                         'social-network'
                                                     )
-                                                        ? 'text-white'
+                                                        ? 'text-[var(--brand-color)]'
                                                         : 'text-[var(--brand-grey-foreground)]'
                                                 }`}
                                             >
@@ -395,15 +386,20 @@ export default function CheckOutTransactionForm({
                     name="message"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="font-medium">
-                                Your message:
-                            </FormLabel>
                             <FormControl>
-                                <Textarea
-                                    placeholder="Your special requests"
-                                    {...field}
-                                    className="bg-gray-700 border-none focus-visible:ring-0 border-gray-600 text-white"
-                                />
+                                <div className="relative">
+                                    <Textarea
+                                        {...field}
+                                        id={'message'}
+                                        className="peer border focus-visible:ring-0 focus-visible:border-[var(--brand-color)]! dark:bg-transparent! dark:border-[var(--brand-grey)] text-white min-h-24 pt-4 px-3 text-sm focus:text-base transition-all duration-300"
+                                    />
+                                    <Label
+                                        htmlFor="message"
+                                        className="peer-focus:secondary peer-focus:dark:secondary absolute start-2 top-6 z-10 origin-[0] -translate-y-4 scale-100 transform! bg-sidebar px-2 text-sm text-[var(--brand-grey-foreground)] font-semibold duration-300 peer-placeholder-shown:top-6 peer-placeholder-shown:-translate-y-1/2 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-[var(--brand-color)] dark:bg-sidebar rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 cursor-text transition-all!"
+                                    >
+                                        Your message (optional)
+                                    </Label>
+                                </div>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -426,7 +422,7 @@ export default function CheckOutTransactionForm({
                         type="button"
                         onClick={form.handleSubmit(handleSubmit)}
                         disabled={isSubmitting || isDisableSubmitButton}
-                        className="not-disabled:hover:bg-[var(--brand-color)] not-disabled:hover:text-black not-disabled:cursor-pointer text-[var(--brand-color)] px-6 py-2 rounded-md disabled:opacity-50 transition-all! duration-300 ease-in-out font-semibold"
+                        className="border border-transparent not-disabled:hover:border-[var(--brand-color)] not-disabled:hover:bg-transparent not-disabled:hover:text-[var(--brand-color)] not-disabled:cursor-pointer not-disabled:text-black not-disabled:bg-[var(--brand-color)] px-6 py-2 rounded-md disabled:opacity-75 disabled:text-white transition-all! duration-300 ease-in-out font-semibold"
                     >
                         {isSubmitting
                             ? 'Processing...'

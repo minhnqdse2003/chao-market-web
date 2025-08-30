@@ -13,7 +13,7 @@ export default async function AuthLayout({
             </div>
 
             {/* Right Column: Form Content */}
-            <main className="w-full lg:w-1/2 flex items-center justify-center max-h-svh h-[90svh] p-8">
+            <main className="w-1/2 lg:w-1/2 flex items-center justify-center max-h-svh h-[90svh] p-8 px-32">
                 {children}
             </main>
         </div>

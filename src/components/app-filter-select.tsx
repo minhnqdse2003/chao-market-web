@@ -39,7 +39,7 @@ export default function AppFilterSelect({
                             value={tab.value}
                             className="border px-4 py-2 rounded-lg cursor-pointer border-transparent data-[state=active]:border-none data-[state=active]:text-[var(--brand-color)] dark:data-[state=active]:border-none dark:data-[state=active]:text-[var(--brand-color)] data-[state=inactive]:hover:bg-[var(--brand-color)] data-[state=inactive]:hover:text-black transition-all! duration-300 ease-in-out"
                         >
-                            <p className="text-xs font-light">{tab.name}</p>
+                            <p className="font-light">{tab.name}</p>
                         </TabsTrigger>
                     ))}
                 </TabsList>

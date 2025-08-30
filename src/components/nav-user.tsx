@@ -42,7 +42,7 @@ export function NavUser() {
                 <SidebarMenuItem className="flex gap-4">
                     <Button
                         asChild
-                        className="flex-1/2 bg-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] rounded-lg text-black font-bold"
+                        className="flex-1/2 bg-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] rounded-lg text-black font-bold transition-colors! duration-300 ease-in-out"
                     >
                         <Link href="/auth/login">Log in</Link>
                     </Button>
@@ -50,7 +50,7 @@ export function NavUser() {
                     <Button
                         asChild
                         variant="outline"
-                        className="flex-1/2 border-none rounded-lg"
+                        className="flex-1/2 border-none rounded-lg hover:text-[var(--brand-color)] transition-colors! duration-300 ease-in-out"
                     >
                         <Link href="/auth/signup">Sign up</Link>
                     </Button>
@@ -96,7 +96,7 @@ export function NavUser() {
                             </SidebarMenuButton>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent
-                            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+                            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 bg-brand-dialog rounded-lg"
                             side={isMobile ? 'bottom' : 'right'}
                             align="end"
                             sideOffset={4}
@@ -108,12 +108,12 @@ export function NavUser() {
                                             src={user.avatar}
                                             alt={user.name}
                                         />
-                                        <AvatarFallback className="rounded-lg">
+                                        <AvatarFallback className="rounded-lg text-[var(--brand-color)]">
                                             {user.name[0]}
                                         </AvatarFallback>
                                     </Avatar>
                                     <div className="grid flex-1 text-left text-sm leading-tight">
-                                        <span className="truncate font-medium">
+                                        <span className="truncate text-[var(--brand-color)] font-bold">
                                             {user.name}
                                         </span>
                                         <span className="truncate text-xs">
@@ -124,22 +124,42 @@ export function NavUser() {
                             </DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuGroup>
-                                <DropdownMenuItem>
+                                <DropdownMenuItem
+                                    className={
+                                        'hover:text-[var(--brand-color)]! hover:[&>svg]:stroke-[var(--brand-color)]' +
+                                        ' dark:hover:bg-transparent transition-all! duration-200 ease-in-out cursor-pointer'
+                                    }
+                                >
                                     <Sparkles />
                                     Upgrade to Pro
                                 </DropdownMenuItem>
                             </DropdownMenuGroup>
                             <DropdownMenuSeparator />
                             <DropdownMenuGroup>
-                                <DropdownMenuItem>
+                                <DropdownMenuItem
+                                    className={
+                                        'hover:text-[var(--brand-color)]! hover:[&>svg]:stroke-[var(--brand-color)]' +
+                                        ' dark:hover:bg-transparent transition-all! duration-200 ease-in-out cursor-pointer'
+                                    }
+                                >
                                     <BadgeCheck />
                                     Account
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>
+                                <DropdownMenuItem
+                                    className={
+                                        'hover:text-[var(--brand-color)]! hover:[&>svg]:stroke-[var(--brand-color)]' +
+                                        ' dark:hover:bg-transparent transition-all! duration-200 ease-in-out cursor-pointer'
+                                    }
+                                >
                                     <CreditCard />
                                     Billing
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>
+                                <DropdownMenuItem
+                                    className={
+                                        'hover:text-[var(--brand-color)]! hover:[&>svg]:stroke-[var(--brand-color)]' +
+                                        ' dark:hover:bg-transparent transition-all! duration-200 ease-in-out cursor-pointer'
+                                    }
+                                >
                                     <Bell />
                                     Notifications
                                 </DropdownMenuItem>
@@ -147,6 +167,10 @@ export function NavUser() {
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
                                 onClick={() => signOut({ callbackUrl: '/' })}
+                                className={
+                                    'hover:text-[var(--brand-color)]! hover:[&>svg]:stroke-[var(--brand-color)]' +
+                                    ' dark:hover:bg-transparent transition-all! duration-200 ease-in-out cursor-pointer'
+                                }
                             >
                                 <LogOut />
                                 Log out

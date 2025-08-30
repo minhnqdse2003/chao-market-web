@@ -107,8 +107,8 @@ export default function AppTabsServerSide({
                                           ' hover:text-[var(--brand-color-foreground)] hover:border-[var(--brand-color-foreground)]'
                                     : isSubTab
                                       ? 'border-none text-[var(--brand-grey-foreground)]' +
-                                        ' hover:text-[var(--brand-grey-light)]'
-                                      : 'hover:border-[var(--brand-grey-foreground)]' +
+                                        ' hover:text-[var(--brand-color)]'
+                                      : 'hover:border-[var(--brand-color)] hover:text-[var(--brand-color)]' +
                                         ' text-[var(--brand-grey-foreground)] border-transparent'
                             } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-center text-sm transition-all! duration-300 ease-in-out min-w-[9rem]`}
                         >

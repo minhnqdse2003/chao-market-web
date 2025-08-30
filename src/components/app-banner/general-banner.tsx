@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { HomeBanner } from '@image/index';
 import React from 'react';
+import NavSeparator from '@/components/nav-separator';
 
 export default function GeneralBanner() {
     return (
@@ -15,6 +16,7 @@ export default function GeneralBanner() {
             <h2 className="absolute left-1/20 top-1/2 tranform -translate-y-1/2 text-white text-3xl tracking-wider font-bold">
                 We prioritise helping you <br /> manage market risks
             </h2>
+            <NavSeparator isTrigger={false} />
         </div>
     );
 }

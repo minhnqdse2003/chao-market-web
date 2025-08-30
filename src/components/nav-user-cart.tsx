@@ -30,7 +30,7 @@ export default function SimpleCartButton() {
                 variant="ghost"
                 size="sm"
                 asChild
-                className="gap-2 flex items-center justify-start mb-2"
+                className="gap-2 flex items-center justify-start mb-2 hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out font-semibold"
             >
                 <Link href="/auth/login">
                     <ShoppingCart className="h-4 w-4" />
@@ -45,7 +45,7 @@ export default function SimpleCartButton() {
             variant="ghost"
             size="sm"
             asChild
-            className="gap-2 size-8 w-full flex items-center justify-start mb-2"
+            className="gap-2 flex items-center justify-start mb-2 hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out font-semibold"
         >
             <Link href="/cart-items">
                 <ShoppingCart className="h-4 w-4" />

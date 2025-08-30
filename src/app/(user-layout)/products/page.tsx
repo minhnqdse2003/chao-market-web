@@ -194,7 +194,7 @@ const contents: Partial<BlockContentsProps>[] = [
 
 const Page = () => {
     return (
-        <div className="flex flex-col gap-6 [&>div:not(:last-child)]:mb-10">
+        <div className="flex flex-col gap-6 [&>div:not(:last-child)]:mb-12 [&>div:first-child]:mb-0! [&>div:not(:last-child)]:border-b [&>div:first-child]:border-b-0! border-[var(--brand-grey)]">
             <GeneralBanner />
             {contents.map((item, idx) => (
                 <BlockContents

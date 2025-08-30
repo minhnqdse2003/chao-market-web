@@ -95,10 +95,8 @@ const AppDateRangePicker = ({
                                     ' dark:hover:border-[var(--brand-color-foreground)]' +
                                     ' dark:[&[data-selected="true"]>button]:text-black' +
                                     ' dark:[&[data-selected="true"]]:border-transparent',
-                                months_dropdown:
-                                    'app-months-dropdown [&_option]:hover:!bg-red-500',
-                                month_caption:
-                                    'text-[var(--brand-color)]! [&>_*_svg]:text-[var(--brand-color)]!',
+                                months_dropdown: 'app-months-dropdown',
+                                years_dropdown: 'app-years-dropdown',
                             }}
                         />
                     </PopoverContent>
@@ -156,10 +154,8 @@ const AppDateRangePicker = ({
                                     ' dark:hover:border-[var(--brand-color-foreground)]' +
                                     ' dark:[&[data-selected="true"]>button]:text-black' +
                                     ' dark:[&[data-selected="true"]]:border-transparent',
-                                months_dropdown:
-                                    'app-months-dropdown [&_option]:hover:!bg-red-500',
-                                month_caption:
-                                    'text-[var(--brand-color)]! [&>_*_svg]:text-[var(--brand-color)]!',
+                                months_dropdown: 'app-months-dropdown',
+                                years_dropdown: 'app-years-dropdown',
                             }}
                         />
                     </PopoverContent>

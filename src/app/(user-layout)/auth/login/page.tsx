@@ -8,14 +8,12 @@ import Link from 'next/link';
 import { sendOtpCode, verifiedEmail, verifiedOtpCode } from '@/services/auth';
 import { BaseResponse } from '@/types/base-response';
 import { VerifyEmail } from '@/types/user/response/verify-response';
-import Image from 'next/image';
 import TabAuthMode from '@/app/(user-layout)/auth/components/tab-auth-mode';
 import {
     InputOTP,
     InputOTPGroup,
     InputOTPSlot,
 } from '@/components/ui/input-otp';
-import { Facebook, Google } from '@image/index';
 import LoadingComponent from '@/components/loading-spiner';
 import {
     Form,
@@ -28,12 +26,13 @@ import {
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Input } from '@/components/ui/input';
 import { Eye, EyeOff } from 'lucide-react';
+import { FloatingLabelInput } from '@/components/ui/floating-input';
+import SocialLogin from '@/app/(user-layout)/auth/components/social-login';
 
 // Validation schemas
 const loginSchema = z.object({
-    email: z.string().email({ message: 'Invalid email address' }),
+    email: z.email({ message: 'Invalid email address' }),
     password: z.string().min(1, { message: 'Password is required' }),
 });
 
@@ -147,6 +146,16 @@ export default function Login() {
         },
     });
 
+    // Clear error when form fields change
+    useEffect(() => {
+        const subscription = form.watch(() => {
+            if (error) {
+                setError('');
+            }
+        });
+        return () => subscription.unsubscribe();
+    }, [form, error]);
+
     // Handle credentials login
     const handleCredentialsLogin = async (data: LoginFormData) => {
         setLoading(true);
@@ -168,10 +177,10 @@ export default function Login() {
                     redirect: false,
                 });
 
-                if (signInResult?.error) {
+                if (!signInResult?.ok) {
                     setError('Invalid credentials');
                 } else {
-                    router.push('/client-account');
+                    router.push('/home');
                 }
             } else {
                 // Email not verified - save data and show OTP
@@ -184,11 +193,6 @@ export default function Login() {
         } finally {
             setLoading(false);
         }
-    };
-
-    // Handle social login
-    const handleSocialLogin = (provider: string) => {
-        signIn(provider, { callbackUrl: '/client-account' });
     };
 
     // Handle successful OTP verification
@@ -246,7 +250,7 @@ export default function Login() {
         <div className="flex flex-col w-full h-full">
             <div>
                 <TabAuthMode />
-                <h2 className="mt-6 text-2xl font-bold text-white">
+                <h2 className="mt-2 text-2xl font-bold text-white">
                     Hello there! Welcome back.
                 </h2>
             </div>
@@ -267,19 +271,16 @@ export default function Login() {
                     <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(handleCredentialsLogin)}
-                            className="h-full space-y-4"
+                            className="h-fit space-y-4 my-auto"
                         >
                             <FormField
                                 control={form.control}
                                 name="email"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className="text-lg">
-                                            Email
-                                        </FormLabel>
                                         <FormControl>
-                                            <Input
-                                                placeholder="Enter your email address"
+                                            <FloatingLabelInput
+                                                label="Email"
                                                 {...field}
                                                 className="app-text-input"
                                             />
@@ -294,18 +295,15 @@ export default function Login() {
                                 name="password"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className="text-lg">
-                                            Password
-                                        </FormLabel>
                                         <div className="relative">
                                             <FormControl>
-                                                <Input
+                                                <FloatingLabelInput
                                                     type={
                                                         showPassword
                                                             ? 'text'
                                                             : 'password'
                                                     }
-                                                    placeholder="Password"
+                                                    label="Password"
                                                     {...field}
                                                     className="app-text-input pr-10"
                                                 />
@@ -330,6 +328,13 @@ export default function Login() {
                                     </FormItem>
                                 )}
                             />
+                            <FormItem>
+                                <FormLabel
+                                    className={'text-[var(--brand-color)]'}
+                                >
+                                    Forgot Password?{' '}
+                                </FormLabel>
+                            </FormItem>
 
                             <button
                                 type="submit"
@@ -344,49 +349,12 @@ export default function Login() {
 
                 {emailVerified !== false && (
                     <>
-                        <div className="mb-4 mt-4 relative">
-                            <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-[var(--brand-grey-foreground)]" />
-                            </div>
-                            <div className="relative flex w-fit mx-auto px-2 justify-center text-sm bg-sidebar">
-                                <span className="px-2 text-white">
-                                    Or continue with
-                                </span>
-                            </div>
-                        </div>
-
-                        <div className="space-x-6 mx-auto w-fit">
-                            <button
-                                onClick={() => handleSocialLogin('facebook')}
-                                className="cursor-pointer"
-                            >
-                                <Image
-                                    width={1920}
-                                    height={1080}
-                                    className="size-10"
-                                    src={Facebook}
-                                    alt="facebook-icon"
-                                />
-                            </button>
-
-                            <button
-                                onClick={() => handleSocialLogin('google')}
-                                className="cursor-pointer"
-                            >
-                                <Image
-                                    width={1920}
-                                    height={1080}
-                                    className="size-10"
-                                    src={Google}
-                                    alt="google-icon"
-                                />
-                            </button>
-                        </div>
+                        <SocialLogin />
 
                         <div className="text-center text-sm">
                             <Link
                                 href="/auth/signup"
-                                className="text-white font-semibold"
+                                className="text-white font-semibold text-lg"
                             >
                                 Don&apos;t have an account?{' '}
                                 <span
