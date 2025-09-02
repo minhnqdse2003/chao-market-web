@@ -19,6 +19,7 @@ import {
     SidebarHeader,
     SidebarRail,
     SidebarMenuSkeleton,
+    SidebarMenuButton,
 } from '@/components/ui/sidebar';
 import { NavUser } from '@/components/nav-user';
 import { NavHead } from '@/components/team-switcher';
@@ -161,7 +162,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarHeader>
                         <NavHead headers={data.headers} />
                         <SearchForm />
-                        <SimpleCartButton />
+                        <SidebarMenuButton tooltip={<p>Cart</p>}>
+                            <SimpleCartButton />
+                        </SidebarMenuButton>
                         <NavUser />
                     </SidebarHeader>
                     <NavSeparator />

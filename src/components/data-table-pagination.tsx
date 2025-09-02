@@ -40,11 +40,17 @@ export function DataTablePagination<TData>({
                                 }
                             />
                         </SelectTrigger>
-                        <SelectContent side="top">
+                        <SelectContent side="top" className={'bg-brand-dialog'}>
                             {[10, 20, 25, 30, 40, 50].map(pageSize => (
                                 <SelectItem
                                     key={pageSize}
                                     value={`${pageSize}`}
+                                    className={
+                                        'hover:text-[var(--brand-color)]! hover:bg-transparent! cursor-pointer' +
+                                        ' data-[state=checked]:text-[var(--brand-color)]!' +
+                                        ' data-[state=checked]:bg-transparent!' +
+                                        ' [&>_*_svg]:text-[var(--brand-color)]!'
+                                    }
                                 >
                                     {pageSize}
                                 </SelectItem>

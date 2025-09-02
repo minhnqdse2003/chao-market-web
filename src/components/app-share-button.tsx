@@ -27,7 +27,7 @@ export default function AppShareButton({ slug }: AppShareButtonProps) {
 
     return (
         <Button
-            className="dark:bg-[var(--brand-grey-foreground)] dark:text-white rounded-3xl text-xs font-normal"
+            className="dark:bg-[var(--brand-grey)] dark:text-white rounded-3xl text-xs font-normal"
             onClick={handleShare}
         >
             <Image

@@ -114,17 +114,22 @@ function CollapsibleItem({
                             <SidebarMenuButton
                                 tooltip={
                                     <div className="flex flex-col gap-1 p-2">
-                                        <p className="font-semibold mb-1.5">
+                                        <div
+                                            className="font-semibold mb-1.5 cursor-pointer hover:text-[var(--brand-color)]"
+                                            onClick={handleClick}
+                                        >
                                             {item.title}
-                                        </p>
+                                        </div>
                                         {item.children.map(subItem => (
-                                            <a
+                                            <div
                                                 key={subItem.title}
-                                                href={subItem.url}
-                                                className="hover:underline"
+                                                onClick={() =>
+                                                    onRedirect(subItem.url)
+                                                }
+                                                className="hover:text-[var(--brand-color)] cursor-pointer"
                                             >
                                                 {subItem.title}
-                                            </a>
+                                            </div>
                                         ))}
                                     </div>
                                 }

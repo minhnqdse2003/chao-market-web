@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ShoppingCart, Loader2 } from 'lucide-react';
 import { useUserCartQuery } from '@/hooks/react-query/carts';
 import { useSidebar } from '@/components/ui/sidebar';
+import { cn } from '@/lib/utils';
 
 export default function SimpleCartButton() {
     const { data, SessionStatus: status } = useUserCartQuery();
@@ -30,7 +31,10 @@ export default function SimpleCartButton() {
                 variant="ghost"
                 size="sm"
                 asChild
-                className="gap-2 flex items-center justify-start mb-2 hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out font-semibold"
+                className={cn(
+                    'gap-2 flex items-center justify-start mb-2 hover:text-[var(--brand-color)]' +
+                        ' transition-all! duration-300 ease-in-out font-semibold px-0!'
+                )}
             >
                 <Link href="/auth/login">
                     <ShoppingCart className="h-4 w-4" />
@@ -45,7 +49,10 @@ export default function SimpleCartButton() {
             variant="ghost"
             size="sm"
             asChild
-            className="gap-2 flex items-center justify-start mb-2 hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out font-semibold"
+            className={cn(
+                'gap-2 flex items-center justify-start mb-2 hover:text-[var(--brand-color)]' +
+                    ' transition-all! duration-300 ease-in-out font-semibold px-0!'
+            )}
         >
             <Link href="/cart-items">
                 <ShoppingCart className="h-4 w-4" />

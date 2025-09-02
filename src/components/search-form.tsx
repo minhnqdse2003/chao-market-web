@@ -17,13 +17,13 @@ export function SearchForm({ ...props }: React.ComponentProps<'form'>) {
 
     if (!isOpen) {
         return (
-            <SidebarGroup className="p-0">
+            <SidebarGroup className="p-0!">
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton
                             asChild
                             onClick={toggleSidebar}
-                            className="h-8 w-full justify-center"
+                            className="h-8 w-full justify-center hehe"
                             aria-label="Open search"
                         >
                             <Search />
@@ -37,7 +37,7 @@ export function SearchForm({ ...props }: React.ComponentProps<'form'>) {
     return (
         <form {...props}>
             <SidebarGroup className="py-0 dark:bg-sidebar">
-                <SidebarGroupContent className="relative border-[var(--brand-grey)] border-b-2 mb-4 pb-4">
+                <SidebarGroupContent className="relative w-full border-[var(--brand-grey)] border-b-2 mb-4 pb-4 text-[var(--brand-grey-foreground)] hover:text-[var(--brand-color)] hover:border-[var(--brand-color)] transition-all! duration-200 ease-in-out">
                     <Label htmlFor="search" className="sr-only">
                         Search
                     </Label>
@@ -46,7 +46,7 @@ export function SearchForm({ ...props }: React.ComponentProps<'form'>) {
                         placeholder="Search"
                         className="pl-8 pt-5 border-none dark:bg-transparent focus-visible:ring-0"
                     />
-                    <Search className="pointer-events-none absolute top-1/2 left-2 size-4 -translate-y-1/2 opacity-50 select-none" />
+                    <Search className="pointer-events-none absolute top-1/2 left-2 size-4 -translate-y-1/2 select-none" />
                 </SidebarGroupContent>
             </SidebarGroup>
         </form>

@@ -35,18 +35,36 @@ const ThemeToggle = () => {
                     <Button
                         variant="outline"
                         size="icon"
-                        className="bg-transparent border-none"
+                        className="dark:bg-transparent border-none hover:text-[var(--brand-color)] transition-colors! duration-300 ease-in-out"
                     >
                         <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                         <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                         <span className="sr-only">Toggle theme</span>
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" side="right">
-                    <DropdownMenuItem onClick={() => setTheme('light')}>
+                <DropdownMenuContent
+                    align="end"
+                    side="right"
+                    className={'dark:bg-brand-dialog'}
+                >
+                    <DropdownMenuItem
+                        onClick={() => setTheme('light')}
+                        className={
+                            'dark:hover:text-[var(--brand-color)]!' +
+                            ' dark:[&:hover>svg]:text-[var(--brand-color)]! hover:bg-transparent! transition-all!' +
+                            ' duration-200 ease-in-out cursor-pointer'
+                        }
+                    >
                         <Sun className="mr-2 h-4 w-4" /> Light
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setTheme('dark')}>
+                    <DropdownMenuItem
+                        onClick={() => setTheme('dark')}
+                        className={
+                            'dark:hover:text-[var(--brand-color)]!' +
+                            ' dark:[&:hover>svg]:text-[var(--brand-color)]! hover:bg-transparent! transition-all!' +
+                            ' duration-200 ease-in-out cursor-pointer'
+                        }
+                    >
                         <Moon className="mr-2 h-4 w-4" /> Dark
                     </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -64,7 +82,7 @@ const ThemeToggle = () => {
             <TabsList className="grid grid-cols-2 bg-[oklch(0.708 0 0)]">
                 <TabsTrigger
                     value="light"
-                    className="text-white bg-[oklch(0.708 0 0)] data-[state=active]:text-[var(--brand-color)] data-[state=active]:bg-[oklch(0.708 0 0)] data-[state=active]:border-gray-400/60"
+                    className="text-white bg-[oklch(0.708 0 0)] data-[state=active]:text-[var(--brand-color)] data-[state=active]:bg-[oklch(0.708 0 0)] data-[state=active]:border-[var(--brand-grey-foreground)] dark:data-[state=inactive]:hover:text-[var(--brand-color)] cursor-pointer"
                 >
                     <Sun className="mr-1 h-4 w-4" /> Light
                 </TabsTrigger>

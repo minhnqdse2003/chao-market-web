@@ -5,9 +5,12 @@ import { Button } from '@/components/ui/button';
 
 export default function PrivacyPolicy() {
     return (
-        <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="max-w-4/5 w-full mx-auto px-4 py-8">
             <Link href="/auth/signup">
-                <Button variant="outline" className="mb-6">
+                <Button
+                    variant="outline"
+                    className="mb-6 text-[var(--brand-color)] dark:bg-transparent hover:text-black dark:hover:bg-[var(--brand-color)] transition-colors! duration-300 ease-in-out dark:border-transparent hover:font-semibold"
+                >
                     ← Back to Sign Up
                 </Button>
             </Link>

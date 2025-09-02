@@ -37,12 +37,12 @@ const NavInformation = () => {
                 <SidebarMenuItem>
                     <AppDialog
                         trigger={
-                            <SidebarMenuButton tooltip={<p>languages</p>}>
+                            <SidebarMenuButton tooltip={<p>Languages</p>}>
                                 <Globe className="mr-2 h-4 w-4" />
                                 <span>Languages</span>
                             </SidebarMenuButton>
                         }
-                        contentContainerClassName={'max-w-sm!'}
+                        contentContainerClassName={'max-w-sm! min-w-sm'}
                         headerContent={LanguageDialogHeader}
                         mainContent={LanguageDialogContent}
                     />

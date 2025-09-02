@@ -22,6 +22,8 @@ import { OtpVerificationFormProps } from '@/app/(user-layout)/auth/components/ot
 import { Checkbox } from '@/components/ui/checkbox';
 import { FloatingLabelInput } from '@/components/ui/floating-input';
 import SocialLogin from '@/app/(user-layout)/auth/components/social-login';
+import { AppDatePicker } from '@/components/app-date-picker';
+import { format } from 'date-fns';
 
 interface SignUpFormProps {
     onSignUpSuccess: (user: OtpVerificationFormProps) => void;
@@ -43,11 +45,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
             confirmPassword: '',
             gender: 'male',
             otherGender: '',
-            dateOfBirth: {
-                day: '',
-                month: '',
-                year: '',
-            },
+            dateOfBirth: undefined, // Changed to undefined for date picker
         },
     });
 
@@ -62,8 +60,11 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
             // Combine first and last name to fullName
             const fullName = `${data.firstName} ${data.lastName}`;
 
-            // Format date of birth for API
-            const formattedDob = `${data.dateOfBirth.year}-${data.dateOfBirth.month.padStart(2, '0')}-${data.dateOfBirth.day.padStart(2, '0')}`;
+            // Format date of birth for API (assuming dateOfBirth is now a Date object)
+            const formattedDob = data.dateOfBirth
+                ? format(data.dateOfBirth, 'yyyy-MM-dd')
+                : '';
+
             const genderValue =
                 data.gender === 'other' ? data.otherGender : data.gender;
 
@@ -246,69 +247,24 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                             )}
                         />
 
-                        <div className="space-y-2">
-                            <div className="flex space-x-2">
-                                <FormField
-                                    control={form.control}
-                                    name="dateOfBirth.day"
-                                    render={({ field }) => (
-                                        <FormItem className="flex-1">
-                                            <div className="flex items-center space-x-2">
-                                                <FormControl>
-                                                    <FloatingLabelInput
-                                                        label="Day"
-                                                        className="app-text-input"
-                                                        {...field}
-                                                        maxLength={2}
-                                                    />
-                                                </FormControl>
-                                            </div>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-
-                                <FormField
-                                    control={form.control}
-                                    name="dateOfBirth.month"
-                                    render={({ field }) => (
-                                        <FormItem className="flex-1">
-                                            <div className="flex items-center space-x-2">
-                                                <FormControl>
-                                                    <FloatingLabelInput
-                                                        label="Month"
-                                                        className="app-text-input"
-                                                        {...field}
-                                                        maxLength={2}
-                                                    />
-                                                </FormControl>
-                                            </div>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-
-                                <FormField
-                                    control={form.control}
-                                    name="dateOfBirth.year"
-                                    render={({ field }) => (
-                                        <FormItem className="flex-1">
-                                            <div className="flex items-center space-x-2">
-                                                <FormControl>
-                                                    <FloatingLabelInput
-                                                        label="Year"
-                                                        className="app-text-input"
-                                                        {...field}
-                                                        maxLength={4}
-                                                    />
-                                                </FormControl>
-                                            </div>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
-                        </div>
+                        {/* Date of Birth with AppDatePicker */}
+                        <FormField
+                            control={form.control}
+                            name="dateOfBirth"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormControl>
+                                        <AppDatePicker
+                                            onDateChange={field.onChange}
+                                            buttonClass="w-full dark:bg-transparent dark:hover:bg-transparent"
+                                            label="Date of Birth *"
+                                            isFloatingLabel={true}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
                         <FormField
                             control={form.control}
@@ -382,14 +338,14 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                     href="/privacy-policy"
                                     className="text-[var(--brand-color)] hover:underline"
                                 >
-                                    Privacy notice
+                                    Privacy Notice
                                 </Link>{' '}
                                 and{' '}
                                 <Link
                                     href="/terms-of-use"
                                     className="text-[var(--brand-color)] hover:underline"
                                 >
-                                    Term of use
+                                    Term of Use
                                 </Link>
                             </label>
                         </div>

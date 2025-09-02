@@ -116,14 +116,14 @@ export default function CartItemsPage() {
                 <div className="flex justify-between items-center mb-6">
                     <div>
                         <h1 className="text-xl text-[var(--brand-color)] font-bold">
-                            Your cart
+                            Your Cart:
                         </h1>
                         <p>
                             You have{' '}
                             <span className={'text-[var(--brand-color)]'}>
                                 {filteredItem.length}
                             </span>{' '}
-                            items in your cart
+                            items in your cart.
                         </p>
                     </div>
 
@@ -229,9 +229,9 @@ export default function CartItemsPage() {
             <div className="w-full">
                 <div className={'mb-6'}>
                     <h1 className="text-xl text-[var(--brand-color)] font-bold">
-                        Your Information
+                        Your Information:
                     </h1>
-                    <p>Please tell us about yourself</p>
+                    <p>Please tell us about yourself.</p>
                 </div>
                 <CheckOutTransactionForm
                     onSubmit={handleSubmit}

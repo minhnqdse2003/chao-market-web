@@ -39,10 +39,10 @@ const AppDialog = ({
             </DialogTrigger>
             <DialogContent
                 className={cn(
-                    contentContainerClassName,
                     'bg-brand-dialog max-h-[90svh] [&>.dialog-header]:pt-0 [&>.dialog-footer]:p-0' +
                         ' [&>.dialog-content]:p-0' +
-                        ' [&_.dialog-footer]:m-0 [&_[data-slot="dialog-close"]]:cursor-pointer'
+                        ' [&_.dialog-footer]:m-0 [&_[data-slot="dialog-close"]]:cursor-pointer min-w-[50svw]',
+                    contentContainerClassName
                 )}
             >
                 {headerContent && (

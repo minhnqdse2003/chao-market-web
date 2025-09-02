@@ -65,7 +65,7 @@ const AppDateRangePicker = ({
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent
-                        className="w-auto overflow-hidden p-0"
+                        className="w-auto overflow-hidden p-0 bg-brand-dialog"
                         align="start"
                     >
                         <Calendar
@@ -95,8 +95,14 @@ const AppDateRangePicker = ({
                                     ' dark:hover:border-[var(--brand-color-foreground)]' +
                                     ' dark:[&[data-selected="true"]>button]:text-black' +
                                     ' dark:[&[data-selected="true"]]:border-transparent',
+                                day_button:
+                                    'dark:hover:text-[var(--brand-color)] dark:hover:bg-transparent',
                                 months_dropdown: 'app-months-dropdown',
                                 years_dropdown: 'app-years-dropdown',
+                                dropdowns:
+                                    'w-full flex items-center text-sm font-medium justify-center' +
+                                    ' h-(--cell-size) gap-1.5 rdp-dropdowns text-[var(--brand-color)]' +
+                                    ' [&>_*_svg]:text-[var(--brand-color)]!',
                             }}
                         />
                     </PopoverContent>
@@ -122,7 +128,7 @@ const AppDateRangePicker = ({
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent
-                        className="w-auto overflow-hidden p-0"
+                        className="w-auto overflow-hidden p-0 bg-brand-dialog"
                         align="start"
                     >
                         <Calendar
@@ -154,8 +160,14 @@ const AppDateRangePicker = ({
                                     ' dark:hover:border-[var(--brand-color-foreground)]' +
                                     ' dark:[&[data-selected="true"]>button]:text-black' +
                                     ' dark:[&[data-selected="true"]]:border-transparent',
+                                day_button:
+                                    'dark:hover:text-[var(--brand-color)] dark:hover:bg-transparent',
                                 months_dropdown: 'app-months-dropdown',
                                 years_dropdown: 'app-years-dropdown',
+                                dropdowns:
+                                    'w-full flex items-center text-sm font-medium justify-center' +
+                                    ' h-(--cell-size) gap-1.5 rdp-dropdowns text-[var(--brand-color)]' +
+                                    ' [&>_*_svg]:text-[var(--brand-color)]!',
                             }}
                         />
                     </PopoverContent>
