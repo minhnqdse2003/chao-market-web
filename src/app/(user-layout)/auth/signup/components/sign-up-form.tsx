@@ -24,6 +24,7 @@ import { FloatingLabelInput } from '@/components/ui/floating-input';
 import SocialLogin from '@/app/(user-layout)/auth/components/social-login';
 import { AppDatePicker } from '@/components/app-date-picker';
 import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 interface SignUpFormProps {
     onSignUpSuccess: (user: OtpVerificationFormProps) => void;
@@ -353,7 +354,12 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                         <Button
                             type="submit"
                             disabled={loading || !termsAccepted}
-                            className="w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:p-0 disabled:opacity-75 mt-4 hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out text-base"
+                            className={cn(
+                                'w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2' +
+                                    ' px-4 rounded-3xl disabled:p-0  mt-4 hover:bg-[var(--brand-color-foreground)]' +
+                                    ' transition-colors! duration-300 ease-in-out text-base',
+                                `${loading && termsAccepted ? 'disabled:bg-transparent' : ''}`
+                            )}
                         >
                             {loading ? <LoadingComponent /> : 'Sign Up'}
                         </Button>

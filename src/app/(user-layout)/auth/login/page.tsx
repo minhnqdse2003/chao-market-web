@@ -170,7 +170,7 @@ export default function Login() {
             }
 
             if (result.data?.emailVerified) {
-                // Email verified - proceed with login
+                // Email verify - proceed with login
                 const signInResult = await signIn('credentials', {
                     email: data.email,
                     password: data.password,
@@ -183,7 +183,7 @@ export default function Login() {
                     router.push('/home');
                 }
             } else {
-                // Email not verified - save data and show OTP
+                // Email not verify - save data and show OTP
                 setLoginData(data);
                 await sendOtpCode(data.email);
                 setEmailVerified(false);
@@ -330,7 +330,13 @@ export default function Login() {
                             />
                             <FormItem>
                                 <FormLabel
-                                    className={'text-[var(--brand-color)]'}
+                                    className={
+                                        'text-[var(--brand-color)] hover:underline transition-all! duration-300' +
+                                        ' ease-in-out cursor-pointer'
+                                    }
+                                    onClick={() =>
+                                        router.push('/auth/reset-password')
+                                    }
                                 >
                                     Forgot Password?{' '}
                                 </FormLabel>

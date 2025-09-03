@@ -140,7 +140,7 @@ export async function PUT(request: NextRequest) {
             );
         }
 
-        // Mark OTP as verified
+        // Mark OTP as verify
         await db
             .update(otpCodes)
             .set({ verified: true })
@@ -153,7 +153,7 @@ export async function PUT(request: NextRequest) {
             .where(eq(users.id, user.id));
 
         return NextResponse.json(
-            { message: 'OTP verified successfully' },
+            { message: 'OTP verify successfully' },
             { status: 200 }
         );
     } catch (error) {
