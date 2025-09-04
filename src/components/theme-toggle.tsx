@@ -4,14 +4,13 @@ import * as React from 'react';
 import { useTheme } from 'next-themes';
 import { Sun, Moon } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useSidebar } from './ui/sidebar';
+import { SidebarMenuButton, useSidebar } from './ui/sidebar';
 
 const ThemeToggle = () => {
     const { theme, setTheme } = useTheme();
@@ -32,15 +31,14 @@ const ThemeToggle = () => {
         return (
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button
-                        variant="outline"
-                        size="icon"
+                    <SidebarMenuButton
                         className="dark:bg-transparent border-none hover:text-[var(--brand-color)] transition-colors! duration-300 ease-in-out"
+                        tooltip={<p>Themes</p>}
                     >
                         <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                         <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                         <span className="sr-only">Toggle theme</span>
-                    </Button>
+                    </SidebarMenuButton>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                     align="end"

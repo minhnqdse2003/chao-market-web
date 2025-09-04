@@ -168,6 +168,7 @@ function CollapsibleItem({
                     <SidebarMenuButton
                         isActive={path.startsWith(item.url)}
                         onClick={() => onRedirect(item.url)}
+                        tooltip={<p>{item.title}</p>}
                     >
                         {item.icon && <item.icon />}
                         <span>{item.title}</span>

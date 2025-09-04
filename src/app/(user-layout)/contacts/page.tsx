@@ -74,9 +74,9 @@ export default function ContactsPage() {
                             {card.description}
                         </p>
                         {card.isLink ? (
-                            <p className="underline">{card.contactInfo}</p>
+                            <p className={'font-bold'}>{card.contactInfo}</p>
                         ) : (
-                            <p>{card.contactInfo}</p>
+                            <p className={'font-bold'}>{card.contactInfo}</p>
                         )}
                     </div>
                 ))}

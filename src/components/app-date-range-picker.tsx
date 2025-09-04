@@ -11,6 +11,7 @@ import {
 import { useCallback, useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 interface AppDateRangePickerProps {
     onChange: (range: { startDate?: Date; endDate?: Date }) => void;
@@ -19,12 +20,14 @@ interface AppDateRangePickerProps {
         startDate?: Date;
         endDate?: Date;
     };
+    highlightOnActive?: boolean;
 }
 
 const AppDateRangePicker = ({
     onChange,
     value,
     label = 'Date Range',
+    highlightOnActive = false,
 }: AppDateRangePickerProps) => {
     const [open, setOpen] = useState<{ start: boolean; end: boolean }>({
         start: false,
@@ -41,6 +44,12 @@ const AppDateRangePicker = ({
         []
     );
 
+    const isHighLightVisible = (date: Date | undefined) => {
+        if (!date) return '';
+        if (highlightOnActive) return 'text-[var(--brand-color)]';
+        return 'text-white';
+    };
+
     return (
         <div className="flex flex-col gap-3 w-full">
             <Label className="px-1">{label}</Label>
@@ -50,7 +59,11 @@ const AppDateRangePicker = ({
                     onOpenChange={value => handleOpenPopover('start', value)}
                 >
                     <PopoverTrigger
-                        className="text-[var(--brand-grey-foreground)] hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out"
+                        className={cn(
+                            'text-[var(--brand-grey-foreground)] hover:text-[var(--brand-color)] transition-all!' +
+                                ' duration-300 ease-in-out',
+                            `${isHighLightVisible(value?.startDate)}`
+                        )}
                         asChild
                     >
                         <Button
@@ -119,7 +132,10 @@ const AppDateRangePicker = ({
                         <Button
                             variant="outline"
                             id="end-date"
-                            className="w-[calc(50%-1.5rem)] justify-between font-normal"
+                            className={cn(
+                                'w-[calc(50%-1.5rem)] justify-between font-normal',
+                                `${isHighLightVisible(value?.endDate)}`
+                            )}
                         >
                             {value?.endDate
                                 ? format(value.endDate, 'dd-MM-yyyy')

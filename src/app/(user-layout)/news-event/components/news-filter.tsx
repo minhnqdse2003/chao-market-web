@@ -81,6 +81,7 @@ const NewsEventFilterDialogComp = ({
                     label="Custom Date Range"
                     value={filterParams.date}
                     onChange={range => handleFilterChange('date', range)}
+                    highlightOnActive={true}
                 />
             )}
             <AppFilterSelect

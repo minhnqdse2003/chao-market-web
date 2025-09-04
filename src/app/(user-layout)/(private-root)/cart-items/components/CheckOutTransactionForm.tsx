@@ -122,7 +122,7 @@ export default function CheckOutTransactionForm({
                         <FormItem>
                             <FormControl>
                                 <FloatingLabelInput
-                                    label="First name (*)"
+                                    label="First name  *"
                                     {...field}
                                     className="app-text-input"
                                 />
@@ -140,7 +140,7 @@ export default function CheckOutTransactionForm({
                         <FormItem>
                             <FormControl>
                                 <FloatingLabelInput
-                                    label="Last name (*)"
+                                    label="Last name  *"
                                     {...field}
                                     className="app-text-input"
                                 />
@@ -168,7 +168,7 @@ export default function CheckOutTransactionForm({
                                     buttonClass={
                                         'w-full dark:bg-transparent dark:hover:bg-transparent'
                                     }
-                                    label={'Birthday (*)'}
+                                    label={'Birthday  *'}
                                     isFloatingLabel={true}
                                 />
                             </FormControl>
@@ -186,7 +186,7 @@ export default function CheckOutTransactionForm({
                             <FormControl>
                                 <FloatingLabelInput
                                     type="email"
-                                    label="Email address (*)"
+                                    label="Email address  *"
                                     {...field}
                                     className="app-text-input"
                                 />
@@ -205,7 +205,7 @@ export default function CheckOutTransactionForm({
                             <FormControl>
                                 <FloatingLabelInput
                                     type="tel"
-                                    label="Phone number (*)"
+                                    label="Phone number  *"
                                     {...field}
                                     className="app-text-input"
                                 />
@@ -240,7 +240,7 @@ export default function CheckOutTransactionForm({
                     render={() => (
                         <FormItem className="space-y-2">
                             <div className="text-sm font-medium">
-                                How would you like us to contact you? (*)
+                                How would you like us to contact you? *
                             </div>
                             <div className="flex flex-wrap gap-4">
                                 <FormField

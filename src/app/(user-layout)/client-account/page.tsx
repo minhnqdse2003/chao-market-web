@@ -251,7 +251,11 @@ export default function Page() {
                             <CardContent>
                                 <div className="flex justify-between text-xs mb-1.5 [&>p]:text-[var(--brand-grey-foreground)]">
                                     <p>Market:</p>
-                                    <strong>
+                                    <strong
+                                        className={
+                                            'rounded-sm py-1 px-2 text-black bg-[var(--brand-color)]'
+                                        }
+                                    >
                                         {capitalizeWords(data.market)}
                                     </strong>
                                 </div>
@@ -305,12 +309,16 @@ export default function Page() {
                         />
                     </CardHeader>
                     <CardContent className="p-4 space-y-0.5">
-                        <div className="flex flex-col">
+                        <div className="flex flex-col space-y-1">
                             <div className="flex justify-between">
                                 <p className="text-[var(--brand-grey-foreground)]">
                                     Market:
                                 </p>
-                                <strong>
+                                <strong
+                                    className={
+                                        'rounded-sm py-1 px-2 text-black bg-[var(--brand-color)]'
+                                    }
+                                >
                                     {capitalizeWords(
                                         selectedData?.market || ''
                                     )}
@@ -334,7 +342,7 @@ export default function Page() {
                             </div>
                         </div>
                         <NavSeparator isTrigger={false} />
-                        <div className="flex flex-col">
+                        <div className="flex flex-col space-y-1">
                             <div className="flex justify-between items-center">
                                 <p className="text-[var(--brand-grey-foreground)] flex flex-row items-center">
                                     Gain:
@@ -409,7 +417,7 @@ export default function Page() {
                             </div>
                         </div>
                         <NavSeparator isTrigger={false} />
-                        <div className="flex flex-col">
+                        <div className="flex flex-col space-y-1">
                             <div className="flex justify-between">
                                 <p className="text-[var(--brand-grey-foreground)]">
                                     Balance:

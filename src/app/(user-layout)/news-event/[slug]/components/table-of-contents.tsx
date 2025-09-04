@@ -1,28 +1,31 @@
 // src/components/TableOfContents.tsx
-
 import React, { useMemo } from 'react';
-import parse from 'html-react-parser';
+import parse, { DOMNode } from 'html-react-parser';
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-} from '@/components/ui/accordion'; // Adjust path if needed
+} from '@/components/ui/accordion';
 
 interface TableOfContentsProps {
-    content: string; // The rich text HTML string
+    content: string;
+}
+
+interface Headline {
+    id: string;
+    text: string;
 }
 
 export function TableOfContents({ content }: TableOfContentsProps) {
-    // The logic for extracting headlines remains the same.
-    const headlines = useMemo(() => {
-        const extractedHeadlines: string[] = [];
-        if (!content) {
-            return [];
-        }
+    // Extract headlines from strong tags with simple IDs
+    const headlines = useMemo<Headline[]>(() => {
+        const extractedHeadlines: Headline[] = [];
+        if (!content) return [];
 
+        let index = 0;
         parse(content, {
-            replace: domNode => {
+            replace: (domNode: DOMNode) => {
                 if (
                     domNode.type === 'tag' &&
                     domNode.name === 'strong' &&
@@ -32,7 +35,13 @@ export function TableOfContents({ content }: TableOfContentsProps) {
                     const cleanedText = text.replace(/^\d+\s*\.\s*/, '').trim();
 
                     if (cleanedText) {
-                        extractedHeadlines.push(cleanedText);
+                        const id = `title-${index}`;
+                        index++;
+
+                        extractedHeadlines.push({
+                            id,
+                            text: cleanedText,
+                        });
                     }
                 }
                 return null;
@@ -42,7 +51,6 @@ export function TableOfContents({ content }: TableOfContentsProps) {
         return extractedHeadlines;
     }, [content]);
 
-    // The Accordion structure is now ALWAYS rendered.
     return (
         <Accordion
             type="single"
@@ -57,9 +65,17 @@ export function TableOfContents({ content }: TableOfContentsProps) {
                 <AccordionContent className="text-base font-thin leading-tight pt-4">
                     {headlines.length > 0 ? (
                         <ul className="list-decimal list-inside text-[var(--brand-grey-foreground)] space-y-4">
-                            {headlines.map((text, index) => (
-                                <li key={`${text}-${index}`}>
-                                    <a href="#">{text}</a>
+                            {headlines.map(headline => (
+                                <li
+                                    key={headline.id}
+                                    className={
+                                        'hover:text-[var(--brand-color)] transition-colors! duration-300 ease-in-out' +
+                                        ' hover:font-semibold'
+                                    }
+                                >
+                                    <a href={`#${headline.id}`}>
+                                        {headline.text}
+                                    </a>
                                 </li>
                             ))}
                         </ul>

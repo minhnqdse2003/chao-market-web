@@ -107,6 +107,7 @@ const ClientAccountFilterDialog = ({
                 label="Date"
                 value={filterParams.date}
                 onChange={range => handleFilterChange('date', range)}
+                highlightOnActive={true}
             />
         </div>
     );

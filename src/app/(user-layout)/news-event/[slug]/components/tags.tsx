@@ -71,7 +71,13 @@ export default function TagsAccordion({ tags }: TagsAccordionProps) {
                 <AccordionContent className="pt-4">
                     <div className="flex flex-wrap gap-2">
                         {displayTags.map(tag => (
-                            <Tag key={tag.id} label={`#${tag.name}`} />
+                            <Tag
+                                key={tag.id}
+                                label={`#${tag.name}`}
+                                className={
+                                    'dark:text-[var(--brand-grey-foreground)] font-semibold'
+                                }
+                            />
                         ))}
                     </div>
                 </AccordionContent>

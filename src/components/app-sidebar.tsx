@@ -175,10 +175,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <NavInformation />
                     <DisclaimerDialog
                         trigger={
-                            <>
+                            <SidebarMenuButton
+                                className={
+                                    'dark:hover:bg-transparent p-0 w-fit mx-auto h-5'
+                                }
+                                tooltip={<p>Disclaimer</p>}
+                            >
                                 <Info className={'h-4 w-4'} />
                                 <span>Disclaimer</span>
-                            </>
+                            </SidebarMenuButton>
                         }
                     />
                 </>

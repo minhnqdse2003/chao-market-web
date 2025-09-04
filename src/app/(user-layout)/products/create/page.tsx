@@ -20,6 +20,7 @@ import { newProductSchema } from '@/types/product/request/create-product';
 import { createProduct } from '@/app/api/products';
 import { queryClient } from '@/lib/query-client';
 import { toast } from 'sonner';
+import Image from 'next/image';
 
 export default function CreateProductPage() {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -173,9 +174,11 @@ export default function CreateProductPage() {
                                     <div className="flex items-start gap-6">
                                         {imagePreview && (
                                             <div className="relative overflow-hidden rounded-md border">
-                                                <img
+                                                <Image
                                                     src={imagePreview}
                                                     alt="Preview"
+                                                    width={1920}
+                                                    height={1080}
                                                     className="h-32 w-32 object-cover"
                                                 />
                                             </div>

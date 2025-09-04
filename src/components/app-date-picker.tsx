@@ -22,6 +22,7 @@ interface AppDatePickerProps {
     onDateChange?: (date: Date | undefined) => void;
     isFloatingLabel?: boolean;
     label?: string;
+    highlightOnActive?: boolean;
 }
 
 export function AppDatePicker({
@@ -30,6 +31,7 @@ export function AppDatePicker({
     onDateChange,
     isFloatingLabel = false,
     label = 'Date:',
+    highlightOnActive = false,
 }: AppDatePickerProps) {
     const [open, setOpen] = React.useState(false);
     const [date, setDate] = React.useState<Date | undefined>(undefined);
@@ -40,6 +42,12 @@ export function AppDatePicker({
         if (onDateChange) {
             onDateChange(selectedDate);
         }
+    };
+
+    const isHightlightVisible = (date: Date | undefined) => {
+        if (!date) return '';
+        if (highlightOnActive) return 'text-[var(--brand-color)]';
+        return 'text-white';
     };
 
     if (isFloatingLabel) {
@@ -64,9 +72,10 @@ export function AppDatePicker({
                             )}
                         >
                             <div
-                                className={
-                                    'flex gap-1 items-center h-full w-full'
-                                }
+                                className={cn(
+                                    'flex gap-1 items-center h-full w-full',
+                                    `${isHightlightVisible(date)}`
+                                )}
                             >
                                 <CalendarIcon className="h-4 w-4" />
                                 {date ? (
@@ -147,7 +156,12 @@ export function AppDatePicker({
                             buttonClass
                         )}
                     >
-                        <div className={'flex gap-1 items-center'}>
+                        <div
+                            className={cn(
+                                'flex gap-1 items-center',
+                                `${isHightlightVisible(date)}`
+                            )}
+                        >
                             <CalendarIcon className="h-4 w-4" />
                             {date ? format(date, 'dd/MM/yyyy') : 'DD/MM/YYYY'}
                         </div>

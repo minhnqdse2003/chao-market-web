@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 
 export default function PrivacyPolicy() {
     return (
-        <div className="max-w-4/5 w-full mx-auto px-4 py-8">
+        <div className="w-full h-full">
             <Link href="/auth/signup">
                 <Button
                     variant="outline"
