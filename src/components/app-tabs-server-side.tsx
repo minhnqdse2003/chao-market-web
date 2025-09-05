@@ -102,14 +102,19 @@ export default function AppTabsServerSide({
                             className={`${
                                 currentTabHref === tab.href
                                     ? isSubTab
-                                        ? 'border-none text-[var(--brand-color)] hover:text-[var(--brand-color-foreground)]'
-                                        : 'border-[var(--brand-color)] text-[var(--brand-color)]' +
-                                          ' hover:text-[var(--brand-color-foreground)] hover:border-[var(--brand-color-foreground)]'
+                                        ? 'border-none dark:text-[var(--brand-color)]' +
+                                          ' dark:hover:text-[var(--brand-color-foreground)]' +
+                                          ' text-black font-semibold'
+                                        : 'dark:border-[var(--brand-color)] dark:text-[var(--brand-color)]' +
+                                          ' dark:hover:text-[var(--brand-color-foreground)]' +
+                                          ' dark:hover:border-[var(--brand-color-foreground)]' +
+                                          ' border-black text-brand-text font-semibold'
                                     : isSubTab
                                       ? 'border-none text-[var(--brand-grey-foreground)]' +
-                                        ' hover:text-[var(--brand-color)]'
-                                      : 'hover:border-[var(--brand-color)] hover:text-[var(--brand-color)]' +
-                                        ' text-[var(--brand-grey-foreground)] border-transparent'
+                                        ' dark:hover:text-[var(--brand-color)] hover:text-brand-text'
+                                      : 'dark:hover:border-[var(--brand-color)] dark:hover:text-[var(--brand-color)]' +
+                                        ' text-[var(--brand-grey-foreground)] border-transparent' +
+                                        ' hover:border-brand-text hover:text-brand-text'
                             } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-center text-sm transition-all! duration-300 ease-in-out min-w-[9rem]`}
                         >
                             {tab.title}

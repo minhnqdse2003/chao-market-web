@@ -126,7 +126,7 @@ export default function ResetPasswordPasswordStep({
                                     onClick={onBack}
                                     disabled={changePasswordMutation.isPending}
                                     variant="outline"
-                                    className="flex-1 border-[var(--brand-color)] text-[var(--brand-color)] hover:bg-[var(--brand-grey)] hover:text-[var(--brand-color)] dark:bg-transparent rounded-3xl py-2 px-4 transition-all! duration-300 ease-in-out"
+                                    className="flex-1 dark:border-[var(--brand-color)] dark:text-[var(--brand-color)] hover:bg-[var(--brand-grey)] dark:hover:text-[var(--brand-color)] dark:bg-transparent text-brand-text rounded-3xl py-2 px-4 transition-all! duration-300 ease-in-out"
                                 >
                                     Back
                                 </Button>

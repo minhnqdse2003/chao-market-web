@@ -32,7 +32,9 @@ const AppDialog = ({
     return (
         <Dialog>
             <DialogTrigger
-                className={'data-[state=open]:text-[var(--brand-color)]'}
+                className={
+                    'dark:data-[state=open]:text-[var(--brand-color)] data-[state=open]:text-brand-text'
+                }
                 asChild
             >
                 {trigger && <div className={triggerClassName}>{trigger}</div>}

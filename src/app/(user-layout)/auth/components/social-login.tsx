@@ -14,7 +14,7 @@ export default function SocialLogin() {
                     <div className="w-full border-t border-[var(--brand-grey-foreground)]" />
                 </div>
                 <div className="relative flex w-fit mx-auto px-2 justify-center text-sm bg-sidebar">
-                    <span className="px-2 text-white text-lg">
+                    <span className="px-2 dark:text-white text-[var(--brand-grey-foreground)] text-lg">
                         Or continue with
                     </span>
                 </div>

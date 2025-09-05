@@ -162,7 +162,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarHeader>
                         <NavHead headers={data.headers} />
                         <SearchForm />
-                        <SidebarMenuButton tooltip={<p>Cart</p>}>
+                        <SidebarMenuButton tooltip={<p>Cart</p>} asChild>
                             <SimpleCartButton />
                         </SidebarMenuButton>
                         <NavUser />

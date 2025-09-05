@@ -54,7 +54,7 @@ export function TableOfContents({ content }: TableOfContentsProps) {
     return (
         <Accordion
             type="single"
-            className="bg-[var(--brand-black-bg)] w-full rounded-2xl px-6 py-1 overflow-hidden"
+            className="dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] w-full rounded-2xl px-6 py-1 overflow-hidden shadow-sm"
             collapsible
             defaultValue={'item-1'}
         >
@@ -69,7 +69,8 @@ export function TableOfContents({ content }: TableOfContentsProps) {
                                 <li
                                     key={headline.id}
                                     className={
-                                        'hover:text-[var(--brand-color)] transition-colors! duration-300 ease-in-out' +
+                                        'dark:hover:text-[var(--brand-color)] transition-colors! duration-300' +
+                                        ' ease-in-out' +
                                         ' hover:font-semibold'
                                     }
                                 >

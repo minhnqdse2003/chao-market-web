@@ -28,7 +28,7 @@ const NavInformation = () => {
                         isActive={path.startsWith('/contacts')}
                         tooltip={<p>Contacts</p>}
                         onClick={() => (window.location.href = '/contacts')}
-                        className="data-[active=true]:border-l-6 data-[active=true]:border-[var(--brand-color)] rounded-none"
+                        className="data-[active=true]:border-l-6 dark:data-[active=true]:border-[var(--brand-color)] data-[active=true]:border-black rounded-none"
                     >
                         <PhoneCall className="mr-2 h-4 w-4" />
                         <span>Contacts</span>

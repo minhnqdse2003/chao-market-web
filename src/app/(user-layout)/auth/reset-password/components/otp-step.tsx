@@ -104,7 +104,7 @@ export default function ResetPasswordOtpStep({
                                     <FormItem>
                                         <FormControl>
                                             <InputOTP maxLength={6} {...field}>
-                                                <InputOTPGroup className="flex gap-4 [&>div[data-slot=input-otp-slot]]:rounded-lg [&>div[data-slot=input-otp-slot]]:outline-0 [&>div[data-slot=input-otp-slot]]:ring-[var(--brand-color)] [&>div[data-slot=input-otp-slot]]:size-12 [&>div[data-slot=input-otp-slot]]:text-xl mx-auto [&>div[data-slot=input-otp-slot]]:border-2">
+                                                <InputOTPGroup className="flex gap-4 [&>div[data-slot=input-otp-slot]]:rounded-lg [&>div[data-slot=input-otp-slot]]:outline-0 dark:[&>div[data-slot=input-otp-slot]]:ring-[var(--brand-color)] [&>div[data-slot=input-otp-slot]]:size-12 [&>div[data-slot=input-otp-slot]]:text-xl mx-auto [&>div[data-slot=input-otp-slot]]:border-2 text-brand-text">
                                                     <InputOTPSlot index={0} />
                                                     <InputOTPSlot index={1} />
                                                     <InputOTPSlot index={2} />
@@ -138,12 +138,12 @@ export default function ResetPasswordOtpStep({
             </div>
 
             <div className="text-center">
-                <p className="text-sm text-white">
+                <p className="text-sm text-[var(--brand-grey-foreground)]">
                     I didn&apos;t receive a code{' '}
                     <button
                         onClick={handleResend}
                         disabled={resendOTPMutation.isPending}
-                        className="cursor-pointer text-[var(--brand-color)] font-bold hover:underline"
+                        className="cursor-pointer dark:text-[var(--brand-color)] text-black font-bold hover:underline"
                     >
                         {resendOTPMutation.isPending
                             ? 'Sending...'

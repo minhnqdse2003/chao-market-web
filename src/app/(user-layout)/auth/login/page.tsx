@@ -81,9 +81,11 @@ function EmailVerificationStep({
     return (
         <div className="space-y-8 mt-24 h-full">
             <div className={'w-full'}>
-                <p className="text-sm text-white font-light mb-4">
+                <p className="text-sm dark:text-white text-[var(--brand-grey-foreground)] font-light mb-4">
                     We&apos;ve sent a verification code to{' '}
-                    <span className="font-bold">{email}</span>
+                    <span className="font-bold text-black dark:text-white">
+                        {email}
+                    </span>
                 </p>
 
                 <div className="flex flex-col items-center w-full">
@@ -94,7 +96,7 @@ function EmailVerificationStep({
                             setOtp(value);
                         }}
                     >
-                        <InputOTPGroup className="flex gap-4 [&>div[data-slot=input-otp-slot]]:rounded-lg [&>div[data-slot=input-otp-slot]]:outline-0 [&>div[data-slot=input-otp-slot]]:ring-[var(--brand-color)] [&>div[data-slot=input-otp-slot]]:size-12 [&>div[data-slot=input-otp-slot]]:text-xl mx-auto [&>div[data-slot=input-otp-slot]]:border-2">
+                        <InputOTPGroup className="flex gap-4 [&>div[data-slot=input-otp-slot]]:rounded-lg [&>div[data-slot=input-otp-slot]]:outline-0 dark:[&>div[data-slot=input-otp-slot]]:ring-[var(--brand-color)] [&>div[data-slot=input-otp-slot]]:size-12 [&>div[data-slot=input-otp-slot]]:text-xl mx-auto [&>div[data-slot=input-otp-slot]]:border-2 text-brand-text">
                             <InputOTPSlot index={0} />
                             <InputOTPSlot index={1} />
                             <InputOTPSlot index={2} />
@@ -250,7 +252,7 @@ export default function Login() {
         <div className="flex flex-col w-full h-full">
             <div>
                 <TabAuthMode />
-                <h2 className="mt-2 text-2xl font-bold text-white">
+                <h2 className="mt-2 text-2xl font-bold text-brand-text">
                     Hello there! Welcome back.
                 </h2>
             </div>
@@ -331,7 +333,8 @@ export default function Login() {
                             <FormItem>
                                 <FormLabel
                                     className={
-                                        'text-[var(--brand-color)] hover:underline transition-all! duration-300' +
+                                        'dark:text-[var(--brand-color)] text-brand-text hover:underline transition-all!' +
+                                        ' duration-300' +
                                         ' ease-in-out cursor-pointer'
                                     }
                                     onClick={() =>
@@ -360,13 +363,14 @@ export default function Login() {
                         <div className="text-center text-sm">
                             <Link
                                 href="/auth/signup"
-                                className="text-white font-semibold text-lg"
+                                className="text-[var(--brand-grey-foreground)] dark:text-white font-semibold text-lg"
                             >
                                 Don&apos;t have an account?{' '}
                                 <span
                                     className={
-                                        'text-[var(--brand-color)] hover:underline' +
-                                        ' hover:text-[var(--brand-color-foreground)] transition-all! duration-300 ease-in-out'
+                                        'dark:text-[var(--brand-color)] text-black font-semibold hover:underline' +
+                                        ' dark:hover:text-[var(--brand-color-foreground)] transition-all!' +
+                                        ' duration-300 ease-in-out'
                                     }
                                 >
                                     Sign up

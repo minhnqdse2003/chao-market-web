@@ -117,14 +117,14 @@ const ClientAccountFilterDialog = ({
         <div className="w-full flex justify-between items-center gap-4">
             <Button
                 variant="ghost"
-                className="text-white dark:hover:text-[var(--brand-color)] dark:hover:bg-transparent hover:border-transparent transition-colors! duration-300 ease-in-out"
+                className="dark:text-white text-brand-text hover:bg-[var(--brand-grey)] dark:hover:text-[var(--brand-color)] dark:hover:bg-transparent hover:border-transparent transition-colors! hover:font-semibold duration-300 ease-in-out"
                 onClick={handleClearAll}
             >
                 Clear All
             </Button>
             <Button
                 variant="default"
-                className="dark:hover:bg-[var(--brand-color)] dark:hover:text-black text-[var(--brand-color)] dark:bg-transparent transition-colors! duration-300 ease-in-out"
+                className="dark:hover:bg-[var(--brand-color)] dark:hover:text-black dark:text-[var(--brand-color)] dark:bg-transparent bg-transparent text-black hover:bg-[var(--brand-color)] hover:font-semibold transition-colors! duration-300 ease-in-out"
                 onClick={handleApply}
             >
                 Apply

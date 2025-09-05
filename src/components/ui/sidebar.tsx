@@ -563,7 +563,7 @@ function SidebarMenuButton({
                 align="center"
                 hidden={state !== 'collapsed' || isMobile}
                 sideOffset={5}
-                className="bg-[var(--brand-grey)] [&>span>svg]:bg-[var(--brand-grey)] [&>span>svg]:fill-[var(--brand-grey)] text-white"
+                className="bg-[var(--brand-grey)] shadow-2xl [&>span>svg]:bg-[var(--brand-grey)] [&>span>svg]:fill-[var(--brand-grey)] text-brand-text"
                 {...tooltip}
             />
         </Tooltip>

@@ -16,7 +16,7 @@ const ResetPasswordPage = () => {
     const [otp, setOtp] = useState('');
 
     return (
-        <div className="flex flex-col w-full h-full [&_*_h2]:text-2xl [&_*_h2]:font-extrabold [&_*_h2]:text-white">
+        <div className="flex flex-col w-full h-full [&_*_h2]:text-2xl [&_*_h2]:font-extrabold [&_*_h2]:text-brand-text">
             <div className={'h-fit'}>
                 <TabAuthMode />
                 <div className="mt-2 w-full">
@@ -26,7 +26,7 @@ const ResetPasswordPage = () => {
                         {step === 'password' && 'Set new password'}
                         {step === 'complete' && 'Successfully!'}
                     </h2>
-                    <p className="text-gray-300 mt-2">
+                    <p className="text-[var(--brand-grey-foreground)] mt-2">
                         {step === 'email' &&
                             'You will receive an email to reset your password in a few minutes.'}
                         {step === 'otp' &&
@@ -76,11 +76,11 @@ const ResetPasswordPage = () => {
 
                 {step !== 'complete' && (
                     <div className="text-center mt-6">
-                        <p className="text-lg text-white font-semibold">
+                        <p className="text-lg text-[var(--brand-grey-foreground)] font-semibold">
                             Remember your password?{' '}
                             <Link
                                 href="/auth/login"
-                                className="text-[var(--brand-color)] hover:underline"
+                                className="dark:text-[var(--brand-color)] text-black hover:underline"
                             >
                                 Log in
                             </Link>

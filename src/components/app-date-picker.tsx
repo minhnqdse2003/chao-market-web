@@ -47,7 +47,7 @@ export function AppDatePicker({
     const isHightlightVisible = (date: Date | undefined) => {
         if (!date) return '';
         if (highlightOnActive) return 'text-[var(--brand-color)]';
-        return 'text-white';
+        return 'text-brand-text';
     };
 
     if (isFloatingLabel) {
@@ -66,8 +66,14 @@ export function AppDatePicker({
                             variant="outline"
                             id="date"
                             className={cn(
-                                'w-48 justify-between items-center p-3 py-6 font-normal hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out',
-                                `${open ? 'dark:border-[var(--brand-color)] text-[var(--brand-color)]' : 'text-[var(--brand-grey-foreground)]'}`,
+                                'w-48 justify-between items-center p-3 py-6 font-normal' +
+                                    ' dark:hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out',
+                                `${
+                                    open
+                                        ? 'dark:border-[var(--brand-color)] dark:text-[var(--brand-color)]' +
+                                          ' text-black'
+                                        : 'text-[var(--brand-grey-foreground)]'
+                                }`,
                                 buttonClass
                             )}
                         >
@@ -118,7 +124,8 @@ export function AppDatePicker({
                                     ' dark:[&:hover>button]:bg-[var(--brand-color-foreground)]' +
                                     ' dark:text-black dark:[&:hover>button]:text-black',
                                 today:
-                                    'dark:[&>button]:text-[var(--brand-color)] border border-[var(--brand-color)]' +
+                                    'dark:[&>button]:text-[var(--brand-color)] border border-brand-text' +
+                                    ' dark:border-[var(--brand-color)]' +
                                     ' rounded-md' +
                                     ' dark:[&:hover>button]:text-[var(--brand-color-foreground)]' +
                                     ' dark:hover:border-[var(--brand-color-foreground)]' +
@@ -130,8 +137,8 @@ export function AppDatePicker({
                                 years_dropdown: 'app-years-dropdown',
                                 dropdowns:
                                     'w-full flex items-center text-sm font-medium justify-center' +
-                                    ' h-(--cell-size) gap-1.5 rdp-dropdowns text-[var(--brand-color)]' +
-                                    ' [&>_*_svg]:text-[var(--brand-color)]!',
+                                    ' h-(--cell-size) gap-1.5 rdp-dropdowns dark:text-[var(--brand-color)]' +
+                                    ' dark:[&>_*_svg]:text-[var(--brand-color)]!',
                             }}
                         />
                     </PopoverContent>
@@ -184,7 +191,8 @@ export function AppDatePicker({
                                 ' dark:[&:hover>button]:bg-[var(--brand-color-foreground)]' +
                                 ' dark:text-black dark:[&:hover>button]:text-black',
                             today:
-                                'dark:[&>button]:text-[var(--brand-color)] border border-[var(--brand-color)]' +
+                                'dark:[&>button]:text-[var(--brand-color)] border border-brand-text' +
+                                ' dark:border-[var(--brand-color)]' +
                                 ' rounded-md' +
                                 ' dark:[&:hover>button]:text-[var(--brand-color-foreground)]' +
                                 ' dark:hover:border-[var(--brand-color-foreground)]' +
@@ -196,8 +204,8 @@ export function AppDatePicker({
                             years_dropdown: 'app-years-dropdown',
                             dropdowns:
                                 'w-full flex items-center text-sm font-medium justify-center' +
-                                ' h-(--cell-size) gap-1.5 rdp-dropdowns text-[var(--brand-color)]' +
-                                ' [&>_*_svg]:text-[var(--brand-color)]!',
+                                ' h-(--cell-size) gap-1.5 rdp-dropdowns dark:text-[var(--brand-color)]' +
+                                ' dark:[&>_*_svg]:text-[var(--brand-color)]!',
                         }}
                     />
                 </PopoverContent>

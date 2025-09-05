@@ -31,13 +31,13 @@ export default function AppFilterSelect({
                 value={valueOptions}
                 onValueChange={value => onChange(value)}
             >
-                <p className="text-sm">{label}</p>
+                <p className="text-sm font-semibold">{label}</p>
                 <TabsList className="p-0 h-auto bg-brand-dialog shadow-none gap-1">
                     {options.map(tab => (
                         <TabsTrigger
                             key={tab.value}
                             value={tab.value}
-                            className="border px-4 py-2 rounded-lg cursor-pointer border-transparent data-[state=active]:border-none data-[state=active]:text-[var(--brand-color)] dark:data-[state=active]:border-none dark:data-[state=active]:text-[var(--brand-color)] data-[state=inactive]:hover:bg-transparent data-[state=inactive]:hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out"
+                            className="border px-4 py-2 rounded-lg cursor-pointer border-transparent data-[state=active]:text-brand-text data-[state=active]:shadow-sm dark:data-[state=active]:text-[var(--brand-color)] dark:data-[state=inactive]:hover:bg-transparent dark:data-[state=inactive]:hover:text-[var(--brand-color)] data-[state=inactive]:text-[var(--brand-grey-foreground)] data-[state=inactive]:hover:text-brand-text data-[state=active]:bg-[var(--brand-grey)] transition-all! duration-300 ease-in-out"
                         >
                             <p className="font-light">{tab.name}</p>
                         </TabsTrigger>
@@ -51,7 +51,7 @@ export default function AppFilterSelect({
     if (type === 'radio') {
         return (
             <div className="max-w-xs w-full">
-                <p className="text-sm mb-2">{label}</p>
+                <p className="text-sm mb-2 font-semibold">{label}</p>
                 <RadioGroup
                     defaultValue={options[0]?.value}
                     onValueChange={value => onChange(value)}
@@ -66,11 +66,11 @@ export default function AppFilterSelect({
                             <RadioGroupItem
                                 value={option.value}
                                 id={option.value}
-                                className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer [&_*_svg]:fill-[var(--brand-color)] [&_*_svg]:stroke-[var(--brand-color)] "
+                                className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer dark:[&_*_svg]:fill-[var(--brand-color)] dark:[&_*_svg]:stroke-[var(--brand-color)] "
                             />
                             <Label
                                 htmlFor={option.value}
-                                className={`text-xs text-[var(--brand-grey-foreground)] font-normal cursor-pointer ${valueOptions === option.value || (valueOptions === undefined && idx === 0) ? 'text-[var(--brand-color)]' : ''}`}
+                                className={`text-xs text-[var(--brand-grey-foreground)] font-normal cursor-pointer ${valueOptions === option.value || (valueOptions === undefined && idx === 0) ? 'dark:text-[var(--brand-color)] text-brand-text' : ''}`}
                             >
                                 {option.name}
                             </Label>

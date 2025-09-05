@@ -70,7 +70,7 @@ const BlockContents = ({
             </span>
             <Button
                 onClick={() => handleAddToCart(buttonComp.id)}
-                className="bg-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] transition-all! duration-300 ease-in-out rounded-3xl px-5 py-2 w-fit uppercase dark:text-black font-semibold mt-4"
+                className="bg-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] transition-all! duration-300 ease-in-out rounded-3xl px-5 py-2 w-fit uppercase text-brand-text dark:text-black font-semibold mt-4 shadow-lg"
             >
                 {buttonComp.title}
             </Button>

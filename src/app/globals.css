@@ -46,13 +46,14 @@
     --radius-xl: calc(var(--radius) + 4px);
     --brand-color: #ffe400;
     --brand-color-foreground: #fffe41;
-    --brand-grey: #525252;
+    --brand-grey: var(--brand-common-grey);
     --brand-grey-foreground: #949494;
     --brand-grey-light: #c4c4c4;
     --brand-black-bg: #363636;
     --color-brand-floating-btn: #ffe400;
-    --color-brand-dialog: #2e2e2e;
-    --color-brand-dropdown: #2e2e2e;
+    --color-brand-dialog: var(--brand-common-dialog);
+    --color-brand-dropdown: var(--brand-common-dropdown);
+    --color-brand-text: var(--brand-text);
 }
 
 :root {
@@ -80,14 +81,19 @@
     --chart-3: oklch(0.398 0.07 227.392);
     --chart-4: oklch(0.828 0.189 84.429);
     --chart-5: oklch(0.769 0.188 70.08);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar: #FFFFFF;
+    --sidebar-foreground: var(--brand-text);
     --sidebar-primary: oklch(0.488 0.243 264.376);
     --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: var(--brand-color);
+    --sidebar-accent: var(--brand-grey);
+    --sidebar-accent-foreground: var(--brand-text);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
+    --brand-text: #000000;
+    /*--brand-common-grey: #E6E5E1;*/
+    --brand-common-grey: #f5f5f5;
+    --brand-common-dialog: #ffffff;
+    --brand-common-dropdown: var(--brand-common-dialog);
 }
 
 .dark {
@@ -122,6 +128,10 @@
     --sidebar-accent-foreground: var(--brand-color);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
+    --brand-text: #FFFFFF;
+    --brand-common-grey: #525252;
+    --brand-common-dialog: #2e2e2e;
+    --brand-common-dropdown: var(--brand-common-dialog)
 }
 
 @layer base {
@@ -151,7 +161,7 @@
     }
 
     .app-text-input {
-        @apply w-full! focus-visible:ring-0! focus-visible:outline-0! border-[var(--brand-grey-foreground)] focus-visible:border-[var(--brand-color)]! bg-transparent! placeholder:font-semibold
+        @apply w-full! focus-visible:ring-0! focus-visible:outline-0! border-[var(--brand-grey-foreground)] dark:focus-visible:border-[var(--brand-color)]! bg-transparent! placeholder:font-semibold
     }
 
     .vertical-text {
@@ -166,17 +176,17 @@
     .app-date-picker {
         .app-months-dropdown {
             background: var(--color-brand-dialog);
-            color: white;
+            color: var(--brand-text);
         }
 
         .app-years-dropdown {
             background: var(--color-brand-dialog);
-            color: white;
+            color: var(--brand-text);
         }
 
         option:checked {
             background: var(--brand-color) !important;
-            color: black !important;
+            color: var(--brand-text) !important;
         }
     }
 }

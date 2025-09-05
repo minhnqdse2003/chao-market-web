@@ -9,6 +9,7 @@ import {
     ResponsiveContainer,
 } from 'recharts';
 import { format } from 'date-fns';
+import { useTheme } from 'next-themes';
 
 export interface ChartDataPoint {
     date: number; // store as timestamp (ms)
@@ -27,17 +28,23 @@ export function AccountChart({ data }: AccountChartProps) {
     const formatDate = (timestamp: number) =>
         format(new Date(timestamp), 'MMM dd, yy');
 
+    const { theme } = useTheme();
+
     // Custom tooltip
     const CustomTooltip = ({ active, payload, label }: any) => {
         if (active && payload && payload.length) {
             const mainDataPoint = data.find(d => d.date === label);
             return (
-                <div className="bg-brand-dialog p-2 border border-[var(--brand-color)] rounded-lg">
-                    <p className="text-[var(--brand-grey-foreground)]">
+                <div className="dark:bg-brand-dialog bg-white p-2 border dark:border-[var(--brand-color)] border-black rounded-lg">
+                    <p className="text-[var(--brand-grey-foreground)] font-bold">
                         {formatDate(label)}
                     </p>
                     {payload.map((entry: any, index: number) => (
-                        <p key={index} style={{ color: entry.color }}>
+                        <p
+                            key={index}
+                            style={{ color: entry.color }}
+                            className={'font-bold'}
+                        >
                             {entry.dataKey === 'equityPercentage' &&
                                 `Equity: ${entry.value.toFixed(2)}%`}
                             {entry.dataKey === 'gainPercentage' &&
@@ -46,7 +53,7 @@ export function AccountChart({ data }: AccountChartProps) {
                     ))}
                     {mainDataPoint?.depositAmount &&
                         mainDataPoint.depositAmount > 0 && (
-                            <p className="text-green-500">
+                            <p className="text-green-500 font-bold">
                                 Deposit: $
                                 {Math.abs(
                                     mainDataPoint.depositAmount
@@ -55,7 +62,7 @@ export function AccountChart({ data }: AccountChartProps) {
                         )}
                     {mainDataPoint?.withdrawalAmount &&
                         mainDataPoint.withdrawalAmount > 0 && (
-                            <p className="text-red-500">
+                            <p className="text-red-500 font-bold">
                                 Withdrawal: $
                                 {Math.abs(
                                     mainDataPoint.withdrawalAmount
@@ -113,7 +120,7 @@ export function AccountChart({ data }: AccountChartProps) {
                 >
                     <CartesianGrid
                         strokeDasharray="3 3"
-                        stroke="var(--brand-grey)"
+                        stroke={`${theme === 'dark' ? 'var(--brand-grey)' : '#000000'}`}
                     />
                     <XAxis
                         dataKey="date"

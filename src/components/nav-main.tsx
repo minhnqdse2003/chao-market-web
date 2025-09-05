@@ -105,7 +105,7 @@ function CollapsibleItem({
         <Collapsible
             asChild
             open={open}
-            className='group/collapsible [&>button[data-slot="collapsible-trigger"]]:rounded-none [&>button[data-active=true]]:border-l-6 [&>button[data-active=true]]:border-[var(--brand-color)] [&>button[data-active=true]]:rounded-none [&>button]:cursor-pointer'
+            className='group/collapsible [&>button[data-slot="collapsible-trigger"]]:rounded-none [&>button[data-active=true]]:border-l-6 dark:[&>button[data-active=true]]:border-[var(--brand-color)] [&>button[data-active=true]]:border-brand-text [&>button[data-active=true]]:rounded-none [&>button]:cursor-pointer'
         >
             <SidebarMenuItem>
                 {item.children ? (
@@ -115,7 +115,7 @@ function CollapsibleItem({
                                 tooltip={
                                     <div className="flex flex-col gap-1 p-2">
                                         <div
-                                            className="font-semibold mb-1.5 cursor-pointer hover:text-[var(--brand-color)]"
+                                            className="font-semibold mb-1.5 cursor-pointer dark:hover:text-[var(--brand-color)]"
                                             onClick={handleClick}
                                         >
                                             {item.title}
@@ -126,7 +126,7 @@ function CollapsibleItem({
                                                 onClick={() =>
                                                     onRedirect(subItem.url)
                                                 }
-                                                className="hover:text-[var(--brand-color)] cursor-pointer"
+                                                className="dark:hover:text-[var(--brand-color)] cursor-pointer"
                                             >
                                                 {subItem.title}
                                             </div>
@@ -142,7 +142,7 @@ function CollapsibleItem({
                             </SidebarMenuButton>
                         </CollapsibleTrigger>
                         <CollapsibleContent className="overflow-hidden transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
-                            <SidebarMenuSub className="border-none pl-4 list-disc [&>li]:marker:text-xs [&>li]:marker:text-[var(--brand-grey)]">
+                            <SidebarMenuSub className="border-none pl-4 list-disc [&>li]:marker:text-xs dark:[&>li]:marker:text-[var(--brand-grey)] [&>li]:marker:text-brand-text">
                                 {item.children.map(subItem => (
                                     <SidebarMenuSubItem key={subItem.title}>
                                         <SidebarMenuSubButton

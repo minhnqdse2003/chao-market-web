@@ -1,9 +1,8 @@
 'use client';
 
-import Image from 'next/image';
-import { ShareIcon } from '@image/index';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { PiShareFat } from 'react-icons/pi';
 
 interface AppShareButtonProps {
     slug?: string;
@@ -27,16 +26,10 @@ export default function AppShareButton({ slug }: AppShareButtonProps) {
 
     return (
         <Button
-            className="dark:bg-[var(--brand-grey)] dark:text-white rounded-3xl text-xs font-normal"
+            className="bg-[var(--brand-grey)] hover:bg-[var(--brand-grey)] shadow-sm border-[var(--brand-grey)] border text-brand-text transition-all! duration-300 ease-in-out rounded-3xl text-xs font-normal gap-2"
             onClick={handleShare}
         >
-            <Image
-                src={ShareIcon}
-                alt={'share-icon'}
-                width={100}
-                height={100}
-                className="size-3"
-            />
+            <PiShareFat className={'size-3'} />
             Share
         </Button>
     );

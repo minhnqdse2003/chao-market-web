@@ -42,7 +42,7 @@ export function SearchForm({ ...props }: React.ComponentProps<'form'>) {
             <SidebarGroup className="py-0 dark:bg-sidebar">
                 <SidebarGroupContent
                     ref={searchRef}
-                    className="relative w-full border-[var(--brand-grey)] text-[var(--brand-grey)] border-b-2 mb-4 pb-4 [&:hover>svg]:text-[var(--brand-color)]  [&_input:focus-visible~svg]:text-[var(--brand-color)] transition-all! duration-300 ease-in-out"
+                    className="relative w-full border-[var(--brand-grey)] text-[var(--brand-grey)] border-b-2 mb-4 pb-4 dark:[&:hover>svg]:text-[var(--brand-color)]  dark:[&_input:focus-visible~svg]:text-[var(--brand-color)] transition-all! duration-300 ease-in-out"
                 >
                     <Label htmlFor="search" className="sr-only">
                         Search
@@ -50,7 +50,7 @@ export function SearchForm({ ...props }: React.ComponentProps<'form'>) {
                     <SidebarInput
                         id="search"
                         placeholder="Search"
-                        className="pl-8 pt-5 border-none dark:bg-transparent focus-visible:ring-0 text-white placeholder:text-[var(--brand-grey)]"
+                        className="pl-8 pt-5 border-none dark:bg-transparent focus-visible:ring-0 text-brand-text dark:placeholder:text-[var(--brand-grey)]"
                     />
                     <Search className="pointer-events-none absolute top-1/2 left-2 size-4 -translate-y-1/2 select-none" />
                 </SidebarGroupContent>

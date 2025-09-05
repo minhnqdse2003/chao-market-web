@@ -32,7 +32,7 @@ const ThemeToggle = () => {
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <SidebarMenuButton
-                        className="dark:bg-transparent border-none hover:text-[var(--brand-color)] transition-colors! duration-300 ease-in-out"
+                        className="dark:bg-transparent border-none dark:hover:text-[var(--brand-color)] transition-colors! duration-300 ease-in-out"
                         tooltip={<p>Themes</p>}
                     >
                         <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
@@ -80,13 +80,13 @@ const ThemeToggle = () => {
             <TabsList className="grid grid-cols-2 bg-[oklch(0.708 0 0)]">
                 <TabsTrigger
                     value="light"
-                    className="text-white bg-[oklch(0.708 0 0)] data-[state=active]:text-[var(--brand-color)] data-[state=active]:bg-[oklch(0.708 0 0)] data-[state=active]:border-[var(--brand-grey-foreground)] dark:data-[state=inactive]:hover:text-[var(--brand-color)] cursor-pointer"
+                    className="text-white bg-[oklch(0.708 0 0)] dark:data-[state=active]:text-[var(--brand-color)] data-[state=active]:border-[var(--brand-grey-foreground)] text-brand-text data-[state=active]:bg-[var(--brand-grey)] dark:data-[state=inactive]:hover:text-[var(--brand-color)] cursor-pointer"
                 >
                     <Sun className="mr-1 h-4 w-4" /> Light
                 </TabsTrigger>
                 <TabsTrigger
                     value="dark"
-                    className=" dark:data-[state=active]:text-[var(--brand-color)] text-white"
+                    className=" dark:data-[state=active]:text-[var(--brand-color)] text-black hover:text-[var(--brand-grey-foreground)] cursor-pointer transition-all! duration-300 ease-in-out"
                 >
                     <Moon className="mr-1 h-4 w-4" /> Dark
                 </TabsTrigger>

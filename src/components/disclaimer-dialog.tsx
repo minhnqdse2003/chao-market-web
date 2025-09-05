@@ -84,13 +84,16 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                 dialog-open={isOpen.toString()}
                 className={
                     'flex items-center justify-center gap-2 text-sm cursor-pointer transition-all! duration-300' +
-                    ' ease-in-out hover:text-[var(--brand-color)] [&[sidebar-open="true"]]:hover:pb-2 py-1 absolute' +
+                    ' ease-in-out dark:hover:text-[var(--brand-color)] [&[sidebar-open="true"]]:hover:pb-2 py-1' +
+                    ' absolute' +
                     ' left-0 bottom-0 w-[var(--sidebar-width)]' +
                     ' bg-[var(--brand-grey)] hover:bg-[var(--brand-grey)] transition-all!' +
                     ' ease-in-out rounded-b-none rounded-t-3xl' +
-                    ' [&[dialog-open="true"]]:text-[var(--brand-color)]' +
+                    ' dark:[&[dialog-open="true"]]:text-[var(--brand-color)]' +
                     ' [&[sidebar-open="false"]]:w-12' +
-                    ' [&[sidebar-open="false"]>span]:invisible [&[sidebar-open="false"]>span]:fixed [&[sidebar-open="false"]]:h-8'
+                    ' [&[sidebar-open="false"]>span]:invisible [&[sidebar-open="false"]>span]:fixed' +
+                    ' [&[sidebar-open="false"]]:h-8 dark:border-transparent border border-b-0' +
+                    ' border-[var(--brand-grey-foreground)]'
                 }
                 onClick={() => setIsOpen(true)}
             >
@@ -99,11 +102,13 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
 
             <DialogContent className="bg-brand-dialog min-w-[60svw]">
                 <DialogHeader>
-                    <DialogTitle className="text-white">Disclaimer</DialogTitle>
+                    <DialogTitle className="text-brand-text">
+                        Disclaimer
+                    </DialogTitle>
                 </DialogHeader>
 
                 <div className="py-4">
-                    <p className="text-[var(--brand-color)] text-center mb-4 text-lg leading-relaxed">
+                    <p className="dark:text-[var(--brand-color)] text-center mb-4 text-lg leading-relaxed">
                         &#34;The information provided by Chào Market does not
                         constitute and shall not be considered as investment
                         advice, financial advice, a recommendation, or a
@@ -116,7 +121,7 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
 
                 <DialogFooter>
                     <Button
-                        className="font-bold mx-auto bg-[var(--brand-color)] text-black hover:bg-[var(--brand-color-foreground)] w-fit"
+                        className="font-bold mx-auto bg-[var(--brand-color)] text-black hover:bg-[var(--brand-color-foreground)] w-fit transition-all! duration-300 ease-in-out"
                         onClick={handleClose}
                     >
                         I Agree
@@ -127,7 +132,7 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                 {isFirstTime && countdown > 0 && (
                     <p className="text-sm text-[var(--brand-grey-foreground)] text-center mt-2">
                         This will automatically close in{' '}
-                        <span className="text-[var(--brand-color)]">
+                        <span className="dark:text-[var(--brand-color)] font-semibold dark:font-normal text-brand-text">
                             {countdown}
                         </span>{' '}
                         second{countdown > 1 ? 's' : ''}.

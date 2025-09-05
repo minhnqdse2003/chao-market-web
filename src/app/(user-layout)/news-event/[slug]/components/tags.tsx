@@ -23,7 +23,7 @@ interface TagsAccordionProps {
 function Tag({ label, onClick, className = '', clickable = false }: TagProps) {
     const baseStyles =
         'inline-block px-4 py-2 rounded-full mb-3 text-sm font-medium cursor-default select-none text-center ' +
-        'bg-[var(--brand-grey)] text-white';
+        'dark:bg-[var(--brand-grey)] bg-white text-[var(--brand-grey-foreground)]';
 
     const clickableStyles =
         'hover:bg-gray-300 active:bg-gray-400 cursor-pointer';
@@ -60,7 +60,7 @@ export default function TagsAccordion({ tags }: TagsAccordionProps) {
     return (
         <Accordion
             type="single"
-            className="bg-[var(--brand-black-bg)] w-full rounded-2xl px-6 py-1 overflow-hidden"
+            className="dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] shadow-xl w-full rounded-2xl px-6 py-1 overflow-hidden"
             collapsible
             defaultValue={'item-1'}
         >

@@ -50,7 +50,7 @@ export function NavUser() {
                     <Button
                         asChild
                         variant="outline"
-                        className="flex-1/2 border-none rounded-lg hover:text-[var(--brand-color)] transition-colors! duration-300 ease-in-out"
+                        className="flex-1/2 border-none rounded-lg dark:hover:text-[var(--brand-color)] hover:bg-[var(--brand-grey)] transition-colors! duration-300 ease-in-out"
                     >
                         <Link href="/auth/signup">Sign up</Link>
                     </Button>

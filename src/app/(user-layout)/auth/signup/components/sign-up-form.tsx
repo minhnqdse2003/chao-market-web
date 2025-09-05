@@ -115,7 +115,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
     };
 
     return (
-        <div className="flex flex-col w-full h-full [&_*_h2]:text-2xl [&_*_h2]:font-extrabold [&_*_h2]:text-white">
+        <div className="flex flex-col w-full h-full [&_*_h2]:text-2xl [&_*_h2]:font-extrabold [&_*_h2]:text-brand-text">
             <div className={'h-fit'}>
                 <TabAuthMode />
                 <div className="mt-2 w-full">
@@ -191,33 +191,33 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                             <FormItem className="flex items-center space-x-1 space-y-0 ">
                                                 <FormControl>
                                                     <RadioGroupItem
-                                                        className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer [&_*_svg]:fill-[var(--brand-color)] [&_*_svg]:stroke-[var(--brand-color)]"
+                                                        className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer dark:[&_*_svg]:fill-[var(--brand-color)] dark:[&_*_svg]:stroke-[var(--brand-color)]"
                                                         value="male"
                                                     />
                                                 </FormControl>
-                                                <FormLabel className="font-normal text-white">
+                                                <FormLabel className="font-normal text-[var(--brand-grey-foreground)]">
                                                     Male
                                                 </FormLabel>
                                             </FormItem>
                                             <FormItem className="flex items-center space-x-1 space-y-0">
                                                 <FormControl>
                                                     <RadioGroupItem
-                                                        className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer [&_*_svg]:fill-[var(--brand-color)] [&_*_svg]:stroke-[var(--brand-color)]"
+                                                        className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer dark:[&_*_svg]:fill-[var(--brand-color)] dark:[&_*_svg]:stroke-[var(--brand-color)]"
                                                         value="female"
                                                     />
                                                 </FormControl>
-                                                <FormLabel className="font-normal text-white">
+                                                <FormLabel className="font-normal text-[var(--brand-grey-foreground)]">
                                                     Female
                                                 </FormLabel>
                                             </FormItem>
                                             <FormItem className="flex items-center space-x-1 space-y-0">
                                                 <FormControl>
                                                     <RadioGroupItem
-                                                        className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer [&_*_svg]:fill-[var(--brand-color)] [&_*_svg]:stroke-[var(--brand-color)]"
+                                                        className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer dark:[&_*_svg]:fill-[var(--brand-color)] dark:[&_*_svg]:stroke-[var(--brand-color)]"
                                                         value="other"
                                                     />
                                                 </FormControl>
-                                                <FormLabel className="font-normal text-white">
+                                                <FormLabel className="font-normal text-[var(--brand-grey-foreground)]">
                                                     Other
                                                 </FormLabel>
                                             </FormItem>
@@ -328,23 +328,23 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                 onCheckedChange={checked =>
                                     setTermsAccepted(checked as boolean)
                                 }
-                                className="mt-1 rounded-full dark:data-[state=checked]:bg-[var(--brand-color)] border-none"
+                                className="mt-1 rounded-full dark:data-[state=checked]:bg-[var(--brand-color)] dark:border-none"
                             />
                             <label
                                 htmlFor="terms"
-                                className="text-sm text-white cursor-pointer"
+                                className="text-sm cursor-pointer text-[var(--brand-grey-foreground)] dark:text-white"
                             >
                                 By creating an account, I agree to{' '}
                                 <Link
                                     href="/privacy-policy"
-                                    className="text-[var(--brand-color)] hover:underline"
+                                    className="dark:text-[var(--brand-color)] text-black font-semibold hover:underline"
                                 >
                                     Privacy Notice
                                 </Link>{' '}
                                 and{' '}
                                 <Link
                                     href="/terms-of-use"
-                                    className="text-[var(--brand-color)] hover:underline"
+                                    className="dark:text-[var(--brand-color)] text-black font-semibold hover:underline"
                                 >
                                     Term of Use
                                 </Link>
@@ -367,11 +367,11 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                 </Form>
                 <div className="text-center mt-4">
                     <SocialLogin />
-                    <p className="text-lg text-white font-semibold">
+                    <p className="text-lg text-[var(--brand-grey-foreground)] font-semibold">
                         Already have an account?{' '}
                         <Link
                             href="/auth/login"
-                            className="text-[var(--brand-color)] hover:underline"
+                            className="dark:text-[var(--brand-color)] text-black hover:underline"
                         >
                             Log in
                         </Link>

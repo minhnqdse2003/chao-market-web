@@ -46,13 +46,14 @@ const AppDateRangePicker = ({
 
     const isHighLightVisible = (date: Date | undefined) => {
         if (!date) return '';
-        if (highlightOnActive) return 'text-[var(--brand-color)]';
-        return 'text-white';
+        if (highlightOnActive)
+            return 'dark:text-[var(--brand-color)] text-brand-text';
+        return 'text-brand-text';
     };
 
     return (
         <div className="flex flex-col gap-3 w-full">
-            <Label className="px-1">{label}</Label>
+            <Label className="px-1 font-semibold">{label}</Label>
             <div className="flex gap-[1rem] items-center">
                 <Popover
                     open={open.start}
@@ -60,7 +61,7 @@ const AppDateRangePicker = ({
                 >
                     <PopoverTrigger
                         className={cn(
-                            'text-[var(--brand-grey-foreground)] hover:text-[var(--brand-color)] transition-all!' +
+                            'text-[var(--brand-grey-foreground)] dark:hover:text-[var(--brand-color)] transition-all!' +
                                 ' duration-300 ease-in-out',
                             `${isHighLightVisible(value?.startDate)}`
                         )}
@@ -102,7 +103,8 @@ const AppDateRangePicker = ({
                                     ' dark:[&:hover>button]:bg-[var(--brand-color-foreground)]' +
                                     ' dark:text-black dark:[&:hover>button]:text-black',
                                 today:
-                                    'dark:[&>button]:text-[var(--brand-color)] border border-[var(--brand-color)]' +
+                                    'dark:[&>button]:text-[var(--brand-color)] border border-brand-text' +
+                                    ' dark:border-[var(--brand-color)]' +
                                     ' rounded-md' +
                                     ' dark:[&:hover>button]:text-[var(--brand-color-foreground)]' +
                                     ' dark:hover:border-[var(--brand-color-foreground)]' +
@@ -114,8 +116,8 @@ const AppDateRangePicker = ({
                                 years_dropdown: 'app-years-dropdown',
                                 dropdowns:
                                     'w-full flex items-center text-sm font-medium justify-center' +
-                                    ' h-(--cell-size) gap-1.5 rdp-dropdowns text-[var(--brand-color)]' +
-                                    ' [&>_*_svg]:text-[var(--brand-color)]!',
+                                    ' h-(--cell-size) gap-1.5 rdp-dropdowns dark:text-[var(--brand-color)]' +
+                                    ' dark:[&>_*_svg]:text-[var(--brand-color)]!',
                             }}
                         />
                     </PopoverContent>
@@ -126,7 +128,7 @@ const AppDateRangePicker = ({
                     onOpenChange={value => handleOpenPopover('end', value)}
                 >
                     <PopoverTrigger
-                        className="text-[var(--brand-grey-foreground)] hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out"
+                        className="text-[var(--brand-grey-foreground)] dark:hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out"
                         asChild
                     >
                         <Button
@@ -170,7 +172,8 @@ const AppDateRangePicker = ({
                                     ' dark:[&:hover>button]:bg-[var(--brand-color-foreground)]' +
                                     ' dark:text-black dark:[&:hover>button]:text-black',
                                 today:
-                                    'dark:[&>button]:text-[var(--brand-color)] border border-[var(--brand-color)]' +
+                                    'dark:[&>button]:text-[var(--brand-color)] border border-brand-text' +
+                                    ' dark:border-[var(--brand-color)]' +
                                     ' rounded-md' +
                                     ' dark:[&:hover>button]:text-[var(--brand-color-foreground)]' +
                                     ' dark:hover:border-[var(--brand-color-foreground)]' +
@@ -182,8 +185,8 @@ const AppDateRangePicker = ({
                                 years_dropdown: 'app-years-dropdown',
                                 dropdowns:
                                     'w-full flex items-center text-sm font-medium justify-center' +
-                                    ' h-(--cell-size) gap-1.5 rdp-dropdowns text-[var(--brand-color)]' +
-                                    ' [&>_*_svg]:text-[var(--brand-color)]!',
+                                    ' h-(--cell-size) gap-1.5 rdp-dropdowns dark:text-[var(--brand-color)]' +
+                                    ' dark:[&>_*_svg]:text-[var(--brand-color)]!',
                             }}
                         />
                     </PopoverContent>

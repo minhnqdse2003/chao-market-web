@@ -36,13 +36,22 @@ export function LanguageToggle() {
                     }
                     className={
                         'relative px-2' +
-                        ' py-4 rounded-lg [&[state-checked="checked"]]:cursor-pointer' +
+                        ' py-4 rounded-lg' +
                         ' [&[state-checked="checked"]]:pointer-events-none cursor-pointer' +
                         ' [&[state-checked="unchecked"]]:hover:text-[var(--brand-color)]' +
                         ' [&[state-checked="unchecked"]]:hover:font-semibold' +
                         ' [&[state-checked="checked"]>.check-icon]:visible' +
                         ' transition-all! duration-75 ease-in-out' +
-                        ' [&[state-checked="checked"]]:text-[var(--brand-color)]'
+                        ' dark:[&[state-checked="checked"]]:text-[var(--brand-color)]' +
+                        // Light mode styles
+                        ' [&[state-checked="unchecked"]]:text-[var(--brand-grey-foreground)]' +
+                        ' [&[state-checked="unchecked"]]:hover:text-black' +
+                        ' [&[state-checked="checked"]]:text-black' +
+                        ' [&[state-checked="checked"]]:hover:text-black' +
+                        // Dark mode styles
+                        ' dark:[&[state-checked="unchecked"]]:text-[var(--brand-grey-foreground)]' +
+                        ' dark:[&[state-checked="unchecked"]]:hover:text-[var(--brand-color)]' +
+                        ' dark:[&[state-checked="checked"]]:text-[var(--brand-color)]'
                     }
                     onClick={() => setLocale(lang.code)}
                 >

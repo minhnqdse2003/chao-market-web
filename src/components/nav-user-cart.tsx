@@ -32,8 +32,9 @@ export default function SimpleCartButton() {
                 size="sm"
                 asChild
                 className={cn(
-                    'gap-2 flex items-center justify-start mb-2 hover:text-[var(--brand-color)]' +
-                        ' transition-all! duration-300 ease-in-out font-semibold px-0!'
+                    'gap-2 flex items-center justify-start mb-2 dark:hover:text-[var(--brand-color)]' +
+                        ' hover:text-brand-text hover:bg-[var(--brand-grey)] transition-all! duration-300 ease-in-out' +
+                        ' font-semibold p-2'
                 )}
             >
                 <Link href="/auth/login">
@@ -50,8 +51,9 @@ export default function SimpleCartButton() {
             size="sm"
             asChild
             className={cn(
-                'gap-2 flex items-center justify-start mb-2 hover:text-[var(--brand-color)]' +
-                    ' transition-all! duration-300 ease-in-out font-semibold px-0!'
+                'gap-2 flex items-center justify-start mb-2 dark:hover:text-[var(--brand-color)]' +
+                    ' hover:text-brand-text hover:bg-[var(--brand-grey)] transition-all! duration-300 ease-in-out' +
+                    ' font-semibold p-2'
             )}
         >
             <Link href="/cart-items">

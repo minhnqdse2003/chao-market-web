@@ -126,7 +126,7 @@ export default function OtpVerificationForm({
                                                     maxLength={6}
                                                     {...field}
                                                 >
-                                                    <InputOTPGroup className="flex gap-4 [&>div[data-slot=input-otp-slot]]:rounded-lg [&>div[data-slot=input-otp-slot]]:outline-0 [&>div[data-slot=input-otp-slot]]:ring-[var(--brand-color)] [&>div[data-slot=input-otp-slot]]:size-12 [&>div[data-slot=input-otp-slot]]:text-xl mx-auto [&>div[data-slot=input-otp-slot]]:border-2">
+                                                    <InputOTPGroup className="flex gap-4 [&>div[data-slot=input-otp-slot]]:rounded-lg [&>div[data-slot=input-otp-slot]]:outline-0 dark:[&>div[data-slot=input-otp-slot]]:ring-[var(--brand-color)] [&>div[data-slot=input-otp-slot]]:size-12 [&>div[data-slot=input-otp-slot]]:text-xl mx-auto [&>div[data-slot=input-otp-slot]]:border-2 text-brand-text">
                                                         <InputOTPSlot
                                                             index={0}
                                                         />
@@ -173,12 +173,12 @@ export default function OtpVerificationForm({
             </div>
 
             <div className="text-center">
-                <p className="text-sm text-white">
+                <p className="text-sm text-brand-text">
                     I didn&apos;t receive a code{' '}
                     <button
                         onClick={handleResendOtp}
                         disabled={loading}
-                        className="cursor-pointer text-[var(--brand-color)] font-bold hover:underline"
+                        className="cursor-pointer dark:text-[var(--brand-color)] font-bold hover:underline"
                     >
                         Resend OTP
                     </button>
