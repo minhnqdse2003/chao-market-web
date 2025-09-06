@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { ResetPasswordComplete } from '@image/index';
 import { useRouter } from 'next/navigation';
+import { T } from '@/components/app-translate';
 
 export default function CompletionStep() {
     const router = useRouter();
@@ -26,7 +27,7 @@ export default function CompletionStep() {
                     className="w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:p-0 disabled:bg-transparent mt-4 hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out text-base"
                     onClick={handleOnClick}
                 >
-                    Go to Login
+                    <T keyName="auth.resetPassword.goToLogin" />
                 </Button>
             </div>
         </div>

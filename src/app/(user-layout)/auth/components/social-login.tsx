@@ -1,6 +1,7 @@
 import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import { Facebook, Google } from '@image/index';
+import { T } from '@/components/app-translate';
 
 export default function SocialLogin() {
     const handleSocialLogin = (provider: string) => {
@@ -15,7 +16,7 @@ export default function SocialLogin() {
                 </div>
                 <div className="relative flex w-fit mx-auto px-2 justify-center text-sm bg-sidebar">
                     <span className="px-2 dark:text-white text-[var(--brand-grey-foreground)] text-lg">
-                        Or continue with
+                        <T keyName={'common.orContinueWith'} />
                     </span>
                 </div>
             </div>

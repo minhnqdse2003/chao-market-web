@@ -15,6 +15,8 @@ import { FloatingLabelInput } from '@/components/ui/floating-input';
 import { useAppMutation } from '@/hooks/react-query/use-custom-mutation';
 import { toast } from 'sonner';
 import { changeResetPassword } from '@/app/api/auth/reset-password';
+import { useI18n } from '@/context/i18n/context';
+import { T } from '@/components/app-translate';
 
 interface ResetPasswordPasswordStepProps {
     email: string;
@@ -35,6 +37,8 @@ export default function ResetPasswordPasswordStep({
         defaultValues: { password: '', confirmPassword: '' },
     });
 
+    const { t } = useI18n();
+
     const changePasswordMutation = useAppMutation({
         mutationFn: async ({
             email,
@@ -48,19 +52,19 @@ export default function ResetPasswordPasswordStep({
             return await changeResetPassword(email, password, otp);
         },
         onSuccessVariables: () => {
-            toast.success('Password updated successfully');
+            toast.success(t('auth.resetPassword.updateSuccess'));
             onComplete();
         },
         onError: (error: Error) => {
-            setError(error.message || 'Failed to change password');
-            toast.error(error.message || 'Failed to change password');
+            setError(error.message || t('auth.resetPassword.updateFailed'));
+            toast.error(error.message || t('auth.resetPassword.updateFailed'));
         },
     });
 
     const onSubmit = (data: { password: string; confirmPassword: string }) => {
         if (data.password !== data.confirmPassword) {
-            setError('Passwords do not match');
-            toast.error('Passwords do not match');
+            setError(t('auth.resetPassword.passwordsDoNotMatch'));
+            toast.error(t('auth.resetPassword.passwordsDoNotMatch'));
             return;
         }
 
@@ -88,7 +92,9 @@ export default function ResetPasswordPasswordStep({
                                 <FormControl>
                                     <FloatingLabelInput
                                         type="password"
-                                        label="New Password *"
+                                        label={
+                                            <T keyName="common.newPassword" />
+                                        }
                                         className="app-text-input"
                                         {...field}
                                     />
@@ -106,7 +112,9 @@ export default function ResetPasswordPasswordStep({
                                 <FormControl>
                                     <FloatingLabelInput
                                         type="password"
-                                        label="Confirm New Password *"
+                                        label={
+                                            <T keyName="common.confirmNewPassword" />
+                                        }
                                         className="app-text-input"
                                         {...field}
                                     />
@@ -128,7 +136,7 @@ export default function ResetPasswordPasswordStep({
                                     variant="outline"
                                     className="flex-1 dark:border-[var(--brand-color)] dark:text-[var(--brand-color)] hover:bg-[var(--brand-grey)] dark:hover:text-[var(--brand-color)] dark:bg-transparent text-brand-text rounded-3xl py-2 px-4 transition-all! duration-300 ease-in-out"
                                 >
-                                    Back
+                                    <T keyName="common.back" />
                                 </Button>
 
                                 <Button
@@ -136,7 +144,7 @@ export default function ResetPasswordPasswordStep({
                                     disabled={changePasswordMutation.isPending}
                                     className="flex-1 bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:p-0 disabled:bg-transparent hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out text-base"
                                 >
-                                    Update Password
+                                    <T keyName="auth.resetPassword.updatePassword" />
                                 </Button>
                             </>
                         )}

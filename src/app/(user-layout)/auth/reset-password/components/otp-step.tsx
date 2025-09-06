@@ -22,6 +22,8 @@ import {
     verifyResetPasswordOTP,
     requestResetPassword,
 } from '@/app/api/auth/reset-password';
+import { useI18n } from '@/context/i18n/context';
+import { T } from '@/components/app-translate';
 
 interface ResetPasswordOtpStepProps {
     email: string;
@@ -39,16 +41,18 @@ export default function ResetPasswordOtpStep({
         defaultValues: { otp: '' },
     });
 
+    const { t } = useI18n();
+
     const verifyOTPMutation = useAppMutation({
         mutationFn: async ({ email, otp }: { email: string; otp: string }) => {
             return await verifyResetPasswordOTP(email, otp);
         },
         onSuccessVariables: variables => {
             onNext(variables.otp);
-            toast.success('OTP verified successfully');
+            toast.success(t('auth.otpResentSuccess'));
         },
         onError: (error: Error) => {
-            toast.error(error.message || 'Failed to verify OTP');
+            toast.error(error.message || t('auth.failedToVerifyOtp'));
         },
     });
 
@@ -57,12 +61,12 @@ export default function ResetPasswordOtpStep({
             return await requestResetPassword(email);
         },
         onSuccessVariables: () => {
-            setSuccess('Verification code resent successfully!');
-            toast.success('OTP resent to your email');
+            setSuccess(t('auth.otpResentSuccess'));
+            toast.success(t('auth.resetPassword.otpResentToEmail'));
         },
         onError: (error: Error) => {
-            setError('Failed to resend verification code');
-            toast.error(error.message || 'Failed to resend OTP');
+            setError(t('auth.failedToResendOtp'));
+            toast.error(error.message || t('auth.resetPassword.resendFailed'));
         },
     });
 
@@ -91,7 +95,7 @@ export default function ResetPasswordOtpStep({
             <div className="space-y-12">
                 <div>
                     <p className="text-sm text-[var(--brand-grey-foreground)] font-light mb-4">
-                        We&apos;ve sent a verification code to{' '}
+                        <T keyName="auth.otpSentToEmail" />{' '}
                         <span className="font-bold text-white">{email}</span>
                     </p>
 
@@ -128,7 +132,7 @@ export default function ResetPasswordOtpStep({
                                     {verifyOTPMutation.isPending ? (
                                         <LoadingComponent />
                                     ) : (
-                                        'Continue'
+                                        <T keyName="common.continue" />
                                     )}
                                 </Button>
                             </div>
@@ -139,15 +143,17 @@ export default function ResetPasswordOtpStep({
 
             <div className="text-center">
                 <p className="text-sm text-[var(--brand-grey-foreground)]">
-                    I didn&apos;t receive a code{' '}
+                    <T keyName="auth.didNotReceiveCode" />{' '}
                     <button
                         onClick={handleResend}
                         disabled={resendOTPMutation.isPending}
                         className="cursor-pointer dark:text-[var(--brand-color)] text-black font-bold hover:underline"
                     >
-                        {resendOTPMutation.isPending
-                            ? 'Sending...'
-                            : 'Resend OTP'}
+                        {resendOTPMutation.isPending ? (
+                            <T keyName="common.sending" />
+                        ) : (
+                            <T keyName="auth.resendOtp" />
+                        )}
                     </button>
                 </p>
             </div>

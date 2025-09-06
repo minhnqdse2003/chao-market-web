@@ -28,6 +28,9 @@
       ],
       "@image/*": [
         "./public/img/*"
+      ],
+      "@locales/*": [
+        "./public/locales/*"
       ]
     }
   },

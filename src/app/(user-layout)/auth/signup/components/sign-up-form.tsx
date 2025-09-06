@@ -25,6 +25,8 @@ import SocialLogin from '@/app/(user-layout)/auth/components/social-login';
 import { AppDatePicker } from '@/components/app-date-picker';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
+import { T } from '@/components/app-translate';
+import { TranslationKey } from '@/types/translations';
 
 interface SignUpFormProps {
     onSignUpSuccess: (user: OtpVerificationFormProps) => void;
@@ -84,9 +86,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
             const result = await response.json();
 
             if (response.ok) {
-                setSuccess(
-                    'Account created successfully! Please verify your email.'
-                );
+                setSuccess('auth.signupSuccessMessage');
                 // Send OTP for email verification
                 await handleSendOtp(data.email);
                 onSignUpSuccess({
@@ -94,10 +94,10 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                     firstName: data.firstName,
                 });
             } else {
-                setError(result.error || 'Registration failed');
+                setError(result.error || 'auth.registrationFailed');
             }
         } catch {
-            setError('An error occurred during registration');
+            setError('auth.registrationError');
         } finally {
             setLoading(false);
         }
@@ -107,10 +107,10 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
         try {
             const response = await sendOtpCode(email);
             if (!response.ok) {
-                setError('Failed to send verification code');
+                setError('auth.failedToSendOtp');
             }
         } catch {
-            setError('Failed to send verification code');
+            setError('auth.failedToSendOtp');
         }
     };
 
@@ -119,14 +119,16 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
             <div className={'h-fit'}>
                 <TabAuthMode />
                 <div className="mt-2 w-full">
-                    <h2>Create your account.</h2>
+                    <h2>
+                        <T keyName="auth.createAccountTitle" />
+                    </h2>
                 </div>
             </div>
 
             <div className="h-full w-full flex flex-col pt-4">
                 {error && (
                     <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                        {error}
+                        <T keyName={error as TranslationKey} />
                     </div>
                 )}
 
@@ -149,7 +151,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                     <FormItem className="flex-1">
                                         <FormControl>
                                             <FloatingLabelInput
-                                                label="First Name *"
+                                                label={
+                                                    <T keyName="common.firstName" />
+                                                }
                                                 className="app-text-input"
                                                 {...field}
                                             />
@@ -166,7 +170,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                     <FormItem className="flex-1">
                                         <FormControl>
                                             <FloatingLabelInput
-                                                label="Last Name *"
+                                                label={
+                                                    <T keyName="common.lastName" />
+                                                }
                                                 className="app-text-input"
                                                 {...field}
                                             />
@@ -196,7 +202,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                                     />
                                                 </FormControl>
                                                 <FormLabel className="font-normal text-[var(--brand-grey-foreground)]">
-                                                    Male
+                                                    <T keyName="common.gender.male" />
                                                 </FormLabel>
                                             </FormItem>
                                             <FormItem className="flex items-center space-x-1 space-y-0">
@@ -207,7 +213,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                                     />
                                                 </FormControl>
                                                 <FormLabel className="font-normal text-[var(--brand-grey-foreground)]">
-                                                    Female
+                                                    <T keyName="common.gender.female" />
                                                 </FormLabel>
                                             </FormItem>
                                             <FormItem className="flex items-center space-x-1 space-y-0">
@@ -218,7 +224,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                                     />
                                                 </FormControl>
                                                 <FormLabel className="font-normal text-[var(--brand-grey-foreground)]">
-                                                    Other
+                                                    <T keyName="common.gender.other" />
                                                 </FormLabel>
                                             </FormItem>
 
@@ -232,7 +238,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                                     <FormItem className="ml-4">
                                                         <FormControl>
                                                             <FloatingLabelInput
-                                                                label="Prefer to self-describe"
+                                                                label={
+                                                                    <T keyName="common.gender.selfDescribe" />
+                                                                }
                                                                 className="app-text-input"
                                                                 {...field}
                                                             />
@@ -258,7 +266,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                         <AppDatePicker
                                             onDateChange={field.onChange}
                                             buttonClass="w-full dark:bg-transparent dark:hover:bg-transparent"
-                                            label="Date of Birth *"
+                                            label={
+                                                <T keyName="common.dateOfBirth" />
+                                            }
                                             isFloatingLabel={true}
                                         />
                                     </FormControl>
@@ -275,7 +285,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                     <FormControl>
                                         <FloatingLabelInput
                                             type="email"
-                                            label="Email Address *"
+                                            label={
+                                                <T keyName="common.emailAddress" />
+                                            }
                                             className="app-text-input"
                                             {...field}
                                         />
@@ -293,7 +305,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                     <FormControl>
                                         <FloatingLabelInput
                                             type="password"
-                                            label="Password *"
+                                            label={
+                                                <T keyName="common.password" />
+                                            }
                                             className="app-text-input"
                                             {...field}
                                         />
@@ -311,7 +325,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                     <FormControl>
                                         <FloatingLabelInput
                                             type="password"
-                                            label="Confirm Password *"
+                                            label={
+                                                <T keyName="common.confirmPassword" />
+                                            }
                                             className="app-text-input"
                                             {...field}
                                         />
@@ -334,19 +350,19 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                 htmlFor="terms"
                                 className="text-sm cursor-pointer text-[var(--brand-grey-foreground)] dark:text-white"
                             >
-                                By creating an account, I agree to{' '}
+                                <T keyName="auth.termsAgreement.start" />{' '}
                                 <Link
                                     href="/privacy-policy"
                                     className="dark:text-[var(--brand-color)] text-black font-semibold hover:underline"
                                 >
-                                    Privacy Notice
+                                    <T keyName="auth.termsAgreement.privacyNotice" />
                                 </Link>{' '}
-                                and{' '}
+                                <T keyName="auth.termsAgreement.and" />{' '}
                                 <Link
                                     href="/terms-of-use"
                                     className="dark:text-[var(--brand-color)] text-black font-semibold hover:underline"
                                 >
-                                    Term of Use
+                                    <T keyName="auth.termsAgreement.termsOfUse" />
                                 </Link>
                             </label>
                         </div>
@@ -361,19 +377,23 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                 `${loading && termsAccepted ? 'disabled:bg-transparent' : ''}`
                             )}
                         >
-                            {loading ? <LoadingComponent /> : 'Sign Up'}
+                            {loading ? (
+                                <LoadingComponent />
+                            ) : (
+                                <T keyName="auth.signup" />
+                            )}
                         </Button>
                     </form>
                 </Form>
                 <div className="text-center mt-4">
                     <SocialLogin />
                     <p className="text-lg text-[var(--brand-grey-foreground)] font-semibold">
-                        Already have an account?{' '}
+                        <T keyName="auth.alreadyHaveAccount" />{' '}
                         <Link
                             href="/auth/login"
                             className="dark:text-[var(--brand-color)] text-black hover:underline"
                         >
-                            Log in
+                            <T keyName="auth.login" />
                         </Link>
                     </p>
                 </div>

@@ -7,6 +7,7 @@ import '@/app/globals.css';
 import { APP_THEME_STATE_NAME } from '@/constant';
 import { Providers } from '@/context/provider/query-client';
 import '@fontsource/barlow';
+import { I18nProvider } from '@/context/i18n/context';
 
 export async function AppLayout({ children }: { children: React.ReactNode }) {
     return (
@@ -23,9 +24,11 @@ export async function AppLayout({ children }: { children: React.ReactNode }) {
                         storageKey={APP_THEME_STATE_NAME}
                     >
                         <Providers>
-                            <SidebarProvider defaultOpen={true}>
-                                {children}
-                            </SidebarProvider>
+                            <I18nProvider>
+                                <SidebarProvider defaultOpen={true}>
+                                    {children}
+                                </SidebarProvider>
+                            </I18nProvider>
                         </Providers>
                     </ThemeProvider>
                 </NextAuthSessionProvider>

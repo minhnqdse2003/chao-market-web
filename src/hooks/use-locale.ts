@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import { COOKIE } from '@/constant/cookie';
 
 export function useLocale() {
-    const [locale, setLocaleState] = useState<string | null>(null);
+    const [locale, setLocaleState] = useState<string>('en');
 
     useEffect(() => {
         // Get initial locale from cookie or browser

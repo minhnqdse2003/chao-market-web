@@ -21,7 +21,7 @@ interface AppDatePickerProps {
     buttonClass?: ClassValue;
     onDateChange?: (date: Date | undefined) => void;
     isFloatingLabel?: boolean;
-    label?: string;
+    label?: string | React.ReactNode;
     highlightOnActive?: boolean;
 }
 

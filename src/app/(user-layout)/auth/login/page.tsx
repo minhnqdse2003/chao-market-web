@@ -28,6 +28,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Eye, EyeOff } from 'lucide-react';
 import { FloatingLabelInput } from '@/components/ui/floating-input';
+import { T } from '@/components/app-translate';
 import SocialLogin from '@/app/(user-layout)/auth/components/social-login';
 
 // Validation schemas
@@ -82,7 +83,7 @@ function EmailVerificationStep({
         <div className="space-y-8 mt-24 h-full">
             <div className={'w-full'}>
                 <p className="text-sm dark:text-white text-[var(--brand-grey-foreground)] font-light mb-4">
-                    We&apos;ve sent a verification code to{' '}
+                    <T keyName="auth.otpSentToEmail" />{' '}
                     <span className="font-bold text-black dark:text-white">
                         {email}
                     </span>
@@ -129,6 +130,7 @@ function EmailVerificationStep({
 
 // Main login component
 export default function Login() {
+    const router = useRouter();
     const searchParams = useSearchParams();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -138,7 +140,6 @@ export default function Login() {
         password: string;
     } | null>(null);
     const [showPassword, setShowPassword] = useState(false);
-    const router = useRouter();
 
     const form = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema),
@@ -253,7 +254,7 @@ export default function Login() {
             <div>
                 <TabAuthMode />
                 <h2 className="mt-2 text-2xl font-bold text-brand-text">
-                    Hello there! Welcome back.
+                    <T keyName="auth.welcomeBack" />
                 </h2>
             </div>
 
@@ -282,7 +283,9 @@ export default function Login() {
                                     <FormItem>
                                         <FormControl>
                                             <FloatingLabelInput
-                                                label="Email"
+                                                label={
+                                                    <T keyName="common.email" />
+                                                }
                                                 {...field}
                                                 className="app-text-input"
                                             />
@@ -341,7 +344,7 @@ export default function Login() {
                                         router.push('/auth/reset-password')
                                     }
                                 >
-                                    Forgot Password?{' '}
+                                    <T keyName={'auth.forgotPassword'} />{' '}
                                 </FormLabel>
                             </FormItem>
 
@@ -350,7 +353,11 @@ export default function Login() {
                                 disabled={loading}
                                 className="w-full my-6 flex-1 bg-[var(--brand-color)] disabled:bg-transparent disabled:m-0 cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:opacity-50"
                             >
-                                {loading ? <LoadingComponent /> : 'Log in'}
+                                {loading ? (
+                                    <LoadingComponent />
+                                ) : (
+                                    <T keyName={'auth.login'} />
+                                )}
                             </button>
                         </form>
                     </Form>
@@ -365,7 +372,7 @@ export default function Login() {
                                 href="/auth/signup"
                                 className="text-[var(--brand-grey-foreground)] dark:text-white font-semibold text-lg"
                             >
-                                Don&apos;t have an account?{' '}
+                                <T keyName="auth.noAccountPrompt" />{' '}
                                 <span
                                     className={
                                         'dark:text-[var(--brand-color)] text-black font-semibold hover:underline' +
@@ -373,7 +380,7 @@ export default function Login() {
                                         ' duration-300 ease-in-out'
                                     }
                                 >
-                                    Sign up
+                                    <T keyName={'auth.signup'} />
                                 </span>
                             </Link>
                         </div>

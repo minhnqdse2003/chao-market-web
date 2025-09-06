@@ -14,6 +14,8 @@ import { FloatingLabelInput } from '@/components/ui/floating-input';
 import { useAppMutation } from '@/hooks/react-query/use-custom-mutation';
 import { toast } from 'sonner';
 import { requestResetPassword } from '@/app/api/auth/reset-password';
+import { useI18n } from '@/context/i18n/context';
+import { T } from '@/components/app-translate';
 
 interface ResetPasswordEmailStepProps {
     onNext: (email: string) => void;
@@ -26,18 +28,18 @@ export default function ResetPasswordEmailStep({
         defaultValues: { email: '' },
     });
 
+    const { t } = useI18n();
+
     const requestResetMutation = useAppMutation({
         mutationFn: async (email: string) => {
             return await requestResetPassword(email);
         },
         onSuccessVariables: data => {
             onNext(data);
-            toast.success('OTP sent to your email');
+            toast.success(t('auth.resetPassword.otpSentSuccess'));
         },
         onError: (error: Error) => {
-            toast.error(
-                error.message || 'Failed to send reset password request'
-            );
+            toast.error(error.message || t('auth.resetPassword.requestFailed'));
         },
     });
 
@@ -59,7 +61,7 @@ export default function ResetPasswordEmailStep({
                             <FormControl>
                                 <FloatingLabelInput
                                     type="email"
-                                    label="Email Address *"
+                                    label={<T keyName="common.emailAddress" />}
                                     className="app-text-input"
                                     {...field}
                                 />
@@ -77,7 +79,7 @@ export default function ResetPasswordEmailStep({
                     {requestResetMutation.isPending ? (
                         <LoadingComponent />
                     ) : (
-                        'Send Reset Code'
+                        <T keyName="auth.resetPassword.sendResetCode" />
                     )}
                 </Button>
             </form>

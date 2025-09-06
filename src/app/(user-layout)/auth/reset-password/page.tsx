@@ -7,6 +7,7 @@ import ResetPasswordEmailStep from '@/app/(user-layout)/auth/reset-password/comp
 import ResetPasswordOtpStep from '@/app/(user-layout)/auth/reset-password/components/otp-step';
 import ResetPasswordPasswordStep from '@/app/(user-layout)/auth/reset-password/components/new-password';
 import CompletionStep from '@/app/(user-layout)/auth/reset-password/components/complete-step';
+import { T } from '@/components/app-translate';
 
 const ResetPasswordPage = () => {
     const [step, setStep] = useState<'email' | 'otp' | 'password' | 'complete'>(
@@ -21,20 +22,32 @@ const ResetPasswordPage = () => {
                 <TabAuthMode />
                 <div className="mt-2 w-full">
                     <h2>
-                        {step === 'email' && 'Reset your password'}
-                        {step === 'otp' && 'Verify your email'}
-                        {step === 'password' && 'Set new password'}
-                        {step === 'complete' && 'Successfully!'}
+                        {step === 'email' && (
+                            <T keyName="auth.resetPassword.title" />
+                        )}
+                        {step === 'otp' && (
+                            <T keyName="auth.verifyEmailTitle" />
+                        )}
+                        {step === 'password' && (
+                            <T keyName="auth.resetPassword.setNewPasswordTitle" />
+                        )}
+                        {step === 'complete' && (
+                            <T keyName="auth.resetPassword.completeTitle" />
+                        )}
                     </h2>
                     <p className="text-[var(--brand-grey-foreground)] mt-2">
-                        {step === 'email' &&
-                            'You will receive an email to reset your password in a few minutes.'}
-                        {step === 'otp' &&
-                            'Enter the 6-digit code sent to your email'}
-                        {step === 'password' &&
-                            'Create a new password for your account'}
-                        {step === 'complete' &&
-                            'Your password has been changed successfully.'}
+                        {step === 'email' && (
+                            <T keyName="auth.resetPassword.emailSubtitle" />
+                        )}
+                        {step === 'otp' && (
+                            <T keyName="auth.resetPassword.otpSubtitle" />
+                        )}
+                        {step === 'password' && (
+                            <T keyName="auth.resetPassword.newPasswordSubtitle" />
+                        )}
+                        {step === 'complete' && (
+                            <T keyName="auth.resetPassword.completeSubtitle" />
+                        )}
                     </p>
                 </div>
             </div>
@@ -77,12 +90,12 @@ const ResetPasswordPage = () => {
                 {step !== 'complete' && (
                     <div className="text-center mt-6">
                         <p className="text-lg text-[var(--brand-grey-foreground)] font-semibold">
-                            Remember your password?{' '}
+                            <T keyName="auth.resetPassword.rememberPassword" />{' '}
                             <Link
                                 href="/auth/login"
                                 className="dark:text-[var(--brand-color)] text-black hover:underline"
                             >
-                                Log in
+                                <T keyName="auth.login" />
                             </Link>
                         </p>
                     </div>

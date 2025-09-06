@@ -1,10 +1,10 @@
 'use client';
 
-import { useLocale } from '@/hooks/use-locale';
 import { ENLocale, VILocale } from '../../public/languages';
 import Image from 'next/image';
 import { Check } from 'lucide-react';
 import LoadingComponent from '@/components/loading-spiner';
+import { useI18n } from '@/context/i18n/context';
 
 const languages = [
     {
@@ -20,7 +20,7 @@ const languages = [
 ];
 
 export function LanguageToggle() {
-    const { locale, setLocale } = useLocale();
+    const { locale, setLocale } = useI18n();
 
     if (!locale) {
         return <LoadingComponent />;
