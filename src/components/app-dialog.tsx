@@ -37,7 +37,16 @@ const AppDialog = ({
                 }
                 asChild
             >
-                {trigger && <div className={triggerClassName}>{trigger}</div>}
+                {trigger && (
+                    <div
+                        className={cn(
+                            'dark:[&>button]:hover:text-[var(--brand-color)] transition-colors! duration-300 ease-in-out',
+                            triggerClassName
+                        )}
+                    >
+                        {trigger}
+                    </div>
+                )}
             </DialogTrigger>
             <DialogContent
                 className={cn(

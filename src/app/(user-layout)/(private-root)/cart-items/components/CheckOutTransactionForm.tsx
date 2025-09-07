@@ -122,7 +122,7 @@ export default function CheckOutTransactionForm({
                         <FormItem>
                             <FormControl>
                                 <FloatingLabelInput
-                                    label="First name  *"
+                                    label="First name "
                                     {...field}
                                     className="app-text-input"
                                 />
@@ -140,7 +140,7 @@ export default function CheckOutTransactionForm({
                         <FormItem>
                             <FormControl>
                                 <FloatingLabelInput
-                                    label="Last name  *"
+                                    label="Last name "
                                     {...field}
                                     className="app-text-input"
                                 />
@@ -168,8 +168,9 @@ export default function CheckOutTransactionForm({
                                     buttonClass={
                                         'w-full dark:bg-transparent dark:hover:bg-transparent'
                                     }
-                                    label={'Birthday  *'}
+                                    label={'Birthday '}
                                     isFloatingLabel={true}
+                                    isMarginVisible={false}
                                 />
                             </FormControl>
                             <FormMessage />
@@ -186,7 +187,7 @@ export default function CheckOutTransactionForm({
                             <FormControl>
                                 <FloatingLabelInput
                                     type="email"
-                                    label="Email address  *"
+                                    label="Email address "
                                     {...field}
                                     className="app-text-input"
                                 />
@@ -204,8 +205,8 @@ export default function CheckOutTransactionForm({
                         <FormItem>
                             <FormControl>
                                 <FloatingLabelInput
-                                    type="tel"
-                                    label="Phone number  *"
+                                    type="number"
+                                    label="Phone number "
                                     {...field}
                                     className="app-text-input"
                                 />
@@ -240,7 +241,7 @@ export default function CheckOutTransactionForm({
                     render={() => (
                         <FormItem className="space-y-2">
                             <div className="text-sm font-medium">
-                                How would you like us to contact you? *
+                                How would you like us to contact you?
                             </div>
                             <div className="flex flex-wrap gap-4">
                                 <FormField
@@ -270,7 +271,7 @@ export default function CheckOutTransactionForm({
                                                         );
                                                     }
                                                 }}
-                                                className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:bg-[var(--brand-color)] data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
+                                                className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:bg-[var(--brand-color)] dark:data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
                                             />
                                             <label
                                                 htmlFor="email"
@@ -278,7 +279,7 @@ export default function CheckOutTransactionForm({
                                                     field.value?.includes(
                                                         'email'
                                                     )
-                                                        ? 'text-[var(--brand-color)]'
+                                                        ? 'text-brand-text'
                                                         : 'text-[var(--brand-grey-foreground)]'
                                                 }`}
                                             >
@@ -322,7 +323,7 @@ export default function CheckOutTransactionForm({
                                                     field.value?.includes(
                                                         'phone'
                                                     )
-                                                        ? 'text-[var(--brand-color)]'
+                                                        ? 'text-brand-text'
                                                         : 'text-[var(--brand-grey-foreground)]'
                                                 }`}
                                             >
@@ -366,7 +367,7 @@ export default function CheckOutTransactionForm({
                                                     field.value?.includes(
                                                         'social-network'
                                                     )
-                                                        ? 'text-[var(--brand-color)]'
+                                                        ? 'text-brand-text'
                                                         : 'text-[var(--brand-grey-foreground)]'
                                                 }`}
                                             >

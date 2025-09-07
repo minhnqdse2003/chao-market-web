@@ -12,7 +12,10 @@ const FloatingInput = React.forwardRef<HTMLInputElement, InputProps>(
         return (
             <Input
                 placeholder=" "
-                className={cn('peer h-12 text-base', className)}
+                className={cn(
+                    'peer h-12 text-base [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]',
+                    className
+                )}
                 ref={ref}
                 {...props}
             />

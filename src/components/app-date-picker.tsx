@@ -23,6 +23,7 @@ interface AppDatePickerProps {
     isFloatingLabel?: boolean;
     label?: string | React.ReactNode;
     highlightOnActive?: boolean;
+    isMarginVisible?: boolean;
 }
 
 export function AppDatePicker({
@@ -32,6 +33,7 @@ export function AppDatePicker({
     isFloatingLabel = false,
     label = 'Date:',
     highlightOnActive = false,
+    isMarginVisible = true,
 }: AppDatePickerProps) {
     const [open, setOpen] = React.useState(false);
     const [date, setDate] = React.useState<Date | undefined>(undefined);
@@ -57,7 +59,8 @@ export function AppDatePicker({
             <div
                 className={cn(
                     containerClass,
-                    'flex flex-col gap-2 mb-4 relative'
+                    'flex flex-col gap-2 relative',
+                    `${isMarginVisible ? 'mb-4' : ''}`
                 )}
             >
                 <Popover open={open} onOpenChange={setOpen}>

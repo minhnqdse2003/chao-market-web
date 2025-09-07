@@ -28,29 +28,58 @@ import { signOut, useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 export function NavUser() {
     const { isMobile, open } = useSidebar();
     const { data: session, status } = useSession();
+    const pathname = usePathname();
 
     // We don't need to handle loading state here anymore as it's handled at the AppSidebar level
     // This prevents duplicate loading states
 
     if (status === 'unauthenticated' && !isMobile && open) {
+        const isLoginActive =
+            pathname.startsWith('/auth/login') &&
+            !pathname.startsWith('/auth/signup');
+        const isSignupActive = pathname.startsWith('/auth/signup');
+
+        const notMatchAllAuthPath = !isLoginActive && !isSignupActive;
+
         return (
             <SidebarMenu>
                 <SidebarMenuItem className="flex gap-4">
                     <Button
                         asChild
-                        className="flex-1/2 bg-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] rounded-lg text-black font-bold transition-colors! duration-300 ease-in-out"
+                        variant="outline"
+                        className={cn(
+                            'flex-1/2 border-none' +
+                                ' rounded-lg text-black font-bold transition-colors! duration-300 ease-in-out',
+                            `${
+                                isLoginActive || notMatchAllAuthPath
+                                    ? 'dark:bg-[var(--brand-color)] bg-[var(--brand-color)]' +
+                                      ' dark:hover:bg-[var(--brand-color-foreground)] hover:bg-[var(--brand-color-foreground)] dark:hover:text-black'
+                                    : 'text-brand-text dark:hover:text-[var(--brand-color)]'
+                            }`
+                        )}
                     >
-                        <Link href="/auth/login">Log in</Link>
+                        <Link href="/auth/login">Log In</Link>
                     </Button>
                     <Separator orientation="vertical" className="flex-0.5" />
                     <Button
                         asChild
                         variant="outline"
-                        className="flex-1/2 border-none rounded-lg dark:hover:text-[var(--brand-color)] hover:bg-[var(--brand-grey)] transition-colors! duration-300 ease-in-out"
+                        className={cn(
+                            'flex-1/2 border-none' +
+                                ' rounded-lg text-black font-bold transition-colors! duration-300 ease-in-out',
+                            `${
+                                isSignupActive
+                                    ? 'dark:bg-[var(--brand-color)] bg-[var(--brand-color)]' +
+                                      ' dark:hover:bg-[var(--brand-color-foreground)] hover:bg-[var(--brand-color-foreground)] dark:hover:text-black'
+                                    : 'text-brand-text dark:hover:text-[var(--brand-color)]'
+                            }`
+                        )}
                     >
                         <Link href="/auth/signup">Sign up</Link>
                     </Button>
@@ -74,6 +103,7 @@ export function NavUser() {
                             <SidebarMenuButton
                                 size="lg"
                                 className={`data-[state=open]:text-sidebar-accent-foreground dark:text-black ${open ? 'dark:bg-[var(--brand-color)]' : ''}`}
+                                tooltip={<p>{user.name}</p>}
                             >
                                 <Avatar className="h-8 w-8 rounded-lg">
                                     <AvatarImage

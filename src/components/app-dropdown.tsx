@@ -68,8 +68,14 @@ const AppDropdown = ({
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className={buttonClassName}>
-                    Sort by: <p>{selectedLabel}</p>
+                <Button
+                    variant="ghost"
+                    className={cn(
+                        'dark:hover:text-[var(--brand-color)] transition-colors! duration-300 ease-in-out',
+                        buttonClassName
+                    )}
+                >
+                    Sort by: <p className={'font-semibold'}>{selectedLabel}</p>
                     <ChevronsUpDown />
                 </Button>
             </DropdownMenuTrigger>

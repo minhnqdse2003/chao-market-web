@@ -6,13 +6,20 @@ import { eq } from 'drizzle-orm';
 
 export async function POST(request: NextRequest) {
     try {
-        const { email, password, name } = await request.json();
+        const { email, password, name, gender, dateOfBirth, phoneNumber } =
+            await request.json();
 
         if (!email || !password) {
             return NextResponse.json(
                 { error: 'Email and password are required' },
                 { status: 400 }
             );
+        }
+
+        if (!name || !gender || !dateOfBirth) {
+            return NextResponse.json({
+                error: 'Name, gender and date of birth are required',
+            });
         }
 
         // Check if user already exists
@@ -39,6 +46,9 @@ export async function POST(request: NextRequest) {
                 email,
                 password: hashedPassword,
                 name,
+                gender,
+                dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : null,
+                phone: phoneNumber,
             })
             .returning({
                 id: users.id,

@@ -75,7 +75,9 @@ export default function TagsAccordion({ tags }: TagsAccordionProps) {
                                 key={tag.id}
                                 label={`#${tag.name}`}
                                 className={
-                                    'dark:text-[var(--brand-grey-foreground)] font-semibold'
+                                    'text-[var(--brand-grey-foreground)] font-semibold' +
+                                    ' dark:hover:text-[var(--brand-color)] hover:text-black hover:cursor-pointer' +
+                                    ' transition-colors! duration-300'
                                 }
                             />
                         ))}

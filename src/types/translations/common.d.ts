@@ -21,4 +21,5 @@ export interface CommonTranslations {
     newPassword: string;
     confirmNewPassword: string;
     sending: string;
+    phoneNumber: string;
 }

@@ -23,7 +23,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { FloatingLabelInput } from '@/components/ui/floating-input';
 import SocialLogin from '@/app/(user-layout)/auth/components/social-login';
 import { AppDatePicker } from '@/components/app-date-picker';
-import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { T } from '@/components/app-translate';
 import { TranslationKey } from '@/types/translations';
@@ -48,7 +47,8 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
             confirmPassword: '',
             gender: 'male',
             otherGender: '',
-            dateOfBirth: undefined, // Changed to undefined for date picker
+            dateOfBirth: undefined,
+            phoneNumber: '',
         },
     });
 
@@ -65,8 +65,8 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
 
             // Format date of birth for API (assuming dateOfBirth is now a Date object)
             const formattedDob = data.dateOfBirth
-                ? format(data.dateOfBirth, 'yyyy-MM-dd')
-                : '';
+                ? new Date(data.dateOfBirth).toISOString()
+                : null;
 
             const genderValue =
                 data.gender === 'other' ? data.otherGender : data.gender;
@@ -80,6 +80,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                     password: data.password,
                     gender: genderValue,
                     dateOfBirth: formattedDob,
+                    phoneNumber: data.phoneNumber,
                 }),
             });
 
@@ -134,7 +135,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
 
                 {success && (
                     <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-                        {success}
+                        <T keyName={success as TranslationKey} />
                     </div>
                 )}
 
@@ -288,6 +289,26 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                             label={
                                                 <T keyName="common.emailAddress" />
                                             }
+                                            className="app-text-input"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="phoneNumber"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormControl>
+                                        <FloatingLabelInput
+                                            label={
+                                                <T keyName="common.phoneNumber" />
+                                            }
+                                            type={'number'}
                                             className="app-text-input"
                                             {...field}
                                         />

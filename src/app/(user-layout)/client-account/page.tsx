@@ -253,7 +253,7 @@ export default function Page() {
                                     <p>Market:</p>
                                     <strong
                                         className={
-                                            'rounded-sm py-1 px-2 text-black bg-[var(--brand-color)]'
+                                            'rounded-sm py-1 px-2 dark:text-[var(--brand-color)]'
                                         }
                                     >
                                         {capitalizeWords(data.market)}
@@ -316,7 +316,7 @@ export default function Page() {
                                 </p>
                                 <strong
                                     className={
-                                        'rounded-sm py-1 px-2 text-black bg-[var(--brand-color)]'
+                                        'rounded-sm py-1 px-2 dark:text-[var(--brand-color)]'
                                     }
                                 >
                                     {capitalizeWords(

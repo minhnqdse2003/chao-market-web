@@ -34,19 +34,23 @@ export function AppTabs({ tabsList }: Readonly<TabComponentProps>) {
 
     return (
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="bg-transparent w-full mb-2">
+            <TabsList className="bg-transparent border-[var(--brand-grey-foreground)] border-b rounded-none p-0 w-full mb-2">
                 {tabsList.map(tab => (
                     <TabsTrigger
                         key={tab.value}
                         value={tab.value}
                         className={cn(
-                            'text-[var(--brand-grey-light)] border-[var(--brand-grey-light)]' +
-                                ' data-[state=active]:shadow-none  data-[state=active]:text-black' +
+                            'text-[var(--brand-grey-foreground)] dark:border-[var(--brand-grey-foreground)]' +
+                                ' data-[state=active]:shadow-none transition-all! duration-300 ease-in-out' +
+                                '  data-[state=active]:text-black' +
                                 ' data-[state=active]:border-black border-0 cursor-pointer rounded-none border-b-2' +
                                 ' dark:border-[var(--brand-grey)] dark:data-[state=active]:bg-transparent' +
                                 ' dark:data-[state=active]:text-[var(--brand-color)]' +
-                                ' dark:data-[state=active]:border-[var(--brand-color)]',
-                            'px-4 py-2 transition-colors! text-base font-bold'
+                                ' dark:data-[state=active]:border-[var(--brand-color)]' +
+                                ' dark:data-[state=inactive]:border-transparent',
+                            'px-4 mr-2 py-2 transition-colors! text-base font-bold' +
+                                ' dark:hover:data-[state=inactive]:text-[var(--brand-color-foreground)]' +
+                                ' dark:hover:data-[state=inactive]:border-[var(--brand-color-foreground)]'
                         )}
                     >
                         {tab.title}

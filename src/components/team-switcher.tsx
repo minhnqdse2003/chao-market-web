@@ -28,8 +28,9 @@ export function NavHead({
                     <SidebarMenuButton
                         size="lg"
                         className={
-                            'dark:hover:text-brand-light hover:bg-transparent pointer-events-none'
+                            'dark:hover:text-brand-light hover:bg-transparent'
                         }
+                        tooltip={<p>Chào Market</p>}
                     >
                         <div
                             className={

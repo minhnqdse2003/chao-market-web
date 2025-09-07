@@ -28,6 +28,8 @@ export const users = pgTable('user', {
     password: text('password'),
     phone: text('phone'),
     phoneVerified: timestamp('phoneVerified', { mode: 'date' }),
+    dateOfBirth: timestamp('dateOfBirth', { mode: 'date' }),
+    gender: text('gender'),
     role: userRoleEnum('role').default('USER').notNull(),
 });
 

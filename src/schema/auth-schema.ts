@@ -6,7 +6,9 @@ export const signUpSchema = z
         lastName: z.string().min(1, 'Last name is required'),
         email: z.email('Invalid email address'),
         password: z.string().min(6, 'Password must be at least 6 characters'),
-        confirmPassword: z.string(),
+        confirmPassword: z
+            .string()
+            .min(6, 'Confirm Password must be at least 6 characters'),
         gender: z.enum(['male', 'female', 'other']),
         otherGender: z.string().optional(),
         dateOfBirth: z
@@ -14,6 +16,10 @@ export const signUpSchema = z
             .refine(date => date < new Date(), {
                 message: 'Date of birth must be in the past',
             }),
+        phoneNumber: z
+            .string()
+            .min(10, 'Phone number must be at least 10 digits')
+            .optional(),
     })
     .refine(data => data.password === data.confirmPassword, {
         message: "Passwords don't match",
