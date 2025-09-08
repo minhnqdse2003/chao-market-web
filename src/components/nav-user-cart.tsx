@@ -27,44 +27,38 @@ export default function SimpleCartButton() {
 
     if (status === 'unauthenticated') {
         return (
-            <Button
-                variant="ghost"
-                size="sm"
-                asChild
+            <Link
+                href="/auth/login"
                 className={cn(
-                    'gap-2 flex items-center justify-start mb-2 dark:hover:text-[var(--brand-color)]' +
-                        ' hover:text-brand-text hover:bg-[var(--brand-grey)] transition-all! duration-300 ease-in-out' +
-                        ' font-semibold p-2'
+                    'gap-2 flex items-center justify-start dark:hover:text-[var(--brand-color)]' +
+                        ' hover:text-brand-text w-full dark:hover:bg-transparent hover:bg-[var(--brand-grey)] transition-all!' +
+                        ' duration-300' +
+                        ' ease-in-out' +
+                        ' font-semibold'
                 )}
             >
-                <Link href="/auth/login">
-                    <ShoppingCart className="h-4 w-4" />
-                    {open && <span>Cart</span>}
-                </Link>
-            </Button>
+                <ShoppingCart className="h-4 w-4" />
+                {open && <span>Cart</span>}
+            </Link>
         );
     }
 
     return (
-        <Button
-            variant="ghost"
-            size="sm"
-            asChild
+        <Link
+            href="/cart-items"
             className={cn(
-                'gap-2 flex items-center justify-start mb-2 dark:hover:text-[var(--brand-color)]' +
+                'gap-2 flex items-center justify-start dark:hover:text-[var(--brand-color)]' +
                     ' hover:text-brand-text hover:bg-[var(--brand-grey)] transition-all! duration-300 ease-in-out' +
-                    ' font-semibold p-2'
+                    ' font-semibold w-full dark:hover:bg-transparent '
             )}
         >
-            <Link href="/cart-items">
-                <ShoppingCart className="h-4 w-4" />
-                {open && <span>Cart</span>}
-                {open && itemCount > 0 && (
-                    <span className="text-[var(--brand-color)] text-sm leading-relaxed rounded-full flex items-center justify-center">
-                        ({itemCount})
-                    </span>
-                )}
-            </Link>
-        </Button>
+            <ShoppingCart className="h-4 w-4" />
+            {open && <span>Cart</span>}
+            {open && itemCount > 0 && (
+                <span className="dark:text-[var(--brand-color)] text-black font-bold text-sm leading-relaxed rounded-full flex items-center justify-center">
+                    ({itemCount})
+                </span>
+            )}
+        </Link>
     );
 }

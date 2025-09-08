@@ -112,7 +112,7 @@ export default function CheckOutTransactionForm({
         <Form {...form}>
             <form
                 onSubmit={form.handleSubmit(handleSubmit)}
-                className="space-y-6 w-full px-4"
+                className="space-y-6 px-4"
             >
                 {/* First Name */}
                 <FormField
@@ -271,7 +271,7 @@ export default function CheckOutTransactionForm({
                                                         );
                                                     }
                                                 }}
-                                                className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:bg-[var(--brand-color)] dark:data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
+                                                className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
                                             />
                                             <label
                                                 htmlFor="email"
@@ -315,7 +315,7 @@ export default function CheckOutTransactionForm({
                                                         );
                                                     }
                                                 }}
-                                                className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:bg-[var(--brand-color)] data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
+                                                className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
                                             />
                                             <label
                                                 htmlFor="phone"
@@ -359,7 +359,7 @@ export default function CheckOutTransactionForm({
                                                         );
                                                     }
                                                 }}
-                                                className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:bg-[var(--brand-color)] data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
+                                                className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
                                             />
                                             <label
                                                 htmlFor="social-network"
@@ -396,12 +396,12 @@ export default function CheckOutTransactionForm({
                                         <Textarea
                                             {...field}
                                             id={'message'}
-                                            className="peer border focus-visible:ring-0 focus-visible:border-[var(--brand-color)]! dark:bg-transparent! dark:border-[var(--brand-grey)] text-white min-h-24 pt-4 px-3 text-sm focus:text-base transition-all duration-300"
+                                            className="peer border focus-visible:ring-0 focus-visible:border-black! dark:focus-visible:border-[var(--brand-color)]! dark:bg-transparent! dark:border-[var(--brand-grey)] text-brand-text min-h-24 pt-4 px-3 text-sm focus:text-base transition-all duration-300"
                                         />
                                         <Label
                                             htmlFor="message"
                                             className={`
-                                absolute start-2 z-10 origin-[0] bg-sidebar px-2 text-sm text-[var(--brand-grey-foreground)] font-semibold duration-300 dark:bg-sidebar rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 cursor-text transition-all! peer-focus:text-[var(--brand-color)]
+                                absolute start-2 z-10 origin-[0] bg-white px-2 text-sm text-[var(--brand-grey-foreground)] font-semibold duration-300 dark:bg-sidebar rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 cursor-text transition-all! dark:peer-focus:text-[var(--brand-color)] peer-focus:text-black 
                                 ${
                                     hasValue
                                         ? 'top-2 -translate-y-4 scale-75'
@@ -428,7 +428,7 @@ export default function CheckOutTransactionForm({
                         type="button"
                         onClick={form.handleSubmit(handleOnSave)}
                         disabled={isSubmitting}
-                        className="text-white hover:text-[var(--brand-color)] cursor-pointer px-6 py-2 rounded-md transition-colors! ease-in-out font-semibold duration-300 disabled:opacity-50"
+                        className="dark:text-white dark:hover:text-[var(--brand-color)] cursor-pointer px-6 py-2 rounded-md transition-colors! ease-in-out font-semibold duration-300 disabled:opacity-50 text-brand-text hover:bg-[var(--brand-grey)]"
                     >
                         {isSubmitting ? 'Processing...' : 'Save For Later'}
                     </button>
@@ -436,7 +436,7 @@ export default function CheckOutTransactionForm({
                         type="button"
                         onClick={form.handleSubmit(handleSubmit)}
                         disabled={isSubmitting || isDisableSubmitButton}
-                        className="border border-transparent not-disabled:hover:border-[var(--brand-color)] not-disabled:text-[var(--brand-color)] not-disabled:hover:text-black not-disabled:cursor-pointer not-disabled:hover:bg-[var(--brand-color)] px-6 py-2 rounded-md disabled:opacity-75 disabled:text-[var(--brand-color)] transition-all! duration-300 ease-in-out font-semibold"
+                        className="border border-transparent not-disabled:hover:border-[var(--brand-color)] dark:not-disabled:text-[var(--brand-color)] not-disabled:hover:text-black not-disabled:cursor-pointer dark:not-disabled:hover:bg-[var(--brand-color)] px-6 py-2 rounded-md disabled:opacity-75 disabled:text-[var(--brand-color)] transition-all! duration-300 ease-in-out font-semibold text-brand-text hover:bg-[var(--brand-color)]"
                     >
                         {isSubmitting
                             ? 'Processing...'

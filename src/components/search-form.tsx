@@ -27,7 +27,7 @@ export function SearchForm({ ...props }: React.ComponentProps<'form'>) {
                             onClick={toggleSidebar}
                             className="h-8 w-full justify-center hehe"
                             aria-label="Open search"
-                            tooltip={<p>Search</p>}
+                            tooltip={<p className={'font-semibold'}>Search</p>}
                         >
                             <Search />
                         </SidebarMenuButton>
@@ -42,7 +42,7 @@ export function SearchForm({ ...props }: React.ComponentProps<'form'>) {
             <SidebarGroup className="py-0 dark:bg-sidebar">
                 <SidebarGroupContent
                     ref={searchRef}
-                    className="relative w-full border-[var(--brand-grey)] text-[var(--brand-grey-foreground)] border-b-2 mb-4 pb-4 dark:[&:hover>svg]:text-[var(--brand-color)]  dark:[&_input:focus-visible~svg]:text-[var(--brand-color)] transition-all! duration-300 ease-in-out"
+                    className="relative w-full border-[var(--brand-grey)] text-[var(--brand-grey-foreground)] border-b-2 mb-4 pb-4 dark:[&:hover>svg]:text-[var(--brand-color)] dark:[&_input:focus-visible~svg]:text-[var(--brand-color)] [&:hover>svg]:text-brand-text [&_input:focus-visible~svg]:text-brand-text transition-all! duration-300 ease-in-out"
                 >
                     <Label htmlFor="search" className="sr-only">
                         Search
@@ -50,7 +50,7 @@ export function SearchForm({ ...props }: React.ComponentProps<'form'>) {
                     <SidebarInput
                         id="search"
                         placeholder="Search"
-                        className="pl-8 pt-5 border-none dark:bg-transparent focus-visible:ring-0 text-brand-text dark:placeholder:text-[var(--brand-grey-foreground)]"
+                        className="pl-8 pt-5 border-none dark:bg-transparent bg-transparent focus-visible:ring-0 text-brand-text dark:placeholder:text-[var(--brand-grey-foreground)]"
                     />
                     <Search className="pointer-events-none absolute top-1/2 left-2 size-4 -translate-y-1/2 select-none" />
                 </SidebarGroupContent>

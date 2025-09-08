@@ -62,6 +62,7 @@ export const en: TranslationsStructure = {
             and: 'and',
             termsOfUse: 'Term of Use',
         },
+        termsNotAccepted: 'You must agree to the Terms of Use and Privacy Policy to create an account.',
         resetPassword: {
             goToLogin: 'Go to Login',
             sendResetCode: 'Send Reset Code',
@@ -86,5 +87,10 @@ export const en: TranslationsStructure = {
     validation: {
         invalidEmail: 'Invalid email address',
         passwordRequired: 'Password is required',
+    },
+    cartItems: {
+        validation: {
+            productNotSelected: 'Products not selected. Please select a product!',
+        },
     },
 };

@@ -13,7 +13,8 @@ const FloatingInput = React.forwardRef<HTMLInputElement, InputProps>(
             <Input
                 placeholder=" "
                 className={cn(
-                    'peer h-12 text-base [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]',
+                    'peer h-12 text-base text-brand-text [&::-webkit-outer-spin-button]:appearance-none' +
+                        ' [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]',
                     className
                 )}
                 ref={ref}
@@ -32,7 +33,7 @@ const FloatingLabel = React.forwardRef<
         <Label
             className={cn(
                 'peer-focus:secondary peer-focus:dark:secondary absolute start-2 top-2 z-10 origin-[0]' +
-                    ' -translate-y-4 scale-75 transform bg-sidebar px-2 text-sm' +
+                    ' -translate-y-4 scale-75 transform dark:bg-sidebar bg-white px-2 text-sm' +
                     ' text-[var(--brand-grey-foreground)] font-semibold' +
                     ' duration-300' +
                     ' peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2' +

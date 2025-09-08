@@ -103,11 +103,11 @@ export default function AppTabsServerSide({
                                 currentTabHref === tab.href
                                     ? isSubTab
                                         ? 'border-none dark:text-[var(--brand-color)]' +
-                                          ' dark:hover:text-[var(--brand-color-foreground)]' +
+                                          ' dark:hover:text-[var(--brand-color)]' +
                                           ' text-black font-semibold'
                                         : 'dark:border-[var(--brand-color)] dark:text-[var(--brand-color)]' +
-                                          ' dark:hover:text-[var(--brand-color-foreground)]' +
-                                          ' dark:hover:border-[var(--brand-color-foreground)]' +
+                                          ' dark:hover:text-[var(--brand-color)]' +
+                                          ' dark:hover:border-[var(--brand-color)]' +
                                           ' border-black text-brand-text font-semibold'
                                     : isSubTab
                                       ? 'border-none text-[var(--brand-grey-foreground)]' +
@@ -115,7 +115,7 @@ export default function AppTabsServerSide({
                                       : 'dark:hover:border-[var(--brand-color)] dark:hover:text-[var(--brand-color)]' +
                                         ' text-[var(--brand-grey-foreground)] border-transparent' +
                                         ' hover:border-brand-text hover:text-brand-text'
-                            } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-center text-sm transition-all! duration-300 ease-in-out min-w-[9rem]`}
+                            } whitespace-nowrap py-4 px-1 border-b-2 text-center text-sm transition-all! font-bold duration-300 ease-in-out min-w-[9rem]`}
                         >
                             {tab.title}
                         </Link>

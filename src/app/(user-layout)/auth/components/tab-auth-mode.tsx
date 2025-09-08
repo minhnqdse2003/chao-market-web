@@ -13,7 +13,7 @@ export default function TabAuthMode() {
                     alt="Chao market logo"
                     className="size-14"
                 />
-                <h1 className="text-[var(--brand-color)] text-2xl font-bold">
+                <h1 className="text-brand-text dark:text-[var(--brand-color)] text-2xl font-bold">
                     Chào Market
                 </h1>
             </div>

@@ -13,5 +13,5 @@ export default async function PrivateLayout({
         redirect('/auth/login');
     }
 
-    return <>{children}</>;
+    return <div className={'overflow-x-hidden relative'}>{children}</div>;
 }

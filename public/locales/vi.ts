@@ -62,6 +62,7 @@ export const vi: TranslationsStructure = {
             and: 'và',
             termsOfUse: 'Điều khoản Sử dụng',
         },
+        termsNotAccepted: 'Bạn phải đồng ý với Điều khoản Sử dụng và Chính sách Quyền riêng tư để tạo tài khoản.',
         resetPassword: {
             goToLogin: 'Đến trang Đăng nhập',
             sendResetCode: 'Gửi mã đặt lại',
@@ -86,5 +87,10 @@ export const vi: TranslationsStructure = {
     validation: {
         invalidEmail: 'Địa chỉ email không hợp lệ',
         passwordRequired: 'Mật khẩu là bắt buộc',
+    },
+    cartItems: {
+        validation: {
+            productNotSelected: 'Chưa chọn sản phẩm. Vui lòng chọn sản phẩm!',
+        },
     },
 };

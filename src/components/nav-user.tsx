@@ -59,8 +59,8 @@ export function NavUser() {
                             `${
                                 isLoginActive || notMatchAllAuthPath
                                     ? 'dark:bg-[var(--brand-color)] bg-[var(--brand-color)]' +
-                                      ' dark:hover:bg-[var(--brand-color-foreground)] hover:bg-[var(--brand-color-foreground)] dark:hover:text-black'
-                                    : 'text-brand-text dark:hover:text-[var(--brand-color)]'
+                                      ' dark:hover:bg-[var(--brand-color)] hover:bg-[var(--brand-color)] dark:hover:text-black'
+                                    : 'text-brand-text dark:hover:text-[var(--brand-color)] hover:bg-[var(--brand-grey)]'
                             }`
                         )}
                     >
@@ -76,12 +76,13 @@ export function NavUser() {
                             `${
                                 isSignupActive
                                     ? 'dark:bg-[var(--brand-color)] bg-[var(--brand-color)]' +
-                                      ' dark:hover:bg-[var(--brand-color-foreground)] hover:bg-[var(--brand-color-foreground)] dark:hover:text-black'
-                                    : 'text-brand-text dark:hover:text-[var(--brand-color)]'
+                                      ' dark:hover:bg-[var(--brand-color)] hover:bg-[var(--brand-color)] dark:hover:text-black'
+                                    : 'text-brand-text hover:bg-[var(--brand-grey)]' +
+                                      ' dark:hover:text-[var(--brand-color)]'
                             }`
                         )}
                     >
-                        <Link href="/auth/signup">Sign up</Link>
+                        <Link href="/auth/signup">Sign Up</Link>
                     </Button>
                 </SidebarMenuItem>
             </SidebarMenu>
@@ -118,7 +119,7 @@ export function NavUser() {
                                     <span className="truncate font-semibold">
                                         {user.name}
                                     </span>
-                                    <span className="truncate text-xs font-semibold text-[var(--brand-grey)]">
+                                    <span className="truncate text-xs font-semibold text-black dark:text-[var(--brand-grey)]">
                                         {user.email}
                                     </span>
                                 </div>

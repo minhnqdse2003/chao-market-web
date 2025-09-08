@@ -10,7 +10,7 @@ import CheckOutTransactionForm, {
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useCallback } from 'react';
 import { redirect, useRouter } from 'next/navigation';
 import { useUserProfile } from '@/hooks/react-query/user';
 import {
@@ -18,10 +18,16 @@ import {
     useUserCheckout,
     useUserCartQuery,
 } from '@/hooks/react-query/carts';
+import { useSidebar } from '@/components/ui/sidebar';
+import { cn } from '@/lib/utils';
+import { toast } from 'sonner';
+import { useI18n } from '@/context/i18n/context';
 
 export default function CartItemsPage() {
     const { data: response, isLoading: isCartLoading } = useUserCartQuery();
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    const { open } = useSidebar();
+    const { t } = useI18n();
     const router = useRouter();
 
     // Profile hooks
@@ -37,6 +43,9 @@ export default function CartItemsPage() {
             ...item,
             url: APP_SERVICES.find(service => service.id === item.productId)
                 ?.url,
+            navigationUrl: APP_SERVICES.find(
+                service => service.id === item.productId
+            )?.navigationUrl,
         };
     });
 
@@ -76,6 +85,10 @@ export default function CartItemsPage() {
 
     const handleSubmit = async (data: CheckoutFormData) => {
         try {
+            if (isDisableSubmitButton) {
+                toast.error(t('cartItems.validation.productNotSelected'));
+                return;
+            }
             const result = await checkoutMutation.mutateAsync({
                 ...data,
                 cartItemIds: selectedItems,
@@ -108,19 +121,41 @@ export default function CartItemsPage() {
     const isCheckingOut = checkoutMutation.isPending;
     const isLoading = isCartLoading || isProfileLoading;
 
+    // Is items selected
+    const isChecked = useCallback(
+        (productId: string) => {
+            return selectedItems.includes(productId);
+        },
+        [selectedItems]
+    );
+
+    // On Navigate
+    const handleOnClickDetails = (url: string) => {
+        router.push(url);
+    };
+
     if (isLoading || !filteredItem) return <LoadingComponent />;
 
     return (
-        <div className="container flex gap-6">
-            <div className="w-3/5">
-                <div className="flex justify-between items-center mb-6">
+        <div
+            className={cn(
+                'overflow-x-hidden flex gap-8 mx-auto',
+                `${open ? 'w-[calc(100svw-var(--sidebar-width)-7rem)]' : 'w-[calc(100svw-var(--sidebar-width)+1rem)]'}`
+            )}
+        >
+            <div className="w-1/2 max-w-1/2 overflow-hidden">
+                <div className="w-full flex justify-between items-center mb-6">
                     <div>
-                        <h1 className="text-xl text-[var(--brand-color)] font-bold">
+                        <h1 className="text-xl dark:text-[var(--brand-color)] text-black font-bold">
                             Your Cart:
                         </h1>
                         <p>
                             You have{' '}
-                            <span className={'text-[var(--brand-color)]'}>
+                            <span
+                                className={
+                                    'dark:text-[var(--brand-color)] text-black'
+                                }
+                            >
                                 {filteredItem.length}
                             </span>{' '}
                             items in your cart.
@@ -131,7 +166,7 @@ export default function CartItemsPage() {
                         size="sm"
                         onClick={removeSelectedItems}
                         disabled={isDisableSubmitButton || isRemoving}
-                        className="bg-transparent border border-[var(--brand-color)] text-[var(--brand-color)] hover:bg-[var(--brand-color)] hover:text-black"
+                        className="bg-transparent border border-black dark:border-[var(--brand-color)] dark:text-[var(--brand-color)] dark:hover:bg-[var(--brand-color)] dark:hover:text-black text-brand-text hover:bg-[var(--brand-grey)] transition-colors! duration-300 ease-in-out"
                     >
                         {isRemoving ? (
                             <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
@@ -154,7 +189,7 @@ export default function CartItemsPage() {
                         />
                         <label
                             htmlFor="select-all"
-                            className="text-sm text-gray-300 cursor-pointer"
+                            className="text-sm text-[var(--brand-grey-foreground)] font-medium cursor-pointer"
                         >
                             Select All
                         </label>
@@ -165,43 +200,69 @@ export default function CartItemsPage() {
                     {filteredItem.map(item => (
                         <div
                             key={item.productId}
-                            className="flex items-center border rounded-lg bg-[var(--brand-grey)] p-4 shadow-sm relative cursor-pointer hover:bg-[var(--brand-grey-foreground)] transition-all duration-300 ease-in-out"
-                            onClick={() => toggleItemSelection(item.productId)}
+                            className="flex items-center border rounded-lg bg-[var(--brand-grey)] p-4 shadow-sm relative transition-all duration-300 ease-in-out"
                         >
                             <Checkbox
                                 id={`item-${item.productId}`}
-                                checked={selectedItems.includes(item.productId)}
-                                className="mr-4 dark:data-[state=checked]:bg-[var(--brand-color)] dark:data-[state=checked]:border-[var(--brand-color)] dark:data-[state=checked]:text-black"
+                                checked={isChecked(item.productId)}
+                                onClick={() =>
+                                    toggleItemSelection(item.productId)
+                                }
+                                className="mr-4 dark:data-[state=checked]:bg-[var(--brand-color)] dark:data-[state=checked]:border-[var(--brand-color)] dark:data-[state=checked]:text-black cursor-pointer"
                             />
 
-                            {item.url ? (
-                                <Image
-                                    src={
-                                        ProductServiceImg[
-                                            item.url as keyof typeof ProductServiceImg
-                                        ]
-                                    }
-                                    alt={item.product.name}
-                                    width={64}
-                                    height={64}
-                                    className="w-16 h-16 object-cover rounded-md"
-                                />
-                            ) : (
-                                <div className="w-16 h-16 bg-gray-200 rounded-md flex items-center justify-center mr-4">
-                                    <span className="text-gray-500 text-xs">
-                                        No image
-                                    </span>
-                                </div>
-                            )}
+                            <div className="shrink-0">
+                                {item.url ? (
+                                    <Image
+                                        src={
+                                            ProductServiceImg[
+                                                item.url as keyof typeof ProductServiceImg
+                                            ]
+                                        }
+                                        alt={item.product.name}
+                                        width={64}
+                                        height={64}
+                                        className="w-16 h-16 object-cover rounded-md"
+                                    />
+                                ) : (
+                                    <div className="w-16 h-16 bg-gray-200 rounded-md flex items-center justify-center mr-4">
+                                        <span className="text-gray-500 text-xs">
+                                            No image
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
 
-                            <div className="ml-4 w-full flex-1">
-                                <h3 className="font-medium text-[var(--brand-color)]">
+                            <div className="ml-4 flex-1 min-w-0">
+                                <h3
+                                    className={cn(
+                                        'font-semibold',
+                                        `${isChecked(item.productId) ? 'dark:text-[var(--brand-color)]' : 'dark:text-brand-text'}`
+                                    )}
+                                >
                                     {item.product.name}
                                 </h3>
                                 <p className="text-xs max-w-2/3 truncate">
                                     {item.product.description}
                                 </p>
                             </div>
+                            <Button
+                                className={
+                                    'shrink-0 shadow-none ml-2 dark:text-[var(--brand-color)] hover:text-brand-text' +
+                                    ' dark:hover:text-black transition-colors! duration-300' +
+                                    ' ease-in-out' +
+                                    ' dark:hover:bg-[var(--brand-color)] dark:bg-transparent rounded-md px-4 py-2' +
+                                    ' text-sm' +
+                                    ' text-black hover:bg-[var(--brand-color)] bg-transparent font-semibold'
+                                }
+                                onClick={() =>
+                                    handleOnClickDetails(
+                                        item.navigationUrl || '#'
+                                    )
+                                }
+                            >
+                                Details
+                            </Button>
                         </div>
                     ))}
 
@@ -226,9 +287,9 @@ export default function CartItemsPage() {
                 </div>
             </div>
 
-            <div className="w-full">
-                <div className={'mb-6'}>
-                    <h1 className="text-xl text-[var(--brand-color)] font-bold">
+            <div className="w-1/2 max-w-1/2 flex flex-col overflow-hidden">
+                <div className={'mb-6 w-fit'}>
+                    <h1 className="text-xl text-brand-text dark:text-[var(--brand-color)] font-bold">
                         Your Information:
                     </h1>
                     <p>Please tell us about yourself.</p>
@@ -236,9 +297,7 @@ export default function CartItemsPage() {
                 <CheckOutTransactionForm
                     onSubmit={handleSubmit}
                     saveForLater={handleOnSave}
-                    isDisableSubmitButton={
-                        isDisableSubmitButton || isCheckingOut || isSaving
-                    }
+                    isDisableSubmitButton={isCheckingOut || isSaving}
                     initialData={profile}
                 />
             </div>

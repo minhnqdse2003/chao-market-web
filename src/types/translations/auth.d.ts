@@ -32,6 +32,7 @@ export interface AuthTranslations {
         and: string;
         termsOfUse: string;
     };
+    termsNotAccepted: string;
     resetPassword: {
         goToLogin: string;
         sendResetCode: string;

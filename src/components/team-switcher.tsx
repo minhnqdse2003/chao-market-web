@@ -30,7 +30,7 @@ export function NavHead({
                         className={
                             'dark:hover:text-brand-light hover:bg-transparent'
                         }
-                        tooltip={<p>Chào Market</p>}
+                        tooltip={<p className={'font-semibold'}>Chào Market</p>}
                     >
                         <div
                             className={

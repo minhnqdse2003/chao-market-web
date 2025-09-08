@@ -34,6 +34,7 @@ export function AppDatePicker({
     label = 'Date:',
     highlightOnActive = false,
     isMarginVisible = true,
+    ...props
 }: AppDatePickerProps) {
     const [open, setOpen] = React.useState(false);
     const [date, setDate] = React.useState<Date | undefined>(undefined);
@@ -77,8 +78,10 @@ export function AppDatePicker({
                                           ' text-black'
                                         : 'text-[var(--brand-grey-foreground)]'
                                 }`,
+                                `dark:aria-invalid:ring-destructive aria-invalid:border-transparent dark:aria-invalid:border-transparent aria-invalid:ring-destructive/20 ring-2 ring-transparent`,
                                 buttonClass
                             )}
+                            {...props}
                         >
                             <div
                                 className={cn(

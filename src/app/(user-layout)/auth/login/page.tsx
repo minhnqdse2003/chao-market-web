@@ -367,12 +367,9 @@ export default function Login() {
                     <>
                         <SocialLogin />
 
-                        <div className="text-center text-sm">
-                            <Link
-                                href="/auth/signup"
-                                className="text-[var(--brand-grey-foreground)] dark:text-white font-semibold text-lg"
-                            >
-                                <T keyName="auth.noAccountPrompt" />{' '}
+                        <div className="text-center text-brand-text font-medium text-lg">
+                            <T keyName="auth.noAccountPrompt" />{' '}
+                            <Link href="/auth/signup" className="">
                                 <span
                                     className={
                                         'dark:text-[var(--brand-color)] text-black font-semibold hover:underline' +

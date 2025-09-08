@@ -64,14 +64,14 @@ export function TableOfContents({ content }: TableOfContentsProps) {
                 </AccordionTrigger>
                 <AccordionContent className="text-base font-thin leading-tight pt-4">
                     {headlines.length > 0 ? (
-                        <ul className="list-decimal list-inside text-[var(--brand-grey-foreground)] space-y-4">
+                        <ul className="list-decimal list-inside text-[var(--brand-grey-foreground)] font-semibold space-y-4">
                             {headlines.map(headline => (
                                 <li
                                     key={headline.id}
                                     className={
                                         'dark:hover:text-[var(--brand-color)] transition-colors! duration-300' +
                                         ' ease-in-out' +
-                                        ' hover:font-semibold'
+                                        ' hover:text-black'
                                     }
                                 >
                                     <a href={`#${headline.id}`}>
@@ -81,7 +81,7 @@ export function TableOfContents({ content }: TableOfContentsProps) {
                             ))}
                         </ul>
                     ) : (
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm font-semibold text-[var(--brand-grey-foreground)]">
                             No table of contents available for this article.
                         </p>
                     )}

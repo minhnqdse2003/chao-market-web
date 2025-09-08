@@ -33,7 +33,7 @@ const ThemeToggle = () => {
                 <DropdownMenuTrigger asChild>
                     <SidebarMenuButton
                         className="dark:bg-transparent border-none dark:hover:text-[var(--brand-color)] transition-colors! duration-300 ease-in-out"
-                        tooltip={<p>Themes</p>}
+                        tooltip={<p className={'font-semibold'}>Themes</p>}
                     >
                         <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                         <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -77,7 +77,7 @@ const ThemeToggle = () => {
             onValueChange={value => setTheme(value)}
             className="w-fit"
         >
-            <TabsList className="grid grid-cols-2 bg-[oklch(0.708 0 0)]">
+            <TabsList className="flex gap-2 bg-transparent">
                 <TabsTrigger
                     value="light"
                     className="text-white bg-[oklch(0.708 0 0)] dark:data-[state=active]:text-[var(--brand-color)] data-[state=active]:border-[var(--brand-grey-foreground)] text-brand-text data-[state=active]:bg-[var(--brand-grey)] dark:data-[state=inactive]:hover:text-[var(--brand-color)] cursor-pointer"
@@ -86,7 +86,7 @@ const ThemeToggle = () => {
                 </TabsTrigger>
                 <TabsTrigger
                     value="dark"
-                    className=" dark:data-[state=active]:text-[var(--brand-color)] text-black hover:text-[var(--brand-grey-foreground)] cursor-pointer transition-all! duration-300 ease-in-out"
+                    className=" dark:data-[state=active]:text-[var(--brand-color)] text-black hover:bg-[var(--brand-grey)] cursor-pointer transition-all! duration-300 ease-in-out"
                 >
                     <Moon className="mr-1 h-4 w-4" /> Dark
                 </TabsTrigger>

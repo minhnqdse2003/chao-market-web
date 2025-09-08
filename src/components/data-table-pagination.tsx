@@ -46,10 +46,14 @@ export function DataTablePagination<TData>({
                                     key={pageSize}
                                     value={`${pageSize}`}
                                     className={
-                                        'hover:text-[var(--brand-color)]! hover:bg-transparent! cursor-pointer' +
-                                        ' data-[state=checked]:text-[var(--brand-color)]!' +
-                                        ' data-[state=checked]:bg-transparent!' +
-                                        ' [&>_*_svg]:text-[var(--brand-color)]!'
+                                        'dark:hover:text-[var(--brand-color)]! hover:bg-transparent! cursor-pointer' +
+                                        ' dark:data-[state=checked]:text-[var(--brand-color)]!' +
+                                        ' dark:data-[state=checked]:bg-transparent!' +
+                                        ' dark:[&>_*_svg]:text-[var(--brand-color)]!' +
+                                        ' text-[var(--brand-grey-foreground)]' +
+                                        ' data-[state=checked]:bg-[var(--brand-grey)]' +
+                                        ' data-[state=checked]:font-semibold data-[state=checked]:pointer-events-none' +
+                                        ' data-[state=unchecked]:hover:font-semibold'
                                     }
                                 >
                                     {pageSize}

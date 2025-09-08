@@ -126,7 +126,7 @@ function CollapsibleItem({
                                                 onClick={() =>
                                                     onRedirect(subItem.url)
                                                 }
-                                                className="dark:hover:text-[var(--brand-color)] cursor-pointer"
+                                                className="dark:hover:text-[var(--brand-color)] text-[var(--brand-grey-foreground)] hover:text-brand-text cursor-pointer"
                                             >
                                                 {subItem.title}
                                             </div>
@@ -168,7 +168,9 @@ function CollapsibleItem({
                     <SidebarMenuButton
                         isActive={path.startsWith(item.url)}
                         onClick={() => onRedirect(item.url)}
-                        tooltip={<p>{item.title}</p>}
+                        tooltip={
+                            <p className={'font-semibold'}>{item.title}</p>
+                        }
                     >
                         {item.icon && <item.icon />}
                         <span>{item.title}</span>

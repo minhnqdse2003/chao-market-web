@@ -26,7 +26,7 @@ const NavInformation = () => {
                 <SidebarMenuItem>
                     <SidebarMenuButton
                         isActive={path.startsWith('/contacts')}
-                        tooltip={<p>Contacts</p>}
+                        tooltip={<p className={'font-semibold'}>Contacts</p>}
                         onClick={() => (window.location.href = '/contacts')}
                         className="data-[active=true]:border-l-6 dark:data-[active=true]:border-[var(--brand-color)] data-[active=true]:border-black rounded-none"
                     >
@@ -37,7 +37,11 @@ const NavInformation = () => {
                 <SidebarMenuItem>
                     <AppDialog
                         trigger={
-                            <SidebarMenuButton tooltip={<p>Languages</p>}>
+                            <SidebarMenuButton
+                                tooltip={
+                                    <p className={'font-semibold'}>Languages</p>
+                                }
+                            >
                                 <Globe className="mr-2 h-4 w-4" />
                                 <span>Languages</span>
                             </SidebarMenuButton>

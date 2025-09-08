@@ -33,7 +33,7 @@ interface SignUpFormProps {
 
 export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    const [error, setError] = useState(''); // For general errors like terms not accepted or server errors
     const [success, setSuccess] = useState('');
     const [termsAccepted, setTermsAccepted] = useState(false);
 
@@ -54,20 +54,24 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
 
     const genderValue = form.watch('gender');
 
+    // onSubmit now receives validated data from handleSubmit
     const onSubmit = async (data: SignUpFormData) => {
         setLoading(true);
-        setError('');
+        setError(''); // Clear previous errors (including terms error)
         setSuccess('');
 
-        try {
-            // Combine first and last name to fullName
-            const fullName = `${data.firstName} ${data.lastName}`;
+        // 1. Check if terms are accepted first (inside the handleSubmit flow)
+        if (!termsAccepted) {
+            setError('auth.termsNotAccepted');
+            setLoading(false);
+            return; // Stop execution
+        }
 
-            // Format date of birth for API (assuming dateOfBirth is now a Date object)
+        try {
+            const fullName = `${data.firstName} ${data.lastName}`;
             const formattedDob = data.dateOfBirth
                 ? new Date(data.dateOfBirth).toISOString()
                 : null;
-
             const genderValue =
                 data.gender === 'other' ? data.otherGender : data.gender;
 
@@ -88,16 +92,17 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
 
             if (response.ok) {
                 setSuccess('auth.signupSuccessMessage');
-                // Send OTP for email verification
                 await handleSendOtp(data.email);
                 onSignUpSuccess({
                     email: data.email,
                     firstName: data.firstName,
                 });
             } else {
+                // Handle server-side errors
                 setError(result.error || 'auth.registrationFailed');
             }
-        } catch {
+        } catch (err) {
+            console.error('Signup error:', err);
             setError('auth.registrationError');
         } finally {
             setLoading(false);
@@ -110,7 +115,8 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
             if (!response.ok) {
                 setError('auth.failedToSendOtp');
             }
-        } catch {
+        } catch (err) {
+            console.error('OTP send error:', err);
             setError('auth.failedToSendOtp');
         }
     };
@@ -127,8 +133,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
             </div>
 
             <div className="h-full w-full flex flex-col pt-4">
+                {/* Display general errors (e.g., terms not accepted, server errors) */}
                 {error && (
-                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                    <div className="bg-red-100 border text-sm border-red-400 text-red-700 px-2 py-1 mb-2 rounded">
                         <T keyName={error as TranslationKey} />
                     </div>
                 )}
@@ -140,8 +147,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                 )}
 
                 <Form {...form}>
+                    {/* Use handleSubmit to let react-hook-form manage validation */}
                     <form
-                        onSubmit={form.handleSubmit(onSubmit)}
+                        onSubmit={form.handleSubmit(onSubmit)} // Use handleSubmit here
                         className="h-fit my-auto space-y-4"
                     >
                         <div className="flex space-x-2">
@@ -159,7 +167,8 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                                 {...field}
                                             />
                                         </FormControl>
-                                        <FormMessage />
+                                        <FormMessage />{' '}
+                                        {/* This will show/hide correctly now */}
                                     </FormItem>
                                 )}
                             />
@@ -178,12 +187,14 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                                 {...field}
                                             />
                                         </FormControl>
-                                        <FormMessage />
+                                        <FormMessage />{' '}
+                                        {/* This will show/hide correctly now */}
                                     </FormItem>
                                 )}
                             />
                         </div>
 
+                        {/* ... (Other FormFields remain the same) ... */}
                         <FormField
                             control={form.control}
                             name="gender"
@@ -193,16 +204,21 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                         <RadioGroup
                                             onValueChange={field.onChange}
                                             defaultValue={field.value}
-                                            className="flex items-center"
+                                            className="flex items-center flex-wrap"
                                         >
-                                            <FormItem className="flex items-center space-x-1 space-y-0 ">
+                                            <FormItem className="flex items-center space-x-1 space-y-0">
                                                 <FormControl>
                                                     <RadioGroupItem
                                                         className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer dark:[&_*_svg]:fill-[var(--brand-color)] dark:[&_*_svg]:stroke-[var(--brand-color)]"
                                                         value="male"
                                                     />
                                                 </FormControl>
-                                                <FormLabel className="font-normal text-[var(--brand-grey-foreground)]">
+                                                <FormLabel
+                                                    className={cn(
+                                                        'font-normal transition-colors!',
+                                                        `${genderValue === 'male' ? 'text-brand-text' : 'text-[var(--brand-grey-foreground)]'}`
+                                                    )}
+                                                >
                                                     <T keyName="common.gender.male" />
                                                 </FormLabel>
                                             </FormItem>
@@ -213,7 +229,12 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                                         value="female"
                                                     />
                                                 </FormControl>
-                                                <FormLabel className="font-normal text-[var(--brand-grey-foreground)]">
+                                                <FormLabel
+                                                    className={cn(
+                                                        'font-normal transition-colors!',
+                                                        `${genderValue === 'female' ? 'text-brand-text' : 'text-[var(--brand-grey-foreground)]'}`
+                                                    )}
+                                                >
                                                     <T keyName="common.gender.female" />
                                                 </FormLabel>
                                             </FormItem>
@@ -224,7 +245,12 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                                         value="other"
                                                     />
                                                 </FormControl>
-                                                <FormLabel className="font-normal text-[var(--brand-grey-foreground)]">
+                                                <FormLabel
+                                                    className={cn(
+                                                        'font-normal transition-colors!',
+                                                        `${genderValue === 'other' ? 'text-brand-text' : 'text-[var(--brand-grey-foreground)]'}`
+                                                    )}
+                                                >
                                                     <T keyName="common.gender.other" />
                                                 </FormLabel>
                                             </FormItem>
@@ -236,7 +262,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                                     genderValue !== 'other'
                                                 }
                                                 render={({ field }) => (
-                                                    <FormItem className="ml-4">
+                                                    <FormItem className="ml-4 flex-1 min-w-[150px]">
                                                         <FormControl>
                                                             <FloatingLabelInput
                                                                 label={
@@ -257,7 +283,6 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                             )}
                         />
 
-                        {/* Date of Birth with AppDatePicker */}
                         <FormField
                             control={form.control}
                             name="dateOfBirth"
@@ -271,6 +296,8 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                                 <T keyName="common.dateOfBirth" />
                                             }
                                             isFloatingLabel={true}
+                                            isMarginVisible={false}
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -362,9 +389,15 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                             <Checkbox
                                 id="terms"
                                 checked={termsAccepted}
-                                onCheckedChange={checked =>
-                                    setTermsAccepted(checked as boolean)
-                                }
+                                onCheckedChange={checked => {
+                                    setTermsAccepted(checked as boolean);
+                                    if (
+                                        checked &&
+                                        error === 'auth.termsNotAccepted'
+                                    ) {
+                                        setError('');
+                                    }
+                                }}
                                 className="mt-1 rounded-full dark:data-[state=checked]:bg-[var(--brand-color)] dark:border-none"
                             />
                             <label
@@ -374,14 +407,14 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                 <T keyName="auth.termsAgreement.start" />{' '}
                                 <Link
                                     href="/privacy-policy"
-                                    className="dark:text-[var(--brand-color)] text-black font-semibold hover:underline"
+                                    className="dark:text-[var(--brand-color)] text-black font-medium hover:underline"
                                 >
                                     <T keyName="auth.termsAgreement.privacyNotice" />
                                 </Link>{' '}
                                 <T keyName="auth.termsAgreement.and" />{' '}
                                 <Link
                                     href="/terms-of-use"
-                                    className="dark:text-[var(--brand-color)] text-black font-semibold hover:underline"
+                                    className="dark:text-[var(--brand-color)] text-black font-medium hover:underline"
                                 >
                                     <T keyName="auth.termsAgreement.termsOfUse" />
                                 </Link>
@@ -390,12 +423,12 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
 
                         <Button
                             type="submit"
-                            disabled={loading || !termsAccepted}
+                            disabled={loading}
                             className={cn(
                                 'w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2' +
                                     ' px-4 rounded-3xl disabled:p-0  mt-4 hover:bg-[var(--brand-color-foreground)]' +
                                     ' transition-colors! duration-300 ease-in-out text-base',
-                                `${loading && termsAccepted ? 'disabled:bg-transparent' : ''}`
+                                `${loading ? 'disabled:bg-transparent' : ''}`
                             )}
                         >
                             {loading ? (
@@ -408,11 +441,11 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                 </Form>
                 <div className="text-center mt-4">
                     <SocialLogin />
-                    <p className="text-lg text-[var(--brand-grey-foreground)] font-semibold">
+                    <p className="text-lg text-brand-text font-medium">
                         <T keyName="auth.alreadyHaveAccount" />{' '}
                         <Link
                             href="/auth/login"
-                            className="dark:text-[var(--brand-color)] text-black hover:underline"
+                            className="dark:text-[var(--brand-color)] font-semibold text-black hover:underline"
                         >
                             <T keyName="auth.login" />
                         </Link>

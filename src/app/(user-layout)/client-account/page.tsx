@@ -125,7 +125,7 @@ const dataList = [
             alt: 'user4',
             fallback: 'EB',
         },
-        market: 'COMMODITIES',
+        market: 'COMMODITIY',
         account: {
             name: 'Emma Brown',
             startDate: '20-08-2024',
@@ -253,7 +253,8 @@ export default function Page() {
                                     <p>Market:</p>
                                     <strong
                                         className={
-                                            'rounded-sm py-1 px-2 dark:text-[var(--brand-color)]'
+                                            'rounded-sm py-1 px-2 dark:text-[var(--brand-color)]' +
+                                            ' bg-[var(--brand-color)] dark:bg-transparent font-semibold'
                                         }
                                     >
                                         {capitalizeWords(data.market)}
@@ -316,7 +317,8 @@ export default function Page() {
                                 </p>
                                 <strong
                                     className={
-                                        'rounded-sm py-1 px-2 dark:text-[var(--brand-color)]'
+                                        'rounded-sm py-1 px-2 dark:text-[var(--brand-color)] font-bold' +
+                                        ' bg-[var(--brand-color)] dark:bg-transparent'
                                     }
                                 >
                                     {capitalizeWords(

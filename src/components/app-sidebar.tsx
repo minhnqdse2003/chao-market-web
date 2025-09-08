@@ -151,7 +151,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
     return (
         <Sidebar
-            className={'border-[var(--brand-grey)]'}
+            className={'border-border dark:border-[var(--brand-grey)]'}
             collapsible="icon"
             {...props}
         >
@@ -162,7 +162,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarHeader>
                         <NavHead headers={data.headers} />
                         <SearchForm />
-                        <SidebarMenuButton tooltip={<p>Cart</p>} asChild>
+                        <SidebarMenuButton
+                            tooltip={<p className={'font-semibold'}>Cart</p>}
+                        >
                             <SimpleCartButton />
                         </SidebarMenuButton>
                         <NavUser />
@@ -179,7 +181,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                 className={
                                     'dark:hover:bg-transparent p-0 w-fit mx-auto h-5'
                                 }
-                                tooltip={<p>Disclaimer</p>}
+                                tooltip={
+                                    <p className={'font-semibold'}>
+                                        Disclaimer
+                                    </p>
+                                }
                             >
                                 <Info className={'h-4 w-4'} />
                                 <span>Disclaimer</span>

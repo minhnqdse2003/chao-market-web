@@ -98,7 +98,7 @@ const AppDropdown = ({
                                 <DropdownMenuRadioItem
                                     key={option.value}
                                     value={option.value}
-                                    className='text-muted-foreground dark:hover:text-[var(--brand-color)] dark:hover:bg-transparent cursor-pointer transition-colors! duration-200 ease-in-out [&[aria-checked="true"]]:text-[var(--brand-color)] [&[aria-checked="true"]]:font-semibold hover:font-semibold'
+                                    className='text-muted-foreground dark:hover:text-[var(--brand-color)] dark:hover:bg-transparent cursor-pointer transition-colors! duration-200 ease-in-out dark:[&[aria-checked="true"]]:text-[var(--brand-color)] [&[aria-checked="true"]]:font-semibold hover:font-semibold hover:bg-[var(--brand-grey)] [&[aria-checked="true"]]:text-black [&[aria-checked="true"]]:bg-[var(--brand-grey)]'
                                 >
                                     {option.icon && (
                                         <option.icon
