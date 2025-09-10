@@ -28,7 +28,7 @@ export default function SocialLogin() {
                     <Image
                         width={1920}
                         height={1080}
-                        className="size-12"
+                        className="size-12 py-2 rounded-full bg-white"
                         src={Facebook}
                         alt="facebook-icon"
                     />

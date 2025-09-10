@@ -253,8 +253,8 @@ export default function Page() {
                                     <p>Market:</p>
                                     <strong
                                         className={
-                                            'rounded-sm py-1 px-2 dark:text-[var(--brand-color)]' +
-                                            ' bg-[var(--brand-color)] dark:bg-transparent font-semibold'
+                                            'rounded-sm dark:text-[var(--brand-color)]' +
+                                            ' text-sm dark:bg-transparent font-semibold'
                                         }
                                     >
                                         {capitalizeWords(data.market)}
@@ -264,7 +264,7 @@ export default function Page() {
                                     <p>Start date:</p>
                                     <strong>{data.account.startDate}</strong>
                                 </div>
-                                <div className="flex justify-between text-xs mb-1.5 [&>p]:text-[var(--brand-grey-foreground)] [&>strong]:text-red-400">
+                                <div className="flex justify-between text-xs mb-1.5 [&>p]:text-[var(--brand-grey-foreground)] [&>strong]:text-green-500">
                                     <p>Deposit:</p>
                                     <strong>{data.account.deposit}</strong>
                                 </div>
@@ -317,8 +317,8 @@ export default function Page() {
                                 </p>
                                 <strong
                                     className={
-                                        'rounded-sm py-1 px-2 dark:text-[var(--brand-color)] font-bold' +
-                                        ' bg-[var(--brand-color)] dark:bg-transparent'
+                                        'rounded-sm dark:text-[var(--brand-color)]' +
+                                        ' text-sm dark:bg-transparent font-semibold'
                                     }
                                 >
                                     {capitalizeWords(

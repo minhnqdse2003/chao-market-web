@@ -92,8 +92,7 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                     ' dark:[&[dialog-open="true"]]:text-[var(--brand-color)]' +
                     ' [&[sidebar-open="false"]]:w-12' +
                     ' [&[sidebar-open="false"]>span]:invisible [&[sidebar-open="false"]>span]:fixed' +
-                    ' [&[sidebar-open="false"]]:h-8 dark:border-transparent border border-b-0' +
-                    ' border-[var(--brand-grey-foreground)]'
+                    ' [&[sidebar-open="false"]]:h-8 dark:border-transparent'
                 }
                 onClick={() => setIsOpen(true)}
             >

@@ -6,6 +6,10 @@
 
   &:is(.dark *) {
     background-color: rgba(var(--brand-grey-foreground-rgb, 248, 249, 250), 0.1);
+
+    p {
+      color: var(--brand-color);
+    }
   }
 
   & p:has(strong) {

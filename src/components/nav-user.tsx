@@ -104,14 +104,18 @@ export function NavUser() {
                             <SidebarMenuButton
                                 size="lg"
                                 className={`data-[state=open]:text-sidebar-accent-foreground dark:text-black ${open ? 'dark:bg-[var(--brand-color)]' : ''}`}
-                                tooltip={<p>{user.name}</p>}
+                                tooltip={
+                                    <p className={'font-semibold'}>
+                                        {user.name}
+                                    </p>
+                                }
                             >
                                 <Avatar className="h-8 w-8 rounded-lg">
                                     <AvatarImage
                                         src={user.avatar}
                                         alt={user.name}
                                     />
-                                    <AvatarFallback className="rounded-lg bg-black font-semibold text-[var(--brand-color)]">
+                                    <AvatarFallback className="rounded-lg bg-black font-semibold dark:text-[var(--brand-color)] text-white">
                                         {user.name[0]}
                                     </AvatarFallback>
                                 </Avatar>
@@ -119,7 +123,7 @@ export function NavUser() {
                                     <span className="truncate font-semibold">
                                         {user.name}
                                     </span>
-                                    <span className="truncate text-xs font-semibold text-black dark:text-[var(--brand-grey)]">
+                                    <span className="truncate text-xs font-medium text-black dark:text-[var(--brand-grey)]">
                                         {user.email}
                                     </span>
                                 </div>
@@ -139,15 +143,15 @@ export function NavUser() {
                                             src={user.avatar}
                                             alt={user.name}
                                         />
-                                        <AvatarFallback className="rounded-lg text-[var(--brand-color)]">
+                                        <AvatarFallback className="rounded-lg dark:text-[var(--brand-color)] text-brand-text">
                                             {user.name[0]}
                                         </AvatarFallback>
                                     </Avatar>
                                     <div className="grid flex-1 text-left text-sm leading-tight">
-                                        <span className="truncate text-[var(--brand-color)] font-bold">
+                                        <span className="truncate text-brand-text dark:text-[var(--brand-color)] font-semibold">
                                             {user.name}
                                         </span>
-                                        <span className="truncate text-xs">
+                                        <span className="truncate font-normal text-xs">
                                             {user.email}
                                         </span>
                                     </div>
@@ -157,8 +161,8 @@ export function NavUser() {
                             <DropdownMenuGroup>
                                 <DropdownMenuItem
                                     className={
-                                        'hover:text-[var(--brand-color)]! hover:[&>svg]:stroke-[var(--brand-color)]' +
-                                        ' dark:hover:bg-transparent transition-all! duration-200 ease-in-out cursor-pointer'
+                                        'dark:hover:text-[var(--brand-color)]! dark:hover:[&>svg]:stroke-[var(--brand-color)]' +
+                                        ' dark:hover:bg-transparent transition-colors! duration-200 ease-in-out cursor-pointer hover:font-semibold'
                                     }
                                 >
                                     <Sparkles />
@@ -169,8 +173,8 @@ export function NavUser() {
                             <DropdownMenuGroup>
                                 <DropdownMenuItem
                                     className={
-                                        'hover:text-[var(--brand-color)]! hover:[&>svg]:stroke-[var(--brand-color)]' +
-                                        ' dark:hover:bg-transparent transition-all! duration-200 ease-in-out cursor-pointer'
+                                        'dark:hover:text-[var(--brand-color)]! dark:hover:[&>svg]:stroke-[var(--brand-color)]' +
+                                        ' dark:hover:bg-transparent transition-colors! duration-200 ease-in-out cursor-pointer hover:font-semibold'
                                     }
                                 >
                                     <BadgeCheck />
@@ -178,8 +182,8 @@ export function NavUser() {
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                     className={
-                                        'hover:text-[var(--brand-color)]! hover:[&>svg]:stroke-[var(--brand-color)]' +
-                                        ' dark:hover:bg-transparent transition-all! duration-200 ease-in-out cursor-pointer'
+                                        'dark:hover:text-[var(--brand-color)]! dark:hover:[&>svg]:stroke-[var(--brand-color)]' +
+                                        ' dark:hover:bg-transparent transition-colors! duration-200 ease-in-out cursor-pointer hover:font-semibold'
                                     }
                                 >
                                     <CreditCard />
@@ -187,8 +191,9 @@ export function NavUser() {
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                     className={
-                                        'hover:text-[var(--brand-color)]! hover:[&>svg]:stroke-[var(--brand-color)]' +
-                                        ' dark:hover:bg-transparent transition-all! duration-200 ease-in-out cursor-pointer'
+                                        'dark:hover:text-[var(--brand-color)]! dark:hover:[&>svg]:stroke-[var(--brand-color)]' +
+                                        ' dark:hover:bg-transparent transition-colors! duration-200 ease-in-out' +
+                                        ' cursor-pointer hover:font-semibold'
                                     }
                                 >
                                     <Bell />
@@ -199,8 +204,11 @@ export function NavUser() {
                             <DropdownMenuItem
                                 onClick={() => signOut({ callbackUrl: '/' })}
                                 className={
-                                    'hover:text-[var(--brand-color)]! hover:[&>svg]:stroke-[var(--brand-color)]' +
-                                    ' dark:hover:bg-transparent transition-all! duration-200 ease-in-out cursor-pointer'
+                                    'dark:hover:text-[var(--brand-color)]!' +
+                                    ' dark:hover:[&>svg]:stroke-[var(--brand-color)]' +
+                                    ' dark:hover:bg-transparent transition-colors! hover:font-semibold duration-200' +
+                                    ' ease-in-out' +
+                                    ' cursor-pointer'
                                 }
                             >
                                 <LogOut />

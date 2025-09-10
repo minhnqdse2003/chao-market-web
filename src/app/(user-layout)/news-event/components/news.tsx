@@ -50,7 +50,7 @@ const NewsComp = ({
                             {/* Description section */}
                             <div
                                 className={
-                                    'text-[var(--brand-grey-foreground)] leading-relaxed'
+                                    'text-[var(--brand-grey-foreground)] font-semibold leading-relaxed'
                                 }
                             >
                                 {item.description}
@@ -59,7 +59,7 @@ const NewsComp = ({
                     </Link>
                     <div className="w-[calc(70%-2rem)] flex justify-between">
                         {/* Date & Reference source */}
-                        <div className="flex w-fit text-sm gap-4 dark:text-[var(--brand-grey-foreground)] font-semibold">
+                        <div className="flex w-fit text-sm gap-4 text-[var(--brand-grey-foreground)] font-medium">
                             <p>{dateTimeFormat(new Date(item.date))}</p>
                             <p>Source: {item.referenceSource}</p>
                         </div>

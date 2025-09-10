@@ -1,3 +1,5 @@
+'use client';
+
 import { AppSidebar } from '@/components/app-sidebar';
 import {
     Dialog,
@@ -8,15 +10,19 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { BugHelp, GeneralHelp, LogoBrand } from '@image/index';
+import { BugHelp, BugHelpLight, LogoBrand } from '@image/index';
 import { CircleQuestionMark, Headset } from 'lucide-react';
 import AppFooter from '@/components/app-footer';
+import Link from 'next/link';
+import { GiSparkles } from 'react-icons/gi';
+import { useTheme } from 'next-themes';
 
 export default function UserLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const { theme } = useTheme();
     return (
         <div className="flex w-full max-w-svw">
             <AppSidebar />
@@ -45,17 +51,24 @@ export default function UserLayout({
                                     height={1080}
                                     className="size-16"
                                 />
-                                <DialogTitle className="text-[var(--brand-color)] text-center text-lg font-semibold">
+                                <DialogTitle className="dark:text-[var(--brand-color)] text-brand-text text-center text-lg font-semibold">
                                     <p>Chào Market</p>
-                                    <p className={'text-sm text-white'}>
+                                    <p
+                                        className={
+                                            'text-sm dark:text-white text-brand-text font-medium'
+                                        }
+                                    >
                                         Manage Your Risk
                                     </p>
                                 </DialogTitle>
                             </DialogHeader>
                             <div className="flex flex-col gap-1">
                                 <div data-slot="Container">
-                                    <div className="flex items-start gap-4">
-                                        <Headset className="size-7 text-[var(--brand-color)]" />
+                                    <Link
+                                        href={'/contacts'}
+                                        className="flex items-start gap-4 hover:bg-[var(--brand-grey)]!"
+                                    >
+                                        <Headset className="size-7 dark:text-[var(--brand-color)]" />
                                         <div className="flex flex-col gap-2">
                                             <p className="font-semibold text-xl">
                                                 Support request
@@ -68,15 +81,22 @@ export default function UserLayout({
                                                 What do you need us to support ?
                                             </p>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </div>
                                 <div data-slot="Container">
-                                    <div className="flex items-start gap-4">
+                                    <Link
+                                        href={'/contacts'}
+                                        className="flex items-start gap-4 hover:bg-[var(--brand-grey)]!"
+                                    >
                                         <Image
-                                            src={BugHelp}
+                                            src={
+                                                theme === 'dark'
+                                                    ? BugHelp
+                                                    : BugHelpLight
+                                            }
                                             width={1920}
                                             height={1080}
-                                            className="text-[var(--brand-color)] size-7"
+                                            className="size-7"
                                             alt={'bug-help'}
                                         />
                                         <div className="flex flex-col gap-2">
@@ -91,16 +111,17 @@ export default function UserLayout({
                                                 Let’s us know what broken
                                             </p>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </div>
                                 <div data-slot="Container">
-                                    <div className="flex items-start gap-4">
-                                        <Image
-                                            src={GeneralHelp}
-                                            width={1920}
-                                            height={1080}
-                                            className="text-[var(--brand-color)] size-7"
-                                            alt={'bug-help'}
+                                    <Link
+                                        href={'/contacts'}
+                                        className="flex items-start gap-4 hover:bg-[var(--brand-grey)]!"
+                                    >
+                                        <GiSparkles
+                                            className={
+                                                'size-7 dark:text-[var(--brand-color)]'
+                                            }
                                         />
                                         <div className="flex flex-col gap-2">
                                             <p className="font-semibold text-xl">
@@ -114,14 +135,14 @@ export default function UserLayout({
                                                 Tell us how we can improve
                                             </p>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </div>
                                 <div data-slot="Container">
-                                    <a
+                                    <Link
                                         href={'/contacts'}
-                                        className="flex items-start gap-4"
+                                        className="flex items-start gap-4 hover:bg-[var(--brand-grey)]!"
                                     >
-                                        <CircleQuestionMark className="size-7 text-[var(--brand-color)]" />
+                                        <CircleQuestionMark className="size-7 dark:text-[var(--brand-color)]" />
                                         <div className="flex flex-col gap-2">
                                             <p className="font-semibold text-xl">
                                                 Contact us
@@ -134,7 +155,7 @@ export default function UserLayout({
                                                 FAQs and usage introduction
                                             </p>
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </DialogContent>

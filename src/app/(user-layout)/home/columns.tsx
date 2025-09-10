@@ -1,9 +1,8 @@
 'use client';
 import { DataTableColumnHeader } from '@/components/data-table-column-header';
 import { ColumnDef } from '@tanstack/react-table';
-import Image from 'next/image';
-import { FilledThumpsUp } from '@image/index';
 import { percentageFormat, priceFormat } from '@/utils/number-parsing';
+import { FaThumbsUp } from 'react-icons/fa6';
 
 export type HomeNewFlow = {
     date: Date;
@@ -72,12 +71,8 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
             const rate = row.original.rate;
             return (
                 <div className="flex gap-1 items-center justify-center">
-                    <Image
-                        src={FilledThumpsUp}
-                        alt={'thumps-up icons'}
-                        width={1920}
-                        height={1080}
-                        className="size-4"
+                    <FaThumbsUp
+                        className={'size-4 fill-black dark:fill-white'}
                     />
                     <span className="w-1/4 text-left">
                         {percentageFormat(rate)}

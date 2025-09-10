@@ -151,7 +151,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
     return (
         <Sidebar
-            className={'border-border dark:border-[var(--brand-grey)]'}
+            className={
+                'border-border dark:border-[var(--brand-grey)] shadow-xl'
+            }
             collapsible="icon"
             {...props}
         >

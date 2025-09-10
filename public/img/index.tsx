@@ -1,18 +1,16 @@
 export { default as LogoBrand } from './brand-logo.svg';
 export { default as LoginTheme } from './login-theme.png';
 export { default as Google } from './google.svg';
-export { default as Facebook } from './facebook.svg';
+export { default as Facebook } from './facebook-light.svg';
 export { default as HomeBanner } from './home-banner.svg';
 export { default as NewsEventBannerImg } from './news-events-banner.svg';
 export { default as BrandLogoFtHat } from './brand-logo-with-hat.svg';
-export { default as GeneralHelp } from './general-help.svg';
 export { default as BugHelp } from './bug-help.svg';
-export { default as Warning3D } from './warning-3d.svg';
+export { default as BugHelpLight } from './bug-help-light.svg';
 export { default as FilledThumpsUp } from './thumps-up-filled.svg';
 export { default as NewsEventMockBanner } from './news-events-mock-banner.svg';
 export { default as EmptyCart } from './empty-cart.png';
 export { default as CompleteCheckout } from './complete-checkout.png';
-export { default as ShareIcon } from './share-icon.svg';
 export { default as ResetPasswordComplete } from './reset-password-complete.svg';
 
 import { default as ConsultingService } from './product-service-2.png';

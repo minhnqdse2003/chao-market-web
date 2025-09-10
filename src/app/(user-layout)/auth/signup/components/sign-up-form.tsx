@@ -209,7 +209,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                             <FormItem className="flex items-center space-x-1 space-y-0">
                                                 <FormControl>
                                                     <RadioGroupItem
-                                                        className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer dark:[&_*_svg]:fill-[var(--brand-color)] dark:[&_*_svg]:stroke-[var(--brand-color)]"
+                                                        className="data-[state=checked]:border-brand-text cursor-pointer dark:[&_*_svg]:fill-brand-text dark:[&_*_svg]:stroke-brand-text"
                                                         value="male"
                                                     />
                                                 </FormControl>
@@ -225,7 +225,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                             <FormItem className="flex items-center space-x-1 space-y-0">
                                                 <FormControl>
                                                     <RadioGroupItem
-                                                        className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer dark:[&_*_svg]:fill-[var(--brand-color)] dark:[&_*_svg]:stroke-[var(--brand-color)]"
+                                                        className="data-[state=checked]:border-brand-text cursor-pointer dark:[&_*_svg]:fill-brand-text dark:[&_*_svg]:stroke-brand-text"
                                                         value="female"
                                                     />
                                                 </FormControl>
@@ -241,7 +241,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                             <FormItem className="flex items-center space-x-1 space-y-0">
                                                 <FormControl>
                                                     <RadioGroupItem
-                                                        className="dark:data-[state=checked]:border-[var(--brand-color)] cursor-pointer dark:[&_*_svg]:fill-[var(--brand-color)] dark:[&_*_svg]:stroke-[var(--brand-color)]"
+                                                        className="data-[state=checked]:border-brand-text cursor-pointer dark:[&_*_svg]:fill-brand-text dark:[&_*_svg]:stroke-brand-text"
                                                         value="other"
                                                     />
                                                 </FormControl>
