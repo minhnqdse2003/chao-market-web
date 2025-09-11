@@ -13,7 +13,8 @@ export const signUpSchema = z
         otherGender: z.string().optional(),
         dateOfBirth: z
             .date('Invalid date format')
-            .refine(date => date < new Date(), {
+            .optional()
+            .refine(date => !date || date < new Date(), {
                 message: 'Date of birth must be in the past',
             }),
         phoneNumber: z

@@ -11,7 +11,12 @@ import { and, eq, inArray } from 'drizzle-orm';
 import { baseUserInfoSchema } from '@/schema/user-infor-schema';
 
 export const checkoutSchema = baseUserInfoSchema.extend({
-    dateOfBirth: z.string().min(1), // Keep required for checkout
+    dateOfBirth: z
+        .date('Invalid date format')
+        .optional()
+        .refine(date => !date || date < new Date(), {
+            message: 'Date of birth must be in the past',
+        }),
     contactMethods: z.array(z.string()).min(1), // Keep required for checkout
     cartItemIds: z.array(z.string()).min(1), // Checkout-specific field
 });
@@ -71,7 +76,9 @@ async function UserCheckout(req: NextRequest) {
                     // User information from validated data
                     firstName: validatedData.firstName,
                     lastName: validatedData.lastName,
-                    dateOfBirth: validatedData.dateOfBirth,
+                    dateOfBirth: validatedData.dateOfBirth
+                        ? new Date(validatedData.dateOfBirth)
+                        : null,
                     email: validatedData.email,
                     phoneNumber: validatedData.phoneNumber,
                     socialNetwork: validatedData.socialNetwork,

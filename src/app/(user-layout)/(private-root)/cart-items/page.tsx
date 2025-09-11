@@ -89,8 +89,13 @@ export default function CartItemsPage() {
                 toast.error(t('cartItems.validation.productNotSelected'));
                 return;
             }
+
+            const formatDob = data.dateOfBirth
+                ? new Date(data.dateOfBirth)
+                : undefined;
             const result = await checkoutMutation.mutateAsync({
                 ...data,
+                dateOfBirth: formatDob,
                 cartItemIds: selectedItems,
             });
 
@@ -277,7 +282,7 @@ export default function CartItemsPage() {
                             />
                             Your cart is empty
                             <Button
-                                onClick={() => redirect('/products')}
+                                onClick={() => redirect('/our-solutions')}
                                 className="bg-[var(--brand-color)] text-black rounded-3xl font-semibold hover:bg-transparent hover:text-[var(--brand-color)] hover:border-[var(--brand-color)] border border-transparent transition-all! duration-300 ease-in-out"
                             >
                                 Continue to Your Services

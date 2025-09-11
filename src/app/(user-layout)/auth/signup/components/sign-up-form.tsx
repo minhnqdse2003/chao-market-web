@@ -188,7 +188,6 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                             />
                                         </FormControl>
                                         <FormMessage />{' '}
-                                        {/* This will show/hide correctly now */}
                                     </FormItem>
                                 )}
                             />

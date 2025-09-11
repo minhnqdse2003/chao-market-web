@@ -42,7 +42,7 @@ export const userProfiles = pgTable(
             .references(() => users.id, { onDelete: 'cascade' }),
         firstName: text('firstName').notNull(),
         lastName: text('lastName').notNull(),
-        dateOfBirth: text('dateOfBirth'), // Consider using timestamp
+        dateOfBirth: text('dateOfBirth'),
         email: text('email').notNull(),
         phoneNumber: text('phoneNumber').notNull(),
         socialNetwork: text('socialNetwork'),
@@ -164,7 +164,7 @@ export const transactions = pgTable('transaction', {
     // New columns for user information
     firstName: text('firstName').notNull(),
     lastName: text('lastName').notNull(),
-    dateOfBirth: text('dateOfBirth').notNull(), // Consider using timestamp for better date handling
+    dateOfBirth: timestamp('dateOfBirth', { mode: 'date' }),
     email: text('email').notNull(),
     phoneNumber: text('phoneNumber').notNull(),
     socialNetwork: text('socialNetwork'),

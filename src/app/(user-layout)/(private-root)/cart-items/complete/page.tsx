@@ -25,7 +25,7 @@ export default function CheckOutComplete() {
             </p>
             <Button
                 className="bg-[var(--brand-color)] text-black hover:bg-transparent border border-transparent hover:border-[var(--brand-color)] hover:text-[var(--brand-color)] transition-all! duration-300 ease-in-out rounded-3xl font-normal"
-                onClick={() => redirect('/products')}
+                onClick={() => redirect('/our-solutions')}
             >
                 &#34;Wishing you all the best on your investment journey.&#34;
             </Button>

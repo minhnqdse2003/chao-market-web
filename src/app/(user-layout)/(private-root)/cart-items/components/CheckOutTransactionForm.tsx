@@ -16,7 +16,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { UserProfile } from '@/db/schema';
 import { FloatingLabelInput } from '@/components/ui/floating-input';
 import { AppDatePicker } from '@/components/app-date-picker';
-import { format } from 'date-fns';
 import { Label } from '@/components/ui/label';
 
 // Define the validation schema
@@ -56,11 +55,11 @@ export default function CheckOutTransactionForm({
         defaultValues: {
             firstName: '',
             lastName: '',
-            dateOfBirth: '',
+            dateOfBirth: undefined,
             email: '',
             phoneNumber: '',
             socialNetwork: '',
-            contactMethods: [],
+            contactMethods: ['email'],
             message: '',
         },
     });
@@ -71,13 +70,13 @@ export default function CheckOutTransactionForm({
             form.reset({
                 firstName: initialData.firstName || '',
                 lastName: initialData.lastName || '',
-                dateOfBirth: initialData.dateOfBirth || '',
+                dateOfBirth: initialData.dateOfBirth || undefined,
                 email: initialData.email || '',
                 phoneNumber: initialData.phoneNumber || '',
                 socialNetwork: initialData.socialNetwork || '',
                 contactMethods: Array.isArray(initialData.contactMethods)
                     ? initialData.contactMethods
-                    : [],
+                    : ['email'],
                 message: initialData.message || '',
             });
         }
@@ -158,19 +157,14 @@ export default function CheckOutTransactionForm({
                         <FormItem>
                             <FormControl>
                                 <AppDatePicker
-                                    onDateChange={date => {
-                                        field.onChange(
-                                            date
-                                                ? format(date, 'yyyy-MM-dd')
-                                                : ''
-                                        );
-                                    }}
+                                    onDateChange={field.onChange}
                                     buttonClass={
                                         'w-full dark:bg-transparent dark:hover:bg-transparent'
                                     }
-                                    label={'Birthday '}
+                                    label={'Birthday (optional)'}
                                     isFloatingLabel={true}
                                     isMarginVisible={false}
+                                    {...field}
                                 />
                             </FormControl>
                             <FormMessage />

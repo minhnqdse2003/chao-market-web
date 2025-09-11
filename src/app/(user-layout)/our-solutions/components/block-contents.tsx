@@ -61,7 +61,7 @@ const BlockContents = ({
 
     return (
         <div
-            className="w-full flex flex-col [&>p]:mb-4 min-h-[60svh] [&>p:not(:first-child)]:font-light [&>p:not(:first-child)]:text-lg [&>p:last-child]:mb-0 [&>p:first-child]:mb-6 [&_*_ul]:list-disc [&_*_ul]:list-inside scroll-mt-[55svh]"
+            className="w-full flex flex-col [&>p]:mb-4 min-h-[60svh] [&>p:not(:first-child)]:font-light [&>p:not(:first-child)]:text-lg [&>p:last-child]:mb-0 [&>p:first-child]:mb-6 [&_*_ul]:list-disc [&_*_ul]:list-inside"
             id={id}
         >
             <p className="font-bold text-xl">{title}</p>

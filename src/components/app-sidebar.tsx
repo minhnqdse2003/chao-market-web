@@ -2,15 +2,16 @@
 
 import * as React from 'react';
 import {
-    BriefcaseBusiness,
     Home,
     IdCard,
     Megaphone,
     Users,
     GalleryVerticalEnd,
     Info,
+    TrendingUp,
 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
+import { useI18n } from '@/context/i18n/context';
 
 import {
     Sidebar,
@@ -27,73 +28,101 @@ import { NavMain } from './nav-main';
 import { SearchForm } from './search-form';
 import NavSeparator from './nav-separator';
 import NavInformation from './nav-information';
-import SimpleCartButton from '@/components/nav-user-cart';
+import ConsultationButton from '@/components/nav-user-request-consultation-button';
 import DisclaimerDialog from '@/components/disclaimer-dialog';
-
-const data = {
-    headers: [
-        {
-            name: 'Chào Market',
-            logo: GalleryVerticalEnd,
-            plan: 'Manage Your Risk',
-        },
-    ],
-    items: [
-        {
-            title: 'Home',
-            url: '/home',
-            icon: Home,
-        },
-        {
-            title: "Client's Accounts",
-            url: '/client-account',
-            icon: IdCard,
-        },
-        {
-            title: 'Products',
-            url: '/products',
-            icon: BriefcaseBusiness,
-            children: [
-                { title: 'Consulting Personal Finance', url: '/products#1' },
-                { title: 'Managing Investment Portfolio', url: '/products#2' },
-                { title: 'Building Trading System', url: '/products#3' },
-                { title: 'Analysing Trading Account', url: '/products#4' },
-                { title: 'Financial Investment Course', url: '/products#5' },
-            ],
-        },
-        {
-            title: 'News & Events',
-            url: '/news-event',
-            icon: Megaphone,
-            children: [
-                { title: 'News', url: '/news-event?type=news' },
-                { title: 'Events', url: '/news-event?type=events' },
-            ],
-        },
-        {
-            title: 'Community',
-            url: '/community',
-            icon: Users,
-            children: [
-                {
-                    title: 'Our Market Insights',
-                    url: '/community?mainTag=market-insights',
-                },
-                {
-                    title: 'Free Courses',
-                    url: '/community?mainTag=free-courses',
-                },
-                { title: 'Conferences', url: '/community?mainTag=conferences' },
-                { title: 'Videos', url: '/community?mainTag=videos' },
-                { title: 'Images', url: '/community?mainTag=images' },
-            ],
-        },
-    ],
-};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const { status } = useSession();
     const isLoading = status === 'loading';
+    const { t } = useI18n();
+
+    const data = {
+        headers: [
+            {
+                name: 'Chào Market',
+                logo: GalleryVerticalEnd,
+                plan: 'Manage Your Risk',
+            },
+        ],
+        items: [
+            {
+                title: t('sidebar.home'),
+                url: '/home',
+                icon: Home,
+            },
+            {
+                title: t('sidebar.clientsAccounts'),
+                url: '/client-account',
+                icon: IdCard,
+            },
+            {
+                title: t('ourSolutions.common.title'),
+                url: '/our-solutions',
+                icon: TrendingUp,
+                children: [
+                    {
+                        title: t('ourSolutions.financialFoundation.title'),
+                        url: '/our-solutions#1',
+                    },
+                    {
+                        title: t('ourSolutions.portfolioStrategy.title'),
+                        url: '/our-solutions#2',
+                    },
+                    {
+                        title: t('ourSolutions.algoTrading.title'),
+                        url: '/our-solutions#3',
+                    },
+                    {
+                        title: t('ourSolutions.tradingPerformance.title'),
+                        url: '/our-solutions#4',
+                    },
+                    {
+                        title: t('ourSolutions.financialCourse.title'),
+                        url: '/our-solutions#5',
+                    },
+                ],
+            },
+            {
+                title: t('sidebar.newsEvents'),
+                url: '/news-event',
+                icon: Megaphone,
+                children: [
+                    { title: t('sidebar.news'), url: '/news-event?type=news' },
+                    {
+                        title: t('sidebar.events'),
+                        url: '/news-event?type=events',
+                    },
+                ],
+            },
+            {
+                title: t('sidebar.community'),
+                url: '/community',
+                icon: Users,
+                children: [
+                    {
+                        title: t('sidebar.marketInsights'),
+                        url: '/community?mainTag=market-insights',
+                    },
+                    {
+                        title: t('sidebar.freeCourses'),
+                        url: '/community?mainTag=free-courses',
+                    },
+                    {
+                        title: t('sidebar.conferences'),
+                        url: '/community?mainTag=conferences',
+                    },
+                    {
+                        title: t('sidebar.videos'),
+                        url: '/community?mainTag=videos',
+                    },
+                    {
+                        title: t('sidebar.images'),
+                        url: '/community?mainTag=images',
+                    },
+                ],
+            },
+        ],
+    };
 
     // Create loading skeletons for the sidebar content
     const renderLoadingSkeletons = () => {
@@ -165,9 +194,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         <NavHead headers={data.headers} />
                         <SearchForm />
                         <SidebarMenuButton
-                            tooltip={<p className={'font-semibold'}>Cart</p>}
+                            tooltip={
+                                <p className={'font-semibold'}>
+                                    Book a Consultation
+                                </p>
+                            }
                         >
-                            <SimpleCartButton />
+                            <ConsultationButton />
                         </SidebarMenuButton>
                         <NavUser />
                     </SidebarHeader>

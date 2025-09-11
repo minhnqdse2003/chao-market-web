@@ -3,14 +3,16 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, Loader2 } from 'lucide-react';
+import { Loader2, CalendarPlus } from 'lucide-react';
 import { useUserCartQuery } from '@/hooks/react-query/carts';
 import { useSidebar } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
+import { useI18n } from '@/context/i18n/context';
 
-export default function SimpleCartButton() {
+export default function ConsultationButton() {
     const { data, SessionStatus: status } = useUserCartQuery();
     const { open } = useSidebar();
+    const { t } = useI18n();
 
     // Calculate total items in cart
     const itemCount =
@@ -20,7 +22,7 @@ export default function SimpleCartButton() {
         return (
             <Button variant="ghost" size="sm" disabled className="gap-2">
                 <Loader2 className="h-4 w-4 animate-spin" />
-                {open && <span>Cart</span>}
+                {open && <span>{t('common.loading')}</span>}
             </Button>
         );
     }
@@ -37,8 +39,8 @@ export default function SimpleCartButton() {
                         ' font-semibold'
                 )}
             >
-                <ShoppingCart className="h-4 w-4" />
-                {open && <span>Cart</span>}
+                <CalendarPlus className="h-4 w-4" />
+                {open && <span>{t('bookConsultation.bookConsultation')}</span>}
             </Link>
         );
     }
@@ -52,8 +54,8 @@ export default function SimpleCartButton() {
                     ' font-semibold w-full dark:hover:bg-transparent '
             )}
         >
-            <ShoppingCart className="h-4 w-4" />
-            {open && <span>Cart</span>}
+            <CalendarPlus className="h-4 w-4" />
+            {open && <span>{t('bookConsultation.bookConsultation')}</span>}
             {open && itemCount > 0 && (
                 <span className="dark:text-[var(--brand-color)] text-black font-bold text-sm leading-relaxed rounded-full flex items-center justify-center">
                     ({itemCount})

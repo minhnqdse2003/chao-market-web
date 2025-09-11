@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        if (!name || !gender || !dateOfBirth) {
+        if (!name || !gender) {
             return NextResponse.json({
                 error: 'Name, gender and date of birth are required',
             });
