@@ -66,6 +66,7 @@ const getAllPosts = async (request: NextRequest) => {
             ogImage: posts.ogImage,
             canonicalUrl: posts.canonicalUrl,
             robots: posts.robots,
+            market: posts.market,
         })
         .from(posts);
 

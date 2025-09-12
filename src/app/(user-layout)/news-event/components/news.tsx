@@ -60,6 +60,7 @@ const NewsComp = ({
                     <div className="w-[calc(70%-2rem)] flex justify-between">
                         {/* Date & Reference source */}
                         <div className="flex w-fit text-sm gap-4 text-[var(--brand-grey-foreground)] font-medium">
+                            <p>Market: {item.market}</p>
                             <p>{dateTimeFormat(new Date(item.date))}</p>
                             <p>Source: {item.referenceSource}</p>
                         </div>

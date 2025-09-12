@@ -8,7 +8,7 @@ import AppDateRangePicker from '@/components/app-date-range-picker';
 import { BaseFilterParams, useFilter } from '@/hooks/use-filter';
 import { TIME_OPTIONS, SOURCE_OPTIONS } from '../utils/filter-options';
 import AppDropdown from '@/components/app-dropdown';
-import { SORT_BY_OPTIONS } from '@/app/(user-layout)/client-account/utils/filter-options';
+import { SORT_BY_OPTIONS_NEWS_EVENT } from '@/constant/dropdown-filter-options';
 import { AutosizeTextarea } from '@/components/auto-resize-textarea';
 
 interface FilterParams extends BaseFilterParams {
@@ -127,7 +127,7 @@ const NewsEventFilterDialogComp = ({
                 triggerClassName="inline-flex"
             />
             <AppDropdown
-                options={SORT_BY_OPTIONS}
+                options={SORT_BY_OPTIONS_NEWS_EVENT}
                 defaultValue="featured"
                 buttonClassName="max-h-[20px] font-light text-sm"
                 contentClassName="w-44"

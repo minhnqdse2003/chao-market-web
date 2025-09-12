@@ -71,6 +71,13 @@
       "when": 1757590519916,
       "tag": "0009_faithful_wind_dancer",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1757663175777,
+      "tag": "0010_long_the_santerians",
+      "breakpoints": true
     }
   ]
 }

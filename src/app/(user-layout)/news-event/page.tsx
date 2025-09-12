@@ -1,3 +1,5 @@
+import { capitalizeWords } from '@/utils/string-parsing';
+
 export const dynamic = 'force-dynamic'; // or 'force-dynamic'
 export const revalidate = 3600;
 export const fetchCache = 'force-cache';
@@ -26,8 +28,6 @@ interface PageProps {
 }
 
 const Page = async ({ searchParams }: PageProps) => {
-    console.time('Page Render');
-
     const { type, filterBy, pageIndex, pageSize } = searchParams;
 
     // Convert string parameters to numbers with defaults
@@ -70,6 +70,7 @@ const Page = async ({ searchParams }: PageProps) => {
                 : '',
             referenceSource: post.referenceSource,
             slug: post.slug,
+            market: post.market ? capitalizeWords(post.market) : '',
         }));
     };
 
@@ -130,9 +131,6 @@ const Page = async ({ searchParams }: PageProps) => {
                 : '/news-event?filterBy=topRated',
         },
     ];
-
-    console.timeEnd('Page Render');
-    console.log('Posts fetched:', postsData?.data?.length);
 
     return (
         <div>

@@ -8,4 +8,5 @@ export type NewsType = {
     date: string;
     referenceSource: string;
     slug: string;
+    market: string;
 };

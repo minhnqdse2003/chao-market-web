@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import NavSeparator from '@/components/nav-separator';
 import AppDropdown from '@/components/app-dropdown';
 import ClientAccountFilterDialog from './components/filter-dialog';
-import { SORT_BY_OPTIONS } from './utils/filter-options';
+import { SORT_BY_OPTIONS } from '../../../constant/dropdown-filter-options';
 import AppTooltips from '@/components/app-tooltips';
 import { Button } from '@/components/ui/button';
 import { ClientAccountBanner } from '@/components/app-banner';
@@ -250,20 +250,24 @@ export default function Page() {
                             </CardHeader>
                             <CardContent>
                                 <div className="flex justify-between text-xs mb-1.5 [&>p]:text-[var(--brand-grey-foreground)]">
+                                    <p>Start Date:</p>
+                                    <strong>{data.account.startDate}</strong>
+                                </div>
+
+                                <div className="flex justify-between text-xs mb-1.5 [&>p]:text-[var(--brand-grey-foreground)]">
                                     <p>Market:</p>
                                     <strong
                                         className={
-                                            'rounded-sm dark:text-[var(--brand-color)]' +
-                                            ' text-sm dark:bg-transparent font-semibold'
+                                            'rounded-sm dark:text-black text-black' +
+                                            ' text-xs dark:bg-[var(--brand-color)] bg-[var(--brand-color)] px-1.5' +
+                                            ' py-1' +
+                                            ' font-semibold'
                                         }
                                     >
                                         {capitalizeWords(data.market)}
                                     </strong>
                                 </div>
-                                <div className="flex justify-between text-xs mb-1.5 [&>p]:text-[var(--brand-grey-foreground)]">
-                                    <p>Start date:</p>
-                                    <strong>{data.account.startDate}</strong>
-                                </div>
+
                                 <div className="flex justify-between text-xs mb-1.5 [&>p]:text-[var(--brand-grey-foreground)] [&>strong]:text-green-500">
                                     <p>Deposit:</p>
                                     <strong>{data.account.deposit}</strong>
@@ -317,8 +321,10 @@ export default function Page() {
                                 </p>
                                 <strong
                                     className={
-                                        'rounded-sm dark:text-[var(--brand-color)]' +
-                                        ' text-sm dark:bg-transparent font-semibold'
+                                        'rounded-sm dark:text-black text-black' +
+                                        ' text-xs dark:bg-[var(--brand-color)] bg-[var(--brand-color)] px-1.5' +
+                                        ' py-1' +
+                                        ' font-semibold'
                                     }
                                 >
                                     {capitalizeWords(

@@ -94,11 +94,11 @@ export default async function NewsEventPage({ params }: PageProps) {
                     </div>
                     <h1 className="text-3xl font-bold">{post.title}</h1>
                     <div className="flex items-center text-[var(--brand-grey-foreground)]">
+                        <span>Market: {post.market}</span>
+                        <span className={'mx-2'} />
                         <span>{dateTimeFormat(new Date(post.createdAt))}</span>
                         <span className={'mx-2'} />
-                        <span className={'text-[var(--brand-grey-foreground)]'}>
-                            Source: {post.referenceSource}
-                        </span>
+                        <span>Source: {post.referenceSource}</span>
                     </div>
                     <AppInteractionBlock
                         like={post.likes}

@@ -206,6 +206,7 @@ export const posts = pgTable('post', {
     type: postTypeEnum('type').notNull(),
     readingTime: integer('readingTime').notNull().default(1),
     createdAt: timestamp('createdAt', { mode: 'date' }).defaultNow().notNull(),
+    market: text('market').default('all').notNull(),
 
     // SEO Metadata Fields
     seoTitle: text('seoTitle'), // Custom title for SEO

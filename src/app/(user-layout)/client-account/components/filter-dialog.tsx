@@ -10,7 +10,7 @@ import {
     MARKET_OPTIONS,
     PROFIT_OPTIONS,
     VIEW_OPTIONS,
-} from '../utils/filter-options';
+} from '../../../../constant/dropdown-filter-options';
 import { BaseFilterParams, useFilter } from '@/hooks/use-filter';
 import { AutosizeTextarea } from '@/components/auto-resize-textarea';
 

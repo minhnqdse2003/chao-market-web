@@ -70,12 +70,32 @@ export const ALGO_TRADING_OPTIONS: AppFilterOptionsType[] = [
 
 const CLIENT_ACCOUNT_GROUP = {
     DEPOSIT: 'Deposit',
-    START_DATE: 'Start date',
+    START_DATE: 'Start Date',
     MARKET: 'Market',
     DEFAULT: 'Default',
 };
 
+const NEWS_EVENT_GROUP = {
+    DATE: 'Date',
+    MARKET: 'Market',
+};
+
 export const SORT_BY_OPTIONS: DropdownOption[] = [
+    {
+        value: 'desc',
+        label: 'Newest first',
+        group: CLIENT_ACCOUNT_GROUP.START_DATE,
+    },
+    {
+        value: 'asc',
+        label: 'Oldest first',
+        group: CLIENT_ACCOUNT_GROUP.START_DATE,
+    },
+    {
+        value: 'all',
+        label: 'All',
+        group: CLIENT_ACCOUNT_GROUP.MARKET,
+    },
     {
         value: 'stock',
         label: 'Stock',
@@ -92,24 +112,52 @@ export const SORT_BY_OPTIONS: DropdownOption[] = [
         group: CLIENT_ACCOUNT_GROUP.MARKET,
     },
     {
+        value: 'commodity',
+        label: 'Commodity',
+        group: CLIENT_ACCOUNT_GROUP.MARKET,
+    },
+    {
+        value: 'featured',
+        label: 'Featured',
+        group: CLIENT_ACCOUNT_GROUP.DEFAULT,
+    },
+];
+
+export const SORT_BY_OPTIONS_NEWS_EVENT: DropdownOption[] = [
+    {
         value: 'desc',
         label: 'Newest first',
-        group: CLIENT_ACCOUNT_GROUP.START_DATE,
+        group: NEWS_EVENT_GROUP.DATE,
     },
     {
         value: 'asc',
         label: 'Oldest first',
-        group: CLIENT_ACCOUNT_GROUP.START_DATE,
+        group: NEWS_EVENT_GROUP.DATE,
     },
     {
-        value: 'high-to-low',
-        label: 'High to low',
-        group: CLIENT_ACCOUNT_GROUP.DEPOSIT,
+        value: 'all',
+        label: 'All',
+        group: CLIENT_ACCOUNT_GROUP.MARKET,
     },
     {
-        value: 'low-to-high',
-        label: 'Low to high',
-        group: CLIENT_ACCOUNT_GROUP.DEPOSIT,
+        value: 'stock',
+        label: 'Stock',
+        group: CLIENT_ACCOUNT_GROUP.MARKET,
+    },
+    {
+        value: 'crypto',
+        label: 'Crypto',
+        group: CLIENT_ACCOUNT_GROUP.MARKET,
+    },
+    {
+        value: 'forex',
+        label: 'Forex',
+        group: CLIENT_ACCOUNT_GROUP.MARKET,
+    },
+    {
+        value: 'commodity',
+        label: 'Commodity',
+        group: CLIENT_ACCOUNT_GROUP.MARKET,
     },
     {
         value: 'featured',
