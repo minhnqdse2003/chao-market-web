@@ -325,7 +325,7 @@ export default function Page() {
                                     className={
                                         'rounded-sm dark:text-black text-black' +
                                         ' text-xs border dark:border-white dark:text-white' +
-                                        ' dark:bg-[var(--brand-color)] bg-transparent border-black text-black' +
+                                        ' bg-transparent border-black text-black' +
                                         ' px-1.5' +
                                         ' py-1' +
                                         ' font-semibold'
