@@ -1,4 +1,4 @@
-import { Product, products } from '@/db/schema';
+import { ConsultationServices, consultationServices } from '@/db/schema';
 import { withAuth } from '@/lib/api-route-middleware';
 import { db } from '@/lib/db';
 import { BaseResponse } from '@/types/base-response';
@@ -25,21 +25,22 @@ const getAllProducts = async (request: NextRequest) => {
 
     const { name, price, pageIndex, pageSize } = parsed.data;
     const conditions = [];
-    if (name) conditions.push(like(products.name, `%${name}%`));
-    if (price) conditions.push(eq(products.price, parseFloat(price)));
+    if (name) conditions.push(like(consultationServices.name, `%${name}%`));
+    if (price)
+        conditions.push(eq(consultationServices.price, parseFloat(price)));
 
     const whereClause = conditions.length ? and(...conditions) : undefined;
 
     const items = await db
         .select()
-        .from(products)
+        .from(consultationServices)
         .where(whereClause)
         .limit(pageSize)
         .offset(pageIndex * pageSize);
 
     const total = await db
         .select({ count: sql<number>`count(*)` })
-        .from(products)
+        .from(consultationServices)
         .where(whereClause);
 
     return NextResponse.json(
@@ -48,7 +49,7 @@ const getAllProducts = async (request: NextRequest) => {
             pageIndex,
             pageSize,
             totalItems: total[0]?.count || 0,
-        } as PaginatedResponse<Product>,
+        } as PaginatedResponse<ConsultationServices>,
         { status: 200 }
     );
 };
@@ -61,13 +62,16 @@ const createNewProduct = async (request: NextRequest) => {
         throw new ApiError(400, z.prettifyError(parsedRequestData.error));
     }
     const newUser: CreateNewProduct = parsedRequestData.data;
-    const [result] = await db.insert(products).values(newUser).returning();
+    const [result] = await db
+        .insert(consultationServices)
+        .values(newUser)
+        .returning();
 
     return NextResponse.json(
         {
             data: result,
             message: 'Add product successfully',
-        } as BaseResponse<Product>,
+        } as BaseResponse<ConsultationServices>,
         { status: 200 }
     );
 };

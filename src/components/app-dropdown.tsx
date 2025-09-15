@@ -89,7 +89,7 @@ const AppDropdown = ({
                     {groupedOptions.map(group => (
                         <div key={group.groupName}>
                             {/* Group Label */}
-                            <DropdownMenuLabel className="text-xs font-semibold">
+                            <DropdownMenuLabel className="text-xs font-semibold text-brand-dropdown-title">
                                 {group.groupName}
                             </DropdownMenuLabel>
 

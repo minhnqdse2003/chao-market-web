@@ -75,8 +75,22 @@
     {
       "idx": 10,
       "version": "7",
-      "when": 1757663175777,
-      "tag": "0010_long_the_santerians",
+      "when": 1757914806501,
+      "tag": "0010_third_richard_fisk",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1757918084320,
+      "tag": "0011_premium_catseye",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1757924103847,
+      "tag": "0012_thin_ricochet",
       "breakpoints": true
     }
   ]

@@ -16,9 +16,9 @@ CREATE TABLE "account" (
 --> statement-breakpoint
 CREATE TABLE "cart_item" (
 	"cartId" uuid NOT NULL,
-	"productId" uuid NOT NULL,
+	"consultationServiceId" uuid NOT NULL,
 	"quantity" integer DEFAULT 1 NOT NULL,
-	CONSTRAINT "cart_item_cartId_productId_pk" PRIMARY KEY("cartId","productId")
+	CONSTRAINT "cart_item_cartId_productId_pk" PRIMARY KEY("cartId","consultationServiceId")
 );
 --> statement-breakpoint
 CREATE TABLE "cart" (
@@ -98,7 +98,7 @@ CREATE TABLE "verificationTokens" (
 --> statement-breakpoint
 ALTER TABLE "account" ADD CONSTRAINT "account_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "cart_item" ADD CONSTRAINT "cart_item_cartId_cart_id_fk" FOREIGN KEY ("cartId") REFERENCES "public"."cart"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "cart_item" ADD CONSTRAINT "cart_item_productId_product_id_fk" FOREIGN KEY ("productId") REFERENCES "public"."product"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "cart_item" ADD CONSTRAINT "cart_item_productId_product_id_fk" FOREIGN KEY ("consultationServiceId") REFERENCES "public"."product"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "cart" ADD CONSTRAINT "cart_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "otpCodes" ADD CONSTRAINT "otpCodes_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "post" ADD CONSTRAINT "post_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint

@@ -10,7 +10,7 @@ export interface TranslationsStructure {
     common: CommonTranslations;
     auth: AuthTranslations;
     validation: ValidationTranslations;
-    cartItems: CartItemsTranslations;
+    consultationRequest: CartItemsTranslations;
     ourSolutions: OurSolutionsTranslations;
     sidebar: SidebarTranslations;
     bookConsultation: BookConsultationTranslations;

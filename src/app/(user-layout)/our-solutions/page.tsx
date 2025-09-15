@@ -49,14 +49,14 @@ const OurSolutionsPage = () => {
                             )}
                         </li>
                     </ul>
-                    <p>
+                    <p className="mt-6">
                         <strong>
                             {t(
                                 'ourSolutions.financialFoundation.outcomes.title'
                             )}
                         </strong>
                     </p>
-                    <ul>
+                    <ul className="mt-2">
                         <li>
                             <strong>
                                 {t(
@@ -68,7 +68,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.financialFoundation.outcomes.roadmapDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.financialFoundation.outcomes.riskAssessment'
@@ -79,7 +79,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.financialFoundation.outcomes.riskAssessmentDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.financialFoundation.outcomes.assetKnowledge'
@@ -90,7 +90,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.financialFoundation.outcomes.assetKnowledgeDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.financialFoundation.outcomes.independentDecision'
@@ -101,7 +101,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.financialFoundation.outcomes.independentDecisionDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.financialFoundation.outcomes.budgetingMastery'
@@ -113,8 +113,8 @@ const OurSolutionsPage = () => {
                             )}
                         </li>
                     </ul>
-                    <p>
-                        <em>{t('ourSolutions.financialFoundation.note')}</em>
+                    <p className="font-bold mt-4">
+                        {t('ourSolutions.financialFoundation.note')}
                     </p>
                 </>
             ),
@@ -159,12 +159,12 @@ const OurSolutionsPage = () => {
                             )}
                         </li>
                     </ul>
-                    <p>
+                    <p className="mt-6">
                         <strong>
                             {t('ourSolutions.portfolioStrategy.outcomes.title')}
                         </strong>
                     </p>
-                    <ul>
+                    <ul className="mt-2">
                         <li>
                             <strong>
                                 {t(
@@ -176,7 +176,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.portfolioStrategy.outcomes.frameworkDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.portfolioStrategy.outcomes.rebalancing'
@@ -187,7 +187,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.portfolioStrategy.outcomes.rebalancingDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.portfolioStrategy.outcomes.toolsProficiency'
@@ -198,7 +198,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.portfolioStrategy.outcomes.toolsProficiencyDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.portfolioStrategy.outcomes.riskManagement'
@@ -209,7 +209,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.portfolioStrategy.outcomes.riskManagementDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.portfolioStrategy.outcomes.objectiveDecision'
@@ -221,8 +221,8 @@ const OurSolutionsPage = () => {
                             )}
                         </li>
                     </ul>
-                    <p>
-                        <em>{t('ourSolutions.portfolioStrategy.note')}</em>
+                    <p className="font-bold mt-4">
+                        {t('ourSolutions.portfolioStrategy.note')}
                     </p>
                 </>
             ),
@@ -242,12 +242,12 @@ const OurSolutionsPage = () => {
                         </strong>
                     </p>
                     <p>{t('ourSolutions.algoTrading.deliveryMethod.desc')}</p>
-                    <p>
+                    <p className="mt-6">
                         <strong>
                             {t('ourSolutions.algoTrading.outcomes.title')}
                         </strong>
                     </p>
-                    <ul>
+                    <ul className="mt-2">
                         <li>
                             <strong>
                                 {t(
@@ -259,7 +259,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.algoTrading.outcomes.codedSystemDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.algoTrading.outcomes.backtestReport'
@@ -270,7 +270,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.algoTrading.outcomes.backtestReportDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.algoTrading.outcomes.deployedTool'
@@ -281,7 +281,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.algoTrading.outcomes.deployedToolDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.algoTrading.outcomes.systematicExecution'
@@ -292,7 +292,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.algoTrading.outcomes.systematicExecutionDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.algoTrading.outcomes.fullOwnership'
@@ -304,8 +304,8 @@ const OurSolutionsPage = () => {
                             )}
                         </li>
                     </ul>
-                    <p>
-                        <em>{t('ourSolutions.algoTrading.note')}</em>
+                    <p className="font-bold mt-4">
+                        {t('ourSolutions.algoTrading.note')}
                     </p>
                 </>
             ),
@@ -350,14 +350,14 @@ const OurSolutionsPage = () => {
                             )}
                         </li>
                     </ul>
-                    <p>
+                    <p className="mt-6">
                         <strong>
                             {t(
                                 'ourSolutions.tradingPerformance.outcomes.title'
                             )}
                         </strong>
                     </p>
-                    <ul>
+                    <ul className="mt-2">
                         <li>
                             <strong>
                                 {t(
@@ -369,7 +369,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.tradingPerformance.outcomes.performanceViewDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.tradingPerformance.outcomes.behavioralPatterns'
@@ -380,7 +380,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.tradingPerformance.outcomes.behavioralPatternsDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.tradingPerformance.outcomes.improvementPlan'
@@ -391,7 +391,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.tradingPerformance.outcomes.improvementPlanDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.tradingPerformance.outcomes.selfReviewSkills'
@@ -402,7 +402,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.tradingPerformance.outcomes.selfReviewSkillsDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.tradingPerformance.outcomes.tradingDiscipline'
@@ -414,8 +414,8 @@ const OurSolutionsPage = () => {
                             )}
                         </li>
                     </ul>
-                    <p>
-                        <em>{t('ourSolutions.tradingPerformance.note')}</em>
+                    <p className="font-bold mt-4">
+                        {t('ourSolutions.tradingPerformance.note')}
                     </p>
                 </>
             ),
@@ -460,12 +460,12 @@ const OurSolutionsPage = () => {
                             )}
                         </li>
                     </ul>
-                    <p>
+                    <p className="mt-6">
                         <strong>
                             {t('ourSolutions.financialCourse.outcomes.title')}
                         </strong>
                     </p>
-                    <ul>
+                    <ul className="mt-2">
                         <li>
                             <strong>
                                 {t(
@@ -477,7 +477,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.financialCourse.outcomes.foundationalKnowledgeDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.financialCourse.outcomes.analysisSkills'
@@ -488,7 +488,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.financialCourse.outcomes.analysisSkillsDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.financialCourse.outcomes.toolProficiency'
@@ -499,7 +499,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.financialCourse.outcomes.toolProficiencyDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.financialCourse.outcomes.strategicFramework'
@@ -510,7 +510,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.financialCourse.outcomes.strategicFrameworkDesc'
                             )}
                         </li>
-                        <li>
+                        <li className="mt-2">
                             <strong>
                                 {t(
                                     'ourSolutions.financialCourse.outcomes.confidenceToInvest'
@@ -522,8 +522,8 @@ const OurSolutionsPage = () => {
                             )}
                         </li>
                     </ul>
-                    <p>
-                        <em>{t('ourSolutions.financialCourse.note')}</em>
+                    <p className="font-bold mt-4">
+                        {t('ourSolutions.financialCourse.note')}
                     </p>
                 </>
             ),

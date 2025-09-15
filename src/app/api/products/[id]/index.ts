@@ -1,4 +1,4 @@
-import { Product } from '@/db/schema';
+import { ConsultationServices } from '@/db/schema';
 import { BaseResponse } from '@/types/base-response';
 import { CreateNewProduct } from '@/types/product/request/create-product';
 import { UpdateProduct } from '@/types/product/request/update-product';
@@ -8,11 +8,11 @@ const API_BASE = '/api/products';
 /**
  * Fetches a product by ID from the API
  * @param id - The product ID
- * @returns Promise<BaseResponse<Product>>
+ * @returns Promise<BaseResponse<ConsultationServices>>
  */
 export const fetchProductById = async (
     id: string
-): Promise<BaseResponse<Product>> => {
+): Promise<BaseResponse<ConsultationServices>> => {
     const res = await fetch(`${API_BASE}/${id}`, {
         method: 'GET',
         headers: {
@@ -21,7 +21,7 @@ export const fetchProductById = async (
         cache: 'no-store',
     });
 
-    const data: BaseResponse<Product> = await res.json();
+    const data: BaseResponse<ConsultationServices> = await res.json();
     if (!res.ok) {
         throw new Error(data.message || 'Failed to fetch product');
     }
@@ -33,12 +33,12 @@ export const fetchProductById = async (
  * Updates a product fully (PUT request)
  * @param id - The product ID
  * @param payload - The updated product data
- * @returns Promise<BaseResponse<Product>>
+ * @returns Promise<BaseResponse<ConsultationServices>>
  */
 export const updateProduct = async (
     id: string,
     payload: CreateNewProduct
-): Promise<BaseResponse<Product>> => {
+): Promise<BaseResponse<ConsultationServices>> => {
     const res = await fetch(`${API_BASE}/${id}`, {
         method: 'PUT',
         headers: {
@@ -47,7 +47,7 @@ export const updateProduct = async (
         body: JSON.stringify(payload),
     });
 
-    const data: BaseResponse<Product> = await res.json();
+    const data: BaseResponse<ConsultationServices> = await res.json();
     if (!res.ok) {
         throw new Error(data.message || 'Failed to update product');
     }
@@ -59,12 +59,12 @@ export const updateProduct = async (
  * Partially updates a product (PATCH request)
  * @param id - The product ID
  * @param payload - The partial update data
- * @returns Promise<BaseResponse<Product>>
+ * @returns Promise<BaseResponse<ConsultationServices>>
  */
 export const patchProduct = async (
     id: string,
     payload: UpdateProduct
-): Promise<BaseResponse<Product>> => {
+): Promise<BaseResponse<ConsultationServices>> => {
     const res = await fetch(`${API_BASE}/${id}`, {
         method: 'PATCH',
         headers: {
@@ -73,7 +73,7 @@ export const patchProduct = async (
         body: JSON.stringify(payload),
     });
 
-    const data: BaseResponse<Product> = await res.json();
+    const data: BaseResponse<ConsultationServices> = await res.json();
     if (!res.ok) {
         throw new Error(data.message || 'Failed to partially update product');
     }

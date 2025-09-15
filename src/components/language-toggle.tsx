@@ -19,6 +19,11 @@ const languages = [
     },
 ];
 
+export type LanguageOptions = {
+    en: string;
+    vi: string;
+};
+
 export function LanguageToggle() {
     const { locale, setLocale } = useI18n();
 

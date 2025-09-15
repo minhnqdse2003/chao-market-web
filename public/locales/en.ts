@@ -88,7 +88,7 @@ export const en: TranslationsStructure = {
         invalidEmail: 'Invalid email address',
         passwordRequired: 'Password is required',
     },
-    cartItems: {
+    consultationRequest: {
         validation: {
             productNotSelected: 'Products not selected. Please select a product!',
         },
@@ -98,14 +98,14 @@ export const en: TranslationsStructure = {
             title: 'Financial Foundation Mentoring',
             description: 'Are you feeling overwhelmed by financial decisions and unsure where to begin? The Financial Foundation Mentoring program at Chào Market is designed to be your starting point. This is a program where we work together to build your core financial knowledge, starting with defining your personal goals and understanding your risk tolerance. You will learn proven methodologies for asset allocation and investment analysis, not as rigid rules, but as flexible frameworks you can adapt to confidently navigate the markets and make independent financial decisions.',
             deliveryOptions: {
-                title: 'Delivery Options (to suit your needs):',
+                title: 'Delivery options (to suit your needs):',
                 workshop: 'Interactive Small Group Workshop',
                 workshopDesc: 'Learn in a collaborative environment, sharing experiences with other investors.',
                 mentoring: 'Intensive 1-on-1 Mentoring',
                 mentoringDesc: 'A fully personalized roadmap, focusing deeply and confidentially on your unique financial situation.',
             },
             outcomes: {
-                title: 'Key Outcomes You Will Achieve:',
+                title: 'Key outcomes you will achieve:',
                 roadmap: 'A Clear Financial Roadmap',
                 roadmapDesc: 'You will craft a personalized financial plan that outlines clear, actionable steps towards your long-term goals.',
                 riskAssessment: 'Risk Assessment Skills',
@@ -123,14 +123,14 @@ export const en: TranslationsStructure = {
             title: 'Portfolio Strategy & Tools',
             description: 'Building a resilient investment portfolio is both an art and a science. At Chào Market, our philosophy is that a successful portfolio requires both a solid strategy and the right tools. This service is designed for investors who manage their own assets but want to refine their strategic approach. We will guide you through the core principles of modern portfolio construction, diversification, and rebalancing. You will learn how to use our algorithm-based tools to self-monitor market trends and analyze your portfolio\'s performance, enabling you to make proactive, data-driven decisions.',
             deliveryOptions: {
-                title: 'Delivery Options (to suit your needs):',
+                title: 'Delivery options (to suit your needs):',
                 workshop: 'Interactive Small Group Workshop',
                 workshopDesc: 'Master the principles in a group setting, learning from shared discussions.',
                 mentoring: 'Intensive 1-on-1 Mentoring',
                 mentoringDesc: 'A deep-dive session focused entirely on your specific portfolio and strategic goals.',
             },
             outcomes: {
-                title: 'Key Outcomes You Will Achieve:',
+                title: 'Key outcomes you will achieve:',
                 framework: 'A Practical Construction Framework',
                 frameworkDesc: 'Gain a step-by-step framework for building and diversifying a robust investment portfolio from scratch.',
                 rebalancing: 'Strategic Rebalancing Skills',
@@ -145,7 +145,7 @@ export const en: TranslationsStructure = {
             note: 'Note: We provide the frameworks and tools; all final investment decisions are made by you.',
         },
         algoTrading: {
-            title: 'Algorithmic Trading System Development',
+            title: 'Algorithmic Trading Solution',
             description: 'You have a unique trading strategy, but implementing it manually is inefficient. As your technical partner, Chào Market transforms your vision into a powerful, automated trading system. You are the strategist; we are the technical implementers. The process includes in-depth consultations to understand your rules, programming the logic, providing a comprehensive backtest report, and supporting you in deploying the system.',
             deliveryMethod: {
                 title: 'Delivery Method:',
@@ -170,14 +170,14 @@ export const en: TranslationsStructure = {
             title: 'Trading Performance Mentoring',
             description: 'Are your trading results inconsistent? The Chào Market Performance Deep-Dive is our mentoring service designed to find the answers in your own trading data. We perform a deep analysis of your trading history, transforming raw data into actionable insights. We use statistical analysis to generate visual reports that highlight your performance metrics and behavioral patterns. The goal is to foster powerful self-awareness, enabling you to refine your risk management skills and improve your trading discipline objectively.',
             deliveryOptions: {
-                title: 'Delivery Options (to suit your needs):',
+                title: 'Delivery options (to suit your needs):',
                 workshop: 'Group Workshop',
                 workshopDesc: 'Learn performance analysis methods through anonymized case studies and group discussions.',
                 mentoring: '1-on-1 Mentoring',
                 mentoringDesc: 'A deep and confidential analysis of your personal trading history, providing private, specific feedback.',
             },
             outcomes: {
-                title: 'Key Outcomes You Will Achieve:',
+                title: 'Key outcomes you will achieve:',
                 performanceView: 'A Clear View of Your Performance',
                 performanceViewDesc: 'A deep understanding of your key performance metrics (win rate, risk/reward, max drawdown, etc.).',
                 behavioralPatterns: 'Identification of Behavioral Patterns',
@@ -195,14 +195,14 @@ export const en: TranslationsStructure = {
             title: 'Financial Investment Course',
             description: 'In a world of information overload, finding a trusted source of knowledge is key. The Financial Investment Course at Chào Market is designed to systematically build your expertise, from the ground up. We start with the core foundations of financial markets and asset types, then move into practical analysis methods and proven investment strategies. A key focus of the course is the hands-on application of modern algorithmic tools, empowering you to make smarter, data-driven decisions.',
             deliveryOptions: {
-                title: 'Delivery Options (to suit your needs):',
+                title: 'Delivery options (to suit your needs):',
                 groupClass: 'Small Group Class',
                 groupClassDesc: 'Join a community of learners to benefit from group discussions and interactive Q&A sessions.',
                 privateMentoring: 'Private 1-on-1 Mentoring',
                 privateMentoringDesc: 'A customized learning experience where the curriculum is tailored to your knowledge level.',
             },
             outcomes: {
-                title: 'Key Outcomes You Will Achieve:',
+                title: 'Key outcomes you will achieve:',
                 foundationalKnowledge: 'Solid Foundational Knowledge',
                 foundationalKnowledgeDesc: 'A comprehensive understanding of how financial markets operate, including stocks, forex, and other major asset classes.',
                 analysisSkills: 'Practical Analysis Skills',
@@ -223,7 +223,8 @@ export const en: TranslationsStructure = {
     },
     sidebar: {
         home: 'Home',
-        clientsAccounts: 'Client\'s Accounts',
+        marketData: 'Market Data',
+        clientsAccounts: 'Client Accounts',
         ourSolutions: 'Our Solutions',
         newsEvents: 'News & Events',
         news: 'News',

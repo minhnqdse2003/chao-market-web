@@ -12,6 +12,10 @@ export { default as NewsEventMockBanner } from './news-events-mock-banner.svg';
 export { default as EmptyCart } from './empty-cart.png';
 export { default as CompleteCheckout } from './complete-checkout.png';
 export { default as ResetPasswordComplete } from './reset-password-complete.svg';
+import { default as HomeBanner1 } from './home-banner-1.jpg';
+import { default as HomeBanner2 } from './home-banner-2.jpg';
+import { default as HomeBanner3 } from './home-banner-3.jpg';
+
 
 import { default as ConsultingService } from './product-service-2.png';
 import { default as MngInvestProfile } from './product-service-1.png';
@@ -19,10 +23,16 @@ import { default as TradingSystem } from './trading-system.png';
 import { default as FinInvestment } from './fin-invest-course.png';
 import { default as AnalysingTrade } from './analysing-trading.png';
 
-export const ProductServiceImg = {
+export const ConsultationServices = {
     'product-service-2': ConsultingService,
     'product-service-1': MngInvestProfile,
     'product-service-3': TradingSystem,
     'product-service-5': AnalysingTrade,
     'product-service-4': FinInvestment,
+};
+
+export const HomeBannerImages = {
+    HomeBanner1,
+    HomeBanner2,
+    HomeBanner3,
 };

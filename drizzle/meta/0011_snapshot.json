@@ -1,6 +1,6 @@
 {
-  "id": "db388f5c-d08f-4246-9292-d85ddc58ab72",
-  "prevId": "72603843-11ad-4446-be19-acbaf71147e8",
+  "id": "9efa7029-bb11-4bbe-953c-62827d325a8e",
+  "prevId": "db388f5c-d08f-4246-9292-d85ddc58ab72",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -208,12 +208,6 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
-        },
-        "totalAmount": {
-          "name": "totalAmount",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
         },
         "status": {
           "name": "status",

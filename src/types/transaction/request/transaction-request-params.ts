@@ -1,4 +1,4 @@
-import { NewTransaction } from '@/db/schema';
+import { NewConsultations } from '@/db/schema';
 import { zodPaginationSchema, zodTimeStampModifiedSchema } from '@/schema/zod';
 import { PaginationRequest } from '@/types/pagination';
 import { z } from 'zod';
@@ -6,7 +6,7 @@ import { z } from 'zod';
 export interface TransactionRequestParams
     extends PaginationRequest,
         Pick<
-            NewTransaction,
+            NewConsultations,
             'status' | 'createdAt' | 'updatedAt' | 'totalAmount'
         > {}
 

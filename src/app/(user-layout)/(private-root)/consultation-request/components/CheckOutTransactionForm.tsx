@@ -19,31 +19,50 @@ import { AppDatePicker } from '@/components/app-date-picker';
 import { Label } from '@/components/ui/label';
 
 // Define the validation schema
-const checkoutSchema = z.object({
-    firstName: z.string().min(1, 'First name is required'),
-    lastName: z.string().min(1, 'Last name is required'),
-    dateOfBirth: z.string().min(1, 'Date of birth is required'),
-    email: z.email('Invalid email address').min(1, 'Email is required'),
-    phoneNumber: z.string().min(1, 'Phone number is required'),
-    socialNetwork: z.string().optional(),
-    contactMethods: z
-        .array(z.string())
-        .min(1, 'At least one contact method is required'),
-    message: z.string().optional(),
-});
-
+const checkoutSchema = z
+    .object({
+        firstName: z.string().min(1, 'First name is required'),
+        lastName: z.string().min(1, 'Last name is required'),
+        dateOfBirth: z
+            .date('Invalid date format')
+            .optional()
+            .refine(date => !date || date < new Date(), {
+                message: 'Date of birth must be in the past',
+            }),
+        email: z.email('Invalid email address').min(1, 'Email is required'),
+        phoneNumber: z.string().min(1, 'Phone number is required'),
+        socialNetwork: z.string().optional(),
+        contactMethods: z
+            .array(z.string())
+            .min(1, 'At least one contact method is required'),
+        message: z.string().optional(),
+    })
+    .refine(
+        data => {
+            // If social network is selected as contact method, socialNetwork field is required
+            if (data.contactMethods.includes('social-network')) {
+                return (
+                    data.socialNetwork && data.socialNetwork.trim().length > 0
+                );
+            }
+            return true;
+        },
+        {
+            message:
+                'Social network is required when selected as contact method',
+            path: ['socialNetwork'],
+        }
+    );
 export type CheckoutFormData = z.infer<typeof checkoutSchema>;
 
 interface CheckOutTransactionFormProps {
     onSubmit: (data: CheckoutFormData) => Promise<void>;
-    saveForLater: (data: CheckoutFormData) => Promise<void>;
     isDisableSubmitButton: boolean;
     initialData?: UserProfile | null;
 }
 
 export default function CheckOutTransactionForm({
     onSubmit,
-    saveForLater,
     isDisableSubmitButton,
     initialData,
 }: CheckOutTransactionFormProps) {
@@ -70,7 +89,9 @@ export default function CheckOutTransactionForm({
             form.reset({
                 firstName: initialData.firstName || '',
                 lastName: initialData.lastName || '',
-                dateOfBirth: initialData.dateOfBirth || undefined,
+                dateOfBirth: initialData.dateOfBirth
+                    ? new Date(initialData.dateOfBirth)
+                    : undefined,
                 email: initialData.email || '',
                 phoneNumber: initialData.phoneNumber || '',
                 socialNetwork: initialData.socialNetwork || '',
@@ -90,18 +111,6 @@ export default function CheckOutTransactionForm({
             form.reset();
         } catch (error) {
             console.error('Submission error:', error);
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
-    // Function to handle form save
-    const handleOnSave = async (data: CheckoutFormData) => {
-        setIsSubmitting(true);
-        try {
-            await saveForLater(data);
-        } catch (error) {
-            console.error('Save error:', error);
         } finally {
             setIsSubmitting(false);
         }
@@ -420,17 +429,9 @@ export default function CheckOutTransactionForm({
                 <div className="mt-4 flex gap-4">
                     <button
                         type="button"
-                        onClick={form.handleSubmit(handleOnSave)}
-                        disabled={isSubmitting}
-                        className="dark:text-white dark:hover:text-[var(--brand-color)] cursor-pointer px-6 py-2 rounded-md transition-colors! ease-in-out font-semibold duration-300 disabled:opacity-50 text-brand-text hover:bg-[var(--brand-grey)]"
-                    >
-                        {isSubmitting ? 'Processing...' : 'Save For Later'}
-                    </button>
-                    <button
-                        type="button"
                         onClick={form.handleSubmit(handleSubmit)}
                         disabled={isSubmitting || isDisableSubmitButton}
-                        className="border border-transparent not-disabled:hover:border-[var(--brand-color)] dark:not-disabled:text-[var(--brand-color)] not-disabled:hover:text-black not-disabled:cursor-pointer dark:not-disabled:hover:bg-[var(--brand-color)] px-6 py-2 rounded-md disabled:opacity-75 disabled:text-[var(--brand-color)] transition-all! duration-300 ease-in-out font-semibold text-brand-text hover:bg-[var(--brand-color)]"
+                        className="border border-transparent not-disabled:hover:border-[var(--brand-color)] dark:not-disabled:text-[var(--brand-color)] not-disabled:hover:text-black not-disabled:cursor-pointer dark:not-disabled:hover:bg-[var(--brand-color)] px-6 py-2 rounded-md disabled:opacity-75 disabled:text-[var(--brand-color)] transition-all! duration-300 ease-in-out font-semibold text-brand-text hover:bg-[var(--brand-color)] dark:hover:text-black"
                     >
                         {isSubmitting
                             ? 'Processing...'

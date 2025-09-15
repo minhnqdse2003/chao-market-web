@@ -1,1 +1,0 @@
-ALTER TABLE "post" ADD COLUMN "market" text DEFAULT 'all' NOT NULL;

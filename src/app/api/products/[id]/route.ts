@@ -1,4 +1,4 @@
-import { Product, products } from '@/db/schema';
+import { ConsultationServices, consultationServices } from '@/db/schema';
 import { withAuth } from '@/lib/api-route-middleware';
 import { db } from '@/lib/db';
 import { BaseResponse } from '@/types/base-response';
@@ -28,7 +28,7 @@ const getProductById = async (
         {
             data: product,
             message: 'Product retrieved successfully',
-        } as BaseResponse<Product>,
+        } as BaseResponse<ConsultationServices>,
         { status: 200 }
     );
 };
@@ -47,9 +47,9 @@ const updateProduct = async (
 
     const updatedProduct: CreateNewProduct = parsedRequestData.data;
     const [result] = await db
-        .update(products)
+        .update(consultationServices)
         .set(updatedProduct)
-        .where(eq(products.id, id))
+        .where(eq(consultationServices.id, id))
         .returning();
 
     if (!result) {
@@ -63,7 +63,7 @@ const updateProduct = async (
         {
             data: result,
             message: 'Product updated successfully',
-        } as BaseResponse<Product>,
+        } as BaseResponse<ConsultationServices>,
         { status: 200 }
     );
 };
@@ -82,9 +82,9 @@ const patchProduct = async (
 
     const updatedProduct = parsedRequestData.data;
     const [result] = await db
-        .update(products)
+        .update(consultationServices)
         .set(updatedProduct)
-        .where(eq(products.id, id))
+        .where(eq(consultationServices.id, id))
         .returning();
 
     if (!result) {
@@ -95,7 +95,7 @@ const patchProduct = async (
         {
             data: result,
             message: 'Product partially updated successfully',
-        } as BaseResponse<Product>,
+        } as BaseResponse<ConsultationServices>,
         { status: 200 }
     );
 };

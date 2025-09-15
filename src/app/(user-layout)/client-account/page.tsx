@@ -29,7 +29,7 @@ const dataList = [
             alt: 'user1',
             fallback: 'JD',
         },
-        market: 'STOCK',
+        market: 'STOCKS',
         account: {
             name: 'John Doe',
             startDate: '01-01-2024',
@@ -45,7 +45,7 @@ const dataList = [
             alt: 'user1',
             fallback: 'JD',
         },
-        market: 'STOCK',
+        market: 'STOCKS',
         account: {
             name: 'John Doe',
             startDate: '01-01-2024',
@@ -61,7 +61,7 @@ const dataList = [
             alt: 'user1',
             fallback: 'JD',
         },
-        market: 'STOCK',
+        market: 'STOCKS',
         account: {
             name: 'John Doe',
             startDate: '01-01-2024',
@@ -77,7 +77,7 @@ const dataList = [
             alt: 'user1',
             fallback: 'JD',
         },
-        market: 'STOCK',
+        market: 'STOCKS',
         account: {
             name: 'John Doe',
             startDate: '01-01-2024',
@@ -93,7 +93,7 @@ const dataList = [
             alt: 'user2',
             fallback: 'JS',
         },
-        market: 'CRYPTO',
+        market: 'CRYPTOCURRENCIES',
         account: {
             name: 'Jane Smith',
             startDate: '15-03-2024',
@@ -109,7 +109,7 @@ const dataList = [
             alt: 'user3',
             fallback: 'AJ',
         },
-        market: 'FOREX',
+        market: 'CURRENCIES',
         account: {
             name: 'Alex Johnson',
             startDate: '10-06-2024',
@@ -125,7 +125,7 @@ const dataList = [
             alt: 'user4',
             fallback: 'EB',
         },
-        market: 'COMMODITIY',
+        market: 'COMMODITIES',
         account: {
             name: 'Emma Brown',
             startDate: '20-08-2024',
@@ -141,7 +141,7 @@ const dataList = [
             alt: 'user5',
             fallback: 'MC',
         },
-        market: 'STOCK',
+        market: 'STOCKS',
         account: {
             name: 'Michael Chen',
             startDate: '05-10-2024',
@@ -157,7 +157,7 @@ const dataList = [
             alt: 'user6',
             fallback: 'SL',
         },
-        market: 'CRYPTO',
+        market: 'CRYPTOCURRENCIES',
         account: {
             name: 'Sarah Lee',
             startDate: '12-12-2024',
@@ -230,7 +230,7 @@ export default function Page() {
                         <Card
                             key={index}
                             onClick={() => handleCardClick(index)}
-                            className={`h-fit py-4 cursor-pointer transition-all! gap-0 max-h-1/3 dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] duration-300 ease-in-out ${activeCard === index ? 'dark:border-[var(--brand-color)] border-black' : ''} ${activeCard !== null ? 'w-[calc(50%-1rem)]' : 'w-[calc(33.33%-1rem)]'}`}
+                            className={`h-fit border-brand-dropdown-title py-4 cursor-pointer transition-all! gap-0 max-h-1/3 dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] duration-300 ease-in-out ${activeCard === index ? 'dark:border-[var(--brand-color)] border-black' : ''} ${activeCard !== null ? 'w-[calc(50%-1rem)]' : 'w-[calc(33.33%-1rem)]'}`}
                         >
                             <CardHeader>
                                 <div className="flex items-center justify-center gap-2 w-full">
@@ -259,7 +259,9 @@ export default function Page() {
                                     <strong
                                         className={
                                             'rounded-sm dark:text-black text-black' +
-                                            ' text-xs dark:bg-[var(--brand-color)] bg-[var(--brand-color)] px-1.5' +
+                                            ' text-xs border dark:border-white dark:text-white' +
+                                            ' bg-transparent border-black text-black' +
+                                            ' px-2 py-1' +
                                             ' py-1' +
                                             ' font-semibold'
                                         }
@@ -299,7 +301,7 @@ export default function Page() {
                     ))}
                 </div>
                 <Card
-                    className={`w-full ml-4 min-h-full overflow-y-auto dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] text-xs p-0 transition-all! duration-300 ease-in-out [&[data-state=inactive]]:w-0 [&[data-state=inactive]]:opacity-0 [&[data-state=active]]:opacity-100`}
+                    className={`w-full ml-4 min-h-full border-brand-dropdown-title overflow-y-auto dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] text-xs p-0 transition-all! duration-300 ease-in-out [&[data-state=inactive]]:w-0 [&[data-state=inactive]]:opacity-0 [&[data-state=active]]:opacity-100`}
                     data-state={activeCard !== null ? 'active' : 'inactive'}
                 >
                     <CardHeader className="flex relative flex-row items-center justify-between p-4">
@@ -322,7 +324,9 @@ export default function Page() {
                                 <strong
                                     className={
                                         'rounded-sm dark:text-black text-black' +
-                                        ' text-xs dark:bg-[var(--brand-color)] bg-[var(--brand-color)] px-1.5' +
+                                        ' text-xs border dark:border-white dark:text-white' +
+                                        ' dark:bg-[var(--brand-color)] bg-transparent border-black text-black' +
+                                        ' px-1.5' +
                                         ' py-1' +
                                         ' font-semibold'
                                     }

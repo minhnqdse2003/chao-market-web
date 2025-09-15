@@ -1,5 +1,6 @@
 export interface SidebarTranslations {
     home: string;
+    marketData: string;
     clientsAccounts: string;
     ourSolutions: string;
     newsEvents: string;

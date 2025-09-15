@@ -11,6 +11,7 @@ import {
 } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import type { AdapterAccount } from '@auth/core/adapters';
+import { json } from 'drizzle-orm/pg-core/columns/json';
 
 export const userRoleEnum = pgEnum('user_role', ['ADMIN', 'USER']);
 export const postTypeEnum = pgEnum('post_type', [
@@ -119,58 +120,24 @@ export const otpCodes = pgTable('otpCodes', {
     createdAt: timestamp('createdAt', { mode: 'date' }).notNull().defaultNow(),
 });
 
-export const products = pgTable('product', {
+export const consultationServices = pgTable('consultation_services', {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
-    name: text('name').notNull(),
-    description: text('description'),
-    price: integer('price').notNull(),
-    stock: integer('stock'),
+    name: json('name').$type<{ en: string; vi: string }>().notNull(),
+    description: json('description').$type<{ en: string; vi: string }>(),
     imageUrl: text('imageUrl'),
     createdAt: timestamp('createdAt', { mode: 'date' }).defaultNow().notNull(),
 });
 
-export const carts = pgTable('cart', {
+export const consultations = pgTable('consultation', {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
-    userId: uuid('userId')
-        .notNull()
-        .references(() => users.id, { onDelete: 'cascade' }),
-    isCheckedOut: boolean('isCheckedOut').default(false).notNull(),
-    createdAt: timestamp('createdAt', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updatedAt', { mode: 'date' }).defaultNow().notNull(),
-});
-
-export const cartItems = pgTable(
-    'cart_item',
-    {
-        cartId: uuid('cartId')
-            .notNull()
-            .references(() => carts.id, { onDelete: 'cascade' }),
-        productId: uuid('productId')
-            .notNull()
-            .references(() => products.id, { onDelete: 'cascade' }),
-        quantity: integer('quantity').notNull().default(1),
-    },
-    table => [primaryKey({ columns: [table.cartId, table.productId] })]
-);
-
-export const transactions = pgTable('transaction', {
-    id: uuid('id').defaultRandom().primaryKey().notNull(),
-    cartId: uuid('cartId')
-        .notNull()
-        .references(() => carts.id, { onDelete: 'cascade' }),
-    userId: uuid('userId')
-        .notNull()
-        .references(() => users.id, { onDelete: 'cascade' }),
-    // New columns for user information
     firstName: text('firstName').notNull(),
     lastName: text('lastName').notNull(),
     dateOfBirth: timestamp('dateOfBirth', { mode: 'date' }),
     email: text('email').notNull(),
     phoneNumber: text('phoneNumber').notNull(),
     socialNetwork: text('socialNetwork'),
-    contactMethods: text('contactMethods').array().notNull(), // Store as text array
+    contactMethods: text('contactMethods').array().notNull(),
     message: text('message'),
-    totalAmount: integer('totalAmount').notNull(),
     status: text('status')
         .$type<'pending' | 'completed' | 'cancelled' | 'failed'>()
         .notNull(),
@@ -178,17 +145,18 @@ export const transactions = pgTable('transaction', {
     updatedAt: timestamp('updatedAt', { mode: 'date' }).defaultNow().notNull(),
 });
 
-export const transactionItems = pgTable('transaction_item', {
-    id: uuid('id').defaultRandom().primaryKey().notNull(),
-    transactionId: uuid('transactionId')
-        .notNull()
-        .references(() => transactions.id, { onDelete: 'cascade' }),
-    productId: uuid('productId')
-        .notNull()
-        .references(() => products.id, { onDelete: 'cascade' }),
-    quantity: integer('quantity').notNull(),
-    price: integer('price').notNull(),
-});
+export const consultationsProducts = pgTable(
+    'consultations_products',
+    {
+        consultationId: uuid('consultationId')
+            .notNull()
+            .references(() => consultations.id, { onDelete: 'cascade' }),
+        productId: uuid('productId')
+            .notNull()
+            .references(() => consultationServices.id, { onDelete: 'cascade' }),
+    },
+    table => [primaryKey({ columns: [table.consultationId, table.productId] })]
+);
 
 export const posts = pgTable('post', {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
@@ -242,8 +210,6 @@ export const usersRelations = relations(users, ({ many }) => ({
     accounts: many(accounts),
     sessions: many(sessions),
     otpCodes: many(otpCodes),
-    carts: many(carts),
-    transactions: many(transactions),
     posts: many(posts),
 }));
 
@@ -263,52 +229,27 @@ export const otpCodesRelations = relations(otpCodes, ({ one }) => ({
     user: one(users, { fields: [otpCodes.userId], references: [users.id] }),
 }));
 
-export const productRelations = relations(products, ({ many }) => ({
-    cartItems: many(cartItems),
+export const productRelations = relations(consultationServices, ({ many }) => ({
+    consultationProducts: many(consultationsProducts),
 }));
 
-export const cartRelations = relations(carts, ({ one, many }) => ({
-    user: one(users, { fields: [carts.userId], references: [users.id] }),
-    items: many(cartItems),
-    transactions: many(transactions),
-}));
-
-export const cartItemRelations = relations(cartItems, ({ one }) => ({
-    cart: one(carts, { fields: [cartItems.cartId], references: [carts.id] }),
-    product: one(products, {
-        fields: [cartItems.productId],
-        references: [products.id],
-    }),
-}));
-
-export const transactionRelations = relations(
-    transactions,
-    ({ one, many }) => ({
-        user: one(users, {
-            fields: [transactions.userId],
-            references: [users.id],
-        }),
-        cart: one(carts, {
-            fields: [transactions.cartId],
-            references: [carts.id],
-        }),
-        items: many(transactionItems),
-    })
-);
-
-export const transactionItemRelations = relations(
-    transactionItems,
+export const consultationsProductsRelations = relations(
+    consultationsProducts,
     ({ one }) => ({
-        transaction: one(transactions, {
-            fields: [transactionItems.transactionId],
-            references: [transactions.id],
+        consultation: one(consultations, {
+            fields: [consultationsProducts.consultationId],
+            references: [consultations.id],
         }),
-        product: one(products, {
-            fields: [transactionItems.productId],
-            references: [products.id],
+        product: one(consultationServices, {
+            fields: [consultationsProducts.productId],
+            references: [consultationServices.id],
         }),
     })
 );
+
+export const consultationRelations = relations(consultations, ({ many }) => ({
+    consultationProducts: many(consultationsProducts),
+}));
 
 export const postsRelations = relations(posts, ({ one, many }) => ({
     user: one(users, { fields: [posts.userId], references: [users.id] }),
@@ -337,11 +278,9 @@ export type Account = typeof accounts.$inferSelect;
 export type Session = typeof sessions.$inferSelect;
 export type VerificationToken = typeof verificationTokens.$inferSelect;
 export type OtpCode = typeof otpCodes.$inferSelect;
-export type Product = typeof products.$inferSelect;
-export type Cart = typeof carts.$inferSelect;
-export type CartItem = typeof cartItems.$inferSelect;
-export type Transaction = typeof transactions.$inferSelect;
-export type TransactionItem = typeof transactionItems.$inferSelect;
+export type ConsultationServices = typeof consultationServices.$inferSelect;
+export type ConsultationsProducts = typeof consultationsProducts.$inferSelect;
+export type Consultation = typeof consultations.$inferSelect;
 export type Post = typeof posts.$inferSelect;
 export type Tag = typeof tags.$inferSelect;
 export type PostTag = typeof postTags.$inferSelect;
@@ -352,11 +291,9 @@ export type NewAccount = typeof accounts.$inferInsert;
 export type NewSession = typeof sessions.$inferInsert;
 export type NewVerificationToken = typeof verificationTokens.$inferInsert;
 export type NewOtpCode = typeof otpCodes.$inferInsert;
-export type NewProduct = typeof products.$inferInsert;
-export type NewCart = typeof carts.$inferInsert;
-export type NewCartItem = typeof cartItems.$inferInsert;
-export type NewTransaction = typeof transactions.$inferInsert;
-export type NewTransactionItem = typeof transactionItems.$inferInsert;
+export type NewConsultationServices = typeof consultationServices.$inferInsert;
+export type NewConsultationProducts = typeof consultationsProducts.$inferInsert;
+export type NewConsultations = typeof consultations.$inferInsert;
 export type NewPost = typeof posts.$inferInsert;
 export type NewTag = typeof tags.$inferInsert;
 export type NewPostTag = typeof postTags.$inferInsert;

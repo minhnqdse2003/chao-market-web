@@ -1,6 +1,6 @@
 {
-  "id": "db388f5c-d08f-4246-9292-d85ddc58ab72",
-  "prevId": "72603843-11ad-4446-be19-acbaf71147e8",
+  "id": "5331e74e-cc81-4050-bd50-8e2e2cd7e711",
+  "prevId": "9efa7029-bb11-4bbe-953c-62827d325a8e",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -118,13 +118,13 @@
         },
         "name": {
           "name": "name",
-          "type": "text",
+          "type": "json",
           "primaryKey": false,
           "notNull": true
         },
         "description": {
           "name": "description",
-          "type": "text",
+          "type": "json",
           "primaryKey": false,
           "notNull": false
         },
@@ -208,12 +208,6 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
-        },
-        "totalAmount": {
-          "name": "totalAmount",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
         },
         "status": {
           "name": "status",

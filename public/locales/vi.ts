@@ -88,7 +88,7 @@ export const vi: TranslationsStructure = {
         invalidEmail: 'Địa chỉ email không hợp lệ',
         passwordRequired: 'Mật khẩu là bắt buộc',
     },
-    cartItems: {
+    consultationRequest: {
         validation: {
             productNotSelected: 'Chưa chọn sản phẩm. Vui lòng chọn sản phẩm!',
         },
@@ -145,7 +145,7 @@ export const vi: TranslationsStructure = {
             note: 'Lưu ý: Chúng tôi cung cấp khuôn khổ và công cụ; mọi quyết định đầu tư cuối cùng đều do bạn thực hiện.',
         },
         algoTrading: {
-            title: 'Phát triển Hệ thống Giao dịch',
+            title: 'Giao Dịch Thuật Toán',
             description: 'Bạn có một chiến lược giao dịch độc đáo, nhưng việc thực thi thủ công vừa không hiệu quả. Với vai trò là đối tác kỹ thuật, Chào Market sẽ biến tầm nhìn của bạn thành một hệ thống giao dịch tự động hóa mạnh mẽ. Bạn là nhà chiến lược; chúng tôi là người hiện thực hóa. Quy trình bao gồm các buổi thảo luận sâu để hiểu rõ quy tắc của bạn, lập trình logic, cung cấp báo cáo backtest toàn diện, và hỗ trợ bạn triển khai hệ thống.',
             deliveryMethod: {
                 title: 'Hình thức Cung cấp:',
@@ -224,6 +224,7 @@ export const vi: TranslationsStructure = {
     sidebar: {
         home: 'Trang chủ',
         clientsAccounts: 'Tài khoản Khách hàng',
+        marketData: 'Dữ Liệu Thị Trường',
         ourSolutions: 'Giải pháp của chúng tôi',
         newsEvents: 'Tin tức & Sự kiện',
         news: 'Tin tức',

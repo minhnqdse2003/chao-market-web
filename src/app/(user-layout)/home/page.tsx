@@ -1,94 +1,46 @@
-'use client';
+import AppCarousel, { CarouselItemProps } from '@/components/app-carousel';
+import { HomeBannerImages } from '@image/index';
 
-import React from 'react';
-import {
-    columns,
-    ExchangeRate,
-    exchangeRateColumns,
-    goldPriceColumns,
-    GoldPriceData,
-    HomeNewFlow,
-    interestRateColumns,
-    InterestRateData,
-} from './columns';
-import { DataTable } from '@/components/data-table';
-import { getTabData } from './data-utils';
-import { AppTabs } from '@/components/app-tabs';
-import { GeneralBanner } from '@/components/app-banner';
-import { AppDatePicker } from '@/components/app-date-picker';
-
-const Page = () => {
-    const tabsList = [
+export default function HomePage() {
+    const carouselItems: CarouselItemProps[] = [
         {
-            title: 'News Flow',
-            value: 'newsFlow',
-            renderContent: async () => {
-                const data = (await getTabData('newsFlow')) as HomeNewFlow[];
-                return <DataTable columns={columns} data={data} />;
-            },
+            id: '1',
+            imageUrl: HomeBannerImages.HomeBanner1,
+            link: '/products/1',
+            alt: 'Product 1',
+            title: 'Summer Sale',
+            description: 'Up to 50% off on selected items',
         },
         {
-            title: 'Exchange Rate',
-            value: 'exchangeRate',
-            renderContent: async () => {
-                const data = (await getTabData(
-                    'exchangeRate'
-                )) as ExchangeRate[];
-                const onDateChange = (date: Date | undefined) => {
-                    console.log(date);
-                };
-                return (
-                    <div>
-                        <AppDatePicker onDateChange={onDateChange} />
-                        <DataTable columns={exchangeRateColumns} data={data} />
-                    </div>
-                );
-            },
+            id: '2',
+            imageUrl: HomeBannerImages.HomeBanner2,
+            link: '/services',
+            alt: 'Services',
+            title: 'New Services',
+            description: 'Check out our latest offerings',
         },
         {
-            title: 'Interest Rate',
-            value: 'interestRate',
-            renderContent: async () => {
-                const data = (await getTabData(
-                    'interestRate'
-                )) as InterestRateData[];
-                const onDateChange = (date: Date | undefined) => {
-                    console.log(date);
-                };
-                return (
-                    <div>
-                        <AppDatePicker onDateChange={onDateChange} />
-                        <DataTable columns={interestRateColumns} data={data} />
-                    </div>
-                );
-            },
-        },
-        {
-            title: 'Gold Price (Vietnam)',
-            value: 'goldPriceVietnam',
-            renderContent: async () => {
-                const data = (await getTabData(
-                    'goldPriceVietnam'
-                )) as GoldPriceData[];
-                const onDateChange = (date: Date | undefined) => {
-                    console.log(date);
-                };
-                return (
-                    <div>
-                        <AppDatePicker onDateChange={onDateChange} />
-                        <DataTable columns={goldPriceColumns} data={data} />
-                    </div>
-                );
-            },
+            id: '3',
+            imageUrl: HomeBannerImages.HomeBanner3,
+            link: '/about',
+            alt: 'About Us',
+            title: 'Our Story',
+            description: 'Learn more about our company',
         },
     ];
 
     return (
-        <div className="w-full">
-            <GeneralBanner />
-            <AppTabs tabsList={tabsList} />
+        <div className="container mx-auto py-8">
+            <AppCarousel
+                items={carouselItems}
+                autoPlay={true}
+                autoPlayDelay={2000}
+                showIndicators={true}
+                showNavigation={true}
+                imageClassName="rounded-xl"
+                className={'h-[25svh]'}
+                indicatorClassName="w-2 h-2"
+            />
         </div>
     );
-};
-
-export default Page;
+}

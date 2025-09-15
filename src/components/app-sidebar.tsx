@@ -8,7 +8,8 @@ import {
     Users,
     GalleryVerticalEnd,
     Info,
-    TrendingUp,
+    BriefcaseBusiness,
+    BarChart,
 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useI18n } from '@/context/i18n/context';
@@ -51,6 +52,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 icon: Home,
             },
             {
+                title: t('sidebar.marketData'),
+                url: '/market-data',
+                icon: BarChart,
+            },
+            {
                 title: t('sidebar.clientsAccounts'),
                 url: '/client-account',
                 icon: IdCard,
@@ -58,7 +64,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
                 title: t('ourSolutions.common.title'),
                 url: '/our-solutions',
-                icon: TrendingUp,
+                icon: BriefcaseBusiness,
                 children: [
                     {
                         title: t('ourSolutions.financialFoundation.title'),

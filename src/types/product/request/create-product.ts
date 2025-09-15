@@ -1,8 +1,8 @@
-import { Product } from '@/db/schema';
+import { ConsultationServices } from '@/db/schema';
 import { z } from 'zod';
 
 export type CreateNewProduct = Pick<
-    Product,
+    ConsultationServices,
     'name' | 'description' | 'price' | 'imageUrl' | 'stock'
 >;
 

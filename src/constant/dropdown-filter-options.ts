@@ -3,20 +3,20 @@ import { AppFilterOptionsType } from '@/components/app-filter-select';
 
 export const MARKET_OPTIONS: AppFilterOptionsType[] = [
     {
-        name: 'Stock',
-        value: 'stock',
+        name: 'Stocks',
+        value: 'stocks',
     },
     {
-        name: 'Crypto',
-        value: 'crypto',
+        name: 'Cryptocurrencies',
+        value: 'cryptocurrencies',
     },
     {
-        name: 'Forex',
-        value: 'forex',
+        name: 'Currencies',
+        value: 'currencies',
     },
     {
-        name: 'Commodity',
-        value: 'commodity',
+        name: 'Commodities',
+        value: 'commodities',
     },
 ];
 
@@ -97,23 +97,23 @@ export const SORT_BY_OPTIONS: DropdownOption[] = [
         group: CLIENT_ACCOUNT_GROUP.MARKET,
     },
     {
-        value: 'stock',
-        label: 'Stock',
+        value: 'stocks',
+        label: 'Stocks',
         group: CLIENT_ACCOUNT_GROUP.MARKET,
     },
     {
-        value: 'crypto',
-        label: 'Crypto',
+        value: 'cryptocurrencies',
+        label: 'Cryptocurrencies',
         group: CLIENT_ACCOUNT_GROUP.MARKET,
     },
     {
-        value: 'forex',
-        label: 'Forex',
+        value: 'currencies',
+        label: 'Currencies',
         group: CLIENT_ACCOUNT_GROUP.MARKET,
     },
     {
-        value: 'commodity',
-        label: 'Commodity',
+        value: 'commodities',
+        label: 'Commodities',
         group: CLIENT_ACCOUNT_GROUP.MARKET,
     },
     {
@@ -140,23 +140,23 @@ export const SORT_BY_OPTIONS_NEWS_EVENT: DropdownOption[] = [
         group: CLIENT_ACCOUNT_GROUP.MARKET,
     },
     {
-        value: 'stock',
-        label: 'Stock',
+        value: 'stocks',
+        label: 'Stocks',
         group: CLIENT_ACCOUNT_GROUP.MARKET,
     },
     {
-        value: 'crypto',
-        label: 'Crypto',
+        value: 'cryptocurrencies',
+        label: 'Cryptocurrencies',
         group: CLIENT_ACCOUNT_GROUP.MARKET,
     },
     {
-        value: 'forex',
-        label: 'Forex',
+        value: 'currencies',
+        label: 'Currencies',
         group: CLIENT_ACCOUNT_GROUP.MARKET,
     },
     {
-        value: 'commodity',
-        label: 'Commodity',
+        value: 'commodities',
+        label: 'Commodities',
         group: CLIENT_ACCOUNT_GROUP.MARKET,
     },
     {

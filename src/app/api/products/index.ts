@@ -1,4 +1,4 @@
-import { Product } from '@/db/schema';
+import { ConsultationServices } from '@/db/schema';
 import { BaseResponse } from '@/types/base-response';
 import { PaginatedResponse } from '@/types/pagination';
 import { CreateNewProduct } from '@/types/product/request/create-product';
@@ -19,7 +19,7 @@ export const fetchAllProducts = async (
         pageIndex: 0,
         pageSize: 10,
     }
-): Promise<PaginatedResponse<Product>> => {
+): Promise<PaginatedResponse<ConsultationServices>> => {
     const params = buildURLSearchParams(queryParams);
 
     const res = await fetch(`${API_BASE}?${params}`, {
@@ -30,7 +30,7 @@ export const fetchAllProducts = async (
         cache: 'no-store',
     });
 
-    const data: PaginatedResponse<Product> = await res.json();
+    const data: PaginatedResponse<ConsultationServices> = await res.json();
     if (!res.ok) {
         throw new Error('Failed to fetch products');
     }
@@ -41,7 +41,7 @@ export const fetchAllProducts = async (
 // === Create a New Product (POST /api/products) ===
 export const createProduct = async (
     payload: CreateNewProduct
-): Promise<BaseResponse<Product>> => {
+): Promise<BaseResponse<ConsultationServices>> => {
     const res = await fetch(API_BASE, {
         method: 'POST',
         headers: {
@@ -50,7 +50,7 @@ export const createProduct = async (
         body: JSON.stringify(payload),
     });
 
-    const data: BaseResponse<Product> = await res.json();
+    const data: BaseResponse<ConsultationServices> = await res.json();
     if (!res.ok) {
         throw new Error(data.message || 'Failed to create product');
     }

@@ -10,7 +10,8 @@
     "prepare": "husky",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "db:drop": "drizzle-kit drop"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.9.1",
