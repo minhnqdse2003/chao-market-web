@@ -237,6 +237,6 @@ export const en: TranslationsStructure = {
         images: 'Images',
     },
     bookConsultation: {
-        bookConsultation: 'Book a Consultation',
+        bookConsultation: 'Book A Consultation',
     },
 };

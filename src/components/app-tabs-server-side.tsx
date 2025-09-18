@@ -10,6 +10,7 @@ interface AppTabsServerSideProps {
     currentSearchParams: string;
     isParentOfSubTab?: boolean;
     isSubTab?: boolean;
+    currentHref?: string;
 }
 
 export default function AppTabsServerSide({
@@ -17,6 +18,7 @@ export default function AppTabsServerSide({
     currentSearchParams,
     isParentOfSubTab = false,
     isSubTab = false,
+    currentHref,
 }: AppTabsServerSideProps) {
     // Parse current search params
     const searchParams = new URLSearchParams(currentSearchParams);
@@ -25,6 +27,7 @@ export default function AppTabsServerSide({
     const currentType = searchParams.get('type') || '';
     const currentFilterBy = searchParams.get('filterBy') || '';
     const currentMainTag = searchParams.get('mainTag') || '';
+    const currentTab = searchParams.get('tab') || '';
 
     // Find the current tab by matching the tab href with current parameters
     const getCurrentTabHref = () => {
@@ -33,6 +36,7 @@ export default function AppTabsServerSide({
         if (currentType) currentParams.set('type', currentType);
         if (currentFilterBy) currentParams.set('filterBy', currentFilterBy);
         if (currentMainTag) currentParams.set('mainTag', currentMainTag);
+        if (currentTab) currentParams.set('tab', currentTab);
 
         const currentParamString = currentParams.toString();
 
@@ -42,7 +46,8 @@ export default function AppTabsServerSide({
                 tab =>
                     !tab.href.includes('type=') &&
                     !tab.href.includes('filterBy=') &&
-                    !tab.href.includes('mainTag=')
+                    !tab.href.includes('mainTag=') &&
+                    !tab.href.includes('tab=')
             );
             return allTab ? allTab.href : tabs[0]?.href;
         }
@@ -82,12 +87,17 @@ export default function AppTabsServerSide({
                 tab.href.includes(`filterBy=${currentFilterBy}`)
             );
             return matchingTab ? matchingTab.href : tabs[0]?.href;
+        } else if (currentTab) {
+            const matchingTab = tabs.find(tab =>
+                tab.href.includes(`tab=${currentTab}`)
+            );
+            return matchingTab ? matchingTab.href : tabs[0]?.href;
         }
 
         return tabs[0]?.href;
     };
 
-    const currentTabHref = getCurrentTabHref();
+    const currentTabHref = currentHref ? currentHref : getCurrentTabHref();
 
     return (
         <div className={isParentOfSubTab ? '' : 'mb-8'}>

@@ -145,7 +145,7 @@ export const vi: TranslationsStructure = {
             note: 'Lưu ý: Chúng tôi cung cấp khuôn khổ và công cụ; mọi quyết định đầu tư cuối cùng đều do bạn thực hiện.',
         },
         algoTrading: {
-            title: 'Giao Dịch Thuật Toán',
+            title: 'Giải Pháp Giao Dịch Thuật Toán',
             description: 'Bạn có một chiến lược giao dịch độc đáo, nhưng việc thực thi thủ công vừa không hiệu quả. Với vai trò là đối tác kỹ thuật, Chào Market sẽ biến tầm nhìn của bạn thành một hệ thống giao dịch tự động hóa mạnh mẽ. Bạn là nhà chiến lược; chúng tôi là người hiện thực hóa. Quy trình bao gồm các buổi thảo luận sâu để hiểu rõ quy tắc của bạn, lập trình logic, cung cấp báo cáo backtest toàn diện, và hỗ trợ bạn triển khai hệ thống.',
             deliveryMethod: {
                 title: 'Hình thức Cung cấp:',
@@ -218,25 +218,25 @@ export const vi: TranslationsStructure = {
         },
         common: {
             getStarted: 'Bắt đầu ngay',
-            title: 'Giải pháp của chúng tôi',
+            title: 'Giao Dịch Thuật Toán',
         },
     },
     sidebar: {
         home: 'Trang chủ',
-        clientsAccounts: 'Tài khoản Khách hàng',
+        clientsAccounts: 'Tài Khoản Khách hàng',
         marketData: 'Dữ Liệu Thị Trường',
-        ourSolutions: 'Giải pháp của chúng tôi',
+        ourSolutions: 'Giải pháp Của Chúng Tôi',
         newsEvents: 'Tin tức & Sự kiện',
         news: 'Tin tức',
         events: 'Sự kiện',
-        community: 'Cộng đồng',
-        marketInsights: 'Phân tích Thị trường của chúng tôi',
-        freeCourses: 'Khóa học Miễn phí',
-        conferences: 'Hội nghị',
+        community: 'Cộng Đồng',
+        marketInsights: 'Phân Tích Thị Trường Của Chúng Tôi',
+        freeCourses: 'Khóa Học Miễn phí',
+        conferences: 'Hội Nghị',
         videos: 'Video',
-        images: 'Hình ảnh',
+        images: 'Hình Ảnh',
     },
     bookConsultation: {
-        bookConsultation: 'Đặt lịch Tư vấn',
+        bookConsultation: 'Đặt Lịch Tư Vấn',
     },
 };

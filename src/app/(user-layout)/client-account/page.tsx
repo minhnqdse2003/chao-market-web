@@ -230,7 +230,7 @@ export default function Page() {
                         <Card
                             key={index}
                             onClick={() => handleCardClick(index)}
-                            className={`h-fit border-brand-dropdown-title py-4 cursor-pointer transition-all! gap-0 max-h-1/3 dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] duration-300 ease-in-out ${activeCard === index ? 'dark:border-[var(--brand-color)] border-black' : ''} ${activeCard !== null ? 'w-[calc(50%-1rem)]' : 'w-[calc(33.33%-1rem)]'}`}
+                            className={`h-fit dark:border-[var(--brand-grey)] border-black/10 py-4 cursor-pointer transition-all! gap-0 max-h-1/3 dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] duration-300 ease-in-out ${activeCard === index ? 'dark:border-[var(--brand-color)] border-black   ' : ''} ${activeCard !== null ? 'w-[calc(50%-1rem)]' : 'w-[calc(33.33%-1rem)]'}`}
                         >
                             <CardHeader>
                                 <div className="flex items-center justify-center gap-2 w-full">
@@ -272,11 +272,13 @@ export default function Page() {
 
                                 <div className="flex justify-between text-xs mb-1.5 [&>p]:text-[var(--brand-grey-foreground)] [&>strong]:text-green-500">
                                     <p>Deposit:</p>
-                                    <strong>{data.account.deposit}</strong>
+                                    <strong className={'font-semibold'}>
+                                        {data.account.deposit}
+                                    </strong>
                                 </div>
                                 <div className="flex justify-between text-xs [&>p]:text-[var(--brand-grey-foreground)] text-green-500 mb-1.5">
                                     <p>Profit:</p>
-                                    <strong>
+                                    <strong className={'font-semibold'}>
                                         {formatToTwoDecimals(
                                             data.account.profit
                                         )}
@@ -301,7 +303,7 @@ export default function Page() {
                     ))}
                 </div>
                 <Card
-                    className={`w-full ml-4 min-h-full border-brand-dropdown-title overflow-y-auto dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] text-xs p-0 transition-all! duration-300 ease-in-out [&[data-state=inactive]]:w-0 [&[data-state=inactive]]:opacity-0 [&[data-state=active]]:opacity-100`}
+                    className={`w-full ml-4 rounded-r-sm min-h-full border-[var(--brand-grey)] overflow-y-auto dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] text-xs p-0 transition-all! duration-300 ease-in-out [&[data-state=inactive]]:w-0 [&[data-state=inactive]]:opacity-0 [&[data-state=active]]:opacity-100`}
                     data-state={activeCard !== null ? 'active' : 'inactive'}
                 >
                     <CardHeader className="flex relative flex-row items-center justify-between p-4">

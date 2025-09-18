@@ -28,9 +28,9 @@ import { COOKIE_SIDEBAR_STATE_NAME } from '@/constant';
 
 const SIDEBAR_COOKIE_NAME = COOKIE_SIDEBAR_STATE_NAME;
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
-const SIDEBAR_WIDTH = '18rem';
+export const SIDEBAR_WIDTH = '18rem';
 const SIDEBAR_WIDTH_MOBILE = '18rem';
-const SIDEBAR_WIDTH_ICON = '3rem';
+export const SIDEBAR_WIDTH_ICON = '3rem';
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 
 type SidebarContextProps = {

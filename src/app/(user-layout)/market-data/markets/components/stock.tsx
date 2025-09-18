@@ -1,0 +1,742 @@
+'use client';
+
+import React, { useCallback, useEffect, useRef } from 'react';
+import { useTheme } from 'next-themes';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { MARKET_SYMBOL, TMarketSymbolKey } from '@/constant/market-query';
+
+const USA_SYMBOL_KEYS: TMarketSymbolKey[] = [
+    'CAPITAL_VIX',
+    'INDEX_DXY',
+    'SPREADEX_SPX',
+    'SPREADEX_DJI',
+    'NASDAQ_NDX',
+];
+
+const USA_SYMBOLS = USA_SYMBOL_KEYS.map(key => ({
+    s: MARKET_SYMBOL[key].name,
+    d: MARKET_SYMBOL[key].description,
+    'currency-logoid': MARKET_SYMBOL[key]?.currencyLogoId,
+    logoid: MARKET_SYMBOL[key]?.logoId,
+}));
+
+const CURRENCIES_SYMBOL_KEYS: TMarketSymbolKey[] = [
+    'INDEX_DXY',
+    'OANDA_EURUSD',
+    'OANDA_GBPUSD',
+    'OANDA_USDJPY',
+    'OANDA_USDCHF',
+    'OANDA_AUDUSD',
+    'OANDA_USDCAD',
+    'OANDA_NZDUSD',
+];
+
+const CURRENCIES_SYMBOLS = CURRENCIES_SYMBOL_KEYS.map(key => ({
+    s: MARKET_SYMBOL[key].name,
+    d: MARKET_SYMBOL[key].description,
+    'currency-logoid': MARKET_SYMBOL[key]?.currencyLogoId,
+    'base-currency-logoid': MARKET_SYMBOL[key]?.baseCurrencyLogoId,
+    logoid: MARKET_SYMBOL[key]?.logoId,
+}));
+
+const CRYPTOCURRENCIES_SYMBOL_KEYS: TMarketSymbolKey[] = [
+    'CRYPTOCAP_BTCD',
+    'BINANCE_BTCUSD',
+    'BINANCE_ETHUSD',
+    'BINANCE_SOLUSD',
+    'BINANCE_AVAXUSD',
+    'BINANCE_ADAUSD',
+    'BINANCE_BNBUSD',
+];
+
+const CRYPTOCURRENCIES_SYMBOLS = CRYPTOCURRENCIES_SYMBOL_KEYS.map(key => ({
+    s: MARKET_SYMBOL[key].name,
+    d: MARKET_SYMBOL[key].description,
+    'currency-logoid': MARKET_SYMBOL[key]?.currencyLogoId,
+    'base-currency-logoid': MARKET_SYMBOL[key]?.baseCurrencyLogoId,
+    logoid: MARKET_SYMBOL[key]?.logoId,
+}));
+
+const COMMODITIES_SYMBOL_KEYS: TMarketSymbolKey[] = [
+    'INDEX_DXY',
+    'INDEX_BDI',
+    'OANDA_XAUUSD',
+    'OANDA_XAGUSD',
+    'BLACKBULL_WTI',
+];
+
+const COMMODITIES_SYMBOLS = COMMODITIES_SYMBOL_KEYS.map(key => ({
+    s: MARKET_SYMBOL[key].name,
+    d: MARKET_SYMBOL[key].description,
+    'currency-logoid': MARKET_SYMBOL[key]?.currencyLogoId,
+    'base-currency-logoid': MARKET_SYMBOL[key]?.baseCurrencyLogoId,
+    logoid: MARKET_SYMBOL[key]?.logoId,
+}));
+
+const LIGHT_THEME_CONFIG_OVERVIEW = {
+    colorTheme: 'light',
+    dateRange: '12M',
+    locale: 'en',
+    largeChartUrl: '',
+    isTransparent: false,
+    showFloatingTooltip: false,
+    plotLineColorGrowing: 'rgba(41, 98, 255, 1)',
+    plotLineColorFalling: 'rgba(41, 98, 255, 1)',
+    gridLineColor: 'rgba(240, 243, 250, 0)',
+    scaleFontColor: '#0F0F0F',
+    belowLineFillColorGrowing: 'rgba(41, 98, 255, 0.12)',
+    belowLineFillColorFalling: 'rgba(41, 98, 255, 0.12)',
+    belowLineFillColorGrowingBottom: 'rgba(41, 98, 255, 0)',
+    belowLineFillColorFallingBottom: 'rgba(41, 98, 255, 0)',
+    symbolActiveColor: 'rgba(41, 98, 255, 0.12)',
+    tabs: [
+        {
+            title: 'Forex',
+            symbols: USA_SYMBOLS,
+            originalTitle: 'Forex',
+        },
+    ],
+    support_host: 'https://www.tradingview.com',
+    showSymbolLogo: true,
+    showChart: true,
+};
+
+const DARK_THEME_CONFIG_OVERVIEW = {
+    ...LIGHT_THEME_CONFIG_OVERVIEW,
+    colorTheme: 'dark',
+    scaleFontColor: '#F1F1F1',
+};
+
+const CURRENCIES_SYMBOLS_CONFIG_OVERVIEW = (
+    currentThemeConfig: typeof LIGHT_THEME_CONFIG_OVERVIEW
+) => {
+    return {
+        ...currentThemeConfig,
+        tabs: [
+            {
+                title: 'Currencies',
+                symbols: CURRENCIES_SYMBOLS,
+                originalTitle: 'Currencies',
+            },
+        ],
+    };
+};
+
+const CRYPTOCURRENCIES_SYMBOLS_CONFIG_OVERVIEW = (
+    currentThemeConfig: typeof LIGHT_THEME_CONFIG_OVERVIEW
+) => {
+    return {
+        ...currentThemeConfig,
+        tabs: [
+            {
+                title: 'CryptoCurrencies',
+                symbols: CRYPTOCURRENCIES_SYMBOLS,
+                originalTitle: 'CryptoCurrencies',
+            },
+        ],
+    };
+};
+
+const COMMODITIES_SYMBOLS_CONFIG_OVERVIEW = (
+    currentThemeConfig: typeof LIGHT_THEME_CONFIG_OVERVIEW
+) => {
+    return {
+        ...currentThemeConfig,
+        tabs: [
+            {
+                title: 'Commodities',
+                symbols: COMMODITIES_SYMBOLS,
+                originalTitle: 'Commodities',
+            },
+        ],
+    };
+};
+
+const LIGHT_THEME_CONFIG_STOCK_HEATMAP = {
+    dataSource: 'AllUSA',
+    blockSize: 'market_cap_basic',
+    blockColor: 'change',
+    grouping: 'sector',
+    locale: 'en',
+    symbolUrl: '',
+    colorTheme: 'light',
+    exchanges: [],
+    hasTopBar: true,
+    isDataSetEnabled: false,
+    isZoomEnabled: true,
+    hasSymbolTooltip: true,
+    isMonoSize: false,
+    width: '100%',
+    height: 800,
+};
+
+const DARK_THEME_CONFIG_STOCK_HEATMAP = {
+    ...LIGHT_THEME_CONFIG_STOCK_HEATMAP,
+    colorTheme: 'dark',
+};
+
+const LIGHT_THEME_CONFIG_FOREX_HEATMAP = {
+    colorTheme: 'dark',
+    isTransparent: false,
+    locale: 'en',
+    currencies: ['EUR', 'USD', 'JPY', 'GBP', 'CHF', 'AUD', 'CAD', 'NZD', 'CNY'],
+    backgroundColor: '#0F0F0F',
+    width: '100%',
+    height: 800,
+};
+
+const DARK_THEME_CONFIG_FOREX_HEATMAP = {
+    ...LIGHT_THEME_CONFIG_FOREX_HEATMAP,
+    colorTheme: 'dark',
+    backgroundColor: '#252525',
+};
+
+const LIGHT_THEME_CONFIG_CRYPTO_HEATMAP = {
+    dataSource: 'Crypto',
+    blockSize: 'market_cap_calc',
+    blockColor: '24h_close_change|5',
+    locale: 'en',
+    symbolUrl: '',
+    colorTheme: 'dark',
+    hasTopBar: false,
+    isDataSetEnabled: false,
+    isZoomEnabled: true,
+    hasSymbolTooltip: true,
+    isMonoSize: false,
+    width: '100%',
+    height: 800,
+};
+
+const DARK_THEME_CONFIG_CRYPTO_HEATMAP = {
+    ...LIGHT_THEME_CONFIG_CRYPTO_HEATMAP,
+    colorTheme: 'dark',
+};
+
+const MARKET_DATA_HEATMAP_SYMBOL_KEYS: TMarketSymbolKey[] = [
+    'INDEX_DXY',
+    'INDEX_BDI',
+    'OANDA_XAUUSD',
+    'OANDA_XAGUSD',
+    'BLACKBULL_WTI',
+];
+
+const MARKET_DATA_HEATMAP_SYMBOLS = MARKET_DATA_HEATMAP_SYMBOL_KEYS.map(
+    key => ({
+        name: MARKET_SYMBOL[key].name,
+        displayName: MARKET_SYMBOL[key].description,
+    })
+);
+
+const LIGHT_THEME_CONFIG_MARKET_DATA_HEATMAP = {
+    colorTheme: 'dark',
+    locale: 'en',
+    largeChartUrl: '',
+    isTransparent: false,
+    showSymbolLogo: true,
+    backgroundColor: '#0F0F0F',
+    support_host: 'https://www.tradingview.com',
+    width: '100%',
+    height: 300,
+    symbolsGroups: [
+        {
+            name: 'Forex',
+            symbols: MARKET_DATA_HEATMAP_SYMBOLS,
+        },
+    ],
+};
+
+const DARK_THEME_CONFIG_MARKET_DATA_HEATMAP = {
+    ...LIGHT_THEME_CONFIG_MARKET_DATA_HEATMAP,
+    colorTheme: 'dark',
+    backgroundColor: '#252525',
+};
+
+const LIGHT_THEME_CONFIG_CHART = {
+    allow_symbol_change: true,
+    calendar: false,
+    details: false,
+    hide_side_toolbar: true,
+    hide_top_toolbar: false,
+    hide_legend: false,
+    hide_volume: false,
+    hotlist: false,
+    interval: 'D',
+    locale: 'en',
+    save_image: true,
+    style: '1',
+    symbol: 'INDEX:DXY',
+    theme: 'light',
+    timezone: 'Etc/UTC',
+    backgroundColor: '#FFFFFF',
+    gridColor: '#0F0F0F',
+    watchlist: [],
+    withdateranges: false,
+    compareSymbols: [],
+    studies: [],
+    width: '100%',
+    height: 800,
+    autosize: true,
+};
+
+const DARK_THEME_CONFIG_CHART = {
+    ...LIGHT_THEME_CONFIG_CHART,
+    theme: 'dark',
+    backgroundColor: '#252525',
+    gridColor: 'rgba(242, 242, 242, 0.06)',
+};
+
+const LIGHT_THEME_CONFIG_CRYPTOCURRENCIES_CHART = {
+    ...LIGHT_THEME_CONFIG_CHART,
+    symbol: MARKET_SYMBOL.BINANCE_BTCUSD.name,
+};
+
+const DARK_THEME_CONFIG_CRYPTOCURRENCIES_CHART = {
+    ...LIGHT_THEME_CONFIG_CRYPTOCURRENCIES_CHART,
+    theme: 'dark',
+    backgroundColor: '#252525',
+    gridColor: 'rgba(242, 242, 242, 0.06)',
+    symbol: MARKET_SYMBOL.BINANCE_BTCUSD.name,
+};
+
+const LIGHT_THEME_CONFIG_COMMODITIES_CHART = {
+    ...LIGHT_THEME_CONFIG_CHART,
+    symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
+};
+
+const DARK_THEME_CONFIG_COMMODITIES_CHART = {
+    ...LIGHT_THEME_CONFIG_COMMODITIES_CHART,
+    theme: 'dark',
+    backgroundColor: '#252525',
+    gridColor: 'rgba(242, 242, 242, 0.06)',
+    symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
+};
+
+const LIGHT_THEME_CONFIG_NEWS = {
+    displayMode: 'adaptive',
+    feedMode: 'market',
+    colorTheme: 'light',
+    isTransparent: false,
+    locale: 'en',
+    market: 'stock',
+    width: '100%',
+    height: 520,
+};
+
+const DARK_THEME_CONFIG_NEWS = {
+    ...LIGHT_THEME_CONFIG_NEWS,
+    colorTheme: 'dark',
+};
+
+const LIGHT_THEME_CONFIG_CURRENCIES_NEWS = {
+    ...LIGHT_THEME_CONFIG_NEWS,
+    market: 'forex',
+};
+
+const DARK_THEME_CONFIG_CURRENCIES_NEWS = {
+    ...DARK_THEME_CONFIG_NEWS,
+    market: 'forex',
+};
+
+const LIGHT_THEME_CONFIG_CRYPTOCURRENCIES_NEWS = {
+    ...LIGHT_THEME_CONFIG_NEWS,
+    market: 'crypto',
+};
+
+const DARK_THEME_CONFIG_CRYPTOCURRENCIES_NEWS = {
+    ...DARK_THEME_CONFIG_NEWS,
+    market: 'crypto',
+};
+
+const LIGHT_THEME_CONFIG_NEWS_SYMBOL = {
+    displayMode: 'adaptive',
+    feedMode: 'symbol',
+    symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
+    colorTheme: 'light',
+    isTransparent: false,
+    locale: 'en',
+    width: '100%',
+    height: 800,
+};
+
+const DARK_THEME_CONFIG_NEWS_SYMBOL = {
+    ...LIGHT_THEME_CONFIG_NEWS_SYMBOL,
+    colorTheme: 'dark',
+};
+
+const LIGHT_THEME_CONFIG_COMMODITIES_NEWS = {
+    ...LIGHT_THEME_CONFIG_NEWS_SYMBOL,
+    symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
+};
+
+const DARK_THEME_CONFIG_COMMODITIES_NEWS = {
+    ...DARK_THEME_CONFIG_NEWS_SYMBOL,
+    symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
+};
+
+export const LIGHT_THEME_CONFIG_ECONOMY_CALENDAR = {
+    colorTheme: 'light',
+    isTransparent: false,
+    locale: 'en',
+    countryFilter: 'us',
+    importanceFilter: '-1,0,1',
+    width: '100%',
+    height: 800,
+};
+
+const DARK_THEME_CONFIG_ECONOMY_CALENDAR = {
+    ...LIGHT_THEME_CONFIG_ECONOMY_CALENDAR,
+    colorTheme: 'dark',
+};
+
+const LIGHT_THEME_CONFIG_CURRENCIES_CALENDAR = {
+    ...LIGHT_THEME_CONFIG_ECONOMY_CALENDAR,
+    countryFilter: 'us,eu,jp,gb,ch,au,ca,nz,cn',
+};
+
+const DARK_THEME_CONFIG_CURRENCIES_CALENDAR = {
+    ...LIGHT_THEME_CONFIG_CURRENCIES_CALENDAR,
+    colorTheme: 'dark',
+};
+
+const LIGHT_THEME_CONFIG_CRYPTOCURRENCIES_CALENDAR = {
+    ...LIGHT_THEME_CONFIG_ECONOMY_CALENDAR,
+    countryFilter: 'us,eu',
+};
+
+const DARK_THEME_CONFIG_CRYPTOCURRENCIES_CALENDAR = {
+    ...LIGHT_THEME_CONFIG_CRYPTOCURRENCIES_CALENDAR,
+    colorTheme: 'dark',
+};
+
+type MARKET_TYPES = 'us' | 'currencies' | 'crypto' | 'commodities';
+
+function OverViews({ type }: { type: MARKET_TYPES }) {
+    const container = useRef<HTMLDivElement>(null);
+    const { theme } = useTheme();
+
+    const getThemeConfig = useCallback(() => {
+        const currentThemeConfig =
+            theme === 'dark'
+                ? DARK_THEME_CONFIG_OVERVIEW
+                : LIGHT_THEME_CONFIG_OVERVIEW;
+        switch (type) {
+            case 'currencies':
+                return CURRENCIES_SYMBOLS_CONFIG_OVERVIEW(currentThemeConfig);
+            case 'crypto':
+                return CRYPTOCURRENCIES_SYMBOLS_CONFIG_OVERVIEW(
+                    currentThemeConfig
+                );
+            case 'commodities':
+                return COMMODITIES_SYMBOLS_CONFIG_OVERVIEW(currentThemeConfig);
+            case 'us':
+            default:
+                return currentThemeConfig;
+        }
+    }, []);
+
+    useEffect(() => {
+        if (container.current) {
+            container.current.innerHTML = '';
+        }
+
+        const script = document.createElement('script');
+        script.src =
+            'https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js';
+        script.type = 'text/javascript';
+        script.async = true;
+        script.innerHTML = JSON.stringify(getThemeConfig());
+        if (container.current) container.current.appendChild(script);
+
+        return () => {
+            if (container.current) {
+                container.current.innerHTML = '';
+            }
+        };
+    }, [theme]);
+
+    return (
+        <div
+            id="tradingview-market-overview"
+            className="tradingview-widget-container"
+            ref={container}
+            style={{ width: '100%', height: '40.5rem' }}
+        >
+            <div className="tradingview-widget-container__widget"></div>
+        </div>
+    );
+}
+
+function HeatMap({ type }: { type: MARKET_TYPES }) {
+    const container = useRef<HTMLDivElement>(null);
+    const { theme } = useTheme();
+
+    const getCurrentSrc = useCallback(() => {
+        switch (type) {
+            case 'currencies':
+                return 'https://s3.tradingview.com/external-embedding/embed-widget-forex-heat-map.js';
+            case 'crypto':
+                return 'https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js';
+            case 'commodities':
+                return 'https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js';
+            case 'us':
+            default:
+                return 'https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js';
+        }
+    }, []);
+
+    const getCurrentConfig = useCallback(() => {
+        const isDarkTheme = theme === 'dark';
+        switch (type) {
+            case 'currencies':
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_FOREX_HEATMAP
+                    : LIGHT_THEME_CONFIG_FOREX_HEATMAP;
+            case 'crypto':
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_CRYPTO_HEATMAP
+                    : LIGHT_THEME_CONFIG_CRYPTO_HEATMAP;
+            case 'commodities':
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_MARKET_DATA_HEATMAP
+                    : LIGHT_THEME_CONFIG_MARKET_DATA_HEATMAP;
+            case 'us':
+            default:
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_STOCK_HEATMAP
+                    : LIGHT_THEME_CONFIG_STOCK_HEATMAP;
+        }
+    }, []);
+
+    useEffect(() => {
+        // Clean up any existing script or widget content to prevent duplication
+        if (container.current) {
+            container.current.innerHTML = '';
+        }
+
+        const script = document.createElement('script');
+        script.src = getCurrentSrc();
+        script.type = 'text/javascript';
+        script.async = true;
+        script.innerHTML = JSON.stringify(getCurrentConfig());
+
+        if (container.current) container.current.appendChild(script);
+        return () => {
+            if (container.current) {
+                container.current.innerHTML = '';
+            }
+        };
+    }, [theme]);
+
+    return (
+        <div
+            id="tradingview-stock-heatmap"
+            className="tradingview-widget-container"
+            ref={container}
+            style={{ width: '100%', height: '50rem' }}
+        >
+            <div className="tradingview-widget-container__widget"></div>
+        </div>
+    );
+}
+
+function Chart({ type }: { type: MARKET_TYPES }) {
+    const container = useRef<HTMLDivElement>(null);
+    const { theme } = useTheme();
+
+    const getCurrentThemeConfig = useCallback(() => {
+        const isDarkTheme = theme === 'dark';
+        switch (type) {
+            case 'crypto':
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_CRYPTOCURRENCIES_CHART
+                    : LIGHT_THEME_CONFIG_CRYPTOCURRENCIES_CHART;
+            case 'commodities':
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_COMMODITIES_CHART
+                    : LIGHT_THEME_CONFIG_COMMODITIES_CHART;
+            case 'us':
+            case 'currencies':
+            default:
+                return DARK_THEME_CONFIG_CHART;
+        }
+    }, []);
+
+    useEffect(() => {
+        if (container.current) {
+            container.current.innerHTML = '';
+        }
+
+        const script = document.createElement('script');
+        script.src =
+            'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+        script.type = 'text/javascript';
+        script.async = true;
+        script.innerHTML = JSON.stringify(getCurrentThemeConfig());
+        if (container.current) container.current.appendChild(script);
+        return () => {
+            if (container.current) {
+                container.current.innerHTML = '';
+            }
+        };
+    }, [theme]);
+
+    return (
+        <div
+            className="tradingview-widget-container"
+            ref={container}
+            style={{ width: '100%', height: '50rem' }}
+            id={'trading-container-chart'}
+        >
+            <div className="tradingview-widget-container__widget"></div>
+        </div>
+    );
+}
+
+function News({ type }: { type: MARKET_TYPES }) {
+    const container = useRef<HTMLDivElement>(null);
+    const { theme } = useTheme();
+
+    const getCurrentThemeConfig = useCallback(() => {
+        const isDarkTheme = theme === 'dark';
+        switch (type) {
+            case 'crypto':
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_CRYPTOCURRENCIES_NEWS
+                    : LIGHT_THEME_CONFIG_CRYPTOCURRENCIES_NEWS;
+            case 'commodities':
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_COMMODITIES_NEWS
+                    : LIGHT_THEME_CONFIG_COMMODITIES_NEWS;
+            case 'currencies':
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_CURRENCIES_NEWS
+                    : LIGHT_THEME_CONFIG_CURRENCIES_NEWS;
+            case 'us':
+            default:
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_NEWS
+                    : LIGHT_THEME_CONFIG_NEWS;
+        }
+    }, []);
+
+    useEffect(() => {
+        if (container.current) {
+            container.current.innerHTML = '';
+        }
+
+        const script = document.createElement('script');
+        script.src =
+            'https://s3.tradingview.com/external-embedding/embed-widget-timeline.js';
+        script.type = 'text/javascript';
+        script.async = true;
+        script.innerHTML = JSON.stringify(getCurrentThemeConfig());
+        if (container.current) container.current.appendChild(script);
+        return () => {
+            if (container.current) {
+                container.current.innerHTML = '';
+            }
+        };
+    }, [theme]);
+
+    return (
+        <div
+            className="tradingview-widget-container"
+            ref={container}
+            style={{ width: '100%', height: '35rem' }}
+            id={'trading-container-news'}
+        >
+            <div className="tradingview-widget-container__widget"></div>
+        </div>
+    );
+}
+
+function EconomyCalendar({ type }: { type: MARKET_TYPES }) {
+    const container = useRef<HTMLDivElement>(null);
+    const { theme } = useTheme();
+
+    const getCurrentThemeConfig = useCallback(() => {
+        const isDarkTheme = theme === 'dark';
+        switch (type) {
+            case 'crypto':
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_CRYPTOCURRENCIES_CALENDAR
+                    : LIGHT_THEME_CONFIG_CRYPTOCURRENCIES_CALENDAR;
+            case 'currencies':
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_CURRENCIES_CALENDAR
+                    : LIGHT_THEME_CONFIG_CURRENCIES_CALENDAR;
+            case 'us':
+            case 'commodities':
+            default:
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_ECONOMY_CALENDAR
+                    : LIGHT_THEME_CONFIG_ECONOMY_CALENDAR;
+        }
+    }, []);
+
+    useEffect(() => {
+        if (container.current) {
+            container.current.innerHTML = '';
+        }
+
+        const script = document.createElement('script');
+        script.src =
+            'https://s3.tradingview.com/external-embedding/embed-widget-events.js';
+        script.type = 'text/javascript';
+        script.async = true;
+        script.innerHTML = JSON.stringify(getCurrentThemeConfig());
+        if (container.current) container.current.appendChild(script);
+        return () => {
+            if (container.current) {
+                container.current.innerHTML = '';
+            }
+        };
+    }, [theme]);
+
+    return (
+        <div
+            className="tradingview-widget-container"
+            ref={container}
+            style={{ width: '100%', height: '50rem' }}
+            id={'trading-view-widget-container-calendar'}
+        >
+            <div className="tradingview-widget-container__widget"></div>
+        </div>
+    );
+}
+
+function StockComp({ type }: { type: MARKET_TYPES }) {
+    return (
+        <Tabs defaultValue="overview" className="w-full">
+            <TabsList className="grid w-full grid-cols-5">
+                <TabsTrigger value="overview">Overview</TabsTrigger>
+                <TabsTrigger value="heatmap">Heatmap</TabsTrigger>
+                <TabsTrigger value="chart">Chart</TabsTrigger>
+                <TabsTrigger value="news">News</TabsTrigger>
+                <TabsTrigger value="calendar">Calendar</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="overview">
+                <OverViews type={type} />
+            </TabsContent>
+
+            <TabsContent value="heatmap">
+                <HeatMap type={type} />
+            </TabsContent>
+
+            <TabsContent value="chart">
+                <Chart type={type} />
+            </TabsContent>
+
+            <TabsContent value="news">
+                <News type={type} />
+            </TabsContent>
+
+            <TabsContent value="calendar">
+                <EconomyCalendar type={type} />
+            </TabsContent>
+        </Tabs>
+    );
+}
+
+export default StockComp;
