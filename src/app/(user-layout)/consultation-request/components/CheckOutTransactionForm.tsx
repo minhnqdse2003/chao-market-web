@@ -78,7 +78,7 @@ export default function CheckOutTransactionForm({
             email: '',
             phoneNumber: '',
             socialNetwork: '',
-            contactMethods: ['email'],
+            contactMethods: [],
             message: '',
         },
     });
@@ -426,7 +426,7 @@ export default function CheckOutTransactionForm({
                 {/* Hidden submit button - this allows external control */}
                 <input type="submit" className="hidden" />
 
-                <div className="mt-4 flex gap-4">
+                <div className="mt-4 flex justify-center items-center">
                     <button
                         type="button"
                         onClick={form.handleSubmit(handleSubmit)}

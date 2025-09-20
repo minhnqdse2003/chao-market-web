@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { EmptyCart, ConsultationServices } from '@image/index';
 import CheckOutTransactionForm, {
     CheckoutFormData,
-} from '@/app/(user-layout)/(private-root)/consultation-request/components/CheckOutTransactionForm';
+} from '@/app/(user-layout)/consultation-request/components/CheckOutTransactionForm';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { useMemo, useState, useCallback } from 'react';
@@ -109,6 +109,10 @@ export default function CartItemsPage() {
                         <h1 className="text-xl dark:text-[var(--brand-color)] text-black font-bold">
                             Our Solutions:
                         </h1>
+                        <p>
+                            Please select the solutions you would like to be
+                            consulted on.{' '}
+                        </p>
                     </div>
                 </div>
 

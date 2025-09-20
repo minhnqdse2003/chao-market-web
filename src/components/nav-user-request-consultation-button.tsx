@@ -15,7 +15,7 @@ export default function ConsultationButton() {
         <Link
             href="/consultation-request"
             className={cn(
-                'gap-2 flex items-center justify-start dark:hover:text-[var(--brand-color)]' +
+                'gap-2 flex items-center justify-center dark:hover:text-[var(--brand-color)]' +
                     ' hover:text-brand-text hover:bg-[var(--brand-grey)] transition-all! duration-300 ease-in-out' +
                     ' font-semibold w-full dark:hover:bg-transparent '
             )}

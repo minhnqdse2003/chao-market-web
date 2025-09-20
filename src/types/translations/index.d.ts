@@ -5,6 +5,7 @@ import { CartItemsTranslations } from '@/types/translations/cart-items';
 import { OurSolutionsTranslations } from '@/types/translations/our-solutions';
 import { SidebarTranslations } from '@/types/translations/sidebar';
 import { BookConsultationTranslations } from '@/types/translations/book-consultations';
+import { FooterTranslations } from '@/types/translations/footer';
 
 export interface TranslationsStructure {
     common: CommonTranslations;
@@ -14,6 +15,7 @@ export interface TranslationsStructure {
     ourSolutions: OurSolutionsTranslations;
     sidebar: SidebarTranslations;
     bookConsultation: BookConsultationTranslations;
+    footer: FooterTranslations;
 }
 
 type Leaves<T, K extends string = ''> = T extends object

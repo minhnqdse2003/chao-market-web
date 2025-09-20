@@ -22,4 +22,7 @@ export interface CommonTranslations {
     confirmNewPassword: string;
     sending: string;
     phoneNumber: string;
+    lastUpdated: string;
+    backToSignUp: string;
+    backToHome: string,
 }

@@ -25,6 +25,9 @@ export const vi: TranslationsStructure = {
         confirmNewPassword: 'Xác nhận mật khẩu mới',
         sending: 'Đang gửi...',
         phoneNumber: 'Số Điện Thoại (tùy chọn)',
+        backToSignUp: '← Quay lại trang Đăng ký',
+        lastUpdated: 'Cập nhật lần cuối: {date}',
+        backToHome: '← Quay lại Trang chủ',
     },
     auth: {
         login: 'Đăng nhập',
@@ -238,5 +241,96 @@ export const vi: TranslationsStructure = {
     },
     bookConsultation: {
         bookConsultation: 'Đặt Lịch Tư Vấn',
+    },
+    footer: {
+        aboutUs: {
+            title: 'Về Chúng Tôi',
+            sections: [
+                {
+                    title: 'Sứ Mệnh Của Chúng Tôi: Trao Quyền Cho Nhà Đầu Tư Việt',
+                    content: [
+                        'Chào mừng bạn đến với Chào Market. Chúng tôi tin rằng việc định hướng tài chính thành công trong các thị trường phức tạp ngày nay không đến từ bí mật hay may mắn, mà đến từ việc sở hữu đúng kiến thức, đúng chiến lược và đúng công cụ. Sứ mệnh của chúng tôi là trao quyền cho các nhà đầu tư Việt Nam bằng cách giải mã thế giới tài chính và cung cấp các giải pháp mang tính giáo dục, dựa trên dữ liệu.',
+                    ],
+                },
+                {
+                    title: 'Phương Pháp Của Chúng Tôi: Kết Hợp Chuyên Môn Và Công Nghệ',
+                    content: [
+                        'Được thành lập dựa trên nguyên tắc lấy giáo dục làm đầu, Chào Market kết hợp chuyên môn tài chính sâu sắc với công nghệ hiện đại. Chúng tôi không đưa ra các mánh khóe "làm giàu nhanh"; thay vào đó, chúng tôi cung cấp một lộ trình có cấu trúc để xây dựng kiến thức tài chính và tư duy chiến lược. Các chương trình của chúng tôi, từ cố vấn nền tảng đến phát triển hệ thống nâng cao, đều được thiết kế để trang bị cho bạn kỹ năng để tự mình đưa ra các quyết định sáng suốt và tự tin.',
+                        'Chúng tôi là đối tác của bạn trong việc quản lý rủi ro và biến dữ liệu thị trường thành các quyết định tài chính thành công.',
+                    ],
+                },
+            ],
+        },
+        termOfUse: {
+            title: 'Điều khoản Sử dụng',
+            sections: [
+                {
+                    title: '1. Chấp Nhận Điều Khoản',
+                    content: 'Bằng việc truy cập và sử dụng website Chào Market, bạn chấp nhận và đồng ý bị ràng buộc bởi các điều khoản sử dụng này. Nếu bạn không đồng ý, vui lòng không sử dụng dịch vụ của chúng tôi.',
+                },
+                {
+                    title: '2. Mô Tả Dịch Vụ',
+                    content: 'Chào Market cung cấp các dịch vụ giáo dục tài chính, huấn luyện, công cụ và thông tin thị trường, bao gồm các giải pháp như Cố Vấn Nền Tảng Tài Chính, Chiến Lược & Công Cụ Danh Mục, Phát Triển Hệ Thống Giao Dịch, Cố Vấn Hiệu Suất Giao Dịch, và Khóa Học Đầu Tư Tài Chính.',
+                },
+                {
+                    title: '3. Tuyên Bố Miễn Trừ Trách Nhiệm Về Tư Vấn Đầu Tư (CỰC KỲ QUAN TRỌNG)',
+                    content: 'Tất cả nội dung, công cụ và dịch vụ được cung cấp trên website này chỉ nhằm mục đích thông tin và giáo dục. Không có bất kỳ nội dung nào trên website này cấu thành, hoặc nên được hiểu là, lời khuyên đầu tư, một sự khuyến nghị, hoặc một lời mời chào mua hay bán bất kỳ chứng khoán hay công cụ tài chính nào. Chào Market không phải là một nhà tư vấn đầu tư hay công ty môi giới được cấp phép. Mọi quyết định đầu tư đều do một mình bạn đưa ra, và bạn hoàn toàn chịu trách nhiệm trong việc đánh giá các giá trị và rủi ro liên quan đến việc sử dụng bất kỳ thông tin nào được cung cấp.',
+                },
+                {
+                    title: '4. Sở Hữu Trí Tuệ',
+                    content: 'Toàn bộ nội dung trên trang này, bao gồm văn bản, đồ họa, logo và phần mềm, là tài sản của Chào Market và được bảo vệ bởi luật bản quyền của Việt Nam và quốc tế. Bạn không được phép sao chép, phân phối hoặc tạo ra các tác phẩm phái sinh từ bất kỳ nội dung nào mà không có sự cho phép rõ ràng bằng văn bản của chúng tôi.',
+                },
+                {
+                    title: '5. Giới Hạn Trách Nhiệm',
+                    content: 'Chào Market sẽ không chịu trách nhiệm cho bất kỳ thiệt hại trực tiếp, gián tiếp, ngẫu nhiên hoặc do hậu quả nào phát sinh từ việc sử dụng hoặc không thể sử dụng thông tin và dịch vụ trên trang này. Hiệu suất trong quá khứ không đảm bảo cho kết quả trong tương lai.',
+                },
+                {
+                    title: '6. Luật Điều Chỉnh',
+                    content: 'Các điều khoản này sẽ được điều chỉnh và giải thích theo pháp luật của Việt Nam.',
+                },
+            ],
+        },
+        privacyPolicy: {
+            title: 'Chính sách Quyền riêng tư',
+            sections: [
+                {
+                    title: '1. Dữ Liệu Chúng Tôi Thu Thập',
+                    content: 'Chúng tôi thu thập thông tin cá nhân mà bạn cung cấp trực tiếp, chẳng hạn như tên, địa chỉ email và số điện thoại khi bạn điền vào form yêu cầu tư vấn. Chúng tôi cũng tự động thu thập dữ liệu phi cá nhân, như địa chỉ IP và hành vi duyệt web, thông qua cookies.',
+                },
+                {
+                    title: '2. Cách Chúng Tôi Sử Dụng Dữ Liệu Của Bạn',
+                    content: 'Dữ liệu của bạn được sử dụng để:\n• Phản hồi các yêu cầu của bạn và cung cấp các dịch vụ bạn đã đăng ký.\n• Cải thiện website và trải nghiệm người dùng.\n• Gửi cho bạn các thông tin tiếp thị, như bản tin (newsletter), chỉ khi bạn đã đồng ý một cách rõ ràng (opt-in).',
+                },
+                {
+                    title: '3. Chia Sẻ Dữ Liệu',
+                    content: 'Chúng tôi không bán, trao đổi hoặc cho thuê thông tin cá nhân của bạn cho bên khác. Chúng tôi có thể chia sẻ dữ liệu của bạn với các nhà cung cấp dịch vụ bên thứ ba đáng tin cậy (ví dụ: Google Analytics, các nền tảng email marketing) để hỗ trợ chúng tôi vận hành website, nhưng chỉ cho các mục đích đã nêu ở trên.',
+                },
+                {
+                    title: '4. Quyền Của Bạn',
+                    content: 'Bạn có quyền truy cập, chỉnh sửa hoặc yêu cầu xóa dữ liệu cá nhân của mình. Vui lòng liên hệ với chúng tôi để thực hiện các quyền này.',
+                },
+                {
+                    title: '5. Bảo Mật Dữ Liệu',
+                    content: 'Chúng tôi thực hiện nhiều biện pháp bảo mật khác nhau để duy trì sự an toàn cho thông tin cá nhân của bạn.',
+                },
+            ],
+        },
+        cookiePolicy: {
+            title: 'Chính sách Cookie',
+            sections: [
+                {
+                    title: '1. Cookies Là Gì?',
+                    content: 'Cookies là các tệp văn bản nhỏ được đặt trên thiết bị của bạn bởi các trang web bạn truy cập. Chúng được sử dụng rộng rãi để giúp các trang web hoạt động hiệu quả hơn và để cung cấp thông tin cho chủ sở hữu trang web.',
+                },
+                {
+                    title: '2. Cách Chúng Tôi Sử Dụng Cookies',
+                    content: 'Cookies Thiết Yếu: Cần thiết để website hoạt động bình thường.\nCookies Phân Tích: Chúng tôi sử dụng các cookies này (ví dụ: Google Analytics) để hiểu cách khách truy cập tương tác với website, giúp chúng tôi cải thiện nội dung và dịch vụ.\nCookies Tiếp Thị (nếu có): Các cookies này được dùng để theo dõi khách truy cập trên các trang web nhằm hiển thị các quảng cáo có liên quan.',
+                },
+                {
+                    title: '3. Lựa Chọn Của Bạn',
+                    content: 'Bạn có thể kiểm soát và quản lý cookies theo nhiều cách khác nhau. Vui lòng tham khảo phần trợ giúp của trình duyệt để biết thông tin về cách chặn hoặc xóa cookies.',
+                },
+            ],
+        },
     },
 };

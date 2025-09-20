@@ -1,5 +1,6 @@
 'use client';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 export default function AppFooter() {
     const pathname = usePathname();
@@ -18,26 +19,38 @@ export default function AppFooter() {
                         <h3 className="font-semibold uppercase text-white text-center mb-4 text-lg">
                             Get to know us
                         </h3>
-                        <ul className="space-y-3 text-normal text-[var(--brand-grey)] min-w-2/3 [&_*_a:first-child]:font-semibold">
+                        <ul className="space-y-3 text-normal text-[var(--brand-grey-foreground)] min-w-2/3 [&_*_a:first-child]:font-semibold">
                             <li>
-                                <a href="#" className="hover:text-white">
+                                <Link
+                                    href="/about-us"
+                                    className="hover:text-white"
+                                >
                                     About Us
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-white">
+                                <Link
+                                    href="/terms-of-use"
+                                    className="hover:text-white"
+                                >
                                     Term of Use
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-white">
+                                <Link
+                                    href="/privacy-policy"
+                                    className="hover:text-white"
+                                >
                                     Privacy Policy
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-white">
+                                <Link
+                                    href="/cookie-policy"
+                                    className="hover:text-white"
+                                >
                                     Cookie Policy
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>
@@ -47,22 +60,18 @@ export default function AppFooter() {
                         <h3 className="font-semibold uppercase text-white mb-4 text-lg">
                             Let us help you
                         </h3>
-                        <ul className="space-y-3 text-normal text-[var(--brand-grey)] min-w-2/3 [&_*_span:first-child]:font-semibold [&_*_span:last-child]:font-bold [&_*_span:last-child]:text-[var(--brand-grey-foreground)]">
+                        <ul className="space-y-3 text-normal dark:text-[var(--brand-grey-foreground)] min-w-2/3 [&_*_span:first-child]:font-semibold [&_*_span:last-child]:font-bold dark:[&_*_span:last-child]:text-brand-text">
+                            <li className="flex justify-between gap-12">
+                                <span>Consulting</span>
+                                <span>consulting@chaomarket.com</span>
+                            </li>
                             <li className="flex justify-between gap-12">
                                 <span>Support</span>
-                                <span>service@</span>
+                                <span>support@chaomarket.com</span>
                             </li>
                             <li className="flex justify-between gap-12">
-                                <span>Bussiness</span>
-                                <span>bussiness@</span>
-                            </li>
-                            <li className="flex justify-between gap-12">
-                                <span>Marketing</span>
-                                <span>marketing@</span>
-                            </li>
-                            <li className="flex justify-between gap-12">
-                                <span>News</span>
-                                <span>press@</span>
+                                <span>Contact</span>
+                                <span>contact@chaomarket.com</span>
                             </li>
                         </ul>
                     </div>
@@ -71,29 +80,78 @@ export default function AppFooter() {
                         <h3 className="font-semibold uppercase text-white mb-4 text-lg">
                             Follow us
                         </h3>
-                        <ul className="space-y-3 text-normal text-[var(--brand-grey)] min-w-2/3 [&_*_span:first-child]:font-semibold [&_*_span:last-child]:font-bold [&_*_span:last-child]:text-[var(--brand-grey-foreground)]">
+                        <ul className="space-y-3 text-normal dark:text-[var(--brand-grey-foreground)] min-w-2/3 [&_*_span:first-child]:font-semibold [&_*_span:last-child]:font-bold dark:[&_*_span:last-child]:text-brand-text">
                             <li className="flex justify-between gap-12">
                                 <span>Facebook</span>
-                                <span>face</span>
-                            </li>
-                            <li className="flex justify-between gap-12">
-                                <span>Instagram</span>
-                                <span>insta</span>
+                                <span>
+                                    <a
+                                        href="https://www.facebook.com/profile.php?id=61580243678116"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="hover:underline"
+                                    >
+                                        Facebook
+                                    </a>
+                                </span>
                             </li>
                             <li className="flex justify-between gap-12">
                                 <span>Tiktok</span>
-                                <span>tiktok</span>
+                                <span>
+                                    <a
+                                        href="https://www.tiktok.com/@chaomarket.com"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="hover:underline"
+                                    >
+                                        @chaomarket.com
+                                    </a>
+                                </span>
                             </li>
                             <li className="flex justify-between gap-12">
-                                <span>Other</span>
-                                <span>other</span>
+                                <span>Instagram</span>
+                                <span>
+                                    <a
+                                        href="https://www.instagram.com/insta_chaomarket/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="hover:underline"
+                                    >
+                                        @insta_chaomarket
+                                    </a>
+                                </span>
+                            </li>
+                            <li className="flex justify-between gap-12">
+                                <span>Thread</span>
+                                <span>
+                                    <a
+                                        href="https://www.threads.com/@insta_chaomarket"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="hover:underline"
+                                    >
+                                        @insta_chaomarket
+                                    </a>
+                                </span>
+                            </li>
+                            <li className="flex justify-between gap-12">
+                                <span>BIC</span>
+                                <span>
+                                    <a
+                                        href="https://group.beincom.com/ref/DICgO2"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="hover:underline"
+                                    >
+                                        Join Group
+                                    </a>
+                                </span>
                             </li>
                         </ul>
                     </div>
                 </div>
 
                 {/* Copyright */}
-                <div className="text-center text-sm text-white font-semibold mt-6">
+                <div className="text-center text-sm dark:text-[var(--brand-color)] text-brand-text font-semibold mt-6">
                     © 2025 Chaomarket.com. All rights reserved. All content on
                     this website is protected by intellectual property laws.
                     Unauthorized copying, reproduction, or distribution of any

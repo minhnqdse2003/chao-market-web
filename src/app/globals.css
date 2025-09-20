@@ -130,7 +130,7 @@
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
     --brand-text: #FFFFFF;
-    --brand-common-grey: #525252;
+    --brand-common-grey: #3f3f3f;
     --brand-common-dialog: #2e2e2e;
     --brand-common-dropdown: var(--brand-common-dialog);
     --brand-common-dropdown-title: #bfbfbf;
