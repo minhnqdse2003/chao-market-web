@@ -99,7 +99,10 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                 {trigger}
             </div>
 
-            <DialogContent className="bg-brand-dialog min-w-[60svw]">
+            <DialogContent
+                className="bg-brand-dialog min-w-[60svw]"
+                onOpenAutoFocus={e => e.preventDefault()}
+            >
                 <DialogHeader>
                     <DialogTitle className="text-brand-text">
                         Disclaimer

@@ -303,7 +303,7 @@ export default function Page() {
                     ))}
                 </div>
                 <Card
-                    className={`w-full ml-4 rounded-r-sm min-h-full border-[var(--brand-grey)] overflow-y-auto dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] text-xs p-0 transition-all! duration-300 ease-in-out [&[data-state=inactive]]:w-0 [&[data-state=inactive]]:opacity-0 [&[data-state=active]]:opacity-100`}
+                    className={`w-full ml-4 rounded-r-sm min-h-full border-[var(--brand-grey)]dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] text-xs p-0 transition-all! duration-300 ease-in-out [&[data-state=inactive]]:w-0 [&[data-state=inactive]]:opacity-0 [&[data-state=active]]:opacity-100`}
                     data-state={activeCard !== null ? 'active' : 'inactive'}
                 >
                     <CardHeader className="flex relative flex-row items-center justify-between p-4">
@@ -317,7 +317,7 @@ export default function Page() {
                             className="cursor-pointer absolute top-3 right-3 size-4 text-[var(--brand-grey-foreground)] hover:text-[var(--brand-color)]"
                         />
                     </CardHeader>
-                    <CardContent className="p-4 space-y-0.5">
+                    <CardContent className="p-4 space-y-0.5 overflow-y-auto">
                         <div className="flex flex-col space-y-1">
                             <div className="flex justify-between">
                                 <p className="text-[var(--brand-grey-foreground)]">

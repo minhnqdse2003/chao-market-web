@@ -38,7 +38,7 @@ export default function HomePage() {
                 showIndicators={true}
                 showNavigation={true}
                 imageClassName="rounded-xl"
-                className={'h-[80svh]'}
+                className={'h-[90svh]'}
                 indicatorClassName="w-2 h-2"
             />
         </div>

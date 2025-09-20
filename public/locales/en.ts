@@ -148,7 +148,7 @@ export const en: TranslationsStructure = {
             'note': 'Note: We provide the frameworks and tools; All final investment decisions are made by you.',
         },
         'algoTrading': {
-            'title': 'Algorithmic Trading Solution',
+            'title': 'Algorithmic Trading Solutions',
             'description': 'You have a unique trading strategy, but implementing it manually is inefficient. As your technical partner, Chào Market transforms your vision into a powerful, automated trading system. You are the strategist; we are the technical implementers. The process includes in-depth consultations to understand your rules, programming the logic, providing a comprehensive backtest report, and supporting you in deploying the system.',
             'deliveryMethod': {
                 'title': 'Delivery Method:',
@@ -195,7 +195,7 @@ export const en: TranslationsStructure = {
             note: 'Note: This program helps you self-evaluate; It does not provide direct buy/sell trading advice.',
         },
         financialCourse: {
-            title: 'Financial Investment Course',
+            title: 'Financial Investment Courses',
             description: 'In a world of information overload, finding a trusted source of knowledge is key. The Financial Investment Course at Chào Market is designed to systematically build your expertise, from the ground up. We start with the core foundations of financial markets and asset types, then move into practical analysis methods and proven investment strategies. A key focus of the course is the hands-on application of modern algorithmic tools, empowering you to make smarter, data-driven decisions.',
             deliveryOptions: {
                 'title': 'Delivery options (to suit your needs):',
@@ -221,19 +221,19 @@ export const en: TranslationsStructure = {
         },
         common: {
             getStarted: 'Get Started',
-            title: 'Our Solutions',
+            title: 'Chào Solutions',
         },
     },
     sidebar: {
         home: 'Home',
         marketData: 'Market Data',
         clientsAccounts: 'Client Accounts',
-        ourSolutions: 'Our Solutions',
+        ourSolutions: 'Chào Solutions',
         newsEvents: 'News & Events',
         news: 'News',
         events: 'Events',
         community: 'Community',
-        marketInsights: 'Our Market Insights',
+        marketInsights: 'Chào Insights',
         freeCourses: 'Free Courses',
         conferences: 'Conferences',
         videos: 'Videos',

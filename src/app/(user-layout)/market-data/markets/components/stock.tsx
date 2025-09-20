@@ -432,7 +432,7 @@ function OverViews({ type }: { type: MARKET_TYPES }) {
             default:
                 return currentThemeConfig;
         }
-    }, []);
+    }, [theme]);
 
     useEffect(() => {
         if (container.current) {
@@ -505,7 +505,7 @@ function HeatMap({ type }: { type: MARKET_TYPES }) {
                     ? DARK_THEME_CONFIG_STOCK_HEATMAP
                     : LIGHT_THEME_CONFIG_STOCK_HEATMAP;
         }
-    }, []);
+    }, [theme]);
 
     useEffect(() => {
         // Clean up any existing script or widget content to prevent duplication

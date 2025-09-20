@@ -13,6 +13,9 @@ function CalendarComp() {
             ...LIGHT_THEME_CONFIG_ECONOMY_CALENDAR,
             colorTheme: theme === 'dark' ? 'dark' : 'light',
             countryFilter: 'us,vn',
+            width: '100%',
+            height: 800,
+            autosize: true,
         }),
         [theme]
     );
@@ -28,8 +31,40 @@ function CalendarComp() {
         script.type = 'text/javascript';
         script.async = true;
         script.innerHTML = JSON.stringify(currentThemeConfig);
-        if (container.current) container.current.appendChild(script);
+
+        if (container.current) {
+            container.current.appendChild(script);
+        }
+
+        // Add additional styling after widget loads
+        const styleTimer = setTimeout(() => {
+            if (container.current) {
+                const styleTag = container.current.querySelector('style');
+                if (styleTag) {
+                    // Override the existing styles
+                    const additionalStyles = `
+                        .tradingview-widget-copyright {
+                            color: ${theme === 'dark' ? '#94a3b8' : '#64748b'} !important;
+                            font-size: 12px !important;
+                        }
+                        .tradingview-widget-copyright a {
+                            color: ${theme === 'dark' ? '#60a5fa' : '#3b82f6'} !important;
+                        }
+                        .tradingview-widget-copyright a:hover {
+                            color: ${theme === 'dark' ? '#3b82f6' : '#2563eb'} !important;
+                        }
+                        
+                        .tv-embed-widget-wrapper{
+                            border: 1px solid red;
+                        }
+                    `;
+                    styleTag.innerHTML += additionalStyles;
+                }
+            }
+        }, 1000);
+
         return () => {
+            clearTimeout(styleTimer);
             if (container.current) {
                 container.current.innerHTML = '';
             }
@@ -38,9 +73,13 @@ function CalendarComp() {
 
     return (
         <div
-            className="tradingview-widget-container"
+            className="tradingview-widget-container rounded-xl border dark:border-slate-700 overflow-hidden"
             ref={container}
-            style={{ width: '100%', height: '50rem' }}
+            style={{
+                width: '100%',
+                height: '50rem',
+                backgroundColor: theme === 'dark' ? '#0f172a' : '#ffffff',
+            }}
             id={'trading-view-widget-container-calendar'}
         >
             <div className="tradingview-widget-container__widget"></div>

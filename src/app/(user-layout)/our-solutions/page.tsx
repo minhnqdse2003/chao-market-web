@@ -16,107 +16,112 @@ const OurSolutionsPage = () => {
                 id: '18ff56d7-7c1c-4880-a243-12290893cada',
             },
             children: (
-                <>
+                <div className="space-y-6 text-[var(--brand-grey-foreground)]">
                     <p>{t('ourSolutions.financialFoundation.description')}</p>
-                    <p>
-                        <span className="font-medium text-white">
+
+                    {/* Delivery Options Topic */}
+                    <div>
+                        <p className="font-medium text-white">
                             {t(
                                 'ourSolutions.financialFoundation.deliveryOptions.title'
                             )}
-                        </span>
-                    </p>
-                    <ul>
-                        <li>
-                            <span className="font-medium text-white">
+                        </p>
+                        <ul className="list-disc list-inside space-y-1 pl-2">
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.financialFoundation.deliveryOptions.workshop'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.financialFoundation.deliveryOptions.workshop'
+                                    'ourSolutions.financialFoundation.deliveryOptions.workshopDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.financialFoundation.deliveryOptions.workshopDesc'
-                            )}
-                        </li>
-                        <li>
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.financialFoundation.deliveryOptions.mentoring'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.financialFoundation.deliveryOptions.mentoring'
+                                    'ourSolutions.financialFoundation.deliveryOptions.mentoringDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.financialFoundation.deliveryOptions.mentoringDesc'
-                            )}
-                        </li>
-                    </ul>
-                    <p className="mt-6">
-                        <span className="font-medium text-white">
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Outcomes Topic */}
+                    <div>
+                        <p className="font-medium text-white">
                             {t(
                                 'ourSolutions.financialFoundation.outcomes.title'
                             )}
-                        </span>
-                    </p>
-                    <ul className="mt-2">
-                        <li>
-                            <span className="font-medium text-white">
+                        </p>
+                        <ul className="list-disc list-inside space-y-2 pl-2">
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.financialFoundation.outcomes.roadmap'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.financialFoundation.outcomes.roadmap'
+                                    'ourSolutions.financialFoundation.outcomes.roadmapDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.financialFoundation.outcomes.roadmapDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.financialFoundation.outcomes.riskAssessment'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.financialFoundation.outcomes.riskAssessment'
+                                    'ourSolutions.financialFoundation.outcomes.riskAssessmentDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.financialFoundation.outcomes.riskAssessmentDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.financialFoundation.outcomes.assetKnowledge'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.financialFoundation.outcomes.assetKnowledge'
+                                    'ourSolutions.financialFoundation.outcomes.assetKnowledgeDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.financialFoundation.outcomes.assetKnowledgeDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.financialFoundation.outcomes.independentDecision'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.financialFoundation.outcomes.independentDecision'
+                                    'ourSolutions.financialFoundation.outcomes.independentDecisionDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.financialFoundation.outcomes.independentDecisionDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.financialFoundation.outcomes.budgetingMastery'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.financialFoundation.outcomes.budgetingMastery'
+                                    'ourSolutions.financialFoundation.outcomes.budgetingMasteryDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.financialFoundation.outcomes.budgetingMasteryDesc'
-                            )}
-                        </li>
-                    </ul>
-                    <p className="font-medium text-white mt-4">
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p className="font-medium text-white !mt-8">
                         {t('ourSolutions.financialFoundation.note')}
                     </p>
-                </>
+                </div>
             ),
         },
         {
@@ -126,105 +131,110 @@ const OurSolutionsPage = () => {
                 id: '35f103a7-8ca5-4072-89a3-02548c28d5ae',
             },
             children: (
-                <>
+                <div className="space-y-6 text-[var(--brand-grey-foreground)]">
                     <p>{t('ourSolutions.portfolioStrategy.description')}</p>
-                    <p>
-                        <span className="font-medium text-white">
+
+                    {/* Delivery Options Topic */}
+                    <div>
+                        <p className="font-medium text-white">
                             {t(
                                 'ourSolutions.portfolioStrategy.deliveryOptions.title'
                             )}
-                        </span>
-                    </p>
-                    <ul>
-                        <li>
-                            <span className="font-medium text-white">
+                        </p>
+                        <ul className="list-disc list-inside space-y-1 pl-2">
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.portfolioStrategy.deliveryOptions.workshop'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.portfolioStrategy.deliveryOptions.workshop'
+                                    'ourSolutions.portfolioStrategy.deliveryOptions.workshopDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.portfolioStrategy.deliveryOptions.workshopDesc'
-                            )}
-                        </li>
-                        <li>
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.portfolioStrategy.deliveryOptions.mentoring'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.portfolioStrategy.deliveryOptions.mentoring'
+                                    'ourSolutions.portfolioStrategy.deliveryOptions.mentoringDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.portfolioStrategy.deliveryOptions.mentoringDesc'
-                            )}
-                        </li>
-                    </ul>
-                    <p className="mt-6">
-                        <span className="font-medium text-white">
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Outcomes Topic */}
+                    <div>
+                        <p className="font-medium text-white">
                             {t('ourSolutions.portfolioStrategy.outcomes.title')}
-                        </span>
-                    </p>
-                    <ul className="mt-2">
-                        <li>
-                            <span className="font-medium text-white">
+                        </p>
+                        <ul className="list-disc list-inside space-y-2 pl-2">
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.portfolioStrategy.outcomes.framework'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.portfolioStrategy.outcomes.framework'
+                                    'ourSolutions.portfolioStrategy.outcomes.frameworkDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.portfolioStrategy.outcomes.frameworkDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.portfolioStrategy.outcomes.rebalancing'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.portfolioStrategy.outcomes.rebalancing'
+                                    'ourSolutions.portfolioStrategy.outcomes.rebalancingDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.portfolioStrategy.outcomes.rebalancingDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.portfolioStrategy.outcomes.toolsProficiency'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.portfolioStrategy.outcomes.toolsProficiency'
+                                    'ourSolutions.portfolioStrategy.outcomes.toolsProficiencyDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.portfolioStrategy.outcomes.toolsProficiencyDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.portfolioStrategy.outcomes.riskManagement'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.portfolioStrategy.outcomes.riskManagement'
+                                    'ourSolutions.portfolioStrategy.outcomes.riskManagementDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.portfolioStrategy.outcomes.riskManagementDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.portfolioStrategy.outcomes.objectiveDecision'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.portfolioStrategy.outcomes.objectiveDecision'
+                                    'ourSolutions.portfolioStrategy.outcomes.objectiveDecisionDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.portfolioStrategy.outcomes.objectiveDecisionDesc'
-                            )}
-                        </li>
-                    </ul>
-                    <p className="font-medium text-white mt-4">
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p className="font-medium text-white !mt-8">
                         {t('ourSolutions.portfolioStrategy.note')}
                     </p>
-                </>
+                </div>
             ),
         },
         {
@@ -234,80 +244,87 @@ const OurSolutionsPage = () => {
                 id: '850f6aa6-f2b5-4b89-a303-98660d887ec7',
             },
             children: (
-                <>
+                <div className="space-y-6 text-[var(--brand-grey-foreground)]">
                     <p>{t('ourSolutions.algoTrading.description')}</p>
-                    <p>
-                        <span className="font-medium text-white">
+
+                    {/* Delivery Method Topic */}
+                    <div>
+                        <p className="font-medium text-white">
                             {t('ourSolutions.algoTrading.deliveryMethod.title')}
-                        </span>
-                    </p>
-                    <p>{t('ourSolutions.algoTrading.deliveryMethod.desc')}</p>
-                    <p className="mt-6">
-                        <span className="font-medium text-white">
+                        </p>
+                        <p>
+                            {t('ourSolutions.algoTrading.deliveryMethod.desc')}
+                        </p>
+                    </div>
+
+                    {/* Outcomes Topic */}
+                    <div>
+                        <p className="font-medium text-white">
                             {t('ourSolutions.algoTrading.outcomes.title')}
-                        </span>
-                    </p>
-                    <ul className="mt-2">
-                        <li>
-                            <span className="font-medium text-white">
+                        </p>
+                        <ul className="list-disc list-inside space-y-2 pl-2">
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.algoTrading.outcomes.codedSystem'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.algoTrading.outcomes.codedSystem'
+                                    'ourSolutions.algoTrading.outcomes.codedSystemDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.algoTrading.outcomes.codedSystemDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.algoTrading.outcomes.backtestReport'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.algoTrading.outcomes.backtestReport'
+                                    'ourSolutions.algoTrading.outcomes.backtestReportDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.algoTrading.outcomes.backtestReportDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.algoTrading.outcomes.deployedTool'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.algoTrading.outcomes.deployedTool'
+                                    'ourSolutions.algoTrading.outcomes.deployedToolDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.algoTrading.outcomes.deployedToolDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.algoTrading.outcomes.systematicExecution'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.algoTrading.outcomes.systematicExecution'
+                                    'ourSolutions.algoTrading.outcomes.systematicExecutionDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.algoTrading.outcomes.systematicExecutionDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.algoTrading.outcomes.fullOwnership'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.algoTrading.outcomes.fullOwnership'
+                                    'ourSolutions.algoTrading.outcomes.fullOwnershipDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.algoTrading.outcomes.fullOwnershipDesc'
-                            )}
-                        </li>
-                    </ul>
-                    <p className="font-medium text-white mt-4">
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p className="font-medium text-white !mt-8">
                         {t('ourSolutions.algoTrading.note')}
                     </p>
-                </>
+                </div>
             ),
         },
         {
@@ -317,107 +334,112 @@ const OurSolutionsPage = () => {
                 id: '91aa5027-325b-4cef-9503-8a03e0790074',
             },
             children: (
-                <>
+                <div className="space-y-6 text-[var(--brand-grey-foreground)]">
                     <p>{t('ourSolutions.tradingPerformance.description')}</p>
-                    <p>
-                        <span className="font-medium text-white">
+
+                    {/* Delivery Options Topic */}
+                    <div>
+                        <p className="font-medium text-white">
                             {t(
                                 'ourSolutions.tradingPerformance.deliveryOptions.title'
                             )}
-                        </span>
-                    </p>
-                    <ul>
-                        <li>
-                            <span className="font-medium text-white">
+                        </p>
+                        <ul className="list-disc list-inside space-y-1 pl-2">
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.tradingPerformance.deliveryOptions.workshop'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.tradingPerformance.deliveryOptions.workshop'
+                                    'ourSolutions.tradingPerformance.deliveryOptions.workshopDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.tradingPerformance.deliveryOptions.workshopDesc'
-                            )}
-                        </li>
-                        <li>
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.tradingPerformance.deliveryOptions.mentoring'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.tradingPerformance.deliveryOptions.mentoring'
+                                    'ourSolutions.tradingPerformance.deliveryOptions.mentoringDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.tradingPerformance.deliveryOptions.mentoringDesc'
-                            )}
-                        </li>
-                    </ul>
-                    <p className="mt-6">
-                        <span className="font-medium text-white">
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Outcomes Topic */}
+                    <div>
+                        <p className="font-medium text-white">
                             {t(
                                 'ourSolutions.tradingPerformance.outcomes.title'
                             )}
-                        </span>
-                    </p>
-                    <ul className="mt-2">
-                        <li>
-                            <span className="font-medium text-white">
+                        </p>
+                        <ul className="list-disc list-inside space-y-2 pl-2">
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.tradingPerformance.outcomes.performanceView'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.tradingPerformance.outcomes.performanceView'
+                                    'ourSolutions.tradingPerformance.outcomes.performanceViewDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.tradingPerformance.outcomes.performanceViewDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.tradingPerformance.outcomes.behavioralPatterns'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.tradingPerformance.outcomes.behavioralPatterns'
+                                    'ourSolutions.tradingPerformance.outcomes.behavioralPatternsDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.tradingPerformance.outcomes.behavioralPatternsDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.tradingPerformance.outcomes.improvementPlan'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.tradingPerformance.outcomes.improvementPlan'
+                                    'ourSolutions.tradingPerformance.outcomes.improvementPlanDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.tradingPerformance.outcomes.improvementPlanDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.tradingPerformance.outcomes.selfReviewSkills'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.tradingPerformance.outcomes.selfReviewSkills'
+                                    'ourSolutions.tradingPerformance.outcomes.selfReviewSkillsDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.tradingPerformance.outcomes.selfReviewSkillsDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.tradingPerformance.outcomes.tradingDiscipline'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.tradingPerformance.outcomes.tradingDiscipline'
+                                    'ourSolutions.tradingPerformance.outcomes.tradingDisciplineDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.tradingPerformance.outcomes.tradingDisciplineDesc'
-                            )}
-                        </li>
-                    </ul>
-                    <p className="font-medium text-white mt-4">
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p className="font-medium text-white !mt-8">
                         {t('ourSolutions.tradingPerformance.note')}
                     </p>
-                </>
+                </div>
             ),
         },
         {
@@ -427,105 +449,110 @@ const OurSolutionsPage = () => {
                 id: 'c3d2e0cc-484d-475c-8051-03c70b4e40d6',
             },
             children: (
-                <>
+                <div className="space-y-6 text-[var(--brand-grey-foreground)]">
                     <p>{t('ourSolutions.financialCourse.description')}</p>
-                    <p>
-                        <span className="font-medium text-white">
+
+                    {/* Delivery Options Topic */}
+                    <div>
+                        <p className="font-medium text-white">
                             {t(
                                 'ourSolutions.financialCourse.deliveryOptions.title'
                             )}
-                        </span>
-                    </p>
-                    <ul>
-                        <li>
-                            <span className="font-medium text-white">
+                        </p>
+                        <ul className="list-disc list-inside space-y-1 pl-2">
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.financialCourse.deliveryOptions.groupClass'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.financialCourse.deliveryOptions.groupClass'
+                                    'ourSolutions.financialCourse.deliveryOptions.groupClassDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.financialCourse.deliveryOptions.groupClassDesc'
-                            )}
-                        </li>
-                        <li>
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.financialCourse.deliveryOptions.privateMentoring'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.financialCourse.deliveryOptions.privateMentoring'
+                                    'ourSolutions.financialCourse.deliveryOptions.privateMentoringDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.financialCourse.deliveryOptions.privateMentoringDesc'
-                            )}
-                        </li>
-                    </ul>
-                    <p className="mt-6">
-                        <span className="font-medium text-white">
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Outcomes Topic */}
+                    <div>
+                        <p className="font-medium text-white">
                             {t('ourSolutions.financialCourse.outcomes.title')}
-                        </span>
-                    </p>
-                    <ul className="mt-2">
-                        <li>
-                            <span className="font-medium text-white">
+                        </p>
+                        <ul className="list-disc list-inside space-y-2 pl-2">
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.financialCourse.outcomes.foundationalKnowledge'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.financialCourse.outcomes.foundationalKnowledge'
+                                    'ourSolutions.financialCourse.outcomes.foundationalKnowledgeDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.financialCourse.outcomes.foundationalKnowledgeDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.financialCourse.outcomes.analysisSkills'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.financialCourse.outcomes.analysisSkills'
+                                    'ourSolutions.financialCourse.outcomes.analysisSkillsDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.financialCourse.outcomes.analysisSkillsDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.financialCourse.outcomes.toolProficiency'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.financialCourse.outcomes.toolProficiency'
+                                    'ourSolutions.financialCourse.outcomes.toolProficiencyDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.financialCourse.outcomes.toolProficiencyDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.financialCourse.outcomes.strategicFramework'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.financialCourse.outcomes.strategicFramework'
+                                    'ourSolutions.financialCourse.outcomes.strategicFrameworkDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.financialCourse.outcomes.strategicFrameworkDesc'
-                            )}
-                        </li>
-                        <li className="mt-2">
-                            <span className="font-medium text-white">
+                            </li>
+                            <li>
+                                <span className="font-medium text-white">
+                                    {t(
+                                        'ourSolutions.financialCourse.outcomes.confidenceToInvest'
+                                    )}
+                                    :
+                                </span>{' '}
                                 {t(
-                                    'ourSolutions.financialCourse.outcomes.confidenceToInvest'
+                                    'ourSolutions.financialCourse.outcomes.confidenceToInvestDesc'
                                 )}
-                                :
-                            </span>{' '}
-                            {t(
-                                'ourSolutions.financialCourse.outcomes.confidenceToInvestDesc'
-                            )}
-                        </li>
-                    </ul>
-                    <p className="font-medium text-white mt-4">
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p className="font-medium text-white !mt-8">
                         {t('ourSolutions.financialCourse.note')}
                     </p>
-                </>
+                </div>
             ),
         },
     ];
