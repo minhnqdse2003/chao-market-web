@@ -165,7 +165,7 @@ export default function CartItemsPage() {
                                         ]
                                     }
                                 </h3>
-                                <p className="text-xs max-w-2/3 truncate">
+                                <p className="text-xs max-w-2/3">
                                     {item?.description
                                         ? item.description[
                                               (locale as keyof LanguageOptions) ||

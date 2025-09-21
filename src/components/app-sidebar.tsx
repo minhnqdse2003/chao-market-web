@@ -205,6 +205,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                     Book a Consultation
                                 </p>
                             }
+                            className={
+                                'dark:bg-[var(--brand-color)] dark:text-black mb-4'
+                            }
                         >
                             <ConsultationButton />
                         </SidebarMenuButton>

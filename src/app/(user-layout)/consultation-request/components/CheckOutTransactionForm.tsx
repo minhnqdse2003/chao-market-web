@@ -431,7 +431,7 @@ export default function CheckOutTransactionForm({
                         type="button"
                         onClick={form.handleSubmit(handleSubmit)}
                         disabled={isSubmitting || isDisableSubmitButton}
-                        className="border border-transparent not-disabled:hover:border-[var(--brand-color)] dark:not-disabled:text-[var(--brand-color)] not-disabled:hover:text-black not-disabled:cursor-pointer dark:not-disabled:hover:bg-[var(--brand-color)] px-6 py-2 rounded-md disabled:opacity-75 disabled:text-[var(--brand-color)] transition-all! duration-300 ease-in-out font-semibold text-brand-text hover:bg-[var(--brand-color)] dark:hover:text-black"
+                        className="dark:bg-[var(--brand-color)] px-6 py-2 rounded-md disabled:opacity-75 disabled:text-[var(--brand-color)] transition-all! duration-300 ease-in-out font-semibold text-brand-text hover:bg-[var(--brand-color)] not-disabled:cursor-pointer dark:text-black"
                     >
                         {isSubmitting
                             ? 'Processing...'
