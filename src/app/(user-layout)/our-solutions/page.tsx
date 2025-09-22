@@ -20,13 +20,13 @@ const OurSolutionsPage = () => {
                     <p>{t('ourSolutions.financialFoundation.description')}</p>
 
                     {/* Delivery Options Topic */}
-                    <div>
+                    <div className="space-y-1.5">
                         <p className="font-medium text-white">
                             {t(
                                 'ourSolutions.financialFoundation.deliveryOptions.title'
                             )}
                         </p>
-                        <ul className="list-disc list-inside space-y-1 pl-2">
+                        <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
                                 <span className="font-medium text-white">
                                     {t(
@@ -53,13 +53,13 @@ const OurSolutionsPage = () => {
                     </div>
 
                     {/* Outcomes Topic */}
-                    <div>
+                    <div className="space-y-1.5">
                         <p className="font-medium text-white">
                             {t(
                                 'ourSolutions.financialFoundation.outcomes.title'
                             )}
                         </p>
-                        <ul className="list-disc list-inside space-y-2 pl-2">
+                        <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
                                 <span className="font-medium text-white">
                                     {t(
@@ -135,13 +135,13 @@ const OurSolutionsPage = () => {
                     <p>{t('ourSolutions.portfolioStrategy.description')}</p>
 
                     {/* Delivery Options Topic */}
-                    <div>
+                    <div className="space-y-1.5">
                         <p className="font-medium text-white">
                             {t(
                                 'ourSolutions.portfolioStrategy.deliveryOptions.title'
                             )}
                         </p>
-                        <ul className="list-disc list-inside space-y-1 pl-2">
+                        <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
                                 <span className="font-medium text-white">
                                     {t(
@@ -168,11 +168,11 @@ const OurSolutionsPage = () => {
                     </div>
 
                     {/* Outcomes Topic */}
-                    <div>
+                    <div className="space-y-1.5">
                         <p className="font-medium text-white">
                             {t('ourSolutions.portfolioStrategy.outcomes.title')}
                         </p>
-                        <ul className="list-disc list-inside space-y-2 pl-2">
+                        <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
                                 <span className="font-medium text-white">
                                     {t(
@@ -248,7 +248,7 @@ const OurSolutionsPage = () => {
                     <p>{t('ourSolutions.algoTrading.description')}</p>
 
                     {/* Delivery Method Topic */}
-                    <div>
+                    <div className="space-y-1.5">
                         <p className="font-medium text-white">
                             {t('ourSolutions.algoTrading.deliveryMethod.title')}
                         </p>
@@ -258,11 +258,11 @@ const OurSolutionsPage = () => {
                     </div>
 
                     {/* Outcomes Topic */}
-                    <div>
+                    <div className="space-y-1.5">
                         <p className="font-medium text-white">
                             {t('ourSolutions.algoTrading.outcomes.title')}
                         </p>
-                        <ul className="list-disc list-inside space-y-2 pl-2">
+                        <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
                                 <span className="font-medium text-white">
                                     {t(
@@ -338,13 +338,13 @@ const OurSolutionsPage = () => {
                     <p>{t('ourSolutions.tradingPerformance.description')}</p>
 
                     {/* Delivery Options Topic */}
-                    <div>
+                    <div className="space-y-1.5">
                         <p className="font-medium text-white">
                             {t(
                                 'ourSolutions.tradingPerformance.deliveryOptions.title'
                             )}
                         </p>
-                        <ul className="list-disc list-inside space-y-1 pl-2">
+                        <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
                                 <span className="font-medium text-white">
                                     {t(
@@ -371,13 +371,13 @@ const OurSolutionsPage = () => {
                     </div>
 
                     {/* Outcomes Topic */}
-                    <div>
+                    <div className="space-y-1.5">
                         <p className="font-medium text-white">
                             {t(
                                 'ourSolutions.tradingPerformance.outcomes.title'
                             )}
                         </p>
-                        <ul className="list-disc list-inside space-y-2 pl-2">
+                        <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
                                 <span className="font-medium text-white">
                                     {t(
@@ -453,13 +453,13 @@ const OurSolutionsPage = () => {
                     <p>{t('ourSolutions.financialCourse.description')}</p>
 
                     {/* Delivery Options Topic */}
-                    <div>
+                    <div className="space-y-1.5">
                         <p className="font-medium text-white">
                             {t(
                                 'ourSolutions.financialCourse.deliveryOptions.title'
                             )}
                         </p>
-                        <ul className="list-disc list-inside space-y-1 pl-2">
+                        <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
                                 <span className="font-medium text-white">
                                     {t(
@@ -486,11 +486,11 @@ const OurSolutionsPage = () => {
                     </div>
 
                     {/* Outcomes Topic */}
-                    <div>
+                    <div className="space-y-1.5">
                         <p className="font-medium text-white">
                             {t('ourSolutions.financialCourse.outcomes.title')}
                         </p>
-                        <ul className="list-disc list-inside space-y-2 pl-2">
+                        <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
                                 <span className="font-medium text-white">
                                     {t(
@@ -558,7 +558,7 @@ const OurSolutionsPage = () => {
     ];
 
     return (
-        <div className="flex flex-col gap-6 [&>div:not(:last-child)]:pb-6 [&>div:first-child]:mb-0! [&>div:not(:last-child)]:border-b [&>div:first-child]:border-b-0! border-[var(--brand-grey)]">
+        <div className="flex flex-col gap-6 [&>div:not(:last-child)]:pb-6 [&>div:first-child]:mb-0! [&>div:not(:last-child)]:border-b [&>div:first-child]:border-b-0! border-[var(--brand-grey)] [&>div:first-child]:scroll-mt-120 [&>div:not(:first-child)]:scroll-mt-40">
             <GeneralBanner />
             {contents.map((item, idx) => (
                 <BlockContents

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 export interface TabServerSide {
     title: string;
@@ -11,6 +12,7 @@ interface AppTabsServerSideProps {
     isParentOfSubTab?: boolean;
     isSubTab?: boolean;
     currentHref?: string;
+    subTabClassName?: string;
 }
 
 export default function AppTabsServerSide({
@@ -19,6 +21,7 @@ export default function AppTabsServerSide({
     isParentOfSubTab = false,
     isSubTab = false,
     currentHref,
+    subTabClassName = '',
 }: AppTabsServerSideProps) {
     // Parse current search params
     const searchParams = new URLSearchParams(currentSearchParams);
@@ -100,7 +103,7 @@ export default function AppTabsServerSide({
     const currentTabHref = currentHref ? currentHref : getCurrentTabHref();
 
     return (
-        <div className={isParentOfSubTab ? '' : 'mb-8'}>
+        <div className={isParentOfSubTab ? '' : cn('mb-8', subTabClassName)}>
             <div
                 className={`${isSubTab ? '' : 'border-b border-[var(--brand-grey)]'}`}
             >

@@ -30,7 +30,7 @@ export default function HomePage() {
     ];
 
     return (
-        <div className="container mx-auto py-8">
+        <div className="h-[calc(100svh-4rem)] m-auto">
             <AppCarousel
                 items={carouselItems}
                 autoPlay={true}
@@ -38,7 +38,7 @@ export default function HomePage() {
                 showIndicators={true}
                 showNavigation={true}
                 imageClassName="rounded-xl"
-                className={'h-[90svh]'}
+                className={'h-full'}
                 indicatorClassName="w-2 h-2"
             />
         </div>

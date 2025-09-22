@@ -1,5 +1,5 @@
 import { GeneralBanner } from '@/components/app-banner';
-import { Headset, MapPin, MessageSquareMore, PhoneCall } from 'lucide-react';
+import { Mail, Phone, Users, LifeBuoy } from 'lucide-react'; // Import relevant Lucide icons
 import { capitalizeWords } from '@/utils/string-parsing';
 
 interface ContactCard {
@@ -8,78 +8,89 @@ interface ContactCard {
     description: string;
     contactInfo: string;
     isLink?: boolean;
+    href?: string;
 }
 
 export default function ContactsPage() {
     const contactCards: ContactCard[] = [
         {
             icon: (
-                <MessageSquareMore
+                <Users size={60} className="text-[var(--brand-color)] mb-6" />
+            ),
+            title: 'Consulting',
+            description: 'Let us help you find the best solutions',
+            contactInfo: 'consulting@chaomarket.com',
+            isLink: true,
+            href: 'mailto:consulting@chaomarket.com',
+        },
+        {
+            icon: (
+                <LifeBuoy
                     size={60}
                     className="text-[var(--brand-color)] mb-6"
                 />
             ),
-            title: 'Chat to sales',
-            description: 'Get better deal with our sales team',
-            contactInfo: 'sales@chaomarket.com',
-            isLink: true,
-        },
-        {
-            icon: (
-                <Headset size={60} className="text-[var(--brand-color)] mb-6" />
-            ),
-            title: 'Chat to support',
+            title: 'Support',
             description: "We're here to help",
             contactInfo: 'support@chaomarket.com',
             isLink: true,
+            href: 'mailto:support@chaomarket.com',
         },
         {
-            icon: (
-                <MapPin size={60} className="text-[var(--brand-color)] mb-6" />
-            ),
-            title: 'Visit us',
-            description: 'Visit out HQ',
-            contactInfo: 'View on Google Maps',
+            icon: <Mail size={60} className="text-[var(--brand-color)] mb-6" />,
+            title: 'Contact',
+            description: 'General inquiries',
+            contactInfo: 'contact@chaomarket.com',
             isLink: true,
+            href: 'mailto:contact@chaomarket.com',
         },
         {
             icon: (
-                <PhoneCall
-                    size={60}
-                    className="text-[var(--brand-color)] mb-6"
-                />
+                <Phone size={60} className="text-[var(--brand-color)] mb-6" />
             ),
-            title: 'Call us',
+            title: 'Phone',
             description: 'Mon-Fri from 8am to 5pm',
-            contactInfo: '+84 0000 000 000',
+            contactInfo: '0985865674',
+            isLink: true,
+            href: 'tel:0985865674',
         },
     ];
 
     return (
         <div className="w-full h-full">
             <GeneralBanner />
-            <p className="font-semibold text-2xl mb-4">Contacts our team</p>
+            {/* Keep the original layout structure */}
+            <p className="font-semibold text-2xl mb-4">Let us help you</p>
             <div className='flex flex-row dark:[&>div[data-slot="Card"]]:bg-[var(--brand-black-bg)] [&>div[data-slot="Card"]]:bg-[var(--brand-grey)]  [&>div[data-slot="Card"]]:px-8 [&>div[data-slot="Card"]]:shadow-sm [&>div[data-slot="Card"]]:py-10 [&>div[data-slot="Card"]]:rounded-2xl gap-2'>
-                {contactCards.map((card, index) => (
-                    <div
-                        key={index}
-                        data-slot="Card"
-                        className="flex basis-1/4 flex-col justify-center gap-2"
-                    >
-                        {card.icon}
-                        <p className={`font-bold ${index === 0 ? '' : ''}`}>
-                            {capitalizeWords(card.title)}
-                        </p>
-                        <p className="text-[var(--brand-grey-foreground)]">
-                            {card.description}
-                        </p>
-                        {card.isLink ? (
-                            <p className={'font-bold'}>{card.contactInfo}</p>
-                        ) : (
-                            <p className={'font-bold'}>{card.contactInfo}</p>
-                        )}
-                    </div>
-                ))}
+                {contactCards.map((card, index) => {
+                    const ContactInfoElement = card.isLink ? 'a' : 'p';
+                    const contactInfoProps = card.isLink
+                        ? {
+                              href: card.href,
+                              className: 'font-bold hover:underline',
+                          }
+                        : { className: 'font-bold' };
+
+                    return (
+                        <div
+                            key={index}
+                            data-slot="Card"
+                            className="flex basis-1/4 flex-col justify-center gap-2"
+                        >
+                            {card.icon}
+                            <p className={`font-bold`}>
+                                {capitalizeWords(card.title)}
+                            </p>
+                            <p className="text-[var(--brand-grey-foreground)]">
+                                {card.description}
+                            </p>
+                            {/* Render contact info as a link or plain text */}
+                            <ContactInfoElement {...contactInfoProps}>
+                                {card.contactInfo}
+                            </ContactInfoElement>
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );

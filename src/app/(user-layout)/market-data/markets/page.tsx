@@ -16,12 +16,16 @@ export default function Page({ searchParams }: PageProps) {
             href: '/market-data/markets?tab=us',
         },
         {
-            title: 'Vietnamese Stocks',
+            title: 'Vietnam Stocks',
             href: '/market-data/markets?tab=vi',
         },
         {
             title: 'Currencies',
             href: '/market-data/markets?tab=currencies',
+        },
+        {
+            title: 'Crypto Currencies',
+            href: '/market-data/markets?tab=crypto',
         },
         {
             title: 'Commodities',
@@ -39,6 +43,7 @@ export default function Page({ searchParams }: PageProps) {
             {(tab === 'us' || !tab) && <StockComp type={'us'} />}
             {tab === 'currencies' && <StockComp type={'currencies'} />}
             {tab === 'commodities' && <StockComp type={'commodities'} />}
+            {tab === 'crypto' && <StockComp type={'crypto'} />}
         </>
     );
 }

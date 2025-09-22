@@ -23,6 +23,7 @@ export default function TabNavigation({
                     validateSearchParams
                 ).toString()}
                 isSubTab={true}
+                subTabClassName={'mb-2'}
             />
         );
     }

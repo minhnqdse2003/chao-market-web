@@ -21,6 +21,10 @@ import { toast } from 'sonner';
 import { useI18n } from '@/context/i18n/context';
 import { PayloadConsultationRequest } from '@/app/api/consultation';
 import { LanguageOptions } from '@/components/language-toggle';
+import {
+    capitalizeFirstLetterOnly,
+    splitAndTrim,
+} from '@/utils/string-parsing';
 
 export default function CartItemsPage() {
     const { data: response, isLoading: isConsultationServicesLoading } =
@@ -165,14 +169,26 @@ export default function CartItemsPage() {
                                         ]
                                     }
                                 </h3>
-                                <p className="text-xs max-w-2/3">
+                                <div className="flex flex-wrap gap-0.5">
                                     {item?.description
-                                        ? item.description[
-                                              (locale as keyof LanguageOptions) ||
-                                                  'en'
-                                          ]
+                                        ? splitAndTrim(
+                                              item.description[
+                                                  (locale as keyof LanguageOptions) ||
+                                                      'en'
+                                              ],
+                                              '/'
+                                          ).map((text, index) => (
+                                              <p
+                                                  key={index}
+                                                  className="text-xs max-w-[66%] basis-[calc(50%-0.5rem)]"
+                                              >
+                                                  {capitalizeFirstLetterOnly(
+                                                      text
+                                                  )}
+                                              </p>
+                                          ))
                                         : ''}
-                                </p>
+                                </div>
                             </div>
                         </div>
                     ))}

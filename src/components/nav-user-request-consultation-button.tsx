@@ -15,9 +15,7 @@ export default function ConsultationButton() {
         <Link
             href="/consultation-request"
             className={cn(
-                'gap-2 flex items-center justify-center dark:hover:text-black dark:hover:bg-[var(--brand-color)]' +
-                    ' hover:text-brand-text hover:bg-[var(--brand-grey)] transition-all! duration-300 ease-in-out' +
-                    ' font-semibold w-full dark:hover:bg-transparent '
+                'gap-2 flex items-center justify-center  font-semibold w-full'
             )}
         >
             <CalendarPlus className="h-4 w-4" />

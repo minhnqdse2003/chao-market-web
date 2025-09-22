@@ -2,8 +2,9 @@
 
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useTheme } from 'next-themes';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { MARKET_SYMBOL, TMarketSymbolKey } from '@/constant/market-query';
+import { calculateAdjustedHeight } from '@/utils/height-utils';
+import { AppTabs, TabItem } from '@/components/app-tabs';
 
 const USA_SYMBOL_KEYS: TMarketSymbolKey[] = [
     'CAPITAL_VIX',
@@ -99,6 +100,7 @@ const LIGHT_THEME_CONFIG_OVERVIEW = {
     support_host: 'https://www.tradingview.com',
     showSymbolLogo: true,
     showChart: true,
+    height: 600,
 };
 
 const DARK_THEME_CONFIG_OVERVIEW = {
@@ -444,7 +446,15 @@ function OverViews({ type }: { type: MARKET_TYPES }) {
             'https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js';
         script.type = 'text/javascript';
         script.async = true;
-        script.innerHTML = JSON.stringify(getThemeConfig());
+        // Get the theme config and modify the height
+        const config = getThemeConfig();
+
+        const configWithModifiedHeight = {
+            ...config,
+            height: calculateAdjustedHeight(),
+        };
+
+        script.innerHTML = JSON.stringify(configWithModifiedHeight);
         if (container.current) container.current.appendChild(script);
 
         return () => {
@@ -517,7 +527,15 @@ function HeatMap({ type }: { type: MARKET_TYPES }) {
         script.src = getCurrentSrc();
         script.type = 'text/javascript';
         script.async = true;
-        script.innerHTML = JSON.stringify(getCurrentConfig());
+        // Get the theme config and modify the height
+        const config = getCurrentConfig();
+
+        const configWithModifiedHeight = {
+            ...config,
+            height: calculateAdjustedHeight(),
+        };
+
+        script.innerHTML = JSON.stringify(configWithModifiedHeight);
 
         if (container.current) container.current.appendChild(script);
         return () => {
@@ -557,9 +575,11 @@ function Chart({ type }: { type: MARKET_TYPES }) {
             case 'us':
             case 'currencies':
             default:
-                return DARK_THEME_CONFIG_CHART;
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_CHART
+                    : LIGHT_THEME_CONFIG_CHART;
         }
-    }, []);
+    }, [theme]);
 
     useEffect(() => {
         if (container.current) {
@@ -571,7 +591,14 @@ function Chart({ type }: { type: MARKET_TYPES }) {
             'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
         script.type = 'text/javascript';
         script.async = true;
-        script.innerHTML = JSON.stringify(getCurrentThemeConfig());
+        const config = getCurrentThemeConfig();
+
+        const configWithModifiedHeight = {
+            ...config,
+            height: calculateAdjustedHeight(),
+        };
+
+        script.innerHTML = JSON.stringify(configWithModifiedHeight);
         if (container.current) container.current.appendChild(script);
         return () => {
             if (container.current) {
@@ -629,7 +656,14 @@ function News({ type }: { type: MARKET_TYPES }) {
             'https://s3.tradingview.com/external-embedding/embed-widget-timeline.js';
         script.type = 'text/javascript';
         script.async = true;
-        script.innerHTML = JSON.stringify(getCurrentThemeConfig());
+        const config = getCurrentThemeConfig();
+
+        const configWithModifiedHeight = {
+            ...config,
+            height: calculateAdjustedHeight(),
+        };
+
+        script.innerHTML = JSON.stringify(configWithModifiedHeight);
         if (container.current) container.current.appendChild(script);
         return () => {
             if (container.current) {
@@ -684,7 +718,14 @@ function EconomyCalendar({ type }: { type: MARKET_TYPES }) {
             'https://s3.tradingview.com/external-embedding/embed-widget-events.js';
         script.type = 'text/javascript';
         script.async = true;
-        script.innerHTML = JSON.stringify(getCurrentThemeConfig());
+        const config = getCurrentThemeConfig();
+
+        const configWithModifiedHeight = {
+            ...config,
+            height: calculateAdjustedHeight(),
+        };
+
+        script.innerHTML = JSON.stringify(configWithModifiedHeight);
         if (container.current) container.current.appendChild(script);
         return () => {
             if (container.current) {
@@ -706,37 +747,36 @@ function EconomyCalendar({ type }: { type: MARKET_TYPES }) {
 }
 
 function StockComp({ type }: { type: MARKET_TYPES }) {
-    return (
-        <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full grid-cols-5">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="heatmap">Heatmap</TabsTrigger>
-                <TabsTrigger value="chart">Chart</TabsTrigger>
-                <TabsTrigger value="news">News</TabsTrigger>
-                <TabsTrigger value="calendar">Calendar</TabsTrigger>
-            </TabsList>
+    const tabsList: TabItem[] = [
+        {
+            title: 'Overview',
+            value: 'overview',
+            renderContent: () => Promise.resolve(<OverViews type={type} />),
+        },
+        {
+            title: 'Heatmap',
+            value: 'heatmap',
+            renderContent: () => Promise.resolve(<HeatMap type={type} />),
+        },
+        {
+            title: 'Chart',
+            value: 'chart',
+            renderContent: () => Promise.resolve(<Chart type={type} />),
+        },
+        {
+            title: 'News',
+            value: 'news',
+            renderContent: () => Promise.resolve(<News type={type} />),
+        },
+        {
+            title: 'Calendar',
+            value: 'calendar',
+            renderContent: () =>
+                Promise.resolve(<EconomyCalendar type={type} />),
+        },
+    ];
 
-            <TabsContent value="overview">
-                <OverViews type={type} />
-            </TabsContent>
-
-            <TabsContent value="heatmap">
-                <HeatMap type={type} />
-            </TabsContent>
-
-            <TabsContent value="chart">
-                <Chart type={type} />
-            </TabsContent>
-
-            <TabsContent value="news">
-                <News type={type} />
-            </TabsContent>
-
-            <TabsContent value="calendar">
-                <EconomyCalendar type={type} />
-            </TabsContent>
-        </Tabs>
-    );
+    return <AppTabs tabsList={tabsList} />;
 }
 
 export default StockComp;

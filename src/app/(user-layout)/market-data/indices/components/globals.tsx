@@ -85,7 +85,7 @@ function GlobalComp() {
             ref={container}
             style={{
                 width: `100%`,
-                height: '40.5rem',
+                height: '39.5rem',
             }}
         >
             <div className="tradingview-widget-container__widget"></div>

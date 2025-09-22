@@ -76,7 +76,7 @@ export default function USAComp() {
             ref={container}
             style={{
                 width: `100%`,
-                height: '15.75rem',
+                height: '14.75rem',
             }}
         >
             <div className="tradingview-widget-container__widget"></div>

@@ -206,7 +206,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                 </p>
                             }
                             className={
-                                'dark:bg-[var(--brand-color)] dark:text-black mb-4'
+                                'dark:bg-transparent dark:text-[var(--brand-color)] dark:hover:text-black hover:text-black' +
+                                ' dark:hover:bg-[var(--brand-color)] hover:bg-[var(--brand-color)] transition-all! duration-300 ease-in-out border' +
+                                ' border-brand-text dark:border-[var(--brand-color)]' +
+                                ' hover:border-[var(--brand-color)]' +
+                                ' mb-4'
                             }
                         >
                             <ConsultationButton />

@@ -13,7 +13,7 @@ export const generateMockData = async (
     const baseDate = new Date('2025-07-02T13:33:00+07:00');
     const data: HomeNewFlow[] = [];
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 30; i++) {
         const date = new Date(baseDate);
         date.setDate(baseDate.getDate() - i);
 
