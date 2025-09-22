@@ -31,9 +31,11 @@ import NavSeparator from './nav-separator';
 import NavInformation from './nav-information';
 import ConsultationButton from '@/components/nav-user-request-consultation-button';
 import DisclaimerDialog from '@/components/disclaimer-dialog';
+import { usePathname } from 'next/navigation';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const { status } = useSession();
+    const pathName = usePathname();
     const isLoading = status === 'loading';
     const { t } = useI18n();
 
@@ -210,7 +212,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                 ' dark:hover:bg-[var(--brand-color)] hover:bg-[var(--brand-color)] transition-all! duration-300 ease-in-out border' +
                                 ' border-brand-text dark:border-[var(--brand-color)]' +
                                 ' hover:border-[var(--brand-color)]' +
-                                ' mb-4'
+                                ' mb-4' +
+                                `${
+                                    pathName === '/consultation-request'
+                                        ? ' dark:bg-[var(--brand-color)] bg-[var(--brand-color)] border-[var(--brand-color)]' +
+                                          ' dark:text-black text-black'
+                                        : ''
+                                }`
                             }
                         >
                             <ConsultationButton />

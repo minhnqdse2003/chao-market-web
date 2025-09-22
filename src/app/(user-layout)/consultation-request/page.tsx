@@ -130,7 +130,7 @@ export default function CartItemsPage() {
                                 id={`item-${item.id}`}
                                 checked={isChecked(item.id)}
                                 onClick={() => toggleItemSelection(item.id)}
-                                className="mr-4 dark:data-[state=checked]:bg-[var(--brand-color)] dark:data-[state=checked]:border-[var(--brand-color)] dark:data-[state=checked]:text-black cursor-pointer"
+                                className="mr-4 dark:data-[state=checked]:bg-[var(--brand-color)] dark:data-[state=checked]:border-[var(--brand-color)] dark:data-[state=checked]:text-black cursor-pointer border-[var(--brand-grey-foreground)]"
                             />
 
                             <div className="shrink-0">
@@ -155,7 +155,7 @@ export default function CartItemsPage() {
                                 )}
                             </div>
 
-                            <div className="ml-4 flex-1 min-w-0">
+                            <div className="ml-4 flex-1 flex justify-between items-center min-w-0">
                                 <h3
                                     className={cn(
                                         'font-semibold',
@@ -169,7 +169,7 @@ export default function CartItemsPage() {
                                         ]
                                     }
                                 </h3>
-                                <div className="flex flex-wrap gap-0.5">
+                                <ul className="flex flex-col gap-0.5 min-w-[13.5rem]">
                                     {item?.description
                                         ? splitAndTrim(
                                               item.description[
@@ -178,17 +178,22 @@ export default function CartItemsPage() {
                                               ],
                                               '/'
                                           ).map((text, index) => (
-                                              <p
+                                              <li
                                                   key={index}
-                                                  className="text-xs max-w-[66%] basis-[calc(50%-0.5rem)]"
+                                                  className="text-xs flex items-start"
                                               >
-                                                  {capitalizeFirstLetterOnly(
-                                                      text
-                                                  )}
-                                              </p>
+                                                  <span className="mr-2">
+                                                      •
+                                                  </span>
+                                                  <span>
+                                                      {capitalizeFirstLetterOnly(
+                                                          text
+                                                      )}
+                                                  </span>
+                                              </li>
                                           ))
                                         : ''}
-                                </div>
+                                </ul>
                             </div>
                         </div>
                     ))}

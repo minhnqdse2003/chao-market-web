@@ -24,7 +24,7 @@ export default function Page({ searchParams }: PageProps) {
             href: '/market-data/markets?tab=currencies',
         },
         {
-            title: 'Crypto Currencies',
+            title: 'Cryptocurrencies',
             href: '/market-data/markets?tab=crypto',
         },
         {

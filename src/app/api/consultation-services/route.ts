@@ -7,7 +7,10 @@ import { ConsultationServices, consultationServices } from '@/db/schema';
 
 async function getAllConsultationServices() {
     try {
-        const services = await db.select().from(consultationServices);
+        const services = await db
+            .select()
+            .from(consultationServices)
+            .orderBy(consultationServices.createdAt);
 
         return NextResponse.json(
             {

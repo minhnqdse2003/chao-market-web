@@ -1,15 +1,9 @@
 'use client';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import {
-    Facebook,
-    Instagram,
-    Phone,
-    Mail,
-    Users,
-    LifeBuoy,
-    ThumbsUp,
-} from 'lucide-react'; // Import Lucide icons
+import Image from 'next/image';
+import { BIC, Facebook, Instagram, ThreadBlack, TikTok } from '@image/index';
+import { LifeBuoy, Mail, Phone, Users } from 'lucide-react';
 
 export default function AppFooter() {
     const pathname = usePathname();
@@ -23,27 +17,67 @@ export default function AppFooter() {
         {
             name: '@Chào Market',
             url: 'https://www.facebook.com/profile.php?id=61580243678116',
-            icon: <Facebook size={20} />,
+            icon: (
+                <Image
+                    alt={'facebook-img'}
+                    className={'size-6 bg-white rounded-full p-0.5'}
+                    src={Facebook}
+                    width={1920}
+                    height={1080}
+                />
+            ),
         },
         {
             name: '@chaomarket.com',
             url: 'https://www.tiktok.com/@chaomarket.com',
-            icon: <ThumbsUp size={20} />,
+            icon: (
+                <Image
+                    alt={'tiktok-img'}
+                    className={'size-6 bg-white rounded-full p-0.5'}
+                    src={TikTok}
+                    width={1920}
+                    height={1080}
+                />
+            ),
         },
         {
             name: '@_chaomarket_',
             url: 'https://www.instagram.com/_chaomarket_/',
-            icon: <Instagram size={20} />,
+            icon: (
+                <Image
+                    alt={'instagram-img'}
+                    className={'size-6 bg-white rounded-full p-0.5'}
+                    src={Instagram}
+                    width={1920}
+                    height={1080}
+                />
+            ),
         },
         {
             name: '@_chaomarket_',
             url: 'https://www.threads.net/@_chaomarket_/',
-            icon: <Mail size={20} />,
+            icon: (
+                <Image
+                    alt={'threads-img'}
+                    className={'size-6 bg-white rounded-full p-0.5'}
+                    src={ThreadBlack}
+                    width={1920}
+                    height={1080}
+                />
+            ),
         },
         {
             name: '@Chào Market',
             url: 'https://group.beincom.com/ref/DICgO2',
-            icon: <Users size={20} />,
+            icon: (
+                <Image
+                    alt={'threads-img'}
+                    className={'size-6 bg-white rounded-full p-0.5'}
+                    src={BIC}
+                    width={1920}
+                    height={1080}
+                />
+            ),
         },
     ];
 
@@ -54,7 +88,7 @@ export default function AppFooter() {
                 <div className="flex flex-col md:flex-row md:justify-between md:px-8">
                     {/* Get to Know Us Column */}
                     <div className="mb-8 md:mb-0">
-                        <h3 className="font-semibold uppercase text-white text-center mb-4 text-lg">
+                        <h3 className="font-semibold uppercase text-brand-text text-center mb-4 text-lg">
                             Get to know us
                         </h3>
                         <ul className="space-y-3 text-normal text-[var(--brand-grey-foreground)] min-w-2/3 [&_*_a:first-child]:font-semibold">
@@ -97,10 +131,10 @@ export default function AppFooter() {
                     <div className="mb-8 md:mb-0">
                         {' '}
                         {/* Added margin for consistency on mobile */}
-                        <h3 className="font-semibold uppercase text-white mb-4 text-lg">
+                        <h3 className="font-semibold uppercase text-brand-text mb-4 text-lg">
                             Let us help you
                         </h3>
-                        <ul className="space-y-3 text-normal dark:text-[var(--brand-grey-foreground)] min-w-2/3 [&_*_span:first-child]:font-semibold [&_*_span:last-child]:font-bold dark:[&_*_span:last-child]:text-brand-text">
+                        <ul className="space-y-3 text-normal dark:text-[var(--brand-grey-foreground)] text-[var(--brand-grey-foreground)] min-w-2/3 [&_*_span:first-child]:font-semibold [&_*_span:last-child]:font-bold dark:[&_*_span:last-child]:text-brand-text [&>_*_a]:text-brand-text">
                             <li className="flex justify-between gap-12">
                                 <span className="flex items-center gap-2">
                                     <Users size={20} />
@@ -162,7 +196,7 @@ export default function AppFooter() {
 
                     {/* Follow us Column */}
                     <div>
-                        <h3 className="font-semibold uppercase text-white mb-4 text-lg">
+                        <h3 className="font-semibold uppercase text-brand-text mb-4 text-lg">
                             Follow us
                         </h3>
                         <ul className="space-y-3 text-normal dark:text-[var(--brand-grey-foreground)] min-w-2/3">
@@ -171,7 +205,7 @@ export default function AppFooter() {
                                     key={index}
                                     className="flex justify-between gap-12"
                                 >
-                                    <span className="flex items-center gap-2">
+                                    <span className="flex items-center gap-2 text-[var(--brand-color)]">
                                         {link.icon}
                                     </span>
                                     <span>
@@ -179,7 +213,7 @@ export default function AppFooter() {
                                             href={link.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="hover:underline text-brand-text"
+                                            className="hover:underline text-brand-text font-semibold"
                                         >
                                             {link.name === 'BIC'
                                                 ? 'Join Group'
