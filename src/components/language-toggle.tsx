@@ -6,7 +6,7 @@ import { Check } from 'lucide-react';
 import LoadingComponent from '@/components/loading-spiner';
 import { useI18n } from '@/context/i18n/context';
 
-const languages = [
+export const languages = [
     {
         name: 'English',
         code: 'en',
