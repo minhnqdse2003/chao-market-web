@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Globe, PhoneCall, Sun } from 'lucide-react';
+import { Globe, PhoneCall } from 'lucide-react';
 import {
     SidebarGroup,
     SidebarMenu,
@@ -10,8 +10,6 @@ import {
 } from '@/components/ui/sidebar';
 import ThemeToggle from './theme-toggle';
 import { usePathname } from 'next/navigation';
-import AppDialog from '@/components/app-dialog';
-import { LanguageToggle } from '@/components/language-toggle';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useI18n } from '@/context/i18n/context';
 import Image from 'next/image';
@@ -23,11 +21,11 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-const LanguageDialogHeader = (
-    <div className={'w-full flex items-center relative'}>Select Languages</div>
-);
-
-const LanguageDialogContent = <LanguageToggle />;
+// const LanguageDialogHeader = (
+//     <div className={'w-full flex items-center relative'}>Select Languages</div>
+// );
+//
+// const LanguageDialogContent = <LanguageToggle />;
 
 const LanguageSwitcher = () => {
     const { locale, setLocale } = useI18n();
