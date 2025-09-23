@@ -41,6 +41,7 @@ export default function Page({ searchParams }: PageProps) {
             />
             <TabNavigation searchParams={searchParams} subTabs={SUB_TABS} />
             {(tab === 'us' || !tab) && <StockComp type={'us'} />}
+            {tab === 'vi' && <StockComp type={'vi'} />}
             {tab === 'currencies' && <StockComp type={'currencies'} />}
             {tab === 'commodities' && <StockComp type={'commodities'} />}
             {tab === 'crypto' && <StockComp type={'crypto'} />}

@@ -558,7 +558,7 @@ const OurSolutionsPage = () => {
     ];
 
     return (
-        <div className="flex flex-col [&>div:not(:last-child)]:pb-18 [&>div:not(:first-child)]:pt-18 [&>div:first-child]:mb-0! [&>div:not(:last-child)]:border-b [&>div:first-child]:border-b-0! border-[var(--brand-grey)] [&>div:first-child]:scroll-mt-120 [&>div:not(:first-child)]:scroll-mt-40">
+        <div className="flex flex-col [&>div:not(:last-child)]:pb-18  [&>div:not(:first-child)]:pt-18 [&>div:first-child]:mb-0! [&>div:not(:last-child)]:border-b [&>div:first-child]:border-b-0! [&>div:first-child]:pb-0! border-[var(--brand-grey)] [&>div:first-child]:scroll-mt-120 [&>div:not(:first-child)]:scroll-mt-40">
             <GeneralBanner />
             {contents.map((item, idx) => (
                 <BlockContents

@@ -14,7 +14,7 @@ function CalendarComp() {
             colorTheme: theme === 'dark' ? 'dark' : 'light',
             countryFilter: 'us,vn',
             width: '100%',
-            height: 800,
+            height: 750,
             autosize: true,
         }),
         [theme]

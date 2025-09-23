@@ -5,6 +5,8 @@ import { useTheme } from 'next-themes';
 import { MARKET_SYMBOL, TMarketSymbolKey } from '@/constant/market-query';
 import { calculateAdjustedHeight } from '@/utils/height-utils';
 import { AppTabs, TabItem } from '@/components/app-tabs';
+import VietnamComp from '@/app/(user-layout)/market-data/indices/components/vietnam';
+import VietnamTradingView from '@/app/(user-layout)/market-data/indices/components/vietnam-trading-view';
 
 const USA_SYMBOL_KEYS: TMarketSymbolKey[] = [
     'CAPITAL_VIX',
@@ -410,7 +412,17 @@ const DARK_THEME_CONFIG_CRYPTOCURRENCIES_CALENDAR = {
     colorTheme: 'dark',
 };
 
-type MARKET_TYPES = 'us' | 'currencies' | 'crypto' | 'commodities';
+const LIGHT_THEME_CONFIG_VI_CALENDAR = {
+    ...LIGHT_THEME_CONFIG_ECONOMY_CALENDAR,
+    countryFilter: 'vn',
+};
+
+const DARK_THEME_CONFIG_VI_CALENDAR = {
+    ...LIGHT_THEME_CONFIG_VI_CALENDAR,
+    colorTheme: 'dark',
+};
+
+type MARKET_TYPES = 'us' | 'currencies' | 'crypto' | 'commodities' | 'vi';
 
 function OverViews({ type }: { type: MARKET_TYPES }) {
     const container = useRef<HTMLDivElement>(null);
@@ -699,6 +711,10 @@ function EconomyCalendar({ type }: { type: MARKET_TYPES }) {
                 return isDarkTheme
                     ? DARK_THEME_CONFIG_CURRENCIES_CALENDAR
                     : LIGHT_THEME_CONFIG_CURRENCIES_CALENDAR;
+            case 'vi':
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_VI_CALENDAR
+                    : LIGHT_THEME_CONFIG_VI_CALENDAR;
             case 'us':
             case 'commodities':
             default:
@@ -706,7 +722,7 @@ function EconomyCalendar({ type }: { type: MARKET_TYPES }) {
                     ? DARK_THEME_CONFIG_ECONOMY_CALENDAR
                     : LIGHT_THEME_CONFIG_ECONOMY_CALENDAR;
         }
-    }, []);
+    }, [theme]);
 
     useEffect(() => {
         if (container.current) {
@@ -746,22 +762,60 @@ function EconomyCalendar({ type }: { type: MARKET_TYPES }) {
     );
 }
 
+function VietnamOverview() {
+    return (
+        <div className={'[&>_*_iframe]:h-svh'}>
+            <VietnamComp />
+            <VietnamTradingView />
+        </div>
+    );
+}
+
+function HeatMapVietNam() {
+    return (
+        <div className={'[&>_*_iframe]:h-svh'}>
+            <VietnamComp />
+        </div>
+    );
+}
+
+function ChartVietNam() {
+    return (
+        <div className={'[&>_*_iframe]:h-svh'}>
+            <VietnamComp />
+        </div>
+    );
+}
+
 function StockComp({ type }: { type: MARKET_TYPES }) {
     const tabsList: TabItem[] = [
         {
             title: 'Overview',
             value: 'overview',
-            renderContent: () => Promise.resolve(<OverViews type={type} />),
+            renderContent: () =>
+                Promise.resolve(
+                    type === 'vi' ? (
+                        <VietnamOverview />
+                    ) : (
+                        <OverViews type={type} />
+                    )
+                ),
         },
         {
             title: 'Heatmap',
             value: 'heatmap',
-            renderContent: () => Promise.resolve(<HeatMap type={type} />),
+            renderContent: () =>
+                Promise.resolve(
+                    type === 'vi' ? <HeatMapVietNam /> : <HeatMap type={type} />
+                ),
         },
         {
             title: 'Chart',
             value: 'chart',
-            renderContent: () => Promise.resolve(<Chart type={type} />),
+            renderContent: () =>
+                Promise.resolve(
+                    type === 'vi' ? <ChartVietNam /> : <Chart type={type} />
+                ),
         },
         {
             title: 'News',
