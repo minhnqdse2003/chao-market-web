@@ -558,7 +558,7 @@ const OurSolutionsPage = () => {
     ];
 
     return (
-        <div className="flex flex-col [&>div:not(:last-child)]:pb-18  [&>div:not(:first-child)]:pt-18 [&>div:first-child]:mb-0! [&>div:not(:last-child)]:border-b [&>div:first-child]:border-b-0! [&>div:first-child]:pb-0! border-[var(--brand-grey)] [&>div:first-child]:scroll-mt-120 [&>div:not(:first-child)]:scroll-mt-40">
+        <div className="flex flex-col [&>div:not(:last-child)]:pb-4  [&>div:not(:first-child)]:pt-18 [&>div:first-child]:mb-0! [&>div:not(:last-child)]:border-b [&>div:first-child]:border-b-0! [&>div:first-child]:pb-0! border-[var(--brand-grey)] [&>div:nth-child(2)]:pt-[47.5px] [&>div:nth-child(2)]:scroll-mt-39 [&>div:not(:first-child)]:scroll-mt-33">
             <GeneralBanner />
             {contents.map((item, idx) => (
                 <BlockContents
@@ -566,6 +566,7 @@ const OurSolutionsPage = () => {
                     buttonComp={item.buttonComp!}
                     title={item.title!}
                     id={`${idx + 1}`}
+                    params={item.buttonComp?.id}
                 >
                     {item.children}
                 </BlockContents>

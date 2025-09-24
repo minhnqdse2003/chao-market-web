@@ -17,3 +17,10 @@ export function capitalizeFirstLetterOnly(str: string) {
     if (!str) return str;
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
+
+export function addDotsLastSentence(str: string) {
+    if (str.charAt(str.length - 1) === '.') {
+        return str;
+    }
+    return str + '.';
+}

@@ -16,6 +16,7 @@ import AppFooter from '@/components/app-footer';
 import Link from 'next/link';
 import { GiSparkles } from 'react-icons/gi';
 import { useTheme } from 'next-themes';
+import ContactButton from '@/components/app-contacts';
 
 export default function UserLayout({
     children,
@@ -160,6 +161,8 @@ export default function UserLayout({
                             </div>
                         </DialogContent>
                     </Dialog>
+
+                    <ContactButton />
                 </div>
                 <AppFooter />
             </div>

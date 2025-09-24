@@ -1,6 +1,8 @@
 import { GeneralBanner } from '@/components/app-banner';
-import { Mail, Phone, Users, LifeBuoy } from 'lucide-react'; // Import relevant Lucide icons
+import { Mail, Phone, Users } from 'lucide-react'; // Import relevant Lucide icons
 import { capitalizeWords } from '@/utils/string-parsing';
+import Image from 'next/image';
+import { SupportIcon } from '@image/index';
 
 interface ContactCard {
     icon: React.ReactNode;
@@ -25,9 +27,12 @@ export default function ContactsPage() {
         },
         {
             icon: (
-                <LifeBuoy
-                    size={60}
-                    className="text-[var(--brand-color)] mb-6"
+                <Image
+                    src={SupportIcon}
+                    width={1920}
+                    height={1080}
+                    alt={'support-icon'}
+                    className="size-[3.75rem] mb-6"
                 />
             ),
             title: 'Support',
@@ -50,7 +55,7 @@ export default function ContactsPage() {
             ),
             title: 'Phone',
             description: 'Mon-Fri from 8am to 5pm',
-            contactInfo: '0985865674',
+            contactInfo: '098 586 5674',
             isLink: true,
             href: 'tel:0985865674',
         },

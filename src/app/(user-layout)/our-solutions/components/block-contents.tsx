@@ -12,6 +12,7 @@ export interface BlockContentsProps {
         id: string;
     };
     id: string;
+    params?: string;
 }
 
 const BlockContents = ({
@@ -19,6 +20,7 @@ const BlockContents = ({
     title,
     children,
     buttonComp,
+    params,
 }: BlockContentsProps) => {
     const router = useRouter();
     return (
@@ -33,7 +35,13 @@ const BlockContents = ({
                 {children}
             </span>
             <Button
-                onClick={() => router.push('/cart-items')}
+                onClick={() =>
+                    router.push(
+                        params
+                            ? `/consultation-request?selectedItemId=${params}`
+                            : `/consultation-request`
+                    )
+                }
                 className="bg-[var(--brand-color)] hover:bg-[var(--brand-color)] transition-all! duration-300 ease-in-out rounded-3xl px-5 py-2 w-fit text-brand-text dark:text-black font-semibold mt-4 shadow-lg"
             >
                 {buttonComp.title}

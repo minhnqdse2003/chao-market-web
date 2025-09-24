@@ -9,8 +9,8 @@ import CheckOutTransactionForm, {
 } from '@/app/(user-layout)/consultation-request/components/CheckOutTransactionForm';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
-import { useMemo, useState, useCallback } from 'react';
-import { redirect, useRouter } from 'next/navigation';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
 import {
     useConsultationRequest,
     useConsultationServices,
@@ -22,11 +22,14 @@ import { useI18n } from '@/context/i18n/context';
 import { PayloadConsultationRequest } from '@/app/api/consultation';
 import { LanguageOptions } from '@/components/language-toggle';
 import {
+    addDotsLastSentence,
     capitalizeFirstLetterOnly,
     splitAndTrim,
 } from '@/utils/string-parsing';
 
 export default function CartItemsPage() {
+    const searchParams = useSearchParams();
+    const selectedItemId = searchParams.get('selectedItemId');
     const { data: response, isLoading: isConsultationServicesLoading } =
         useConsultationServices();
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
@@ -98,6 +101,12 @@ export default function CartItemsPage() {
         [selectedItems]
     );
 
+    useEffect(() => {
+        if (selectedItemId && !isChecked(selectedItemId)) {
+            setSelectedItems(prev => [...prev, selectedItemId]);
+        }
+    }, [filteredItem, selectedItemId]);
+
     if (isLoading || !filteredItem) return <LoadingComponent />;
 
     return (
@@ -124,7 +133,11 @@ export default function CartItemsPage() {
                     {filteredItem.map(item => (
                         <div
                             key={item.id}
-                            className="flex items-center border rounded-lg bg-[var(--brand-grey)] p-4 shadow-sm relative transition-all duration-300 ease-in-out"
+                            className={cn(
+                                'flex items-center border rounded-lg bg-[var(--brand-grey)] p-4 shadow-sm' +
+                                    ' relative transition-all duration-300 ease-in-out',
+                                `${isChecked(item.id) && 'dark:border-[var(--brand-color)] border-brand-text'}`
+                            )}
                         >
                             <Checkbox
                                 id={`item-${item.id}`}
@@ -158,8 +171,7 @@ export default function CartItemsPage() {
                             <div className="ml-4 flex-1 flex justify-between items-center min-w-0">
                                 <h3
                                     className={cn(
-                                        'font-semibold',
-                                        `${isChecked(item.id) ? 'dark:text-[var(--brand-color)]' : 'dark:text-brand-text'}`
+                                        'font-semibold dark:text-[var(--brand-color)] text-brand-text'
                                     )}
                                 >
                                     {
@@ -186,8 +198,10 @@ export default function CartItemsPage() {
                                                       •
                                                   </span>
                                                   <span>
-                                                      {capitalizeFirstLetterOnly(
-                                                          text
+                                                      {addDotsLastSentence(
+                                                          capitalizeFirstLetterOnly(
+                                                              text
+                                                          )
                                                       )}
                                                   </span>
                                               </li>

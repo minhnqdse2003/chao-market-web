@@ -24,18 +24,18 @@ export default function CookiePolicy() {
             <Link href="/auth/signup">
                 <Button
                     variant="outline"
-                    className="mb-6 text-[var(--brand-color)] dark:bg-transparent hover:text-black dark:hover:bg-[var(--brand-color)] transition-colors! duration-300 ease-in-out dark:border-transparent hover:font-semibold"
+                    className="mb-6 dark:text-[var(--brand-color)] dark:hover:text-black dark:bg-transparent bg-[var(--brand-color)] hover:bg-[var(--brand-color)] dark:hover:bg-[var(--brand-color)] transition-colors! duration-300 ease-in-out dark:border-transparent border-transparent font-semibold"
                 >
                     {t('common.backToSignUp')}
                 </Button>
             </Link>
 
             {/* Title from translations */}
-            <h1 className="text-3xl font-bold text-white mb-6">
+            <h1 className="text-3xl font-bold text-brand-text dark:text-[var(--brand-color)] mb-6">
                 {t('footer.cookiePolicy.title')}
             </h1>
 
-            <div className="space-y-6 text-white">
+            <div className="space-y-6 text-brand-text">
                 {/*
                   Check if `sections` is an array before mapping to prevent errors.
                 */}

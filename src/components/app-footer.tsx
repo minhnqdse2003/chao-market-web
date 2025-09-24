@@ -20,7 +20,7 @@ export default function AppFooter() {
             icon: (
                 <Image
                     alt={'facebook-img'}
-                    className={'size-6 bg-white rounded-full p-0.5'}
+                    className={'size-6 rounded-full p-0.5'}
                     src={Facebook}
                     width={1920}
                     height={1080}
@@ -33,7 +33,7 @@ export default function AppFooter() {
             icon: (
                 <Image
                     alt={'tiktok-img'}
-                    className={'size-6 bg-white rounded-full p-0.5'}
+                    className={'size-6 rounded-full p-0.5'}
                     src={TikTok}
                     width={1920}
                     height={1080}
@@ -46,7 +46,7 @@ export default function AppFooter() {
             icon: (
                 <Image
                     alt={'instagram-img'}
-                    className={'size-6 bg-white rounded-full p-0.5'}
+                    className={'size-6 rounded-full p-0.5'}
                     src={Instagram}
                     width={1920}
                     height={1080}
@@ -59,7 +59,7 @@ export default function AppFooter() {
             icon: (
                 <Image
                     alt={'threads-img'}
-                    className={'size-6 bg-white rounded-full p-0.5'}
+                    className={'size-6 rounded-full p-0.5'}
                     src={ThreadBlack}
                     width={1920}
                     height={1080}
@@ -72,7 +72,7 @@ export default function AppFooter() {
             icon: (
                 <Image
                     alt={'threads-img'}
-                    className={'size-6 bg-white rounded-full p-0.5'}
+                    className={'size-6 rounded-full p-0.5'}
                     src={BIC}
                     width={1920}
                     height={1080}
@@ -187,7 +187,7 @@ export default function AppFooter() {
                                         href="tel:0985865674"
                                         className="hover:underline"
                                     >
-                                        0985865674
+                                        098 586 5674
                                     </a>
                                 </span>
                             </li>

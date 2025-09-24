@@ -302,177 +302,187 @@ export default function Page() {
                         </Card>
                     ))}
                 </div>
-                <Card
-                    className={`w-full ml-4 rounded-r-sm min-h-full border-[var(--brand-grey)]dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] text-xs p-0 transition-all! duration-300 ease-in-out [&[data-state=inactive]]:w-0 [&[data-state=inactive]]:opacity-0 [&[data-state=active]]:opacity-100`}
-                    data-state={activeCard !== null ? 'active' : 'inactive'}
-                >
-                    <CardHeader className="flex relative flex-row items-center justify-between p-4">
-                        <div className="flex flex-row items-center gap-2">
-                            <h2 className="font-semibold text-lg">
-                                {selectedData?.account.name}
-                            </h2>
-                        </div>
-                        <XIcon
-                            onClick={() => setActiveCard(null)}
-                            className="cursor-pointer absolute top-3 right-3 size-4 text-[var(--brand-grey-foreground)] hover:text-[var(--brand-color)]"
-                        />
-                    </CardHeader>
-                    <CardContent className="p-4 space-y-0.5 overflow-y-auto">
-                        <div className="flex flex-col space-y-1">
-                            <div className="flex justify-between">
-                                <p className="text-[var(--brand-grey-foreground)]">
-                                    Market:
-                                </p>
-                                <strong
-                                    className={
-                                        'rounded-sm dark:text-black text-black' +
-                                        ' text-xs border dark:border-white dark:text-white' +
-                                        ' bg-transparent border-black text-black' +
-                                        ' px-1.5' +
-                                        ' py-1' +
-                                        ' font-semibold'
-                                    }
-                                >
-                                    {capitalizeWords(
-                                        selectedData?.market || ''
-                                    )}
-                                </strong>
+                <div className={'overflow-y-auto w-full px-4 '}>
+                    <Card
+                        className={`w-full min-h-full border-[var(--brand-grey)]dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] text-xs p-0 transition-all! duration-300 ease-in-out [&[data-state=inactive]]:w-0 [&[data-state=inactive]]:opacity-0 [&[data-state=active]]:opacity-100`}
+                        data-state={activeCard !== null ? 'active' : 'inactive'}
+                    >
+                        <CardHeader className="flex relative flex-row items-center justify-between p-4">
+                            <div className="flex flex-row items-center gap-2">
+                                <h2 className="font-semibold text-lg">
+                                    {selectedData?.account.name}
+                                </h2>
                             </div>
-                            <div className="flex justify-between">
-                                <p className="text-[var(--brand-grey-foreground)]">
-                                    Start date:
-                                </p>
-                                <strong>
-                                    {selectedData?.account.startDate}
-                                </strong>
-                            </div>
-                            <div className="flex justify-between [&>p]:text-[var(--brand-grey-foreground)]">
-                                <p>Deposit:</p>
-                                <strong>{selectedData?.account.deposit}</strong>
-                            </div>
-                            <div className="flex justify-between [&>p]:text-[var(--brand-grey-foreground)] [&>strong]:text-red-400">
-                                <p>Withdraw:</p>
-                                <strong>{priceFormat(-2000)} $</strong>
-                            </div>
-                        </div>
-                        <NavSeparator isTrigger={false} />
-                        <div className="flex flex-col space-y-1">
-                            <div className="flex justify-between items-center">
-                                <p className="text-[var(--brand-grey-foreground)] flex flex-row items-center">
-                                    Gain:
-                                    <AppTooltips
-                                        contents={
-                                            <div className="max-w-[24rem] flex flex-col gap-2">
-                                                <strong>Gain</strong>
-                                                <p>
-                                                    Time-Weighted Return TWR
-                                                    performance dollar invested
-                                                    system inception measurement
-                                                    required Global Investment
-                                                    Performance Standards CFA
-                                                    Institute cash inflows
-                                                    outflows amounts periods
-                                                    impact return efficiency
-                                                    yield profit growth rate
-                                                    analysis evaluation metric
-                                                    standard benchmark finance
-                                                    investment portfolio rate
-                                                    return calculation
-                                                    assessment monitoring
-                                                    progress achievement success
-                                                    result outcome effectiveness
-                                                    productivity gain loss
-                                                    comparison study review
-                                                    appraisal valuation
-                                                </p>
-                                            </div>
+                            <XIcon
+                                onClick={() => setActiveCard(null)}
+                                className="cursor-pointer absolute top-3 right-3 size-4 text-[var(--brand-grey-foreground)] hover:text-[var(--brand-color)]"
+                            />
+                        </CardHeader>
+                        <CardContent className="p-4 space-y-0.5">
+                            <div className="flex flex-col space-y-1">
+                                <div className="flex justify-between">
+                                    <p className="text-[var(--brand-grey-foreground)]">
+                                        Market:
+                                    </p>
+                                    <strong
+                                        className={
+                                            'rounded-sm dark:text-black text-black' +
+                                            ' text-xs border dark:border-white dark:text-white' +
+                                            ' bg-transparent border-black text-black' +
+                                            ' px-1.5' +
+                                            ' py-1' +
+                                            ' font-semibold'
                                         }
-                                        trigger={
-                                            <Button
-                                                variant="ghost"
-                                                className={
-                                                    'dark:hover:bg-transparent dark:hover:text-[var(--brand-color)]'
-                                                }
-                                            >
-                                                <Info className="size-3" />
-                                            </Button>
-                                        }
-                                    />
-                                </p>
-                                <strong className="text-green-500">
-                                    +52.82%
-                                </strong>
+                                    >
+                                        {capitalizeWords(
+                                            selectedData?.market || ''
+                                        )}
+                                    </strong>
+                                </div>
+                                <div className="flex justify-between">
+                                    <p className="text-[var(--brand-grey-foreground)]">
+                                        Start date:
+                                    </p>
+                                    <strong>
+                                        {selectedData?.account.startDate}
+                                    </strong>
+                                </div>
+                                <div className="flex justify-between [&>p]:text-[var(--brand-grey-foreground)]">
+                                    <p>Deposit:</p>
+                                    <strong>
+                                        {selectedData?.account.deposit}
+                                    </strong>
+                                </div>
+                                <div className="flex justify-between [&>p]:text-[var(--brand-grey-foreground)] [&>strong]:text-red-400">
+                                    <p>Withdraw:</p>
+                                    <strong>{priceFormat(-2000)} $</strong>
+                                </div>
                             </div>
-                            <div className="flex justify-between">
-                                <p className="text-[var(--brand-grey-foreground)]">
-                                    Abs. Gain:
-                                </p>
-                                <strong className="text-green-500">
-                                    +46.94%
-                                </strong>
+                            <NavSeparator isTrigger={false} />
+                            <div className="flex flex-col space-y-1">
+                                <div className="flex justify-between items-center">
+                                    <p className="text-[var(--brand-grey-foreground)] flex flex-row items-center">
+                                        Gain:
+                                        <AppTooltips
+                                            contents={
+                                                <div className="max-w-[24rem] flex flex-col gap-2">
+                                                    <strong>Gain</strong>
+                                                    <p>
+                                                        Time-Weighted Return TWR
+                                                        performance dollar
+                                                        invested system
+                                                        inception measurement
+                                                        required Global
+                                                        Investment Performance
+                                                        Standards CFA Institute
+                                                        cash inflows outflows
+                                                        amounts periods impact
+                                                        return efficiency yield
+                                                        profit growth rate
+                                                        analysis evaluation
+                                                        metric standard
+                                                        benchmark finance
+                                                        investment portfolio
+                                                        rate return calculation
+                                                        assessment monitoring
+                                                        progress achievement
+                                                        success result outcome
+                                                        effectiveness
+                                                        productivity gain loss
+                                                        comparison study review
+                                                        appraisal valuation
+                                                    </p>
+                                                </div>
+                                            }
+                                            trigger={
+                                                <Button
+                                                    variant="ghost"
+                                                    className={
+                                                        'dark:hover:bg-transparent dark:hover:text-[var(--brand-color)]'
+                                                    }
+                                                >
+                                                    <Info className="size-3" />
+                                                </Button>
+                                            }
+                                        />
+                                    </p>
+                                    <strong className="text-green-500">
+                                        +52.82%
+                                    </strong>
+                                </div>
+                                <div className="flex justify-between">
+                                    <p className="text-[var(--brand-grey-foreground)]">
+                                        Abs. Gain:
+                                    </p>
+                                    <strong className="text-green-500">
+                                        +46.94%
+                                    </strong>
+                                </div>
+                                <div className="flex justify-between">
+                                    <p className="text-[var(--brand-grey-foreground)]">
+                                        Daily:
+                                    </p>
+                                    <strong>0.14%</strong>
+                                </div>
+                                <div className="flex justify-between">
+                                    <p className="text-[var(--brand-grey-foreground)]">
+                                        Monthly:
+                                    </p>
+                                    <strong>4.18%</strong>
+                                </div>
+                                <div className="flex justify-between [&>strong]:text-red-400">
+                                    <p className="text-[var(--brand-grey-foreground)]">
+                                        Drawdown:
+                                    </p>
+                                    <strong>{percentageFormat(-62.95)}</strong>
+                                </div>
                             </div>
-                            <div className="flex justify-between">
-                                <p className="text-[var(--brand-grey-foreground)]">
-                                    Daily:
-                                </p>
-                                <strong>0.14%</strong>
+                            <NavSeparator isTrigger={false} />
+                            <div className="flex flex-col space-y-1">
+                                <div className="flex justify-between">
+                                    <p className="text-[var(--brand-grey-foreground)]">
+                                        Balance:
+                                    </p>
+                                    <strong>156,176.88 USD</strong>
+                                </div>
+                                <div className="flex justify-between">
+                                    <p className="text-[var(--brand-grey-foreground)]">
+                                        Equity:
+                                    </p>
+                                    <strong>140,810.40 USD (90.16%)</strong>
+                                </div>
+                                <div className="flex justify-between">
+                                    <p className="text-[var(--brand-grey-foreground)]">
+                                        Highest:
+                                    </p>
+                                    <strong>
+                                        156,176.88 USD (Apr 16, 2025)
+                                    </strong>
+                                </div>
+                                <div className="flex justify-between">
+                                    <p className="text-[var(--brand-grey-foreground)]">
+                                        Profit:
+                                    </p>
+                                    <strong className="text-green-500">
+                                        54,245.75 USD
+                                    </strong>
+                                </div>
+                                <div className="flex justify-between">
+                                    <p className="text-[var(--brand-grey-foreground)]">
+                                        Interest:
+                                    </p>
+                                    <strong className="text-red-400">
+                                        -347.25 USD
+                                    </strong>
+                                </div>
                             </div>
-                            <div className="flex justify-between">
-                                <p className="text-[var(--brand-grey-foreground)]">
-                                    Monthly:
-                                </p>
-                                <strong>4.18%</strong>
-                            </div>
-                            <div className="flex justify-between [&>strong]:text-red-400">
-                                <p className="text-[var(--brand-grey-foreground)]">
-                                    Drawdown:
-                                </p>
-                                <strong>{percentageFormat(-62.95)}</strong>
-                            </div>
-                        </div>
-                        <NavSeparator isTrigger={false} />
-                        <div className="flex flex-col space-y-1">
-                            <div className="flex justify-between">
-                                <p className="text-[var(--brand-grey-foreground)]">
-                                    Balance:
-                                </p>
-                                <strong>156,176.88 USD</strong>
-                            </div>
-                            <div className="flex justify-between">
-                                <p className="text-[var(--brand-grey-foreground)]">
-                                    Equity:
-                                </p>
-                                <strong>140,810.40 USD (90.16%)</strong>
-                            </div>
-                            <div className="flex justify-between">
-                                <p className="text-[var(--brand-grey-foreground)]">
-                                    Highest:
-                                </p>
-                                <strong>156,176.88 USD (Apr 16, 2025)</strong>
-                            </div>
-                            <div className="flex justify-between">
-                                <p className="text-[var(--brand-grey-foreground)]">
-                                    Profit:
-                                </p>
-                                <strong className="text-green-500">
-                                    54,245.75 USD
-                                </strong>
-                            </div>
-                            <div className="flex justify-between">
-                                <p className="text-[var(--brand-grey-foreground)]">
-                                    Interest:
-                                </p>
-                                <strong className="text-red-400">
-                                    -347.25 USD
-                                </strong>
-                            </div>
-                        </div>
-                        <AccountChartWithDialog
-                            data={seedData}
-                            title="Account Performance"
-                        />
-                    </CardContent>
-                </Card>
+                            <AccountChartWithDialog
+                                data={seedData}
+                                title="Account Performance"
+                            />
+                        </CardContent>
+                    </Card>
+                </div>
             </div>
         </div>
     );

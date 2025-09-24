@@ -18,7 +18,7 @@ export default function AboutUs() {
             <Link href="/">
                 <Button
                     variant="outline"
-                    className="mb-6 text-[var(--brand-color)] dark:bg-transparent hover:text-black dark:hover:bg-[var(--brand-color)] transition-colors! duration-300 ease-in-out dark:border-transparent hover:font-semibold"
+                    className="mb-6 dark:text-[var(--brand-color)] dark:hover:text-black dark:bg-transparent bg-[var(--brand-color)] hover:bg-[var(--brand-color)] dark:hover:bg-[var(--brand-color)] transition-colors! duration-300 ease-in-out dark:border-transparent border-transparent font-semibold"
                 >
                     {t('common.backToHome')}
                 </Button>
@@ -27,11 +27,11 @@ export default function AboutUs() {
             {/* Check if the content object was loaded successfully */}
             {aboutUsContent && (
                 <>
-                    <h1 className="text-3xl font-bold text-white mb-6">
+                    <h1 className="text-3xl font-bold dark:text-[var(--brand-color)] text-brand-text mb-6">
                         {aboutUsContent.title}
                     </h1>
 
-                    <div className="space-y-6 text-white">
+                    <div className="space-y-6 text-brand-text">
                         {/* Outer loop: Iterate over each section (e.g., Mission, Approach) */}
                         {Array.isArray(aboutUsContent.sections) &&
                             aboutUsContent.sections.map((section, index) => (
