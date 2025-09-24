@@ -9,8 +9,8 @@ import CheckOutTransactionForm, {
 } from '@/app/(user-layout)/consultation-request/components/CheckOutTransactionForm';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
-import React, { useMemo, useState, useCallback, useEffect } from 'react';
-import { redirect, useRouter, useSearchParams } from 'next/navigation';
+import React, { useMemo, useState, useCallback, useEffect, use } from 'react';
+import { redirect, useRouter } from 'next/navigation';
 import {
     useConsultationRequest,
     useConsultationServices,
@@ -27,9 +27,18 @@ import {
     splitAndTrim,
 } from '@/utils/string-parsing';
 
-export default function CartItemsPage() {
-    const searchParams = useSearchParams();
-    const selectedItemId = searchParams.get('selectedItemId');
+interface SearchParams {
+    selectedItemId?: string;
+}
+
+interface PageProps {
+    searchParams: SearchParams;
+}
+
+export default function CartItemsPage({ searchParams }: PageProps) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const { selectedItemId } = use(searchParams);
     const { data: response, isLoading: isConsultationServicesLoading } =
         useConsultationServices();
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
