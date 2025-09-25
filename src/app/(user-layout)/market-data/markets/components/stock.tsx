@@ -764,16 +764,16 @@ function EconomyCalendar({ type }: { type: MARKET_TYPES }) {
 
 function VietnamOverview() {
     return (
-        <div className={'[&>_*_iframe]:h-svh'}>
-            <VietnamComp />
+        <div className={'w-fit mx-auto'}>
             <VietnamTradingView />
+            <VietnamComp isSingle={false} />
         </div>
     );
 }
 
 function HeatMapVietNam() {
     return (
-        <div className={'[&>_*_iframe]:h-svh'}>
+        <div className={'w-fit mx-auto'}>
             <VietnamComp />
         </div>
     );
@@ -781,7 +781,7 @@ function HeatMapVietNam() {
 
 function ChartVietNam() {
     return (
-        <div className={'[&>_*_iframe]:h-svh'}>
+        <div className={'w-fit mx-auto'}>
             <VietnamComp />
         </div>
     );

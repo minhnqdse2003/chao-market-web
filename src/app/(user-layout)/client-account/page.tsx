@@ -302,10 +302,14 @@ export default function Page() {
                         </Card>
                     ))}
                 </div>
-                <div className={'overflow-y-auto w-full px-4 '}>
+                <div
+                    data-state={activeCard !== null ? 'active' : 'inactive'}
+                    className={
+                        'overflow-y-auto w-full px-4 [&[data-state=inactive]]:w-0 [&[data-state=inactive]]:opacity-0 [&[data-state=active]]:opacity-100'
+                    }
+                >
                     <Card
-                        className={`w-full min-h-full border-[var(--brand-grey)]dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] text-xs p-0 transition-all! duration-300 ease-in-out [&[data-state=inactive]]:w-0 [&[data-state=inactive]]:opacity-0 [&[data-state=active]]:opacity-100`}
-                        data-state={activeCard !== null ? 'active' : 'inactive'}
+                        className={`w-full min-h-full border-[var(--brand-grey)]dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] text-xs p-0 transition-all! duration-300 ease-in-out`}
                     >
                         <CardHeader className="flex relative flex-row items-center justify-between p-4">
                             <div className="flex flex-row items-center gap-2">

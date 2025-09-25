@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { calculateAdjustedHeight } from '@/utils/height-utils';
 
 // Declare the FireAnt types
@@ -12,52 +12,46 @@ declare global {
                 price_line_color: string;
                 grid_color: string;
                 label_color: string;
-                width: string;
                 height: string;
+                width: string;
             }) => void;
         };
     }
 }
 
-const VietnamComp = () => {
-    useEffect(() => {
-        const initializeWidget = () => {
-            if (window.FireAnt && window.FireAnt.MarketsWidget) {
-                // Clear the container first
-                const container = document.getElementById('fan-quote-995');
-                if (container) {
-                    container.innerHTML = '';
-                }
+const VietnamComp = ({ isSingle = true }: { isSingle?: boolean }) => {
+    const containerRef = useRef<HTMLDivElement>(null);
 
+    useEffect(() => {
+        const initWidget = () => {
+            if (window.FireAnt?.MarketsWidget && containerRef.current) {
+                containerRef.current.innerHTML = '';
                 new window.FireAnt.MarketsWidget({
-                    container_id: 'fan-quote-995',
+                    container_id: containerRef.current.id,
                     locale: 'vi',
                     price_line_color: '#71BDDF',
                     grid_color: '#999999',
                     label_color: '#999999',
-                    width: `100%`,
-                    height: `${calculateAdjustedHeight()}px`,
+                    width: `${calculateAdjustedHeight() + 250}px`,
+                    height: `${isSingle ? calculateAdjustedHeight() - 320 : calculateAdjustedHeight() - 420}px`,
                 });
             }
         };
 
-        if (typeof window.FireAnt !== 'undefined') {
-            initializeWidget();
+        if (window.FireAnt) {
+            initWidget();
             return;
         }
 
         const script = document.createElement('script');
         script.src = 'https://www.fireant.vn/Scripts/web/widgets.js';
         script.async = true;
-
-        script.onload = () => {
-            initializeWidget();
-        };
+        script.onload = initWidget;
 
         document.head.appendChild(script);
     }, []);
 
-    return <div id="fan-quote-995" className={'h-svh'}></div>;
+    return <div ref={containerRef} id="fan-quote-995" className="h-svh" />;
 };
 
 export default VietnamComp;

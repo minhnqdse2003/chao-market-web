@@ -7,7 +7,7 @@ import {
 import { useState, useEffect } from 'react';
 import { PhoneCall, Speech } from 'lucide-react';
 import Image from 'next/image';
-import { Facebook, Zalo } from '@image/index';
+import { Messenger, Telegram, Zalo } from '@image/index';
 
 export default function ContactButton() {
     const [open, setOpen] = useState(false);
@@ -16,7 +16,7 @@ export default function ContactButton() {
     useEffect(() => {
         if (open) {
             // Show items sequentially with delays
-            const timers = [0, 200, 400].map((delay, index) =>
+            const timers = [0, 200, 400, 600].map((delay, index) =>
                 setTimeout(
                     () => setVisibleItems(prev => [...prev, index]),
                     delay
@@ -30,8 +30,22 @@ export default function ContactButton() {
 
     const contactMethods = [
         {
+            name: 'Messenger',
+            href: 'https://m.me/ChaoMarket.Official',
+            icon: (
+                <Image
+                    src={Messenger}
+                    alt={'messenger'}
+                    width={1920}
+                    height={1080}
+                    className={'object-contain'}
+                />
+            ),
+            color: '#2962ff',
+        },
+        {
             name: 'Zalo',
-            href: '#',
+            href: 'https://zalo.me/0985865674',
             icon: (
                 <Image
                     src={Zalo}
@@ -44,24 +58,24 @@ export default function ContactButton() {
             color: '#2962ff',
         },
         {
-            name: 'Phone',
-            href: 'tel:0985865674',
-            icon: <PhoneCall className={'text-green-500'} />,
-            color: 'oklch(72.3% 0.219 149.579)',
-        },
-        {
-            name: 'Facebook',
-            href: 'https://www.facebook.com/messages/t/829553990231311',
+            name: 'Telegram',
+            href: 'https://t.me/ChaoMarket',
             icon: (
                 <Image
-                    src={Facebook}
-                    alt={'facebook'}
+                    src={Telegram}
+                    alt={'telegram'}
                     width={1920}
                     height={1080}
                     className={'object-contain'}
                 />
             ),
-            color: '#0b82ed',
+            color: '#2962ff',
+        },
+        {
+            name: 'Phone',
+            href: 'tel:0985865674',
+            icon: <PhoneCall className={'text-[var(--brand-color)]'} />,
+            color: '#ffe400',
         },
     ];
 
@@ -74,7 +88,7 @@ export default function ContactButton() {
                         variant="outline"
                         className="h-12 w-12 rounded-full dark:bg-[var(--brand-color)] dark:text-black dark:hover:bg-[var(--brand-color-foreground)] dark:hover:text-black border-transparent transition-all! duration-300 ease-in-out bg-[var(--brand-color)] text-black hover:bg-[var(--brand-color-foreground)] hover:text-black"
                     >
-                        <Speech />
+                        <Speech strokeWidth={3} className={'size-5'} />
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent
@@ -102,13 +116,13 @@ export default function ContactButton() {
                                     <Button
                                         size="icon"
                                         variant="outline"
-                                        className="h-12 w-12 rounded-full relative p-2 dark:border-transparent border-transparent bg-[var(--brand-grey)]/70 transition-all! duration-300 ease-in-out"
+                                        className="h-12 w-12 rounded-md relative p-2 dark:border-transparent border-transparent bg-[var(--brand-grey)]/70 transition-all! duration-300 ease-in-out"
                                     >
                                         <span className="relative z-10">
                                             {method.icon}
                                         </span>
                                         <span
-                                            className="absolute inset-0 rounded-full opacity-20 animate-ping"
+                                            className="absolute inset-0 rounded-md opacity-20 animate-ping"
                                             style={{ background: method.color }}
                                         ></span>
                                     </Button>

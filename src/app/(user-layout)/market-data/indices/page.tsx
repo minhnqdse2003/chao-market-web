@@ -1,9 +1,11 @@
+'use client';
 import { TabServerSide } from '@/components/app-tabs-server-side';
 import TabNavigation from '@/app/(user-layout)/market-data/components/tab-navigation';
 import GlobalComp from '@/app/(user-layout)/market-data/indices/components/globals';
 import USAComp from '@/app/(user-layout)/market-data/indices/components/usa';
 import VietnamComp from '@/app/(user-layout)/market-data/indices/components/vietnam';
 import VietnamTradingView from '@/app/(user-layout)/market-data/indices/components/vietnam-trading-view';
+import { use } from 'react';
 
 interface PageProps {
     searchParams: {
@@ -12,7 +14,9 @@ interface PageProps {
 }
 
 export default function Page({ searchParams }: PageProps) {
-    const { tab } = searchParams;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const { tab } = use(searchParams);
 
     const SUB_TABS: TabServerSide[] = [
         {
@@ -32,7 +36,7 @@ export default function Page({ searchParams }: PageProps) {
     const unwrappedSearchParams = { tab: tab || '' };
 
     return (
-        <div className={`[&>_*_iframe]:h-svh`}>
+        <div>
             <TabNavigation searchParams={unwrappedSearchParams} />
             <TabNavigation
                 searchParams={unwrappedSearchParams}
@@ -41,9 +45,11 @@ export default function Page({ searchParams }: PageProps) {
 
             {(tab === 'global' || !tab) && <GlobalComp />}
             {tab === 'usa' && <USAComp />}
-            <div className={`${tab === 'vi' ? 'block min-h-svh' : 'hidden'}`}>
-                <VietnamComp />
+            <div
+                className={`${tab === 'vi' ? 'block min-h-svh mx-auto w-fit' : 'hidden'}`}
+            >
                 <VietnamTradingView />
+                <VietnamComp isSingle={false} />
             </div>
         </div>
     );
