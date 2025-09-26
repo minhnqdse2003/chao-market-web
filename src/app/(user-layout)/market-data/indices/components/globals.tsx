@@ -16,7 +16,8 @@ const GLOBAL_SYMBOL_KEYS: TMarketSymbolKey[] = [
     'GOMARKETS_FTSE100',
     'NIKKEI_NIKKEI225',
     'ASX_XJO',
-    'NSE_NIFTY',
+    'BSE_SENSEX',
+    'BSE_SNXN30',
     'SSE_000001',
     'SSE_000300',
     'HSI_HSI',
@@ -85,7 +86,7 @@ function GlobalComp() {
             ref={container}
             style={{
                 width: `100%`,
-                height: '39.5rem',
+                height: '42rem',
             }}
         >
             <div className="tradingview-widget-container__widget"></div>

@@ -11,6 +11,7 @@ export { default as BIC } from './BIC.png';
 export { default as Zalo } from './zalo.svg';
 export { default as Messenger } from './messenger.png';
 export { default as Telegram } from './telegram.png';
+export { default as WhatsApp } from './whats-app.png';
 export { default as HomeBanner } from './home-banner.svg';
 export { default as NewsEventBannerImg } from './news-events-banner.svg';
 export { default as BrandLogoFtHat } from './brand-logo-with-hat.svg';

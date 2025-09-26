@@ -42,6 +42,8 @@ export type TMarketSymbolKey =
     | 'SPREADEX_DJI'
     | 'SPREADEX_SPX'
     | 'VANTAGE_BTCETH'
+    | 'BSE_SENSEX'
+    | 'BSE_SNXN30'
     | 'XETR_DAX';
 
 // --- UPDATED TYPES ---
@@ -249,5 +251,13 @@ export const MARKET_SYMBOL: TMarketSymbol = {
     XETR_DAX: {
         name: 'XETR:DAX',
         description: 'Germany 40 Index (DAX)',
+    },
+    BSE_SENSEX: {
+        name: 'BSE:SENSEX',
+        description: 'S&P BSE Sensex Index',
+    },
+    BSE_SNXN30: {
+        name: 'BSE:SNXN30',
+        description: 'BSE Sensex Next 30',
     },
 };

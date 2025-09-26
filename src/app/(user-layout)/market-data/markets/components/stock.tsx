@@ -7,6 +7,7 @@ import { calculateAdjustedHeight } from '@/utils/height-utils';
 import { AppTabs, TabItem } from '@/components/app-tabs';
 import VietnamComp from '@/app/(user-layout)/market-data/indices/components/vietnam';
 import VietnamTradingView from '@/app/(user-layout)/market-data/indices/components/vietnam-trading-view';
+import CombinedNewsFeed from '@/app/(user-layout)/market-data/markets/components/vietnam-stock-market-news';
 
 const USA_SYMBOL_KEYS: TMarketSymbolKey[] = [
     'CAPITAL_VIX',
@@ -76,7 +77,7 @@ const COMMODITIES_SYMBOLS = COMMODITIES_SYMBOL_KEYS.map(key => ({
     logoid: MARKET_SYMBOL[key]?.logoId,
 }));
 
-const LIGHT_THEME_CONFIG_OVERVIEW = {
+export const LIGHT_THEME_CONFIG_OVERVIEW = {
     colorTheme: 'light',
     dateRange: '12M',
     locale: 'en',
@@ -764,9 +765,9 @@ function EconomyCalendar({ type }: { type: MARKET_TYPES }) {
 
 function VietnamOverview() {
     return (
-        <div className={'w-fit mx-auto'}>
-            <VietnamTradingView />
-            <VietnamComp isSingle={false} />
+        <div className={'w-full flex gap-2 mx-auto'}>
+            <VietnamTradingView isDivided={true} />
+            <VietnamComp />
         </div>
     );
 }
@@ -785,6 +786,10 @@ function ChartVietNam() {
             <VietnamComp />
         </div>
     );
+}
+
+function VietNamStockMarketNewsFeed() {
+    return <CombinedNewsFeed type={'vna-en-economy'} />;
 }
 
 function StockComp({ type }: { type: MARKET_TYPES }) {
@@ -820,7 +825,14 @@ function StockComp({ type }: { type: MARKET_TYPES }) {
         {
             title: 'News',
             value: 'news',
-            renderContent: () => Promise.resolve(<News type={type} />),
+            renderContent: () =>
+                Promise.resolve(
+                    type === 'vi' ? (
+                        <VietNamStockMarketNewsFeed />
+                    ) : (
+                        <News type={type} />
+                    )
+                ),
         },
         {
             title: 'Calendar',

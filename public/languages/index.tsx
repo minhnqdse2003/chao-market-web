@@ -1,2 +1,2 @@
-export { default as ENLocale } from './en-code.svg';
-export { default as VILocale } from './vi-code.svg';
+export { default as ENLocale } from '../img/uk-flag.png';
+export { default as VILocale } from '../img/vi-flag.png';

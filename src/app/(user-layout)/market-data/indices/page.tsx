@@ -46,10 +46,10 @@ export default function Page({ searchParams }: PageProps) {
             {(tab === 'global' || !tab) && <GlobalComp />}
             {tab === 'usa' && <USAComp />}
             <div
-                className={`${tab === 'vi' ? 'block min-h-svh mx-auto w-fit' : 'hidden'}`}
+                className={`${tab === 'vi' ? 'flex min-h-svh mx-auto w-full' : 'hidden'}`}
             >
-                <VietnamTradingView />
-                <VietnamComp isSingle={false} />
+                <VietnamTradingView isDivided={true} />
+                <VietnamComp />
             </div>
         </div>
     );

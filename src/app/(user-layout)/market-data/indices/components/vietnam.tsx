@@ -33,7 +33,7 @@ const VietnamComp = ({ isSingle = true }: { isSingle?: boolean }) => {
                     grid_color: '#999999',
                     label_color: '#999999',
                     width: `${calculateAdjustedHeight() + 250}px`,
-                    height: `${isSingle ? calculateAdjustedHeight() - 320 : calculateAdjustedHeight() - 420}px`,
+                    height: `${isSingle ? calculateAdjustedHeight() - 328 : calculateAdjustedHeight() - 420}px`,
                 });
             }
         };
