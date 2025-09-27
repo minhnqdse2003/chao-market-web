@@ -5,8 +5,8 @@ import { MARKET_SYMBOL, TMarketSymbolKey } from '@/constant/market-query';
 
 // Define which symbols should be displayed in the USA component
 const USA_SYMBOL_KEYS: TMarketSymbolKey[] = [
-    'CAPITAL_VIX',
     'INDEX_DXY',
+    'CAPITAL_VIX',
     'SPREADEX_SPX',
     'SPREADEX_DJI',
     'NASDAQ_NDX',

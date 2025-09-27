@@ -242,6 +242,15 @@ export const en: TranslationsStructure = {
     bookConsultation: {
         bookConsultation: 'Book A Consultation',
     },
+    contactButton: {
+        quickContactTooltip: 'Quick Contact',
+        methods: {
+            messenger: 'Chat on Messenger',
+            zalo: 'Chat on Zalo',
+            telegram: 'Chat on Telegram',
+            callUs: 'Call Us',
+        },
+    },
     footer: {
         aboutUs: {
             title: 'About Us',

@@ -92,62 +92,60 @@ export default function ResetPasswordOtpStep({
                 </div>
             )}
 
-            <div className="space-y-12">
-                <div>
-                    <p className="text-sm text-[var(--brand-grey-foreground)] font-light mb-4">
-                        <T keyName="auth.otpSentToEmail" />{' '}
-                        <span className="font-bold text-white">{email}</span>
-                    </p>
+            <div className={'mb-0'}>
+                <p className="text-sm text-[var(--brand-grey-foreground)] font-light mb-4">
+                    <T keyName="auth.otpSentToEmail" />{' '}
+                    <span className="font-bold text-white">{email}</span>
+                </p>
 
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)}>
-                            <FormField
-                                control={form.control}
-                                name="otp"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormControl>
-                                            <InputOTP maxLength={6} {...field}>
-                                                <InputOTPGroup className="flex gap-4 [&>div[data-slot=input-otp-slot]]:rounded-lg [&>div[data-slot=input-otp-slot]]:outline-0 dark:[&>div[data-slot=input-otp-slot]]:ring-[var(--brand-color)] [&>div[data-slot=input-otp-slot]]:size-12 [&>div[data-slot=input-otp-slot]]:text-xl mx-auto [&>div[data-slot=input-otp-slot]]:border-2 text-brand-text">
-                                                    <InputOTPSlot index={0} />
-                                                    <InputOTPSlot index={1} />
-                                                    <InputOTPSlot index={2} />
-                                                    <InputOTPSlot index={3} />
-                                                    <InputOTPSlot index={4} />
-                                                    <InputOTPSlot index={5} />
-                                                </InputOTPGroup>
-                                            </InputOTP>
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)}>
+                        <FormField
+                            control={form.control}
+                            name="otp"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormControl>
+                                        <InputOTP maxLength={6} {...field}>
+                                            <InputOTPGroup className="flex gap-4 [&>div[data-slot=input-otp-slot]]:rounded-lg [&>div[data-slot=input-otp-slot]]:outline-0 dark:[&>div[data-slot=input-otp-slot]]:ring-[var(--brand-color)] [&>div[data-slot=input-otp-slot]]:size-12 [&>div[data-slot=input-otp-slot]]:text-xl mx-auto [&>div[data-slot=input-otp-slot]]:border-2 text-brand-text">
+                                                <InputOTPSlot index={0} />
+                                                <InputOTPSlot index={1} />
+                                                <InputOTPSlot index={2} />
+                                                <InputOTPSlot index={3} />
+                                                <InputOTPSlot index={4} />
+                                                <InputOTPSlot index={5} />
+                                            </InputOTPGroup>
+                                        </InputOTP>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <div className="flex space-x-2 mt-8">
+                            <Button
+                                type="submit"
+                                disabled={verifyOTPMutation.isPending}
+                                className="w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:p-0 disabled:bg-transparent mt-4 hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out text-base"
+                            >
+                                {verifyOTPMutation.isPending ? (
+                                    <LoadingComponent />
+                                ) : (
+                                    <T keyName="common.continue" />
                                 )}
-                            />
-
-                            <div className="flex space-x-2 mt-8">
-                                <Button
-                                    type="submit"
-                                    disabled={verifyOTPMutation.isPending}
-                                    className="w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:p-0 disabled:bg-transparent mt-4 hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out text-base"
-                                >
-                                    {verifyOTPMutation.isPending ? (
-                                        <LoadingComponent />
-                                    ) : (
-                                        <T keyName="common.continue" />
-                                    )}
-                                </Button>
-                            </div>
-                        </form>
-                    </Form>
-                </div>
+                            </Button>
+                        </div>
+                    </form>
+                </Form>
             </div>
 
-            <div className="text-center">
+            <div className="text-center h-0">
                 <p className="text-sm text-[var(--brand-grey-foreground)]">
                     <T keyName="auth.didNotReceiveCode" />{' '}
                     <button
                         onClick={handleResend}
                         disabled={resendOTPMutation.isPending}
-                        className="cursor-pointer dark:text-[var(--brand-color)] text-black font-bold hover:underline"
+                        className="cursor-pointer my-0! dark:text-[var(--brand-color)] text-black font-bold hover:underline"
                     >
                         {resendOTPMutation.isPending ? (
                             <T keyName="common.sending" />

@@ -12,6 +12,7 @@ export default function CompletionStep() {
     const handleOnClick = async () => {
         router.push('/auth/login');
     };
+
     return (
         <div className="flex flex-col items-center justify-center my-auto space-y-6">
             <Image

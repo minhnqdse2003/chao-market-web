@@ -1,17 +1,18 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
-import { calculateAdjustedHeight } from '@/utils/height-utils';
+import { calculateAdjustedHeight, processHeight } from '@/utils/height-utils';
 import { useTheme } from 'next-themes';
 import { MARKET_SYMBOL, TMarketSymbolKey } from '@/constant/market-query';
 import { LIGHT_THEME_CONFIG_OVERVIEW } from '@/app/(user-layout)/market-data/markets/components/stock';
 
 interface PageProps {
     isDivided?: boolean;
+    numberOfSubTabs?: number;
 }
 
-const DISPLAY_SYMBOLS: TMarketSymbolKey[] = ['ICE_USDVND', 'INDEX_DXY'];
+const DISPLAY_SYMBOLS: TMarketSymbolKey[] = ['INDEX_DXY', 'ICE_USDVND'];
 
-function VietNamTradingView({ isDivided = false }: PageProps) {
+function VietNamTradingView({ isDivided = false, numberOfSubTabs }: PageProps) {
     const container = useRef<HTMLDivElement>(null);
     const { theme } = useTheme();
 
@@ -47,7 +48,7 @@ function VietNamTradingView({ isDivided = false }: PageProps) {
                 },
             ],
             width: `${isDivided ? '50%' : calculateAdjustedHeight() + 250}`,
-            height: `${isDivided ? calculateAdjustedHeight() : 100}`,
+            height: `${isDivided ? processHeight(numberOfSubTabs) : 100}`,
         });
 
         container.current.appendChild(script);

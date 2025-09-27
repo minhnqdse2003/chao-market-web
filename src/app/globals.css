@@ -243,5 +243,17 @@
             opacity: 0;
         }
     }
+
+    @keyframes slideDown {
+        from {
+            transform: scaleY(0);
+            transform-origin: top;
+            height: 0;
+        }
+        to {
+            transform: scaleY(1);
+            height: var(--original-height, 100%); /* Fallback to 100% if not specified */
+        }
+    }
 }
 

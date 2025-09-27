@@ -11,12 +11,15 @@ import {
 } from '@/components/ui/dialog';
 import { ReactNode } from 'react';
 import { useSidebar } from '@/components/ui/sidebar';
+import { useDisclaimerStore } from '@/stores/disclaimer.store';
+import { DISCLAIMER_ACTIONS } from '@/stores/actions/dislaimer.action';
 
 interface DisclaimerDialogProps {
     trigger: ReactNode;
 }
 
 export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
+    const { isRead: isDisclaimerConfirm, dispatch } = useDisclaimerStore();
     const [isOpen, setIsOpen] = useState(false);
     const { open: isSidebarOpen } = useSidebar();
     const [countdown, setCountdown] = useState(10);
@@ -25,7 +28,7 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
     const countdownInterval = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
-        const hasSeen = sessionStorage.getItem('funnelDialogSeen');
+        const hasSeen = isDisclaimerConfirm;
         if (!hasSeen) {
             setIsOpen(true);
             setIsFirstTime(true);
@@ -62,7 +65,6 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
     }, []);
 
     const handleClose = () => {
-        // If auto close timer or countdown is running, cancel them
         if (autoCloseTimeout.current) {
             clearTimeout(autoCloseTimeout.current);
             autoCloseTimeout.current = null;
@@ -74,7 +76,14 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
 
         setIsOpen(false);
         setIsFirstTime(false);
-        sessionStorage.setItem('funnelDialogSeen', 'true');
+    };
+
+    const markAsRead = () =>
+        dispatch({ type: DISCLAIMER_ACTIONS.MARK_AS_READ });
+
+    const handleAgree = () => {
+        markAsRead();
+        handleClose();
     };
 
     return (
@@ -100,7 +109,7 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
             </div>
 
             <DialogContent
-                className="bg-brand-dialog min-w-[60svw]"
+                className="bg-brand-dialog min-w-[60svw] [&>[data-slot='dialog-close']]:invisible"
                 onOpenAutoFocus={e => e.preventDefault()}
             >
                 <DialogHeader>
@@ -124,7 +133,7 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                 <DialogFooter>
                     <Button
                         className="font-bold mx-auto bg-[var(--brand-color)] text-black hover:bg-[var(--brand-color-foreground)] w-fit transition-all! duration-300 ease-in-out"
-                        onClick={handleClose}
+                        onClick={handleAgree}
                     >
                         I Agree
                     </Button>

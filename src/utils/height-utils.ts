@@ -7,6 +7,12 @@ export const calculateAdjustedHeight = (subtractRem: number = 18): number => {
     return screenHeight - subtractPx;
 };
 
+export const processHeight = (numberOfSubTabs?: number) => {
+    return numberOfSubTabs
+        ? calculateAdjustedHeight() + 52 * numberOfSubTabs
+        : calculateAdjustedHeight();
+};
+
 export const calculateAdjustedWidth = (subtractRem: number = 60): number => {
     const screenWidth = window.innerWidth;
     const remToPx = parseFloat(

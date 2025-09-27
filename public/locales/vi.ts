@@ -242,6 +242,15 @@ export const vi: TranslationsStructure = {
     bookConsultation: {
         bookConsultation: 'Đặt Lịch Tư Vấn',
     },
+    contactButton: {
+        quickContactTooltip: 'Liên hệ nhanh',
+        methods: {
+            messenger: 'Nhắn tin qua Messenger',
+            zalo: 'Nhắn tin qua Zalo',
+            telegram: 'Nhắn tin qua Telegram',
+            callUs: 'Gọi ngay',
+        },
+    },
     footer: {
         aboutUs: {
             title: 'Về Chúng Tôi',

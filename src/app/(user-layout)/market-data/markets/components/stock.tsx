@@ -10,8 +10,8 @@ import VietnamTradingView from '@/app/(user-layout)/market-data/indices/componen
 import CombinedNewsFeed from '@/app/(user-layout)/market-data/markets/components/vietnam-stock-market-news';
 
 const USA_SYMBOL_KEYS: TMarketSymbolKey[] = [
-    'CAPITAL_VIX',
     'INDEX_DXY',
+    'CAPITAL_VIX',
     'SPREADEX_SPX',
     'SPREADEX_DJI',
     'NASDAQ_NDX',
@@ -423,6 +423,23 @@ const DARK_THEME_CONFIG_VI_CALENDAR = {
     colorTheme: 'dark',
 };
 
+const LIGHT_THEME_CONFIG_MARKET_DATA_SCREENER = {
+    market: 'vietnam',
+    showToolbar: true,
+    defaultColumn: 'overview',
+    defaultScreen: 'most_capitalized',
+    isTransparent: false,
+    locale: 'en',
+    colorTheme: 'light',
+    width: '100%',
+    height: 550,
+};
+
+const DARK_THEME_CONFIG_MARKET_DATA_SCREENER = {
+    ...LIGHT_THEME_CONFIG_MARKET_DATA_SCREENER,
+    colorTheme: 'dark',
+};
+
 type MARKET_TYPES = 'us' | 'currencies' | 'crypto' | 'commodities' | 'vi';
 
 function OverViews({ type }: { type: MARKET_TYPES }) {
@@ -763,18 +780,57 @@ function EconomyCalendar({ type }: { type: MARKET_TYPES }) {
     );
 }
 
-function VietnamOverview() {
+function Screener({ type }: { type: MARKET_TYPES }) {
+    const container = useRef<HTMLDivElement>(null);
+    const { theme } = useTheme();
+
+    const getCurrentThemeConfig = useCallback(() => {
+        const isDarkTheme = theme === 'dark';
+        switch (type) {
+            case 'crypto':
+            case 'currencies':
+            case 'us':
+            case 'commodities':
+            case 'vi':
+            default:
+                return isDarkTheme
+                    ? DARK_THEME_CONFIG_MARKET_DATA_SCREENER
+                    : LIGHT_THEME_CONFIG_MARKET_DATA_SCREENER;
+        }
+    }, [theme]);
+
+    useEffect(() => {
+        if (container.current) container.current.innerHTML = '';
+
+        const script = document.createElement('script');
+        script.src =
+            'https://s3.tradingview.com/external-embedding/embed-widget-screener.js';
+        script.type = 'text/javascript';
+        script.async = true;
+        const config = getCurrentThemeConfig();
+        const configWithModifiedHeight = {
+            ...config,
+            height: calculateAdjustedHeight(),
+        };
+        script.innerHTML = JSON.stringify(configWithModifiedHeight);
+        if (container.current) container.current.appendChild(script);
+
+        return () => {
+            if (container.current) container.current.innerHTML = '';
+        };
+    }, [theme]);
+
     return (
-        <div className={'w-full flex gap-2 mx-auto'}>
-            <VietnamTradingView isDivided={true} />
-            <VietnamComp />
+        <div className="tradingview-widget-container" ref={container}>
+            <div className="tradingview-widget-container__widget"></div>
         </div>
     );
 }
 
-function HeatMapVietNam() {
+function VietnamOverview() {
     return (
-        <div className={'w-fit mx-auto'}>
+        <div className={'w-full flex gap-2 mx-auto'}>
+            <VietnamTradingView isDivided={true} />
             <VietnamComp />
         </div>
     );
@@ -811,7 +867,11 @@ function StockComp({ type }: { type: MARKET_TYPES }) {
             value: 'heatmap',
             renderContent: () =>
                 Promise.resolve(
-                    type === 'vi' ? <HeatMapVietNam /> : <HeatMap type={type} />
+                    type === 'vi' ? (
+                        <Screener type={'vi'} />
+                    ) : (
+                        <HeatMap type={type} />
+                    )
                 ),
         },
         {

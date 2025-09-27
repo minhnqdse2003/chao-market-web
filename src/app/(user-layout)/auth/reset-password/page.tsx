@@ -18,7 +18,7 @@ const ResetPasswordPage = () => {
 
     return (
         <div className="flex flex-col w-full h-full [&_*_h2]:text-2xl [&_*_h2]:font-extrabold [&_*_h2]:text-brand-text">
-            <div className={'h-fit'}>
+            <div className={'h-fit min-h-[6rem] max-h-[6rem]'}>
                 <TabAuthMode />
                 <div className="mt-2 w-full">
                     <h2>
@@ -52,7 +52,7 @@ const ResetPasswordPage = () => {
                 </div>
             </div>
 
-            <div className="h-full w-full flex flex-col pt-4 justify-between">
+            <div className="h-full [&>*:first-child]:max-h-[15.375rem] [&>*:first-child]:min-h-[15.375rem] [&>*:first-child]:flex [&>*:first-child]:flex-col [&>*:first-child]:justify-end [&>_*_button]:my-6 [&>_*_button]:min-h-[2.5rem] [&>_*_button]:max-h-[2.5rem] [&>*:last-child]:min-h-[8.9375rem] [&>*:last-child]:max-h-[8.9375rem] [&>*:last-child]:mt-0! w-full flex flex-col pt-8 justify-between [&_.completed]:max-h-[15.375rem] [&_.completed]:min-h-[15.375rem] [&_.completed]:justify-center">
                 {step === 'email' && (
                     <ResetPasswordEmailStep
                         onNext={email => {
@@ -85,8 +85,14 @@ const ResetPasswordPage = () => {
                     />
                 )}
 
-                {step === 'complete' && <CompletionStep />}
-
+                {step === 'complete' && (
+                    <>
+                        <div className="space-y-4 my-auto h-full w-full">
+                            <CompletionStep />
+                        </div>
+                        <div />
+                    </>
+                )}
                 {step !== 'complete' && (
                     <div className="text-center mt-6">
                         <p className="text-lg text-[var(--brand-grey-foreground)] font-semibold">

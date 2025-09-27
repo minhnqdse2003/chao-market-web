@@ -15,6 +15,7 @@ export interface TranslationsStructure {
     ourSolutions: OurSolutionsTranslations;
     sidebar: SidebarTranslations;
     bookConsultation: BookConsultationTranslations;
+    contactButton: ContactButtonTranslations;
     footer: FooterTranslations;
 }
 

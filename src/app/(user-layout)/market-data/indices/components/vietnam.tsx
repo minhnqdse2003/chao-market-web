@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { calculateAdjustedHeight } from '@/utils/height-utils';
+import { calculateAdjustedHeight, processHeight } from '@/utils/height-utils';
 
 // Declare the FireAnt types
 declare global {
@@ -19,7 +19,13 @@ declare global {
     }
 }
 
-const VietnamComp = ({ isSingle = true }: { isSingle?: boolean }) => {
+const VietnamComp = ({
+    isSingle = true,
+    numberOfSubTab,
+}: {
+    isSingle?: boolean;
+    numberOfSubTab?: number;
+}) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -33,7 +39,7 @@ const VietnamComp = ({ isSingle = true }: { isSingle?: boolean }) => {
                     grid_color: '#999999',
                     label_color: '#999999',
                     width: `${calculateAdjustedHeight() + 250}px`,
-                    height: `${isSingle ? calculateAdjustedHeight() - 328 : calculateAdjustedHeight() - 420}px`,
+                    height: `${isSingle ? processHeight(numberOfSubTab) - 328 : calculateAdjustedHeight() - 420}px`,
                 });
             }
         };

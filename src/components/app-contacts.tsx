@@ -1,3 +1,5 @@
+'use client'; // <-- Add this line at the top
+
 import { Button } from '@/components/ui/button';
 import {
     Popover,
@@ -7,7 +9,7 @@ import {
 import { useState, useEffect } from 'react';
 import { Speech } from 'lucide-react';
 import Image from 'next/image';
-import { Messenger, Telegram, WhatsApp, Zalo } from '@image/index';
+import { Messenger, Telegram, BrandPhoneCall, Zalo } from '@image/index';
 import {
     Tooltip,
     TooltipContent,
@@ -15,8 +17,10 @@ import {
     TooltipTrigger,
 } from '@/components/ui/tooltip';
 import Link from 'next/link';
+import { useI18n } from '@/context/i18n/context'; // <-- Import the hook
 
 export default function ContactButton() {
+    const { t } = useI18n(); // <-- Use the hook
     const [open, setOpen] = useState(false);
     const [visibleItems, setVisibleItems] = useState<number[]>([]);
 
@@ -37,8 +41,8 @@ export default function ContactButton() {
 
     const contactMethods = [
         {
-            name: 'Messenger',
-            href: 'https://m.me/ChaoMarket.Official  ',
+            name: t('contactButton.methods.messenger'), // <-- Use translation
+            href: 'https://m.me/ChaoMarket.Official',
             icon: (
                 <Image
                     src={Messenger}
@@ -51,8 +55,8 @@ export default function ContactButton() {
             color: '#2962ff',
         },
         {
-            name: 'Zalo',
-            href: 'https://zalo.me/0985865674  ',
+            name: t('contactButton.methods.zalo'), // <-- Use translation
+            href: 'https://zalo.me/0985865674',
             icon: (
                 <Image
                     src={Zalo}
@@ -65,8 +69,8 @@ export default function ContactButton() {
             color: '#2962ff',
         },
         {
-            name: 'Telegram',
-            href: 'https://t.me/ChaoMarket  ',
+            name: t('contactButton.methods.telegram'), // <-- Use translation
+            href: 'https://t.me/ChaoMarket',
             icon: (
                 <Image
                     src={Telegram}
@@ -79,24 +83,24 @@ export default function ContactButton() {
             color: '#2962ff',
         },
         {
-            name: 'Phone',
+            name: t('contactButton.methods.callUs'), // <-- Use translation
             href: 'tel:0985865674',
             icon: (
                 <Image
-                    src={WhatsApp}
-                    alt={'whatsapp'}
+                    src={BrandPhoneCall}
+                    alt={'phone call'}
                     width={1920}
                     height={1080}
                     className={'object-contain'}
                 />
             ),
-            color: '#2ad348', // Note: This icon is WhatsApp but for Phone contact
+            color: '#2ad348',
         },
     ];
 
     return (
         <TooltipProvider>
-            <div className="fixed bottom-6 right-6 z-50">
+            <div className="fixed bottom-2.5 right-2.5 z-50">
                 <Popover open={open} onOpenChange={setOpen}>
                     <Tooltip>
                         <TooltipTrigger asChild>
@@ -107,27 +111,28 @@ export default function ContactButton() {
                                     className="h-12 w-12 rounded-full dark:bg-[var(--brand-color)] dark:text-black dark:hover:bg-[var(--brand-color-foreground)] dark:hover:text-black border-transparent transition-all! duration-300 ease-in-out bg-[var(--brand-color)] text-black hover:bg-[var(--brand-color-foreground)] hover:text-black"
                                 >
                                     <Speech
-                                        strokeWidth={3}
-                                        className={'size-5'}
+                                        strokeWidth={2.5}
+                                        className={'size-5.5'}
                                     />
                                 </Button>
                             </PopoverTrigger>
                         </TooltipTrigger>
                         <TooltipContent side="left">
-                            <p>Quick Contact</p>
+                            {/* Use translation */}
+                            <p>{t('contactButton.quickContactTooltip')}</p>
                         </TooltipContent>
                     </Tooltip>
                     <PopoverContent
-                        className="w-fit border-0 bg-transparent dark:bg-transparent shadow-none"
+                        className="w-fit border-0 bg-transparent p-1.5 dark:bg-transparent shadow-none relative"
                         align="start"
                         side="top"
-                        sideOffset={0}
-                        alignOffset={-14}
+                        sideOffset={4}
+                        alignOffset={-6}
                     >
                         <div className="flex flex-col gap-4">
                             {contactMethods.map((method, index) => (
                                 <div
-                                    key={method.name}
+                                    key={method.href} // <-- Use a stable key like href
                                     className={`transition-all! duration-300 ease-in-out ${
                                         visibleItems.includes(index)
                                             ? 'opacity-100 translate-y-0'
@@ -174,6 +179,16 @@ export default function ContactButton() {
                                 </div>
                             ))}
                         </div>
+                        <div
+                            data-state={`${open}`}
+                            className={
+                                'w-full h-0 absolute left-0 top-0 bg-[var(--brand-grey)]/95 rounded-md -z-1 ' +
+                                'origin-top ' +
+                                '[&[data-state="true"]]:h-full [&[data-state="true"]]:scale-y-100 ' +
+                                'transition-all! duration-2000 ease-in-out transform scale-y-0 ' +
+                                'pointer-events-none'
+                            }
+                        />
                     </PopoverContent>
                 </Popover>
             </div>

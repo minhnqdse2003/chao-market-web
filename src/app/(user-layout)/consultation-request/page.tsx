@@ -3,13 +3,13 @@
 import LoadingComponent from '@/components/loading-spiner';
 import { APP_SERVICES } from '@/constant/app-service';
 import Image from 'next/image';
-import { EmptyCart, ConsultationServices } from '@image/index';
+import { ConsultationServices, EmptyCart } from '@image/index';
 import CheckOutTransactionForm, {
     CheckoutFormData,
 } from '@/app/(user-layout)/consultation-request/components/CheckOutTransactionForm';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
-import React, { useMemo, useState, useCallback, useEffect, use } from 'react';
+import React, { use, useCallback, useEffect, useMemo } from 'react';
 import { redirect, useRouter } from 'next/navigation';
 import {
     useConsultationRequest,
@@ -26,6 +26,9 @@ import {
     capitalizeFirstLetterOnly,
     splitAndTrim,
 } from '@/utils/string-parsing';
+import Link from 'next/link';
+import { useConsultationStore } from '@/stores/consultation.store';
+import { CONSULTATION_ACTIONS } from '@/stores/actions/consultation.action';
 
 interface SearchParams {
     selectedItemId?: string;
@@ -41,7 +44,9 @@ export default function CartItemsPage({ searchParams }: PageProps) {
     const { selectedItemId } = use(searchParams);
     const { data: response, isLoading: isConsultationServicesLoading } =
         useConsultationServices();
-    const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    const selectedItems = useConsultationStore(state => state.selectedItems);
+    const dispatch = useConsultationStore(state => state.dispatch);
+
     const { open } = useSidebar();
     const { t, locale } = useI18n();
     const router = useRouter();
@@ -60,11 +65,10 @@ export default function CartItemsPage({ searchParams }: PageProps) {
 
     // Toggle selection of a single item
     const toggleItemSelection = (consultationServiceId: string) => {
-        setSelectedItems(prev =>
-            prev.includes(consultationServiceId)
-                ? prev.filter(id => id !== consultationServiceId)
-                : [...prev, consultationServiceId]
-        );
+        dispatch({
+            type: CONSULTATION_ACTIONS.UPDATE_ITEM,
+            payload: consultationServiceId,
+        });
     };
 
     const handleSubmit = async (data: CheckoutFormData) => {
@@ -112,9 +116,12 @@ export default function CartItemsPage({ searchParams }: PageProps) {
 
     useEffect(() => {
         if (selectedItemId && !isChecked(selectedItemId)) {
-            setSelectedItems(prev => [...prev, selectedItemId]);
+            dispatch({
+                type: CONSULTATION_ACTIONS.ADD_NEW_ITEM,
+                payload: selectedItemId,
+            });
         }
-    }, [filteredItem, selectedItemId]);
+    }, [selectedItemId]);
 
     if (isLoading || !filteredItem) return <LoadingComponent />;
 
@@ -178,10 +185,11 @@ export default function CartItemsPage({ searchParams }: PageProps) {
                             </div>
 
                             <div className="ml-4 flex-1 flex justify-between items-center min-w-0">
-                                <h3
+                                <Link
                                     className={cn(
-                                        'font-semibold dark:text-[var(--brand-color)] text-brand-text'
+                                        'font-semibold dark:text-[var(--brand-color)] text-brand-text hover:underline'
                                     )}
+                                    href={item.navigationUrl || '#'}
                                 >
                                     {
                                         item.name[
@@ -189,7 +197,7 @@ export default function CartItemsPage({ searchParams }: PageProps) {
                                                 'en'
                                         ]
                                     }
-                                </h3>
+                                </Link>
                                 <ul className="flex flex-col gap-0.5 min-w-[13.5rem]">
                                     {item?.description
                                         ? splitAndTrim(
