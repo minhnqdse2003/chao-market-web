@@ -25,9 +25,10 @@ const BlockContents = ({
     const router = useRouter();
     return (
         <div
+            id={id}
             className="w-full flex flex-col [&>p]:mb-4 min-h-[60svh] [&>p:not(:first-child)]:font-light [&>p:not(:first-child)]:text-lg [&>p:last-child]:mb-0 [&>p:first-child]:mb-6 [&_*_ul]:list-disc [&_*_ul]:list-inside"
         >
-            <p id={id} className="font-bold text-xl dark:text-[var(--brand-color)]">
+            <p className="font-bold text-xl dark:text-[var(--brand-color)]">
                 {title}
             </p>
             <span className="dark:text-[var(--brand-grey-foreground)] text-black [&>p]:mb-6 tracking-wide leading-relaxed">
