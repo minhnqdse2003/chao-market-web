@@ -243,12 +243,12 @@ export const vi: TranslationsStructure = {
         bookConsultation: 'Đặt Lịch Tư Vấn',
     },
     contactButton: {
-        quickContactTooltip: 'Liên hệ nhanh',
+        quickContactTooltip: 'Nhắn tin với Chào Market',
         methods: {
             messenger: 'Nhắn tin qua Messenger',
             zalo: 'Nhắn tin qua Zalo',
             telegram: 'Nhắn tin qua Telegram',
-            callUs: 'Gọi ngay',
+            callUs: 'Gọi Chào Market',
         },
     },
     footer: {

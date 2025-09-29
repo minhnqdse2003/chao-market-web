@@ -243,12 +243,12 @@ export const en: TranslationsStructure = {
         bookConsultation: 'Book A Consultation',
     },
     contactButton: {
-        quickContactTooltip: 'Quick Contact',
+        quickContactTooltip: 'Chat with Chào Market',
         methods: {
             messenger: 'Chat on Messenger',
             zalo: 'Chat on Zalo',
             telegram: 'Chat on Telegram',
-            callUs: 'Call Us',
+            callUs: 'Call Chào Market',
         },
     },
     footer: {

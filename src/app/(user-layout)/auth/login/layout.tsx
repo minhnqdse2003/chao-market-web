@@ -25,5 +25,9 @@ export default function LoginLayout({
 }: {
     children: React.ReactNode;
 }) {
-    return <Suspense>{children}</Suspense>;
+    return (
+        <Suspense>
+            <div className={'pt-18 w-full h-full'}>{children}</div>
+        </Suspense>
+    );
 }

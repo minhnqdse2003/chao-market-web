@@ -17,7 +17,7 @@ const ResetPasswordPage = () => {
     const [otp, setOtp] = useState('');
 
     return (
-        <div className="flex flex-col w-full h-full [&_*_h2]:text-2xl [&_*_h2]:font-extrabold [&_*_h2]:text-brand-text">
+        <div className="flex flex-col w-full h-full [&_*_h2]:text-2xl [&_*_h2]:font-extrabold pt-18 [&_*_h2]:text-brand-text">
             <div className={'h-fit min-h-[6rem] max-h-[6rem]'}>
                 <TabAuthMode />
                 <div className="mt-2 w-full">

@@ -49,7 +49,7 @@ export default function ContactButton() {
                     alt={'messenger'}
                     width={1920}
                     height={1080}
-                    className={'object-contain'}
+                    className={'object-contain size-8'}
                 />
             ),
             color: '#2962ff',
@@ -77,7 +77,7 @@ export default function ContactButton() {
                     alt={'telegram'}
                     width={1920}
                     height={1080}
-                    className={'object-contain'}
+                    className={'object-contain size-8'}
                 />
             ),
             color: '#2962ff',
@@ -91,10 +91,10 @@ export default function ContactButton() {
                     alt={'phone call'}
                     width={1920}
                     height={1080}
-                    className={'object-contain'}
+                    className={'object-contain size-8'}
                 />
             ),
-            color: '#2ad348',
+            color: '#ffe400',
         },
     ];
 
@@ -155,7 +155,7 @@ export default function ContactButton() {
                                                     tabIndex={-1}
                                                     className="w-fit h-fit border-0 rounded-md relative dark:bg-transparent dark:hover:bg-transparent bg-transparent hover:bg-transparent dark:border-transparent border-transparent  transition-all! duration-300 ease-in-out"
                                                 >
-                                                    <span className="w-10 h-10 relative z-10">
+                                                    <span className="w-10 h-10 flex items-center justify-center relative z-10">
                                                         {method.icon}
                                                     </span>
                                                     <span
