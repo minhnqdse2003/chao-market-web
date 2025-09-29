@@ -8,6 +8,7 @@ import { AppTabs, TabItem } from '@/components/app-tabs';
 import VietnamComp from '@/app/(user-layout)/market-data/indices/components/vietnam';
 import VietnamTradingView from '@/app/(user-layout)/market-data/indices/components/vietnam-trading-view';
 import CombinedNewsFeed from '@/app/(user-layout)/market-data/markets/components/vietnam-stock-market-news';
+import { useI18n } from '@/context/i18n/context';
 
 const USA_SYMBOL_KEYS: TMarketSymbolKey[] = [
     'INDEX_DXY',
@@ -844,8 +845,24 @@ function ChartVietNam() {
     );
 }
 
-function VietNamStockMarketNewsFeed() {
-    return <CombinedNewsFeed type={'vna-en-economy'} />;
+export function VietNamStockMarketNewsFeed() {
+    const { locale } = useI18n();
+    return (
+        <div className={'flex flex-col gap-6'}>
+            <CombinedNewsFeed type={'tuoitre-business'} />
+            {locale === 'vi' ? (
+                <>
+                    <CombinedNewsFeed type={'vna-vi-economy'} />
+                    <CombinedNewsFeed type={'vna-vi-politics'} />
+                </>
+            ) : (
+                <>
+                    <CombinedNewsFeed type={'vna-en-economy'} />
+                    <CombinedNewsFeed type={'vna-en-law'} />
+                </>
+            )}
+        </div>
+    );
 }
 
 function StockComp({ type }: { type: MARKET_TYPES }) {

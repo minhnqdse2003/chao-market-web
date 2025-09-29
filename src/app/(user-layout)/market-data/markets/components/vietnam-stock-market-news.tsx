@@ -5,11 +5,11 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchNewsFeed } from '@/services/rss/fetchNews';
 
 // Define types for the prop and RSS data
-type NewsSourceType =
+export type NewsSourceType =
     | 'vna-en-economy'
     | 'vna-en-law'
     | 'vna-vi-economy'
-    | 'vna-vi-crime'
+    | 'vna-vi-politics'
     | 'tuoitre-business';
 
 interface RSSItem {
@@ -29,40 +29,36 @@ export default function CombinedNewsFeed({
     limit = 5,
 }: CombinedNewsFeedProps) {
     let title = '';
-    let colorClass = '';
     let localeForDate = 'vi-VN';
 
     switch (type) {
         case 'vna-en-economy':
             title = 'VNA - Economy (English)';
-            colorClass = 'green-700';
             localeForDate = 'en-US';
             break;
         case 'vna-en-law':
             title = 'VNA - Law (English)';
-            colorClass = 'green-700';
             localeForDate = 'en-US';
             break;
         case 'vna-vi-economy':
             title = 'VNA - Kinh Tế (Tiếng Việt)';
-            colorClass = 'green-700';
             localeForDate = 'vi-VN';
             break;
-        case 'vna-vi-crime':
-            title = 'VNA - Tội Phạm (Tiếng Việt)';
-            colorClass = 'green-700';
+        case 'vna-vi-politics':
+            title = 'VNA - Chính Trị (Tiếng Việt)';
             localeForDate = 'vi-VN';
             break;
         case 'tuoitre-business':
             title = 'Tuổi Trẻ - Kinh Doanh';
-            colorClass = 'blue-700';
             localeForDate = 'vi-VN';
             break;
         default:
             console.error(`Unknown news type: ${type}`);
             return (
                 <div className="p-4 border rounded-lg shadow-sm bg-white">
-                    Lỗi: Loại tin tức không hợp lệ.
+                    <p className="text-gray-500">
+                        Lỗi: Loại tin tức không hợp lệ.
+                    </p>
                 </div>
             );
     }
@@ -74,9 +70,13 @@ export default function CombinedNewsFeed({
         error,
         // eslint-disable-next-line react-hooks/rules-of-hooks
     } = useQuery<RSSItem[], Error>({
-        queryKey: ['news', type], // Include 'news' in the key for clarity
-        queryFn: () => fetchNewsFeed(type), // Call the server action
-        staleTime: 5 * 60 * 1000, // Optional: Override default stale time if needed
+        queryKey: ['news', type],
+        queryFn: () => fetchNewsFeed(type),
+        staleTime: 0, // 1 minute - data becomes stale after 1 minute
+        gcTime: 0, // 5 minutes - cache garbage collection time
+        retry: 3, // Retry failed requests up to 3 times
+        refetchOnWindowFocus: true, // Don't refetch on window focus
+        refetchOnReconnect: true, // Refetch on network reconnection
     });
 
     // Apply limit after fetching (or after getting cached data)
@@ -85,8 +85,10 @@ export default function CombinedNewsFeed({
     // Handle loading state
     if (isLoading) {
         return (
-            <div className="p-4 border rounded-lg shadow-sm bg-white">
-                <h2 className={`text-xl font-bold mb-4 text-${colorClass}`}>
+            <div className="p-4 border rounded-lg shadow-sm">
+                <h2
+                    className={`text-xl font-bold mb-4 dark:text-[var(--brand-color)] text-brand-text`}
+                >
                     {title}
                 </h2>
                 <p className="text-gray-500">Đang tải tin tức...</p>
@@ -99,7 +101,9 @@ export default function CombinedNewsFeed({
         console.error('Query Error:', error); // Log the error
         return (
             <div className="p-4 border rounded-lg shadow-sm bg-white">
-                <h2 className={`text-xl font-bold mb-4 text-${colorClass}`}>
+                <h2
+                    className={`text-xl font-bold mb-4 dark:text-[var(--brand-color)] text-brand-text`}
+                >
                     {title}
                 </h2>
                 <p className="text-red-500">
@@ -109,40 +113,41 @@ export default function CombinedNewsFeed({
         );
     }
 
-    // Render the actual content once data is loaded and not in error state
     return (
-        <div className="p-4 border rounded-lg shadow-sm bg-white">
-            <h2 className={`text-xl font-bold mb-4 text-${colorClass}`}>
+        <div className="p-4 rounded-lg bg-transparent">
+            <h2
+                className={`text-xl font-bold mb-4 dark:text-[var(--brand-color)] text-brand-text`}
+            >
                 {title}
             </h2>
             {limitedArticles.length === 0 ? (
-                <p className="text-gray-500">
+                <p className="text-[var(--brand-grey-foreground)]">
                     Không thể tải tin tức hoặc không có tin tức mới.
                 </p>
             ) : (
                 <ul className="space-y-3">
                     {limitedArticles.map((article, index) => (
                         <li
-                            key={index} // Consider using article.link or pubDate if available for a more stable key
+                            key={index}
                             className="border-b pb-2 last:border-0 last:pb-0"
                         >
                             <a
                                 href={article.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={`text-${colorClass.replace('700', '600')} hover:underline font-medium`}
+                                className={`text-brand-text hover:underline font-medium`}
                             >
                                 {article.title}
                             </a>
                             {article.pubDate && (
-                                <p className="text-xs text-gray-500 mt-1">
+                                <p className="text-xs text-[var(--brand-grey-foreground)] mt-1">
                                     {new Date(article.pubDate).toLocaleString(
                                         localeForDate // Use the determined locale
                                     )}{' '}
                                 </p>
                             )}
                             {article.contentSnippet && (
-                                <p className="text-sm text-gray-700 mt-1 line-clamp-2">
+                                <p className="text-sm text-[var(--brand-grey-foreground)] mt-1 line-clamp-2">
                                     {article.contentSnippet}{' '}
                                 </p>
                             )}

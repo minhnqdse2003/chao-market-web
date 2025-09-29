@@ -3,6 +3,8 @@
 import TabNavigation from '@/app/(user-layout)/market-data/components/tab-navigation';
 import { useEffect, useRef } from 'react';
 import { useTheme } from 'next-themes';
+import { VietNamStockMarketNewsFeed } from '@/app/(user-layout)/market-data/markets/components/stock';
+import { AppTabs, TabItem } from '@/components/app-tabs';
 
 function NewsComp() {
     const container = useRef<HTMLDivElement>(null);
@@ -43,13 +45,26 @@ function NewsComp() {
 }
 
 export default function Page() {
+    const tabsList: TabItem[] = [
+        {
+            title: 'Global',
+            value: 'global',
+            renderContent: () => Promise.resolve(<NewsComp />),
+        },
+        {
+            title: 'Việt Nam',
+            value: 'vietnam',
+            renderContent: () =>
+                Promise.resolve(<VietNamStockMarketNewsFeed />),
+        },
+    ];
     return (
         <div className={'w-full flex flex-col gap-4'}>
             <TabNavigation
                 searchParams={{}}
                 currentHref={'/market-data/news'}
             />
-            <NewsComp />
+            <AppTabs tabsList={tabsList} />
         </div>
     );
 }

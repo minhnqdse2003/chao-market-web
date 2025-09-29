@@ -1,15 +1,7 @@
-// app/actions/fetchNews.ts (or services/rss/fetchNews.ts)
 import Parser from 'rss-parser';
+import { NewsSourceType } from '@/app/(user-layout)/market-data/markets/components/vietnam-stock-market-news';
 
 const parser = new Parser();
-
-// Define types for the prop and RSS data
-type NewsSourceType =
-    | 'vna-en-economy'
-    | 'vna-en-law'
-    | 'vna-vi-economy'
-    | 'vna-vi-crime'
-    | 'tuoitre-business';
 
 interface RSSItem {
     title: string;
@@ -18,7 +10,7 @@ interface RSSItem {
     contentSnippet?: string;
 }
 
-const CORS_PROXY = '';
+const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
 
 const fetchVNAEnEconomy = async (): Promise<RSSItem[]> => {
     try {
@@ -58,7 +50,7 @@ const fetchVNAViEconomy = async (): Promise<RSSItem[]> => {
 
 const fetchVNAViCrime = async (): Promise<RSSItem[]> => {
     try {
-        const rssUrl = 'https://vnanet.vn/vi/rss/toi-pham-2.rss'; // Original URL
+        const rssUrl = 'https://vnanet.vn/vi/rss/chinh-tri-11.rss'; // Original URL
         const proxyUrl = CORS_PROXY + rssUrl; // Proxy URL
         const feed = await parser.parseURL(proxyUrl); // Use the proxy URL
         return feed.items.slice(0, 5);
@@ -94,7 +86,7 @@ export async function fetchNewsFeed(type: NewsSourceType): Promise<RSSItem[]> {
         case 'vna-vi-economy':
             fetchFunction = fetchVNAViEconomy;
             break;
-        case 'vna-vi-crime':
+        case 'vna-vi-politics':
             fetchFunction = fetchVNAViCrime;
             break;
         case 'tuoitre-business':
