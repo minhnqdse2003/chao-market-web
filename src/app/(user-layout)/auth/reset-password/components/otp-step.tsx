@@ -24,6 +24,7 @@ import {
 } from '@/app/api/auth/reset-password';
 import { useI18n } from '@/context/i18n/context';
 import { T } from '@/components/app-translate';
+import Countdown from '@/components/app-countdown';
 
 interface ResetPasswordOtpStepProps {
     email: string;
@@ -140,19 +141,15 @@ export default function ResetPasswordOtpStep({
             </div>
 
             <div className="text-center h-0">
-                <p className="text-sm text-[var(--brand-grey-foreground)]">
+                <p className="text-sm text-brand-text">
                     <T keyName="auth.didNotReceiveCode" />{' '}
-                    <button
-                        onClick={handleResend}
+                    <Countdown
+                        initialTime={60}
+                        onResend={handleResend}
                         disabled={resendOTPMutation.isPending}
-                        className="cursor-pointer my-0! dark:text-[var(--brand-color)] text-black font-bold hover:underline"
-                    >
-                        {resendOTPMutation.isPending ? (
-                            <T keyName="common.sending" />
-                        ) : (
-                            <T keyName="auth.resendOtp" />
-                        )}
-                    </button>
+                        buttonLabel="Resend OTP"
+                        autoStart={true}
+                    />
                 </p>
             </div>
         </div>

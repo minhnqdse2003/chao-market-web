@@ -73,7 +73,7 @@ export const en: TranslationsStructure = {
             rememberPassword: 'Remember your password?',
             title: 'Reset your password',
             setNewPasswordTitle: 'Set new password',
-            completeTitle: 'Successfully!',
+            completeTitle: 'Successfully !',
             emailSubtitle: 'You will receive an email to reset your password in a few minutes.',
             otpSubtitle: 'Enter the 6-digit code sent to your email',
             newPasswordSubtitle: 'Create a new password for your account',

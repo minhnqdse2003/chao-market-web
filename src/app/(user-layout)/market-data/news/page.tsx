@@ -52,7 +52,7 @@ export default function Page() {
             renderContent: () => Promise.resolve(<NewsComp />),
         },
         {
-            title: 'Việt Nam',
+            title: 'Vietnam',
             value: 'vietnam',
             renderContent: () =>
                 Promise.resolve(<VietNamStockMarketNewsFeed />),

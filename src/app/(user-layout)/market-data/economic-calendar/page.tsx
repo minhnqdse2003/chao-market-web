@@ -12,7 +12,7 @@ function CalendarComp() {
         () => ({
             ...LIGHT_THEME_CONFIG_ECONOMY_CALENDAR,
             colorTheme: theme === 'dark' ? 'dark' : 'light',
-            countryFilter: 'us,vn',
+            countryFilter: 'us,eu,jp,gb,ch,au,ca,vn,cn',
             width: '100%',
             height: 750,
             autosize: true,

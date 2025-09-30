@@ -251,9 +251,9 @@ export default function Login() {
 
     return (
         <div className="flex flex-col w-full h-full">
-            <div>
+            <div className={'h-1/3 flex flex-col justify-between'}>
                 <TabAuthMode />
-                <h2 className="mt-2 text-2xl font-bold text-brand-text">
+                <h2 className="mt-2 min-h-[2rem] text-2xl font-bold text-brand-text">
                     <T keyName="auth.welcomeBack" />
                 </h2>
             </div>

@@ -849,16 +849,16 @@ export function VietNamStockMarketNewsFeed() {
     const { locale } = useI18n();
     return (
         <div className={'flex flex-col gap-6'}>
-            <CombinedNewsFeed type={'tuoitre-business'} />
             {locale === 'vi' ? (
                 <>
+                    <CombinedNewsFeed type={'tuoitre-news'} />
                     <CombinedNewsFeed type={'vna-vi-economy'} />
                     <CombinedNewsFeed type={'vna-vi-politics'} />
                 </>
             ) : (
                 <>
                     <CombinedNewsFeed type={'vna-en-economy'} />
-                    <CombinedNewsFeed type={'vna-en-law'} />
+                    <CombinedNewsFeed type={'vna-en-politics'} />
                 </>
             )}
         </div>

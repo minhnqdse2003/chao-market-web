@@ -20,6 +20,18 @@ const nextConfig: NextConfig = {
             },
             {
                 protocol: 'https',
+                hostname: 'cdn2.tuoitre.vn',
+                port: '',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'vnanet.vn',
+                port: '',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
                 hostname: 'images.unsplash.com',
                 port: '',
                 pathname: '/**',

@@ -2,22 +2,17 @@
 
 import { useQuery } from '@tanstack/react-query';
 // Import the server action
-import { fetchNewsFeed } from '@/services/rss/fetchNews';
+import { fetchNewsFeed, RSSItem } from '@/services/rss/fetchNews';
+import Image from 'next/image';
 
 // Define types for the prop and RSS data
 export type NewsSourceType =
     | 'vna-en-economy'
-    | 'vna-en-law'
+    | 'vna-en-politics'
     | 'vna-vi-economy'
     | 'vna-vi-politics'
-    | 'tuoitre-business';
-
-interface RSSItem {
-    title: string;
-    link: string;
-    pubDate?: string;
-    contentSnippet?: string;
-}
+    | 'tuoitre-business'
+    | 'tuoitre-news';
 
 interface CombinedNewsFeedProps {
     type: NewsSourceType;
@@ -36,8 +31,8 @@ export default function CombinedNewsFeed({
             title = 'VNA - Economy (English)';
             localeForDate = 'en-US';
             break;
-        case 'vna-en-law':
-            title = 'VNA - Law (English)';
+        case 'vna-en-politics':
+            title = 'VNA - Politics (English)';
             localeForDate = 'en-US';
             break;
         case 'vna-vi-economy':
@@ -50,6 +45,10 @@ export default function CombinedNewsFeed({
             break;
         case 'tuoitre-business':
             title = 'Tuổi Trẻ - Kinh Doanh';
+            localeForDate = 'vi-VN';
+            break;
+        case 'tuoitre-news':
+            title = 'Tuổi Trẻ - Thời Sự';
             localeForDate = 'vi-VN';
             break;
         default:
@@ -72,17 +71,15 @@ export default function CombinedNewsFeed({
     } = useQuery<RSSItem[], Error>({
         queryKey: ['news', type],
         queryFn: () => fetchNewsFeed(type),
-        staleTime: 0, // 1 minute - data becomes stale after 1 minute
-        gcTime: 0, // 5 minutes - cache garbage collection time
-        retry: 3, // Retry failed requests up to 3 times
-        refetchOnWindowFocus: true, // Don't refetch on window focus
-        refetchOnReconnect: true, // Refetch on network reconnection
+        staleTime: 0,
+        gcTime: 0,
+        retry: 10,
+        refetchOnWindowFocus: true,
+        refetchOnReconnect: true,
     });
 
-    // Apply limit after fetching (or after getting cached data)
     const limitedArticles = articles.slice(0, limit);
 
-    // Handle loading state
     if (isLoading) {
         return (
             <div className="p-4 border rounded-lg shadow-sm">
@@ -96,9 +93,8 @@ export default function CombinedNewsFeed({
         );
     }
 
-    // Handle error state
     if (isError) {
-        console.error('Query Error:', error); // Log the error
+        console.error('Query Error:', error);
         return (
             <div className="p-4 border rounded-lg shadow-sm bg-white">
                 <h2
@@ -129,28 +125,59 @@ export default function CombinedNewsFeed({
                     {limitedArticles.map((article, index) => (
                         <li
                             key={index}
-                            className="border-b pb-2 last:border-0 last:pb-0"
+                            className="border-b pb-2 last:border-0 last:pb-0 flex gap-4"
                         >
-                            <a
-                                href={article.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={`text-brand-text hover:underline font-medium`}
-                            >
-                                {article.title}
-                            </a>
-                            {article.pubDate && (
-                                <p className="text-xs text-[var(--brand-grey-foreground)] mt-1">
-                                    {new Date(article.pubDate).toLocaleString(
-                                        localeForDate // Use the determined locale
-                                    )}{' '}
-                                </p>
+                            {article.imageUrl && (
+                                <div className="flex-shrink-0">
+                                    <a
+                                        href={article.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {type.includes('vna') ? (
+                                            <img
+                                                src={article.imageUrl}
+                                                alt={article.title}
+                                                width={1920}
+                                                height={1080}
+                                                className="rounded-md object-cover w-[320px] h-[160px]"
+                                            />
+                                        ) : (
+                                            <Image
+                                                src={article.imageUrl}
+                                                alt={article.title}
+                                                width={600}
+                                                height={600}
+                                                className="rounded-md object-cover w-[320px] h-[160px]"
+                                            />
+                                        )}
+                                    </a>
+                                </div>
                             )}
-                            {article.contentSnippet && (
-                                <p className="text-sm text-[var(--brand-grey-foreground)] mt-1 line-clamp-2">
-                                    {article.contentSnippet}{' '}
-                                </p>
-                            )}
+                            <div className={'flex flex-col gap-1'}>
+                                <a
+                                    href={article.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={`text-brand-text hover:underline font-medium`}
+                                >
+                                    {article.title}
+                                </a>
+                                {article.pubDate && (
+                                    <p className="text-xs text-[var(--brand-grey-foreground)] mt-1">
+                                        {new Date(
+                                            article.pubDate
+                                        ).toLocaleString(
+                                            localeForDate // Use the determined locale
+                                        )}{' '}
+                                    </p>
+                                )}
+                                {article.contentSnippet && (
+                                    <p className="text-sm text-[var(--brand-grey-foreground)] mt-1 line-clamp-2">
+                                        {article.contentSnippet}{' '}
+                                    </p>
+                                )}
+                            </div>
                         </li>
                     ))}
                 </ul>

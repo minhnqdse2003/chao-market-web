@@ -27,7 +27,7 @@ export default function LoginLayout({
 }) {
     return (
         <Suspense>
-            <div className={'pt-18 w-full h-full'}>{children}</div>
+            <div className={'w-full h-full'}>{children}</div>
         </Suspense>
     );
 }

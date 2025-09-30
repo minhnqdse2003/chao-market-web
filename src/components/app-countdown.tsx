@@ -8,7 +8,7 @@ interface CountdownProps {
     disabled?: boolean;
     buttonLabel?: string;
     className?: string;
-    autoStart?: boolean; // New prop to control auto-start
+    autoStart?: boolean;
 }
 
 export default function Countdown({
@@ -22,7 +22,6 @@ export default function Countdown({
     const [countdown, setCountdown] = useState(initialTime);
     const [isActive, setIsActive] = useState(autoStart);
 
-    // Initialize countdown timer
     useEffect(() => {
         let timer: NodeJS.Timeout;
 
@@ -37,7 +36,6 @@ export default function Countdown({
         return () => clearTimeout(timer);
     }, [countdown, isActive]);
 
-    // Reset countdown when autoStart is true (component mounts)
     useEffect(() => {
         if (autoStart) {
             setCountdown(initialTime);
@@ -57,7 +55,7 @@ export default function Countdown({
         }
     }, [onResend, startCountdown, disabled]);
 
-    const isDisabled = disabled;
+    const isDisabled = disabled || isActive;
 
     return (
         <button
