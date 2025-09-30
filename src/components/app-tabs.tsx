@@ -21,6 +21,13 @@ export function AppTabs({ tabsList }: Readonly<TabComponentProps>) {
     >({});
 
     useEffect(() => {
+        if (tabsList.length > 0 && tabsList[0].value !== activeTab) {
+            setActiveTab(tabsList[0].value);
+            setContentMap({});
+        }
+    }, [tabsList]);
+
+    useEffect(() => {
         const loadContent = async () => {
             const tab = tabsList.find(t => t.value === activeTab);
             if (tab && !contentMap[activeTab]) {

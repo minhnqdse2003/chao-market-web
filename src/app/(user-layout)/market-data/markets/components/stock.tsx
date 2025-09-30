@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTheme } from 'next-themes';
 import { MARKET_SYMBOL, TMarketSymbolKey } from '@/constant/market-query';
 import { calculateAdjustedHeight } from '@/utils/height-utils';
@@ -847,22 +847,56 @@ function ChartVietNam() {
 
 export function VietNamStockMarketNewsFeed() {
     const { locale } = useI18n();
-    return (
-        <div className={'flex flex-col gap-6'}>
-            {locale === 'vi' ? (
-                <>
-                    <CombinedNewsFeed type={'tuoitre-news'} />
-                    <CombinedNewsFeed type={'vna-vi-economy'} />
-                    <CombinedNewsFeed type={'vna-vi-politics'} />
-                </>
-            ) : (
-                <>
-                    <CombinedNewsFeed type={'vna-en-economy'} />
-                    <CombinedNewsFeed type={'vna-en-politics'} />
-                </>
-            )}
-        </div>
-    );
+
+    const tabsList: TabItem[] = useMemo(() => {
+        return locale === 'vi'
+            ? [
+                  {
+                      title: 'Tuổi Trẻ (Kinh Doanh)',
+                      value: 'tuoitre-news',
+                      renderContent: () =>
+                          Promise.resolve(
+                              <CombinedNewsFeed type={'tuoitre-news'} />
+                          ),
+                  },
+                  {
+                      title: 'Thông tấn xã Việt Nam (Kinh Tế)',
+                      value: 'vna-vi-economy',
+                      renderContent: () =>
+                          Promise.resolve(
+                              <CombinedNewsFeed type={'vna-vi-economy'} />
+                          ),
+                  },
+                  {
+                      title: 'Thông tấn xã Việt Nam (Chính Trị)',
+                      value: 'vna-vi-politics',
+                      renderContent: () =>
+                          Promise.resolve(
+                              <CombinedNewsFeed type={'vna-vi-politics'} />
+                          ),
+                  },
+              ]
+            : [
+                  {
+                      title: 'Vietnam News Agency (Economy)',
+                      value: 'vna-en-economy',
+                      renderContent: () =>
+                          Promise.resolve(
+                              <CombinedNewsFeed type={'vna-en-economy'} />
+                          ),
+                  },
+                  {
+                      title: 'Vietnam News Agency (Politics)',
+                      value: 'vna-en-politics',
+                      renderContent: () =>
+                          Promise.resolve(
+                              <CombinedNewsFeed type={'vna-en-politics'} />
+                          ),
+                  },
+              ];
+    }, [locale]);
+
+    return locale && <AppTabs tabsList={tabsList} />;
 }
 
 function StockComp({ type }: { type: MARKET_TYPES }) {

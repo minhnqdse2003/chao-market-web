@@ -46,7 +46,7 @@ const fetchRssFeed = async (
         const feed = await parser.parseURL(proxyUrl);
 
         // Map the items, using our new helper function for the image
-        const items = feed.items.slice(0, 5).map(item => ({
+        const items = feed.items.slice(0, 10).map(item => ({
             title: item.title || '',
             link: item.link || '',
             pubDate: item.pubDate,

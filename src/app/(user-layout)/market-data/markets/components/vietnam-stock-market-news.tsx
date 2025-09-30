@@ -21,34 +21,27 @@ interface CombinedNewsFeedProps {
 
 export default function CombinedNewsFeed({
     type,
-    limit = 5,
+    limit = 10,
 }: CombinedNewsFeedProps) {
-    let title = '';
     let localeForDate = 'vi-VN';
 
     switch (type) {
         case 'vna-en-economy':
-            title = 'VNA - Economy (English)';
             localeForDate = 'en-US';
             break;
         case 'vna-en-politics':
-            title = 'VNA - Politics (English)';
             localeForDate = 'en-US';
             break;
         case 'vna-vi-economy':
-            title = 'VNA - Kinh Tế (Tiếng Việt)';
             localeForDate = 'vi-VN';
             break;
         case 'vna-vi-politics':
-            title = 'VNA - Chính Trị (Tiếng Việt)';
             localeForDate = 'vi-VN';
             break;
         case 'tuoitre-business':
-            title = 'Tuổi Trẻ - Kinh Doanh';
             localeForDate = 'vi-VN';
             break;
         case 'tuoitre-news':
-            title = 'Tuổi Trẻ - Thời Sự';
             localeForDate = 'vi-VN';
             break;
         default:
@@ -83,11 +76,11 @@ export default function CombinedNewsFeed({
     if (isLoading) {
         return (
             <div className="p-4 border rounded-lg shadow-sm">
-                <h2
-                    className={`text-xl font-bold mb-4 dark:text-[var(--brand-color)] text-brand-text`}
-                >
-                    {title}
-                </h2>
+                {/*<h2*/}
+                {/*    className={`text-xl font-bold mb-4 dark:text-[var(--brand-color)] text-brand-text`}*/}
+                {/*>*/}
+                {/*    {title}*/}
+                {/*</h2>*/}
                 <p className="text-gray-500">Đang tải tin tức...</p>
             </div>
         );
@@ -97,11 +90,11 @@ export default function CombinedNewsFeed({
         console.error('Query Error:', error);
         return (
             <div className="p-4 border rounded-lg shadow-sm bg-white">
-                <h2
-                    className={`text-xl font-bold mb-4 dark:text-[var(--brand-color)] text-brand-text`}
-                >
-                    {title}
-                </h2>
+                {/*<h2*/}
+                {/*    className={`text-xl font-bold mb-4 dark:text-[var(--brand-color)] text-brand-text`}*/}
+                {/*>*/}
+                {/*    {title}*/}
+                {/*</h2>*/}
                 <p className="text-red-500">
                     Lỗi khi tải tin tức: {error.message || 'Đã xảy ra lỗi.'}
                 </p>
@@ -111,11 +104,11 @@ export default function CombinedNewsFeed({
 
     return (
         <div className="p-4 rounded-lg bg-transparent">
-            <h2
-                className={`text-xl font-bold mb-4 dark:text-[var(--brand-color)] text-brand-text`}
-            >
-                {title}
-            </h2>
+            {/*<h2*/}
+            {/*    className={`text-xl font-bold mb-4 dark:text-[var(--brand-color)] text-brand-text`}*/}
+            {/*>*/}
+            {/*    {title}*/}
+            {/*</h2>*/}
             {limitedArticles.length === 0 ? (
                 <p className="text-[var(--brand-grey-foreground)]">
                     Không thể tải tin tức hoặc không có tin tức mới.
