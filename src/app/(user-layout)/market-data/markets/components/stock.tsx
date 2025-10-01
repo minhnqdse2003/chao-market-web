@@ -896,7 +896,9 @@ export function VietNamStockMarketNewsFeed() {
               ];
     }, [locale]);
 
-    return locale && <AppTabs tabsList={tabsList} />;
+    return (
+        locale && <AppTabs tabsList={tabsList} shouldBorderVisible={false} />
+    );
 }
 
 function StockComp({ type }: { type: MARKET_TYPES }) {

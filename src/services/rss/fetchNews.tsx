@@ -15,7 +15,7 @@ interface Source {
 }
 
 const parser = new Parser();
-const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+const CORS_PROXY = 'https://chao-market-proxy.vercel.app/raw?url=';
 
 // A helper function to extract the image URL using a fallback strategy
 const getImageUrl = (item: Parser.Item): string | undefined => {
@@ -65,19 +65,19 @@ const fetchRssFeed = async (
 
 const newsSources: Record<NewsSourceType, Source> = {
     'vna-en-economy': {
-        url: 'https://vnanet.vn/en/rss/economy-423.rss',
+        url: 'https://rss.app/feeds/nzYKuxLk8jATKh6U.xml',
         name: 'VNA EN Economy',
     },
     'vna-en-politics': {
-        url: 'https://vnanet.vn/en/rss/politics-1004.rss',
+        url: 'https://rss.app/feeds/Ae0kuuTXAH3KWTiR.xml',
         name: 'VNA EN Law',
     },
     'vna-vi-economy': {
-        url: 'https://vnanet.vn/vi/rss/kinh-te-4.rss',
+        url: 'https://rss.app/feeds/gXDzCPgXgJGoJFJq.xml',
         name: 'VNA VI Economy',
     },
     'vna-vi-politics': {
-        url: 'https://vnanet.vn/vi/rss/chinh-tri-11.rss',
+        url: 'https://rss.app/feeds/vQeLRqawmDH9FN6v.xml',
         name: 'VNA VI Politics',
     },
     'tuoitre-business': {

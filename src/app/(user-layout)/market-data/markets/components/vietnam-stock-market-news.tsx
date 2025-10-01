@@ -66,7 +66,7 @@ export default function CombinedNewsFeed({
         queryFn: () => fetchNewsFeed(type),
         staleTime: 0,
         gcTime: 0,
-        retry: 10,
+        retry: 3,
         refetchOnWindowFocus: true,
         refetchOnReconnect: true,
     });

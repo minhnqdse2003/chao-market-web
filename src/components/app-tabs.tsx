@@ -12,9 +12,13 @@ export type TabItem = {
 
 type TabComponentProps = {
     tabsList: TabItem[];
+    shouldBorderVisible?: boolean;
 };
 
-export function AppTabs({ tabsList }: Readonly<TabComponentProps>) {
+export function AppTabs({
+    tabsList,
+    shouldBorderVisible = true,
+}: Readonly<TabComponentProps>) {
     const [activeTab, setActiveTab] = useState(tabsList[0]?.value || '');
     const [contentMap, setContentMap] = useState<
         Record<string, React.ReactNode>
@@ -41,7 +45,13 @@ export function AppTabs({ tabsList }: Readonly<TabComponentProps>) {
 
     return (
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="bg-transparent [&>button:last-child]:mr-0 border-[var(--brand-grey-foreground)] border-b rounded-none p-0 w-full mb-2">
+            <TabsList
+                className={cn(
+                    'bg-transparent [&>button:last-child]:mr-0 border-[var(--brand-grey-foreground)]' +
+                        ' border-b rounded-none p-0 w-full mb-2',
+                    `${shouldBorderVisible ? '' : 'border-transparent'}`
+                )}
+            >
                 {tabsList.map(tab => (
                     <TabsTrigger
                         key={tab.value}
@@ -58,7 +68,8 @@ export function AppTabs({ tabsList }: Readonly<TabComponentProps>) {
                             'px-4 mr-4 py-2 transition-colors! text-base font-bold' +
                                 ' dark:hover:data-[state=inactive]:text-[var(--brand-color)]' +
                                 ' dark:hover:data-[state=inactive]:border-[var(--brand-color)]' +
-                                ' data-[state=inactive]:hover:text-black data-[state=inactive]:hover:border-black'
+                                ' data-[state=inactive]:hover:text-black data-[state=inactive]:hover:border-black',
+                            `${shouldBorderVisible ? '' : 'border-transparent!'}`
                         )}
                     >
                         {tab.title}
