@@ -10,12 +10,12 @@ export interface RSSItem {
 }
 
 interface Source {
-    url: string;
+    url: string | string[];
     name: string;
 }
 
 const parser = new Parser();
-const CORS_PROXY = 'https://chao-market-proxy.vercel.app/raw?url=';
+const CORS_PROXY = '';
 
 // A helper function to extract the image URL using a fallback strategy
 const getImageUrl = (item: Parser.Item): string | undefined => {
@@ -38,15 +38,41 @@ const getImageUrl = (item: Parser.Item): string | undefined => {
 
 // Updated generic fetch function
 const fetchRssFeed = async (
-    rssUrl: string,
+    rssUrl: string | string[],
     sourceName: string
 ): Promise<RSSItem[]> => {
     try {
+        if (Array.isArray(rssUrl)) {
+            // Handle multiple URLs
+            const feeds = await Promise.all(
+                rssUrl.map(async url => {
+                    const proxyUrl = CORS_PROXY + url;
+                    return parser.parseURL(proxyUrl);
+                })
+            );
+
+            // Combine items from all feeds
+            const allItems = feeds.flatMap(feed =>
+                feed.items.map(item => ({
+                    title: item.title || '',
+                    link: item.link || '',
+                    pubDate: item.pubDate,
+                    contentSnippet: item.contentSnippet,
+                    imageUrl: getImageUrl(item),
+                }))
+            );
+
+            console.log(
+                `${sourceName}: ${JSON.stringify(allItems, null, 2) || '[]'}`
+            );
+            return allItems;
+        }
+
+        // Handle single URL
         const proxyUrl = CORS_PROXY + rssUrl;
         const feed = await parser.parseURL(proxyUrl);
 
-        // Map the items, using our new helper function for the image
-        const items = feed.items.slice(0, 10).map(item => ({
+        const items = feed.items.map(item => ({
             title: item.title || '',
             link: item.link || '',
             pubDate: item.pubDate,
@@ -55,7 +81,6 @@ const fetchRssFeed = async (
         }));
 
         console.log(`${sourceName}: ${JSON.stringify(items, null, 2) || '[]'}`);
-
         return items;
     } catch (error) {
         console.error(`Error fetching ${sourceName} RSS via proxy:`, error);
@@ -85,8 +110,64 @@ const newsSources: Record<NewsSourceType, Source> = {
         name: 'Tuoi Tre Business',
     },
     'tuoitre-news': {
-        url: 'https://tuoitre.vn/rss/thoi-su.rss',
+        url: 'https://rss.app/feeds/60IxVQ11XhTNVSL4.xml',
         name: 'Tuoi Tre News',
+    },
+    'us-stock-news-en': {
+        url: 'https://rss.app/feeds/IXGcQMYBSCHKqJ61.xml',
+        name: 'US Stock News EN',
+    },
+    'us-stock-news-vi': {
+        url: 'https://rss.app/feeds/D8UMWwfJGO6TM2YM.xml',
+        name: 'US Stocks News VI',
+    },
+    'vietnam-stock-news-vi': {
+        url: 'https://rss.app/feeds/i6RqX2QL9Z3reA7l.xml',
+        name: 'VN Stock News VI',
+    },
+    'vietnam-stock-news-en': {
+        url: 'https://rss.app/feeds/5JhugYpMZ3AdTjsa.xml',
+        name: 'VN stock news EN',
+    },
+    'currencies-news-vi': {
+        name: 'currencies news vi',
+        url: 'https://rss.app/feeds/N40SMIfK1pMRWJgO.xml',
+    },
+    'currencies-news-en': {
+        url: 'https://rss.app/feeds/0UhPDk6cG1N50wtB.xml',
+        name: 'currencies news en',
+    },
+    'crypto-currency-news-vn': {
+        url: 'https://rss.app/feeds/Pop8yma6o134Yzvc.xml',
+        name: 'crypto currencies news VN',
+    },
+    'crypto-currency-news-en': {
+        url: 'https://rss.app/feeds/xMWMxWu6nOvVGTs3.xml',
+        name: 'crypto currencies news EN',
+    },
+    'commodities-news-vn': {
+        url: 'https://rss.app/feeds/dp3J11HS6e1YhZqJ.xml',
+        name: 'commodities news VN',
+    },
+    'commodities-news-en': {
+        url: 'https://rss.app/feeds/GHIZV85FraZhhO8A.xml',
+        name: 'commodities news EN',
+    },
+    'facebook-chao-market-page': {
+        url: 'https://rss.app/feeds/DbZkOiJKqySE1Yac.xml',
+        name: 'Facebook Chao Market Page',
+    },
+    'tiktok-chao-market-page': {
+        url: 'https://rss.app/feeds/et05Kyvc9Tqw33Pa.xml',
+        name: 'Tiktok Chao Market Page',
+    },
+    'thread-chao-market-page': {
+        url: 'https://rss.app/feeds/QV4u1yLNeXA2ikRW.xml',
+        name: 'Thread Chao Market Page',
+    },
+    'youtube-chao-market-page': {
+        url: 'https://rss.app/feeds/LcMNLmY5DN8IDJ8d.xml',
+        name: 'Youtube Chao Market Page',
     },
 };
 

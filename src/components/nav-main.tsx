@@ -16,7 +16,7 @@ import {
     SidebarMenuSubButton,
     SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 // Create context to manage single open collapsible
 const CollapsibleContext = createContext<{
@@ -42,7 +42,14 @@ export function NavMain({
         }[];
     }[];
 }>) {
-    const path = usePathname();
+    let path = usePathname();
+    const params = useSearchParams();
+
+    path =
+        (params && path.includes('/news-event')) || path.includes('/community')
+            ? path + '?' + new URLSearchParams(params).toString()
+            : path;
+
     const [openItemId, setOpenItemId] = useState<string | null>(null);
 
     // Find which item should be open based on current path

@@ -10,6 +10,7 @@ import {
     Info,
     BriefcaseBusiness,
     BarChart,
+    Wrench,
 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useI18n } from '@/context/i18n/context';
@@ -57,6 +58,47 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 title: t('sidebar.marketData'),
                 url: '/market-data',
                 icon: BarChart,
+                children: [
+                    {
+                        title: t('marketData.marketData.items.indices.title'),
+                        url: '/market-data/indices',
+                    },
+                    {
+                        title: t('marketData.marketData.items.markets.title'),
+                        url: '/market-data/markets',
+                    },
+                    {
+                        title: t(
+                            'marketData.marketData.items.financialNews.title'
+                        ),
+                        url: '/market-data/news',
+                    },
+                    {
+                        title: t(
+                            'marketData.marketData.items.economicCalendar.title'
+                        ),
+                        url: '/market-data/economic-calendar',
+                    },
+                ],
+            },
+            {
+                title: t('investors.title'),
+                url: '/chao-investors',
+                icon: Wrench,
+                children: [
+                    {
+                        title: t('investors.items.chaoAnnoucement.title'),
+                        url: '/chao-investors/announcements',
+                    },
+                    {
+                        title: t('investors.items.chaoSocial.title'),
+                        url: '/chao-investors/social',
+                    },
+                    {
+                        title: t('investors.items.toolForInvestor.title'),
+                        url: '/chao-investors/tools',
+                    },
+                ],
             },
             {
                 title: t('sidebar.clientsAccounts'),
@@ -108,24 +150,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 icon: Users,
                 children: [
                     {
-                        title: t('sidebar.marketInsights'),
-                        url: '/community?mainTag=market-insights',
+                        title: t('community.items.chaoConnect.title'),
+                        url: '/community?mainTag=chao-connect',
                     },
                     {
-                        title: t('sidebar.freeCourses'),
+                        title: t('community.items.freeCourses.title'),
                         url: '/community?mainTag=free-courses',
                     },
                     {
-                        title: t('sidebar.conferences'),
-                        url: '/community?mainTag=conferences',
-                    },
-                    {
-                        title: t('sidebar.videos'),
-                        url: '/community?mainTag=videos',
-                    },
-                    {
-                        title: t('sidebar.images'),
-                        url: '/community?mainTag=images',
+                        title: t('community.items.workShops.title'),
+                        url: '/community?mainTag=workshop',
                     },
                 ],
             },

@@ -17,7 +17,8 @@ import {
     TooltipTrigger,
 } from '@/components/ui/tooltip';
 import Link from 'next/link';
-import { useI18n } from '@/context/i18n/context'; // <-- Import the hook
+import { useI18n } from '@/context/i18n/context';
+import ScrollToTop from '@/components/app-scroll-to-top'; // <-- Import the hook
 
 export default function ContactButton() {
     const { t } = useI18n(); // <-- Use the hook
@@ -100,7 +101,8 @@ export default function ContactButton() {
 
     return (
         <TooltipProvider>
-            <div className="fixed bottom-2.5 right-2.5 z-50">
+            <div className="fixed flex gap-4 flex-col bottom-2.5 right-2.5 z-50">
+                <ScrollToTop />
                 <Popover open={open} onOpenChange={setOpen}>
                     <Tooltip>
                         <TooltipTrigger asChild>

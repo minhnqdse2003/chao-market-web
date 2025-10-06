@@ -91,11 +91,11 @@ export default function AppFooter() {
                         <h3 className="font-semibold uppercase text-brand-text text-center mb-4 text-lg">
                             Get to know us
                         </h3>
-                        <ul className="space-y-3 text-normal text-[var(--brand-grey-foreground)] min-w-2/3 [&_*_a:first-child]:font-semibold">
+                        <ul className="space-y-3 text-normal text-brand-text min-w-2/3 [&_*_a:first-child]:font-semibold">
                             <li>
                                 <Link
                                     href="/about-us"
-                                    className="hover:text-white"
+                                    className="hover:underline"
                                 >
                                     About Us
                                 </Link>
@@ -103,7 +103,7 @@ export default function AppFooter() {
                             <li>
                                 <Link
                                     href="/terms-of-use"
-                                    className="hover:text-white"
+                                    className="hover:underline"
                                 >
                                     Term of Use
                                 </Link>
@@ -111,7 +111,7 @@ export default function AppFooter() {
                             <li>
                                 <Link
                                     href="/privacy-policy"
-                                    className="hover:text-white"
+                                    className="hover:underline"
                                 >
                                     Privacy Policy
                                 </Link>
@@ -119,7 +119,7 @@ export default function AppFooter() {
                             <li>
                                 <Link
                                     href="/cookie-policy"
-                                    className="hover:text-white"
+                                    className="hover:underline"
                                 >
                                     Cookie Policy
                                 </Link>

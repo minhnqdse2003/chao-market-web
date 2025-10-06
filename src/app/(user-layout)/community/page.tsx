@@ -1,3 +1,5 @@
+import CommunityTabs from '@/app/(user-layout)/community/components/tabs';
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 3600;
 export const fetchCache = 'force-cache';
@@ -65,34 +67,6 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
         }));
     };
 
-    // Main Tag Tabs
-    const mainTagTabs: TabServerSide[] = [
-        {
-            title: 'All',
-            href: '/community',
-        },
-        {
-            title: 'Our Market Insights',
-            href: '/community?mainTag=market-insights',
-        },
-        {
-            title: 'Free Courses',
-            href: '/community?mainTag=free-courses',
-        },
-        {
-            title: 'Conferences',
-            href: '/community?mainTag=conferences',
-        },
-        {
-            title: 'Videos',
-            href: '/community?mainTag=videos',
-        },
-        {
-            title: 'Images',
-            href: '/community?mainTag=images',
-        },
-    ];
-
     // Filter Tabs - dynamically build href with or without mainTag
     const hasMainTag = !!mainTag;
     const filterTabs: TabServerSide[] = [
@@ -139,14 +113,7 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
                 <NewsEventFilterDialogComp title={'Filter by'} />
 
                 {/* Main Tag Tabs */}
-                <AppTabsServerSide
-                    tabs={mainTagTabs}
-                    currentSearchParams={new URLSearchParams(
-                        validSearchParams
-                    ).toString()}
-                    isParentOfSubTab={true}
-                />
-
+                <CommunityTabs validSearchParams={validSearchParams} />
                 {/* Filter Tabs */}
                 <AppTabsServerSide
                     tabs={filterTabs}

@@ -6,6 +6,8 @@ import { OurSolutionsTranslations } from '@/types/translations/our-solutions';
 import { SidebarTranslations } from '@/types/translations/sidebar';
 import { BookConsultationTranslations } from '@/types/translations/book-consultations';
 import { FooterTranslations } from '@/types/translations/footer';
+import { MarketData } from '@/types/translations/market-data';
+import { Investors } from '@/types/translations/investors';
 
 export interface TranslationsStructure {
     common: CommonTranslations;
@@ -17,6 +19,9 @@ export interface TranslationsStructure {
     bookConsultation: BookConsultationTranslations;
     contactButton: ContactButtonTranslations;
     footer: FooterTranslations;
+    marketData: MarketData;
+    investors: Investors;
+    community: CommunityTranslations;
 }
 
 type Leaves<T, K extends string = ''> = T extends object

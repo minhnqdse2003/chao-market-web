@@ -80,7 +80,7 @@ function EmailVerificationStep({
     };
 
     return (
-        <div className="space-y-8 mt-24 h-full">
+        <div className="space-y-8 mt-24 flex flex-col justify-end my-auto h-[15.375rem]">
             <div className={'w-full'}>
                 <p className="text-sm dark:text-white text-[var(--brand-grey-foreground)] font-light mb-4">
                     <T keyName="auth.otpSentToEmail" />{' '}
@@ -119,7 +119,7 @@ function EmailVerificationStep({
                 <button
                     onClick={handleVerifyOtp}
                     disabled={loading}
-                    className="flex-1 text-black bg-[var(--brand-color)] disabled:bg-transparent disabled:p-0 cursor-pointer rounded-3xl font-bold py-2 px-4 disabled:opacity-50"
+                    className="flex-1 text-black  bg-[var(--brand-color)] disabled:bg-transparent disabled:p-0 cursor-pointer rounded-3xl font-bold py-2 px-4 disabled:opacity-50 my-8"
                 >
                     {loading ? <LoadingComponent /> : 'Continue'}
                 </button>
@@ -363,26 +363,22 @@ export default function Login() {
                     </Form>
                 )}
 
-                {emailVerified !== false && (
-                    <>
-                        <SocialLogin />
+                <SocialLogin />
 
-                        <div className="text-center text-brand-text font-medium text-lg">
-                            <T keyName="auth.noAccountPrompt" />{' '}
-                            <Link href="/auth/signup" className="">
-                                <span
-                                    className={
-                                        'dark:text-[var(--brand-color)] text-black font-semibold hover:underline' +
-                                        ' dark:hover:text-[var(--brand-color-foreground)] transition-all!' +
-                                        ' duration-300 ease-in-out'
-                                    }
-                                >
-                                    <T keyName={'auth.signup'} />
-                                </span>
-                            </Link>
-                        </div>
-                    </>
-                )}
+                <div className="text-center text-brand-text font-medium text-lg">
+                    <T keyName="auth.noAccountPrompt" />{' '}
+                    <Link href="/auth/signup" className="">
+                        <span
+                            className={
+                                'dark:text-[var(--brand-color)] text-black font-semibold hover:underline' +
+                                ' dark:hover:text-[var(--brand-color-foreground)] transition-all!' +
+                                ' duration-300 ease-in-out'
+                            }
+                        >
+                            <T keyName={'auth.signup'} />
+                        </span>
+                    </Link>
+                </div>
             </div>
         </div>
     );

@@ -7,7 +7,9 @@ import { calculateAdjustedHeight } from '@/utils/height-utils';
 import { AppTabs, TabItem } from '@/components/app-tabs';
 import VietnamComp from '@/app/(user-layout)/market-data/indices/components/vietnam';
 import VietnamTradingView from '@/app/(user-layout)/market-data/indices/components/vietnam-trading-view';
-import CombinedNewsFeed from '@/app/(user-layout)/market-data/markets/components/vietnam-stock-market-news';
+import CombinedNewsFeed, {
+    NewsSourceType,
+} from '@/app/(user-layout)/market-data/markets/components/vietnam-stock-market-news';
 import { useI18n } from '@/context/i18n/context';
 
 const USA_SYMBOL_KEYS: TMarketSymbolKey[] = [
@@ -317,67 +319,67 @@ const DARK_THEME_CONFIG_COMMODITIES_CHART = {
     symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
 };
 
-const LIGHT_THEME_CONFIG_NEWS = {
-    displayMode: 'adaptive',
-    feedMode: 'market',
-    colorTheme: 'light',
-    isTransparent: false,
-    locale: 'en',
-    market: 'stock',
-    width: '100%',
-    height: 520,
-};
-
-const DARK_THEME_CONFIG_NEWS = {
-    ...LIGHT_THEME_CONFIG_NEWS,
-    colorTheme: 'dark',
-};
-
-const LIGHT_THEME_CONFIG_CURRENCIES_NEWS = {
-    ...LIGHT_THEME_CONFIG_NEWS,
-    market: 'forex',
-};
-
-const DARK_THEME_CONFIG_CURRENCIES_NEWS = {
-    ...DARK_THEME_CONFIG_NEWS,
-    market: 'forex',
-};
-
-const LIGHT_THEME_CONFIG_CRYPTOCURRENCIES_NEWS = {
-    ...LIGHT_THEME_CONFIG_NEWS,
-    market: 'crypto',
-};
-
-const DARK_THEME_CONFIG_CRYPTOCURRENCIES_NEWS = {
-    ...DARK_THEME_CONFIG_NEWS,
-    market: 'crypto',
-};
-
-const LIGHT_THEME_CONFIG_NEWS_SYMBOL = {
-    displayMode: 'adaptive',
-    feedMode: 'symbol',
-    symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
-    colorTheme: 'light',
-    isTransparent: false,
-    locale: 'en',
-    width: '100%',
-    height: 800,
-};
-
-const DARK_THEME_CONFIG_NEWS_SYMBOL = {
-    ...LIGHT_THEME_CONFIG_NEWS_SYMBOL,
-    colorTheme: 'dark',
-};
-
-const LIGHT_THEME_CONFIG_COMMODITIES_NEWS = {
-    ...LIGHT_THEME_CONFIG_NEWS_SYMBOL,
-    symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
-};
-
-const DARK_THEME_CONFIG_COMMODITIES_NEWS = {
-    ...DARK_THEME_CONFIG_NEWS_SYMBOL,
-    symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
-};
+// const LIGHT_THEME_CONFIG_NEWS = {
+//     displayMode: 'adaptive',
+//     feedMode: 'market',
+//     colorTheme: 'light',
+//     isTransparent: false,
+//     locale: 'en',
+//     market: 'stock',
+//     width: '100%',
+//     height: 520,
+// };
+//
+// const DARK_THEME_CONFIG_NEWS = {
+//     ...LIGHT_THEME_CONFIG_NEWS,
+//     colorTheme: 'dark',
+// };
+//
+// const LIGHT_THEME_CONFIG_CURRENCIES_NEWS = {
+//     ...LIGHT_THEME_CONFIG_NEWS,
+//     market: 'forex',
+// };
+//
+// const DARK_THEME_CONFIG_CURRENCIES_NEWS = {
+//     ...DARK_THEME_CONFIG_NEWS,
+//     market: 'forex',
+// };
+//
+// const LIGHT_THEME_CONFIG_CRYPTOCURRENCIES_NEWS = {
+//     ...LIGHT_THEME_CONFIG_NEWS,
+//     market: 'crypto',
+// };
+//
+// const DARK_THEME_CONFIG_CRYPTOCURRENCIES_NEWS = {
+//     ...DARK_THEME_CONFIG_NEWS,
+//     market: 'crypto',
+// };
+//
+// const LIGHT_THEME_CONFIG_NEWS_SYMBOL = {
+//     displayMode: 'adaptive',
+//     feedMode: 'symbol',
+//     symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
+//     colorTheme: 'light',
+//     isTransparent: false,
+//     locale: 'en',
+//     width: '100%',
+//     height: 800,
+// };
+//
+// const DARK_THEME_CONFIG_NEWS_SYMBOL = {
+//     ...LIGHT_THEME_CONFIG_NEWS_SYMBOL,
+//     colorTheme: 'dark',
+// };
+//
+// const LIGHT_THEME_CONFIG_COMMODITIES_NEWS = {
+//     ...LIGHT_THEME_CONFIG_NEWS_SYMBOL,
+//     symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
+// };
+//
+// const DARK_THEME_CONFIG_COMMODITIES_NEWS = {
+//     ...DARK_THEME_CONFIG_NEWS_SYMBOL,
+//     symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
+// };
 
 export const LIGHT_THEME_CONFIG_ECONOMY_CALENDAR = {
     colorTheme: 'light',
@@ -650,69 +652,97 @@ function Chart({ type }: { type: MARKET_TYPES }) {
     );
 }
 
-function News({ type }: { type: MARKET_TYPES }) {
-    const container = useRef<HTMLDivElement>(null);
-    const { theme } = useTheme();
+// function News({ type }: { type: MARKET_TYPES }) {
+//     const container = useRef<HTMLDivElement>(null);
+//     const { theme } = useTheme();
+//
+//     const getCurrentThemeConfig = useCallback(() => {
+//         const isDarkTheme = theme === 'dark';
+//         switch (type) {
+//             case 'crypto':
+//                 return isDarkTheme
+//                     ? DARK_THEME_CONFIG_CRYPTOCURRENCIES_NEWS
+//                     : LIGHT_THEME_CONFIG_CRYPTOCURRENCIES_NEWS;
+//             case 'commodities':
+//                 return isDarkTheme
+//                     ? DARK_THEME_CONFIG_COMMODITIES_NEWS
+//                     : LIGHT_THEME_CONFIG_COMMODITIES_NEWS;
+//             case 'currencies':
+//                 return isDarkTheme
+//                     ? DARK_THEME_CONFIG_CURRENCIES_NEWS
+//                     : LIGHT_THEME_CONFIG_CURRENCIES_NEWS;
+//             case 'us':
+//             default:
+//                 return isDarkTheme
+//                     ? DARK_THEME_CONFIG_NEWS
+//                     : LIGHT_THEME_CONFIG_NEWS;
+//         }
+//     }, []);
+//
+//     useEffect(() => {
+//         if (container.current) {
+//             container.current.innerHTML = '';
+//         }
+//
+//         const script = document.createElement('script');
+//         script.src =
+//             'https://s3.tradingview.com/external-embedding/embed-widget-timeline.js';
+//         script.type = 'text/javascript';
+//         script.async = true;
+//         const config = getCurrentThemeConfig();
+//
+//         const configWithModifiedHeight = {
+//             ...config,
+//             height: calculateAdjustedHeight(),
+//         };
+//
+//         script.innerHTML = JSON.stringify(configWithModifiedHeight);
+//         if (container.current) container.current.appendChild(script);
+//         return () => {
+//             if (container.current) {
+//                 container.current.innerHTML = '';
+//             }
+//         };
+//     }, [theme]);
+//
+//     return (
+//         <div
+//             className="tradingview-widget-container"
+//             ref={container}
+//             style={{ width: '100%', height: '35rem' }}
+//             id={'trading-container-news'}
+//         >
+//             <div className="tradingview-widget-container__widget"></div>
+//         </div>
+//     );
+// }
 
-    const getCurrentThemeConfig = useCallback(() => {
-        const isDarkTheme = theme === 'dark';
-        switch (type) {
-            case 'crypto':
-                return isDarkTheme
-                    ? DARK_THEME_CONFIG_CRYPTOCURRENCIES_NEWS
-                    : LIGHT_THEME_CONFIG_CRYPTOCURRENCIES_NEWS;
-            case 'commodities':
-                return isDarkTheme
-                    ? DARK_THEME_CONFIG_COMMODITIES_NEWS
-                    : LIGHT_THEME_CONFIG_COMMODITIES_NEWS;
-            case 'currencies':
-                return isDarkTheme
-                    ? DARK_THEME_CONFIG_CURRENCIES_NEWS
-                    : LIGHT_THEME_CONFIG_CURRENCIES_NEWS;
-            case 'us':
-            default:
-                return isDarkTheme
-                    ? DARK_THEME_CONFIG_NEWS
-                    : LIGHT_THEME_CONFIG_NEWS;
-        }
-    }, []);
+function NewsWithRssApple({ type }: { type: MARKET_TYPES }) {
+    const { locale } = useI18n();
+    const data: Record<MARKET_TYPES, Record<string, NewsSourceType>> = {
+        us: {
+            en: 'us-stock-news-en',
+            vi: 'us-stock-news-vi',
+        },
+        commodities: {
+            en: 'commodities-news-en',
+            vi: 'commodities-news-vn',
+        },
+        crypto: {
+            en: 'crypto-currency-news-en',
+            vi: 'crypto-currency-news-vn',
+        },
+        currencies: {
+            en: 'currencies-news-en',
+            vi: 'currencies-news-vi',
+        },
+        vi: {
+            en: 'vietnam-stock-news-en',
+            vi: 'vietnam-stock-news-vi',
+        },
+    };
 
-    useEffect(() => {
-        if (container.current) {
-            container.current.innerHTML = '';
-        }
-
-        const script = document.createElement('script');
-        script.src =
-            'https://s3.tradingview.com/external-embedding/embed-widget-timeline.js';
-        script.type = 'text/javascript';
-        script.async = true;
-        const config = getCurrentThemeConfig();
-
-        const configWithModifiedHeight = {
-            ...config,
-            height: calculateAdjustedHeight(),
-        };
-
-        script.innerHTML = JSON.stringify(configWithModifiedHeight);
-        if (container.current) container.current.appendChild(script);
-        return () => {
-            if (container.current) {
-                container.current.innerHTML = '';
-            }
-        };
-    }, [theme]);
-
-    return (
-        <div
-            className="tradingview-widget-container"
-            ref={container}
-            style={{ width: '100%', height: '35rem' }}
-            id={'trading-container-news'}
-        >
-            <div className="tradingview-widget-container__widget"></div>
-        </div>
-    );
+    return <CombinedNewsFeed type={data[type][locale]} />;
 }
 
 function EconomyCalendar({ type }: { type: MARKET_TYPES }) {
@@ -860,37 +890,41 @@ export function VietNamStockMarketNewsFeed() {
                           ),
                   },
                   {
-                      title: 'Thông tấn xã Việt Nam (Kinh Tế)',
+                      title: 'VietStock',
                       value: 'vna-vi-economy',
                       renderContent: () =>
                           Promise.resolve(
-                              <CombinedNewsFeed type={'vna-vi-economy'} />
+                              <CombinedNewsFeed
+                                  type={'vietnam-stock-news-vi'}
+                              />
                           ),
                   },
                   {
-                      title: 'Thông tấn xã Việt Nam (Chính Trị)',
+                      title: 'Investing',
                       value: 'vna-vi-politics',
                       renderContent: () =>
                           Promise.resolve(
-                              <CombinedNewsFeed type={'vna-vi-politics'} />
+                              <CombinedNewsFeed type={'commodities-news-vn'} />
                           ),
                   },
               ]
             : [
                   {
-                      title: 'Vietnam News Agency (Economy)',
+                      title: 'VietStock',
                       value: 'vna-en-economy',
                       renderContent: () =>
                           Promise.resolve(
-                              <CombinedNewsFeed type={'vna-en-economy'} />
+                              <CombinedNewsFeed
+                                  type={'vietnam-stock-news-en'}
+                              />
                           ),
                   },
                   {
-                      title: 'Vietnam News Agency (Politics)',
+                      title: 'Investing',
                       value: 'vna-en-politics',
                       renderContent: () =>
                           Promise.resolve(
-                              <CombinedNewsFeed type={'vna-en-politics'} />
+                              <CombinedNewsFeed type={'commodities-news-en'} />
                           ),
                   },
               ];
@@ -902,9 +936,12 @@ export function VietNamStockMarketNewsFeed() {
 }
 
 function StockComp({ type }: { type: MARKET_TYPES }) {
+    const { t } = useI18n();
     const tabsList: TabItem[] = [
         {
-            title: 'Overview',
+            title: t(
+                'marketData.marketData.items.markets.items.usStocks.items.overview.title'
+            ),
             value: 'overview',
             renderContent: () =>
                 Promise.resolve(
@@ -916,7 +953,9 @@ function StockComp({ type }: { type: MARKET_TYPES }) {
                 ),
         },
         {
-            title: 'Heatmap',
+            title: t(
+                'marketData.marketData.items.markets.items.usStocks.items.heatmap.title'
+            ),
             value: 'heatmap',
             renderContent: () =>
                 Promise.resolve(
@@ -928,7 +967,9 @@ function StockComp({ type }: { type: MARKET_TYPES }) {
                 ),
         },
         {
-            title: 'Chart',
+            title: t(
+                'marketData.marketData.items.markets.items.usStocks.items.chart.title'
+            ),
             value: 'chart',
             renderContent: () =>
                 Promise.resolve(
@@ -936,19 +977,17 @@ function StockComp({ type }: { type: MARKET_TYPES }) {
                 ),
         },
         {
-            title: 'News',
+            title: t(
+                'marketData.marketData.items.markets.items.usStocks.items.news.title'
+            ),
             value: 'news',
             renderContent: () =>
-                Promise.resolve(
-                    type === 'vi' ? (
-                        <VietNamStockMarketNewsFeed />
-                    ) : (
-                        <News type={type} />
-                    )
-                ),
+                Promise.resolve(<NewsWithRssApple type={type} />),
         },
         {
-            title: 'Calendar',
+            title: t(
+                'marketData.marketData.items.markets.items.usStocks.items.calendar.title'
+            ),
             value: 'calendar',
             renderContent: () =>
                 Promise.resolve(<EconomyCalendar type={type} />),

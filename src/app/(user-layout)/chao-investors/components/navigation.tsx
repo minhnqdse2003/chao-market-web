@@ -2,10 +2,10 @@
 import AppTabsServerSide, {
     TabServerSide,
 } from '@/components/app-tabs-server-side';
-import { validationSearchParams } from '@/utils/validation-search-params';
 import { useI18n } from '@/context/i18n/context';
+import { validationSearchParams } from '@/utils/validation-search-params';
 
-export default function TabNavigation({
+export default function ChaoInvestorNavigation({
     searchParams,
     subTabs,
     currentHref,
@@ -16,23 +16,18 @@ export default function TabNavigation({
 }) {
     const validateSearchParams = validationSearchParams(searchParams);
     const { t } = useI18n();
-
     const mainTab: TabServerSide[] = [
         {
-            title: t('marketData.marketData.items.indices.title'),
-            href: '/market-data/indices',
+            title: t('investors.items.chaoAnnoucement.title'),
+            href: '/chao-investors/announcements',
         },
         {
-            title: t('marketData.marketData.items.markets.title'),
-            href: '/market-data/markets',
+            title: t('investors.items.chaoSocial.title'),
+            href: '/chao-investors/social',
         },
         {
-            title: t('marketData.marketData.items.financialNews.title'),
-            href: '/market-data/news',
-        },
-        {
-            title: t('marketData.marketData.items.economicCalendar.title'),
-            href: '/market-data/economic-calendar',
+            title: t('investors.items.toolForInvestor.title'),
+            href: '/chao-investors/tools',
         },
     ];
 
@@ -56,7 +51,7 @@ export default function TabNavigation({
                 validateSearchParams
             ).toString()}
             currentHref={currentHref}
-            isParentOfSubTab={true}
+            isParentOfSubTab={false}
         />
     );
 }

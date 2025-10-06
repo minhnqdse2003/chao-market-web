@@ -3,7 +3,6 @@
 import { useQuery } from '@tanstack/react-query';
 // Import the server action
 import { fetchNewsFeed, RSSItem } from '@/services/rss/fetchNews';
-import Image from 'next/image';
 
 // Define types for the prop and RSS data
 export type NewsSourceType =
@@ -12,36 +11,52 @@ export type NewsSourceType =
     | 'vna-vi-economy'
     | 'vna-vi-politics'
     | 'tuoitre-business'
-    | 'tuoitre-news';
+    | 'tuoitre-news'
+    | 'us-stock-news-en'
+    | 'us-stock-news-vi'
+    | 'vietnam-stock-news-vi'
+    | 'vietnam-stock-news-en'
+    | 'currencies-news-vi'
+    | 'currencies-news-en'
+    | 'crypto-currency-news-vn'
+    | 'crypto-currency-news-en'
+    | 'commodities-news-vn'
+    | 'commodities-news-en'
+    | 'facebook-chao-market-page'
+    | 'tiktok-chao-market-page'
+    | 'thread-chao-market-page'
+    | 'youtube-chao-market-page';
 
 interface CombinedNewsFeedProps {
     type: NewsSourceType;
-    limit?: number;
 }
 
-export default function CombinedNewsFeed({
-    type,
-    limit = 10,
-}: CombinedNewsFeedProps) {
+export default function CombinedNewsFeed({ type }: CombinedNewsFeedProps) {
     let localeForDate = 'vi-VN';
 
     switch (type) {
         case 'vna-en-economy':
-            localeForDate = 'en-US';
-            break;
         case 'vna-en-politics':
+        case 'us-stock-news-en':
+        case 'vietnam-stock-news-en':
+        case 'currencies-news-en':
+        case 'crypto-currency-news-en':
+        case 'commodities-news-en':
             localeForDate = 'en-US';
             break;
         case 'vna-vi-economy':
-            localeForDate = 'vi-VN';
-            break;
         case 'vna-vi-politics':
-            localeForDate = 'vi-VN';
-            break;
         case 'tuoitre-business':
-            localeForDate = 'vi-VN';
-            break;
         case 'tuoitre-news':
+        case 'us-stock-news-vi':
+        case 'vietnam-stock-news-vi':
+        case 'currencies-news-vi':
+        case 'crypto-currency-news-vn':
+        case 'commodities-news-vn':
+        case 'facebook-chao-market-page':
+        case 'tiktok-chao-market-page':
+        case 'thread-chao-market-page':
+        case 'youtube-chao-market-page':
             localeForDate = 'vi-VN';
             break;
         default:
@@ -71,7 +86,7 @@ export default function CombinedNewsFeed({
         refetchOnReconnect: true,
     });
 
-    const limitedArticles = articles.slice(0, limit);
+    const limitedArticles = articles;
 
     if (isLoading) {
         return (
@@ -127,23 +142,13 @@ export default function CombinedNewsFeed({
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
-                                        {type.includes('vna') ? (
-                                            <img
-                                                src={article.imageUrl}
-                                                alt={article.title}
-                                                width={1920}
-                                                height={1080}
-                                                className="rounded-md object-cover w-[320px] h-[160px]"
-                                            />
-                                        ) : (
-                                            <Image
-                                                src={article.imageUrl}
-                                                alt={article.title}
-                                                width={600}
-                                                height={600}
-                                                className="rounded-md object-cover w-[320px] h-[160px]"
-                                            />
-                                        )}
+                                        <img
+                                            src={article.imageUrl}
+                                            alt={article.title}
+                                            width={1920}
+                                            height={1080}
+                                            className="rounded-md object-cover w-[320px] h-[160px]"
+                                        />
                                     </a>
                                 </div>
                             )}

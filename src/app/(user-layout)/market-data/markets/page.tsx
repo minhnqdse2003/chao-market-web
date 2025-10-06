@@ -1,6 +1,9 @@
+'use client';
 import { TabServerSide } from '@/components/app-tabs-server-side';
 import TabNavigation from '@/app/(user-layout)/market-data/components/tab-navigation';
 import StockComp from '@/app/(user-layout)/market-data/markets/components/stock';
+import { useI18n } from '@/context/i18n/context';
+import { use } from 'react';
 
 interface PageProps {
     searchParams: {
@@ -9,26 +12,40 @@ interface PageProps {
 }
 
 export default function Page({ searchParams }: PageProps) {
-    const { tab } = searchParams;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const { tab } = use(searchParams);
+    const { t } = useI18n();
+
     const SUB_TABS: TabServerSide[] = [
         {
-            title: 'U.S. Stocks',
+            title: t(
+                'marketData.marketData.items.markets.items.usStocks.title'
+            ),
             href: '/market-data/markets?tab=us',
         },
         {
-            title: 'Vietnam Stocks',
+            title: t(
+                'marketData.marketData.items.markets.items.vietnamStocks.title'
+            ),
             href: '/market-data/markets?tab=vi',
         },
         {
-            title: 'Currencies',
+            title: t(
+                'marketData.marketData.items.markets.items.currencies.title'
+            ),
             href: '/market-data/markets?tab=currencies',
         },
         {
-            title: 'Cryptocurrencies',
+            title: t(
+                'marketData.marketData.items.markets.items.cryptocurrencies.title'
+            ),
             href: '/market-data/markets?tab=crypto',
         },
         {
-            title: 'Commodities',
+            title: t(
+                'marketData.marketData.items.markets.items.commodities.title'
+            ),
             href: '/market-data/markets?tab=commodities',
         },
     ];

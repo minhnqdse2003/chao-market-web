@@ -59,7 +59,7 @@ const LanguageSwitcher = () => {
                             height={1080}
                             className={'size-4 object-contain'}
                         />{' '}
-                        VI
+                        Tiếng Việt
                     </DropdownMenuItem>
                     <DropdownMenuItem
                         onClick={() => setLocale('en')}
@@ -76,7 +76,7 @@ const LanguageSwitcher = () => {
                             height={1080}
                             className={'size-4 object-contain'}
                         />{' '}
-                        EN
+                        English
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
@@ -101,7 +101,7 @@ const LanguageSwitcher = () => {
                         height={1080}
                         className={'size-4 object-contain'}
                     />{' '}
-                    VI
+                    Tiếng Việt
                 </TabsTrigger>
                 <TabsTrigger
                     value="en"
@@ -114,7 +114,7 @@ const LanguageSwitcher = () => {
                         height={1080}
                         className={'size-4 object-contain'}
                     />{' '}
-                    EN
+                    English
                 </TabsTrigger>
             </TabsList>
         </Tabs>

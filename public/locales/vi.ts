@@ -229,7 +229,7 @@ export const vi: TranslationsStructure = {
         clientsAccounts: 'Tài Khoản Khách hàng',
         marketData: 'Dữ Liệu Thị Trường',
         ourSolutions: 'Giải Pháp Của Chào',
-        newsEvents: 'Tin Tức & Sự kiện',
+        newsEvents: 'Góc Nhìn Của Chào',
         news: 'Tin Tức',
         events: 'Sự Kiện',
         community: 'Cộng Đồng',
@@ -340,6 +340,92 @@ export const vi: TranslationsStructure = {
                     content: 'Bạn có thể kiểm soát và quản lý cookies theo nhiều cách khác nhau. Vui lòng tham khảo phần trợ giúp của trình duyệt để biết thông tin về cách chặn hoặc xóa cookies.',
                 },
             ],
+        },
+    },
+    marketData: {
+        'marketData': {
+            'title': 'Dữ Liệu Thị Trường',
+            'items': {
+                'indices': {
+                    'title': 'Chỉ Số',
+                    'items': {
+                        'global': { 'title': 'Thế Giới' },
+                        'us': { 'title': 'Mỹ' },
+                        'vietnam': { 'title': 'Việt Nam' },
+                    },
+                },
+                'markets': {
+                    'title': 'Thị Trường',
+                    'items': {
+                        'usStocks': {
+                            'title': 'Chứng Khoán Mỹ',
+                            'items': {
+                                'overview': { 'title': 'Tổng Quan' },
+                                'heatmap': { 'title': 'Bản Đồ Nhiệt' },
+                                'chart': { 'title': 'Biểu Đồ' },
+                                'news': { 'title': 'Tin Tức' },
+                                'calendar': { 'title': 'Lịch' },
+                            },
+                        },
+                        'vietnamStocks': { 'title': 'Chứng Khoán Việt Nam' },
+                        'currencies': { 'title': 'Tiền Tệ' },
+                        'cryptocurrencies': { 'title': 'Tiền Mã Hóa' },
+                        'commodities': { 'title': 'Hàng Hóa' },
+                    },
+                },
+                'financialNews': {
+                    'title': 'Tin Tức Tài Chính',
+                },
+                'economicCalendar': {
+                    'title': 'Lịch Kinh Tế',
+                },
+                'chaoInsights': {
+                    'title': 'Góc Nhìn Chào',
+                },
+            },
+        },
+    },
+    investors: {
+        'title': 'Chào & Nhà Đầu Tư',
+        'items': {
+            'chaoAnnoucement': {
+                'title': 'Chào Thông Báo',
+            },
+            'chaoSocial': {
+                'title': 'Mạng Xã Hội Chào',
+                'items': {
+                    'facebook': { 'title': 'Facebook' },
+                    'tiktok': { 'title': 'Tiktok' },
+                    'threads': { 'title': 'Threads' },
+                    'youtube': { 'title': 'Youtube' },
+                },
+            },
+            'toolForInvestor': {
+                'title': 'Công Cụ Cho Nhà Đầu Tư',
+                'items': {
+                    'currencyConverterCalc': { 'title': 'Chuyển Đổi Tiền Tệ' },
+                    'pipCalculator': { 'title': 'Tính Pip' },
+                    'profitCalculator': { 'title': 'Tính Lợi Nhuận' },
+                    'pivotalCalculator': { 'title': 'Tính Điểm Xoay' },
+                    'fiboCalculator': { 'title': 'Tính Fibonacci' },
+                    'marginCalculator': { 'title': 'Tính Ký Quỹ' },
+                    'investmentCalculator': { 'title': 'Tính Tiền Lãi' },
+                },
+            },
+        },
+    },
+    community: {
+        'title': 'Cộng Đồng',
+        'items': {
+            'chaoConnect': {
+                'title': 'Chào Kết Nối',
+            },
+            'freeCourses': {
+                'title': 'Khóa Học Miễn Phí',
+            },
+            'workShops': {
+                'title': 'Hội Thảo Chuyên Đề',
+            },
         },
     },
 };

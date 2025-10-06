@@ -88,22 +88,6 @@ const Page = async ({ searchParams }: PageProps) => {
     const currentType = Array.isArray(type) ? type[0] : type;
     const hasValidType = currentType === 'news' || currentType === 'events';
 
-    // Type Tabs
-    const typeTabs: TabServerSide[] = [
-        {
-            title: 'All',
-            href: '/news-event',
-        },
-        {
-            title: 'News',
-            href: '/news-event?type=news',
-        },
-        {
-            title: 'Events',
-            href: '/news-event?type=events',
-        },
-    ];
-
     // Filter Tabs - dynamically build href with or without type
     const filterTabs: TabServerSide[] = [
         {
@@ -139,13 +123,13 @@ const Page = async ({ searchParams }: PageProps) => {
                 <NewsEventFilterDialogComp title={'Filter By'} />
 
                 {/* Type Tabs */}
-                <AppTabsServerSide
-                    tabs={typeTabs}
-                    currentSearchParams={new URLSearchParams(
-                        validSearchParams
-                    ).toString()}
-                    isParentOfSubTab={true}
-                />
+                {/*<AppTabsServerSide*/}
+                {/*    tabs={typeTabs}*/}
+                {/*    currentSearchParams={new URLSearchParams(*/}
+                {/*        validSearchParams*/}
+                {/*    ).toString()}*/}
+                {/*    isParentOfSubTab={true}*/}
+                {/*/>*/}
 
                 {/* Filter Tabs */}
                 <AppTabsServerSide
@@ -153,7 +137,7 @@ const Page = async ({ searchParams }: PageProps) => {
                     currentSearchParams={new URLSearchParams(
                         validSearchParams
                     ).toString()}
-                    isSubTab={true}
+                    isParentOfSubTab={false}
                 />
 
                 <NewsComp news={newsData} />

@@ -229,7 +229,7 @@ export const en: TranslationsStructure = {
         marketData: 'Market Data',
         clientsAccounts: 'Client Accounts',
         ourSolutions: 'Chào Solutions',
-        newsEvents: 'News & Events',
+        newsEvents: 'Chào Insights',
         news: 'News',
         events: 'Events',
         community: 'Community',
@@ -340,6 +340,92 @@ export const en: TranslationsStructure = {
                     content: 'You can control and manage cookies in various ways. Please refer to your browser\'s help section for information on how to block or delete cookies.',
                 },
             ],
+        },
+    },
+    marketData: {
+        'marketData': {
+            'title': 'Market Data',
+            'items': {
+                'indices': {
+                    'title': 'Indices',
+                    'items': {
+                        'global': { 'title': 'Global' },
+                        'us': { 'title': 'The United States' },
+                        'vietnam': { 'title': 'Vietnam' },
+                    },
+                },
+                'markets': {
+                    'title': 'Markets',
+                    'items': {
+                        'usStocks': {
+                            'title': 'US Stocks',
+                            'items': {
+                                'overview': { 'title': 'Overview' },
+                                'heatmap': { 'title': 'Heatmap' },
+                                'chart': { 'title': 'Chart' },
+                                'news': { 'title': 'News' },
+                                'calendar': { 'title': 'Calendar' },
+                            },
+                        },
+                        'vietnamStocks': { 'title': 'Vietnam Stocks' },
+                        'currencies': { 'title': 'Currencies' },
+                        'cryptocurrencies': { 'title': 'Cryptocurrencies' },
+                        'commodities': { 'title': 'Commodities' },
+                    },
+                },
+                'financialNews': {
+                    'title': 'Financial News',
+                },
+                'economicCalendar': {
+                    'title': 'Economic Calendar',
+                },
+                'chaoInsights': {
+                    'title': 'Chào Insights',
+                },
+            },
+        },
+    },
+    investors: {
+        'title': 'Chào & Investors',
+        'items': {
+            'chaoAnnoucement': {
+                'title': 'Chào Announcements',
+            },
+            'chaoSocial': {
+                'title': 'Chào Social',
+                'items': {
+                    'facebook': { 'title': 'Facebook' },
+                    'tiktok': { 'title': 'Tiktok' },
+                    'threads': { 'title': 'Threads' },
+                    'youtube': { 'title': 'Youtube' },
+                },
+            },
+            'toolForInvestor': {
+                'title': 'Tools For Investors',
+                'items': {
+                    'currencyConverterCalc': { 'title': 'Currency Converter Calculator' },
+                    'pipCalculator': { 'title': 'Pip Calculator' },
+                    'profitCalculator': { 'title': 'Profit Calculator' },
+                    'pivotalCalculator': { 'title': 'Pivot Point Calculator' },
+                    'fiboCalculator': { 'title': 'Fibonacci Calculator' },
+                    'marginCalculator': { 'title': 'Margin Calculator' },
+                    'investmentCalculator': { 'title': 'Interest Calculator' },
+                },
+            },
+        },
+    },
+    community: {
+        'title': 'Community',
+        'items': {
+            'chaoConnect': {
+                'title': 'Chào Connect',
+            },
+            'freeCourses': {
+                'title': 'Free Courses',
+            },
+            'workShops': {
+                'title': 'Workshops',
+            },
         },
     },
 };
