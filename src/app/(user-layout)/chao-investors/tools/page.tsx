@@ -107,10 +107,22 @@ function InterestCalculator() {
     const generateChartData = () => {
         const data = [];
 
+        let periodsPerYear = 1;
+        if (timeUnit === 'month') {
+            periodsPerYear = 12;
+        } else if (timeUnit === 'day') {
+            periodsPerYear = 365;
+        }
+
+        const periodicGrowthRate = growthRate / 100 / periodsPerYear;
+        const periodicVolatility = volatility / 100 / periodsPerYear;
+
         if (calculationType === 'simple') {
             const yearlyInterest = initialCapital * (growthRate / 100);
             for (let i = 0; i <= timeValue; i++) {
-                const value = initialCapital + yearlyInterest * i;
+                // Simple interest is based on total time in years
+                const value =
+                    initialCapital + yearlyInterest * (i / periodsPerYear);
                 data.push({
                     time: i,
                     value: value,
@@ -118,24 +130,25 @@ function InterestCalculator() {
             }
         } else if (calculationType === 'compound') {
             for (let i = 0; i <= timeValue; i++) {
+                // Use the periodic rate for compounding
                 const value =
-                    initialCapital * Math.pow(1 + growthRate / 100, i);
+                    initialCapital * Math.pow(1 + periodicGrowthRate, i);
                 data.push({
                     time: i,
                     value: value,
                 });
             }
         } else if (calculationType === 'monteCarlo') {
-            // For Monte Carlo, we'll simulate and show median path
             const results = [];
             for (let sim = 0; sim < simulations; sim++) {
                 let balance = initialCapital;
                 const scenario = [{ time: 0, value: initialCapital }];
 
                 for (let i = 1; i <= timeValue; i++) {
+                    // Use periodic rates for the simulation step
                     const randomReturn = generateRandomNormal(
-                        growthRate / 100,
-                        volatility / 100
+                        periodicGrowthRate,
+                        periodicVolatility
                     );
                     balance = balance * (1 + randomReturn);
                     scenario.push({ time: i, value: balance });
