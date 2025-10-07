@@ -11,6 +11,7 @@ import CombinedNewsFeed, {
     NewsSourceType,
 } from '@/app/(user-layout)/market-data/markets/components/vietnam-stock-market-news';
 import { useI18n } from '@/context/i18n/context';
+import Script from 'next/script';
 
 const USA_SYMBOL_KEYS: TMarketSymbolKey[] = [
     'INDEX_DXY',
@@ -445,6 +446,31 @@ const DARK_THEME_CONFIG_MARKET_DATA_SCREENER = {
 
 type MARKET_TYPES = 'us' | 'currencies' | 'crypto' | 'commodities' | 'vi';
 
+const CryptoTickerWidget = () => {
+    const { theme } = useTheme();
+    return theme === 'dark' ? (
+        <>
+            <Script src="https://widgets.coingecko.com/gecko-coin-market-ticker-list-widget.js"></Script>
+            <gecko-coin-market-ticker-list-widget
+                locale="en"
+                dark-mode="true"
+                coin-id="bitcoin"
+                initial-currency="usd"
+            ></gecko-coin-market-ticker-list-widget>
+        </>
+    ) : (
+        <>
+            <Script src="https://widgets.coingecko.com/gecko-coin-market-ticker-list-widget.js"></Script>
+            <gecko-coin-market-ticker-list-widget
+                locale="en"
+                dark-mode="false"
+                coin-id="bitcoin"
+                initial-currency="usd"
+            ></gecko-coin-market-ticker-list-widget>
+        </>
+    );
+};
+
 function OverViews({ type }: { type: MARKET_TYPES }) {
     const container = useRef<HTMLDivElement>(null);
     const { theme } = useTheme();
@@ -496,6 +522,28 @@ function OverViews({ type }: { type: MARKET_TYPES }) {
             }
         };
     }, [theme]);
+
+    if (type === 'crypto') {
+        return (
+            <div className={'w-full flex gap-2'}>
+                <div
+                    id="tradingview-market-overview"
+                    className="tradingview-widget-container"
+                    ref={container}
+                    style={{ width: '60%', height: '40.5rem' }}
+                >
+                    <div className="tradingview-widget-container__widget"></div>
+                </div>
+                <div
+                    className={
+                        'w-full max-w-2/5 max-h-[660px] overflow-y-scroll'
+                    }
+                >
+                    <CryptoTickerWidget />
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div
@@ -809,6 +857,43 @@ function EconomyCalendar({ type }: { type: MARKET_TYPES }) {
             <div className="tradingview-widget-container__widget"></div>
         </div>
     );
+}
+
+function EconomicCalendarRss() {
+    return (
+        <div className="flex flex-col items-center">
+            <iframe
+                src="https://sslecal2.investing.com?ecoDayBackground=%23262626&defaultFont=%23262626&innerBorderColor=%23262626&borderColor=%23262626&ecoDayFontColor=%23ffffff&columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone&countries=33,14,4,34,38,32,6,11,51,5,39,72,60,110,43,35,71,22,36,26,12,9,37,25,178,10,17&calType=week&timeZone=2&lang=52"
+                height="650"
+                frameBorder="0"
+                marginWidth={0}
+                marginHeight={0}
+                className="w-fit min-w-[650px] h-[650px] border-0"
+                title="Economic Calendar"
+            />
+        </div>
+    );
+}
+
+export function EconomicCalendarLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    const tabsList: TabItem[] = [
+        {
+            title: 'tradingview.com',
+            value: 'tradingview',
+            renderContent: () => Promise.resolve(children),
+        },
+        {
+            title: 'Investing.com',
+            value: 'investing',
+            renderContent: () => Promise.resolve(<EconomicCalendarRss />),
+        },
+    ];
+
+    return <AppTabs tabsList={tabsList} />;
 }
 
 function Screener({ type }: { type: MARKET_TYPES }) {

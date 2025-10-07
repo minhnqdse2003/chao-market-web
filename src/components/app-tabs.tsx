@@ -13,11 +13,13 @@ export type TabItem = {
 type TabComponentProps = {
     tabsList: TabItem[];
     shouldBorderVisible?: boolean;
+    isHorizontal?: boolean;
 };
 
 export function AppTabs({
     tabsList,
     shouldBorderVisible = true,
+    isHorizontal = false,
 }: Readonly<TabComponentProps>) {
     const [activeTab, setActiveTab] = useState(tabsList[0]?.value || '');
     const [contentMap, setContentMap] = useState<
@@ -25,7 +27,10 @@ export function AppTabs({
     >({});
 
     useEffect(() => {
-        if (tabsList.length > 0 && tabsList[0].value !== activeTab) {
+        if (
+            tabsList.length > 0 &&
+            tabsList.find(t => t.value === activeTab) === undefined
+        ) {
             setActiveTab(tabsList[0].value);
             setContentMap({});
         }
@@ -44,7 +49,12 @@ export function AppTabs({
     }, [activeTab, tabsList, contentMap]);
 
     return (
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className="w-full"
+            orientation={isHorizontal ? 'horizontal' : 'vertical'}
+        >
             <TabsList
                 className={cn(
                     'bg-transparent [&>button:last-child]:mr-0 border-[var(--brand-grey-foreground)]' +

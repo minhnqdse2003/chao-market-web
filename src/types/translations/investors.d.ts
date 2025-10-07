@@ -2,6 +2,10 @@ interface TitleNode {
     title: string;
 }
 
+interface ItemNode extends TitleNode {
+    description: string;
+}
+
 interface ChaoSocialNode {
     title: string;
     items: {
@@ -15,13 +19,13 @@ interface ChaoSocialNode {
 interface ToolForInvestorNode {
     title: string;
     items: {
-        currencyConverterCalc: TitleNode,
-        pipCalculator: TitleNode,
-        profitCalculator: TitleNode,
-        pivotalCalculator: TitleNode,
-        fiboCalculator: TitleNode,
-        marginCalculator: TitleNode,
-        investmentCalculator: TitleNode,
+        currencyConverterCalc: ItemNode,
+        pipCalculator: ItemNode,
+        profitCalculator: ItemNode,
+        pivotalCalculator: ItemNode,
+        fiboCalculator: ItemNode,
+        marginCalculator: ItemNode,
+        investmentCalculator: ItemNode,
     };
 }
 

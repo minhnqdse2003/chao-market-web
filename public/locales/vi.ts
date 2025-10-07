@@ -403,13 +403,34 @@ export const vi: TranslationsStructure = {
             'toolForInvestor': {
                 'title': 'Công Cụ Cho Nhà Đầu Tư',
                 'items': {
-                    'currencyConverterCalc': { 'title': 'Chuyển Đổi Tiền Tệ' },
-                    'pipCalculator': { 'title': 'Tính Pip' },
-                    'profitCalculator': { 'title': 'Tính Lợi Nhuận' },
-                    'pivotalCalculator': { 'title': 'Tính Điểm Xoay' },
-                    'fiboCalculator': { 'title': 'Tính Fibonacci' },
-                    'marginCalculator': { 'title': 'Tính Ký Quỹ' },
-                    'investmentCalculator': { 'title': 'Tính Tiền Lãi' },
+                    'currencyConverterCalc': {
+                        'title': 'Chuyển Đổi Tiền Tệ',
+                        'description': 'Công cụ này giúp bạn chuyển đổi giá trị giữa các loại tiền tệ khác nhau.',
+                    },
+                    'pipCalculator': {
+                        'title': 'Tính Pip',
+                        'description': 'Công cụ tính toán giá trị pip cho các cặp tiền tệ trong giao dịch forex.',
+                    },
+                    'profitCalculator': {
+                        'title': 'Tính Lợi Nhuận',
+                        'description': 'Công cụ tính toán lợi nhuận và lỗ trong các giao dịch đầu tư.',
+                    },
+                    'pivotalCalculator': {
+                        'title': 'Tính Điểm Xoay',
+                        'description': 'Công cụ tính toán các điểm xoay hỗ trợ và kháng cự trong phân tích kỹ thuật.',
+                    },
+                    'fiboCalculator': {
+                        'title': 'Tính Fibonacci',
+                        'description': 'Công cụ tính toán các mức Fibonacci retracement và extension.',
+                    },
+                    'marginCalculator': {
+                        'title': 'Tính Ký Quỹ',
+                        'description': 'Công cụ tính toán số tiền ký quỹ cần thiết cho các vị thế giao dịch.',
+                    },
+                    'investmentCalculator': {
+                        'title': 'Tính Tiền Lãi',
+                        'description': 'Công cụ tính toán lợi tức đầu tư và giá trị tương lai của khoản đầu tư.',
+                    },
                 },
             },
         },

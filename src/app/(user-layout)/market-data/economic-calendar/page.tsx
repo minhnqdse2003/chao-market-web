@@ -2,7 +2,10 @@
 import TabNavigation from '@/app/(user-layout)/market-data/components/tab-navigation';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useTheme } from 'next-themes';
-import { LIGHT_THEME_CONFIG_ECONOMY_CALENDAR } from '@/app/(user-layout)/market-data/markets/components/stock';
+import {
+    EconomicCalendarLayout,
+    LIGHT_THEME_CONFIG_ECONOMY_CALENDAR,
+} from '@/app/(user-layout)/market-data/markets/components/stock';
 
 function CalendarComp() {
     const container = useRef<HTMLDivElement>(null);
@@ -14,7 +17,7 @@ function CalendarComp() {
             colorTheme: theme === 'dark' ? 'dark' : 'light',
             countryFilter: 'us,eu,jp,gb,ch,au,ca,vn,cn',
             width: '100%',
-            height: 750,
+            height: 650,
             autosize: true,
         }),
         [theme]
@@ -94,7 +97,9 @@ export default function Page() {
                 searchParams={{}}
                 currentHref={'/market-data/economic-calendar'}
             />
-            <CalendarComp />
+            <EconomicCalendarLayout>
+                <CalendarComp />
+            </EconomicCalendarLayout>
         </div>
     );
 }

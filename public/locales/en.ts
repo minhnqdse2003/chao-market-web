@@ -403,13 +403,34 @@ export const en: TranslationsStructure = {
             'toolForInvestor': {
                 'title': 'Tools For Investors',
                 'items': {
-                    'currencyConverterCalc': { 'title': 'Currency Converter Calculator' },
-                    'pipCalculator': { 'title': 'Pip Calculator' },
-                    'profitCalculator': { 'title': 'Profit Calculator' },
-                    'pivotalCalculator': { 'title': 'Pivot Point Calculator' },
-                    'fiboCalculator': { 'title': 'Fibonacci Calculator' },
-                    'marginCalculator': { 'title': 'Margin Calculator' },
-                    'investmentCalculator': { 'title': 'Interest Calculator' },
+                    'currencyConverterCalc': {
+                        'title': 'Currency Converter Calculator',
+                        'description': 'Use this real-time currency converter calculator to convert one currency to another.',
+                    },
+                    'pipCalculator': {
+                        'title': 'Pip Calculator',
+                        'description': 'Calculate pip values for currency pairs in forex trading.',
+                    },
+                    'profitCalculator': {
+                        'title': 'Profit Calculator',
+                        'description': 'Calculate profit and loss in investment trades.',
+                    },
+                    'pivotalCalculator': {
+                        'title': 'Pivot Point Calculator',
+                        'description': 'Calculate pivot points for support and resistance levels in technical analysis.',
+                    },
+                    'fiboCalculator': {
+                        'title': 'Fibonacci Calculator',
+                        'description': 'Calculate Fibonacci retracement and extension levels.',
+                    },
+                    'marginCalculator': {
+                        'title': 'Margin Calculator',
+                        'description': 'Calculate the required margin for trading positions.',
+                    },
+                    'investmentCalculator': {
+                        'title': 'Interest Calculator',
+                        'description': 'Calculate investment returns and future value of investments.',
+                    },
                 },
             },
         },
