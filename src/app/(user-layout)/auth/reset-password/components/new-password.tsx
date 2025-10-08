@@ -72,7 +72,7 @@ export default function ResetPasswordPasswordStep({
     };
 
     return (
-        <div className="space-y-4 my-auto w-full">
+        <div className="space-y-4 my-auto w-full form-container">
             {error && (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
                     {error}
@@ -134,7 +134,7 @@ export default function ResetPasswordPasswordStep({
                                     onClick={onBack}
                                     disabled={changePasswordMutation.isPending}
                                     variant="outline"
-                                    className="flex-1 dark:border-[var(--brand-color)] dark:text-[var(--brand-color)] hover:bg-[var(--brand-grey)] dark:hover:text-[var(--brand-color)] dark:bg-transparent text-brand-text rounded-3xl py-2 px-4 transition-all! duration-300 ease-in-out"
+                                    className="flex-1 min-h-[40px] my-6 dark:border-[var(--brand-color)] dark:text-[var(--brand-color)] hover:bg-[var(--brand-grey)] dark:hover:text-[var(--brand-color)] dark:bg-transparent text-brand-text rounded-3xl py-2 px-4 transition-all! duration-300 ease-in-out"
                                 >
                                     <T keyName="common.back" />
                                 </Button>
@@ -142,7 +142,7 @@ export default function ResetPasswordPasswordStep({
                                 <Button
                                     type="submit"
                                     disabled={changePasswordMutation.isPending}
-                                    className="flex-1 bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:p-0 disabled:bg-transparent hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out text-base"
+                                    className="flex-1 min-h-[40px] my-6 bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:p-0 disabled:bg-transparent hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out text-base"
                                 >
                                     <T keyName="auth.resetPassword.updatePassword" />
                                 </Button>

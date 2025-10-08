@@ -7,10 +7,10 @@ export const metadata: Metadata = {
         default: siteConfig.name,
         template: `%s - ${siteConfig.name}`,
     },
-    themeColor: [
-        { media: '(prefers-color-scheme: light)', color: 'black' },
-        { media: '(prefers-color-scheme: dark)', color: 'white' },
-    ],
+    // themeColor: [
+    //     { media: '(prefers-color-scheme: light)', color: 'black' },
+    //     { media: '(prefers-color-scheme: dark)', color: 'white' },
+    // ],
     icons: {
         icon: '/favicon.ico',
     },

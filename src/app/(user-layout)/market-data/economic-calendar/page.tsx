@@ -1,105 +1,34 @@
 'use client';
 import TabNavigation from '@/app/(user-layout)/market-data/components/tab-navigation';
-import React, { useEffect, useMemo, useRef } from 'react';
-import { useTheme } from 'next-themes';
-import {
-    EconomicCalendarLayout,
-    LIGHT_THEME_CONFIG_ECONOMY_CALENDAR,
-} from '@/app/(user-layout)/market-data/markets/components/stock';
-
-function CalendarComp() {
-    const container = useRef<HTMLDivElement>(null);
-    const { theme } = useTheme();
-
-    const currentThemeConfig = useMemo(
-        () => ({
-            ...LIGHT_THEME_CONFIG_ECONOMY_CALENDAR,
-            colorTheme: theme === 'dark' ? 'dark' : 'light',
-            countryFilter: 'us,eu,jp,gb,ch,au,ca,vn,cn',
-            width: '100%',
-            height: 650,
-            autosize: true,
-        }),
-        [theme]
-    );
-
-    useEffect(() => {
-        if (container.current) {
-            container.current.innerHTML = '';
-        }
-
-        const script = document.createElement('script');
-        script.src =
-            'https://s3.tradingview.com/external-embedding/embed-widget-events.js';
-        script.type = 'text/javascript';
-        script.async = true;
-        script.innerHTML = JSON.stringify(currentThemeConfig);
-
-        if (container.current) {
-            container.current.appendChild(script);
-        }
-
-        // Add additional styling after widget loads
-        const styleTimer = setTimeout(() => {
-            if (container.current) {
-                const styleTag = container.current.querySelector('style');
-                if (styleTag) {
-                    // Override the existing styles
-                    const additionalStyles = `
-                        .tradingview-widget-copyright {
-                            color: ${theme === 'dark' ? '#94a3b8' : '#64748b'} !important;
-                            font-size: 12px !important;
-                        }
-                        .tradingview-widget-copyright a {
-                            color: ${theme === 'dark' ? '#60a5fa' : '#3b82f6'} !important;
-                        }
-                        .tradingview-widget-copyright a:hover {
-                            color: ${theme === 'dark' ? '#3b82f6' : '#2563eb'} !important;
-                        }
-                        
-                        .tv-embed-widget-wrapper{
-                            border: 1px solid red;
-                        }
-                    `;
-                    styleTag.innerHTML += additionalStyles;
-                }
-            }
-        }, 1000);
-
-        return () => {
-            clearTimeout(styleTimer);
-            if (container.current) {
-                container.current.innerHTML = '';
-            }
-        };
-    }, [theme]);
-
-    return (
-        <div
-            className="tradingview-widget-container rounded-xl border dark:border-slate-700 overflow-hidden"
-            ref={container}
-            style={{
-                width: '100%',
-                height: '50rem',
-                backgroundColor: theme === 'dark' ? '#0f172a' : '#ffffff',
-            }}
-            id={'trading-view-widget-container-calendar'}
-        >
-            <div className="tradingview-widget-container__widget"></div>
-        </div>
-    );
-}
+import React, { useEffect, useState } from 'react';
+import CalendarComp from '@/app/(user-layout)/market-data/economic-calendar/components/CalendarComp';
+import { cn } from '@/lib/utils';
+import { calculateAdjustedHeight } from '@/utils/height-utils';
 
 export default function Page() {
+    const [height, setHeight] = useState(600);
+
+    useEffect(() => {
+        setHeight(calculateAdjustedHeight());
+    }, []);
+
     return (
         <div className={'w-full flex flex-col gap-4'}>
             <TabNavigation
                 searchParams={{}}
                 currentHref={'/market-data/economic-calendar'}
             />
-            <EconomicCalendarLayout>
+            <div className={'flex justify-between gap-4'}>
                 <CalendarComp />
-            </EconomicCalendarLayout>
+                <div className="flex w-full flex-col rounded-md overflow-hidden items-center">
+                    <iframe
+                        src="https://sslecal2.investing.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone&countries=33,14,4,34,38,32,6,11,51,5,39,72,60,110,43,35,71,22,36,26,12,9,37,25,178,10,17&calType=week&timeZone=27&lang=52"
+                        height="650"
+                        className={cn('w-full border-0', `h-[${height}px]`)}
+                        title="Economic Calendar"
+                    />
+                </div>
+            </div>
         </div>
     );
 }

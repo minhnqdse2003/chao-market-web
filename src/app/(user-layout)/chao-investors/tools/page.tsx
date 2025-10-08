@@ -1,7 +1,7 @@
 'use client';
 import { useI18n } from '@/context/i18n/context';
 import { AppTabs, TabItem } from '@/components/app-tabs';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
     LineChart,
     Line,
@@ -23,6 +23,10 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import AppDropdown, { DropdownOption } from '@/components/app-dropdown';
+import { cn } from '@/lib/utils';
+import { calculateAdjustedHeight } from '@/utils/height-utils';
+import { useDebounce } from '@uidotdev/usehooks';
+import { useTheme } from 'next-themes';
 
 interface ToolConfig {
     key: string;
@@ -67,17 +71,19 @@ function ToolContent({ toolKey, src }: { toolKey: string; src: ToolConfig }) {
     const { t, locale } = useI18n();
 
     return (
-        <div key={src.key + locale}>
+        <div key={src.key + locale} className={'w-full'}>
             <p className="mb-4">
                 {t(
                     `investors.items.toolForInvestor.items.${toolKey}.description`
                 )}
             </p>
             <iframe
-                // This forces iframe to rerender when src changes
-                height="650"
+                height={calculateAdjustedHeight(10)}
                 src={locale === 'vi' ? src.viSrc : src.enSrc}
-                className="w-full"
+                className={cn(
+                    'w-fit mx-auto flex items-center justify-center',
+                    `${src.key !== 'currencyConverterCalc' ? 'w-[36rem]' : ''}`
+                )}
             />
         </div>
     );
@@ -85,6 +91,7 @@ function ToolContent({ toolKey, src }: { toolKey: string; src: ToolConfig }) {
 
 function InterestCalculator() {
     const { locale } = useI18n();
+    const { theme } = useTheme();
     const [calculationType, setCalculationType] = useState<
         'simple' | 'compound' | 'monteCarlo'
     >('simple');
@@ -95,7 +102,6 @@ function InterestCalculator() {
     const [volatility, setVolatility] = useState<number>(15);
     const [simulations, setSimulations] = useState<number>(1000);
 
-    // Format number with commas
     const formatNumber = (num: number): string => {
         return num.toLocaleString('en-US', {
             minimumFractionDigits: 2,
@@ -103,8 +109,12 @@ function InterestCalculator() {
         });
     };
 
+    const setFormatNumber = (num: string): number => {
+        return Number(num.replace(/,/g, ''));
+    };
+
     // Generate data for chart
-    const generateChartData = () => {
+    const generateChartData = useCallback(() => {
         const data = [];
 
         let periodsPerYear = 1;
@@ -171,7 +181,15 @@ function InterestCalculator() {
         }
 
         return data;
-    };
+    }, [
+        calculationType,
+        growthRate,
+        initialCapital,
+        simulations,
+        timeUnit,
+        timeValue,
+        volatility,
+    ]);
 
     // Box-Muller transform for normal distribution
     const generateRandomNormal = (mean: number, stdDev: number): number => {
@@ -216,7 +234,8 @@ function InterestCalculator() {
         },
     ];
 
-    const chartData = generateChartData();
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    const chartData = useDebounce(generateChartData, 300) as unknown as any[];
 
     return (
         <div className="flex flex-col md:flex-row gap-6">
@@ -224,16 +243,34 @@ function InterestCalculator() {
             <div className="w-full md:w-1/3">
                 <Card className={'bg-transparent dark:bg-transparent h-full'}>
                     <CardHeader>
-                        <CardTitle>
-                            {locale === 'vi'
-                                ? 'Tham số đầu vào'
-                                : 'Input Parameters'}
-                        </CardTitle>
-                        <CardDescription>
-                            {locale === 'vi'
-                                ? 'Cấu hình các tham số cho mô phỏng đầu tư'
-                                : 'Configure parameters for investment simulation'}
-                        </CardDescription>
+                        <div className="text-brand-text rounded-md">
+                            <h3 className="font-bold mb-2">
+                                {calculationType === 'simple'
+                                    ? locale === 'vi'
+                                        ? 'Lãi Đơn'
+                                        : 'Simple Interest'
+                                    : calculationType === 'compound'
+                                      ? locale === 'vi'
+                                          ? 'Lãi Kép'
+                                          : 'Compound Interest'
+                                      : locale === 'vi'
+                                        ? 'Monte Carlo'
+                                        : 'Monte Carlo'}
+                            </h3>
+                            <p className="text-sm">
+                                {calculationType === 'simple'
+                                    ? locale === 'vi'
+                                        ? 'Lãi được tính trên vốn gốc ban đầu, không cộng dồn.'
+                                        : 'Interest is calculated on the initial principal only.'
+                                    : calculationType === 'compound'
+                                      ? locale === 'vi'
+                                          ? 'Lãi được tính trên cả vốn gốc và lãi tích lũy.'
+                                          : 'Interest is calculated on both principal and accumulated interest.'
+                                      : locale === 'vi'
+                                        ? 'Mô phỏng nhiều kịch bản dựa trên xác suất.'
+                                        : 'Simulates multiple scenarios based on probability.'}
+                            </p>
+                        </div>
                     </CardHeader>
                     <CardContent className="space-y-6">
                         <div>
@@ -261,42 +298,38 @@ function InterestCalculator() {
                             />
                         </div>
 
-                        <div className="flex gap-2">
-                            <div className="flex-1">
-                                <Label>
-                                    {locale === 'vi'
-                                        ? 'Thời gian đầu tư:'
-                                        : 'Investment Time:'}
-                                </Label>
-                                <AppDropdown
-                                    options={getTimeUnitOptions(
-                                        locale as 'vi' | 'en'
-                                    )}
-                                    value={timeUnit}
-                                    onValueChange={(value: string) =>
-                                        setTimeUnit(
-                                            value as 'year' | 'month' | 'day'
-                                        )
-                                    }
-                                    labelVisible={false}
-                                    buttonClassName="w-fit min-w-[200px] justify-between"
-                                    contentClassName="w-full!"
-                                />
-                            </div>
-                            <div className="flex-1">
-                                <FloatingLabelInput
-                                    type="number"
-                                    label={
-                                        locale === 'vi' ? 'Số lượng' : 'Amount'
-                                    }
-                                    value={timeValue}
-                                    onChange={e =>
-                                        setTimeValue(Number(e.target.value))
-                                    }
-                                    min="1"
-                                    className="app-text-input pr-10"
-                                />
-                            </div>
+                        <div className="w-full relative items-center">
+                            <FloatingLabelInput
+                                type="number"
+                                label={locale === 'vi' ? 'Số' : 'Amount'}
+                                value={timeValue}
+                                onChange={e => {
+                                    const value = Number(e.target.value);
+                                    const clampedValue = Math.min(
+                                        Math.max(value, 0),
+                                        31
+                                    );
+                                    setTimeValue(clampedValue);
+                                }}
+                                min={0}
+                                max={30}
+                                maxLength={2}
+                                className="app-text-input pr-10"
+                            />
+                            <AppDropdown
+                                options={getTimeUnitOptions(
+                                    locale as 'vi' | 'en'
+                                )}
+                                value={timeUnit}
+                                onValueChange={(value: string) =>
+                                    setTimeUnit(
+                                        value as 'year' | 'month' | 'day'
+                                    )
+                                }
+                                labelVisible={false}
+                                buttonClassName="w-fit justify-between absolute right-1 bottom-1/2 transform translate-y-1/2"
+                                contentClassName="w-full!"
+                            />
                         </div>
 
                         <div>
@@ -310,7 +343,7 @@ function InterestCalculator() {
                                 value={formatNumber(initialCapital)}
                                 onChange={e =>
                                     setInitialCapital(
-                                        Number(e.target.value.replace(/,/g, ''))
+                                        setFormatNumber(e.target.value)
                                     )
                                 }
                                 className="app-text-input pr-10"
@@ -378,35 +411,6 @@ function InterestCalculator() {
                                 </div>
                             </>
                         )}
-
-                        <div className="mt-4 p-3 text-brand-text rounded-md">
-                            <h3 className="font-bold mb-2">
-                                {calculationType === 'simple'
-                                    ? locale === 'vi'
-                                        ? 'Lãi Đơn'
-                                        : 'Simple Interest'
-                                    : calculationType === 'compound'
-                                      ? locale === 'vi'
-                                          ? 'Lãi Kép'
-                                          : 'Compound Interest'
-                                      : locale === 'vi'
-                                        ? 'Monte Carlo'
-                                        : 'Monte Carlo'}
-                            </h3>
-                            <p className="text-sm">
-                                {calculationType === 'simple'
-                                    ? locale === 'vi'
-                                        ? 'Lãi được tính trên vốn gốc ban đầu, không cộng dồn.'
-                                        : 'Interest is calculated on the initial principal only.'
-                                    : calculationType === 'compound'
-                                      ? locale === 'vi'
-                                          ? 'Lãi được tính trên cả vốn gốc và lãi tích lũy.'
-                                          : 'Interest is calculated on both principal and accumulated interest.'
-                                      : locale === 'vi'
-                                        ? 'Mô phỏng nhiều kịch bản dựa trên xác suất.'
-                                        : 'Simulates multiple scenarios based on probability.'}
-                            </p>
-                        </div>
                     </CardContent>
                 </Card>
             </div>
@@ -438,7 +442,10 @@ function InterestCalculator() {
                                         bottom: 5,
                                     }}
                                 >
-                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <CartesianGrid
+                                        stroke={'#92929270'}
+                                        strokeDasharray="3 3"
+                                    />
                                     <XAxis
                                         dataKey="time"
                                         label={{
@@ -472,15 +479,23 @@ function InterestCalculator() {
                                             `${timeUnit === 'year' ? 'Year' : timeUnit === 'month' ? 'Month' : 'Day'} ${value}`
                                         }
                                         contentStyle={{
-                                            background: '#252525',
-                                            color: '#FFE400',
+                                            background: '#25252540',
+                                            color:
+                                                theme === 'dark'
+                                                    ? '#FFE400'
+                                                    : '#000000',
+                                            borderRadius: '14px',
                                         }}
                                     />
                                     <Legend />
                                     <Line
                                         type="monotone"
                                         dataKey="value"
-                                        stroke={'#FFE400'}
+                                        stroke={
+                                            theme === 'dark'
+                                                ? '#FFE400'
+                                                : '#000000'
+                                        }
                                         activeDot={{ r: 8 }}
                                         name={
                                             locale === 'vi'

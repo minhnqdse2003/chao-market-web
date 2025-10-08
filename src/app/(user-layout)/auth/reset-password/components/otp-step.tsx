@@ -80,7 +80,7 @@ export default function ResetPasswordOtpStep({
     };
 
     return (
-        <div className="space-y-4 w-full my-auto">
+        <div className="space-y-4 form-container w-full my-auto">
             {error && (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
                     {error}
@@ -127,7 +127,7 @@ export default function ResetPasswordOtpStep({
                             <Button
                                 type="submit"
                                 disabled={verifyOTPMutation.isPending}
-                                className="w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:p-0 disabled:bg-transparent mt-4 hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out text-base"
+                                className="w-full bg-[var(--brand-color)] min-h-[40px] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:p-0 disabled:bg-transparent my-6 hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out text-base"
                             >
                                 {verifyOTPMutation.isPending ? (
                                     <LoadingComponent />

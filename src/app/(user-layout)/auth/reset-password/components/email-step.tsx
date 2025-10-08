@@ -51,7 +51,7 @@ export default function ResetPasswordEmailStep({
         <Form {...form}>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="h-fit my-auto space-y-4"
+                className="h-fit form-container my-auto space-y-4"
             >
                 <FormField
                     control={form.control}
@@ -74,7 +74,7 @@ export default function ResetPasswordEmailStep({
                 <Button
                     type="submit"
                     disabled={requestResetMutation.isPending}
-                    className="w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:p-0 disabled:bg-transparent mt-4 hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out text-base"
+                    className="w-full bg-[var(--brand-color)] min-h-[40px] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:p-0 disabled:bg-transparent my-6 hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out text-base"
                 >
                     {requestResetMutation.isPending ? (
                         <LoadingComponent />

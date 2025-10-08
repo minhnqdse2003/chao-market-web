@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import TabAuthMode from '@/app/(user-layout)/auth/components/tab-auth-mode';
 import Link from 'next/link';
 import ResetPasswordEmailStep from '@/app/(user-layout)/auth/reset-password/components/email-step';
@@ -17,26 +17,11 @@ const ResetPasswordPage = () => {
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
 
-    const processStep = useCallback(() => {
-        switch (step) {
-            case 'email':
-                return 'pt-8';
-            case 'otp':
-                return 'pt-8';
-            case 'password':
-                return 'pt-0';
-            case 'complete':
-                return 'mb-12';
-            default:
-                return 'pt-8';
-        }
-    }, [step]);
-
     return (
         <div className="flex flex-col w-full h-full [&_*_h2]:text-2xl [&_*_h2]:font-extrabold [&_*_h2]:text-brand-text">
-            <div className={'h-1/3 flex flex-col justify-between'}>
+            <div className="h-full w-full flex flex-col justify-evenly [&>.form-container]:min-h-[15.375rem] [&>.form-container]:max-h-[15.375rem]  [&>.form-container]:my-0 [&>.form-container]:flex [&>.form-container]:flex-col [&>.form-container]:justify-end pt-8">
                 <TabAuthMode />
-                <div className={cn('max-h-[2rem] w-full', `${processStep()}`)}>
+                <div className={cn('w-full max-h-[32px] mt-2')}>
                     <h2>
                         {step === 'email' && (
                             <T keyName="auth.resetPassword.title" />
@@ -67,8 +52,6 @@ const ResetPasswordPage = () => {
                         )}
                     </p>
                 </div>
-            </div>
-            <div className="h-full [&>*:first-child]:max-h-[15.375rem] [&>*:first-child]:min-h-[15.375rem] [&>*:first-child]:flex [&>*:first-child]:flex-col [&>*:first-child]:justify-end [&>_*_button]:my-6 [&>_*_button]:min-h-[2.5rem] [&>_*_button]:max-h-[2.5rem] [&>*:last-child]:min-h-[8.9375rem] [&>*:last-child]:max-h-[8.9375rem] [&>*:last-child]:mt-0! w-full flex flex-col pt-8 justify-between [&_.completed]:max-h-[15.375rem] [&_.completed]:min-h-[15.375rem] [&_.completed]:justify-center">
                 {step === 'email' && (
                     <ResetPasswordEmailStep
                         onNext={email => {
@@ -107,8 +90,9 @@ const ResetPasswordPage = () => {
                         <div />
                     </>
                 )}
+
                 {step !== 'complete' && (
-                    <div className="text-center mt-6">
+                    <div className="text-center min-h-[11rem] max-h-[11rem]">
                         <p className="text-lg text-[var(--brand-grey-foreground)] font-semibold">
                             <T keyName="auth.resetPassword.rememberPassword" />{' '}
                             <Link

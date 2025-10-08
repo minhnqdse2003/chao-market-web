@@ -18,9 +18,8 @@ export async function AppLayout({ children }: { children: React.ReactNode }) {
             >
                 <NextAuthSessionProvider>
                     <ThemeProvider
-                        attribute="class"
+                        attribute={['class', 'data-theme', 'data-theme-mode']}
                         defaultTheme="dark"
-                        enableSystem
                         storageKey={APP_THEME_STATE_NAME}
                     >
                         <Providers>

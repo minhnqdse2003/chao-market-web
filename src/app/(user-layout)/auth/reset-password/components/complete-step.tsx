@@ -14,18 +14,18 @@ export default function CompletionStep() {
     };
 
     return (
-        <div className={'my-auto'}>
+        <div className={'flex flex-col justify-evenly mt-[2.5rem]'}>
             <Image
                 src={ResetPasswordComplete}
                 alt={'reset-password-complete'}
                 width={1920}
                 height={1080}
-                className={'w-2/5 my-auto mx-auto object-contain'}
+                className={'h-2/5 mx-auto object-contain'}
             />
 
             <div className="flex flex-col space-y-4 w-full">
                 <Button
-                    className="w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:p-0 disabled:bg-transparent mt-4 hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out text-base"
+                    className="w-full bg-[var(--brand-color)] cursor-pointer text-black font-bold py-2 px-4 rounded-3xl disabled:p-0 disabled:bg-transparent my-6 min-h-[40px] hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out text-base"
                     onClick={handleOnClick}
                 >
                     <T keyName="auth.resetPassword.goToLogin" />

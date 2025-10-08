@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 // Import the server action
 import { fetchNewsFeed, RSSItem } from '@/services/rss/fetchNews';
+import { TimeAgo } from '@/components/time-ago';
 
 // Define types for the prop and RSS data
 export type NewsSourceType =
@@ -32,50 +33,11 @@ interface CombinedNewsFeedProps {
 }
 
 export default function CombinedNewsFeed({ type }: CombinedNewsFeedProps) {
-    let localeForDate = 'vi-VN';
-
-    switch (type) {
-        case 'vna-en-economy':
-        case 'vna-en-politics':
-        case 'us-stock-news-en':
-        case 'vietnam-stock-news-en':
-        case 'currencies-news-en':
-        case 'crypto-currency-news-en':
-        case 'commodities-news-en':
-            localeForDate = 'en-US';
-            break;
-        case 'vna-vi-economy':
-        case 'vna-vi-politics':
-        case 'tuoitre-business':
-        case 'tuoitre-news':
-        case 'us-stock-news-vi':
-        case 'vietnam-stock-news-vi':
-        case 'currencies-news-vi':
-        case 'crypto-currency-news-vn':
-        case 'commodities-news-vn':
-        case 'facebook-chao-market-page':
-        case 'tiktok-chao-market-page':
-        case 'thread-chao-market-page':
-        case 'youtube-chao-market-page':
-            localeForDate = 'vi-VN';
-            break;
-        default:
-            console.error(`Unknown news type: ${type}`);
-            return (
-                <div className="p-4 border rounded-lg shadow-sm bg-white">
-                    <p className="text-gray-500">
-                        Lỗi: Loại tin tức không hợp lệ.
-                    </p>
-                </div>
-            );
-    }
-
     const {
         data: articles = [] as RSSItem[],
         isLoading,
         isError,
         error,
-        // eslint-disable-next-line react-hooks/rules-of-hooks
     } = useQuery<RSSItem[], Error>({
         queryKey: ['news', type],
         queryFn: () => fetchNewsFeed(type),
@@ -162,14 +124,19 @@ export default function CombinedNewsFeed({ type }: CombinedNewsFeedProps) {
                                     {article.title}
                                 </a>
                                 {article.pubDate && (
-                                    <p className="text-xs text-[var(--brand-grey-foreground)] mt-1">
-                                        {new Date(
-                                            article.pubDate
-                                        ).toLocaleString(
-                                            localeForDate // Use the determined locale
-                                        )}{' '}
-                                    </p>
+                                    <div className={'flex gap-4'}>
+                                        <TimeAgo
+                                            dateString={article.pubDate}
+                                            className="text-xs text-[var(--brand-grey-foreground)] mt-1"
+                                        />
+                                        {article.sourceUrl && (
+                                            <p className="text-xs text-[var(--brand-grey-foreground)] mt-1">
+                                                Source: {article.sourceUrl}{' '}
+                                            </p>
+                                        )}
+                                    </div>
                                 )}
+
                                 {article.contentSnippet && (
                                     <p className="text-sm text-[var(--brand-grey-foreground)] mt-1 line-clamp-2">
                                         {article.contentSnippet}{' '}

@@ -1,4 +1,9 @@
+'use client';
+
 export const calculateAdjustedHeight = (subtractRem: number = 18): number => {
+    if (typeof window === 'undefined') {
+        return 600;
+    }
     const screenHeight = window.innerHeight;
     const remToPx = parseFloat(
         getComputedStyle(document.documentElement).fontSize

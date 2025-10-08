@@ -80,7 +80,7 @@ function EmailVerificationStep({
     };
 
     return (
-        <div className="space-y-8 mt-24 flex flex-col justify-end my-auto h-[15.375rem]">
+        <div className="space-y-8 flex flex-col justify-end h-[15.375rem]">
             <div className={'w-full'}>
                 <p className="text-sm dark:text-white text-[var(--brand-grey-foreground)] font-light mb-4">
                     <T keyName="auth.otpSentToEmail" />{' '}
@@ -119,7 +119,7 @@ function EmailVerificationStep({
                 <button
                     onClick={handleVerifyOtp}
                     disabled={loading}
-                    className="flex-1 text-black  bg-[var(--brand-color)] disabled:bg-transparent disabled:p-0 cursor-pointer rounded-3xl font-bold py-2 px-4 disabled:opacity-50 my-8"
+                    className="flex-1 text-black min-h-[40px] bg-[var(--brand-color)] disabled:bg-transparent disabled:p-0 cursor-pointer rounded-3xl font-bold py-2 px-4 disabled:opacity-50 my-6"
                 >
                     {loading ? <LoadingComponent /> : 'Continue'}
                 </button>
@@ -251,30 +251,27 @@ export default function Login() {
 
     return (
         <div className="flex flex-col w-full h-full">
-            <div className={'h-1/3 flex flex-col justify-between'}>
-                <TabAuthMode />
-                <h2 className="mt-2 min-h-[2rem] text-2xl font-bold text-brand-text">
-                    <T keyName="auth.welcomeBack" />
-                </h2>
-            </div>
-
-            <div className="h-full w-full flex flex-col pt-8">
+            <div className="h-full w-full flex flex-col justify-evenly pt-8">
                 {error && (
                     <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
                         {error}
                     </div>
                 )}
 
+                <TabAuthMode />
+                <h2 className="mt-2 text-2xl font-bold text-brand-text">
+                    <T keyName="auth.welcomeBack" />
+                </h2>
                 {emailVerified === false && loginData ? (
                     <EmailVerificationStep
-                        email={loginData.email}
+                        email={loginData?.email || 'heheh'}
                         onVerificationComplete={handleOtpVerificationComplete}
                     />
                 ) : (
                     <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(handleCredentialsLogin)}
-                            className="h-fit space-y-4 my-auto"
+                            className="h-fit min-h-[15.375rem] space-y-4"
                         >
                             <FormField
                                 control={form.control}
@@ -363,21 +360,22 @@ export default function Login() {
                     </Form>
                 )}
 
-                <SocialLogin />
-
-                <div className="text-center text-brand-text font-medium text-lg">
-                    <T keyName="auth.noAccountPrompt" />{' '}
-                    <Link href="/auth/signup" className="">
-                        <span
-                            className={
-                                'dark:text-[var(--brand-color)] text-black font-semibold hover:underline' +
-                                ' dark:hover:text-[var(--brand-color-foreground)] transition-all!' +
-                                ' duration-300 ease-in-out'
-                            }
-                        >
-                            <T keyName={'auth.signup'} />
-                        </span>
-                    </Link>
+                <div className="text-center text-brand-text font-medium text-lg flex flex-col gap-4 w-full">
+                    <SocialLogin />
+                    <p>
+                        <T keyName="auth.noAccountPrompt" />{' '}
+                        <Link href="/auth/signup">
+                            <span
+                                className={
+                                    'dark:text-[var(--brand-color)] text-black font-semibold hover:underline' +
+                                    ' dark:hover:text-[var(--brand-color-foreground)] transition-all!' +
+                                    ' duration-300 ease-in-out'
+                                }
+                            >
+                                <T keyName={'auth.signup'} />
+                            </span>
+                        </Link>
+                    </p>
                 </div>
             </div>
         </div>

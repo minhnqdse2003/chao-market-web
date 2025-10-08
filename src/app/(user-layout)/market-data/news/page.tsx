@@ -12,24 +12,38 @@ type MARKET_TYPES = 'global' | 'vietnam';
 
 function NewsComp({ type }: { type: MARKET_TYPES }) {
     const { locale } = useI18n();
-    const data: Record<MARKET_TYPES, Record<string, NewsSourceType[]>> = {
-        global: {
-            en: ['us-stock-news-en'],
-            vi: ['us-stock-news-vi'],
+    const data: Array<{
+        title: string;
+        en: NewsSourceType;
+        vi: NewsSourceType;
+    }> = [
+        {
+            title: 'Vietstock.vn',
+            en: 'us-stock-news-en',
+            vi: 'us-stock-news-vi',
         },
-        vietnam: {
-            en: ['vietnam-stock-news-en', 'commodities-news-en'],
-            vi: [
-                'tuoitre-news',
-                'vietnam-stock-news-vi',
-                'commodities-news-vn',
-            ],
+        {
+            title: 'Investing.com',
+            en: 'currencies-news-en',
+            vi: 'currencies-news-vi',
         },
-    };
+    ];
 
-    const key = data[type][locale];
+    const tabsList: TabItem[] = data.map(item => ({
+        title: item.title,
+        value: item.title + `-global-${locale}`,
+        renderContent: () =>
+            Promise.resolve(
+                <CombinedNewsFeed
+                    type={item[locale as 'en' | 'vi']}
+                    key={type}
+                />
+            ),
+    }));
 
-    return key.map(item => <CombinedNewsFeed key={item} type={item} />);
+    return (
+        locale && <AppTabs tabsList={tabsList} shouldBorderVisible={false} />
+    );
 }
 
 export default function Page() {

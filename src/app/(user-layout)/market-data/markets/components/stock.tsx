@@ -12,6 +12,7 @@ import CombinedNewsFeed, {
 } from '@/app/(user-layout)/market-data/markets/components/vietnam-stock-market-news';
 import { useI18n } from '@/context/i18n/context';
 import Script from 'next/script';
+import { cn } from '@/lib/utils';
 
 const USA_SYMBOL_KEYS: TMarketSymbolKey[] = [
     'INDEX_DXY',
@@ -86,7 +87,7 @@ export const LIGHT_THEME_CONFIG_OVERVIEW = {
     dateRange: '12M',
     locale: 'en',
     largeChartUrl: '',
-    isTransparent: false,
+    isTransparent: true,
     showFloatingTooltip: false,
     plotLineColorGrowing: 'rgba(41, 98, 255, 1)',
     plotLineColorFalling: 'rgba(41, 98, 255, 1)',
@@ -186,7 +187,7 @@ const DARK_THEME_CONFIG_STOCK_HEATMAP = {
 
 const LIGHT_THEME_CONFIG_FOREX_HEATMAP = {
     colorTheme: 'dark',
-    isTransparent: false,
+    isTransparent: true,
     locale: 'en',
     currencies: ['EUR', 'USD', 'JPY', 'GBP', 'CHF', 'AUD', 'CAD', 'NZD', 'CNY'],
     backgroundColor: '#0F0F0F',
@@ -240,7 +241,7 @@ const LIGHT_THEME_CONFIG_MARKET_DATA_HEATMAP = {
     colorTheme: 'dark',
     locale: 'en',
     largeChartUrl: '',
-    isTransparent: false,
+    isTransparent: true,
     showSymbolLogo: true,
     backgroundColor: '#0F0F0F',
     support_host: 'https://www.tradingview.com',
@@ -384,11 +385,11 @@ const DARK_THEME_CONFIG_COMMODITIES_CHART = {
 
 export const LIGHT_THEME_CONFIG_ECONOMY_CALENDAR = {
     colorTheme: 'light',
-    isTransparent: false,
     locale: 'en',
     countryFilter: 'us',
     importanceFilter: '-1,0,1',
     width: '100%',
+    isTransparent: true,
     height: 800,
 };
 
@@ -535,9 +536,10 @@ function OverViews({ type }: { type: MARKET_TYPES }) {
                     <div className="tradingview-widget-container__widget"></div>
                 </div>
                 <div
-                    className={
-                        'w-full max-w-2/5 max-h-[660px] overflow-y-scroll'
-                    }
+                    className={cn(
+                        'w-full max-w-2/5 max-h-[41.0625rem] overflow-y-scroll',
+                        `h-[${calculateAdjustedHeight()}]`
+                    )}
                 >
                     <CryptoTickerWidget />
                 </div>
@@ -849,7 +851,7 @@ function EconomyCalendar({ type }: { type: MARKET_TYPES }) {
 
     return (
         <div
-            className="tradingview-widget-container"
+            className="tradingview-widget-container rounded-xl border"
             ref={container}
             style={{ width: '100%', height: '50rem' }}
             id={'trading-view-widget-container-calendar'}
@@ -857,43 +859,6 @@ function EconomyCalendar({ type }: { type: MARKET_TYPES }) {
             <div className="tradingview-widget-container__widget"></div>
         </div>
     );
-}
-
-function EconomicCalendarRss() {
-    return (
-        <div className="flex flex-col items-center">
-            <iframe
-                src="https://sslecal2.investing.com?ecoDayBackground=%23262626&defaultFont=%23262626&innerBorderColor=%23262626&borderColor=%23262626&ecoDayFontColor=%23ffffff&columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone&countries=33,14,4,34,38,32,6,11,51,5,39,72,60,110,43,35,71,22,36,26,12,9,37,25,178,10,17&calType=week&timeZone=2&lang=52"
-                height="650"
-                frameBorder="0"
-                marginWidth={0}
-                marginHeight={0}
-                className="w-fit min-w-[650px] h-[650px] border-0"
-                title="Economic Calendar"
-            />
-        </div>
-    );
-}
-
-export function EconomicCalendarLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
-    const tabsList: TabItem[] = [
-        {
-            title: 'tradingview.com',
-            value: 'tradingview',
-            renderContent: () => Promise.resolve(children),
-        },
-        {
-            title: 'Investing.com',
-            value: 'investing',
-            renderContent: () => Promise.resolve(<EconomicCalendarRss />),
-        },
-    ];
-
-    return <AppTabs tabsList={tabsList} />;
 }
 
 function Screener({ type }: { type: MARKET_TYPES }) {
@@ -967,7 +932,7 @@ export function VietNamStockMarketNewsFeed() {
         return locale === 'vi'
             ? [
                   {
-                      title: 'Tuổi Trẻ (Kinh Doanh)',
+                      title: 'Tuoitre.vn',
                       value: 'tuoitre-news',
                       renderContent: () =>
                           Promise.resolve(
@@ -975,7 +940,7 @@ export function VietNamStockMarketNewsFeed() {
                           ),
                   },
                   {
-                      title: 'VietStock',
+                      title: 'Vietstock.vn',
                       value: 'vna-vi-economy',
                       renderContent: () =>
                           Promise.resolve(
@@ -985,7 +950,7 @@ export function VietNamStockMarketNewsFeed() {
                           ),
                   },
                   {
-                      title: 'Investing',
+                      title: 'Investing.com',
                       value: 'vna-vi-politics',
                       renderContent: () =>
                           Promise.resolve(
@@ -995,7 +960,7 @@ export function VietNamStockMarketNewsFeed() {
               ]
             : [
                   {
-                      title: 'VietStock',
+                      title: 'Vietstock.vn',
                       value: 'vna-en-economy',
                       renderContent: () =>
                           Promise.resolve(
@@ -1005,7 +970,7 @@ export function VietNamStockMarketNewsFeed() {
                           ),
                   },
                   {
-                      title: 'Investing',
+                      title: 'Investing.com',
                       value: 'vna-en-politics',
                       renderContent: () =>
                           Promise.resolve(
