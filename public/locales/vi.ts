@@ -28,6 +28,7 @@ export const vi: TranslationsStructure = {
         backToSignUp: '← Quay lại trang Đăng ký',
         lastUpdated: 'Cập nhật lần cuối: {date}',
         backToHome: '← Quay lại Trang chủ',
+        scrollToTop: 'Về Đầu Trang ',
     },
     auth: {
         login: 'Đăng nhập',

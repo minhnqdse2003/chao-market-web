@@ -75,7 +75,7 @@ export default function SocialPage() {
 
     return (
         <div>
-            <AppTabs tabsList={tabsList} />
+            <AppTabs tabsList={tabsList} size={2} />
         </div>
     );
 }

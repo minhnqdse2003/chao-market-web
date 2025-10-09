@@ -13,6 +13,7 @@ interface AppTabsServerSideProps {
     isSubTab?: boolean;
     currentHref?: string;
     subTabClassName?: string;
+    size?: number;
 }
 
 export default function AppTabsServerSide({
@@ -22,6 +23,7 @@ export default function AppTabsServerSide({
     isSubTab = false,
     currentHref,
     subTabClassName = '',
+    size = 0,
 }: AppTabsServerSideProps) {
     // Parse current search params
     const searchParams = new URLSearchParams(currentSearchParams);
@@ -102,6 +104,8 @@ export default function AppTabsServerSide({
 
     const currentTabHref = currentHref ? currentHref : getCurrentTabHref();
 
+    const dynamicFontSize = `calc(var(--text-sm) + ${size}px)`;
+
     return (
         <div className={isParentOfSubTab ? '' : cn('mb-8', subTabClassName)}>
             <div
@@ -112,23 +116,26 @@ export default function AppTabsServerSide({
                         <Link
                             key={tab.href}
                             href={tab.href}
-                            className={`${
-                                currentTabHref === tab.href
-                                    ? isSubTab
-                                        ? 'border-none dark:text-[var(--brand-color)]' +
-                                          ' dark:hover:text-[var(--brand-color)]' +
-                                          ' text-black font-semibold'
-                                        : 'dark:border-[var(--brand-color)] dark:text-[var(--brand-color)]' +
-                                          ' dark:hover:text-[var(--brand-color)]' +
-                                          ' dark:hover:border-[var(--brand-color)]' +
-                                          ' border-black text-brand-text font-semibold'
-                                    : isSubTab
-                                      ? 'border-none text-[var(--brand-grey-foreground)]' +
-                                        ' dark:hover:text-[var(--brand-color)] hover:text-brand-text'
-                                      : 'dark:hover:border-[var(--brand-color)] dark:hover:text-[var(--brand-color)]' +
-                                        ' text-[var(--brand-grey-foreground)] border-transparent' +
-                                        ' hover:border-brand-text hover:text-brand-text'
-                            } whitespace-nowrap py-4 px-1 border-b-2 text-center text-sm transition-all! font-bold duration-300 ease-in-out min-w-[9rem]`}
+                            className={cn(
+                                `${
+                                    currentTabHref === tab.href
+                                        ? isSubTab
+                                            ? 'border-none dark:text-[var(--brand-color)]' +
+                                              ' dark:hover:text-[var(--brand-color)]' +
+                                              ' text-black font-semibold'
+                                            : 'dark:border-[var(--brand-color)] dark:text-[var(--brand-color)]' +
+                                              ' dark:hover:text-[var(--brand-color)]' +
+                                              ' dark:hover:border-[var(--brand-color)]' +
+                                              ' border-black text-brand-text font-semibold'
+                                        : isSubTab
+                                          ? 'border-none text-[var(--brand-grey-foreground)]' +
+                                            ' dark:hover:text-[var(--brand-color)] hover:text-brand-text'
+                                          : 'dark:hover:border-[var(--brand-color)] dark:hover:text-[var(--brand-color)]' +
+                                            ' text-[var(--brand-grey-foreground)] border-transparent' +
+                                            ' hover:border-brand-text hover:text-brand-text'
+                                } whitespace-nowrap py-4 px-1 border-b-2 text-center transition-all! font-bold duration-300 ease-in-out min-w-[9rem]`
+                            )}
+                            style={{ fontSize: dynamicFontSize }}
                         >
                             {tab.title}
                         </Link>

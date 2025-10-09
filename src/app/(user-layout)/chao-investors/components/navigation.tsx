@@ -40,6 +40,7 @@ export default function ChaoInvestorNavigation({
                 ).toString()}
                 isSubTab={true}
                 subTabClassName={'mb-2'}
+                size={2}
             />
         );
     }
@@ -52,6 +53,7 @@ export default function ChaoInvestorNavigation({
             ).toString()}
             currentHref={currentHref}
             isParentOfSubTab={false}
+            size={4}
         />
     );
 }

@@ -24,6 +24,7 @@ interface AppDatePickerProps {
     label?: string | React.ReactNode;
     highlightOnActive?: boolean;
     isMarginVisible?: boolean;
+    defaultValue?: Date;
 }
 
 export function AppDatePicker({
@@ -34,10 +35,11 @@ export function AppDatePicker({
     label = 'Date:',
     highlightOnActive = false,
     isMarginVisible = true,
+    defaultValue,
     ...props
 }: AppDatePickerProps) {
     const [open, setOpen] = React.useState(false);
-    const [date, setDate] = React.useState<Date | undefined>(undefined);
+    const [date, setDate] = React.useState<Date | undefined>(defaultValue);
 
     const handleDateSelect = (selectedDate: Date | undefined) => {
         setDate(selectedDate);

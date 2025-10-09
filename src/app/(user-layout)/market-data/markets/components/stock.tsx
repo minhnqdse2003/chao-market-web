@@ -524,6 +524,8 @@ function OverViews({ type }: { type: MARKET_TYPES }) {
         };
     }, [theme]);
 
+    const height = calculateAdjustedHeight();
+
     if (type === 'crypto') {
         return (
             <div className={'w-full flex gap-2'}>
@@ -537,9 +539,9 @@ function OverViews({ type }: { type: MARKET_TYPES }) {
                 </div>
                 <div
                     className={cn(
-                        'w-full max-w-2/5 max-h-[41.0625rem] overflow-y-scroll',
-                        `h-[${calculateAdjustedHeight()}]`
+                        'w-full max-w-2/5 max-h-[41.0625rem] overflow-y-scroll'
                     )}
+                    style={{ height: `${height}px` }}
                 >
                     <CryptoTickerWidget />
                 </div>
@@ -919,7 +921,7 @@ function VietnamOverview() {
 
 function ChartVietNam() {
     return (
-        <div className={'w-fit mx-auto'}>
+        <div className={'w-full flex items-center justify-center'}>
             <VietnamComp />
         </div>
     );

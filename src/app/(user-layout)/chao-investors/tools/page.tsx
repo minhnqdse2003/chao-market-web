@@ -574,5 +574,5 @@ export default function InvestorToolsComp() {
         return <div>Loading...</div>;
     }
 
-    return <AppTabs tabsList={tabsList} />;
+    return <AppTabs tabsList={tabsList} size={2} />;
 }

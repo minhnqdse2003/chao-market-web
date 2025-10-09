@@ -45,6 +45,7 @@ export default function TabNavigation({
                 ).toString()}
                 isSubTab={true}
                 subTabClassName={'mb-2'}
+                size={2}
             />
         );
     }
@@ -57,6 +58,7 @@ export default function TabNavigation({
             ).toString()}
             currentHref={currentHref}
             isParentOfSubTab={true}
+            size={4}
         />
     );
 }

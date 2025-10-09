@@ -67,7 +67,7 @@ export default function Page() {
                 searchParams={{}}
                 currentHref={'/market-data/news'}
             />
-            <AppTabs tabsList={tabsList} />
+            <AppTabs tabsList={tabsList} size={2} />
         </div>
     );
 }

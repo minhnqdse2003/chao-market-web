@@ -28,6 +28,7 @@ export const en: TranslationsStructure = {
         backToSignUp: '← Back to Sign Up',
         lastUpdated: 'Last updated: {date}',
         backToHome: '← Back to Home',
+        scrollToTop: 'Back To Top',
     },
     auth: {
         login: 'Log In',

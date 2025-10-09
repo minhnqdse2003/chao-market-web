@@ -136,13 +136,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 title: t('sidebar.newsEvents'),
                 url: '/news-event',
                 icon: Megaphone,
-                children: [
-                    { title: t('sidebar.news'), url: '/news-event?type=news' },
-                    {
-                        title: t('sidebar.events'),
-                        url: '/news-event?type=events',
-                    },
-                ],
+                // children: [
+                //     { title: t('sidebar.news'), url: '/news-event?type=news' },
+                //     {
+                //         title: t('sidebar.events'),
+                //         url: '/news-event?type=events',
+                //     },
+                // ],
             },
             {
                 title: t('sidebar.community'),

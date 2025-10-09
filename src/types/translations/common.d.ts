@@ -25,4 +25,5 @@ export interface CommonTranslations {
     lastUpdated: string;
     backToSignUp: string;
     backToHome: string,
+    scrollToTop: string
 }

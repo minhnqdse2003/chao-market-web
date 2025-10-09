@@ -30,7 +30,7 @@ export const TimeAgo = ({ dateString, className }: TimeAgoProps) => {
                 locale: locale === 'vi' ? vi : enUS,
             });
         } else {
-            formattedDate = format(articleDate, 'MM/dd/yyyy, h:mm a', {
+            formattedDate = format(articleDate, 'dd/MM/yyyy, h:mm a', {
                 locale: locale === 'vi' ? vi : enUS,
             });
         }

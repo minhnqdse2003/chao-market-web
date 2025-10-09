@@ -1,13 +1,6 @@
 'use client';
 
-import {
-    BadgeCheck,
-    Bell,
-    ChevronsUpDown,
-    CreditCard,
-    LogOut,
-    Sparkles,
-} from 'lucide-react';
+import { Bell, ChevronsUpDown, LogOut, User } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
     DropdownMenu,
@@ -162,42 +155,24 @@ export function NavUser() {
                                 <DropdownMenuItem
                                     className={
                                         'dark:hover:text-[var(--brand-color)]! dark:hover:[&>svg]:stroke-[var(--brand-color)]' +
-                                        ' dark:hover:bg-transparent transition-colors! duration-200 ease-in-out cursor-pointer hover:font-semibold'
-                                    }
-                                >
-                                    <Sparkles />
-                                    Upgrade to Pro
-                                </DropdownMenuItem>
-                            </DropdownMenuGroup>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuGroup>
-                                <DropdownMenuItem
-                                    className={
-                                        'dark:hover:text-[var(--brand-color)]! dark:hover:[&>svg]:stroke-[var(--brand-color)]' +
-                                        ' dark:hover:bg-transparent transition-colors! duration-200 ease-in-out cursor-pointer hover:font-semibold'
-                                    }
-                                >
-                                    <BadgeCheck />
-                                    Account
-                                </DropdownMenuItem>
-                                <DropdownMenuItem
-                                    className={
-                                        'dark:hover:text-[var(--brand-color)]! dark:hover:[&>svg]:stroke-[var(--brand-color)]' +
-                                        ' dark:hover:bg-transparent transition-colors! duration-200 ease-in-out cursor-pointer hover:font-semibold'
-                                    }
-                                >
-                                    <CreditCard />
-                                    Billing
-                                </DropdownMenuItem>
-                                <DropdownMenuItem
-                                    className={
-                                        'dark:hover:text-[var(--brand-color)]! dark:hover:[&>svg]:stroke-[var(--brand-color)]' +
                                         ' dark:hover:bg-transparent transition-colors! duration-200 ease-in-out' +
                                         ' cursor-pointer hover:font-semibold'
                                     }
                                 >
                                     <Bell />
                                     Notifications
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                    className={
+                                        'dark:hover:text-[var(--brand-color)]! dark:hover:[&>svg]:stroke-[var(--brand-color)]' +
+                                        ' dark:hover:bg-transparent transition-colors! duration-200 ease-in-out cursor-pointer hover:font-semibold'
+                                    }
+                                    asChild
+                                >
+                                    <Link href={'/account'}>
+                                        <User />
+                                        Account
+                                    </Link>
                                 </DropdownMenuItem>
                             </DropdownMenuGroup>
                             <DropdownMenuSeparator />

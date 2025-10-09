@@ -14,14 +14,20 @@ type TabComponentProps = {
     tabsList: TabItem[];
     shouldBorderVisible?: boolean;
     isHorizontal?: boolean;
+    defaultValue?: string;
+    size?: number;
 };
 
 export function AppTabs({
     tabsList,
     shouldBorderVisible = true,
     isHorizontal = false,
+    defaultValue,
+    size = 0,
 }: Readonly<TabComponentProps>) {
-    const [activeTab, setActiveTab] = useState(tabsList[0]?.value || '');
+    const [activeTab, setActiveTab] = useState(
+        defaultValue || tabsList[0]?.value
+    );
     const [contentMap, setContentMap] = useState<
         Record<string, React.ReactNode>
     >({});
@@ -47,6 +53,8 @@ export function AppTabs({
 
         loadContent();
     }, [activeTab, tabsList, contentMap]);
+
+    const dynamicFontSize = `calc(var(--text-sm) + ${size}px)`;
 
     return (
         <Tabs
@@ -81,6 +89,7 @@ export function AppTabs({
                                 ' data-[state=inactive]:hover:text-black data-[state=inactive]:hover:border-black',
                             `${shouldBorderVisible ? '' : 'border-transparent!'}`
                         )}
+                        style={{ fontSize: dynamicFontSize }}
                     >
                         {tab.title}
                     </TabsTrigger>
