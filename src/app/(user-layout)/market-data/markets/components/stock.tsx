@@ -921,8 +921,11 @@ function VietnamOverview() {
 
 function ChartVietNam() {
     return (
-        <div className={'w-full flex items-center justify-center'}>
-            <VietnamComp />
+        <div className={'w-full flex justify-center'}>
+            <div className={'w-fit flex'}>
+                <VietnamComp type={'market'} />
+                <VietnamComp type={'quote'} />
+            </div>
         </div>
     );
 }

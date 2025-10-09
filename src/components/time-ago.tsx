@@ -3,6 +3,7 @@
 import { format, formatDistanceToNow, differenceInHours } from 'date-fns';
 import { vi, enUS } from 'date-fns/locale';
 import { useI18n } from '@/context/i18n/context';
+import { cn } from '@/lib/utils';
 
 interface TimeAgoProps {
     dateString: string | number | Date;
@@ -35,7 +36,11 @@ export const TimeAgo = ({ dateString, className }: TimeAgoProps) => {
             });
         }
 
-        return <span className={className}>{formattedDate}</span>;
+        return (
+            <span className={cn(className, 'first-letter:uppercase')}>
+                {formattedDate}
+            </span>
+        );
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
         console.error(
