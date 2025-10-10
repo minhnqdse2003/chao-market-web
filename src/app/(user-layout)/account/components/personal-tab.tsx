@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm, UseFormReturn } from 'react-hook-form';
+import { useForm, UseFormReturn, useFormState } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
     Card,
@@ -22,7 +22,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { AppDatePicker } from '@/components/app-date-picker';
 import { z } from 'zod';
 import { FloatingLabelInput } from '@/components/ui/floating-input';
-import { useEffect, useState } from 'react';
+import { EditEmailDialog } from '@/app/(user-layout)/account/components/edit-email-dialog';
 
 const personalFormSchema = z.object({
     name: z.string().min(1, { message: 'Name is required' }).max(100),
@@ -167,12 +167,15 @@ const ContactInformationSection = ({
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <FloatingLabelInput
-                                    label={'Email'}
-                                    className="app-text-input"
-                                    type="email"
-                                    {...field}
-                                />
+                                <div className={'relative w-full'}>
+                                    <FloatingLabelInput
+                                        label={'Email'}
+                                        className="app-text-input pointer-events-none"
+                                        type="email"
+                                        {...field}
+                                    />
+                                    <EditEmailDialog />
+                                </div>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -216,8 +219,6 @@ const ContactInformationSection = ({
 );
 
 const PersonalTab = () => {
-    const [isDirty, setIsDirty] = useState(false);
-
     const form = useForm<z.infer<typeof personalFormSchema>>({
         resolver: zodResolver(personalFormSchema),
         defaultValues: {
@@ -231,16 +232,7 @@ const PersonalTab = () => {
         },
     });
 
-    useEffect(() => {
-        const subscription = form.watch(() => {
-            // Check if any field has been modified
-            const isFormDirty =
-                Object.keys(form.formState.dirtyFields).length > 0;
-            setIsDirty(isFormDirty);
-        });
-
-        return () => subscription.unsubscribe();
-    }, [form]);
+    const { isDirty } = useFormState({ control: form.control });
 
     const onSubmit = async (data: PersonalFormData) => {
         console.log('Updated profile ', JSON.stringify(data, null, 2));

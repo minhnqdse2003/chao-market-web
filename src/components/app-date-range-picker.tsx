@@ -21,6 +21,7 @@ interface AppDateRangePickerProps {
         endDate?: Date;
     };
     highlightOnActive?: boolean;
+    shouldLabelVisible?: boolean;
 }
 
 const AppDateRangePicker = ({
@@ -28,6 +29,7 @@ const AppDateRangePicker = ({
     value,
     label = 'Date Range',
     highlightOnActive = false,
+    shouldLabelVisible = true,
 }: AppDateRangePickerProps) => {
     const [open, setOpen] = useState<{ start: boolean; end: boolean }>({
         start: false,
@@ -53,7 +55,9 @@ const AppDateRangePicker = ({
 
     return (
         <div className="flex flex-col gap-3 w-full">
-            <Label className="px-1 font-semibold">{label}</Label>
+            {shouldLabelVisible && (
+                <Label className="px-1 font-semibold">{label}</Label>
+            )}
             <div className="flex gap-[1rem] items-center">
                 <Popover
                     open={open.start}

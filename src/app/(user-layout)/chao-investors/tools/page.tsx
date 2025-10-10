@@ -1,7 +1,7 @@
 'use client';
 import { useI18n } from '@/context/i18n/context';
 import { AppTabs, TabItem } from '@/components/app-tabs';
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     LineChart,
     Line,
@@ -13,7 +13,6 @@ import {
     ResponsiveContainer,
 } from 'recharts';
 
-import { Label } from '@/components/ui/label';
 import { FloatingLabelInput } from '@/components/ui/floating-input';
 import {
     Card,
@@ -27,6 +26,10 @@ import { cn } from '@/lib/utils';
 import { calculateAdjustedHeight } from '@/utils/height-utils';
 import { useDebounce } from '@uidotdev/usehooks';
 import { useTheme } from 'next-themes';
+import { Separator } from '@/components/ui/separator';
+import AppTooltips from '@/components/app-tooltips';
+import { Button } from '@/components/ui/button';
+import { Info } from 'lucide-react';
 
 interface ToolConfig {
     key: string;
@@ -34,55 +37,113 @@ interface ToolConfig {
     enSrc: string;
 }
 
-const toolConfigs: ToolConfig[] = [
+interface Group {
+    key: string;
+    items: ToolConfig[];
+}
+
+const toolConfigs: Group[] = [
     {
-        key: 'currencyConverterCalc',
-        viSrc: 'https://ssltools.investing.com/currency-converter/?from=12&to=87&force_lang=52&with_powered_by=true',
-        enSrc: 'https://ssltools.investing.com/currency-converter/?from=12&to=87&force_lang=1&with_powered_by=true',
+        key: 'currencyConverterCalc & pipCalculator',
+        items: [
+            {
+                key: 'currencyConverterCalc',
+                viSrc: 'https://ssltools.investing.com/currency-converter/?from=12&to=87&force_lang=52&with_powered_by=true',
+                enSrc: 'https://ssltools.investing.com/currency-converter/?from=12&to=87&force_lang=1&with_powered_by=true',
+            },
+            {
+                key: 'pipCalculator',
+                viSrc: 'https://ssltools.investing.com/pip-calculator/?force_lang=52&with_powered_by=true',
+                enSrc: 'https://ssltools.investing.com/pip-calculator/?force_lang=1&with_powered_by=true',
+            },
+        ],
     },
     {
-        key: 'pipCalculator',
-        viSrc: 'https://ssltools.investing.com/pip-calculator/?force_lang=52&with_powered_by=true',
-        enSrc: 'https://ssltools.investing.com/pip-calculator/?force_lang=1&with_powered_by=true',
+        key: 'profitCalculator & pivotalCalculator',
+        items: [
+            {
+                key: 'profitCalculator',
+                viSrc: 'https://ssltools.investing.com/profit-calculator/?force_lang=52&with_powered_by=true',
+                enSrc: 'https://ssltools.investing.com/profit-calculator/?force_lang=1&with_powered_by=true',
+            },
+            {
+                key: 'pivotalCalculator',
+                viSrc: 'https://ssltools.investing.com/pivot-calculator/?force_lang=52&with_powered_by=true',
+                enSrc: 'https://ssltools.investing.com/pivot-calculator/?force_lang=1&with_powered_by=true',
+            },
+        ],
     },
     {
-        key: 'profitCalculator',
-        viSrc: 'https://ssltools.investing.com/profit-calculator/?force_lang=52&with_powered_by=true',
-        enSrc: 'https://ssltools.investing.com/profit-calculator/?force_lang=1&with_powered_by=true',
-    },
-    {
-        key: 'pivotalCalculator',
-        viSrc: 'https://ssltools.investing.com/pivot-calculator/?force_lang=52&with_powered_by=true',
-        enSrc: 'https://ssltools.investing.com/pivot-calculator/?force_lang=1&with_powered_by=true',
-    },
-    {
-        key: 'fiboCalculator',
-        viSrc: 'https://ssltools.investing.com/fibonacci-calculator/?force_lang=52&with_powered_by=true',
-        enSrc: 'https://ssltools.investing.com/fibonacci-calculator/?force_lang=1&with_powered_by=true',
-    },
-    {
-        key: 'marginCalculator',
-        viSrc: 'https://ssltools.investing.com/margin-calculator/?force_lang=52&with_powered_by=true',
-        enSrc: 'https://ssltools.investing.com/margin-calculator/?force_lang=1&with_powered_by=true',
+        key: 'fiboCalculator & marginCalculator',
+        items: [
+            {
+                key: 'fiboCalculator',
+                viSrc: 'https://ssltools.investing.com/fibonacci-calculator/?force_lang=52&with_powered_by=true',
+                enSrc: 'https://ssltools.investing.com/fibonacci-calculator/?force_lang=1&with_powered_by=true',
+            },
+            {
+                key: 'marginCalculator',
+                viSrc: 'https://ssltools.investing.com/margin-calculator/?force_lang=52&with_powered_by=true',
+                enSrc: 'https://ssltools.investing.com/margin-calculator/?force_lang=1&with_powered_by=true',
+            },
+        ],
     },
 ];
 
 function ToolContent({ toolKey, src }: { toolKey: string; src: ToolConfig }) {
     const { t, locale } = useI18n();
 
+    const processHeight = () => {
+        switch (src.key) {
+            case 'currencyConverterCalc':
+                return 400;
+            case 'pipCalculator':
+                return calculateAdjustedHeight() + 80;
+            case 'profitCalculator':
+                return calculateAdjustedHeight() - 120;
+            case 'pivotalCalculator':
+                return calculateAdjustedHeight() - 60;
+            case 'fiboCalculator':
+                return calculateAdjustedHeight() - 20;
+            case 'marginCalculator':
+                return calculateAdjustedHeight() - 220;
+        }
+    };
+
+    const processWidth = () => {
+        switch (src.key) {
+            case 'currencyConverterCalc':
+                return 216;
+            case 'pipCalculator':
+                return calculateAdjustedHeight() - 100;
+            case 'profitCalculator':
+                return calculateAdjustedHeight() - 220;
+            case 'pivotalCalculator':
+                return calculateAdjustedHeight() - 100;
+            case 'fiboCalculator':
+                return calculateAdjustedHeight() - 100;
+            case 'marginCalculator':
+                return calculateAdjustedHeight() - 220;
+        }
+    };
+
     return (
-        <div key={src.key + locale} className={'w-full'}>
-            <p className="mb-4">
+        <div
+            key={src.key + locale}
+            className={'w-full flex flex-col gap-2 items-center'}
+        >
+            <p>
                 {t(
                     `investors.items.toolForInvestor.items.${toolKey}.description`
                 )}
             </p>
             <iframe
-                height={calculateAdjustedHeight(10)}
+                height={processHeight() ?? 600 - 20}
+                width={processWidth()}
                 src={locale === 'vi' ? src.viSrc : src.enSrc}
                 className={cn(
-                    'w-fit mx-auto flex items-center justify-center',
-                    `${src.key !== 'currencyConverterCalc' ? 'w-[36rem]' : ''}`
+                    'w-fit flex items-center justify-center dark:bg-white',
+                    `w-${processWidth()}`
                 )}
             />
         </div>
@@ -97,8 +158,11 @@ function InterestCalculator() {
     >('simple');
     const [timeUnit, setTimeUnit] = useState<'year' | 'month' | 'day'>('year');
     const [timeValue, setTimeValue] = useState<number>(10);
-    const [initialCapital, setInitialCapital] = useState<number>(160655.97);
-    const [growthRate, setGrowthRate] = useState<number>(75.9);
+    const [initialCapital, setInitialCapital] = useState<number>(10000);
+    const [growthRate, setGrowthRate] = useState<number>(10);
+    const [growthUnit, setGrowthUnit] = useState<'year' | 'month' | 'day'>(
+        'year'
+    );
     const [volatility, setVolatility] = useState<number>(15);
     const [simulations, setSimulations] = useState<number>(1000);
 
@@ -106,6 +170,7 @@ function InterestCalculator() {
         return num.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
+            trailingZeroDisplay: 'stripIfInteger',
         });
     };
 
@@ -114,59 +179,100 @@ function InterestCalculator() {
     };
 
     // Generate data for chart
+    // Generate data for chart
     const generateChartData = useCallback(() => {
         const data = [];
 
-        let periodsPerYear = 1;
-        if (timeUnit === 'month') {
-            periodsPerYear = 12;
-        } else if (timeUnit === 'day') {
-            periodsPerYear = 365;
+        // Determine the number of growthUnit periods per year
+        let growthUnitPerYear = 1;
+        if (growthUnit === 'month') {
+            growthUnitPerYear = 12;
+        } else if (growthUnit === 'day') {
+            growthUnitPerYear = 365; // Or 365.25 for leap years
         }
 
-        const periodicGrowthRate = growthRate / 100 / periodsPerYear;
-        const periodicVolatility = volatility / 100 / periodsPerYear;
+        // The rate provided by the user is already per growthUnit
+        const ratePerGrowthUnit = growthRate / 100;
+
+        // Determine the number of timeUnit periods per year
+        let timeUnitPerYear = 1;
+        if (timeUnit === 'month') {
+            timeUnitPerYear = 12;
+        } else if (timeUnit === 'day') {
+            timeUnitPerYear = 365; // Or 365.25 for leap years
+        }
+
+        // Determine the number of growthUnit periods per one timeUnit period
+        const growthUnitsPerTimeUnit = growthUnitPerYear / timeUnitPerYear;
+
+        // Determine the rate per timeUnit period (for compound/monte carlo)
+        // This is the effective rate that represents the growthUnit rate applied for the duration of one timeUnit
+        // For example, if growthUnit is 'month' (rate 1%) and timeUnit is 'year', this rate would represent the
+        // cumulative effect of applying 1% monthly for 12 months (approximately 12.68% for 12 periods of 1%).
+        // However, for simple interest, we need the rate *applied* per timeUnit based on the growthUnit rate.
+        const ratePerTimeUnitForCompound =
+            Math.pow(1 + ratePerGrowthUnit, growthUnitsPerTimeUnit) - 1;
+
+        // For Simple Interest: Calculate interest earned per timeUnit based on the growthUnit rate
+        // Interest per timeUnit = Principal * (rate_per_growthUnit * growthUnits_per_timeUnit)
+        const simpleInterestPerTimeUnit =
+            initialCapital * (ratePerGrowthUnit * growthUnitsPerTimeUnit);
 
         if (calculationType === 'simple') {
-            const yearlyInterest = initialCapital * (growthRate / 100);
+            // Simple interest: value = principal + (interest_per_time_unit * number_of_time_units)
             for (let i = 0; i <= timeValue; i++) {
-                // Simple interest is based on total time in years
-                const value =
-                    initialCapital + yearlyInterest * (i / periodsPerYear);
+                const value = initialCapital + simpleInterestPerTimeUnit * i;
                 data.push({
                     time: i,
                     value: value,
                 });
             }
         } else if (calculationType === 'compound') {
+            // Compound interest: value = principal * (1 + rate_per_time_unit) ^ number_of_time_units
+            // Use the effective rate calculated for the timeUnit period
             for (let i = 0; i <= timeValue; i++) {
-                // Use the periodic rate for compounding
                 const value =
-                    initialCapital * Math.pow(1 + periodicGrowthRate, i);
+                    initialCapital *
+                    Math.pow(1 + ratePerTimeUnitForCompound, i);
                 data.push({
                     time: i,
                     value: value,
                 });
             }
         } else if (calculationType === 'monteCarlo') {
+            // For Monte Carlo, we need to simulate the growthUnit rate applied over the timeUnit period.
+            // This involves generating random returns for each growthUnit within a timeUnit and combining them.
+            // A simpler approach is to simulate the growthUnit rate for the total number of growthUnit periods
+            // and then sample the result at the end of each timeUnit period.
+
+            // Calculate volatility per growthUnit period
+            const volatilityPerGrowthUnit =
+                volatility / 100 / Math.sqrt(growthUnitPerYear); // Scales volatility with sqrt(time)
+
             const results = [];
             for (let sim = 0; sim < simulations; sim++) {
                 let balance = initialCapital;
                 const scenario = [{ time: 0, value: initialCapital }];
 
-                for (let i = 1; i <= timeValue; i++) {
-                    // Use periodic rates for the simulation step
-                    const randomReturn = generateRandomNormal(
-                        periodicGrowthRate,
-                        periodicVolatility
-                    );
-                    balance = balance * (1 + randomReturn);
-                    scenario.push({ time: i, value: balance });
+                for (
+                    let timeUnitStep = 1;
+                    timeUnitStep <= timeValue;
+                    timeUnitStep++
+                ) {
+                    // Simulate for the number of growth units within this time unit step
+                    for (let g = 0; g < growthUnitsPerTimeUnit; g++) {
+                        const randomReturn = generateRandomNormal(
+                            ratePerGrowthUnit,
+                            volatilityPerGrowthUnit
+                        );
+                        balance = balance * (1 + randomReturn);
+                    }
+                    scenario.push({ time: timeUnitStep, value: balance });
                 }
                 results.push(scenario);
             }
 
-            // Calculate median for each time point
+            // Calculate median for each time unit point
             for (let i = 0; i <= timeValue; i++) {
                 const valuesAtTime = results
                     .map(scenario => scenario[i].value)
@@ -184,6 +290,7 @@ function InterestCalculator() {
     }, [
         calculationType,
         growthRate,
+        growthUnit,
         initialCapital,
         simulations,
         timeUnit,
@@ -234,29 +341,52 @@ function InterestCalculator() {
         },
     ];
 
+    const processUnitLabel = (
+        unit: 'year' | 'month' | 'day',
+        locale: 'vi' | 'en'
+    ): string => {
+        switch (unit) {
+            case 'year':
+                return locale === 'vi' ? 'Năm' : 'Year';
+            case 'month':
+                return locale === 'vi' ? 'Tháng' : 'Month';
+            case 'day':
+                return locale === 'vi' ? 'Ngày' : 'Day';
+        }
+    };
+
     /* eslint-disable @typescript-eslint/no-explicit-any */
     const chartData = useDebounce(generateChartData, 300) as unknown as any[];
+    const height = calculateAdjustedHeight() + 80;
 
     return (
-        <div className="flex flex-col md:flex-row gap-6">
+        <div
+            className="flex flex-col md:flex-row gap-2"
+            style={{ height: `${height}px` }}
+        >
             {/* Left Panel - Controls */}
-            <div className="w-full md:w-1/3">
+            <div className="w-full md:w-1/6">
                 <Card className={'bg-transparent dark:bg-transparent h-full'}>
                     <CardHeader>
                         <div className="text-brand-text rounded-md">
-                            <h3 className="font-bold mb-2">
-                                {calculationType === 'simple'
-                                    ? locale === 'vi'
-                                        ? 'Lãi Đơn'
-                                        : 'Simple Interest'
-                                    : calculationType === 'compound'
-                                      ? locale === 'vi'
-                                          ? 'Lãi Kép'
-                                          : 'Compound Interest'
-                                      : locale === 'vi'
-                                        ? 'Monte Carlo'
-                                        : 'Monte Carlo'}
-                            </h3>
+                            <AppDropdown
+                                options={getCalculationTypeOptions(
+                                    locale as 'vi' | 'en'
+                                )}
+                                value={calculationType}
+                                onValueChange={(value: string) =>
+                                    setCalculationType(
+                                        value as
+                                            | 'simple'
+                                            | 'compound'
+                                            | 'monteCarlo'
+                                    )
+                                }
+                                labelVisible={false}
+                                buttonClassName="w-fit px-0! justify-between"
+                                contentClassName="w-full!"
+                                shouldSelectedValueHighlight
+                            />
                             <p className="text-sm">
                                 {calculationType === 'simple'
                                     ? locale === 'vi'
@@ -272,42 +402,18 @@ function InterestCalculator() {
                             </p>
                         </div>
                     </CardHeader>
+                    <Separator />
                     <CardContent className="space-y-6">
-                        <div>
-                            <Label>
-                                {locale === 'vi'
-                                    ? 'Chế độ tính toán:'
-                                    : 'Calculation Mode:'}
-                            </Label>
-                            <AppDropdown
-                                options={getCalculationTypeOptions(
-                                    locale as 'vi' | 'en'
-                                )}
-                                value={calculationType}
-                                onValueChange={(value: string) =>
-                                    setCalculationType(
-                                        value as
-                                            | 'simple'
-                                            | 'compound'
-                                            | 'monteCarlo'
-                                    )
-                                }
-                                labelVisible={false}
-                                buttonClassName="w-fit min-w-[200px] justify-between"
-                                contentClassName="w-full!"
-                            />
-                        </div>
-
                         <div className="w-full relative items-center">
                             <FloatingLabelInput
                                 type="number"
-                                label={locale === 'vi' ? 'Số' : 'Amount'}
+                                label={locale === 'vi' ? 'Kỳ Hạn' : 'Term'}
                                 value={timeValue}
                                 onChange={e => {
                                     const value = Number(e.target.value);
                                     const clampedValue = Math.min(
                                         Math.max(value, 0),
-                                        31
+                                        60
                                     );
                                     setTimeValue(clampedValue);
                                 }}
@@ -332,39 +438,92 @@ function InterestCalculator() {
                             />
                         </div>
 
-                        <div>
+                        <div className={'relative'}>
                             <FloatingLabelInput
-                                type="text"
+                                type="number"
                                 label={
                                     locale === 'vi'
                                         ? 'Vốn đầu tư ban đầu (USD)'
                                         : 'Starting Equity (USD)'
                                 }
-                                value={formatNumber(initialCapital)}
+                                value={initialCapital}
                                 onChange={e =>
                                     setInitialCapital(
                                         setFormatNumber(e.target.value)
                                     )
                                 }
-                                className="app-text-input pr-10"
+                                className="app-text-input pr-10 text-transparent caret-transparent"
+                            />
+                            <p
+                                className={
+                                    'absolute left-3 top-1/2 transform -translate-y-1/2 bg-sidebar'
+                                }
+                            >
+                                {formatNumber(initialCapital)}
+                            </p>
+                            <AppTooltips
+                                contents={
+                                    <div className="max-w-[24rem] flex flex-col gap-2">
+                                        {locale === 'vi' ? (
+                                            <p>Giới hạn hiển thị: 60</p>
+                                        ) : (
+                                            <p>Display limit: 60</p>
+                                        )}
+                                    </div>
+                                }
+                                trigger={
+                                    <Button
+                                        variant="ghost"
+                                        className={
+                                            'dark:hover:bg-transparent absolute' +
+                                            ' right-0 bottom-1/2 transform translate-y-1/2' +
+                                            ' dark:hover:text-[var(--brand-color)]'
+                                        }
+                                    >
+                                        <Info className="size-3" />
+                                    </Button>
+                                }
                             />
                         </div>
 
-                        <div>
+                        <div className={'relative'}>
                             <FloatingLabelInput
                                 type="number"
                                 label={
                                     locale === 'vi'
-                                        ? 'Lãi suất (%/năm)'
-                                        : 'Growth Rate (%/year)'
+                                        ? `Lãi suất (%/${processUnitLabel(growthUnit, 'vi')})`
+                                        : `Growth Rate (%/${processUnitLabel(growthUnit, 'en')})`
                                 }
                                 value={growthRate}
                                 onChange={e =>
                                     setGrowthRate(Number(e.target.value))
                                 }
-                                min="0"
+                                min="1"
                                 step="0.1"
-                                className="app-text-input pr-10"
+                                className="app-text-input pr-10 text-transparent caret-transparent"
+                            />
+
+                            <p
+                                className={
+                                    'absolute left-3 top-1/2 transform -translate-y-1/2 bg-sidebar'
+                                }
+                            >
+                                {formatNumber(growthRate)}
+                            </p>
+
+                            <AppDropdown
+                                options={getTimeUnitOptions(
+                                    locale as 'vi' | 'en'
+                                )}
+                                value={growthUnit}
+                                onValueChange={(value: string) =>
+                                    setGrowthUnit(
+                                        value as 'year' | 'month' | 'day'
+                                    )
+                                }
+                                labelVisible={false}
+                                buttonClassName="w-fit justify-between absolute right-1 bottom-1/2 transform translate-y-1/2"
+                                contentClassName="w-full!"
                             />
                         </div>
 
@@ -416,7 +575,7 @@ function InterestCalculator() {
             </div>
 
             {/* Right Panel - Chart */}
-            <div className="w-full h-full md:w-2/3">
+            <div className="w-full h-full md:flex-1">
                 <Card className={'bg-transparent dark:bg-transparent'}>
                     <CardHeader>
                         <CardTitle>
@@ -431,7 +590,7 @@ function InterestCalculator() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div className="h-[500px]">
+                        <div style={{ height: `${height - 200}px` }}>
                             <ResponsiveContainer width="100%" height="100%">
                                 <LineChart
                                     data={chartData}
@@ -467,7 +626,7 @@ function InterestCalculator() {
                                     />
                                     <YAxis
                                         tickFormatter={value =>
-                                            `$${(value / 1000).toFixed(0)}K`
+                                            `$${(value / 1000).toFixed(2)}K`
                                         }
                                     />
                                     <Tooltip
@@ -507,25 +666,43 @@ function InterestCalculator() {
                             </ResponsiveContainer>
                         </div>
 
-                        <div className="mt-4 grid grid-cols-2 gap-4">
+                        <div className="mt-4 grid grid-cols-4 gap-4">
                             <div className="p-3 text-brand-text rounded-md">
                                 <p className="text-sm">
                                     {locale === 'vi'
-                                        ? 'Giá trị đầu tư ban đầu:'
-                                        : 'Starting Investment:'}
+                                        ? 'Giá trị đầu tư ban đầu'
+                                        : 'Starting Investment'}
                                 </p>
-                                <p className="font-bold">
-                                    ${formatNumber(initialCapital)}
+                                <p className="font-bold dark:text-[var(--brand-color)]">
+                                    $ {formatNumber(initialCapital)}
+                                </p>
+                            </div>
+                            <div className="p-3 text-brand-text rounded-md">
+                                <p className="text-sm">
+                                    {locale === 'vi' ? 'Kỳ Hạn' : 'Term'}
+                                </p>
+                                <p className="font-bold dark:text-[var(--brand-color)]">
+                                    {timeValue} {timeUnit}
                                 </p>
                             </div>
                             <div className="p-3 text-brand-text rounded-md">
                                 <p className="text-sm">
                                     {locale === 'vi'
-                                        ? 'Giá trị cuối kỳ:'
-                                        : 'Final Value:'}
+                                        ? 'Lãi Suất'
+                                        : 'Growth Rate'}
                                 </p>
-                                <p className="font-bold">
-                                    $
+                                <p className="font-bold dark:text-[var(--brand-color)]">
+                                    {growthRate} %/{growthUnit}
+                                </p>
+                            </div>
+                            <div className="p-3 text-brand-text rounded-md">
+                                <p className="text-sm">
+                                    {locale === 'vi'
+                                        ? 'Giá trị cuối kỳ'
+                                        : 'Final Value'}
+                                </p>
+                                <p className="font-bold dark:text-[var(--brand-color)]">
+                                    ${' '}
                                     {formatNumber(
                                         chartData[chartData.length - 1]
                                             ?.value || 0
@@ -545,18 +722,36 @@ export default function InvestorToolsComp() {
     const [tabsList, setTabsList] = useState<TabItem[]>([]);
 
     useEffect(() => {
-        const newTabsList = toolConfigs.map(tool => ({
-            title: t(`investors.items.toolForInvestor.items.${tool.key}.title`),
-            value: tool.key,
-            renderContent: () =>
-                Promise.resolve(
-                    <ToolContent
-                        key={`${locale}-${tool.key}`} // Add locale to key to force re-render
-                        toolKey={tool.key}
-                        src={tool}
-                    />
-                ),
-        }));
+        const newTabsList = toolConfigs.map(group => {
+            const title = group.items.reduce((acc, item) => {
+                return acc
+                    ? acc +
+                          ' & ' +
+                          t(
+                              `investors.items.toolForInvestor.items.${item.key}.title`
+                          )
+                    : t(
+                          `investors.items.toolForInvestor.items.${item.key}.title`
+                      );
+            }, '');
+
+            return {
+                title,
+                value: group.key,
+                renderContent: () =>
+                    Promise.resolve(
+                        <div className={'flex gap-4'}>
+                            {group.items.map(item => (
+                                <ToolContent
+                                    key={item.key}
+                                    toolKey={item.key}
+                                    src={item}
+                                />
+                            ))}
+                        </div>
+                    ),
+            };
+        });
 
         setTabsList([
             ...newTabsList,
@@ -574,5 +769,5 @@ export default function InvestorToolsComp() {
         return <div>Loading...</div>;
     }
 
-    return <AppTabs tabsList={tabsList} size={2} />;
+    return <AppTabs tabsList={tabsList} size={1} />;
 }

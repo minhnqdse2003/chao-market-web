@@ -41,32 +41,17 @@ export default function SocialPage() {
                       ),
               },
               {
-                  title: 'Threads',
-                  value: 'threads',
-                  renderContent: () =>
-                      Promise.resolve(
-                          <iframe
-                              src="https://rss.app/embed/v1/wall/QV4u1yLNeXA2ikRW"
-                              key={theme}
-                              width="100%"
-                              height={height}
-                              frameBorder="0"
-                              className={'bg-transparent'}
-                          ></iframe>
-                      ),
-              },
-              {
                   title: 'Youtube',
                   value: 'youtube',
                   renderContent: () =>
                       Promise.resolve(
                           <iframe
-                              src="https://rss.app/embed/v1/wall/LcMNLmY5DN8IDJ8d"
                               key={theme}
                               width="100%"
                               height={height}
                               frameBorder="0"
                               className={'bg-transparent'}
+                              src="https://rss.app/embed/v1/wall/Ji9BXyT5x5ofv96e"
                           ></iframe>
                       ),
               },

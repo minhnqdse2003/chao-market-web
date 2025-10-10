@@ -158,9 +158,12 @@ export function NavUser() {
                                         ' dark:hover:bg-transparent transition-colors! duration-200 ease-in-out' +
                                         ' cursor-pointer hover:font-semibold'
                                     }
+                                    asChild
                                 >
-                                    <Bell />
-                                    Notifications
+                                    <Link href={'/account?tab=notifications'}>
+                                        <Bell />
+                                        Notifications
+                                    </Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                     className={
@@ -169,7 +172,7 @@ export function NavUser() {
                                     }
                                     asChild
                                 >
-                                    <Link href={'/account'}>
+                                    <Link href={'/account?tab=personal'}>
                                         <User />
                                         Account
                                     </Link>

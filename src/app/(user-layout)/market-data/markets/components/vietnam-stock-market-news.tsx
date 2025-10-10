@@ -26,7 +26,11 @@ export type NewsSourceType =
     | 'facebook-chao-market-page'
     | 'tiktok-chao-market-page'
     | 'thread-chao-market-page'
-    | 'youtube-chao-market-page';
+    | 'youtube-chao-market-page'
+    | 'B01-market-fin-news-global-vn'
+    | 'B02-market-fin-news--global-en'
+    | 'B03-market-fin-news-vietnam-vn'
+    | 'B04-market-fin-news-vietnam-en';
 
 interface CombinedNewsFeedProps {
     type: NewsSourceType;

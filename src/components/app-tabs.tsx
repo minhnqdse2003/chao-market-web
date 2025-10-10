@@ -16,6 +16,7 @@ type TabComponentProps = {
     isHorizontal?: boolean;
     defaultValue?: string;
     size?: number;
+    onValueChange?: (activeTab: string) => void;
 };
 
 export function AppTabs({
@@ -23,7 +24,8 @@ export function AppTabs({
     shouldBorderVisible = true,
     isHorizontal = false,
     defaultValue,
-    size = 0,
+    size = 1,
+    onValueChange,
 }: Readonly<TabComponentProps>) {
     const [activeTab, setActiveTab] = useState(
         defaultValue || tabsList[0]?.value
@@ -89,6 +91,10 @@ export function AppTabs({
                                 ' data-[state=inactive]:hover:text-black data-[state=inactive]:hover:border-black',
                             `${shouldBorderVisible ? '' : 'border-transparent!'}`
                         )}
+                        onClick={() => {
+                            /* eslint-disable-next-line @typescript-eslint/no-unused-expressions */
+                            onValueChange && onValueChange(tab.value);
+                        }}
                         style={{ fontSize: dynamicFontSize }}
                     >
                         {tab.title}

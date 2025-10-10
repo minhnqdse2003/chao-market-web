@@ -73,6 +73,15 @@ const fetchRssFeed = async (
         // Handle single URL
         const proxyUrl = CORS_PROXY + rssUrl;
         const feed = await parser.parseURL(proxyUrl);
+        const processSourceUrl = (src: string) => {
+            if (sourceUrl) return sourceUrl;
+            if (src.includes('tuoitre.vn')) return 'tuoitre.vn';
+            if (src.includes('reuters.com')) return 'reuters.com';
+            if (src.includes('vietstock.vn')) return 'vietstock.vn';
+            if (src.includes('investing.com')) return 'investing.com';
+            if (src.includes('cointelegraph.com')) return 'cointelegraph.com';
+            return src;
+        };
 
         const items = feed.items.map(item => ({
             title: item.title || '',
@@ -80,7 +89,7 @@ const fetchRssFeed = async (
             pubDate: item.pubDate,
             contentSnippet: item.contentSnippet,
             imageUrl: getImageUrl(item),
-            sourceUrl: sourceUrl,
+            sourceUrl: processSourceUrl(item.link || ''),
         }));
 
         console.log(`${sourceName}: ${JSON.stringify(items, null, 2) || '[]'}`);
@@ -182,6 +191,22 @@ const newsSources: Record<NewsSourceType, Source> = {
     'youtube-chao-market-page': {
         url: 'https://rss.app/feeds/LcMNLmY5DN8IDJ8d.xml',
         name: 'Youtube Chao Market Page',
+    },
+    'B01-market-fin-news-global-vn': {
+        url: 'https://rss.app/feeds/_BRqLOO7u97uGqZdZ.xml',
+        name: 'Market Fin News Global VN',
+    },
+    'B02-market-fin-news--global-en': {
+        url: 'https://rss.app/feeds/_WfF2OWkeYpARuihv.xml',
+        name: 'Market Fin News Global EN',
+    },
+    'B03-market-fin-news-vietnam-vn': {
+        url: 'https://rss.app/feeds/_Sichy9WylKHt4Kmt.xml',
+        name: 'Market Fin News Vietnam VN',
+    },
+    'B04-market-fin-news-vietnam-en': {
+        url: 'https://rss.app/feeds/_OVvfRJHz4g0sMxAV.xml',
+        name: 'Market Fin News Vietnam EN',
     },
 };
 

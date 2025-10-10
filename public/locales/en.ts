@@ -450,4 +450,8 @@ export const en: TranslationsStructure = {
             },
         },
     },
+    account: {
+        profile: 'Profile',
+        notification: 'Notification',
+    },
 };

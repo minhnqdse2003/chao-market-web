@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { calculateAdjustedHeight, processHeight } from '@/utils/height-utils';
 import { useTheme } from 'next-themes';
+import { cn } from '@/lib/utils';
 
 // Declare the FireAnt types
 declare global {
@@ -35,10 +36,12 @@ const VietnamComp = ({
     isSingle = true,
     numberOfSubTab,
     type = 'dnse',
+    containerClassName = 'w-1/2',
 }: {
     isSingle?: boolean;
     numberOfSubTab?: number;
     type?: 'quote' | 'dnse' | 'market';
+    containerClassName?: string;
 }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const { theme } = useTheme();
@@ -128,7 +131,7 @@ const VietnamComp = ({
                     }
                 };
         }
-    }, [type, isSingle, numberOfSubTab]);
+    }, [type, isSingle, numberOfSubTab, theme]);
 
     const getWidgetId = useCallback(() => {
         switch (type) {
@@ -142,7 +145,11 @@ const VietnamComp = ({
     }, [type, theme]);
 
     return (
-        <div ref={containerRef} id={getWidgetId()} className="h-fit w-1/2" />
+        <div
+            ref={containerRef}
+            id={getWidgetId()}
+            className={cn('h-fit', containerClassName)}
+        />
     );
 };
 

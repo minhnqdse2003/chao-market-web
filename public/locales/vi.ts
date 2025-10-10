@@ -450,4 +450,8 @@ export const vi: TranslationsStructure = {
             },
         },
     },
+    account: {
+        notification: 'Thông Báo',
+        profile: 'Hồ Sơ',
+    },
 };

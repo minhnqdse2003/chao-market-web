@@ -29,6 +29,7 @@ interface AppDropdownProps {
     contentClassName?: string;
     onValueChange?: (value: string) => void;
     labelVisible?: boolean;
+    shouldSelectedValueHighlight?: boolean;
 }
 
 // Helper type for grouping
@@ -48,6 +49,7 @@ const AppDropdown = ({
     contentClassName = 'w-44',
     onValueChange,
     labelVisible = true,
+    shouldSelectedValueHighlight = false,
 }: AppDropdownProps) => {
     // Determine the initial value: controlled 'value' > 'defaultValue' > first option
     const initialValue = value ?? defaultValue ?? options[0]?.value ?? '';
@@ -105,7 +107,14 @@ const AppDropdown = ({
                     )}
                 >
                     {labelVisible && 'Sort by: '}
-                    <p className={'font-semibold'}>{selectedLabel}</p>
+                    <p
+                        className={cn(
+                            'font-semibold',
+                            `${shouldSelectedValueHighlight && 'dark:text-[var(--brand-color)]'}`
+                        )}
+                    >
+                        {selectedLabel}
+                    </p>
                     <ChevronsUpDown />
                 </Button>
             </DropdownMenuTrigger>

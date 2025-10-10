@@ -14,13 +14,13 @@ export default function CompletionStep() {
     };
 
     return (
-        <div className={'flex flex-col justify-evenly mt-[2.5rem]'}>
+        <div className={'flex flex-col gap-[2.125rem] pt-8 mt-[2.5rem]'}>
             <Image
                 src={ResetPasswordComplete}
                 alt={'reset-password-complete'}
                 width={1920}
                 height={1080}
-                className={'h-2/5 mx-auto object-contain'}
+                className={'h-2/7 mx-auto object-contain'}
             />
 
             <div className="flex flex-col space-y-4 w-full">

@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useTheme } from 'next-themes';
 import { LIGHT_THEME_CONFIG_ECONOMY_CALENDAR } from '@/app/(user-layout)/market-data/markets/components/stock';
+import { calculateAdjustedHeight } from '@/utils/height-utils';
 
 const CalendarComp = () => {
     const container = useRef<HTMLDivElement>(null);
@@ -14,7 +15,7 @@ const CalendarComp = () => {
             colorTheme: theme === 'dark' ? 'dark' : 'light',
             countryFilter: 'us,eu,jp,gb,ch,au,ca,vn,cn',
             width: '100%',
-            height: 650,
+            height: calculateAdjustedHeight() + 120,
             autosize: true,
         }),
         [theme]

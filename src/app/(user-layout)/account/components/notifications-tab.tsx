@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AppDropdown from '@/components/app-dropdown';
 import { TimeAgo } from '@/components/time-ago';
+import AppDateRangePicker from '@/components/app-date-range-picker';
+import React, { useState } from 'react';
 
 // Define the dropdown option type
 interface DropdownOption {
@@ -35,6 +37,17 @@ interface Notification {
 }
 
 const NotificationsTab = () => {
+    const [filterParams, setFilterParams] = useState<{
+        date: { startDate?: Date; endDate?: Date };
+        filterOptions: string;
+    }>({
+        date: {},
+        filterOptions: 'all',
+    });
+
+    const handleFilterChange = (key: string, value: unknown) =>
+        setFilterParams(prev => ({ ...prev, [key]: value }));
+
     // Sample notifications data
     const notifications: Notification[] = [
         {
@@ -63,14 +76,29 @@ const NotificationsTab = () => {
         <Card className={'bg-transparent'}>
             <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>Notification Preferences</CardTitle>
-                <AppDropdown
-                    options={getNotificationTypeOptions()}
-                    value="all"
-                    onValueChange={(value: string) => console.log(value)}
-                    labelVisible={false}
-                    buttonClassName="w-fit min-w-[200px] justify-between"
-                    contentClassName="w-full!"
-                />
+                <div
+                    className={
+                        'flex min-w-[37.5rem] gap-2 justify-center items-center'
+                    }
+                >
+                    <AppDateRangePicker
+                        label="Date"
+                        value={filterParams.date}
+                        onChange={range => handleFilterChange('date', range)}
+                        highlightOnActive={true}
+                        shouldLabelVisible={false}
+                    />
+                    <AppDropdown
+                        options={getNotificationTypeOptions()}
+                        value={filterParams.filterOptions}
+                        onValueChange={(value: string) =>
+                            handleFilterChange('filterOptions', value)
+                        }
+                        labelVisible={false}
+                        buttonClassName="w-fit min-w-[200px] justify-between"
+                        contentClassName="w-full!"
+                    />
+                </div>
             </CardHeader>
             <CardContent className="space-y-6">
                 <div className="mt-8">

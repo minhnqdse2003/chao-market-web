@@ -23,7 +23,7 @@ export default function AppTabsServerSide({
     isSubTab = false,
     currentHref,
     subTabClassName = '',
-    size = 0,
+    size = 1,
 }: AppTabsServerSideProps) {
     // Parse current search params
     const searchParams = new URLSearchParams(currentSearchParams);

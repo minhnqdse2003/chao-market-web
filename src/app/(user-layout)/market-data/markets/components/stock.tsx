@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { MARKET_SYMBOL, TMarketSymbolKey } from '@/constant/market-query';
 import { calculateAdjustedHeight } from '@/utils/height-utils';
@@ -922,76 +922,37 @@ function VietnamOverview() {
 function ChartVietNam() {
     return (
         <div className={'w-full flex justify-center'}>
-            <div className={'w-fit flex'}>
-                <VietnamComp type={'market'} />
-                <VietnamComp type={'quote'} />
-            </div>
+            <VietnamComp
+                type={'dnse'}
+                containerClassName={'w-full max-w-[760px]'}
+            />
         </div>
     );
 }
 
 export function VietNamStockMarketNewsFeed() {
     const { locale } = useI18n();
-
-    const tabsList: TabItem[] = useMemo(() => {
-        return locale === 'vi'
-            ? [
-                  {
-                      title: 'Tuoitre.vn',
-                      value: 'tuoitre-news',
-                      renderContent: () =>
-                          Promise.resolve(
-                              <CombinedNewsFeed type={'tuoitre-news'} />
-                          ),
-                  },
-                  {
-                      title: 'Vietstock.vn',
-                      value: 'vna-vi-economy',
-                      renderContent: () =>
-                          Promise.resolve(
-                              <CombinedNewsFeed
-                                  type={'vietnam-stock-news-vi'}
-                              />
-                          ),
-                  },
-                  {
-                      title: 'Investing.com',
-                      value: 'vna-vi-politics',
-                      renderContent: () =>
-                          Promise.resolve(
-                              <CombinedNewsFeed type={'commodities-news-vn'} />
-                          ),
-                  },
-              ]
-            : [
-                  {
-                      title: 'Vietstock.vn',
-                      value: 'vna-en-economy',
-                      renderContent: () =>
-                          Promise.resolve(
-                              <CombinedNewsFeed
-                                  type={'vietnam-stock-news-en'}
-                              />
-                          ),
-                  },
-                  {
-                      title: 'Investing.com',
-                      value: 'vna-en-politics',
-                      renderContent: () =>
-                          Promise.resolve(
-                              <CombinedNewsFeed type={'commodities-news-en'} />
-                          ),
-                  },
-              ];
-    }, [locale]);
-
-    return (
-        locale && <AppTabs tabsList={tabsList} shouldBorderVisible={false} />
+    return locale === 'vi' ? (
+        <CombinedNewsFeed type={'B03-market-fin-news-vietnam-vn'} />
+    ) : (
+        <CombinedNewsFeed type={'B04-market-fin-news-vietnam-en'} />
     );
 }
 
 function StockComp({ type }: { type: MARKET_TYPES }) {
     const { t } = useI18n();
+    const [defaultValue, setDefaultValue] = useState(
+        sessionStorage.getItem('stock-type') || 'overview'
+    );
+
+    const setSessionStorageItem = (value: string) =>
+        sessionStorage.setItem('stock-type', value);
+
+    const onDefaultValueChange = (activeTab: string) => {
+        setDefaultValue(activeTab);
+        setSessionStorageItem(activeTab);
+    };
+
     const tabsList: TabItem[] = [
         {
             title: t(
@@ -1049,7 +1010,13 @@ function StockComp({ type }: { type: MARKET_TYPES }) {
         },
     ];
 
-    return <AppTabs tabsList={tabsList} />;
+    return (
+        <AppTabs
+            tabsList={tabsList}
+            defaultValue={defaultValue}
+            onValueChange={onDefaultValueChange}
+        />
+    );
 }
 
 export default StockComp;
