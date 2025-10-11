@@ -55,7 +55,7 @@ const VietnamComp = ({
                             <iframe 
                                 src="https://widget.dnse.com.vn/index-widget?theme=${theme}&amp;indexes=VNINDEX%2CVN30%2CHNX30%2CHNX%2CUPCOM&amp;utm_source=dev.banggia-test.dnse.com.vn&amp;utm_medium=widget" 
                                 width="100%" 
-                                height="${calculateAdjustedHeight() + 250}px">
+                                height="${calculateAdjustedHeight()}px">
                             </iframe>
                         </div>
                     `;

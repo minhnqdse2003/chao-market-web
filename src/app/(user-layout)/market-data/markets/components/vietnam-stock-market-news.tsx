@@ -1,9 +1,9 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-// Import the server action
 import { fetchNewsFeed, RSSItem } from '@/services/rss/fetchNews';
 import { TimeAgo } from '@/components/time-ago';
+import { capitalizeWords } from '@/utils/string-parsing';
 
 // Define types for the prop and RSS data
 export type NewsSourceType =
@@ -57,11 +57,6 @@ export default function CombinedNewsFeed({ type }: CombinedNewsFeedProps) {
     if (isLoading) {
         return (
             <div className="p-4 border rounded-lg shadow-sm">
-                {/*<h2*/}
-                {/*    className={`text-xl font-bold mb-4 dark:text-[var(--brand-color)] text-brand-text`}*/}
-                {/*>*/}
-                {/*    {title}*/}
-                {/*</h2>*/}
                 <p className="text-gray-500">Đang tải tin tức...</p>
             </div>
         );
@@ -71,11 +66,6 @@ export default function CombinedNewsFeed({ type }: CombinedNewsFeedProps) {
         console.error('Query Error:', error);
         return (
             <div className="p-4 border rounded-lg shadow-sm bg-white">
-                {/*<h2*/}
-                {/*    className={`text-xl font-bold mb-4 dark:text-[var(--brand-color)] text-brand-text`}*/}
-                {/*>*/}
-                {/*    {title}*/}
-                {/*</h2>*/}
                 <p className="text-red-500">
                     Lỗi khi tải tin tức: {error.message || 'Đã xảy ra lỗi.'}
                 </p>
@@ -85,11 +75,6 @@ export default function CombinedNewsFeed({ type }: CombinedNewsFeedProps) {
 
     return (
         <div className="p-4 rounded-lg bg-transparent">
-            {/*<h2*/}
-            {/*    className={`text-xl font-bold mb-4 dark:text-[var(--brand-color)] text-brand-text`}*/}
-            {/*>*/}
-            {/*    {title}*/}
-            {/*</h2>*/}
             {limitedArticles.length === 0 ? (
                 <p className="text-[var(--brand-grey-foreground)]">
                     Không thể tải tin tức hoặc không có tin tức mới.
@@ -114,6 +99,14 @@ export default function CombinedNewsFeed({ type }: CombinedNewsFeedProps) {
                                             width={1920}
                                             height={1080}
                                             className="rounded-md object-cover w-[320px] h-[160px]"
+                                            onError={e => {
+                                                const target =
+                                                    e.target as HTMLImageElement;
+                                                target.src =
+                                                    '/img/brand-logo-with-hat.svg';
+                                                target.className =
+                                                    'rounded-md object-contain w-[320px] h-[160px]';
+                                            }}
                                         />
                                     </a>
                                 </div>
@@ -135,7 +128,10 @@ export default function CombinedNewsFeed({ type }: CombinedNewsFeedProps) {
                                         />
                                         {article.sourceUrl && (
                                             <p className="text-xs text-[var(--brand-grey-foreground)] mt-1">
-                                                Source: {article.sourceUrl}{' '}
+                                                Source:{' '}
+                                                {capitalizeWords(
+                                                    article.sourceUrl
+                                                )}
                                             </p>
                                         )}
                                     </div>

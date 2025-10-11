@@ -26,6 +26,8 @@ import { AppDatePicker } from '@/components/app-date-picker';
 import { cn } from '@/lib/utils';
 import { T } from '@/components/app-translate';
 import { TranslationKey } from '@/types/translations';
+import { TranslatedFormMessage } from '@/components/app-translation-message-error';
+import { useI18n } from '@/context/i18n/context';
 
 interface SignUpFormProps {
     onSignUpSuccess: (user: OtpVerificationFormProps) => void;
@@ -37,6 +39,8 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
     const [success, setSuccess] = useState('');
     const [termsAccepted, setTermsAccepted] = useState(false);
 
+    const { locale } = useI18n();
+
     const form = useForm<SignUpFormData>({
         resolver: zodResolver(signUpSchema),
         defaultValues: {
@@ -45,7 +49,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
             email: '',
             password: '',
             confirmPassword: '',
-            gender: 'male',
+            gender: undefined,
             otherGender: '',
             dateOfBirth: undefined,
             phoneNumber: '',
@@ -156,7 +160,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                             <FormField
                                 control={form.control}
                                 name="firstName"
-                                render={({ field }) => (
+                                render={({ field, fieldState }) => (
                                     <FormItem className="flex-1">
                                         <FormControl>
                                             <FloatingLabelInput
@@ -167,8 +171,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                                 {...field}
                                             />
                                         </FormControl>
-                                        <FormMessage />{' '}
-                                        {/* This will show/hide correctly now */}
+                                        <TranslatedFormMessage
+                                            message={fieldState.error?.message}
+                                        />
                                     </FormItem>
                                 )}
                             />
@@ -176,7 +181,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                             <FormField
                                 control={form.control}
                                 name="lastName"
-                                render={({ field }) => (
+                                render={({ field, fieldState }) => (
                                     <FormItem className="flex-1">
                                         <FormControl>
                                             <FloatingLabelInput
@@ -187,17 +192,18 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                                 {...field}
                                             />
                                         </FormControl>
-                                        <FormMessage />{' '}
+                                        <TranslatedFormMessage
+                                            message={fieldState.error?.message}
+                                        />
                                     </FormItem>
                                 )}
                             />
                         </div>
 
-                        {/* ... (Other FormFields remain the same) ... */}
                         <FormField
                             control={form.control}
                             name="gender"
-                            render={({ field }) => (
+                            render={({ field, fieldState }) => (
                                 <FormItem className="space-y-1">
                                     <FormControl>
                                         <RadioGroup
@@ -277,7 +283,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                             />
                                         </RadioGroup>
                                     </FormControl>
-                                    <FormMessage />
+                                    <TranslatedFormMessage
+                                        message={fieldState.error?.message}
+                                    />
                                 </FormItem>
                             )}
                         />
@@ -285,7 +293,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                         <FormField
                             control={form.control}
                             name="dateOfBirth"
-                            render={({ field }) => (
+                            render={({ field, fieldState }) => (
                                 <FormItem>
                                     <FormControl>
                                         <AppDatePicker
@@ -299,7 +307,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                             {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage />
+                                    <TranslatedFormMessage
+                                        message={fieldState.error?.message}
+                                    />
                                 </FormItem>
                             )}
                         />
@@ -307,7 +317,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                         <FormField
                             control={form.control}
                             name="email"
-                            render={({ field }) => (
+                            render={({ field, fieldState }) => (
                                 <FormItem>
                                     <FormControl>
                                         <FloatingLabelInput
@@ -319,7 +329,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                             {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage />
+                                    <TranslatedFormMessage
+                                        message={fieldState.error?.message}
+                                    />
                                 </FormItem>
                             )}
                         />
@@ -327,7 +339,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                         <FormField
                             control={form.control}
                             name="phoneNumber"
-                            render={({ field }) => (
+                            render={({ field, fieldState }) => (
                                 <FormItem>
                                     <FormControl>
                                         <FloatingLabelInput
@@ -339,7 +351,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                             {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage />
+                                    <TranslatedFormMessage
+                                        message={fieldState.error?.message}
+                                    />
                                 </FormItem>
                             )}
                         />
@@ -347,7 +361,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                         <FormField
                             control={form.control}
                             name="password"
-                            render={({ field }) => (
+                            render={({ field, fieldState }) => (
                                 <FormItem>
                                     <FormControl>
                                         <FloatingLabelInput
@@ -359,7 +373,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                             {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage />
+                                    <TranslatedFormMessage
+                                        message={fieldState.error?.message}
+                                    />
                                 </FormItem>
                             )}
                         />
@@ -367,7 +383,7 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                         <FormField
                             control={form.control}
                             name="confirmPassword"
-                            render={({ field }) => (
+                            render={({ field, fieldState }) => (
                                 <FormItem>
                                     <FormControl>
                                         <FloatingLabelInput
@@ -379,7 +395,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                             {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage />
+                                    <TranslatedFormMessage
+                                        message={fieldState.error?.message}
+                                    />
                                 </FormItem>
                             )}
                         />
@@ -403,20 +421,25 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                 htmlFor="terms"
                                 className="text-sm cursor-pointer text-[var(--brand-grey-foreground)] dark:text-white"
                             >
-                                <T keyName="auth.termsAgreement.start" />{' '}
-                                <Link
-                                    href="/privacy-policy"
-                                    className="dark:text-[var(--brand-color)] text-black font-medium hover:underline"
-                                >
-                                    <T keyName="auth.termsAgreement.privacyNotice" />
-                                </Link>{' '}
-                                <T keyName="auth.termsAgreement.and" />{' '}
+                                <T keyName="auth.termsAgreement.start" />
+                                <br />
+                                <T
+                                    keyName={'auth.termsAgreement.startNewLine'}
+                                />{' '}
                                 <Link
                                     href="/terms-of-use"
                                     className="dark:text-[var(--brand-color)] text-black font-medium hover:underline"
                                 >
                                     <T keyName="auth.termsAgreement.termsOfUse" />
+                                </Link>{' '}
+                                <T keyName="auth.termsAgreement.and" />{' '}
+                                <Link
+                                    href="/privacy-policy"
+                                    className="dark:text-[var(--brand-color)] text-black font-medium hover:underline"
+                                >
+                                    <T keyName="auth.termsAgreement.privacyNotice" />
                                 </Link>
+                                {locale === 'vi' && ' của website'}.
                             </label>
                         </div>
 

@@ -28,6 +28,7 @@ export interface AuthTranslations {
     resendOtp: string;
     termsAgreement: {
         start: string;
+        startNewLine: string;
         privacyNotice: string;
         and: string;
         termsOfUse: string;
@@ -53,4 +54,20 @@ export interface AuthTranslations {
         otpResentToEmail: string;
         resendFailed: string;
     };
+    validation: AuthValidationTranslations;
+}
+
+export interface AuthValidationTranslations {
+    firstNameRequired: string;
+    firstNameInvalid: string;
+    lastNameRequired: string;
+    lastNameInvalid: string;
+    emailInvalid: string;
+    passwordTooShort: string;
+    passwordsDoNotMatch: string;
+    genderOtherRequired: string;
+    dobInPast: string;
+    dobRequired: string;
+    genderRequired: string;
+    ageRequirement: string;
 }

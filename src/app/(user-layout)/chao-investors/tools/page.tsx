@@ -98,7 +98,7 @@ function ToolContent({ toolKey, src }: { toolKey: string; src: ToolConfig }) {
             case 'currencyConverterCalc':
                 return 400;
             case 'pipCalculator':
-                return calculateAdjustedHeight() + 80;
+                return calculateAdjustedHeight() + 40;
             case 'profitCalculator':
                 return calculateAdjustedHeight() - 120;
             case 'pivotalCalculator':
@@ -115,15 +115,15 @@ function ToolContent({ toolKey, src }: { toolKey: string; src: ToolConfig }) {
             case 'currencyConverterCalc':
                 return 216;
             case 'pipCalculator':
-                return calculateAdjustedHeight() - 100;
+                return 570;
             case 'profitCalculator':
-                return calculateAdjustedHeight() - 220;
+                return 450;
             case 'pivotalCalculator':
-                return calculateAdjustedHeight() - 100;
+                return 570;
             case 'fiboCalculator':
-                return calculateAdjustedHeight() - 100;
+                return 570;
             case 'marginCalculator':
-                return calculateAdjustedHeight() - 220;
+                return 450;
         }
     };
 
@@ -132,20 +132,20 @@ function ToolContent({ toolKey, src }: { toolKey: string; src: ToolConfig }) {
             key={src.key + locale}
             className={'w-full flex flex-col gap-2 items-center'}
         >
-            <p>
-                {t(
-                    `investors.items.toolForInvestor.items.${toolKey}.description`
-                )}
-            </p>
             <iframe
                 height={processHeight() ?? 600 - 20}
                 width={processWidth()}
                 src={locale === 'vi' ? src.viSrc : src.enSrc}
                 className={cn(
-                    'w-fit flex items-center justify-center dark:bg-white',
+                    'w-fit flex max-h-[43.75rem] items-center justify-center dark:bg-white',
                     `w-${processWidth()}`
                 )}
             />
+            <p className="text-sm text-center max-w-[24rem] text-wrap">
+                {t(
+                    `investors.items.toolForInvestor.items.${toolKey}.description`
+                )}
+            </p>
         </div>
     );
 }
@@ -156,9 +156,9 @@ function InterestCalculator() {
     const [calculationType, setCalculationType] = useState<
         'simple' | 'compound' | 'monteCarlo'
     >('simple');
-    const [timeUnit, setTimeUnit] = useState<'year' | 'month' | 'day'>('year');
-    const [timeValue, setTimeValue] = useState<number>(10);
-    const [initialCapital, setInitialCapital] = useState<number>(10000);
+    const [timeUnit, setTimeUnit] = useState<'year' | 'month' | 'day'>('month');
+    const [timeValue, setTimeValue] = useState<number>(12);
+    const [initialCapital, setInitialCapital] = useState<number>(1000);
     const [growthRate, setGrowthRate] = useState<number>(10);
     const [growthUnit, setGrowthUnit] = useState<'year' | 'month' | 'day'>(
         'year'
@@ -286,6 +286,8 @@ function InterestCalculator() {
             }
         }
 
+        if (timeValue === 0) return [];
+
         return data;
     }, [
         calculationType,
@@ -347,11 +349,11 @@ function InterestCalculator() {
     ): string => {
         switch (unit) {
             case 'year':
-                return locale === 'vi' ? 'Năm' : 'Year';
+                return locale === 'vi' ? 'năm' : 'year';
             case 'month':
-                return locale === 'vi' ? 'Tháng' : 'Month';
+                return locale === 'vi' ? 'tháng' : 'month';
             case 'day':
-                return locale === 'vi' ? 'Ngày' : 'Day';
+                return locale === 'vi' ? 'ngày' : 'day';
         }
     };
 
@@ -443,8 +445,8 @@ function InterestCalculator() {
                                 type="number"
                                 label={
                                     locale === 'vi'
-                                        ? 'Vốn đầu tư ban đầu (USD)'
-                                        : 'Starting Equity (USD)'
+                                        ? 'Vốn đầu tư ban đầu'
+                                        : 'Starting Equity'
                                 }
                                 value={initialCapital}
                                 onChange={e =>
@@ -631,7 +633,7 @@ function InterestCalculator() {
                                     />
                                     <Tooltip
                                         formatter={value => [
-                                            `$${Number(value).toLocaleString('en-US')}`,
+                                            `$ ${Number(value).toLocaleString('en-US')}`,
                                             'Value',
                                         ]}
                                         labelFormatter={value =>
@@ -682,7 +684,8 @@ function InterestCalculator() {
                                     {locale === 'vi' ? 'Kỳ Hạn' : 'Term'}
                                 </p>
                                 <p className="font-bold dark:text-[var(--brand-color)]">
-                                    {timeValue} {timeUnit}
+                                    {timeValue}{' '}
+                                    {`${timeUnit}${timeValue !== 1 ? 's' : ''}`}
                                 </p>
                             </div>
                             <div className="p-3 text-brand-text rounded-md">

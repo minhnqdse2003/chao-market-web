@@ -922,10 +922,7 @@ function VietnamOverview() {
 function ChartVietNam() {
     return (
         <div className={'w-full flex justify-center'}>
-            <VietnamComp
-                type={'dnse'}
-                containerClassName={'w-full max-w-[760px]'}
-            />
+            <VietnamComp type={'dnse'} containerClassName={'w-full'} />
         </div>
     );
 }
