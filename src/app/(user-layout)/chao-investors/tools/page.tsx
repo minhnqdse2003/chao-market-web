@@ -174,9 +174,9 @@ function InterestCalculator() {
         });
     };
 
-    const setFormatNumber = (num: string): number => {
-        return Number(num.replace(/,/g, ''));
-    };
+    const [initialCapitalInput, setInitialCapitalInput] = useState<string>(
+        formatNumber(1000)
+    );
 
     // Generate data for chart
     // Generate data for chart
@@ -361,6 +361,10 @@ function InterestCalculator() {
     const chartData = useDebounce(generateChartData, 300) as unknown as any[];
     const height = calculateAdjustedHeight() + 80;
 
+    useEffect(() => {
+        setInitialCapitalInput(formatNumber(initialCapital));
+    }, [initialCapital]);
+
     return (
         <div
             className="flex flex-col md:flex-row gap-2"
@@ -435,34 +439,9 @@ function InterestCalculator() {
                                     )
                                 }
                                 labelVisible={false}
-                                buttonClassName="w-fit justify-between absolute right-1 bottom-1/2 transform translate-y-1/2"
+                                buttonClassName="w-fit justify-between absolute right-5 bottom-1/2 transform translate-y-1/2"
                                 contentClassName="w-full!"
                             />
-                        </div>
-
-                        <div className={'relative'}>
-                            <FloatingLabelInput
-                                type="number"
-                                label={
-                                    locale === 'vi'
-                                        ? 'Vốn đầu tư ban đầu'
-                                        : 'Starting Equity'
-                                }
-                                value={initialCapital}
-                                onChange={e =>
-                                    setInitialCapital(
-                                        setFormatNumber(e.target.value)
-                                    )
-                                }
-                                className="app-text-input pr-10 text-transparent caret-transparent"
-                            />
-                            <p
-                                className={
-                                    'absolute left-3 top-1/2 transform -translate-y-1/2 bg-sidebar'
-                                }
-                            >
-                                {formatNumber(initialCapital)}
-                            </p>
                             <AppTooltips
                                 contents={
                                     <div className="max-w-[24rem] flex flex-col gap-2">
@@ -490,6 +469,46 @@ function InterestCalculator() {
 
                         <div className={'relative'}>
                             <FloatingLabelInput
+                                type="text"
+                                inputMode="decimal"
+                                label={
+                                    locale === 'vi'
+                                        ? 'Vốn đầu tư ban đầu'
+                                        : 'Starting Equity'
+                                }
+                                value={initialCapitalInput}
+                                onChange={e => {
+                                    const rawValue = e.target.value;
+
+                                    setInitialCapitalInput(rawValue);
+
+                                    const numericString = rawValue.replace(
+                                        /,/g,
+                                        ''
+                                    );
+
+                                    if (
+                                        numericString === '' ||
+                                        (/^\d*\.?\d*$/.test(numericString) &&
+                                            numericString !== '.')
+                                    ) {
+                                        if (numericString !== '') {
+                                            const parsedValue =
+                                                Number(numericString);
+                                            if (!isNaN(parsedValue)) {
+                                                setInitialCapital(parsedValue);
+                                            }
+                                        } else {
+                                            setInitialCapital(0);
+                                        }
+                                    }
+                                }}
+                                className="app-text-input pr-10"
+                            />
+                        </div>
+
+                        <div className={'relative'}>
+                            <FloatingLabelInput
                                 type="number"
                                 label={
                                     locale === 'vi'
@@ -502,16 +521,8 @@ function InterestCalculator() {
                                 }
                                 min="1"
                                 step="0.1"
-                                className="app-text-input pr-10 text-transparent caret-transparent"
+                                className="app-text-input pr-10"
                             />
-
-                            <p
-                                className={
-                                    'absolute left-3 top-1/2 transform -translate-y-1/2 bg-sidebar'
-                                }
-                            >
-                                {formatNumber(growthRate)}
-                            </p>
 
                             <AppDropdown
                                 options={getTimeUnitOptions(
@@ -605,7 +616,7 @@ function InterestCalculator() {
                                 >
                                     <CartesianGrid
                                         stroke={'#92929270'}
-                                        strokeDasharray="3 3"
+                                        strokeDasharray="2 2"
                                     />
                                     <XAxis
                                         dataKey="time"
@@ -624,12 +635,51 @@ function InterestCalculator() {
                                                         : 'Day',
                                             position: 'insideBottomRight',
                                             offset: -5,
+                                            style: {
+                                                fontWeight: 'bold',
+                                            },
                                         }}
                                     />
                                     <YAxis
-                                        tickFormatter={value =>
-                                            `$${(value / 1000).toFixed(2)}K`
-                                        }
+                                        allowDataOverflow
+                                        label={{
+                                            value:
+                                                locale === 'vi'
+                                                    ? 'Vốn đầu tư'
+                                                    : 'Equity',
+                                            angle: -90,
+                                            offset: 15,
+                                            position: 'left',
+                                            style: {
+                                                textAnchor: 'middle',
+                                                fontWeight: 'bold',
+                                            },
+                                        }}
+                                        domain={['auto', 'auto']}
+                                        tickFormatter={value => {
+                                            // Define thresholds for formatting
+                                            const K = 1000;
+                                            const M = 1000000;
+                                            const B = 1000000000;
+
+                                            // Determine the appropriate unit and format the value
+                                            if (Math.abs(value) >= B) {
+                                                // Format in billions (e.g., 1.23B)
+                                                return `$${(value / B).toFixed(2)}B`;
+                                            } else if (Math.abs(value) >= M) {
+                                                // Format in millions (e.g., 1.23M)
+                                                return `$${(value / M).toFixed(2)}M`;
+                                            } else if (Math.abs(value) >= K) {
+                                                // Format in thousands (e.g., 1.23K)
+                                                return `$${(value / K).toFixed(2)}K`;
+                                            } else {
+                                                // Format as a regular number if less than a thousand (e.g., 500.00)
+                                                // Note: This will apply the same decimal formatting as K/M/B
+                                                // If you want different precision for small numbers, adjust accordingly
+                                                return `$${value.toFixed(2)}`;
+                                                // Or simply return `$${value}` if you don't want decimal places for small numbers
+                                            }
+                                        }}
                                     />
                                     <Tooltip
                                         formatter={value => [
@@ -695,7 +745,7 @@ function InterestCalculator() {
                                         : 'Growth Rate'}
                                 </p>
                                 <p className="font-bold dark:text-[var(--brand-color)]">
-                                    {growthRate} %/{growthUnit}
+                                    {formatNumber(growthRate)} %/{growthUnit}
                                 </p>
                             </div>
                             <div className="p-3 text-brand-text rounded-md">

@@ -62,7 +62,7 @@ export function AppTabs({
         <Tabs
             value={activeTab}
             onValueChange={setActiveTab}
-            className="w-full"
+            className="w-full gap-4"
             orientation={isHorizontal ? 'horizontal' : 'vertical'}
         >
             <TabsList

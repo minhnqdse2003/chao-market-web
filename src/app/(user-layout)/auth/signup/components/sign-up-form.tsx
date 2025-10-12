@@ -154,18 +154,200 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                     {/* Use handleSubmit to let react-hook-form manage validation */}
                     <form
                         onSubmit={form.handleSubmit(onSubmit)} // Use handleSubmit here
-                        className="h-fit my-auto space-y-4"
+                        className="h-fit space-y-4"
                     >
-                        <div className="flex space-x-2">
+                        <div
+                            className={
+                                'max-h-[27.5rem] px-2 overflow-y-auto py-1 space-y-4'
+                            }
+                        >
+                            <div className="flex space-x-2">
+                                <FormField
+                                    control={form.control}
+                                    name="firstName"
+                                    render={({ field, fieldState }) => (
+                                        <FormItem className="flex-1">
+                                            <FormControl>
+                                                <FloatingLabelInput
+                                                    label={
+                                                        <T keyName="common.firstName" />
+                                                    }
+                                                    className="app-text-input"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <TranslatedFormMessage
+                                                message={
+                                                    fieldState.error?.message
+                                                }
+                                            />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    control={form.control}
+                                    name="lastName"
+                                    render={({ field, fieldState }) => (
+                                        <FormItem className="flex-1">
+                                            <FormControl>
+                                                <FloatingLabelInput
+                                                    label={
+                                                        <T keyName="common.lastName" />
+                                                    }
+                                                    className="app-text-input"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <TranslatedFormMessage
+                                                message={
+                                                    fieldState.error?.message
+                                                }
+                                            />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+
                             <FormField
                                 control={form.control}
-                                name="firstName"
+                                name="gender"
                                 render={({ field, fieldState }) => (
-                                    <FormItem className="flex-1">
+                                    <FormItem className="space-y-1">
+                                        <FormControl>
+                                            <RadioGroup
+                                                onValueChange={field.onChange}
+                                                defaultValue={field.value}
+                                                className="flex items-center flex-wrap"
+                                            >
+                                                <FormItem className="flex items-center space-x-1 space-y-0">
+                                                    <FormControl>
+                                                        <RadioGroupItem
+                                                            className="data-[state=checked]:border-brand-text cursor-pointer dark:[&_*_svg]:fill-brand-text dark:[&_*_svg]:stroke-brand-text"
+                                                            value="male"
+                                                            aria-invalid={
+                                                                'false'
+                                                            }
+                                                        />
+                                                    </FormControl>
+                                                    <FormLabel
+                                                        className={cn(
+                                                            'font-normal transition-colors!' +
+                                                                ' data-[error=true]:text-[var(--brand-grey-foreground)]',
+                                                            `${genderValue === 'male' ? 'text-brand-text' : 'text-[var(--brand-grey-foreground)]'}`
+                                                        )}
+                                                        aria-invalid={'false'}
+                                                    >
+                                                        <T keyName="common.gender.male" />
+                                                    </FormLabel>
+                                                </FormItem>
+                                                <FormItem className="flex items-center space-x-1 space-y-0">
+                                                    <FormControl>
+                                                        <RadioGroupItem
+                                                            className="data-[state=checked]:border-brand-text cursor-pointer dark:[&_*_svg]:fill-brand-text dark:[&_*_svg]:stroke-brand-text"
+                                                            value="female"
+                                                            aria-invalid={
+                                                                'false'
+                                                            }
+                                                        />
+                                                    </FormControl>
+                                                    <FormLabel
+                                                        className={cn(
+                                                            'font-normal transition-colors!' +
+                                                                ' data-[error=true]:text-[var(--brand-grey-foreground)]',
+                                                            `${genderValue === 'female' ? 'text-brand-text' : 'text-[var(--brand-grey-foreground)]'}`
+                                                        )}
+                                                        aria-invalid={'false'}
+                                                    >
+                                                        <T keyName="common.gender.female" />
+                                                    </FormLabel>
+                                                </FormItem>
+                                                <FormItem className="flex items-center space-x-1 space-y-0">
+                                                    <FormControl>
+                                                        <RadioGroupItem
+                                                            className="data-[state=checked]:border-brand-text cursor-pointer dark:[&_*_svg]:fill-brand-text dark:[&_*_svg]:stroke-brand-text"
+                                                            value="other"
+                                                            aria-invalid={
+                                                                'false'
+                                                            }
+                                                        />
+                                                    </FormControl>
+                                                    <FormLabel
+                                                        className={cn(
+                                                            'font-normal transition-colors!' +
+                                                                ' data-[error=true]:text-[var(--brand-grey-foreground)]',
+                                                            `${genderValue === 'other' ? 'text-brand-text' : 'text-[var(--brand-grey-foreground)]'}`
+                                                        )}
+                                                        aria-invalid={'false'}
+                                                    >
+                                                        <T keyName="common.gender.other" />
+                                                    </FormLabel>
+                                                </FormItem>
+
+                                                <FormField
+                                                    control={form.control}
+                                                    name="otherGender"
+                                                    disabled={
+                                                        genderValue !== 'other'
+                                                    }
+                                                    render={({ field }) => (
+                                                        <FormItem className="ml-4 flex-1 min-w-[150px]">
+                                                            <FormControl>
+                                                                <FloatingLabelInput
+                                                                    label={
+                                                                        <T keyName="common.gender.selfDescribe" />
+                                                                    }
+                                                                    className="app-text-input"
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                            </RadioGroup>
+                                        </FormControl>
+                                        <TranslatedFormMessage
+                                            message={fieldState.error?.message}
+                                        />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="dateOfBirth"
+                                render={({ field, fieldState }) => (
+                                    <FormItem>
+                                        <FormControl>
+                                            <AppDatePicker
+                                                onDateChange={field.onChange}
+                                                buttonClass="w-full dark:bg-transparent dark:hover:bg-transparent"
+                                                label={
+                                                    <T keyName="common.dateOfBirth" />
+                                                }
+                                                isFloatingLabel={true}
+                                                isMarginVisible={false}
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <TranslatedFormMessage
+                                            message={fieldState.error?.message}
+                                        />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="email"
+                                render={({ field, fieldState }) => (
+                                    <FormItem>
                                         <FormControl>
                                             <FloatingLabelInput
+                                                type="email"
                                                 label={
-                                                    <T keyName="common.firstName" />
+                                                    <T keyName="common.emailAddress" />
                                                 }
                                                 className="app-text-input"
                                                 {...field}
@@ -180,13 +362,58 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
 
                             <FormField
                                 control={form.control}
-                                name="lastName"
+                                name="phoneNumber"
                                 render={({ field, fieldState }) => (
-                                    <FormItem className="flex-1">
+                                    <FormItem>
                                         <FormControl>
                                             <FloatingLabelInput
                                                 label={
-                                                    <T keyName="common.lastName" />
+                                                    <T keyName="common.phoneNumber" />
+                                                }
+                                                type={'number'}
+                                                className="app-text-input"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <TranslatedFormMessage
+                                            message={fieldState.error?.message}
+                                        />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="password"
+                                render={({ field, fieldState }) => (
+                                    <FormItem>
+                                        <FormControl>
+                                            <FloatingLabelInput
+                                                type="password"
+                                                label={
+                                                    <T keyName="common.password" />
+                                                }
+                                                className="app-text-input"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <TranslatedFormMessage
+                                            message={fieldState.error?.message}
+                                        />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="confirmPassword"
+                                render={({ field, fieldState }) => (
+                                    <FormItem>
+                                        <FormControl>
+                                            <FloatingLabelInput
+                                                type="password"
+                                                label={
+                                                    <T keyName="common.confirmPassword" />
                                                 }
                                                 className="app-text-input"
                                                 {...field}
@@ -199,208 +426,6 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                 )}
                             />
                         </div>
-
-                        <FormField
-                            control={form.control}
-                            name="gender"
-                            render={({ field, fieldState }) => (
-                                <FormItem className="space-y-1">
-                                    <FormControl>
-                                        <RadioGroup
-                                            onValueChange={field.onChange}
-                                            defaultValue={field.value}
-                                            className="flex items-center flex-wrap"
-                                        >
-                                            <FormItem className="flex items-center space-x-1 space-y-0">
-                                                <FormControl>
-                                                    <RadioGroupItem
-                                                        className="data-[state=checked]:border-brand-text cursor-pointer dark:[&_*_svg]:fill-brand-text dark:[&_*_svg]:stroke-brand-text"
-                                                        value="male"
-                                                    />
-                                                </FormControl>
-                                                <FormLabel
-                                                    className={cn(
-                                                        'font-normal transition-colors!',
-                                                        `${genderValue === 'male' ? 'text-brand-text' : 'text-[var(--brand-grey-foreground)]'}`
-                                                    )}
-                                                >
-                                                    <T keyName="common.gender.male" />
-                                                </FormLabel>
-                                            </FormItem>
-                                            <FormItem className="flex items-center space-x-1 space-y-0">
-                                                <FormControl>
-                                                    <RadioGroupItem
-                                                        className="data-[state=checked]:border-brand-text cursor-pointer dark:[&_*_svg]:fill-brand-text dark:[&_*_svg]:stroke-brand-text"
-                                                        value="female"
-                                                    />
-                                                </FormControl>
-                                                <FormLabel
-                                                    className={cn(
-                                                        'font-normal transition-colors!',
-                                                        `${genderValue === 'female' ? 'text-brand-text' : 'text-[var(--brand-grey-foreground)]'}`
-                                                    )}
-                                                >
-                                                    <T keyName="common.gender.female" />
-                                                </FormLabel>
-                                            </FormItem>
-                                            <FormItem className="flex items-center space-x-1 space-y-0">
-                                                <FormControl>
-                                                    <RadioGroupItem
-                                                        className="data-[state=checked]:border-brand-text cursor-pointer dark:[&_*_svg]:fill-brand-text dark:[&_*_svg]:stroke-brand-text"
-                                                        value="other"
-                                                    />
-                                                </FormControl>
-                                                <FormLabel
-                                                    className={cn(
-                                                        'font-normal transition-colors!',
-                                                        `${genderValue === 'other' ? 'text-brand-text' : 'text-[var(--brand-grey-foreground)]'}`
-                                                    )}
-                                                >
-                                                    <T keyName="common.gender.other" />
-                                                </FormLabel>
-                                            </FormItem>
-
-                                            <FormField
-                                                control={form.control}
-                                                name="otherGender"
-                                                disabled={
-                                                    genderValue !== 'other'
-                                                }
-                                                render={({ field }) => (
-                                                    <FormItem className="ml-4 flex-1 min-w-[150px]">
-                                                        <FormControl>
-                                                            <FloatingLabelInput
-                                                                label={
-                                                                    <T keyName="common.gender.selfDescribe" />
-                                                                }
-                                                                className="app-text-input"
-                                                                {...field}
-                                                            />
-                                                        </FormControl>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-                                        </RadioGroup>
-                                    </FormControl>
-                                    <TranslatedFormMessage
-                                        message={fieldState.error?.message}
-                                    />
-                                </FormItem>
-                            )}
-                        />
-
-                        <FormField
-                            control={form.control}
-                            name="dateOfBirth"
-                            render={({ field, fieldState }) => (
-                                <FormItem>
-                                    <FormControl>
-                                        <AppDatePicker
-                                            onDateChange={field.onChange}
-                                            buttonClass="w-full dark:bg-transparent dark:hover:bg-transparent"
-                                            label={
-                                                <T keyName="common.dateOfBirth" />
-                                            }
-                                            isFloatingLabel={true}
-                                            isMarginVisible={false}
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <TranslatedFormMessage
-                                        message={fieldState.error?.message}
-                                    />
-                                </FormItem>
-                            )}
-                        />
-
-                        <FormField
-                            control={form.control}
-                            name="email"
-                            render={({ field, fieldState }) => (
-                                <FormItem>
-                                    <FormControl>
-                                        <FloatingLabelInput
-                                            type="email"
-                                            label={
-                                                <T keyName="common.emailAddress" />
-                                            }
-                                            className="app-text-input"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <TranslatedFormMessage
-                                        message={fieldState.error?.message}
-                                    />
-                                </FormItem>
-                            )}
-                        />
-
-                        <FormField
-                            control={form.control}
-                            name="phoneNumber"
-                            render={({ field, fieldState }) => (
-                                <FormItem>
-                                    <FormControl>
-                                        <FloatingLabelInput
-                                            label={
-                                                <T keyName="common.phoneNumber" />
-                                            }
-                                            type={'number'}
-                                            className="app-text-input"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <TranslatedFormMessage
-                                        message={fieldState.error?.message}
-                                    />
-                                </FormItem>
-                            )}
-                        />
-
-                        <FormField
-                            control={form.control}
-                            name="password"
-                            render={({ field, fieldState }) => (
-                                <FormItem>
-                                    <FormControl>
-                                        <FloatingLabelInput
-                                            type="password"
-                                            label={
-                                                <T keyName="common.password" />
-                                            }
-                                            className="app-text-input"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <TranslatedFormMessage
-                                        message={fieldState.error?.message}
-                                    />
-                                </FormItem>
-                            )}
-                        />
-
-                        <FormField
-                            control={form.control}
-                            name="confirmPassword"
-                            render={({ field, fieldState }) => (
-                                <FormItem>
-                                    <FormControl>
-                                        <FloatingLabelInput
-                                            type="password"
-                                            label={
-                                                <T keyName="common.confirmPassword" />
-                                            }
-                                            className="app-text-input"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <TranslatedFormMessage
-                                        message={fieldState.error?.message}
-                                    />
-                                </FormItem>
-                            )}
-                        />
 
                         <div className="flex items-start space-x-3 mt-4">
                             <Checkbox

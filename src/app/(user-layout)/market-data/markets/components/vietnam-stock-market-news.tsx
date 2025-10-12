@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchNewsFeed, RSSItem } from '@/services/rss/fetchNews';
 import { TimeAgo } from '@/components/time-ago';
 import { capitalizeWords } from '@/utils/string-parsing';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 // Define types for the prop and RSS data
 export type NewsSourceType =
@@ -52,7 +54,28 @@ export default function CombinedNewsFeed({ type }: CombinedNewsFeedProps) {
         refetchOnReconnect: true,
     });
 
+    const { theme } = useTheme();
+
+    const [erroredImages, setErroredImages] = useState<Set<string>>(new Set());
+
+    const handleImageError = (
+        url: string,
+        e: React.SyntheticEvent<HTMLImageElement, Event>
+    ) => {
+        const target = e.target as HTMLImageElement;
+        target.src = `/img/news-${theme}.png`;
+        target.className =
+            'rounded-md object-contain border' +
+            ' dark:border-[var(--brand-color)] border-black' +
+            '  w-[320px] h-[160px]';
+        setErroredImages(prev => new Set(prev).add(url));
+    };
+
     const limitedArticles = articles;
+
+    useEffect(() => {
+        setErroredImages(new Set());
+    }, [theme]);
 
     if (isLoading) {
         return (
@@ -94,19 +117,23 @@ export default function CombinedNewsFeed({ type }: CombinedNewsFeedProps) {
                                         rel="noopener noreferrer"
                                     >
                                         <img
-                                            src={article.imageUrl}
+                                            src={
+                                                erroredImages.has(
+                                                    article.imageUrl
+                                                )
+                                                    ? `/img/news-${theme}.png`
+                                                    : article.imageUrl
+                                            }
                                             alt={article.title}
                                             width={1920}
                                             height={1080}
-                                            className="rounded-md object-cover w-[320px] h-[160px]"
-                                            onError={e => {
-                                                const target =
-                                                    e.target as HTMLImageElement;
-                                                target.src =
-                                                    '/img/brand-logo-with-hat.svg';
-                                                target.className =
-                                                    'rounded-md object-contain w-[320px] h-[160px]';
-                                            }}
+                                            className="rounded-md object-cover border border-transparent w-[320px] h-[160px]"
+                                            onError={e =>
+                                                handleImageError(
+                                                    article.imageUrl || '',
+                                                    e
+                                                )
+                                            }
                                         />
                                     </a>
                                 </div>
