@@ -375,6 +375,46 @@ function InterestCalculator() {
     const chartData = useDebounce(generateChartData, 300) as unknown as any[];
     const height = calculateAdjustedHeight() + 80;
 
+    function roundUpToZeroes(num: number) {
+        if (num === 0) return 0;
+        const digits = Math.floor(Math.log10(Math.abs(num))) + 1;
+        const place = Math.pow(10, digits - 1);
+        return Math.ceil(num / place) * place;
+    }
+
+    const calcYAxis = () => {
+        const min = Math.min(...chartData.map(d => d.value));
+        const max = Math.max(...chartData.map(d => d.value));
+
+        const axisMin = min;
+        const axisMax = max + (max - min) * 0.1;
+
+        const roughNumber = (axisMax - axisMin) / 5;
+
+        const magnitude = Math.pow(10, Math.floor(Math.log10(roughNumber)));
+        const residual = roughNumber / magnitude;
+        let niceStep;
+        if (residual > 5) {
+            niceStep = 10 * magnitude;
+        } else if (residual > 2) {
+            niceStep = 5 * magnitude;
+        } else if (residual > 1) {
+            niceStep = 2 * magnitude;
+        } else {
+            niceStep = magnitude;
+        }
+
+        const finAxisMin = Math.floor(axisMin / niceStep) * niceStep;
+        const finAxisMax = Math.ceil(axisMax / niceStep) * niceStep;
+
+        const yAxisStep = roundUpToZeroes(roughNumber);
+        const yAxisValues = [];
+        for (let i = finAxisMin; i <= finAxisMax; i += yAxisStep) {
+            yAxisValues.push(i);
+        }
+        return yAxisValues;
+    };
+
     useEffect(() => {
         setInitialCapitalInput(formatNumber(initialCapital));
     }, [initialCapital]);
@@ -473,8 +513,6 @@ function InterestCalculator() {
                                             if (!isNaN(parsedValue)) {
                                                 setTimeValue(parsedValue);
                                             }
-                                        } else {
-                                            setTimeValue(0);
                                         }
                                     }
                                 }}
@@ -531,7 +569,7 @@ function InterestCalculator() {
                                         ? 'Vốn đầu tư ban đầu'
                                         : 'Starting Equity'
                                 }
-                                value={initialCapitalInput || '-'}
+                                value={initialCapitalInput}
                                 onChange={e => {
                                     const rawValue = e.target.value;
                                     const sanitizedValue = rawValue.replace(
@@ -561,8 +599,6 @@ function InterestCalculator() {
                                             if (!isNaN(valueInRange)) {
                                                 setInitialCapital(valueInRange);
                                             }
-                                        } else {
-                                            setInitialCapital(0);
                                         }
                                     }
                                 }}
@@ -574,7 +610,7 @@ function InterestCalculator() {
                                         {locale === 'vi' ? (
                                             <p>Giới hạn: 1,000,000,000</p>
                                         ) : (
-                                            <p>limit: 1,000,000,000</p>
+                                            <p>Limit: 1,000,000,000</p>
                                         )}
                                     </div>
                                 }
@@ -602,7 +638,7 @@ function InterestCalculator() {
                                         ? `Lãi suất (%/${processUnitLabel(growthUnit, 'vi')})`
                                         : `Growth Rate (%/${processUnitLabel(growthUnit, 'en')})`
                                 }
-                                value={growthRateInput || '-'}
+                                value={growthRateInput}
                                 onChange={e => {
                                     const rawValue = e.target.value;
                                     const sanitizedValue = rawValue.replace(
@@ -627,8 +663,6 @@ function InterestCalculator() {
                                             if (!isNaN(parsedValue)) {
                                                 setGrowthRate(parsedValue);
                                             }
-                                        } else {
-                                            setGrowthRate(0);
                                         }
                                     }
                                 }}
@@ -661,7 +695,7 @@ function InterestCalculator() {
                                                 ? 'Độ biến động (%):'
                                                 : 'Volatility (%):'
                                         }
-                                        value={volatilityInput || '-'}
+                                        value={volatilityInput}
                                         onChange={e => {
                                             const rawValue = e.target.value;
                                             const sanitizedValue =
@@ -689,8 +723,6 @@ function InterestCalculator() {
                                                             parsedValue
                                                         );
                                                     }
-                                                } else {
-                                                    setVolatility(0);
                                                 }
                                             }
                                         }}
@@ -706,7 +738,7 @@ function InterestCalculator() {
                                                 ? 'Số lần mô phỏng:'
                                                 : 'Number of Simulations:'
                                         }
-                                        value={simulationsInput || '-'}
+                                        value={simulationsInput}
                                         onChange={e => {
                                             const rawValue = e.target.value;
                                             const sanitizedValue =
@@ -734,8 +766,6 @@ function InterestCalculator() {
                                                             parsedValue
                                                         );
                                                     }
-                                                } else {
-                                                    setSimulations(0);
                                                 }
                                             }
                                         }}
@@ -812,88 +842,22 @@ function InterestCalculator() {
                                                     : 'Equity',
                                             angle: -90,
                                             offset: 15,
-                                            // Use 'insideLeft' or 'left' depending on your chart library version and desired position
-                                            // 'left' often places it more conventionally to the left of the axis line
-                                            // 'insideLeft' places it inside the chart area on the left
-                                            // Adjust offset if the label isn't positioned as expected with 'left'
                                             position: 'left',
                                             style: {
                                                 textAnchor: 'middle',
                                                 fontWeight: 'bold',
                                             },
                                         }}
-                                        ticks={(() => {
-                                            const scaleMax = initialCapital;
-
-                                            let tickValues = [];
-                                            if (scaleMax < 1000) {
-                                                // Ticks: 0, 200, 400, 600, 800, 1000
-                                                tickValues = [
-                                                    0, 200, 400, 600, 800, 1000,
-                                                ];
-                                            } else if (scaleMax < 10000) {
-                                                // Ticks: 0K, 2K, 4K, 6K, 8K, 10K
-                                                tickValues = [
-                                                    0, 2000, 4000, 6000, 8000,
-                                                    10000,
-                                                ];
-                                            } else if (scaleMax < 100000) {
-                                                // Ticks: 0K, 20K, 40K, 60K, 80K, 100K
-                                                tickValues = [
-                                                    0, 20000, 40000, 60000,
-                                                    80000, 100000,
-                                                ];
-                                            } else if (scaleMax < 1000000) {
-                                                // Ticks: 0M, 0.2M, 0.4M, 0.6M, 0.8M, 1M
-                                                tickValues = [
-                                                    0, 200000, 400000, 600000,
-                                                    800000, 1000000,
-                                                ];
-                                            } else if (scaleMax < 10000000) {
-                                                // Ticks: 0M, 2M, 4M, 6M, 8M, 10M
-                                                tickValues = [
-                                                    0, 2000000, 4000000,
-                                                    6000000, 8000000, 10000000,
-                                                ];
-                                            } else if (scaleMax < 100000000) {
-                                                // Ticks: 0M, 20M, 40M, 60M, 80M, 100M
-                                                tickValues = [
-                                                    0, 20000000, 40000000,
-                                                    60000000, 80000000,
-                                                    100000000,
-                                                ];
-                                            } else if (
-                                                scaleMax >= 100000000 &&
-                                                scaleMax < 1000000000
-                                            ) {
-                                                tickValues = [
-                                                    0, 200000000, 400000000,
-                                                    600000000, 800000000,
-                                                    1000000000,
-                                                ];
-                                            } else {
-                                                tickValues = [
-                                                    0, 2000000000, 4000000000,
-                                                    6000000000, 8000000000,
-                                                    10000000000,
-                                                ];
-                                            }
-
-                                            return tickValues;
-                                        })()}
+                                        ticks={calcYAxis()}
                                         tickFormatter={value => {
-                                            // Define thresholds for formatting
                                             const K = 1000;
                                             const M = 1000000;
                                             const G = 1000000000;
 
-                                            console.log(formatNumber(value));
-                                            // Determine the appropriate unit and format the value
-                                            // Use Math.abs for formatting as well, although ticks should be positive
                                             if (Math.abs(value) >= G) {
                                                 let formattedNum = (
                                                     value / G
-                                                ).toFixed(1);
+                                                ).toFixed(2);
                                                 if (
                                                     formattedNum.endsWith('.0')
                                                 ) {
@@ -908,7 +872,7 @@ function InterestCalculator() {
                                                 // Format in millions (e.g., 0.2M, 2M, 10M)
                                                 let formattedNum = (
                                                     value / M
-                                                ).toFixed(1);
+                                                ).toFixed(2);
                                                 if (
                                                     formattedNum.endsWith('.0')
                                                 ) {
@@ -923,7 +887,7 @@ function InterestCalculator() {
                                                 // Format in thousands (e.g., 2K, 10K, 100K)
                                                 let formattedNum = (
                                                     value / K
-                                                ).toFixed(1);
+                                                ).toFixed(2);
                                                 if (
                                                     formattedNum.endsWith('.0')
                                                 ) {
