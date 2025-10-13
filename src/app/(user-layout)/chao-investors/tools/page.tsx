@@ -177,6 +177,16 @@ function InterestCalculator() {
     const [initialCapitalInput, setInitialCapitalInput] = useState<string>(
         formatNumber(1000)
     );
+    const [growthRateInput, setGrowthRateInput] = useState<string>(
+        formatNumber(10)
+    );
+    const [timeValueInput, setTimeValueInput] = useState(formatNumber(12));
+    const [volatilityInput, setVolatilityInput] = useState<string>(
+        formatNumber(15)
+    );
+    const [simulationsInput, setSimulationsInput] = useState<string>(
+        formatNumber(1000)
+    );
 
     // Generate data for chart
     // Generate data for chart
@@ -286,7 +296,11 @@ function InterestCalculator() {
             }
         }
 
-        if (timeValue === 0) return [];
+        if (timeValue === 0 || initialCapital === 0)
+            return Array.from({ length: 12 }, (_, index) => ({
+                time: index,
+                value: index === 0 ? 0 : undefined,
+            }));
 
         return data;
     }, [
@@ -365,6 +379,22 @@ function InterestCalculator() {
         setInitialCapitalInput(formatNumber(initialCapital));
     }, [initialCapital]);
 
+    useEffect(() => {
+        setGrowthRateInput(formatNumber(growthRate));
+    }, [growthRate]);
+
+    useEffect(() => {
+        setTimeValueInput(formatNumber(timeValue));
+    }, [timeValue]);
+
+    useEffect(() => {
+        setVolatilityInput(formatNumber(volatility));
+    }, [volatility]);
+
+    useEffect(() => {
+        setSimulationsInput(formatNumber(simulations));
+    }, [simulations]);
+
     return (
         <div
             className="flex flex-col md:flex-row gap-2"
@@ -412,16 +442,41 @@ function InterestCalculator() {
                     <CardContent className="space-y-6">
                         <div className="w-full relative items-center">
                             <FloatingLabelInput
-                                type="number"
+                                type="text"
                                 label={locale === 'vi' ? 'Kỳ Hạn' : 'Term'}
-                                value={timeValue}
+                                value={timeValueInput || '-'}
                                 onChange={e => {
-                                    const value = Number(e.target.value);
-                                    const clampedValue = Math.min(
-                                        Math.max(value, 0),
-                                        60
+                                    const rawValue = e.target.value;
+                                    const sanitizedValue = rawValue.replace(
+                                        /[^\d\.\,\-]/g,
+                                        ''
                                     );
-                                    setTimeValue(clampedValue);
+                                    setTimeValueInput(sanitizedValue);
+
+                                    const numericString = rawValue.replace(
+                                        /,/g,
+                                        ''
+                                    );
+
+                                    if (
+                                        numericString === '' ||
+                                        (/^\d*\.?\d*$/.test(numericString) &&
+                                            numericString !== '.')
+                                    ) {
+                                        if (numericString !== '') {
+                                            let parsedValue =
+                                                Number(numericString);
+                                            parsedValue = Math.min(
+                                                Math.max(0, parsedValue),
+                                                60
+                                            );
+                                            if (!isNaN(parsedValue)) {
+                                                setTimeValue(parsedValue);
+                                            }
+                                        } else {
+                                            setTimeValue(0);
+                                        }
+                                    }
                                 }}
                                 min={0}
                                 max={30}
@@ -476,11 +531,85 @@ function InterestCalculator() {
                                         ? 'Vốn đầu tư ban đầu'
                                         : 'Starting Equity'
                                 }
-                                value={initialCapitalInput}
+                                value={initialCapitalInput || '-'}
                                 onChange={e => {
                                     const rawValue = e.target.value;
+                                    const sanitizedValue = rawValue.replace(
+                                        /[^\d\.\,\-]/g,
+                                        ''
+                                    );
 
-                                    setInitialCapitalInput(rawValue);
+                                    setInitialCapitalInput(sanitizedValue);
+
+                                    const numericString = rawValue.replace(
+                                        /,/g,
+                                        ''
+                                    );
+
+                                    if (
+                                        numericString === '' ||
+                                        (/^\d*\.?\d*$/.test(numericString) &&
+                                            numericString !== '.')
+                                    ) {
+                                        if (numericString !== '') {
+                                            const parsedValue =
+                                                Number(numericString);
+                                            const valueInRange = Math.min(
+                                                Math.max(0, parsedValue),
+                                                1000000000
+                                            );
+                                            if (!isNaN(valueInRange)) {
+                                                setInitialCapital(valueInRange);
+                                            }
+                                        } else {
+                                            setInitialCapital(0);
+                                        }
+                                    }
+                                }}
+                                className="app-text-input pr-10"
+                            />
+                            <AppTooltips
+                                contents={
+                                    <div className="max-w-[24rem] flex flex-col gap-2">
+                                        {locale === 'vi' ? (
+                                            <p>Giới hạn: 1,000,000,000</p>
+                                        ) : (
+                                            <p>limit: 1,000,000,000</p>
+                                        )}
+                                    </div>
+                                }
+                                trigger={
+                                    <Button
+                                        variant="ghost"
+                                        className={
+                                            'dark:hover:bg-transparent absolute' +
+                                            ' right-0 bottom-1/2 transform translate-y-1/2' +
+                                            ' dark:hover:text-[var(--brand-color)]'
+                                        }
+                                    >
+                                        <Info className="size-3" />
+                                    </Button>
+                                }
+                            />
+                        </div>
+
+                        <div className={'relative'}>
+                            <FloatingLabelInput
+                                type="text"
+                                inputMode="decimal"
+                                label={
+                                    locale === 'vi'
+                                        ? `Lãi suất (%/${processUnitLabel(growthUnit, 'vi')})`
+                                        : `Growth Rate (%/${processUnitLabel(growthUnit, 'en')})`
+                                }
+                                value={growthRateInput || '-'}
+                                onChange={e => {
+                                    const rawValue = e.target.value;
+                                    const sanitizedValue = rawValue.replace(
+                                        /[^\d\.\,\-]/g,
+                                        ''
+                                    );
+                                    setGrowthRateInput(sanitizedValue);
 
                                     const numericString = rawValue.replace(
                                         /,/g,
@@ -496,31 +625,13 @@ function InterestCalculator() {
                                             const parsedValue =
                                                 Number(numericString);
                                             if (!isNaN(parsedValue)) {
-                                                setInitialCapital(parsedValue);
+                                                setGrowthRate(parsedValue);
                                             }
                                         } else {
-                                            setInitialCapital(0);
+                                            setGrowthRate(0);
                                         }
                                     }
                                 }}
-                                className="app-text-input pr-10"
-                            />
-                        </div>
-
-                        <div className={'relative'}>
-                            <FloatingLabelInput
-                                type="number"
-                                label={
-                                    locale === 'vi'
-                                        ? `Lãi suất (%/${processUnitLabel(growthUnit, 'vi')})`
-                                        : `Growth Rate (%/${processUnitLabel(growthUnit, 'en')})`
-                                }
-                                value={growthRate}
-                                onChange={e =>
-                                    setGrowthRate(Number(e.target.value))
-                                }
-                                min="1"
-                                step="0.1"
                                 className="app-text-input pr-10"
                             />
 
@@ -544,38 +655,90 @@ function InterestCalculator() {
                             <>
                                 <div>
                                     <FloatingLabelInput
-                                        type="number"
+                                        type="text"
                                         label={
                                             locale === 'vi'
                                                 ? 'Độ biến động (%):'
                                                 : 'Volatility (%):'
                                         }
-                                        value={volatility}
-                                        onChange={e =>
-                                            setVolatility(
-                                                Number(e.target.value)
-                                            )
-                                        }
-                                        min="0"
-                                        step="0.1"
+                                        value={volatilityInput || '-'}
+                                        onChange={e => {
+                                            const rawValue = e.target.value;
+                                            const sanitizedValue =
+                                                rawValue.replace(
+                                                    /[^\d\.\,\-]/g,
+                                                    ''
+                                                );
+                                            setVolatilityInput(sanitizedValue);
+
+                                            const numericString =
+                                                rawValue.replace(/,/g, '');
+
+                                            if (
+                                                numericString === '' ||
+                                                (/^\d*\.?\d*$/.test(
+                                                    numericString
+                                                ) &&
+                                                    numericString !== '.')
+                                            ) {
+                                                if (numericString !== '') {
+                                                    const parsedValue =
+                                                        Number(numericString);
+                                                    if (!isNaN(parsedValue)) {
+                                                        setVolatility(
+                                                            parsedValue
+                                                        );
+                                                    }
+                                                } else {
+                                                    setVolatility(0);
+                                                }
+                                            }
+                                        }}
                                         className="app-text-input pr-10"
                                     />
                                 </div>
 
                                 <div>
                                     <FloatingLabelInput
-                                        type="number"
+                                        type="text"
                                         label={
                                             locale === 'vi'
                                                 ? 'Số lần mô phỏng:'
                                                 : 'Number of Simulations:'
                                         }
-                                        value={simulations}
-                                        onChange={e =>
-                                            setSimulations(
-                                                Number(e.target.value)
-                                            )
-                                        }
+                                        value={simulationsInput || '-'}
+                                        onChange={e => {
+                                            const rawValue = e.target.value;
+                                            const sanitizedValue =
+                                                rawValue.replace(
+                                                    /[^\d\.\,\-]/g,
+                                                    ''
+                                                );
+                                            setSimulationsInput(sanitizedValue);
+
+                                            const numericString =
+                                                rawValue.replace(/,/g, '');
+
+                                            if (
+                                                numericString === '' ||
+                                                (/^\d*\.?\d*$/.test(
+                                                    numericString
+                                                ) &&
+                                                    numericString !== '.')
+                                            ) {
+                                                if (numericString !== '') {
+                                                    const parsedValue =
+                                                        Number(numericString);
+                                                    if (!isNaN(parsedValue)) {
+                                                        setSimulations(
+                                                            parsedValue
+                                                        );
+                                                    }
+                                                } else {
+                                                    setSimulations(0);
+                                                }
+                                            }
+                                        }}
                                         min="10"
                                         max="10000"
                                         className="app-text-input pr-10"
@@ -649,35 +812,132 @@ function InterestCalculator() {
                                                     : 'Equity',
                                             angle: -90,
                                             offset: 15,
+                                            // Use 'insideLeft' or 'left' depending on your chart library version and desired position
+                                            // 'left' often places it more conventionally to the left of the axis line
+                                            // 'insideLeft' places it inside the chart area on the left
+                                            // Adjust offset if the label isn't positioned as expected with 'left'
                                             position: 'left',
                                             style: {
                                                 textAnchor: 'middle',
                                                 fontWeight: 'bold',
                                             },
                                         }}
-                                        domain={['auto', 'auto']}
+                                        ticks={(() => {
+                                            const scaleMax = initialCapital;
+
+                                            let tickValues = [];
+                                            if (scaleMax < 1000) {
+                                                // Ticks: 0, 200, 400, 600, 800, 1000
+                                                tickValues = [
+                                                    0, 200, 400, 600, 800, 1000,
+                                                ];
+                                            } else if (scaleMax < 10000) {
+                                                // Ticks: 0K, 2K, 4K, 6K, 8K, 10K
+                                                tickValues = [
+                                                    0, 2000, 4000, 6000, 8000,
+                                                    10000,
+                                                ];
+                                            } else if (scaleMax < 100000) {
+                                                // Ticks: 0K, 20K, 40K, 60K, 80K, 100K
+                                                tickValues = [
+                                                    0, 20000, 40000, 60000,
+                                                    80000, 100000,
+                                                ];
+                                            } else if (scaleMax < 1000000) {
+                                                // Ticks: 0M, 0.2M, 0.4M, 0.6M, 0.8M, 1M
+                                                tickValues = [
+                                                    0, 200000, 400000, 600000,
+                                                    800000, 1000000,
+                                                ];
+                                            } else if (scaleMax < 10000000) {
+                                                // Ticks: 0M, 2M, 4M, 6M, 8M, 10M
+                                                tickValues = [
+                                                    0, 2000000, 4000000,
+                                                    6000000, 8000000, 10000000,
+                                                ];
+                                            } else if (scaleMax < 100000000) {
+                                                // Ticks: 0M, 20M, 40M, 60M, 80M, 100M
+                                                tickValues = [
+                                                    0, 20000000, 40000000,
+                                                    60000000, 80000000,
+                                                    100000000,
+                                                ];
+                                            } else if (
+                                                scaleMax >= 100000000 &&
+                                                scaleMax < 1000000000
+                                            ) {
+                                                tickValues = [
+                                                    0, 200000000, 400000000,
+                                                    600000000, 800000000,
+                                                    1000000000,
+                                                ];
+                                            } else {
+                                                tickValues = [
+                                                    0, 2000000000, 4000000000,
+                                                    6000000000, 8000000000,
+                                                    10000000000,
+                                                ];
+                                            }
+
+                                            return tickValues;
+                                        })()}
                                         tickFormatter={value => {
                                             // Define thresholds for formatting
                                             const K = 1000;
                                             const M = 1000000;
-                                            const B = 1000000000;
+                                            const G = 1000000000;
 
+                                            console.log(formatNumber(value));
                                             // Determine the appropriate unit and format the value
-                                            if (Math.abs(value) >= B) {
-                                                // Format in billions (e.g., 1.23B)
-                                                return `$${(value / B).toFixed(2)}B`;
+                                            // Use Math.abs for formatting as well, although ticks should be positive
+                                            if (Math.abs(value) >= G) {
+                                                let formattedNum = (
+                                                    value / G
+                                                ).toFixed(1);
+                                                if (
+                                                    formattedNum.endsWith('.0')
+                                                ) {
+                                                    formattedNum =
+                                                        formattedNum.slice(
+                                                            0,
+                                                            -2
+                                                        ); // Remove .0 for whole billions
+                                                }
+                                                return `$${formattedNum}G`;
                                             } else if (Math.abs(value) >= M) {
-                                                // Format in millions (e.g., 1.23M)
-                                                return `$${(value / M).toFixed(2)}M`;
+                                                // Format in millions (e.g., 0.2M, 2M, 10M)
+                                                let formattedNum = (
+                                                    value / M
+                                                ).toFixed(1);
+                                                if (
+                                                    formattedNum.endsWith('.0')
+                                                ) {
+                                                    formattedNum =
+                                                        formattedNum.slice(
+                                                            0,
+                                                            -2
+                                                        ); // Remove .0 for whole millions
+                                                }
+                                                return `$${formattedNum}M`;
                                             } else if (Math.abs(value) >= K) {
-                                                // Format in thousands (e.g., 1.23K)
-                                                return `$${(value / K).toFixed(2)}K`;
+                                                // Format in thousands (e.g., 2K, 10K, 100K)
+                                                let formattedNum = (
+                                                    value / K
+                                                ).toFixed(1);
+                                                if (
+                                                    formattedNum.endsWith('.0')
+                                                ) {
+                                                    formattedNum =
+                                                        formattedNum.slice(
+                                                            0,
+                                                            -2
+                                                        ); // Remove .0 for whole thousands
+                                                }
+                                                return `$${formattedNum}K`;
                                             } else {
-                                                // Format as a regular number if less than a thousand (e.g., 500.00)
-                                                // Note: This will apply the same decimal formatting as K/M/B
-                                                // If you want different precision for small numbers, adjust accordingly
-                                                return `$${value.toFixed(2)}`;
-                                                // Or simply return `$${value}` if you don't want decimal places for small numbers
+                                                // Format as a regular number if less than a thousand (e.g., 0, 200, 1000)
+                                                // Use toFixed(0) to avoid decimals for small numbers, or keep toFixed(2) if preferred
+                                                return `$${value.toFixed(0)}`;
                                             }
                                         }}
                                     />
