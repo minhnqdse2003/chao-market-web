@@ -375,44 +375,25 @@ function InterestCalculator() {
     const chartData = useDebounce(generateChartData, 300) as unknown as any[];
     const height = calculateAdjustedHeight() + 80;
 
-    function roundUpToZeroes(num: number) {
-        if (num === 0) return 0;
-        const digits = Math.floor(Math.log10(Math.abs(num))) + 1;
-        const place = Math.pow(10, digits - 1);
-        return Math.ceil(num / place) * place;
-    }
-
     const calcYAxis = () => {
         const min = Math.min(...chartData.map(d => d.value));
         const max = Math.max(...chartData.map(d => d.value));
 
-        const axisMin = min;
-        const axisMax = max + (max - min) * 0.1;
-
-        const roughNumber = (axisMax - axisMin) / 5;
-
-        const magnitude = Math.pow(10, Math.floor(Math.log10(roughNumber)));
-        const residual = roughNumber / magnitude;
-        let niceStep;
-        if (residual > 5) {
-            niceStep = 10 * magnitude;
-        } else if (residual > 2) {
-            niceStep = 5 * magnitude;
-        } else if (residual > 1) {
-            niceStep = 2 * magnitude;
-        } else {
-            niceStep = magnitude;
-        }
-
-        const finAxisMin = Math.floor(axisMin / niceStep) * niceStep;
-        const finAxisMax = Math.ceil(axisMax / niceStep) * niceStep;
-
-        const yAxisStep = roundUpToZeroes(roughNumber);
+        const yAxisStep = (max - min) / 5;
         const yAxisValues = [];
-        for (let i = finAxisMin; i <= finAxisMax; i += yAxisStep) {
+
+        console.log(yAxisStep);
+        for (let i = min; i <= max + yAxisStep; i += yAxisStep) {
             yAxisValues.push(i);
         }
-        return yAxisValues;
+
+        console.log(yAxisValues);
+
+        const shouldAssignAdditionalNode = yAxisValues.length === 6;
+
+        return shouldAssignAdditionalNode
+            ? [...yAxisValues, yAxisValues[yAxisValues.length - 1] + yAxisStep]
+            : yAxisValues;
     };
 
     useEffect(() => {
@@ -484,7 +465,7 @@ function InterestCalculator() {
                             <FloatingLabelInput
                                 type="text"
                                 label={locale === 'vi' ? 'Kỳ Hạn' : 'Term'}
-                                value={timeValueInput || '-'}
+                                value={timeValueInput}
                                 onChange={e => {
                                     const rawValue = e.target.value;
                                     const sanitizedValue = rawValue.replace(
@@ -516,9 +497,6 @@ function InterestCalculator() {
                                         }
                                     }
                                 }}
-                                min={0}
-                                max={30}
-                                maxLength={2}
                                 className="app-text-input pr-10"
                             />
                             <AppDropdown
@@ -865,7 +843,7 @@ function InterestCalculator() {
                                                         formattedNum.slice(
                                                             0,
                                                             -2
-                                                        ); // Remove .0 for whole billions
+                                                        );
                                                 }
                                                 return `$${formattedNum}G`;
                                             } else if (Math.abs(value) >= M) {
@@ -895,13 +873,11 @@ function InterestCalculator() {
                                                         formattedNum.slice(
                                                             0,
                                                             -2
-                                                        ); // Remove .0 for whole thousands
+                                                        );
                                                 }
                                                 return `$${formattedNum}K`;
                                             } else {
-                                                // Format as a regular number if less than a thousand (e.g., 0, 200, 1000)
-                                                // Use toFixed(0) to avoid decimals for small numbers, or keep toFixed(2) if preferred
-                                                return `$${value.toFixed(0)}`;
+                                                return `$${value.toFixed(2)}`;
                                             }
                                         }}
                                     />
