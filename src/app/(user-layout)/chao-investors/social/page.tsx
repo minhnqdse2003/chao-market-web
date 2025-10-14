@@ -3,9 +3,21 @@
 import { AppTabs, TabItem } from '@/components/app-tabs';
 import { calculateAdjustedHeight } from '@/utils/height-utils';
 import { useTheme } from 'next-themes';
+import { use } from 'react';
+import { useRouter } from 'next/navigation';
 
-export default function SocialPage() {
+interface PageProps {
+    searchParams: {
+        tab?: string;
+    };
+}
+
+export default function SocialPage({ searchParams }: PageProps) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const { tab } = use(searchParams);
     const height = calculateAdjustedHeight();
+    const router = useRouter();
     const { theme } = useTheme();
 
     const tabsList: TabItem[] = height
@@ -60,7 +72,15 @@ export default function SocialPage() {
 
     return (
         <div>
-            <AppTabs tabsList={tabsList} size={2} />
+            <AppTabs
+                tabsList={tabsList}
+                size={2}
+                defaultValue={tab}
+                onValueChange={(value: string) => {
+                    if (value)
+                        router.push('/chao-investors/social?tab=' + value);
+                }}
+            />
         </div>
     );
 }

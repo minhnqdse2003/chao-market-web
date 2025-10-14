@@ -1,7 +1,7 @@
 'use client';
 import { useI18n } from '@/context/i18n/context';
 import { AppTabs, TabItem } from '@/components/app-tabs';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, use } from 'react';
 import {
     LineChart,
     Line,
@@ -30,6 +30,7 @@ import { Separator } from '@/components/ui/separator';
 import AppTooltips from '@/components/app-tooltips';
 import { Button } from '@/components/ui/button';
 import { Info } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface ToolConfig {
     key: string;
@@ -40,6 +41,12 @@ interface ToolConfig {
 interface Group {
     key: string;
     items: ToolConfig[];
+}
+
+interface PageProps {
+    searchParams: {
+        tab?: string;
+    };
 }
 
 const toolConfigs: Group[] = [
@@ -382,12 +389,9 @@ function InterestCalculator() {
         const yAxisStep = (max - min) / 5;
         const yAxisValues = [];
 
-        console.log(yAxisStep);
         for (let i = min; i <= max + yAxisStep; i += yAxisStep) {
             yAxisValues.push(i);
         }
-
-        console.log(yAxisValues);
 
         const shouldAssignAdditionalNode = yAxisValues.length === 6;
 
@@ -970,9 +974,13 @@ function InterestCalculator() {
     );
 }
 
-export default function InvestorToolsComp() {
+export default function InvestorToolsComp({ searchParams }: PageProps) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const { tab } = use(searchParams);
     const { t, locale } = useI18n();
     const [tabsList, setTabsList] = useState<TabItem[]>([]);
+    const router = useRouter();
 
     useEffect(() => {
         const newTabsList = toolConfigs.map(group => {
@@ -1022,5 +1030,14 @@ export default function InvestorToolsComp() {
         return <div>Loading...</div>;
     }
 
-    return <AppTabs tabsList={tabsList} size={1} />;
+    return (
+        <AppTabs
+            tabsList={tabsList}
+            size={1}
+            defaultValue={tab}
+            onValueChange={(value: string) => {
+                if (value) router.push('/chao-investors/tools?tab=' + value);
+            }}
+        />
+    );
 }

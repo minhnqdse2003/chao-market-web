@@ -5,8 +5,16 @@ import { VietNamStockMarketNewsFeed } from '@/app/(user-layout)/market-data/mark
 import { AppTabs, TabItem } from '@/components/app-tabs';
 import { useI18n } from '@/context/i18n/context';
 import CombinedNewsFeed from '@/app/(user-layout)/market-data/markets/components/vietnam-stock-market-news';
+import { use } from 'react';
+import { useRouter } from 'next/navigation';
 
 type MARKET_TYPES = 'global' | 'vietnam';
+
+interface PageProps {
+    searchParams: {
+        tab?: string;
+    };
+}
 
 function NewsComp({ type }: { type: MARKET_TYPES }) {
     const { locale } = useI18n();
@@ -17,8 +25,12 @@ function NewsComp({ type }: { type: MARKET_TYPES }) {
     );
 }
 
-export default function Page() {
+export default function Page({ searchParams }: PageProps) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const { tab } = use(searchParams);
     const { t } = useI18n();
+    const router = useRouter();
     const tabsList: TabItem[] = [
         {
             title: t('marketData.marketData.items.indices.items.global.title'),
@@ -38,7 +50,14 @@ export default function Page() {
                 searchParams={{}}
                 currentHref={'/market-data/news'}
             />
-            <AppTabs tabsList={tabsList} size={1} />
+            <AppTabs
+                tabsList={tabsList}
+                size={1}
+                defaultValue={tab}
+                onValueChange={(value: string) => {
+                    if (value) router.push(`/market-data/news?tab=${value}`);
+                }}
+            />
         </div>
     );
 }

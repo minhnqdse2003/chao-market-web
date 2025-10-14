@@ -17,6 +17,7 @@ import { Pagination } from '@/components/app-pagination-server-side';
 import { BrandLogoFtHat } from '@image/index';
 import NewsEventFilterDialogComp from '@/app/(user-layout)/news-event/components/news-filter';
 import { NewsType } from '@/app/(user-layout)/news-event/utils/data-utils';
+import { buildURLSearchParams } from '@/utils/api/query-params-build';
 
 interface PageProps {
     searchParams: {
@@ -121,6 +122,7 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
                         validSearchParams
                     ).toString()}
                     isSubTab={true}
+                    currentHref={`/community?${buildURLSearchParams(searchParams)}`}
                 />
 
                 <NewsComp news={newsData} baseHref={'/community'} />
