@@ -64,10 +64,7 @@ export default function CombinedNewsFeed({ type }: CombinedNewsFeedProps) {
     ) => {
         const target = e.target as HTMLImageElement;
         target.src = `/img/news-${theme}.png`;
-        target.className =
-            'rounded-md object-contain border' +
-            ' dark:border-[var(--brand-color)] border-black' +
-            '  w-[320px] h-[160px]';
+        target.className = 'rounded-md object-contain w-[320px] h-[160px]';
         setErroredImages(prev => new Set(prev).add(url));
     };
 

@@ -469,4 +469,7 @@ export const en: TranslationsStructure = {
         profile: 'Profile',
         notification: 'Notification',
     },
+    tool: {
+        valueIsNowEmpty: 'Value is now empty',
+    },
 };

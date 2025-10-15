@@ -9,6 +9,7 @@ import { FooterTranslations } from '@/types/translations/footer';
 import { MarketData } from '@/types/translations/market-data';
 import { Investors } from '@/types/translations/investors';
 import { AccountTranslations } from '@/types/translations/account';
+import ToolsTranslations from '@/types/translations/tools';
 
 export interface TranslationsStructure {
     common: CommonTranslations;
@@ -24,6 +25,7 @@ export interface TranslationsStructure {
     investors: Investors;
     community: CommunityTranslations;
     account: AccountTranslations;
+    tool: ToolsTranslations;
 }
 
 type Leaves<T, K extends string = ''> = T extends object

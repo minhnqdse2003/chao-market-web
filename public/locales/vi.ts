@@ -469,4 +469,7 @@ export const vi: TranslationsStructure = {
         notification: 'Thông Báo',
         profile: 'Hồ Sơ',
     },
+    tool: {
+        valueIsNowEmpty: 'Chưa có giá trị',
+    },
 };

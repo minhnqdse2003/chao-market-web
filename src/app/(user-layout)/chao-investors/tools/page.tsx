@@ -31,6 +31,7 @@ import AppTooltips from '@/components/app-tooltips';
 import { Button } from '@/components/ui/button';
 import { Info } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { T } from '@/components/app-translate';
 
 interface ToolConfig {
     key: string;
@@ -303,11 +304,17 @@ function InterestCalculator() {
             }
         }
 
-        if (timeValue === 0 || initialCapital === 0)
+        if (
+            timeValue === 0 ||
+            initialCapital === 0 ||
+            initialCapitalInput === '' ||
+            timeValueInput === ''
+        ) {
             return Array.from({ length: 12 }, (_, index) => ({
                 time: index,
                 value: index === 0 ? 0 : undefined,
             }));
+        }
 
         return data;
     }, [
@@ -315,9 +322,11 @@ function InterestCalculator() {
         growthRate,
         growthUnit,
         initialCapital,
+        initialCapitalInput,
         simulations,
         timeUnit,
         timeValue,
+        timeValueInput,
         volatility,
     ]);
 
@@ -394,6 +403,10 @@ function InterestCalculator() {
         }
 
         const shouldAssignAdditionalNode = yAxisValues.length === 6;
+
+        if (yAxisValues.length === 0) {
+            return [0, 100];
+        }
 
         return shouldAssignAdditionalNode
             ? [...yAxisValues, yAxisValues[yAxisValues.length - 1] + yAxisStep]
@@ -930,7 +943,11 @@ function InterestCalculator() {
                                         : 'Starting Investment'}
                                 </p>
                                 <p className="font-bold dark:text-[var(--brand-color)]">
-                                    $ {formatNumber(initialCapital)}
+                                    {initialCapitalInput ? (
+                                        <>$ {formatNumber(initialCapital)}</>
+                                    ) : (
+                                        <T keyName={'tool.valueIsNowEmpty'} />
+                                    )}
                                 </p>
                             </div>
                             <div className="p-3 text-brand-text rounded-md">
@@ -938,8 +955,14 @@ function InterestCalculator() {
                                     {locale === 'vi' ? 'Kỳ Hạn' : 'Term'}
                                 </p>
                                 <p className="font-bold dark:text-[var(--brand-color)]">
-                                    {timeValue}{' '}
-                                    {`${timeUnit}${timeValue !== 1 ? 's' : ''}`}
+                                    {timeValueInput ? (
+                                        <>
+                                            {timeValue}{' '}
+                                            {`${timeUnit}${timeValue !== 1 ? 's' : ''}`}
+                                        </>
+                                    ) : (
+                                        <T keyName={'tool.valueIsNowEmpty'} />
+                                    )}
                                 </p>
                             </div>
                             <div className="p-3 text-brand-text rounded-md">
@@ -949,7 +972,14 @@ function InterestCalculator() {
                                         : 'Growth Rate'}
                                 </p>
                                 <p className="font-bold dark:text-[var(--brand-color)]">
-                                    {formatNumber(growthRate)} %/{growthUnit}
+                                    {growthRateInput ? (
+                                        <>
+                                            {formatNumber(growthRate)} %/
+                                            {growthUnit}
+                                        </>
+                                    ) : (
+                                        <T keyName={'tool.valueIsNowEmpty'} />
+                                    )}
                                 </p>
                             </div>
                             <div className="p-3 text-brand-text rounded-md">
@@ -959,10 +989,16 @@ function InterestCalculator() {
                                         : 'Final Value'}
                                 </p>
                                 <p className="font-bold dark:text-[var(--brand-color)]">
-                                    ${' '}
-                                    {formatNumber(
-                                        chartData[chartData.length - 1]
-                                            ?.value || 0
+                                    {chartData[chartData.length - 1]?.value ? (
+                                        <>
+                                            ${' '}
+                                            {formatNumber(
+                                                chartData[chartData.length - 1]
+                                                    ?.value || 0
+                                            )}
+                                        </>
+                                    ) : (
+                                        <T keyName={'tool.valueIsNowEmpty'} />
                                     )}
                                 </p>
                             </div>
