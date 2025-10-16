@@ -28,6 +28,8 @@ export interface AuthTranslations {
     resendOtp: string;
     termsAgreement: {
         start: string;
+        startAgePrivacy: string;
+        startEndContent: string;
         startNewLine: string;
         privacyNotice: string;
         and: string;

@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { FooterSection } from '@/types/translations/footer';
-import { useI18n } from '@/context/i18n/context'; // Import the type for safety
+import { useI18n } from '@/context/i18n/context';
+import { format } from 'date-fns'; // Import the type for safety
 
 export default function TermsOfUse() {
     const { t } = useI18n();
@@ -12,9 +13,10 @@ export default function TermsOfUse() {
         'footer.termOfUse.sections' as never
     ) as unknown as FooterSection[];
 
+    const lastUpdatedDate = new Date(2025, 10, 1, 20, 0, 0);
     const lastUpdatedText = t('common.lastUpdated').replace(
         '{date}',
-        new Date().toLocaleDateString()
+        format(lastUpdatedDate, 'HH:mm:ss dd/MM/yyyy')
     );
 
     return (
@@ -28,9 +30,14 @@ export default function TermsOfUse() {
                 </Button>
             </Link>
 
-            <h1 className="text-3xl font-bold text-brand-text dark:text-[var(--brand-color)] mb-6">
-                {t('footer.termOfUse.title')}
-            </h1>
+            <div className={'mb-6 flex flex-col gap-2'}>
+                <h1 className="text-3xl font-bold text-brand-text dark:text-[var(--brand-color)]">
+                    {t('footer.termOfUse.title')}
+                </h1>
+                <div className="border-b pb-2 border-[var(--brand-grey-foreground)]">
+                    {lastUpdatedText}
+                </div>
+            </div>
 
             <div className="space-y-6 text-brand-text">
                 {Array.isArray(sections) &&
@@ -44,12 +51,6 @@ export default function TermsOfUse() {
                             </p>
                         </section>
                     ))}
-
-                <div className="pt-6 border-t border-[var(--brand-grey-foreground)]">
-                    <p className="text-sm text-[var(--brand-grey-foreground)]">
-                        {lastUpdatedText}
-                    </p>
-                </div>
             </div>
         </div>
     );

@@ -12,7 +12,7 @@ import { format } from 'date-fns';
 import { useTheme } from 'next-themes';
 
 export interface ChartDataPoint {
-    date: number; // store as timestamp (ms)
+    date: number;
     equityPercentage: number;
     gainPercentage: number;
     depositAmount?: number;

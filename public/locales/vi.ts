@@ -29,6 +29,7 @@ export const vi: TranslationsStructure = {
         lastUpdated: 'Cập nhật lần cuối: {date}',
         backToHome: '← Quay lại Trang chủ',
         scrollToTop: 'Về Đầu Trang ',
+        autoCloseMessage: 'Thông báo này sẽ tự động đóng sau {countdown} giây.',
     },
     auth: {
         login: 'Đăng nhập',
@@ -61,7 +62,9 @@ export const vi: TranslationsStructure = {
         didNotReceiveCode: 'Tôi không nhận được mã',
         resendOtp: 'Gửi lại OTP',
         termsAgreement: {
-            start: 'Bằng việc tạo tài khoản, tôi xác nhận mình đủ 18 tuổi và',
+            start: 'Bằng việc tạo tài khoản, tôi xác nhận mình',
+            startAgePrivacy: 'đủ 18 tuổi',
+            startEndContent: 'và',
             startNewLine: 'tôi đồng ý với',
             privacyNotice: 'Chính Sách Bảo Mật',
             and: 'và',
@@ -242,7 +245,7 @@ export const vi: TranslationsStructure = {
     },
     sidebar: {
         home: 'Trang chủ',
-        clientsAccounts: 'Tài Khoản Khách hàng',
+        performanceStatistics: 'Hiệu Suất Hệ Thống',
         marketData: 'Dữ Liệu Thị Trường',
         ourSolutions: 'Giải Pháp Của Chào',
         newsEvents: 'Góc Nhìn Của Chào',
@@ -319,24 +322,36 @@ export const vi: TranslationsStructure = {
             title: 'Chính sách Quyền riêng tư',
             sections: [
                 {
-                    title: '1. Dữ Liệu Chúng Tôi Thu Thập',
-                    content: 'Chúng tôi thu thập thông tin cá nhân mà bạn cung cấp trực tiếp, chẳng hạn như tên, địa chỉ email và số điện thoại khi bạn điền vào form yêu cầu tư vấn. Chúng tôi cũng tự động thu thập dữ liệu phi cá nhân, như địa chỉ IP và hành vi duyệt web, thông qua cookies.',
+                    title: '1. Thông Tin Chúng Tôi Thu Thập',
+                    content: 'Chào Market ("chúng tôi") cam kết bảo vệ quyền riêng tư của người dùng ("bạn"). “Chính Sách Bảo Mật” này giải thích cách chúng tôi thu thập, sử dụng, tiết lộ và bảo vệ thông tin của bạn khi bạn truy cập website Chào Market (ChaoMarket.com) và các dịch vụ của chúng tôi.\n\nChúng tôi có thể thu thập thông tin về bạn theo nhiều cách khác nhau:\n\nThông tin cá nhân bạn cung cấp:\n• Khi bạn đăng ký tài khoản, chúng tôi sẽ thu thập các thông tin định danh cá nhân như họ tên, địa chỉ email, và số điện thoại (tùy chọn).\n• Khi bạn liên hệ với chúng tôi qua các biểu mẫu hoặc email, chúng tôi sẽ thu thập thông tin bạn cung cấp trong quá trình trao đổi đó.\n\nDữ liệu tự động thu thập:\n• Khi bạn truy cập website, chúng tôi có thể tự động thu thập các thông tin như địa chỉ IP, loại trình duyệt, hệ điều hành, thời gian truy cập, và các trang bạn đã xem. Dữ liệu này được sử dụng cho mục đích phân tích và bảo mật.',
                 },
                 {
-                    title: '2. Cách Chúng Tôi Sử Dụng Dữ Liệu Của Bạn',
-                    content: 'Dữ liệu của bạn được sử dụng để:\n• Phản hồi các yêu cầu của bạn và cung cấp các dịch vụ bạn đã đăng ký.\n• Cải thiện website và trải nghiệm người dùng.\n• Gửi cho bạn các thông tin tiếp thị, như bản tin (newsletter), chỉ khi bạn đã đồng ý một cách rõ ràng (opt-in).',
+                    title: '2. Chúng Tôi Sử Dụng Thông Tin Của Bạn Như Thế Nào?',
+                    content: 'Việc thu thập thông tin của bạn nhằm mục đích cung cấp một trải nghiệm hiệu quả, an toàn và được cá nhân hóa. Cụ thể, chúng tôi sử dụng thông tin của bạn để:\n• Tạo và quản lý tài khoản của bạn.\n• Cấp quyền truy cập vào các nội dung hạn chế (như khu vực "Hiệu Suất Hệ Thống") sau khi bạn đã đồng ý với các điều khoản.\n• Gửi các thông báo quan trọng liên quan đến tài khoản và dịch vụ.\n• Phản hồi các yêu cầu và câu hỏi của bạn.\n• Phân tích việc sử dụng website để cải thiện dịch vụ và trải nghiệm người dùng.\n• Ngăn chặn các hoạt động gian lận và bảo vệ an ninh cho website.',
                 },
                 {
-                    title: '3. Chia Sẻ Dữ Liệu',
-                    content: 'Chúng tôi không bán, trao đổi hoặc cho thuê thông tin cá nhân của bạn cho bên khác. Chúng tôi có thể chia sẻ dữ liệu của bạn với các nhà cung cấp dịch vụ bên thứ ba đáng tin cậy (ví dụ: Google Analytics, các nền tảng email marketing) để hỗ trợ chúng tôi vận hành website, nhưng chỉ cho các mục đích đã nêu ở trên.',
+                    title: '3. Tiết Lộ Thông Tin Của Bạn',
+                    content: 'Chúng tôi không bán, cho thuê hay trao đổi thông tin cá nhân của bạn cho bất kỳ bên thứ ba nào vì mục đích thương mại. Thông tin của bạn chỉ có thể được chia sẻ trong các trường hợp sau:\n• Với các nhà cung cấp dịch vụ: Chúng tôi có thể chia sẻ thông tin với các bên thứ ba cung cấp dịch vụ cho chúng tôi (như dịch vụ lưu trữ web, phân tích dữ liệu, gửi email). Các bên này chỉ được phép sử dụng thông tin của bạn để thực hiện các nhiệm vụ được giao và có nghĩa vụ bảo mật thông tin.\n• Theo yêu cầu của pháp luật: Chúng tôi có thể tiết lộ thông tin của bạn nếu được yêu cầu bởi pháp luật, tòa án, hoặc cơ quan nhà nước có thẩm quyền để bảo vệ quyền lợi và sự an toàn của chúng tôi và những người khác.',
                 },
                 {
-                    title: '4. Quyền Của Bạn',
-                    content: 'Bạn có quyền truy cập, chỉnh sửa hoặc yêu cầu xóa dữ liệu cá nhân của mình. Vui lòng liên hệ với chúng tôi để thực hiện các quyền này.',
+                    title: '4. Bảo Mật Thông Tin',
+                    content: 'Chúng tôi áp dụng các biện pháp bảo mật hành chính, kỹ thuật và vật lý hợp lý để bảo vệ thông tin cá nhân của bạn. Dữ liệu được mã hóa khi truyền tải (sử dụng SSL). Tuy nhiên, xin lưu ý rằng không có biện pháp bảo mật nào là tuyệt đối và chúng tôi không thể đảm bảo an toàn 100%.',
                 },
                 {
-                    title: '5. Bảo Mật Dữ Liệu',
-                    content: 'Chúng tôi thực hiện nhiều biện pháp bảo mật khác nhau để duy trì sự an toàn cho thông tin cá nhân của bạn.',
+                    title: '5. Quyền Của Bạn Đối Với Dữ Liệu Cá Nhân',
+                    content: 'Theo quy định của pháp luật, bạn có các quyền sau đối với thông tin cá nhân của mình:\n• Quyền truy cập: Bạn có quyền yêu cầu xem thông tin cá nhân mà chúng tôi đang lưu giữ về bạn.\n• Quyền chỉnh sửa: Bạn có quyền yêu cầu chỉnh sửa các thông tin không chính xác hoặc không đầy đủ.\n• Quyền xóa: Bạn có quyền yêu cầu xóa dữ liệu cá nhân của mình (ví dụ: khi bạn đóng tài khoản).\n• Quyền rút lại sự đồng ý: Bạn có quyền rút lại sự đồng ý cho phép chúng tôi xử lý dữ liệu của bạn bất kỳ lúc nào.\n\nĐể thực hiện các quyền này, vui lòng liên hệ với chúng tôi qua email: support@chaomarket.com.',
+                },
+                {
+                    title: '6. Chính Sách Về Cookies',
+                    content: 'Chúng tôi sử dụng cookies để duy trì phiên đăng nhập, ghi nhớ các tùy chọn của bạn và phân tích lưu lượng truy cập. Bạn có thể kiểm soát việc sử dụng cookies thông qua cài đặt của trình duyệt.',
+                },
+                {
+                    title: '7. Thay Đổi Chính Sách',
+                    content: 'Chúng tôi có thể cập nhật “Chính Sách Bảo Mật” này vào bất kỳ lúc nào. Mọi thay đổi sẽ có hiệu lực ngay khi được đăng tải lên website. Chúng tôi sẽ thông báo cho bạn về những thay đổi quan trọng qua email hoặc một thông báo nổi bật trên website.',
+                },
+                {
+                    title: '8. Liên hệ',
+                    content: 'Nếu bạn có bất kỳ câu hỏi hay thắc mắc nào về “Chính Sách Bảo Mật” này, vui lòng liên hệ với chúng tôi tại: support@chaomarket.com.',
                 },
             ],
         },
@@ -472,4 +487,50 @@ export const vi: TranslationsStructure = {
     tool: {
         valueIsNowEmpty: 'Chưa có giá trị',
     },
+    disclaimer: {
+        title: 'Tuyên Bố Miễn Trừ Trách Nhiệm',
+        sections: [
+            {
+                title: 'Mục Đích Thông Tin',
+                content: 'Mọi thông tin, công cụ và dữ liệu được cung cấp bởi Chào Market chỉ dành cho mục đích giáo dục và tham khảo thông tin chung, không nhằm mục đích tư vấn.',
+            },
+            {
+                title: 'Không Phải Lời Khuyên Đầu Tư',
+                content: 'Nội dung trên website này tuyệt đối không cấu thành và sẽ không được xem là một lời khuyên đầu tư, lời khuyên tài chính, một sự khuyến nghị, hay một lời chào mời mua, bán, hoặc nắm giữ bất kỳ sản phẩm tài chính nào. Chúng tôi không đảm bảo tính chính xác hay đầy đủ của các thông tin này.',
+            },
+            {
+                title: 'Rủi Ro và Trách Nhiệm',
+                content: 'Mọi quyết định đầu tư đều tiềm ẩn rủi ro tài chính đáng kể. Hiệu suất trong quá khứ không phải là chỉ báo cho kết quả trong tương lai. Bạn phải chịu hoàn toàn trách nhiệm cho các quyết định của chính mình và được khuyến khích tìm kiếm sự tư vấn từ một chuyên gia tài chính độc lập trước khi đưa ra bất kỳ quyết định đầu tư nào.',
+            },
+        ],
+        conclusion: 'Bằng việc tiếp tục truy cập website này, bạn đồng ý rằng các thông tin được cung cấp chỉ dành cho mục đích giáo dục và tham khảo. Đây không phải là lời khuyên đầu tư và chúng tôi không chịu trách nhiệm cho các quyết định của bạn. Vui lòng đọc kỹ Điều Khoản Sử Dụng và Chính Sách Bảo Mật của chúng tôi.',
+        agreeButton: 'Tôi đã hiểu và đồng ý',
+        leaveButton: 'Rời khỏi trang',
+    },
+    performanceNotice: {
+        guest: {
+            title: 'Khu Vực Dành Cho Thành Viên Đã Đăng Ký',
+            desc1: 'Khu vực này chứa các phân tích và dữ liệu nghiên cứu chuyên sâu, chỉ dành riêng cho các thành viên đã đăng ký và đồng ý với Điều Khoản Sử Dụng của chúng tôi.',
+            desc2: 'Vui lòng ',
+            linkSignUp: 'Đăng Ký',
+            desc3: ' tài khoản mới hoặc ',
+            linkLogIn: 'Đăng Nhập',
+            desc4: ' để tiếp tục.',
+            okButton: 'Đã hiểu',
+        },
+        member: {
+            title: 'Lưu Ý Quan Trọng Về Dữ Liệu',
+            reminderText: 'Lưu Ý Quan Trọng Về Dữ Liệu',
+            desc1: 'Dữ liệu bạn đang xem chỉ dành cho',
+            linkTerms: 'Điều Khoản Sử dụng',
+            desc2: 'mục đích nghiên cứu và học thuật',
+            desc3: ', không phải là lời khuyên đầu tư. Hiệu suất trong quá khứ không đảm bảo cho kết quả trong tương' +
+                ' lai. Bằng việc tiếp tục, bạn xác nhận lại rằng bạn đã hiểu và đồng ý với đầy đủ',
+            agreeButton: 'Tôi đồng ý',
+        },
+        mainSection: {
+            independentVerification: 'Kiểm Chứng Độc Lập',
+        },
+    },
+
 };

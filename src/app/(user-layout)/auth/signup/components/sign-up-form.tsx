@@ -446,7 +446,21 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                 htmlFor="terms"
                                 className="text-sm cursor-pointer text-[var(--brand-grey-foreground)] dark:text-white"
                             >
-                                <T keyName="auth.termsAgreement.start" />
+                                <T keyName="auth.termsAgreement.start" />{' '}
+                                <span
+                                    className={'dark:text-[var(--brand-color)]'}
+                                >
+                                    <T
+                                        keyName={
+                                            'auth.termsAgreement.startAgePrivacy'
+                                        }
+                                    />
+                                </span>{' '}
+                                <T
+                                    keyName={
+                                        'auth.termsAgreement.startEndContent'
+                                    }
+                                />{' '}
                                 <br />
                                 <T
                                     keyName={'auth.termsAgreement.startNewLine'}
@@ -455,7 +469,11 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                     href="/terms-of-use"
                                     className="dark:text-[var(--brand-color)] text-black font-medium hover:underline"
                                 >
-                                    <T keyName="auth.termsAgreement.termsOfUse" />
+                                    <T
+                                        keyName={
+                                            'auth.termsAgreement.termsOfUse'
+                                        }
+                                    />
                                 </Link>{' '}
                                 <T keyName="auth.termsAgreement.and" />{' '}
                                 <Link

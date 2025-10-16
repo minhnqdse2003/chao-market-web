@@ -1,7 +1,7 @@
 export interface SidebarTranslations {
     home: string;
     marketData: string;
-    clientsAccounts: string;
+    performanceStatistics: string;
     ourSolutions: string;
     newsEvents: string;
     news: string;

@@ -10,6 +10,8 @@ import { MarketData } from '@/types/translations/market-data';
 import { Investors } from '@/types/translations/investors';
 import { AccountTranslations } from '@/types/translations/account';
 import ToolsTranslations from '@/types/translations/tools';
+import { DisclaimerTranslation } from '@/types/translations/disclaimer';
+import { PerformanceNoticeTranslations } from '@/types/translations/performance-notice-translations';
 
 export interface TranslationsStructure {
     common: CommonTranslations;
@@ -26,6 +28,8 @@ export interface TranslationsStructure {
     community: CommunityTranslations;
     account: AccountTranslations;
     tool: ToolsTranslations;
+    disclaimer: DisclaimerTranslation;
+    performanceNotice: PerformanceNoticeTranslations;
 }
 
 type Leaves<T, K extends string = ''> = T extends object

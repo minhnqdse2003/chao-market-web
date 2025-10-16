@@ -24,6 +24,7 @@ export interface CommonTranslations {
     phoneNumber: string;
     lastUpdated: string;
     backToSignUp: string;
-    backToHome: string,
-    scrollToTop: string
+    backToHome: string;
+    scrollToTop: string;
+    autoCloseMessage: string;
 }

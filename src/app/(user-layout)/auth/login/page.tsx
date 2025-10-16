@@ -216,7 +216,7 @@ export default function Login() {
                 setError('Invalid credentials');
                 setEmailVerified(true);
             } else {
-                router.push('/client-account');
+                router.push('/performance-statistics');
             }
         } catch {
             setError('An error occurred during sign in');

@@ -13,9 +13,14 @@ export function priceFormat(value: string | number): string {
     });
 }
 
-export function percentageFormat(value: string | number): string {
+export function percentageFormat(
+    value: string | number,
+    shouldPercentageVisible: boolean = true
+): string {
     const num = parseFloat(value.toString());
-    return isNaN(num) ? '0.00' : `${num.toFixed(2)}%`;
+    return isNaN(num)
+        ? '0.00'
+        : `${num.toFixed(2)}${shouldPercentageVisible ? '%' : ''}`;
 }
 
 export function formatNumberOfViews(num: number): string {

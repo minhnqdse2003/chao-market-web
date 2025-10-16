@@ -101,8 +101,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 ],
             },
             {
-                title: t('sidebar.clientsAccounts'),
-                url: '/client-account',
+                title: t('sidebar.performanceStatistics'),
+                url: '/performance-statistics',
                 icon: IdCard,
             },
             {

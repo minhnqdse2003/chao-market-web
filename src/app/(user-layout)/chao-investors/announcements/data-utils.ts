@@ -24,7 +24,7 @@ export const generateMockData = async (
                 type === 'newsFlow'
                     ? `Breaking ${type.replace(/([A-Z])/g, ' $1').trim()} Update ${i + 1}`
                     : `${type.replace(/([A-Z])/g, ' $1').trim()} Report ${i + 1}`,
-            rate: parseFloat((Math.random() * 100).toFixed(2)), // 0-100 percent as number
+            rate: Math.random() * 3500,
             view: Math.floor(Math.random() * 3500) + 500, // keep number here
             weekday: date.toLocaleDateString('en-US', { weekday: 'long' }),
         });

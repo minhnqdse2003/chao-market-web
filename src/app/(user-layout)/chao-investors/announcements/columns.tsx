@@ -65,7 +65,7 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
     {
         accessorKey: 'rate',
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Rate (%)" />
+            <DataTableColumnHeader column={column} title="Like" />
         ),
         cell: ({ row }) => {
             const rate = row.original.rate;
@@ -74,9 +74,7 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
                     <FaThumbsUp
                         className={'size-4 fill-black dark:fill-white'}
                     />
-                    <span className="w-1/4 text-left">
-                        {percentageFormat(rate)}
-                    </span>
+                    <span className="w-1/4 text-left">{Math.floor(rate)}</span>
                 </div>
             );
         },
