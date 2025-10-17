@@ -123,8 +123,9 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
             </div>
 
             <DialogContent
-                className="bg-brand-dialog min-w-[60svw] [&>[data-slot='dialog-close']]:invisible"
+                className="bg-brand-dialog min-w-[60svw] [&>[data-slot='dialog-close']]:invisible focus-visible:outline-0"
                 onOpenAutoFocus={e => e.preventDefault()}
+                autoFocus={false}
             >
                 <DialogHeader>
                     <DialogTitle className="text-brand-text text-center text-2xl font-bold">
@@ -139,33 +140,37 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                                 <h3 className="text-lg font-semibold text-brand-text mb-2">
                                     {section.title}
                                 </h3>
-                                <p className="text-[var(--brand-grey-foreground)]">
-                                    {section.content}
-                                </p>
+                                <p
+                                    className="text-[var(--brand-grey-foreground)] [&>strong]:text-brand-text"
+                                    dangerouslySetInnerHTML={{
+                                        __html: section.content,
+                                    }}
+                                />
                             </div>
                         ))}
-                    <p className="text-[var(--brand-grey-foreground)] italic pt-4 border-t border-[var(--brand-grey-foreground)]/20">
-                        {conclusion}
-                    </p>
+                    <p
+                        className="text-[var(--brand-grey-foreground)] italic pt-4 border-t border-[var(--brand-grey-foreground)]/20 dark:[&_*_a]:text-[var(--brand-color)] [&_*_a]:hover:underline"
+                        dangerouslySetInnerHTML={{ __html: conclusion }}
+                    />
                 </div>
 
                 <DialogFooter className="flex-row justify-center sm:justify-center gap-4">
                     <Button
-                        className="font-bold bg-[var(--brand-color)] text-black hover:bg-[var(--brand-color-foreground)] w-fit transition-all! duration-300 ease-in-out"
+                        className="font-bold bg-[var(--brand-color)] text-black text-md hover:bg-[var(--brand-color-foreground)] w-fit transition-all! duration-300 ease-in-out"
                         onClick={handleAgree}
                     >
                         {agreeButtonText}
                     </Button>
                     <a
                         href="https://google.com"
-                        className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-transparent text-white border border-transparent hover:text-yellow-400"
+                        className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-transparent text-white border border-transparent hover:text-yellow-400"
                     >
                         {leaveButtonText}
                     </a>
                 </DialogFooter>
 
                 {isFirstTime && countdown > 0 && (
-                    <p className="text-sm text-[var(--brand-grey-foreground)] text-center mt-2">
+                    <p className="text-sm text-[var(--brand-grey-foreground)] border-t pt-4 text-center mt-2">
                         {countdownText}
                     </p>
                 )}

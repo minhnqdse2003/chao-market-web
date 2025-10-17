@@ -9,11 +9,16 @@ import {
     MemberNoticeTranslations,
 } from '@/types/translations/performance-notice-translations';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useHistoryStore } from '@/stores/history-tracker.store';
 
 export function GuestPerformanceNoticeDialog() {
     const { status } = useSession();
+    const router = useRouter();
     const [isOpen, setIsOpen] = useState(status === 'unauthenticated');
     const { t } = useI18n();
+    const history = useHistoryStore(state => state.history);
+
     const notice = t(
         'performanceNotice.guest'
     ) as unknown as GuestNoticeTranslations;
@@ -64,6 +69,15 @@ export function GuestPerformanceNoticeDialog() {
 
     const isAuthenticated = status === 'authenticated';
 
+    const handleRedirectOnClickAcceptButton = () => {
+        if (history.length > 1) {
+            const previousPath = history[history.length - 2];
+            router.push(previousPath);
+        } else {
+            router.push('/home');
+        }
+    };
+
     useEffect(() => {
         setIsOpen(status === 'unauthenticated' || isAuthenticated);
     }, [status]);
@@ -75,6 +89,10 @@ export function GuestPerformanceNoticeDialog() {
             content={{
                 title: notice.title,
                 description: descriptionGuestJsx,
+            }}
+            accepted={{
+                title: notice.okButton,
+                onChange: handleRedirectOnClickAcceptButton,
             }}
         />
     ) : (

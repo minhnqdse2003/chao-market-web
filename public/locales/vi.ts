@@ -68,7 +68,7 @@ export const vi: TranslationsStructure = {
             startNewLine: 'tôi đồng ý với',
             privacyNotice: 'Chính Sách Bảo Mật',
             and: 'và',
-            termsOfUse: 'Điều khoản Sử dụng',
+            termsOfUse: 'Điều Khoản Sử Dụng',
         },
         termsNotAccepted: 'Bạn phải đồng ý với Điều khoản Sử dụng và Chính sách Quyền riêng tư để tạo tài khoản.',
         resetPassword: {
@@ -290,40 +290,73 @@ export const vi: TranslationsStructure = {
             ],
         },
         termOfUse: {
-            title: 'Điều khoản Sử dụng',
+            title: 'ĐIỀU KHOẢN SỬ DỤNG',
             sections: [
                 {
-                    title: '1. Chấp Nhận Điều Khoản',
-                    content: 'Bằng việc truy cập và sử dụng website Chào Market, bạn chấp nhận và đồng ý bị ràng buộc bởi các điều khoản sử dụng này. Nếu bạn không đồng ý, vui lòng không sử dụng dịch vụ của chúng tôi.',
+                    'title': '1. Chấp Nhận Điều Khoản',
+                    'content': 'Bằng việc truy cập, sử dụng và/hoặc đăng ký một tài khoản trên website Chào Market' +
+                        ' ("website"), bạn xác nhận đã đọc, hiểu và đồng ý bị ràng buộc bởi toàn bộ các điều khoản' +
+                        ' và điều kiện được nêu trong bản "Điều Khoản Sử Dụng" này. <strong>Nếu bạn không đồng ý, vui lòng không sử dụng website của chúng tôi.</strong>',
                 },
                 {
-                    title: '2. Mô Tả Dịch Vụ',
-                    content: 'Chào Market cung cấp các dịch vụ giáo dục tài chính, huấn luyện, công cụ và thông tin thị trường, bao gồm các giải pháp như Cố Vấn Nền Tảng Tài Chính, Chiến Lược & Công Cụ Danh Mục, Phát Triển Hệ Thống Giao Dịch, Cố Vấn Hiệu Suất Giao Dịch, và Khóa Học Đầu Tư Tài Chính.',
+                    'title': '2. Mô Tả Dịch Vụ',
+                    'content': 'Chào Market cung cấp các dịch vụ, công cụ và thông tin với mục đích giáo dục tài' +
+                        ' chính, bao gồm nhưng không giới hạn: <strong>Cố Vấn Nền Tảng Tài Chính, Chiến Lược & Công Cụ Danh Mục, Giải Pháp Giao Dịch Thuật Toán, Cố Vấn Hiệu Suất Giao Dịch và Khóa Học Đầu Tư Tài Chính.</strong>',
                 },
                 {
-                    title: '3. Tuyên Bố Miễn Trừ Trách Nhiệm Về Tư Vấn Đầu Tư (CỰC KỲ QUAN TRỌNG)',
-                    content: 'Tất cả nội dung, công cụ và dịch vụ được cung cấp trên website này chỉ nhằm mục đích thông tin và giáo dục. Không có bất kỳ nội dung nào trên website này cấu thành, hoặc nên được hiểu là, lời khuyên đầu tư, một sự khuyến nghị, hoặc một lời mời chào mua hay bán bất kỳ chứng khoán hay công cụ tài chính nào. Chào Market không phải là một nhà tư vấn đầu tư hay công ty môi giới được cấp phép. Mọi quyết định đầu tư đều do một mình bạn đưa ra, và bạn hoàn toàn chịu trách nhiệm trong việc đánh giá các giá trị và rủi ro liên quan đến việc sử dụng bất kỳ thông tin nào được cung cấp.',
+                    'title': '3. Tài Khoản Người Dùng Và Trách Nhiệm',
+                    'content': 'Để truy cập một số tính năng nhất định, bao gồm khu vực "Hiệu Suất Hệ Thống", bạn sẽ' +
+                        ' được yêu cầu tạo một tài khoản. Bằng việc tạo tài khoản, bạn đồng ý:\n- Cung cấp thông tin' +
+                        ' chính xác và cập nhật.\n- Chịu trách nhiệm bảo mật mật khẩu và mọi hoạt động diễn ra dưới' +
+                        ' tài khoản của bạn.\n- Hành động tick vào ô "Bằng việc tạo tài khoản, tôi xác nhận mình' +
+                        ' <strong>đủ 18 tuổi</strong> và tôi đồng ý với <strong>Điều Khoản Sử Dụng</strong> và' +
+                        ' <strong>Chính Sách Bảo Mật</strong>' +
+                        ' của' +
+                        ' website."' +
+                        ' trong' +
+                        ' quá trình đăng ký có giá trị pháp lý tương đương một chữ ký điện tử, xác nhận sự đồng thuận hoàn toàn của bạn với văn bản này.',
                 },
                 {
-                    title: '4. Sở Hữu Trí Tuệ',
-                    content: 'Toàn bộ nội dung trên trang này, bao gồm văn bản, đồ họa, logo và phần mềm, là tài sản của Chào Market và được bảo vệ bởi luật bản quyền của Việt Nam và quốc tế. Bạn không được phép sao chép, phân phối hoặc tạo ra các tác phẩm phái sinh từ bất kỳ nội dung nào mà không có sự cho phép rõ ràng bằng văn bản của chúng tôi.',
+                    'title': '4. Quy Định Về Việc Truy Cập Và Sử Dụng Khu Vực "Hiệu Suất Hệ Thống"',
+                    'content': 'Khu vực "Hiệu Suất Hệ Thống" là nội dung hạn chế, chỉ dành cho các thành viên đã' +
+                        ' đăng ký và đồng ý với các điều khoản này. Bạn xác nhận và đồng ý vô điều kiện với các quy' +
+                        ' định sau:\n<strong>4.1 Mục đích duy nhất là nghiên cứu và học thuật</strong>: Bạn xác nhận mục đích duy nhất bạn được phép truy cập và sử dụng dữ' +
+                        ' liệu là để <strong>nghiên cứu, phân tích và học thuật</strong>. Dữ liệu được cung cấp dưới dạng các tình huống nghiên cứu và ví dụ minh họa, nhằm phục vụ cho mục đích giáo dục về cách một hệ thống giao dịch vận hành.\n<strong>4.2 Nghĩa vụ và các hành vi bị nghiêm cấm</strong>: Khi được cấp quyền truy cập, bạn cam kết:\n- <strong>Bảo mật</strong>: Không chia sẻ tài khoản đăng nhập hoặc tiết lộ, phát tán dữ liệu cho bất kỳ bên thứ ba nào.\n- <strong>Mục đích sử dụng</strong>: Chỉ sử dụng dữ liệu cho mục đích cá nhân, phi thương mại như đã nêu.\n- <strong>Nghiêm cấm</strong>: Sao chép, sửa đổi, bán lại, phân phối lại hoặc sử dụng dữ liệu để tạo ra các sản phẩm, dịch vụ cạnh tranh hoặc cho bất kỳ mục đích thương mại nào khác mà không có sự cho phép rõ ràng bằng văn bản của chúng tôi.\n<strong>4.3 Chấm dứt quyền truy cập</strong>: Chúng tôi có toàn quyền tạm ngưng hoặc chấm dứt vĩnh viễn quyền truy cập của bạn vào Khu vực Hạn chế mà không cần báo trước nếu chúng tôi có cơ sở tin rằng bạn đã vi phạm bất kỳ điều khoản nào trong văn bản này.',
                 },
                 {
-                    title: '5. Giới Hạn Trách Nhiệm',
-                    content: 'Chào Market sẽ không chịu trách nhiệm cho bất kỳ thiệt hại trực tiếp, gián tiếp, ngẫu nhiên hoặc do hậu quả nào phát sinh từ việc sử dụng hoặc không thể sử dụng thông tin và dịch vụ trên trang này. Hiệu suất trong quá khứ không đảm bảo cho kết quả trong tương lai.',
+                    'title': '5. Tuyên Bố Miễn Trừ Trách Nhiệm Về Tư Vấn Đầu Tư (cực kỳ quan trọng)',
+                    'content': 'Toàn bộ nội dung, công cụ và dịch vụ được cung cấp trên website này, bao gồm cả các dữ liệu trong khu vực hạn chế, chỉ dành cho mục đích thông tin và giáo dục. <strong>Tuyệt Đối Không</strong> có bất kỳ nội dung nào cấu thành, hoặc nên được diễn giải là, một lời khuyên đầu tư, một sự khuyến nghị, một tín hiệu giao dịch, hay một lời chào mời mua, bán, hoặc nắm giữ bất kỳ sản phẩm tài chính nào. Chào Market không phải là một đơn vị tư vấn đầu tư hay môi giới được cấp phép theo quy định của pháp luật Việt Nam. Mọi quyết định đầu tư đều do duy nhất bạn đưa ra, và bạn phải chịu hoàn toàn trách nhiệm trong việc đánh giá các rủi ro liên quan.',
                 },
                 {
-                    title: '6. Luật Điều Chỉnh',
-                    content: 'Các điều khoản này sẽ được điều chỉnh và giải thích theo pháp luật của Việt Nam.',
+                    'title': '6. Xác Nhận Về Bối Cảnh Pháp Lý Và Rủi Ro Thị Trường Cụ Thể',
+                    'content': 'Bằng việc chấp nhận điều khoản này, bạn xác nhận đã được thông báo và hiểu rõ về tình trạng pháp lý và rủi ro đặc thù của từng thị trường tại Việt Nam:\n- <strong>Đối với Tiền Tệ & Tiền Mã Hóa</strong>: Bạn nhận thức rõ rằng các thị trường này <strong>chưa được pháp luật Việt Nam cấp phép</strong> cho nhà đầu tư cá nhân, hoạt động trong một môi trường pháp lý không rõ ràng và tiềm ẩn rủi ro pháp lý cũng như tài chính rất lớn. Chúng tôi không khuyến khích hay môi giới cho bất kỳ hoạt động nào trên các thị trường này.\n- <strong>Đối với Chứng Khoán & Hàng Hóa</strong>: Bạn hiểu rằng dù đây là các thị trường được cấp phép, chúng vẫn luôn tiềm ẩn rủi ro biến động và nguy cơ thua lỗ.\n- Nguyên tắc chung: Bạn chấp nhận rằng hiệu suất trong quá khứ, dù là từ backtest hay giao dịch thực tế, <strong>không đảm bảo và không phải là chỉ báo</strong> cho kết quả trong tương lai.',
+                },
+                {
+                    'title': '7. Sở Hữu Trí Tuệ',
+                    'content': 'Toàn bộ nội dung trên website, bao gồm văn bản, đồ họa, logo, phần mềm, và <strong>các dữ liệu trong khu vực hạn chế</strong>, là tài sản của Chào Market và được bảo vệ bởi luật bản quyền của Việt Nam và quốc tế.',
+                },
+                {
+                    'title': '8. Giới Hạn Trách Nhiệm Pháp Lý',
+                    'content': 'Trong mọi trường hợp, Chào Market, chủ sở hữu, và các bên liên kết sẽ không chịu trách nhiệm cho bất kỳ thiệt hại trực tiếp, gián tiếp, ngẫu nhiên hay do hậu quả nào phát sinh từ việc sử dụng hoặc không thể sử dụng thông tin và dịch vụ trên website.',
+                },
+                {
+                    'title': '9. Luật Điều Chỉnh Và Hiệu Lực',
+                    'content': '- <strong>Luật điều chỉnh</strong>: Các điều khoản này được điều chỉnh và giải thích theo pháp luật của nước Việt Nam.\n- <strong>Hiệu lực từng phần</strong>: Nếu bất kỳ điều khoản nào trong văn bản này bị tòa án có thẩm quyền tuyên bố là vô hiệu, các điều khoản còn lại vẫn giữ nguyên hiệu lực.',
+                },
+                {
+                    'title': '10. Liên Hệ',
+                    'content': 'Mọi thắc mắc về "Điều Khoản Sử Dụng" này xin vui lòng gửi về địa chỉ: <strong>support@chaomarket.com</strong>',
                 },
             ],
         },
         privacyPolicy: {
-            title: 'Chính sách Quyền riêng tư',
+            title: 'CHÍNH SÁCH BẢO MẬT',
             sections: [
                 {
                     title: '1. Thông Tin Chúng Tôi Thu Thập',
-                    content: 'Chào Market ("chúng tôi") cam kết bảo vệ quyền riêng tư của người dùng ("bạn"). “Chính Sách Bảo Mật” này giải thích cách chúng tôi thu thập, sử dụng, tiết lộ và bảo vệ thông tin của bạn khi bạn truy cập website Chào Market (ChaoMarket.com) và các dịch vụ của chúng tôi.\n\nChúng tôi có thể thu thập thông tin về bạn theo nhiều cách khác nhau:\n\nThông tin cá nhân bạn cung cấp:\n• Khi bạn đăng ký tài khoản, chúng tôi sẽ thu thập các thông tin định danh cá nhân như họ tên, địa chỉ email, và số điện thoại (tùy chọn).\n• Khi bạn liên hệ với chúng tôi qua các biểu mẫu hoặc email, chúng tôi sẽ thu thập thông tin bạn cung cấp trong quá trình trao đổi đó.\n\nDữ liệu tự động thu thập:\n• Khi bạn truy cập website, chúng tôi có thể tự động thu thập các thông tin như địa chỉ IP, loại trình duyệt, hệ điều hành, thời gian truy cập, và các trang bạn đã xem. Dữ liệu này được sử dụng cho mục đích phân tích và bảo mật.',
+                    content: 'Chào Market ("chúng tôi") cam kết bảo vệ quyền riêng tư của người dùng ("bạn"). “Chính' +
+                        ' Sách Bảo Mật” này giải thích cách chúng tôi thu thập, sử dụng, tiết lộ và bảo vệ thông tin' +
+                        ' của bạn khi bạn truy cập website Chào Market (chaomarket.com) và các dịch vụ của chúng tôi.\n\nChúng tôi có thể thu thập thông tin về bạn theo nhiều cách khác nhau:\n\n<strong>Thông tin cá nhân bạn cung cấp:</strong>\n• Khi bạn đăng ký tài khoản, chúng tôi sẽ thu thập các thông tin định danh cá nhân như <strong>họ tên, địa chỉ email, và số điện thoại (tùy chọn).</strong>\n• Khi bạn liên hệ với chúng tôi qua các biểu mẫu hoặc email, chúng tôi sẽ thu thập thông tin bạn cung cấp trong quá trình trao đổi đó.\n\n<strong>Dữ liệu tự động thu thập:</strong>\n• Khi bạn truy cập website, chúng tôi có thể tự động thu thập các thông tin như <strong>địa chỉ IP, loại trình duyệt, hệ điều hành, thời gian truy cập, và các trang bạn đã xem.</strong> Dữ liệu này được sử dụng cho mục đích phân tích và bảo mật.',
                 },
                 {
                     title: '2. Chúng Tôi Sử Dụng Thông Tin Của Bạn Như Thế Nào?',
@@ -331,7 +364,11 @@ export const vi: TranslationsStructure = {
                 },
                 {
                     title: '3. Tiết Lộ Thông Tin Của Bạn',
-                    content: 'Chúng tôi không bán, cho thuê hay trao đổi thông tin cá nhân của bạn cho bất kỳ bên thứ ba nào vì mục đích thương mại. Thông tin của bạn chỉ có thể được chia sẻ trong các trường hợp sau:\n• Với các nhà cung cấp dịch vụ: Chúng tôi có thể chia sẻ thông tin với các bên thứ ba cung cấp dịch vụ cho chúng tôi (như dịch vụ lưu trữ web, phân tích dữ liệu, gửi email). Các bên này chỉ được phép sử dụng thông tin của bạn để thực hiện các nhiệm vụ được giao và có nghĩa vụ bảo mật thông tin.\n• Theo yêu cầu của pháp luật: Chúng tôi có thể tiết lộ thông tin của bạn nếu được yêu cầu bởi pháp luật, tòa án, hoặc cơ quan nhà nước có thẩm quyền để bảo vệ quyền lợi và sự an toàn của chúng tôi và những người khác.',
+                    content: 'Chúng tôi không bán, cho thuê hay trao đổi thông tin cá nhân của bạn cho bất kỳ bên' +
+                        ' thứ ba nào vì mục đích thương mại. Thông tin của bạn chỉ có thể được chia sẻ trong các' +
+                        ' trường hợp sau:\n <strong>• Với các nhà cung cấp dịch vụ:</strong> Chúng tôi có thể chia' +
+                        ' sẻ thông tin với các bên thứ ba cung cấp dịch vụ cho chúng tôi (như dịch vụ lưu trữ web,' +
+                        ' phân tích dữ liệu, gửi email). Các bên này chỉ được phép sử dụng thông tin của bạn để thực hiện các nhiệm vụ được giao và có nghĩa vụ bảo mật thông tin.\n <strong>• Theo yêu cầu của pháp luật:</strong> Chúng tôi có thể tiết lộ thông tin của bạn nếu được yêu cầu bởi pháp luật, tòa án, hoặc cơ quan nhà nước có thẩm quyền để bảo vệ quyền lợi và sự an toàn của chúng tôi và những người khác.',
                 },
                 {
                     title: '4. Bảo Mật Thông Tin',
@@ -339,7 +376,13 @@ export const vi: TranslationsStructure = {
                 },
                 {
                     title: '5. Quyền Của Bạn Đối Với Dữ Liệu Cá Nhân',
-                    content: 'Theo quy định của pháp luật, bạn có các quyền sau đối với thông tin cá nhân của mình:\n• Quyền truy cập: Bạn có quyền yêu cầu xem thông tin cá nhân mà chúng tôi đang lưu giữ về bạn.\n• Quyền chỉnh sửa: Bạn có quyền yêu cầu chỉnh sửa các thông tin không chính xác hoặc không đầy đủ.\n• Quyền xóa: Bạn có quyền yêu cầu xóa dữ liệu cá nhân của mình (ví dụ: khi bạn đóng tài khoản).\n• Quyền rút lại sự đồng ý: Bạn có quyền rút lại sự đồng ý cho phép chúng tôi xử lý dữ liệu của bạn bất kỳ lúc nào.\n\nĐể thực hiện các quyền này, vui lòng liên hệ với chúng tôi qua email: support@chaomarket.com.',
+                    content: 'Theo quy định của pháp luật, bạn có các quyền sau đối với thông tin cá nhân của' +
+                        ' mình:\n <strong>• Quyền truy cập:</strong> Bạn có quyền yêu cầu xem thông tin cá nhân mà' +
+                        ' chúng tôi đang lưu giữ về bạn.\n <strong>• Quyền chỉnh sửa:</strong> Bạn có quyền yêu cầu' +
+                        ' chỉnh sửa các thông tin không chính xác hoặc không đầy đủ.\n <strong>• Quyền' +
+                        ' xóa:</strong> Bạn có quyền yêu cầu xóa dữ liệu cá nhân của mình (ví dụ: khi bạn đóng tài' +
+                        ' khoản).\n <strong>• Quyền rút lại sự đồng ý:</strong> Bạn có quyền rút lại sự đồng ý cho' +
+                        ' phép chúng tôi xử lý dữ liệu của bạn bất kỳ lúc nào.\n\nĐể thực hiện các quyền này, vui lòng liên hệ với chúng tôi qua email: <strong>support@chaomarket.com</strong>',
                 },
                 {
                     title: '6. Chính Sách Về Cookies',
@@ -351,7 +394,7 @@ export const vi: TranslationsStructure = {
                 },
                 {
                     title: '8. Liên hệ',
-                    content: 'Nếu bạn có bất kỳ câu hỏi hay thắc mắc nào về “Chính Sách Bảo Mật” này, vui lòng liên hệ với chúng tôi tại: support@chaomarket.com.',
+                    content: 'Nếu bạn có bất kỳ câu hỏi hay thắc mắc nào về “Chính Sách Bảo Mật” này, vui lòng liên hệ với chúng tôi tại: <strong>support@chaomarket.com</strong>',
                 },
             ],
         },
@@ -488,22 +531,27 @@ export const vi: TranslationsStructure = {
         valueIsNowEmpty: 'Chưa có giá trị',
     },
     disclaimer: {
-        title: 'Tuyên Bố Miễn Trừ Trách Nhiệm',
+        title: 'TUYÊN BỐ MIỄN TRỪ TRÁCH NHIỆM',
         sections: [
             {
                 title: 'Mục Đích Thông Tin',
-                content: 'Mọi thông tin, công cụ và dữ liệu được cung cấp bởi Chào Market chỉ dành cho mục đích giáo dục và tham khảo thông tin chung, không nhằm mục đích tư vấn.',
+                content: 'Mọi thông tin, công cụ và dữ liệu được cung cấp bởi Chào Market <strong>chỉ dành cho mục đích giáo dục và tham khảo thông tin chung</strong>, không nhằm mục đích tư vấn.',
             },
             {
                 title: 'Không Phải Lời Khuyên Đầu Tư',
-                content: 'Nội dung trên website này tuyệt đối không cấu thành và sẽ không được xem là một lời khuyên đầu tư, lời khuyên tài chính, một sự khuyến nghị, hay một lời chào mời mua, bán, hoặc nắm giữ bất kỳ sản phẩm tài chính nào. Chúng tôi không đảm bảo tính chính xác hay đầy đủ của các thông tin này.',
+                content: 'Nội dung trên website này <strong>tuyệt đối không</strong> cấu thành và sẽ không được xem là một lời khuyên đầu tư, lời khuyên tài chính, một sự khuyến nghị, hay một lời chào mời mua, bán, hoặc nắm giữ bất kỳ sản phẩm tài chính nào. Chúng tôi không đảm bảo tính chính xác hay đầy đủ của các thông tin này.',
             },
             {
                 title: 'Rủi Ro và Trách Nhiệm',
-                content: 'Mọi quyết định đầu tư đều tiềm ẩn rủi ro tài chính đáng kể. Hiệu suất trong quá khứ không phải là chỉ báo cho kết quả trong tương lai. Bạn phải chịu hoàn toàn trách nhiệm cho các quyết định của chính mình và được khuyến khích tìm kiếm sự tư vấn từ một chuyên gia tài chính độc lập trước khi đưa ra bất kỳ quyết định đầu tư nào.',
+                content: 'Mọi quyết định đầu tư đều tiềm ẩn rủi ro tài chính đáng kể. <strong>Hiệu suất trong quá khứ không phải là chỉ báo cho kết quả trong tương lai.</strong> Bạn phải chịu hoàn toàn trách nhiệm cho các quyết định của chính mình và được khuyến khích tìm kiếm sự tư vấn từ một chuyên gia tài chính độc lập trước khi đưa ra bất kỳ quyết định đầu tư nào.',
             },
         ],
-        conclusion: 'Bằng việc tiếp tục truy cập website này, bạn đồng ý rằng các thông tin được cung cấp chỉ dành cho mục đích giáo dục và tham khảo. Đây không phải là lời khuyên đầu tư và chúng tôi không chịu trách nhiệm cho các quyết định của bạn. Vui lòng đọc kỹ Điều Khoản Sử Dụng và Chính Sách Bảo Mật của chúng tôi.',
+        conclusion: '<strong>Bằng việc tiếp tục truy cập website này, bạn đồng ý rằng các thông tin được cung cấp' +
+            ' chỉ dành cho mục đích giáo dục và tham khảo. Đây không phải là lời khuyên đầu tư và chúng tôi không' +
+            ' chịu trách nhiệm cho các quyết định của bạn. Vui lòng đọc kỹ <a href="/terms-of-use">Điều Khoản Sử' +
+            ' Dụng</a> và <a href="/privacy-policy">Chính Sách Bảo Mật</a>' +
+            ' của chúng' +
+            ' tôi.</strong>',
         agreeButton: 'Tôi đã hiểu và đồng ý',
         leaveButton: 'Rời khỏi trang',
     },
@@ -516,7 +564,7 @@ export const vi: TranslationsStructure = {
             desc3: ' tài khoản mới hoặc ',
             linkLogIn: 'Đăng Nhập',
             desc4: ' để tiếp tục.',
-            okButton: 'Đã hiểu',
+            okButton: 'Tôi đã hiểu và đồng ý',
         },
         member: {
             title: 'Lưu Ý Quan Trọng Về Dữ Liệu',

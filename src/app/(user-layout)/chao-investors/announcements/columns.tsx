@@ -74,7 +74,7 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
                     <FaThumbsUp
                         className={'size-4 fill-black dark:fill-white'}
                     />
-                    <span className="w-1/4 text-left">{Math.floor(rate)}</span>
+                    <span className="w-1/4 text-left">{rate}%</span>
                 </div>
             );
         },

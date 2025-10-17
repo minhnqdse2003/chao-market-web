@@ -68,7 +68,10 @@ export default function AppAlertDialog({
                     )}
                     {accepted && (
                         <AlertDialogAction
-                            onClick={accepted.onChange}
+                            onClick={e => {
+                                e.preventDefault();
+                                accepted.onChange();
+                            }}
                             className={
                                 'dark:text-black' +
                                 ' dark:bg-[var(--brand-color)] font-bold cursor-pointer'

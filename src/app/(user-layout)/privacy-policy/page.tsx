@@ -4,19 +4,20 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { FooterSection } from '@/types/translations/footer';
 import { useI18n } from '@/context/i18n/context';
-import { format } from 'date-fns';
+import { formatLastUpdatedDate } from '@/utils/date-time-format';
 
 export default function PrivacyPolicy() {
-    const { t } = useI18n();
+    const { t, locale } = useI18n();
     const sections = t(
         'footer.privacyPolicy.sections' as never
     ) as unknown as FooterSection[];
 
     // Manually handle the date placeholder for the "last updated" text.
-    const lastUpdatedDate = new Date(2025, 10, 1, 20, 0, 0);
+    const lastUpdatedDate = new Date(2025, 10, 1, 8, 0, 0);
+
     const lastUpdatedText = t('common.lastUpdated').replace(
         '{date}',
-        format(lastUpdatedDate, 'HH:mm:ss dd/MM/yyyy')
+        formatLastUpdatedDate(lastUpdatedDate, locale)
     );
 
     return (
@@ -52,9 +53,12 @@ export default function PrivacyPolicy() {
                             Your privacy policy content uses line breaks (\n) for bullet points.
                             This class ensures they are rendered correctly.
                         */}
-                            <p className="text-[var(--brand-grey-foreground)] whitespace-pre-wrap">
-                                {section.content}
-                            </p>
+                            <p
+                                className="text-[var(--brand-grey-foreground)] dark:[&>strong]:text-[var(--brand-color)] whitespace-pre-wrap"
+                                dangerouslySetInnerHTML={{
+                                    __html: section.content,
+                                }}
+                            />
                         </section>
                     ))}
             </div>

@@ -4,19 +4,19 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { FooterSection } from '@/types/translations/footer';
 import { useI18n } from '@/context/i18n/context';
-import { format } from 'date-fns'; // Import the type for safety
+import { formatLastUpdatedDate } from '@/utils/date-time-format'; // Import the type for safety
 
 export default function TermsOfUse() {
-    const { t } = useI18n();
+    const { t, locale } = useI18n();
 
     const sections = t(
         'footer.termOfUse.sections' as never
     ) as unknown as FooterSection[];
 
-    const lastUpdatedDate = new Date(2025, 10, 1, 20, 0, 0);
+    const lastUpdatedDate = new Date(2025, 10, 1, 8, 0, 0);
     const lastUpdatedText = t('common.lastUpdated').replace(
         '{date}',
-        format(lastUpdatedDate, 'HH:mm:ss dd/MM/yyyy')
+        formatLastUpdatedDate(lastUpdatedDate, locale)
     );
 
     return (
@@ -46,9 +46,12 @@ export default function TermsOfUse() {
                             <h2 className="text-xl font-semibold mb-3">
                                 {section.title}
                             </h2>
-                            <p className="text-[var(--brand-grey-foreground)] whitespace-pre-wrap">
-                                {section.content}
-                            </p>
+                            <p
+                                className="text-[var(--brand-grey-foreground)] dark:[&>strong]:text-[var(--brand-color)] whitespace-pre-wrap"
+                                dangerouslySetInnerHTML={{
+                                    __html: section.content,
+                                }}
+                            />
                         </section>
                     ))}
             </div>

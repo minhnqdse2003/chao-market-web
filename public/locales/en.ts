@@ -290,35 +290,35 @@ export const en: TranslationsStructure = {
             ],
         },
         termOfUse: {
-            title: 'Term of Use',
+            title: 'TERMS OF USE',
             sections: [
                 {
                     title: '1. Acceptance of Terms',
-                    content: 'By accessing, using, and/or registering for an account on the Chào Market website (the "website"), you acknowledge that you have read, understood, and agree to be bound by all the terms and conditions set forth in these "Terms of Use". If you do not agree, please do not use our website.',
+                    content: 'By accessing, using, and/or registering for an account on the Chào Market website (the "website"), you acknowledge that you have read, understood, and agree to be bound by all the terms and conditions set forth in these "Terms of Use". <strong>If you do not agree, please do not use our website.</strong>',
                 },
                 {
                     title: '2. Description of Services',
-                    content: 'Chào Market provides services, tools, and information for financial education purposes, including but not limited to: Financial Foundation Mentoring, Portfolio Strategy & Tools, Algorithmic Trading Solutions, Trading Performance Mentoring, and Financial Investment Courses.',
+                    content: 'Chào Market provides services, tools, and information for financial education purposes, including but not limited to: <strong>Financial Foundation Mentoring, Portfolio Strategy & Tools, Algorithmic Trading Solutions, Trading Performance Mentoring, and Financial Investment Courses.</strong>',
                 },
                 {
                     title: '3. User Account and Responsibilities',
-                    content: 'To access certain features, including the "Performance Statistics" area, you will be required to create an account. By creating an account, you agree to:\n• Provide accurate and current information.\n• Maintain the confidentiality of your password and be responsible for all activities that occur under your account.\n• Acknowledge that the act of checking the box stating "By creating an account, I confirm that I am at least 18 years old and I agree to the website\'s Terms of Use and Privacy Policy" during the registration process constitutes a legally binding electronic signature and confirms your full consent to this document.',
+                    content: 'To access certain features, including the "Performance Statistics" area, you will be required to create an account. By creating an account, you agree to:\n• Provide accurate and current information.\n• Maintain the confidentiality of your password and be responsible for all activities that occur under your account.\n• Acknowledge that the act of checking the box stating "By creating an account, I confirm that I am <strong>at least 18 years old</strong> and I agree to the website\'s <strong>Terms of Use</strong> and <strong>Privacy Policy</strong>" during the registration process constitutes a legally binding electronic signature and confirms your full consent to this document.',
                 },
                 {
                     title: '4. Terms of Access and Use for the "Performance Statistics" Area',
-                    content: 'The "Performance Statistics" area is restricted content, available only to registered members who have agreed to these terms. You unconditionally acknowledge and agree to the following provisions:\n\n4.1. Sole Purpose of Research and Academic Study: You acknowledge that the sole purpose for which you are permitted to access and use the data is for research, analysis, and academic study. The data is provided as case studies and illustrative examples for the educational purpose of understanding how a trading system operates.\n\n4.2. User Obligations and Prohibited Uses: Upon being granted access, you agree to:\n• Confidentiality: Not to share your login credentials or disclose, disseminate the data to any third party.\n• Purpose of Use: To use the data only for personal, non-commercial purposes as stated.\n• Prohibitions: Not to copy, modify, resell, redistribute, or use the data to create competing products, services, or for any other commercial purpose without our express written permission.\n\n4.3. Termination of Access: We reserve the full right to suspend or permanently terminate your access to the Restricted Area without prior notice if we have reason to believe that you have violated any term of this document.',
+                    content: 'The "Performance Statistics" area is restricted content, available only to registered members who have agreed to these terms. You unconditionally acknowledge and agree to the following provisions:\n\n<strong>4.1. Sole Purpose of Research and Academic Study</strong>: You acknowledge that the sole purpose for which you are permitted to access and use the data is for <strong>research, analysis, and academic study</strong>. The data is provided as case studies and illustrative examples for the educational purpose of understanding how a trading system operates.\n\n<strong>4.2. User Obligations and Prohibited Uses</strong>: Upon being granted access, you agree to:\n• <strong>Confidentiality</strong>: Not to share your login credentials or disclose, disseminate the data to any third party.\n• <strong>Purpose of Use</strong>: To use the data only for personal, non-commercial purposes as stated.\n• <strong>Prohibitions</strong>: Not to copy, modify, resell, redistribute, or use the data to create competing products, services, or for any other commercial purpose without our express written permission.\n\n<strong>4.3. Termination of Access</strong>: We reserve the full right to suspend or permanently terminate your access to the Restricted Area without prior notice if we have reason to believe that you have violated any term of this document.',
                 },
                 {
                     title: '5. No Investment Advice Disclaimer (critical)',
-                    content: 'All content, tools, and services provided on this website, including all data within the restricted area, are for informational and educational purposes only. Absolutely Nothing on this website constitutes, or should be construed as, investment advice, a recommendation, a trade signal, or a solicitation to buy, sell, or hold any financial instrument. Chào Market is not a licensed investment advisor or broker-dealer under the laws of Vietnam. All investment decisions are made solely by you, and you are solely responsible for evaluating the related risks.',
+                    content: 'All content, tools, and services provided on this website, including all data within the restricted area, are for informational and educational purposes only. <strong>Absolutely Nothing</strong> on this website constitutes, or should be construed as, investment advice, a recommendation, a trade signal, or a solicitation to buy, sell, or hold any financial instrument. Chào Market is not a licensed investment advisor or broker-dealer under the laws of Vietnam. All investment decisions are made solely by you, and you are solely responsible for evaluating the related risks.',
                 },
                 {
                     title: '6. Acknowledgment of Legal Context and Specific Market Risks',
-                    content: 'By accepting these terms, you confirm you have been informed and understand the specific legal status and risks of each market in Vietnam:\n• Regarding Currencies & Cryptocurrencies: You are aware that these markets are not licensed for individual retail investors under Vietnamese law, operate in an unclear legal environment, and carry very significant legal and financial risks. We do not encourage or broker any activities in these markets.\n• Regarding Stocks & Commodities: You understand that while these markets are licensed, they always involve the risk of volatility and potential loss.\n• General Principle: You accept that past performance, whether from backtests or live trading, does not guarantee and is not an indicator of future results.',
+                    content: 'By accepting these terms, you confirm you have been informed and understand the specific legal status and risks of each market in Vietnam:\n• <strong>Regarding Currencies & Cryptocurrencies</strong>: You are aware that these markets are <strong>not licensed for individual retail investors under Vietnamese law</strong>, operate in an unclear legal environment, and carry very significant legal and financial risks. We do not encourage or broker any activities in these markets.\n• <strong>Regarding Stocks & Commodities</strong>: You understand that while these markets are licensed, they always involve the risk of volatility and potential loss.\n• <strong>General Principle</strong>: You accept that past performance, whether from backtests or live trading, <strong>does not guarantee and is not an indicator</strong> of future results.',
                 },
                 {
                     title: '7. Intellectual Property',
-                    content: 'All content on this website, including text, graphics, logos, software, and data within the restricted area, is the property of Chào Market and is protected by Vietnamese and international copyright laws.',
+                    content: 'All content on this website, including text, graphics, logos, software, and <strong>data within the restricted area</strong>, is the property of Chào Market and is protected by Vietnamese and international copyright laws.',
                 },
                 {
                     title: '8. Limitation of Liability',
@@ -326,20 +326,22 @@ export const en: TranslationsStructure = {
                 },
                 {
                     title: '9. Governing Law and Severability',
-                    content: 'Governing Law: These terms shall be governed by and construed in accordance with the laws of Vietnam.\nSeverability: If any provision of this document is found to be invalid by a court of competent jurisdiction, the remaining provisions shall remain in full force and effect.',
+                    content: '<strong>Governing Law</strong>: These terms shall be governed by and construed in accordance with the laws of Vietnam.\n<strong>Severability</strong>: If any provision of this document is found to be invalid by a court of competent jurisdiction, the remaining provisions shall remain in full force and effect.',
                 },
                 {
                     title: '10. Contact',
-                    content: 'Any questions regarding these "Terms of Use" should be directed to: support@chaomarket.com.',
+                    content: 'Any questions regarding these "Terms of Use" should be directed to: <strong>support@chaomarket.com</strong>.',
                 },
             ],
         },
         privacyPolicy: {
-            title: 'Privacy Policy',
+            title: 'PRIVACY POLICY',
             sections: [
                 {
                     title: '1. Information We Collect',
-                    content: 'Chào Market ("we," "us," or "our") is committed to protecting the privacy of our users ("you"). This “Privacy Policy” explains how we collect, use, disclose, and safeguard your information when you visit our website Chào Market (ChaoMarket.com) and use our services.\n\nWe may collect information about you in a variety of ways:\n\nPersonal data you provide to us:\n• When you register for an account, we collect personally identifiable information such as your name, email address, and optional phone number.\n• When you contact us via forms or email, we collect the information you provide during that communication.\n\nData collected automatically:\n• When you access the website, we may automatically collect information such as your IP address, browser type, operating system, access times, and the pages you have viewed. This data is used for analytics and security purposes.',
+                    content: 'Chào Market ("we," "us," or "our") is committed to protecting the privacy of our users' +
+                        ' ("you"). This “Privacy Policy” explains how we collect, use, disclose, and safeguard your' +
+                        ' information when you visit our website Chào Market (chaomarket.com) and use our services.\n\nWe may collect information about you in a variety of ways:\n\n<strong>Personal data you provide to us:</strong>\n• When you register for an account, we collect personally identifiable information such as your <strong>name, email address, and optional phone number.</strong>\n• When you contact us via forms or email, we collect the information you provide during that communication.\n\n<strong>Data collected automatically:</strong>\n• When you access the website, we may automatically collect information such as your <strong>IP address, browser type, operating system, access times, and the pages you have viewed.</strong> This data is used for analytics and security purposes.',
                 },
                 {
                     title: '2. How We Use Your Information',
@@ -347,7 +349,7 @@ export const en: TranslationsStructure = {
                 },
                 {
                     title: '3. Disclosure of Your Information',
-                    content: 'We do not sell, rent, or trade your personal information to any third parties for marketing purposes. Your information may be shared only in the following situations:\n• With service providers: We may share your information with third-party vendors who perform services for us (such as web hosting, data analysis, and email delivery). These parties are only permitted to use your information to carry out the tasks we have assigned to them and are obligated to keep it confidential.\n• By law or to protect rights: We may disclose your information if required by law, court order, or a government request to protect the rights, property, and safety of ourselves and others.',
+                    content: 'We do not sell, rent, or trade your personal information to any third parties for marketing purposes. Your information may be shared only in the following situations:\n<strong>• With service providers:</strong> We may share your information with third-party vendors who perform services for us (such as web hosting, data analysis, and email delivery). These parties are only permitted to use your information to carry out the tasks we have assigned to them and are obligated to keep it confidential.\n<strong>• By law or to protect rights:</strong> We may disclose your information if required by law, court order, or a government request to protect the rights, property, and safety of ourselves and others.',
                 },
                 {
                     title: '4. Security of Your Information',
@@ -355,7 +357,7 @@ export const en: TranslationsStructure = {
                 },
                 {
                     title: '5. Your Rights Regarding Your Personal Data',
-                    content: 'In accordance with applicable law, you have the following rights regarding your personal data:\n• The right to access: You have the right to request access to the personal data we hold about you.\n• The right to rectification: You have the right to request the correction of any inaccurate or incomplete information.\n• The right to erasure: You have the right to request the deletion of your personal data (e.g., when you close your account).\n• The right to withdraw consent: You have the right to withdraw your consent for us to process your data at any time.\n\nTo exercise these rights, please contact us at support@chaomarket.com.',
+                    content: 'In accordance with applicable law, you have the following rights regarding your personal data:\n<strong>• The right to access:</strong> You have the right to request access to the personal data we hold about you.\n<strong>• The right to rectification:</strong> You have the right to request the correction of any inaccurate or incomplete information.\n<strong>• The right to erasure:</strong> You have the right to request the deletion of your personal data (e.g., when you close your account).\n<strong>• The right to withdraw consent:</strong> You have the right to withdraw your consent for us to process your data at any time.\n\nTo exercise these rights, please contact us at <strong>support@chaomarket.com</strong>.',
                 },
                 {
                     title: '6. Cookie Policy',
@@ -367,7 +369,7 @@ export const en: TranslationsStructure = {
                 },
                 {
                     title: '8. Contact Us',
-                    content: 'If you have any questions or concerns about this “Privacy Policy”, please contact us at: support@chaomarket.com.',
+                    content: 'If you have any questions or concerns about this “Privacy Policy”, please contact us at: <strong>support@chaomarket.com</strong>.',
                 },
             ],
         },
@@ -504,22 +506,26 @@ export const en: TranslationsStructure = {
         valueIsNowEmpty: 'Value is now empty',
     },
     disclaimer: {
-        title: 'Disclaimer',
+        title: 'DISCLAIMER',
         sections: [
             {
                 title: 'Informational Purposes',
-                content: 'All information, tools, and data provided by Chào Market are for general informational and educational purposes only and are not intended as advisory services.',
+                content: 'All information, tools, and data provided by Chào Market are for <strong>general informational and educational purposes only</strong> and are not intended as advisory services.',
             },
             {
                 title: 'No Investment Advice',
-                content: 'The content on this website absolutely does not constitute and shall not be considered as investment advice, financial advice, a recommendation, or a solicitation to buy, sell, or hold any financial asset. We do not guarantee the accuracy or completeness of this information.',
+                content: 'The content on this website <strong>absolutely does not</strong> constitute and shall not be considered as investment advice, financial advice, a recommendation, or a solicitation to buy, sell, or hold any financial asset. We do not guarantee the accuracy or completeness of this information.',
             },
             {
                 title: 'Risk and Responsibility',
-                content: 'All investment decisions carry significant financial risks. Past performance is not indicative of future results. You are solely responsible for your own decisions and are encouraged to seek independent professional financial advice before making any investment.',
+                content: 'All investment decisions carry significant financial risks. <strong>Past performance is not indicative of future results.</strong> You are solely responsible for your own decisions and are encouraged to seek independent professional financial advice before making any investment.',
             },
         ],
-        conclusion: 'By continuing to access this website, you agree that the information provided is for educational and informational purposes only. This does not constitute investment advice, and we are not responsible for your decisions. Please read our Terms of Use and Privacy Policy carefully.',
+        conclusion: '<strong>By continuing to access this website, you agree that the information provided is for' +
+            ' educational and informational purposes only. This does not constitute investment advice, and we are' +
+            ' not responsible for your decisions. Please read our <a href="/terms-of-use">Terms of Use</a> and' +
+            ' <a href="/privacy-policy">Privacy Policy</a>' +
+            ' carefully.</strong>',
         agreeButton: 'I understand and agree',
         leaveButton: 'Leave site',
     },
@@ -532,7 +538,7 @@ export const en: TranslationsStructure = {
             desc3: ' or ',
             linkLogIn: 'Log In',
             desc4: ' to continue.',
-            okButton: 'OK',
+            okButton: 'I understand and agree',
         },
         member: {
             title: 'Important Data Notice',

@@ -399,7 +399,7 @@ export default function Page() {
                                                     .link
                                             }
                                             className={
-                                                'text-xs font-semibold hover:underline text-brand-text' +
+                                                'text-xs font-semibold hover:underline text-[var(--brand-grey-foreground)]' +
                                                 ' dark:hover:text-[var(--brand-color)]'
                                             }
                                         >

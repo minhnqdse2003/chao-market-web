@@ -33,7 +33,7 @@ interface SignUpFormProps {
     onSignUpSuccess: (user: OtpVerificationFormProps) => void;
 }
 
-export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
+export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(''); // For general errors like terms not accepted or server errors
     const [success, setSuccess] = useState('');
@@ -448,7 +448,9 @@ export default function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                             >
                                 <T keyName="auth.termsAgreement.start" />{' '}
                                 <span
-                                    className={'dark:text-[var(--brand-color)]'}
+                                    className={
+                                        'dark:text-[var(--brand-color)] font-medium'
+                                    }
                                 >
                                     <T
                                         keyName={
