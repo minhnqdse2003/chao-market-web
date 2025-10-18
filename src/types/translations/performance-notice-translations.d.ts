@@ -17,6 +17,7 @@ export interface MemberNoticeTranslations {
     desc3: string;
     linkTerms: string;
     agreeButton: string;
+    alreadyAgreeButton: string;
 }
 
 export interface PerformanceNoticeTranslations {

@@ -141,7 +141,7 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                                     {section.title}
                                 </h3>
                                 <p
-                                    className="text-[var(--brand-grey-foreground)] [&>strong]:text-brand-text"
+                                    className="text-[var(--brand-grey-foreground)] [&>strong]:text-brand-text [&>strong]:font-normal"
                                     dangerouslySetInnerHTML={{
                                         __html: section.content,
                                     }}
@@ -149,7 +149,7 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                             </div>
                         ))}
                     <p
-                        className="text-[var(--brand-grey-foreground)] italic pt-4 border-t border-[var(--brand-grey-foreground)]/20 dark:[&_*_a]:text-[var(--brand-color)] [&_*_a]:hover:underline"
+                        className="text-[var(--brand-grey-foreground)] pt-4 border-t border-[var(--brand-grey-foreground)]/20 dark:[&_*_a]:text-[var(--brand-color)] [&_*_a]:hover:underline"
                         dangerouslySetInnerHTML={{ __html: conclusion }}
                     />
                 </div>

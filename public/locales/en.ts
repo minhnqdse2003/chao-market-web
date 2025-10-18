@@ -290,7 +290,7 @@ export const en: TranslationsStructure = {
             ],
         },
         termOfUse: {
-            title: 'TERMS OF USE',
+            title: 'Terms of Use',
             sections: [
                 {
                     title: '1. Acceptance of Terms',
@@ -330,12 +330,13 @@ export const en: TranslationsStructure = {
                 },
                 {
                     title: '10. Contact',
-                    content: 'Any questions regarding these "Terms of Use" should be directed to: <strong>support@chaomarket.com</strong>.',
+                    content: 'Any questions regarding these "Terms of Use" should be directed to:' +
+                        ' <a href="mailto:support@chaomarket.com">support@chaomarket.com</a>.',
                 },
             ],
         },
         privacyPolicy: {
-            title: 'PRIVACY POLICY',
+            title: 'Privacy Policy',
             sections: [
                 {
                     title: '1. Information We Collect',
@@ -356,20 +357,16 @@ export const en: TranslationsStructure = {
                     content: 'We use reasonable administrative, technical, and physical security measures to help protect your personal information. Data is encrypted in transit (using SSL). However, please be aware that no security measures are perfect or impenetrable, and we cannot guarantee 100% security.',
                 },
                 {
-                    title: '5. Your Rights Regarding Your Personal Data',
-                    content: 'In accordance with applicable law, you have the following rights regarding your personal data:\n<strong>• The right to access:</strong> You have the right to request access to the personal data we hold about you.\n<strong>• The right to rectification:</strong> You have the right to request the correction of any inaccurate or incomplete information.\n<strong>• The right to erasure:</strong> You have the right to request the deletion of your personal data (e.g., when you close your account).\n<strong>• The right to withdraw consent:</strong> You have the right to withdraw your consent for us to process your data at any time.\n\nTo exercise these rights, please contact us at <strong>support@chaomarket.com</strong>.',
-                },
-                {
-                    title: '6. Cookie Policy',
+                    title: '.5 Cookie Policy',
                     content: 'We use cookies to maintain your session, remember your preferences, and analyse traffic. You can control the use of cookies through your browser\'s settings.',
                 },
                 {
-                    title: '7. Changes to This Policy',
+                    title: '6. Changes to This Policy',
                     content: 'We may update this “Privacy Policy” at any time. Any changes will be effective immediately upon posting the updated version on the website. We will notify you of any significant changes via email or a prominent notice on the website.',
                 },
                 {
-                    title: '8. Contact Us',
-                    content: 'If you have any questions or concerns about this “Privacy Policy”, please contact us at: <strong>support@chaomarket.com</strong>.',
+                    title: '7. Contact Us',
+                    content: 'If you have any questions or concerns about this “Privacy Policy”, please contact us at: <a href="mailto:support@chaomarket.com">support@chaomarket.com</a>.',
                 },
             ],
         },
@@ -506,7 +503,7 @@ export const en: TranslationsStructure = {
         valueIsNowEmpty: 'Value is now empty',
     },
     disclaimer: {
-        title: 'DISCLAIMER',
+        title: 'Disclaimer',
         sections: [
             {
                 title: 'Informational Purposes',
@@ -548,7 +545,8 @@ export const en: TranslationsStructure = {
             desc3: 'only, and does not constitute investment advice. Past performance is not indicative of future' +
                 ' results. By proceeding, you reaffirm that you have understood and agreed to our full',
             linkTerms: 'Terms of Use',
-            agreeButton: 'I agree',
+            agreeButton: 'I understand and agree',
+            alreadyAgreeButton: 'You have accepted the important data notice.',
         },
         mainSection: {
             independentVerification: 'Independent Verification',

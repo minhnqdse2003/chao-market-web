@@ -3,20 +3,22 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { FooterSection } from '@/types/translations/footer';
-import { useI18n } from '@/context/i18n/context'; // Import the type for safety
+import { useI18n } from '@/context/i18n/context';
+import { formatLastUpdatedDate } from '@/utils/date-time-format'; // Import the type for safety
 
 export default function CookiePolicy() {
-    const { t } = useI18n();
+    const { t, locale } = useI18n();
 
     // Fetch the array of sections from the translation file using the same type assertion pattern.
     const sections = t(
         'footer.cookiePolicy.sections' as never
     ) as unknown as FooterSection[];
 
-    // Manually handle the date placeholder for the "last updated" text.
+    const lastUpdatedDate = new Date(2025, 10, 1, 8, 0, 0);
+
     const lastUpdatedText = t('common.lastUpdated').replace(
         '{date}',
-        new Date().toLocaleDateString()
+        formatLastUpdatedDate(lastUpdatedDate, locale)
     );
 
     return (
@@ -31,14 +33,17 @@ export default function CookiePolicy() {
             </Link>
 
             {/* Title from translations */}
-            <h1 className="text-3xl font-bold text-brand-text dark:text-[var(--brand-color)] mb-6">
+            <h1 className="text-3xl font-bold text-brand-text dark:text-[var(--brand-color)] mb-2">
                 {t('footer.cookiePolicy.title')}
             </h1>
 
             <div className="space-y-6 text-brand-text">
-                {/*
-                  Check if `sections` is an array before mapping to prevent errors.
-                */}
+                <div className="border-b pb-2 border-[var(--brand-grey-foreground)]">
+                    <p className="text-sm text-[var(--brand-grey-foreground)]">
+                        {lastUpdatedText}
+                    </p>
+                </div>
+
                 {Array.isArray(sections) &&
                     sections.map((section, index) => (
                         <section key={index}>
@@ -54,12 +59,6 @@ export default function CookiePolicy() {
                             </p>
                         </section>
                     ))}
-
-                <div className="pt-6 border-t border-[var(--brand-grey-foreground)]">
-                    <p className="text-sm text-[var(--brand-grey-foreground)]">
-                        {lastUpdatedText}
-                    </p>
-                </div>
             </div>
         </div>
     );

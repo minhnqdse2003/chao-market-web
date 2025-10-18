@@ -2,7 +2,7 @@
 
 import { useI18n } from '@/context/i18n/context';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useEffect, useCallback, useMemo } from 'react';
 import AppAlertDialog from '@/components/app-alert-dialog';
 import {
     GuestNoticeTranslations,
@@ -11,13 +11,19 @@ import {
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useHistoryStore } from '@/stores/history-tracker.store';
+import { usePerformanceStatisticStore } from '@/stores/performance-statistic.store';
+import { PERFORMANCE_STATISTIC_DIALOG_ACTIONS } from '@/stores/actions/performance-statistic.action';
 
 export function GuestPerformanceNoticeDialog() {
     const { status } = useSession();
     const router = useRouter();
-    const [isOpen, setIsOpen] = useState(status === 'unauthenticated');
     const { t } = useI18n();
     const history = useHistoryStore(state => state.history);
+    const {
+        isOpen: isNoticeOpen,
+        dispatch,
+        isAccepted,
+    } = usePerformanceStatisticStore();
 
     const notice = t(
         'performanceNotice.guest'
@@ -48,9 +54,9 @@ export function GuestPerformanceNoticeDialog() {
 
     const descriptionMemberJsx = (
         <>
-            <p className="mb-4 text-brand-text">
+            <p className="mb-4 text-[var(--brand-grey-foreground)]">
                 <span>{noticeMember.desc1}</span>{' '}
-                <span className={'font-bold dark:text-[var(--brand-color)]'}>
+                <span className={'font-bold text-brand-text'}>
                     {noticeMember.desc2}
                 </span>{' '}
                 <span>{noticeMember.desc3}</span>{' '}
@@ -67,8 +73,6 @@ export function GuestPerformanceNoticeDialog() {
         </>
     );
 
-    const isAuthenticated = status === 'authenticated';
-
     const handleRedirectOnClickAcceptButton = () => {
         if (history.length > 1) {
             const previousPath = history[history.length - 2];
@@ -78,37 +82,81 @@ export function GuestPerformanceNoticeDialog() {
         }
     };
 
-    useEffect(() => {
-        setIsOpen(status === 'unauthenticated' || isAuthenticated);
+    const setNoticeState = (open: boolean) => {
+        dispatch({
+            type: PERFORMANCE_STATISTIC_DIALOG_ACTIONS.SET_DIALOG,
+            payload: open,
+        });
+    };
+
+    const handleOnOpenChange = useCallback(
+        (open: boolean, type: 'member' | 'guest') => {
+            if (type === 'member') {
+                setNoticeState(open);
+            }
+        },
+        []
+    );
+
+    const markAsRead = () => {
+        dispatch({
+            type: PERFORMANCE_STATISTIC_DIALOG_ACTIONS.MARK_AS_ACCEPTED,
+        });
+    };
+
+    const isAuthenticated = useMemo(() => {
+        return status === 'authenticated';
     }, [status]);
 
-    return !isAuthenticated ? (
-        <AppAlertDialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-            content={{
-                title: notice.title,
-                description: descriptionGuestJsx,
-            }}
-            accepted={{
-                title: notice.okButton,
-                onChange: handleRedirectOnClickAcceptButton,
-            }}
-        />
-    ) : (
-        <AppAlertDialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-            content={{
-                title: noticeMember.title,
-                description: descriptionMemberJsx,
-            }}
-            accepted={{
-                title: noticeMember.agreeButton,
-                onChange: () => {
-                    setIsOpen(false);
-                },
-            }}
-        />
+    useEffect(() => {
+        if (isAuthenticated && !isAccepted) {
+            handleOnOpenChange(isAuthenticated, 'member');
+        }
+    }, [status]);
+
+    useEffect(() => {
+        if (isAuthenticated && isNoticeOpen) {
+            handleOnOpenChange(isNoticeOpen, 'member');
+        }
+    }, [isNoticeOpen]);
+
+    return (
+        <>
+            {!isAuthenticated && status !== 'loading' && (
+                <AppAlertDialog
+                    open={!isAuthenticated}
+                    content={{
+                        title: notice.title,
+                        description: descriptionGuestJsx,
+                    }}
+                    accepted={{
+                        title: notice.okButton,
+                        onChange: handleRedirectOnClickAcceptButton,
+                    }}
+                />
+            )}
+            {isNoticeOpen && (
+                <AppAlertDialog
+                    open={isNoticeOpen}
+                    onOpenChange={open => {
+                        handleOnOpenChange(open, 'member');
+                    }}
+                    content={{
+                        title: noticeMember.title,
+                        description: descriptionMemberJsx,
+                    }}
+                    accepted={{
+                        title: isAccepted
+                            ? noticeMember.alreadyAgreeButton
+                            : noticeMember.agreeButton,
+                        onChange: () => {
+                            handleOnOpenChange(false, 'member');
+                            markAsRead();
+                        },
+                    }}
+                    contentClassName={'min-w-2/5'}
+                />
+            )}
+        </>
     );
 }

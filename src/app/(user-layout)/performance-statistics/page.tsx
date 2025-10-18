@@ -23,6 +23,9 @@ import { AccountChartWithDialog } from '@/app/(user-layout)/performance-statisti
 import { GuestPerformanceNoticeDialog } from '@/app/(user-layout)/performance-statistics/components/guest-performance-notice-dialog';
 import { useI18n } from '@/context/i18n/context';
 import Link from 'next/link';
+import { T } from '@/components/app-translate';
+import { usePerformanceStatisticStore } from '@/stores/performance-statistic.store';
+import { PERFORMANCE_STATISTIC_DIALOG_ACTIONS } from '@/stores/actions/performance-statistic.action';
 
 // Mock data generation
 const dataList = [
@@ -248,9 +251,16 @@ const tabsList: TabItem[] = [
 export default function Page() {
     const [activeCard, setActiveCard] = useState<number | null>(null);
     const { t } = useI18n();
+    const { dispatch } = usePerformanceStatisticStore();
 
     const handleCardClick = (index: number) => {
         setActiveCard(activeCard === index ? null : index);
+    };
+
+    const handleOnOpenPerformanceStatisticDialog = () => {
+        dispatch({
+            type: PERFORMANCE_STATISTIC_DIALOG_ACTIONS.OPEN_DIALOG,
+        });
     };
 
     const selectedData = activeCard !== null ? dataList[activeCard] : null;
@@ -265,6 +275,14 @@ export default function Page() {
                     <ClientAccountFilterDialog
                         onApply={(value: unknown) => console.log(value)}
                     />
+                    <button
+                        className={
+                            'text-brand-text font-bold dark:hover:text-[var(--brand-color)] cursor-pointer'
+                        }
+                        onClick={() => handleOnOpenPerformanceStatisticDialog()}
+                    >
+                        <T keyName={'performanceNotice.member.title'} />
+                    </button>
                     <AppDropdown
                         options={SORT_BY_OPTIONS}
                         defaultValue="featured"

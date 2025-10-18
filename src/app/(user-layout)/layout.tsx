@@ -43,7 +43,10 @@ export default function UserLayout({
                                 Help &amp; Feedback
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className='[&_*_div[data-slot="Container"]:last-child]:mb-8 [&_*_div[data-slot="Container"]>div]:px-6 [&_*_div[data-slot="Container"]>div]:py-6 [&_*_div[data-slot="Container"]>a]:px-6 [&_*_div[data-slot="Container"]>a]:py-6 [&_*_div[data-slot="Container"]>a:hover]:bg-[var(--brand-black-bg)] [&_*_div[data-slot="Container"]>a:hover]:rounded-lg bg-brand-dialog'>
+                        <DialogContent
+                            className='[&_*_div[data-slot="Container"]:last-child]:mb-8 [&_*_div[data-slot="Container"]>div]:px-6 [&_*_div[data-slot="Container"]>div]:py-6 [&_*_div[data-slot="Container"]>a]:px-6 [&_*_div[data-slot="Container"]>a]:py-6 [&_*_div[data-slot="Container"]>a:hover]:bg-[var(--brand-black-bg)] [&_*_div[data-slot="Container"]>a:hover]:rounded-lg bg-brand-dialog'
+                            onOpenAutoFocus={e => e.preventDefault()}
+                        >
                             <DialogHeader className="flex flex-col items-center justify-center">
                                 <Image
                                     alt={'logo-brand-ft-hat'}

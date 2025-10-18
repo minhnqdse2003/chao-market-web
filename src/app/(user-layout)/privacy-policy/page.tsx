@@ -48,13 +48,8 @@ export default function PrivacyPolicy() {
                             <h2 className="text-xl font-semibold mb-3">
                                 {section.title}
                             </h2>
-                            {/*
-                            `whitespace-pre-wrap` is ESSENTIAL here.
-                            Your privacy policy content uses line breaks (\n) for bullet points.
-                            This class ensures they are rendered correctly.
-                        */}
                             <p
-                                className="text-[var(--brand-grey-foreground)] dark:[&>strong]:text-[var(--brand-color)] whitespace-pre-wrap"
+                                className="text-[var(--brand-grey-foreground)] dark:[&>a]:text-[var(--brand-color)] [&>strong]:text-brand-text [&>a]:text-brand-text [&>a]:hover:underline dark:[&>strong]:text-brand-text [&>strong]:font-normal whitespace-pre-wrap"
                                 dangerouslySetInnerHTML={{
                                     __html: section.content,
                                 }}

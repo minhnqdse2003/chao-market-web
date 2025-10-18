@@ -290,7 +290,7 @@ export const vi: TranslationsStructure = {
             ],
         },
         termOfUse: {
-            title: 'ĐIỀU KHOẢN SỬ DỤNG',
+            title: 'Điều Khoản Sử Dụng',
             sections: [
                 {
                     'title': '1. Chấp Nhận Điều Khoản',
@@ -345,12 +345,12 @@ export const vi: TranslationsStructure = {
                 },
                 {
                     'title': '10. Liên Hệ',
-                    'content': 'Mọi thắc mắc về "Điều Khoản Sử Dụng" này xin vui lòng gửi về địa chỉ: <strong>support@chaomarket.com</strong>',
+                    'content': 'Mọi thắc mắc về "Điều Khoản Sử Dụng" này xin vui lòng gửi về địa chỉ: <a href="mailto:support@chaomarket.com">support@chaomarket.com</a>',
                 },
             ],
         },
         privacyPolicy: {
-            title: 'CHÍNH SÁCH BẢO MẬT',
+            title: 'Chính Sách Bảo Mật',
             sections: [
                 {
                     title: '1. Thông Tin Chúng Tôi Thu Thập',
@@ -375,31 +375,22 @@ export const vi: TranslationsStructure = {
                     content: 'Chúng tôi áp dụng các biện pháp bảo mật hành chính, kỹ thuật và vật lý hợp lý để bảo vệ thông tin cá nhân của bạn. Dữ liệu được mã hóa khi truyền tải (sử dụng SSL). Tuy nhiên, xin lưu ý rằng không có biện pháp bảo mật nào là tuyệt đối và chúng tôi không thể đảm bảo an toàn 100%.',
                 },
                 {
-                    title: '5. Quyền Của Bạn Đối Với Dữ Liệu Cá Nhân',
-                    content: 'Theo quy định của pháp luật, bạn có các quyền sau đối với thông tin cá nhân của' +
-                        ' mình:\n <strong>• Quyền truy cập:</strong> Bạn có quyền yêu cầu xem thông tin cá nhân mà' +
-                        ' chúng tôi đang lưu giữ về bạn.\n <strong>• Quyền chỉnh sửa:</strong> Bạn có quyền yêu cầu' +
-                        ' chỉnh sửa các thông tin không chính xác hoặc không đầy đủ.\n <strong>• Quyền' +
-                        ' xóa:</strong> Bạn có quyền yêu cầu xóa dữ liệu cá nhân của mình (ví dụ: khi bạn đóng tài' +
-                        ' khoản).\n <strong>• Quyền rút lại sự đồng ý:</strong> Bạn có quyền rút lại sự đồng ý cho' +
-                        ' phép chúng tôi xử lý dữ liệu của bạn bất kỳ lúc nào.\n\nĐể thực hiện các quyền này, vui lòng liên hệ với chúng tôi qua email: <strong>support@chaomarket.com</strong>',
-                },
-                {
-                    title: '6. Chính Sách Về Cookies',
+                    title: '5. Chính Sách Về Cookies',
                     content: 'Chúng tôi sử dụng cookies để duy trì phiên đăng nhập, ghi nhớ các tùy chọn của bạn và phân tích lưu lượng truy cập. Bạn có thể kiểm soát việc sử dụng cookies thông qua cài đặt của trình duyệt.',
                 },
                 {
-                    title: '7. Thay Đổi Chính Sách',
+                    title: '6. Thay Đổi Chính Sách',
                     content: 'Chúng tôi có thể cập nhật “Chính Sách Bảo Mật” này vào bất kỳ lúc nào. Mọi thay đổi sẽ có hiệu lực ngay khi được đăng tải lên website. Chúng tôi sẽ thông báo cho bạn về những thay đổi quan trọng qua email hoặc một thông báo nổi bật trên website.',
                 },
                 {
-                    title: '8. Liên hệ',
-                    content: 'Nếu bạn có bất kỳ câu hỏi hay thắc mắc nào về “Chính Sách Bảo Mật” này, vui lòng liên hệ với chúng tôi tại: <strong>support@chaomarket.com</strong>',
+                    title: '7. Liên hệ',
+                    content: 'Nếu bạn có bất kỳ câu hỏi hay thắc mắc nào về “Chính Sách Bảo Mật” này, vui lòng liên' +
+                        ' hệ với chúng tôi tại: <a href="mailto:support@chaomarket.com">support@chaomarket.com</a>',
                 },
             ],
         },
         cookiePolicy: {
-            title: 'Chính sách Cookie',
+            title: 'Chính Sách Cookie',
             sections: [
                 {
                     title: '1. Cookies Là Gì?',
@@ -574,7 +565,8 @@ export const vi: TranslationsStructure = {
             desc2: 'mục đích nghiên cứu và học thuật',
             desc3: ', không phải là lời khuyên đầu tư. Hiệu suất trong quá khứ không đảm bảo cho kết quả trong tương' +
                 ' lai. Bằng việc tiếp tục, bạn xác nhận lại rằng bạn đã hiểu và đồng ý với đầy đủ',
-            agreeButton: 'Tôi đồng ý',
+            agreeButton: 'Tôi đã hiểu và đồng ý',
+            alreadyAgreeButton: 'Bạn đã chấp nhận thông báo quan trọng về dữ liệu.',
         },
         mainSection: {
             independentVerification: 'Kiểm Chứng Độc Lập',

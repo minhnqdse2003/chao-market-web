@@ -46,6 +46,8 @@ export function DataTable<TData, TValue>({
 
     return (
         <div className="rounded-md overflow-hidden">
+            <DataTablePagination table={table} className={'mb-4'} />
+
             <Table className="mb-6">
                 <TableHeader className="bg-[var(--brand-grey)]">
                     {table.getHeaderGroups().map(headerGroup => (
@@ -98,7 +100,6 @@ export function DataTable<TData, TValue>({
                     )}
                 </TableBody>
             </Table>
-            <DataTablePagination table={table} />
         </div>
     );
 }

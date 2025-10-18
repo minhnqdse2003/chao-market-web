@@ -10,6 +10,7 @@ import {
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 interface AppAlertDialogProps {
     open?: boolean;
@@ -28,6 +29,7 @@ interface AppAlertDialogProps {
         onChange: () => void;
     };
     defaultOpen?: boolean;
+    contentClassName?: string;
 }
 
 export default function AppAlertDialog({
@@ -38,6 +40,7 @@ export default function AppAlertDialog({
     cancelled,
     accepted,
     defaultOpen = false,
+    contentClassName,
 }: AppAlertDialogProps) {
     return (
         <AlertDialog
@@ -50,7 +53,7 @@ export default function AppAlertDialog({
             )}
             <AlertDialogContent
                 overLayClassName={'backdrop-blur-sm'}
-                className={'bg-brand-dialog'}
+                className={cn('bg-brand-dialog', contentClassName)}
             >
                 <AlertDialogHeader>
                     <AlertDialogTitle>{content?.title}</AlertDialogTitle>
