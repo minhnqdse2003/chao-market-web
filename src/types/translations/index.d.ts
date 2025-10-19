@@ -12,6 +12,7 @@ import { AccountTranslations } from '@/types/translations/account';
 import ToolsTranslations from '@/types/translations/tools';
 import { DisclaimerTranslation } from '@/types/translations/disclaimer';
 import { PerformanceNoticeTranslations } from '@/types/translations/performance-notice-translations';
+import { HelpAndFeedback } from '@/types/translations/help-and-feedback';
 
 export interface TranslationsStructure {
     common: CommonTranslations;
@@ -30,6 +31,7 @@ export interface TranslationsStructure {
     tool: ToolsTranslations;
     disclaimer: DisclaimerTranslation;
     performanceNotice: PerformanceNoticeTranslations;
+    helpAndFeedback: HelpAndFeedback;
 }
 
 type Leaves<T, K extends string = ''> = T extends object

@@ -10,20 +10,17 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { BugHelp, BugHelpLight, LogoBrand } from '@image/index';
-import { CircleQuestionMark, Headset } from 'lucide-react';
+import { LogoBrand } from '@image/index';
 import AppFooter from '@/components/app-footer';
-import Link from 'next/link';
-import { GiSparkles } from 'react-icons/gi';
-import { useTheme } from 'next-themes';
 import ContactButton from '@/components/app-contacts';
+import { useI18n } from '@/context/i18n/context';
 
 export default function UserLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const { theme } = useTheme();
+    const { t } = useI18n();
     return (
         <div className="flex w-full max-w-svw">
             <AppSidebar />
@@ -44,7 +41,7 @@ export default function UserLayout({
                             </Button>
                         </DialogTrigger>
                         <DialogContent
-                            className='[&_*_div[data-slot="Container"]:last-child]:mb-8 [&_*_div[data-slot="Container"]>div]:px-6 [&_*_div[data-slot="Container"]>div]:py-6 [&_*_div[data-slot="Container"]>a]:px-6 [&_*_div[data-slot="Container"]>a]:py-6 [&_*_div[data-slot="Container"]>a:hover]:bg-[var(--brand-black-bg)] [&_*_div[data-slot="Container"]>a:hover]:rounded-lg bg-brand-dialog'
+                            className='[&_*_div[data-slot="Container"]:last-child]:mb-8 [&_*_div[data-slot="Container"]>div]:px-6 [&_*_div[data-slot="Container"]>div]:py-6 [&_*_div[data-slot="Container"]>a]:px-6 [&_*_div[data-slot="Container"]>a]:py-6 [&_*_div[data-slot="Container"]>a:hover]:bg-[var(--brand-black-bg)] min-w-2/5 [&_*_div[data-slot="Container"]>a:hover]:rounded-lg bg-brand-dialog'
                             onOpenAutoFocus={e => e.preventDefault()}
                         >
                             <DialogHeader className="flex flex-col items-center justify-center">
@@ -66,101 +63,29 @@ export default function UserLayout({
                                     </p>
                                 </DialogTitle>
                             </DialogHeader>
-                            <div className="flex flex-col gap-1">
-                                <div data-slot="Container">
-                                    <Link
-                                        href={'/contacts'}
-                                        className="flex items-start gap-4 hover:bg-[var(--brand-grey)]!"
-                                    >
-                                        <Headset className="size-7 dark:text-[var(--brand-color)]" />
-                                        <div className="flex flex-col gap-2">
-                                            <p className="font-semibold text-xl">
-                                                Support request
-                                            </p>
-                                            <p
-                                                className={
-                                                    'text-[var(--brand-grey-foreground)]'
-                                                }
-                                            >
-                                                What do you need us to support ?
-                                            </p>
-                                        </div>
-                                    </Link>
-                                </div>
-                                <div data-slot="Container">
-                                    <Link
-                                        href={'/contacts'}
-                                        className="flex items-start gap-4 hover:bg-[var(--brand-grey)]!"
-                                    >
-                                        <Image
-                                            src={
-                                                theme === 'dark'
-                                                    ? BugHelp
-                                                    : BugHelpLight
-                                            }
-                                            width={1920}
-                                            height={1080}
-                                            className="size-7"
-                                            alt={'bug-help'}
-                                        />
-                                        <div className="flex flex-col gap-2">
-                                            <p className="font-semibold text-xl">
-                                                Report a bug
-                                            </p>
-                                            <p
-                                                className={
-                                                    'text-[var(--brand-grey-foreground)]'
-                                                }
-                                            >
-                                                Let’s us know what broken
-                                            </p>
-                                        </div>
-                                    </Link>
-                                </div>
-                                <div data-slot="Container">
-                                    <Link
-                                        href={'/contacts'}
-                                        className="flex items-start gap-4 hover:bg-[var(--brand-grey)]!"
-                                    >
-                                        <GiSparkles
-                                            className={
-                                                'size-7 dark:text-[var(--brand-color)]'
-                                            }
-                                        />
-                                        <div className="flex flex-col gap-2">
-                                            <p className="font-semibold text-xl">
-                                                General feedback
-                                            </p>
-                                            <p
-                                                className={
-                                                    'text-[var(--brand-grey-foreground)]'
-                                                }
-                                            >
-                                                Tell us how we can improve
-                                            </p>
-                                        </div>
-                                    </Link>
-                                </div>
-                                <div data-slot="Container">
-                                    <Link
-                                        href={'/contacts'}
-                                        className="flex items-start gap-4 hover:bg-[var(--brand-grey)]!"
-                                    >
-                                        <CircleQuestionMark className="size-7 dark:text-[var(--brand-color)]" />
-                                        <div className="flex flex-col gap-2">
-                                            <p className="font-semibold text-xl">
-                                                Contact us
-                                            </p>
-                                            <p
-                                                className={
-                                                    'text-[var(--brand-grey-foreground)]'
-                                                }
-                                            >
-                                                FAQs and usage introduction
-                                            </p>
-                                        </div>
-                                    </Link>
-                                </div>
+                            <div
+                                className={
+                                    'dark:[&_*_a]:text-[var(--brand-color)] text-[var(--brand-grey-foreground)]' +
+                                    ' [&_*_strong]:text-brand-text [&_*_a]:hover:underline [&_*_strong]:font-normal' +
+                                    ' space-y-4'
+                                }
+                            >
+                                <p
+                                    dangerouslySetInnerHTML={{
+                                        __html: t('helpAndFeedback.title'),
+                                    }}
+                                    className={'text-brand-text font-semibold'}
+                                />
+                                <p
+                                    dangerouslySetInnerHTML={{
+                                        __html: t('helpAndFeedback.desc'),
+                                    }}
+                                />
+                                <p
+                                    dangerouslySetInnerHTML={{
+                                        __html: t('helpAndFeedback.endContent'),
+                                    }}
+                                />
                             </div>
                         </DialogContent>
                     </Dialog>

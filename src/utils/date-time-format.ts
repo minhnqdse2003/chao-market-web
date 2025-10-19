@@ -1,5 +1,4 @@
 import { formatInTimeZone } from 'date-fns-tz';
-import { format } from 'date-fns';
 import { enUS, vi } from 'date-fns/locale';
 
 export const dateTimeFormat = (date: Date) => {
@@ -19,21 +18,35 @@ export const dateTimeFormat = (date: Date) => {
  * @returns A formatted date string.
  */
 export const formatLastUpdatedDate = (date: Date, locale: string) => {
-    if (locale === 'vi') {
-        // For Vietnamese: "8:00 Sáng, Thứ Bảy, 01.11.2025"
-        const time = format(date, 'h:mm');
-        const period = 'Sáng'; // Hardcoded as per requirement for morning
-        const dayOfWeek = format(date, 'EEEE', { locale: vi });
-        const datePart = format(date, 'dd.MM.yyyy');
+    const timeZone = 'Etc/GMT-7';
 
-        // Capitalize the first letter of the day of the week ("thứ bảy" -> "Thứ bảy")
+    if (locale === 'vi') {
+        // Format each part of the date in the target timezone
+        const time = formatInTimeZone(date, timeZone, 'h:mm');
+        const period = 'Sáng'; // Hardcoded as per requirement
+        const dayOfWeek = formatInTimeZone(date, timeZone, 'EEEE', {
+            locale: vi,
+        });
+        const datePart = formatInTimeZone(date, timeZone, 'dd.MM.yyyy');
+
+        // Get the UTC offset string like "UTC+07:00"
+        // 'UTC' is a literal string, and XXX provides the offset in +/-HH:mm format
+        const utcOffsetString = formatInTimeZone(date, timeZone, "'UTC'XXX");
+
+        // Capitalize the first letter of the day
         const capitalizedDay =
             dayOfWeek.charAt(0).toUpperCase() + dayOfWeek.slice(1);
-        return `${time} ${period}, ${capitalizedDay}, ${datePart}`;
+
+        return `${time} ${period}, ${capitalizedDay}, ${datePart}, ${utcOffsetString}`;
     }
 
-    // Default to English format: "8:00 AM Saturday, 01.11.2025"
-    return format(date, 'h:mm a EEEE, dd.MM.yyyy', {
-        locale: enUS,
-    });
+    // Default to English format, now with the UTC offset appended to the pattern
+    return formatInTimeZone(
+        date,
+        timeZone,
+        "h:mm a EEEE, dd.MM.yyyy, 'UTC'XXX", // Append the offset format here
+        {
+            locale: enUS,
+        }
+    );
 };

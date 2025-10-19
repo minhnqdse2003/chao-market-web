@@ -552,4 +552,12 @@ export const en: TranslationsStructure = {
             independentVerification: 'Independent Verification',
         },
     },
+    helpAndFeedback: {
+        title: 'We\'re here to help!',
+        desc: 'For website-related issues, bug reports, or detailed feedback, please send an email to <a' +
+            ' href=\'mailto:support@chaomarket.com\'>support@chaomarket.com.</a>\n' +
+            'For quick assistance, please click the <strong>"Chat with Chào Market"</strong> button in the bottom right corner of your' +
+            ' screen.',
+        endContent: '<strong>Thank you for your feedback and for choosing Chào Market!</strong>',
+    },
 };

@@ -572,5 +572,13 @@ export const vi: TranslationsStructure = {
             independentVerification: 'Kiểm Chứng Độc Lập',
         },
     },
+    helpAndFeedback: {
+        title: 'Chúng tôi luôn sẵn sàng hỗ trợ bạn!',
+        desc: 'Đối với các vấn đề, báo lỗi hoặc góp ý chi tiết liên quan đến website, vui lòng gửi email trực tiếp' +
+            ' cho chúng tôi tại <a href="mailto:support@chaomarket.com">support@chaomarket.com.</a>\n' +
+            'Để được giải đáp thắc mắc nhanh, vui lòng nhấn vào nút <strong>"Nhắn tin với Chào Market"</strong> ở góc dưới bên phải màn hình' +
+            ' của bạn.\n',
+        endContent: '<strong>Cảm ơn bạn đã tin tưởng và góp ý cho Chào Market!</strong>',
+    },
 
 };
