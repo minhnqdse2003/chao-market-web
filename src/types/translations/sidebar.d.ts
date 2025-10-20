@@ -12,4 +12,5 @@ export interface SidebarTranslations {
     conferences: string;
     videos: string;
     images: string;
+    membersOnly: string;
 }

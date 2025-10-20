@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/collapsible';
 import {
     SidebarGroup,
+    SidebarGroupLabel,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
@@ -17,6 +18,7 @@ import {
     SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { T } from '@/components/app-translate';
 
 // Create context to manage single open collapsible
 const CollapsibleContext = createContext<{
@@ -29,6 +31,7 @@ const CollapsibleContext = createContext<{
 
 export function NavMain({
     items,
+    memberOnlyRoute,
 }: Readonly<{
     items: {
         title: string;
@@ -40,6 +43,13 @@ export function NavMain({
             title: string;
             url: string;
         }[];
+    }[];
+    memberOnlyRoute: {
+        title: string;
+        url: string;
+        icon: React.ForwardRefExoticComponent<
+            Omit<LucideProps, 'ref'> & React.RefAttributes<SVGSVGElement>
+        >;
     }[];
 }>) {
     let path = usePathname();
@@ -74,6 +84,20 @@ export function NavMain({
             <SidebarGroup className="sidebar-scroll">
                 <SidebarMenu className="sidebar-scroll">
                     {items.map(item => (
+                        <CollapsibleItem
+                            key={item.title}
+                            item={item}
+                            path={path}
+                        />
+                    ))}
+                </SidebarMenu>
+            </SidebarGroup>
+            <SidebarGroup className="sidebar-scroll">
+                <SidebarGroupLabel>
+                    <T keyName={'sidebar.membersOnly'} />
+                </SidebarGroupLabel>
+                <SidebarMenu className="sidebar-scroll">
+                    {memberOnlyRoute.map(item => (
                         <CollapsibleItem
                             key={item.title}
                             item={item}

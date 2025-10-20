@@ -41,7 +41,7 @@ export default function UserLayout({
                             </Button>
                         </DialogTrigger>
                         <DialogContent
-                            className='[&_*_div[data-slot="Container"]:last-child]:mb-8 [&_*_div[data-slot="Container"]>div]:px-6 [&_*_div[data-slot="Container"]>div]:py-6 [&_*_div[data-slot="Container"]>a]:px-6 [&_*_div[data-slot="Container"]>a]:py-6 [&_*_div[data-slot="Container"]>a:hover]:bg-[var(--brand-black-bg)] min-w-2/5 [&_*_div[data-slot="Container"]>a:hover]:rounded-lg bg-brand-dialog'
+                            className='[&_*_div[data-slot="Container"]:last-child]:mb-8 [&_*_div[data-slot="Container"]>div]:px-6 [&_*_div[data-slot="Container"]>div]:py-6 [&_*_div[data-slot="Container"]>a]:px-6 [&_*_div[data-slot="Container"]>a]:py-6 [&_*_div[data-slot="Container"]>a:hover]:bg-[var(--brand-black-bg)] min-w-[70svw] [&_*_div[data-slot="Container"]>a:hover]:rounded-lg bg-brand-dialog'
                             onOpenAutoFocus={e => e.preventDefault()}
                         >
                             <DialogHeader className="flex flex-col items-center justify-center">
@@ -66,7 +66,8 @@ export default function UserLayout({
                             <div
                                 className={
                                     'dark:[&_*_a]:text-[var(--brand-color)] text-[var(--brand-grey-foreground)]' +
-                                    ' [&_*_strong]:text-brand-text [&_*_a]:hover:underline [&_*_strong]:font-normal' +
+                                    ' [&_*_strong]:text-brand-text [&_*_a]:hover:underline' +
+                                    ' [&_*_a]:font-bold [&_*_strong]:font-normal' +
                                     ' space-y-4'
                                 }
                             >

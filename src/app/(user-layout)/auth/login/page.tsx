@@ -183,10 +183,9 @@ export default function Login() {
                 if (!signInResult?.ok) {
                     setError('Invalid credentials');
                 } else {
-                    router.push('/home');
+                    router.push('/performance-statistics');
                 }
             } else {
-                // Email not verify - save data and show OTP
                 setLoginData(data);
                 await sendOtpCode(data.email);
                 setEmailVerified(false);

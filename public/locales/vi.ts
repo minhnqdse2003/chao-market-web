@@ -257,6 +257,7 @@ export const vi: TranslationsStructure = {
         conferences: 'Hội Nghị',
         videos: 'Video',
         images: 'Hình Ảnh',
+        membersOnly: 'Dành Cho Thành Viên',
     },
     bookConsultation: {
         bookConsultation: 'Đặt Lịch Tư Vấn',
@@ -289,39 +290,24 @@ export const vi: TranslationsStructure = {
                 },
             ],
         },
-        termOfUse: {
-            title: 'Điều Khoản Sử Dụng',
-            sections: [
+        'termOfUse': {
+            'title': 'Điều Khoản Sử Dụng',
+            'sections': [
                 {
                     'title': '1. Chấp Nhận Điều Khoản',
-                    'content': 'Bằng việc truy cập, sử dụng và/hoặc đăng ký một tài khoản trên website Chào Market' +
-                        ' ("website"), bạn xác nhận đã đọc, hiểu và đồng ý bị ràng buộc bởi toàn bộ các điều khoản' +
-                        ' và điều kiện được nêu trong bản "Điều Khoản Sử Dụng" này. <strong>Nếu bạn không đồng ý, vui lòng không sử dụng website của chúng tôi.</strong>',
+                    'content': 'Bằng việc truy cập, sử dụng và/hoặc đăng ký một tài khoản trên website Chào Market ("website"), bạn xác nhận đã đọc, hiểu và đồng ý bị ràng buộc bởi toàn bộ các điều khoản và điều kiện được nêu trong bản "Điều Khoản Sử Dụng" này. <strong>Nếu bạn không đồng ý, vui lòng không sử dụng website của chúng tôi.</strong>',
                 },
                 {
                     'title': '2. Mô Tả Dịch Vụ',
-                    'content': 'Chào Market cung cấp các dịch vụ, công cụ và thông tin với mục đích giáo dục tài' +
-                        ' chính, bao gồm nhưng không giới hạn: <strong>Cố Vấn Nền Tảng Tài Chính, Chiến Lược & Công Cụ Danh Mục, Giải Pháp Giao Dịch Thuật Toán, Cố Vấn Hiệu Suất Giao Dịch và Khóa Học Đầu Tư Tài Chính.</strong>',
+                    'content': 'Chào Market cung cấp các dịch vụ, công cụ và thông tin với mục đích giáo dục tài chính, bao gồm nhưng không giới hạn: <strong>Cố Vấn Nền Tảng Tài Chính, Chiến Lược & Công Cụ Danh Mục, Giải Pháp Giao Dịch Thuật Toán, Cố Vấn Hiệu Suất Giao Dịch và Khóa Học Đầu Tư Tài Chính.</strong>',
                 },
                 {
                     'title': '3. Tài Khoản Người Dùng Và Trách Nhiệm',
-                    'content': 'Để truy cập một số tính năng nhất định, bao gồm khu vực "Hiệu Suất Hệ Thống", bạn sẽ' +
-                        ' được yêu cầu tạo một tài khoản. Bằng việc tạo tài khoản, bạn đồng ý:\n- Cung cấp thông tin' +
-                        ' chính xác và cập nhật.\n- Chịu trách nhiệm bảo mật mật khẩu và mọi hoạt động diễn ra dưới' +
-                        ' tài khoản của bạn.\n- Hành động tick vào ô "Bằng việc tạo tài khoản, tôi xác nhận mình' +
-                        ' <strong>đủ 18 tuổi</strong> và tôi đồng ý với <strong>Điều Khoản Sử Dụng</strong> và' +
-                        ' <strong>Chính Sách Bảo Mật</strong>' +
-                        ' của' +
-                        ' website."' +
-                        ' trong' +
-                        ' quá trình đăng ký có giá trị pháp lý tương đương một chữ ký điện tử, xác nhận sự đồng thuận hoàn toàn của bạn với văn bản này.',
+                    'content': 'Để truy cập một số tính năng nhất định, bao gồm khu vực "Hiệu Suất Hệ Thống", bạn sẽ được yêu cầu tạo một tài khoản. Bằng việc tạo tài khoản, bạn đồng ý:\n• Cung cấp thông tin chính xác và cập nhật.\n• Chịu trách nhiệm bảo mật mật khẩu và mọi hoạt động diễn ra dưới tài khoản của bạn.\n• Hành động tick vào ô "Bằng việc tạo tài khoản, tôi xác nhận mình <strong>đủ 18 tuổi</strong> và tôi đồng ý với <strong>Điều Khoản Sử Dụng</strong> và <strong>Chính Sách Bảo Mật</strong> của website." trong quá trình đăng ký có giá trị pháp lý tương đương một chữ ký điện tử, xác nhận sự đồng thuận hoàn toàn của bạn với văn bản này.',
                 },
                 {
                     'title': '4. Quy Định Về Việc Truy Cập Và Sử Dụng Khu Vực "Hiệu Suất Hệ Thống"',
-                    'content': 'Khu vực "Hiệu Suất Hệ Thống" là nội dung hạn chế, chỉ dành cho các thành viên đã' +
-                        ' đăng ký và đồng ý với các điều khoản này. Bạn xác nhận và đồng ý vô điều kiện với các quy' +
-                        ' định sau:\n<strong>4.1 Mục đích duy nhất là nghiên cứu và học thuật</strong>: Bạn xác nhận mục đích duy nhất bạn được phép truy cập và sử dụng dữ' +
-                        ' liệu là để <strong>nghiên cứu, phân tích và học thuật</strong>. Dữ liệu được cung cấp dưới dạng các tình huống nghiên cứu và ví dụ minh họa, nhằm phục vụ cho mục đích giáo dục về cách một hệ thống giao dịch vận hành.\n<strong>4.2 Nghĩa vụ và các hành vi bị nghiêm cấm</strong>: Khi được cấp quyền truy cập, bạn cam kết:\n- <strong>Bảo mật</strong>: Không chia sẻ tài khoản đăng nhập hoặc tiết lộ, phát tán dữ liệu cho bất kỳ bên thứ ba nào.\n- <strong>Mục đích sử dụng</strong>: Chỉ sử dụng dữ liệu cho mục đích cá nhân, phi thương mại như đã nêu.\n- <strong>Nghiêm cấm</strong>: Sao chép, sửa đổi, bán lại, phân phối lại hoặc sử dụng dữ liệu để tạo ra các sản phẩm, dịch vụ cạnh tranh hoặc cho bất kỳ mục đích thương mại nào khác mà không có sự cho phép rõ ràng bằng văn bản của chúng tôi.\n<strong>4.3 Chấm dứt quyền truy cập</strong>: Chúng tôi có toàn quyền tạm ngưng hoặc chấm dứt vĩnh viễn quyền truy cập của bạn vào Khu vực Hạn chế mà không cần báo trước nếu chúng tôi có cơ sở tin rằng bạn đã vi phạm bất kỳ điều khoản nào trong văn bản này.',
+                    'content': 'Khu vực "Hiệu Suất Hệ Thống" là nội dung hạn chế, chỉ dành cho các thành viên đã đăng ký và đồng ý với các điều khoản này. Bạn xác nhận và đồng ý vô điều kiện với các quy định sau:\n\n<strong>4.1. Mục đích duy nhất là nghiên cứu và học thuật:</strong> Bạn xác nhận mục đích duy nhất bạn được phép truy cập và sử dụng dữ liệu là để <strong>nghiên cứu, phân tích và học thuật</strong>. Dữ liệu được cung cấp dưới dạng các tình huống nghiên cứu và ví dụ minh họa, nhằm phục vụ cho mục đích giáo dục về cách một hệ thống giao dịch vận hành.\n\n<strong>4.2. Nghĩa vụ và các hành vi bị nghiêm cấm:</strong> Khi được cấp quyền truy cập, bạn cam kết:\n<strong>• Bảo mật:</strong> Không chia sẻ tài khoản đăng nhập hoặc tiết lộ, phát tán dữ liệu cho bất kỳ bên thứ ba nào.\n<strong>• Mục đích sử dụng:</strong> Chỉ sử dụng dữ liệu cho mục đích cá nhân, phi thương mại như đã nêu.\n<strong>• Nghiêm cấm:</strong> Sao chép, sửa đổi, bán lại, phân phối lại hoặc sử dụng dữ liệu để tạo ra các sản phẩm, dịch vụ cạnh tranh hoặc cho bất kỳ mục đích thương mại nào khác mà không có sự cho phép rõ ràng bằng văn bản của chúng tôi.\n\n<strong>4.3. Chấm dứt quyền truy cập:</strong> Chúng tôi có toàn quyền tạm ngưng hoặc chấm dứt vĩnh viễn quyền truy cập của bạn vào Khu vực Hạn chế mà không cần báo trước nếu chúng tôi có cơ sở tin rằng bạn đã vi phạm bất kỳ điều khoản nào trong văn bản này.',
                 },
                 {
                     'title': '5. Tuyên Bố Miễn Trừ Trách Nhiệm Về Tư Vấn Đầu Tư (cực kỳ quan trọng)',
@@ -329,7 +315,7 @@ export const vi: TranslationsStructure = {
                 },
                 {
                     'title': '6. Xác Nhận Về Bối Cảnh Pháp Lý Và Rủi Ro Thị Trường Cụ Thể',
-                    'content': 'Bằng việc chấp nhận điều khoản này, bạn xác nhận đã được thông báo và hiểu rõ về tình trạng pháp lý và rủi ro đặc thù của từng thị trường tại Việt Nam:\n- <strong>Đối với Tiền Tệ & Tiền Mã Hóa</strong>: Bạn nhận thức rõ rằng các thị trường này <strong>chưa được pháp luật Việt Nam cấp phép</strong> cho nhà đầu tư cá nhân, hoạt động trong một môi trường pháp lý không rõ ràng và tiềm ẩn rủi ro pháp lý cũng như tài chính rất lớn. Chúng tôi không khuyến khích hay môi giới cho bất kỳ hoạt động nào trên các thị trường này.\n- <strong>Đối với Chứng Khoán & Hàng Hóa</strong>: Bạn hiểu rằng dù đây là các thị trường được cấp phép, chúng vẫn luôn tiềm ẩn rủi ro biến động và nguy cơ thua lỗ.\n- Nguyên tắc chung: Bạn chấp nhận rằng hiệu suất trong quá khứ, dù là từ backtest hay giao dịch thực tế, <strong>không đảm bảo và không phải là chỉ báo</strong> cho kết quả trong tương lai.',
+                    'content': 'Bằng việc chấp nhận điều khoản này, bạn xác nhận đã được thông báo và hiểu rõ về tình trạng pháp lý và rủi ro đặc thù của từng thị trường tại Việt Nam:\n<strong>• Đối với Tiền Tệ & Tiền Mã Hóa:</strong> Bạn nhận thức rõ rằng các thị trường này <strong>chưa được pháp luật Việt Nam cấp phép</strong> cho nhà đầu tư cá nhân, hoạt động trong một môi trường pháp lý không rõ ràng và tiềm ẩn rủi ro pháp lý cũng như tài chính rất lớn. Chúng tôi không khuyến khích hay môi giới cho bất kỳ hoạt động nào trên các thị trường này.\n<strong>• Đối với Chứng Khoán & Hàng Hóa:</strong> Bạn hiểu rằng dù đây là các thị trường được cấp phép, chúng vẫn luôn tiềm ẩn rủi ro biến động và nguy cơ thua lỗ.\n<strong>• Nguyên tắc chung:</strong> Bạn chấp nhận rằng hiệu suất trong quá khứ, dù là từ backtest hay giao dịch thực tế, <strong>không đảm bảo và không phải là chỉ báo</strong> cho kết quả trong tương lai.',
                 },
                 {
                     'title': '7. Sở Hữu Trí Tuệ',
@@ -341,7 +327,7 @@ export const vi: TranslationsStructure = {
                 },
                 {
                     'title': '9. Luật Điều Chỉnh Và Hiệu Lực',
-                    'content': '- <strong>Luật điều chỉnh</strong>: Các điều khoản này được điều chỉnh và giải thích theo pháp luật của nước Việt Nam.\n- <strong>Hiệu lực từng phần</strong>: Nếu bất kỳ điều khoản nào trong văn bản này bị tòa án có thẩm quyền tuyên bố là vô hiệu, các điều khoản còn lại vẫn giữ nguyên hiệu lực.',
+                    'content': '<strong>Luật điều chỉnh:</strong> Các điều khoản này được điều chỉnh và giải thích theo pháp luật của nước Việt Nam.\n<strong>Hiệu lực từng phần:</strong> Nếu bất kỳ điều khoản nào trong văn bản này bị tòa án có thẩm quyền tuyên bố là vô hiệu, các điều khoản còn lại vẫn giữ nguyên hiệu lực.',
                 },
                 {
                     'title': '10. Liên Hệ',
@@ -549,7 +535,8 @@ export const vi: TranslationsStructure = {
     performanceNotice: {
         guest: {
             title: 'Khu Vực Dành Cho Thành Viên Đã Đăng Ký',
-            desc1: 'Khu vực này chứa các phân tích và dữ liệu nghiên cứu chuyên sâu, chỉ dành riêng cho các thành viên đã đăng ký và đồng ý với Điều Khoản Sử Dụng của chúng tôi.',
+            desc1: 'Khu vực này chứa các phân tích và dữ liệu nghiên cứu chuyên sâu, chỉ dành riêng cho các thành' +
+                ' viên đã đăng ký và đồng ý với <a href="/terms-of-use">Điều Khoản Sử Dụng</a> của chúng tôi.',
             desc2: 'Vui lòng ',
             linkSignUp: 'Đăng Ký',
             desc3: ' tài khoản mới hoặc ',

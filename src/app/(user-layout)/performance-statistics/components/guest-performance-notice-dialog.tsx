@@ -37,7 +37,10 @@ export function GuestPerformanceNoticeDialog() {
 
     const descriptionGuestJsx = (
         <>
-            <p className="mb-4">{notice.desc1}</p>
+            <p
+                className="mb-4 dark:[&>a]:text-[var(--brand-color)] [&>a]:hover:underline [&>a]:text-brand-text"
+                dangerouslySetInnerHTML={{ __html: notice.desc1 }}
+            />
             <p>
                 {notice.desc2}
                 <Link href="/auth/signup" className={linkStyle}>
@@ -133,6 +136,7 @@ export function GuestPerformanceNoticeDialog() {
                         title: notice.okButton,
                         onChange: handleRedirectOnClickAcceptButton,
                     }}
+                    contentClassName={'w-fit min-w-[60rem]'}
                 />
             )}
             {isNoticeOpen && (
@@ -154,7 +158,7 @@ export function GuestPerformanceNoticeDialog() {
                             markAsRead();
                         },
                     }}
-                    contentClassName={'min-w-2/5'}
+                    contentClassName={'w-fit'}
                 />
             )}
         </>

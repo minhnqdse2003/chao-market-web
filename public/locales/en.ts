@@ -257,6 +257,7 @@ export const en: TranslationsStructure = {
         conferences: 'Conferences',
         videos: 'Videos',
         images: 'Images',
+        membersOnly: 'Members Only',
     },
     bookConsultation: {
         bookConsultation: 'Book A Consultation',
@@ -302,11 +303,21 @@ export const en: TranslationsStructure = {
                 },
                 {
                     title: '3. User Account and Responsibilities',
-                    content: 'To access certain features, including the "Performance Statistics" area, you will be required to create an account. By creating an account, you agree to:\n• Provide accurate and current information.\n• Maintain the confidentiality of your password and be responsible for all activities that occur under your account.\n• Acknowledge that the act of checking the box stating "By creating an account, I confirm that I am <strong>at least 18 years old</strong> and I agree to the website\'s <strong>Terms of Use</strong> and <strong>Privacy Policy</strong>" during the registration process constitutes a legally binding electronic signature and confirms your full consent to this document.',
+                    content: 'To access certain features, including the "Performance Statistics" area, you will be required to create an account. By creating an account, you agree to:\n• Provide accurate and current information.\n• Maintain the confidentiality of your password and be responsible for all activities that occur under your account.\n• Acknowledge that the act of checking the box stating "By creating an account, I confirm that I am <strong>at least 18 years old</strong> and I agree to the website\'s <strong>Terms of Use</strong> and <strong>Privacy Policy</strong> during the registration process constitutes a legally binding electronic signature and confirms your full consent to this document.',
                 },
                 {
                     title: '4. Terms of Access and Use for the "Performance Statistics" Area',
-                    content: 'The "Performance Statistics" area is restricted content, available only to registered members who have agreed to these terms. You unconditionally acknowledge and agree to the following provisions:\n\n<strong>4.1. Sole Purpose of Research and Academic Study</strong>: You acknowledge that the sole purpose for which you are permitted to access and use the data is for <strong>research, analysis, and academic study</strong>. The data is provided as case studies and illustrative examples for the educational purpose of understanding how a trading system operates.\n\n<strong>4.2. User Obligations and Prohibited Uses</strong>: Upon being granted access, you agree to:\n• <strong>Confidentiality</strong>: Not to share your login credentials or disclose, disseminate the data to any third party.\n• <strong>Purpose of Use</strong>: To use the data only for personal, non-commercial purposes as stated.\n• <strong>Prohibitions</strong>: Not to copy, modify, resell, redistribute, or use the data to create competing products, services, or for any other commercial purpose without our express written permission.\n\n<strong>4.3. Termination of Access</strong>: We reserve the full right to suspend or permanently terminate your access to the Restricted Area without prior notice if we have reason to believe that you have violated any term of this document.',
+                    content: 'The "Performance Statistics" area is restricted content, available only to registered' +
+                        ' members who have agreed to these terms. You unconditionally acknowledge and agree to the' +
+                        ' following provisions:\n\n<strong>4.1. Sole Purpose of Research and Academic' +
+                        ' Study:</strong> You acknowledge that the sole purpose for which you are permitted to' +
+                        ' access and use the data is for <strong>research, analysis, and academic study.</strong>' +
+                        ' The data is provided as case studies and illustrative examples for the educational purpose' +
+                        ' of understanding how a trading system operates.\n\n<strong>4.2. User Obligations and' +
+                        ' Prohibited Uses:</strong> Upon being granted access, you agree to:\n<strong>•' +
+                        ' Confidentiality:</strong> Not to share your login credentials or disclose, disseminate the' +
+                        ' data to any third party.\n<strong>• Purpose of Use:</strong> To use the data only for' +
+                        ' personal, non-commercial purposes as stated.\n<strong>• Prohibitions:</strong> Not to copy, modify, resell, redistribute, or use the data to create competing products, services, or for any other commercial purpose without our express written permission.\n\n<strong>4.3. Termination of Access:</strong> We reserve the full right to suspend or permanently terminate your access to the Restricted Area without prior notice if we have reason to believe that you have violated any term of this document.',
                 },
                 {
                     title: '5. No Investment Advice Disclaimer (critical)',
@@ -314,7 +325,12 @@ export const en: TranslationsStructure = {
                 },
                 {
                     title: '6. Acknowledgment of Legal Context and Specific Market Risks',
-                    content: 'By accepting these terms, you confirm you have been informed and understand the specific legal status and risks of each market in Vietnam:\n• <strong>Regarding Currencies & Cryptocurrencies</strong>: You are aware that these markets are <strong>not licensed for individual retail investors under Vietnamese law</strong>, operate in an unclear legal environment, and carry very significant legal and financial risks. We do not encourage or broker any activities in these markets.\n• <strong>Regarding Stocks & Commodities</strong>: You understand that while these markets are licensed, they always involve the risk of volatility and potential loss.\n• <strong>General Principle</strong>: You accept that past performance, whether from backtests or live trading, <strong>does not guarantee and is not an indicator</strong> of future results.',
+                    content: 'By accepting these terms, you confirm you have been informed and understand the' +
+                        ' specific legal status and risks of each market in Vietnam:\n<strong>• Regarding Currencies' +
+                        ' & Cryptocurrencies:</strong> You are aware that these markets are <strong>not licensed' +
+                        ' for individual retail investors under Vietnamese law,</strong> operate in an unclear legal' +
+                        ' environment, and carry very significant legal and financial risks. We do not encourage or' +
+                        ' broker any activities in these markets.\n<strong>• Regarding Stocks & Commodities:</strong> You understand that while these markets are licensed, they always involve the risk of volatility and potential loss.\n<strong>• General Principle:</strong> You accept that past performance, whether from backtests or live trading, <strong>does not guarantee and is not an indicator</strong> of future results.',
                 },
                 {
                     title: '7. Intellectual Property',
@@ -326,12 +342,12 @@ export const en: TranslationsStructure = {
                 },
                 {
                     title: '9. Governing Law and Severability',
-                    content: '<strong>Governing Law</strong>: These terms shall be governed by and construed in accordance with the laws of Vietnam.\n<strong>Severability</strong>: If any provision of this document is found to be invalid by a court of competent jurisdiction, the remaining provisions shall remain in full force and effect.',
+                    content: '<strong>Governing Law:</strong> These terms shall be governed by and construed in accordance with the laws of Vietnam.\n<strong>Severability:</strong> If any provision of this document is found to be invalid by a court of competent jurisdiction, the remaining provisions shall remain in full force and effect.',
                 },
                 {
                     title: '10. Contact',
                     content: 'Any questions regarding these "Terms of Use" should be directed to:' +
-                        ' <a href="mailto:support@chaomarket.com">support@chaomarket.com</a>.',
+                        ' <a href="mailto:support@chaomarket.com">support@chaomarket.com</a>',
                 },
             ],
         },
@@ -357,7 +373,7 @@ export const en: TranslationsStructure = {
                     content: 'We use reasonable administrative, technical, and physical security measures to help protect your personal information. Data is encrypted in transit (using SSL). However, please be aware that no security measures are perfect or impenetrable, and we cannot guarantee 100% security.',
                 },
                 {
-                    title: '.5 Cookie Policy',
+                    title: '5. Cookie Policy',
                     content: 'We use cookies to maintain your session, remember your preferences, and analyse traffic. You can control the use of cookies through your browser\'s settings.',
                 },
                 {
@@ -528,8 +544,9 @@ export const en: TranslationsStructure = {
     },
     performanceNotice: {
         guest: {
-            title: 'Members-Only Area',
-            desc1: 'This section contains in-depth analyses and research data, available exclusively to registered members who have agreed to our Terms of Use.',
+            title: 'Members Only Area',
+            desc1: 'This section contains in-depth analyses and research data, available exclusively to registered' +
+                ' members who have agreed to our <a href="/terms-of-use">Terms of Use.</a>',
             desc2: 'Please ',
             linkSignUp: 'Sign Up',
             desc3: ' or ',

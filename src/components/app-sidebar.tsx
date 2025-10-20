@@ -101,11 +101,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 ],
             },
             {
-                title: t('sidebar.performanceStatistics'),
-                url: '/performance-statistics',
-                icon: IdCard,
-            },
-            {
                 title: t('ourSolutions.common.title'),
                 url: '/our-solutions',
                 icon: BriefcaseBusiness,
@@ -165,6 +160,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             },
         ],
     };
+
+    const memberOnlyRoute = [
+        {
+            title: t('sidebar.performanceStatistics'),
+            url: '/performance-statistics',
+            icon: IdCard,
+        },
+    ];
 
     // Create loading skeletons for the sidebar content
     const renderLoadingSkeletons = () => {
@@ -261,7 +264,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </SidebarHeader>
                     <NavSeparator />
                     <SidebarContent>
-                        <NavMain items={data.items} />
+                        <NavMain
+                            items={data.items}
+                            memberOnlyRoute={memberOnlyRoute}
+                        />
                     </SidebarContent>
                     <NavSeparator isTrigger={false} className="my-2" />
                     <NavInformation />

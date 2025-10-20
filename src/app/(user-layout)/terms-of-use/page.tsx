@@ -34,7 +34,7 @@ export default function TermsOfUse() {
                 <h1 className="text-3xl font-bold text-brand-text dark:text-[var(--brand-color)]">
                     {t('footer.termOfUse.title')}
                 </h1>
-                <div className="border-b pb-2 text-[var(--brand-grey-foreground)] border-[var(--brand-grey-foreground)]">
+                <div className="border-b pb-2 text-sm text-[var(--brand-grey-foreground)] border-[var(--brand-grey-foreground)]">
                     {lastUpdatedText}
                 </div>
             </div>
@@ -47,7 +47,7 @@ export default function TermsOfUse() {
                                 {section.title}
                             </h2>
                             <p
-                                className="text-[var(--brand-grey-foreground)] dark:[&>a]:text-[var(--brand-color)] [&>strong]:text-brand-text [&>a]:text-brand-text [&>a]:hover:underline dark:[&>strong]:text-brand-text [&>strong]:font-normal whitespace-pre-wrap"
+                                className="text-[var(--brand-grey-foreground)] dark:[&>a]:text-[var(--brand-color)] [&>a]:font-bold [&>strong]:text-brand-text [&>a]:text-brand-text [&>a]:hover:underline dark:[&>strong]:text-brand-text [&>strong]:font-normal whitespace-pre-wrap"
                                 dangerouslySetInnerHTML={{
                                     __html: section.content,
                                 }}

@@ -123,7 +123,7 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
             </div>
 
             <DialogContent
-                className="bg-brand-dialog min-w-[60svw] [&>[data-slot='dialog-close']]:invisible focus-visible:outline-0"
+                className="bg-brand-dialog min-w-[70svw] [&>[data-slot='dialog-close']]:invisible focus-visible:outline-0"
                 onOpenAutoFocus={e => e.preventDefault()}
                 autoFocus={false}
             >

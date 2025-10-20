@@ -53,10 +53,15 @@ export default function AppAlertDialog({
             )}
             <AlertDialogContent
                 overLayClassName={'backdrop-blur-sm'}
-                className={cn('bg-brand-dialog', contentClassName)}
+                className={cn(
+                    'bg-brand-dialog max-w-[70svw]',
+                    contentClassName
+                )}
             >
                 <AlertDialogHeader>
-                    <AlertDialogTitle>{content?.title}</AlertDialogTitle>
+                    <AlertDialogTitle className={'text-xl'}>
+                        {content?.title}
+                    </AlertDialogTitle>
                     {content?.description && (
                         <AlertDialogDescription asChild>
                             <div>{content?.description}</div>
