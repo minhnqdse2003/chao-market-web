@@ -38,7 +38,7 @@ export function GuestPerformanceNoticeDialog() {
     const descriptionGuestJsx = (
         <>
             <p
-                className="mb-4 dark:[&>a]:text-[var(--brand-color)] [&>a]:hover:underline [&>a]:text-brand-text"
+                className="mb-4 dark:[&>a]:text-[var(--brand-color)] text-base [&>a]:hover:underline [&>a]:text-brand-text"
                 dangerouslySetInnerHTML={{ __html: notice.desc1 }}
             />
             <p>
@@ -72,6 +72,9 @@ export function GuestPerformanceNoticeDialog() {
                     {noticeMember.linkTerms}
                 </Link>
                 .
+                <p className={'dark:text-[var(--brand-color)] text-brand-text'}>
+                    {noticeMember.alreadyAgreeButton}.
+                </p>
             </p>
         </>
     );
@@ -101,12 +104,6 @@ export function GuestPerformanceNoticeDialog() {
         []
     );
 
-    const markAsRead = () => {
-        dispatch({
-            type: PERFORMANCE_STATISTIC_DIALOG_ACTIONS.MARK_AS_ACCEPTED,
-        });
-    };
-
     const isAuthenticated = useMemo(() => {
         return status === 'authenticated';
     }, [status]);
@@ -132,11 +129,8 @@ export function GuestPerformanceNoticeDialog() {
                         title: notice.title,
                         description: descriptionGuestJsx,
                     }}
-                    accepted={{
-                        title: notice.okButton,
-                        onChange: handleRedirectOnClickAcceptButton,
-                    }}
-                    contentClassName={'w-fit min-w-[60rem]'}
+                    onClickCloseIcon={handleRedirectOnClickAcceptButton}
+                    contentClassName={'w-fit min-w-fit]'}
                 />
             )}
             {isNoticeOpen && (
@@ -149,14 +143,8 @@ export function GuestPerformanceNoticeDialog() {
                         title: noticeMember.title,
                         description: descriptionMemberJsx,
                     }}
-                    accepted={{
-                        title: isAccepted
-                            ? noticeMember.alreadyAgreeButton
-                            : noticeMember.agreeButton,
-                        onChange: () => {
-                            handleOnOpenChange(false, 'member');
-                            markAsRead();
-                        },
+                    onClickCloseIcon={() => {
+                        handleOnOpenChange(false, 'member');
                     }}
                     contentClassName={'w-fit'}
                 />

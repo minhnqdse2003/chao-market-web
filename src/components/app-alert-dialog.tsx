@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { XIcon } from 'lucide-react';
 
 interface AppAlertDialogProps {
     open?: boolean;
@@ -27,7 +28,9 @@ interface AppAlertDialogProps {
     accepted?: {
         title: string;
         onChange: () => void;
+        type?: 'button' | 'text';
     };
+    onClickCloseIcon?: () => void;
     defaultOpen?: boolean;
     contentClassName?: string;
 }
@@ -40,6 +43,7 @@ export default function AppAlertDialog({
     cancelled,
     accepted,
     defaultOpen = false,
+    onClickCloseIcon,
     contentClassName,
 }: AppAlertDialogProps) {
     return (
@@ -54,24 +58,51 @@ export default function AppAlertDialog({
             <AlertDialogContent
                 overLayClassName={'backdrop-blur-sm'}
                 className={cn(
-                    'bg-brand-dialog max-w-[70svw]',
+                    'bg-brand-dialog w-fit min-w-fit max-w-fit',
                     contentClassName
                 )}
             >
                 <AlertDialogHeader>
-                    <AlertDialogTitle className={'text-xl'}>
-                        {content?.title}
+                    <AlertDialogTitle className={'text-2xl text-center'}>
+                        <p
+                            dangerouslySetInnerHTML={{ __html: content.title }}
+                        />
                     </AlertDialogTitle>
                     {content?.description && (
                         <AlertDialogDescription asChild>
-                            <div>{content?.description}</div>
+                            <div
+                                className={
+                                    '[&>_*]:text-base [&>_*]:w-fit [&>_*]:min-w-fit'
+                                }
+                            >
+                                {content?.description}
+                            </div>
                         </AlertDialogDescription>
                     )}
                 </AlertDialogHeader>
-                <AlertDialogFooter>
+                <AlertDialogFooter
+                    className={
+                        accepted?.type === 'button' ||
+                        accepted?.type === undefined
+                            ? ''
+                            : 'sm:justify-start'
+                    }
+                >
                     {cancelled && (
                         <AlertDialogCancel onClick={cancelled.onChange}>
                             {cancelled.title}
+                        </AlertDialogCancel>
+                    )}
+                    {onClickCloseIcon && (
+                        <AlertDialogCancel
+                            onClick={onClickCloseIcon}
+                            className={
+                                'dark:bg-transparent border-transparent dark:border-transparent' +
+                                ' dark:hover:bg-transparent hover:bg-transparent hover:cursor-pointer absolute top-2' +
+                                ' right-2'
+                            }
+                        >
+                            <XIcon />
                         </AlertDialogCancel>
                     )}
                     {accepted && (
@@ -80,10 +111,15 @@ export default function AppAlertDialog({
                                 e.preventDefault();
                                 accepted.onChange();
                             }}
-                            className={
+                            className={cn(
                                 'dark:text-black' +
-                                ' dark:bg-[var(--brand-color)] font-bold cursor-pointer'
-                            }
+                                    ' dark:bg-[var(--brand-color)] font-bold cursor-pointer',
+                                accepted.type === 'button' ||
+                                    accepted.type === undefined
+                                    ? 'bg-[var(--brand-color)] text-white'
+                                    : 'bg-transparent text-brand-text dark:bg-transparent text-base px-0' +
+                                          ' dark:text-[var(--brand-color)]'
+                            )}
                         >
                             {accepted.title}
                         </AlertDialogAction>

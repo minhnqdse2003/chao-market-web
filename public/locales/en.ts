@@ -546,7 +546,7 @@ export const en: TranslationsStructure = {
         guest: {
             title: 'Members Only Area',
             desc1: 'This section contains in-depth analyses and research data, available exclusively to registered' +
-                ' members who have agreed to our <a href="/terms-of-use">Terms of Use.</a>',
+                ' members <br/>who have agreed to our <a href="/terms-of-use">Terms of Use.</a>',
             desc2: 'Please ',
             linkSignUp: 'Sign Up',
             desc3: ' or ',
@@ -563,7 +563,7 @@ export const en: TranslationsStructure = {
                 ' results. By proceeding, you reaffirm that you have understood and agreed to our full',
             linkTerms: 'Terms of Use',
             agreeButton: 'I understand and agree',
-            alreadyAgreeButton: 'You have accepted the important data notice.',
+            alreadyAgreeButton: 'You accepted this notice when you registered your account',
         },
         mainSection: {
             independentVerification: 'Independent Verification',
@@ -573,7 +573,8 @@ export const en: TranslationsStructure = {
         title: 'We\'re here to help!',
         desc: 'For website-related issues, bug reports, or detailed feedback, please send an email to <a' +
             ' href=\'mailto:support@chaomarket.com\'>support@chaomarket.com.</a>\n' +
-            'For quick assistance, please click the <strong>"Chat with Chào Market"</strong> button in the bottom right corner of your' +
+            '<br/>For quick assistance, please click the <strong>"Chat with Chào Market"</strong> button in the' +
+            ' bottom right corner of your' +
             ' screen.',
         endContent: '<strong>Thank you for your feedback and for choosing Chào Market!</strong>',
     },

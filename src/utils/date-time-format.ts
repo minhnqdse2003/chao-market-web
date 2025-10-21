@@ -3,10 +3,14 @@ import { enUS, vi } from 'date-fns/locale';
 
 export const dateTimeFormat = (date: Date) => {
     const formatString = {
-        'day-date-hour-minute': "EEEE, dd-MM-yyyy, h:mm a, 'UTC'xxx",
+        'day-date-hour-minute': "h:mm a ('UTC'xxx), EEEE, dd.MM.yyyy",
         day: "dd/MM/yyyy, h:mm a, 'UTC'xxx",
     };
-    return formatInTimeZone(date, 'Etc/GMT-10', formatString.day);
+    return formatInTimeZone(
+        date,
+        'Etc/GMT-10',
+        formatString['day-date-hour-minute']
+    );
 };
 
 /**
@@ -37,14 +41,13 @@ export const formatLastUpdatedDate = (date: Date, locale: string) => {
         const capitalizedDay =
             dayOfWeek.charAt(0).toUpperCase() + dayOfWeek.slice(1);
 
-        return `${time} ${period}, ${capitalizedDay}, ${datePart}, ${utcOffsetString}`;
+        return `${time} ${period} (${utcOffsetString}), ${capitalizedDay}, ${datePart}`;
     }
 
-    // Default to English format, now with the UTC offset appended to the pattern
     return formatInTimeZone(
         date,
         timeZone,
-        "h:mm a EEEE, dd.MM.yyyy, 'UTC'XXX", // Append the offset format here
+        "h:mm a ('UTC'xxx), EEEE, dd.MM.yyyy",
         {
             locale: enUS,
         }

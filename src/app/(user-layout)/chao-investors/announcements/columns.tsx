@@ -3,6 +3,7 @@ import { DataTableColumnHeader } from '@/components/data-table-column-header';
 import { ColumnDef } from '@tanstack/react-table';
 import { percentageFormat, priceFormat } from '@/utils/number-parsing';
 import { FaThumbsUp } from 'react-icons/fa6';
+import { format } from 'date-fns';
 
 export type HomeNewFlow = {
     date: Date;
@@ -41,7 +42,7 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
         ),
         cell: ({ row }) => {
             const date = row.original.date;
-            return date.toLocaleDateString('en-GB');
+            return format(date, 'dd.MM.yyyy');
         },
     },
     {

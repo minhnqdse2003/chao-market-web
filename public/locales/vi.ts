@@ -553,7 +553,7 @@ export const vi: TranslationsStructure = {
             desc3: ', không phải là lời khuyên đầu tư. Hiệu suất trong quá khứ không đảm bảo cho kết quả trong tương' +
                 ' lai. Bằng việc tiếp tục, bạn xác nhận lại rằng bạn đã hiểu và đồng ý với đầy đủ',
             agreeButton: 'Tôi đã hiểu và đồng ý',
-            alreadyAgreeButton: 'Bạn đã chấp nhận thông báo quan trọng về dữ liệu.',
+            alreadyAgreeButton: 'Bạn đã đồng ý với thông báo này khi đăng ký tài khoản.',
         },
         mainSection: {
             independentVerification: 'Kiểm Chứng Độc Lập',
@@ -561,10 +561,11 @@ export const vi: TranslationsStructure = {
     },
     helpAndFeedback: {
         title: 'Chúng tôi luôn sẵn sàng hỗ trợ bạn!',
-        desc: 'Đối với các vấn đề, báo lỗi hoặc góp ý chi tiết liên quan đến website, vui lòng gửi email trực tiếp' +
-            ' cho chúng tôi tại <a href="mailto:support@chaomarket.com">support@chaomarket.com.</a>\n' +
-            'Để được giải đáp thắc mắc nhanh, vui lòng nhấn vào nút <strong>"Nhắn tin với Chào Market"</strong> ở góc dưới bên phải màn hình' +
-            ' của bạn.\n',
+        desc: 'Đối với các vấn đề, báo lỗi hoặc góp ý chi tiết liên quan đến website, vui lòng gửi email trực' +
+            ' tiếp cho chúng tôi tại <a href="mailto:support@chaomarket.com">support@chaomarket.com.</a>' +
+            '<br/>Để được giải đáp thắc mắc nhanh, vui lòng nhấn vào nút <strong>"Nhắn tin với Chào Market"</strong>' +
+            ' ở góc dưới bên phải màn hình' +
+            ' của bạn.',
         endContent: '<strong>Cảm ơn bạn đã tin tưởng và góp ý cho Chào Market!</strong>',
     },
 
