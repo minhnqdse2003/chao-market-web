@@ -540,6 +540,7 @@ export const en: TranslationsStructure = {
             ' <a href="/privacy-policy">Privacy Policy</a>' +
             ' carefully.</strong>',
         agreeButton: 'I understand and agree',
+        alreadyAgreeButton: 'You have already accepted this disclaimer.',
         leaveButton: 'Leave site',
     },
     performanceNotice: {

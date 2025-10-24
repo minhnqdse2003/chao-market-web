@@ -429,7 +429,7 @@ export default function Page() {
                                 </div>
                                 <XIcon
                                     onClick={() => setActiveCard(null)}
-                                    className="cursor-pointer absolute top-3 right-3 size-4 text-[var(--brand-grey-foreground)] hover:text-[var(--brand-color)]"
+                                    className="cursor-pointer absolute top-3 right-3 size-4 text-[var(--brand-grey-foreground)] hover:text-brand-text"
                                 />
                             </CardHeader>
                             <CardContent className="p-4 space-y-0.5">

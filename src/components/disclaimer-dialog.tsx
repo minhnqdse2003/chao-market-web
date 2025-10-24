@@ -30,6 +30,7 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
     const sections = t('disclaimer.sections') as unknown as DisclaimerSection[];
     const conclusion = t('disclaimer.conclusion');
     const agreeButtonText = t('disclaimer.agreeButton');
+    const alreadyAgreeButtonText = t('disclaimer.alreadyAgreeButton');
     const leaveButtonText = t('disclaimer.leaveButton');
 
     const { isRead: isDisclaimerConfirm, dispatch } = useDisclaimerStore();
@@ -123,7 +124,7 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
             </div>
 
             <DialogContent
-                className="bg-brand-dialog min-w-[70svw] [&>[data-slot='dialog-close']]:invisible focus-visible:outline-0"
+                className="bg-brand-dialog min-w-[70svw] focus-visible:outline-0"
                 onOpenAutoFocus={e => e.preventDefault()}
                 autoFocus={false}
             >
@@ -154,16 +155,24 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                     />
                 </div>
 
+                {isDisclaimerConfirm && (
+                    <p className="text-base dark:text-[var(--brand-color)] text-brand-text text-center">
+                        {alreadyAgreeButtonText}
+                    </p>
+                )}
+
                 <DialogFooter className="flex-row justify-center sm:justify-center gap-4">
-                    <Button
-                        className="font-bold bg-[var(--brand-color)] text-black text-md hover:bg-[var(--brand-color-foreground)] w-fit transition-all! duration-300 ease-in-out"
-                        onClick={handleAgree}
-                    >
-                        {agreeButtonText}
-                    </Button>
+                    {!isDisclaimerConfirm && (
+                        <Button
+                            className="font-bold bg-[var(--brand-color)] text-black text-md hover:bg-[var(--brand-color)] w-fit transition-all! duration-300 ease-in-out"
+                            onClick={handleAgree}
+                        >
+                            {agreeButtonText}
+                        </Button>
+                    )}
                     <a
                         href="https://google.com"
-                        className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-transparent text-white border border-transparent hover:text-yellow-400"
+                        className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-transparent border border-transparent dark:hover:text-[var(--brand-color)] text-brand-text"
                     >
                         {leaveButtonText}
                     </a>

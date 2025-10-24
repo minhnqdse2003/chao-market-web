@@ -6,5 +6,6 @@ export interface DisclaimerTranslation {
     }[];
     conclusion: string;
     agreeButton: string;
+    alreadyAgreeButton: string;
     leaveButton: string;
 }

@@ -56,12 +56,10 @@ export function GuestPerformanceNoticeDialog() {
     );
 
     const descriptionMemberJsx = (
-        <>
+        <div className={'w-full'}>
             <p className="mb-4 text-[var(--brand-grey-foreground)]">
                 <span>{noticeMember.desc1}</span>{' '}
-                <span className={'font-bold text-brand-text'}>
-                    {noticeMember.desc2}
-                </span>{' '}
+                <span className={'text-brand-text'}>{noticeMember.desc2}</span>{' '}
                 <span>{noticeMember.desc3}</span>{' '}
                 <Link
                     href={'/terms-of-use'}
@@ -72,11 +70,17 @@ export function GuestPerformanceNoticeDialog() {
                     {noticeMember.linkTerms}
                 </Link>
                 .
-                <p className={'dark:text-[var(--brand-color)] text-brand-text'}>
+            </p>
+            <div className={'flex justify-center items-center w-full'}>
+                <p
+                    className={
+                        'dark:text-[var(--brand-color)] text-brand-tex w-full text-center'
+                    }
+                >
                     {noticeMember.alreadyAgreeButton}.
                 </p>
-            </p>
-        </>
+            </div>
+        </div>
     );
 
     const handleRedirectOnClickAcceptButton = () => {

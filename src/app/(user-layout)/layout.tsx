@@ -83,7 +83,7 @@ export default function UserLayout({
                                     dangerouslySetInnerHTML={{
                                         __html: t('helpAndFeedback.desc'),
                                     }}
-                                    className="w-fit min-w-fit [&>strong]:font-bold"
+                                    className="w-fit min-w-fit [&>strong]:font-normal"
                                 />
                                 <p
                                     dangerouslySetInnerHTML={{

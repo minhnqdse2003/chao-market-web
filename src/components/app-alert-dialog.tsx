@@ -99,7 +99,7 @@ export default function AppAlertDialog({
                             className={
                                 'dark:bg-transparent border-transparent dark:border-transparent' +
                                 ' dark:hover:bg-transparent hover:bg-transparent hover:cursor-pointer absolute top-2' +
-                                ' right-2'
+                                ' right-2 text-[var(--brand-grey-foreground)] hover:text-brand-text'
                             }
                         >
                             <XIcon />

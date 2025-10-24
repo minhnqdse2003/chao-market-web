@@ -530,6 +530,7 @@ export const vi: TranslationsStructure = {
             ' của chúng' +
             ' tôi.</strong>',
         agreeButton: 'Tôi đã hiểu và đồng ý',
+        alreadyAgreeButton: 'Bạn đã đồng ý với nội dung miễn trừ trách nhiệm này.',
         leaveButton: 'Rời khỏi trang',
     },
     performanceNotice: {
