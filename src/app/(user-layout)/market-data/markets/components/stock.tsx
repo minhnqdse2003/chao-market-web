@@ -13,6 +13,8 @@ import CombinedNewsFeed, {
 import { useI18n } from '@/context/i18n/context';
 import Script from 'next/script';
 import { cn } from '@/lib/utils';
+import { MetaDataConfig } from '@/services/meta_data';
+import { getRssLink } from '@/lib/get-rss-link-from-meta-data';
 
 const USA_SYMBOL_KEYS: TMarketSymbolKey[] = [
     'INDEX_DXY',
@@ -445,7 +447,13 @@ const DARK_THEME_CONFIG_MARKET_DATA_SCREENER = {
     colorTheme: 'dark',
 };
 
-type MARKET_TYPES = 'us' | 'currencies' | 'crypto' | 'commodities' | 'vi';
+type MARKET_TYPES =
+    | 'us'
+    | 'currencies'
+    | 'crypto'
+    | 'commodities'
+    | 'vi'
+    | string;
 
 const CryptoTickerWidget = () => {
     const { theme } = useTheme();
@@ -769,7 +777,13 @@ function Chart({ type }: { type: MARKET_TYPES }) {
 //     );
 // }
 
-function NewsWithRssApple({ type }: { type: MARKET_TYPES }) {
+function NewsWithRssApple({
+    type,
+    config,
+}: {
+    type: MARKET_TYPES;
+    config?: MetaDataConfig;
+}) {
     const { locale } = useI18n();
     const data: Record<MARKET_TYPES, Record<string, NewsSourceType>> = {
         us: {
@@ -793,6 +807,17 @@ function NewsWithRssApple({ type }: { type: MARKET_TYPES }) {
             vi: 'vietnam-stock-news-vi',
         },
     };
+
+    const href = getRssLink({
+        key: 'tabs',
+        locale,
+        type,
+        config,
+    });
+
+    if (href) {
+        return <CombinedNewsFeed type={data[type][locale]} href={href} />;
+    }
 
     return <CombinedNewsFeed type={data[type][locale]} />;
 }
@@ -927,8 +952,28 @@ function ChartVietNam() {
     );
 }
 
-export function VietNamStockMarketNewsFeed() {
+export function VietNamStockMarketNewsFeed(config?: MetaDataConfig) {
     const { locale } = useI18n();
+    const href = getRssLink({
+        key: 'financialNews',
+        locale,
+        type: 'vietname',
+        config,
+    });
+
+    if (href)
+        return (
+            <CombinedNewsFeed
+                type={'B01-market-fin-news-global-vn'}
+                href={getRssLink({
+                    key: 'financialNews',
+                    locale,
+                    type: 'vietname',
+                    config,
+                })}
+            />
+        );
+
     return locale === 'vi' ? (
         <CombinedNewsFeed type={'B03-market-fin-news-vietnam-vn'} />
     ) : (
@@ -936,7 +981,13 @@ export function VietNamStockMarketNewsFeed() {
     );
 }
 
-function StockComp({ type }: { type: MARKET_TYPES }) {
+function StockComp({
+    type,
+    config,
+}: {
+    type: MARKET_TYPES;
+    config?: MetaDataConfig;
+}) {
     const { t } = useI18n();
     const [defaultValue, setDefaultValue] = useState(
         sessionStorage.getItem('stock-type') || 'overview'
@@ -995,7 +1046,9 @@ function StockComp({ type }: { type: MARKET_TYPES }) {
             ),
             value: 'news',
             renderContent: () =>
-                Promise.resolve(<NewsWithRssApple type={type} />),
+                Promise.resolve(
+                    <NewsWithRssApple type={type} config={config} />
+                ),
         },
         {
             title: t(

@@ -9,6 +9,7 @@
     "lint": "next lint",
     "prepare": "husky",
     "db:generate": "drizzle-kit generate",
+    "db:pull": "drizzle-kit pull",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
     "db:drop": "drizzle-kit drop"

@@ -1,236 +1,358 @@
+import { relations } from 'drizzle-orm';
 import {
     pgTable,
+    unique,
+    uuid,
     text,
     timestamp,
-    integer,
+    json,
+    foreignKey,
     boolean,
-    primaryKey,
-    uuid,
-    pgEnum,
     uniqueIndex,
+    jsonb,
+    index,
+    integer,
+    primaryKey,
+    pgEnum,
 } from 'drizzle-orm/pg-core';
-import { relations } from 'drizzle-orm';
-import type { AdapterAccount } from '@auth/core/adapters';
-import { json } from 'drizzle-orm/pg-core/columns/json';
 
-export const userRoleEnum = pgEnum('user_role', ['ADMIN', 'USER']);
-export const postTypeEnum = pgEnum('post_type', [
-    'news',
-    'events',
-    'community',
+export const postStatus = pgEnum('post_status', ['ACTIVE', 'DEACTIVE']);
+export const postType = pgEnum('post_type', ['news', 'events', 'community']);
+export const tagTypes = pgEnum('tag_types', [
+    'tag',
+    'news_type',
+    'market_type',
+    'community_type',
+]);
+export const userRole = pgEnum('user_role', ['ADMIN', 'USER']);
+export const userStatus = pgEnum('user_status', [
+    'ACTIVE',
+    'DEACTIVE',
+    'BANNED',
 ]);
 
-export const users = pgTable('user', {
-    id: uuid('id').defaultRandom().primaryKey().notNull(),
-    name: text('name'),
-    email: text('email').notNull().unique(),
-    emailVerified: timestamp('emailVerified', { mode: 'date' }),
-    image: text('image'),
-    password: text('password'),
-    phone: text('phone'),
-    phoneVerified: timestamp('phoneVerified', { mode: 'date' }),
-    dateOfBirth: timestamp('dateOfBirth', { mode: 'date' }),
-    gender: text('gender'),
-    role: userRoleEnum('role').default('USER').notNull(),
+export const users = pgTable(
+    'user',
+    {
+        id: uuid().defaultRandom().primaryKey().notNull(),
+        name: text(),
+        email: text().notNull(),
+        emailVerified: timestamp({ mode: 'string' }),
+        image: text(),
+        password: text(),
+        phone: text(),
+        phoneVerified: timestamp({ mode: 'string' }),
+        role: userRole().default('USER').notNull(),
+        dateOfBirth: timestamp({ mode: 'string' }),
+        gender: text(),
+        status: userStatus().default('ACTIVE'),
+        createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
+        updatedAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
+        banUntil: timestamp({ mode: 'string' }),
+    },
+    table => [unique('user_email_unique').on(table.email)]
+);
+
+export const consultations = pgTable('consultation', {
+    id: uuid().defaultRandom().primaryKey().notNull(),
+    firstName: text().notNull(),
+    lastName: text().notNull(),
+    dateOfBirth: timestamp({ mode: 'string' }),
+    email: text().notNull(),
+    phoneNumber: text().notNull(),
+    socialNetwork: text(),
+    contactMethods: text().array().notNull(),
+    message: text(),
+    status: text().notNull(),
+    createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
+    updatedAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
 });
+
+export const consultationServices = pgTable('consultation_services', {
+    id: uuid().defaultRandom().primaryKey().notNull(),
+    name: json().notNull(),
+    description: json(),
+    imageUrl: text(),
+    createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
+});
+
+export const otpCodes = pgTable(
+    'otpCodes',
+    {
+        id: text().primaryKey().notNull(),
+        userId: uuid().notNull(),
+        code: text().notNull(),
+        type: text().notNull(),
+        expires: timestamp({ mode: 'string' }).notNull(),
+        verified: boolean().default(false).notNull(),
+        createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
+    },
+    table => [
+        foreignKey({
+            columns: [table.userId],
+            foreignColumns: [users.id],
+            name: 'otpCodes_userId_user_id_fk',
+        }).onDelete('cascade'),
+    ]
+);
+
+export const sessions = pgTable(
+    'sessions',
+    {
+        sessionToken: text().primaryKey().notNull(),
+        userId: uuid().notNull(),
+        expires: timestamp({ mode: 'string' }).notNull(),
+    },
+    table => [
+        foreignKey({
+            columns: [table.userId],
+            foreignColumns: [users.id],
+            name: 'sessions_userId_user_id_fk',
+        }).onDelete('cascade'),
+    ]
+);
 
 export const userProfiles = pgTable(
     'user_profile',
     {
-        id: uuid('id').defaultRandom().primaryKey().notNull(),
-        userId: uuid('userId')
-            .notNull()
-            .references(() => users.id, { onDelete: 'cascade' }),
-        firstName: text('firstName').notNull(),
-        lastName: text('lastName').notNull(),
-        dateOfBirth: text('dateOfBirth'),
-        email: text('email').notNull(),
-        phoneNumber: text('phoneNumber').notNull(),
-        socialNetwork: text('socialNetwork'),
-        contactMethods: text('contactMethods').array(),
-        message: text('message'),
-        createdAt: timestamp('createdAt', { mode: 'date' })
-            .defaultNow()
-            .notNull(),
-        updatedAt: timestamp('updatedAt', { mode: 'date' })
+        id: uuid().defaultRandom().primaryKey().notNull(),
+        userId: uuid().notNull(),
+        firstName: text().notNull(),
+        lastName: text().notNull(),
+        dateOfBirth: text(),
+        email: text().notNull(),
+        phoneNumber: text().notNull(),
+        socialNetwork: text(),
+        contactMethods: text().array(),
+        message: text(),
+        createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
+        updatedAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
+    },
+    table => [
+        uniqueIndex('user_profile_user_id_unique').using(
+            'btree',
+            table.userId.asc().nullsLast().op('uuid_ops')
+        ),
+        foreignKey({
+            columns: [table.userId],
+            foreignColumns: [users.id],
+            name: 'user_profile_userId_user_id_fk',
+        }).onDelete('cascade'),
+    ]
+);
+
+export const userSetting = pgTable(
+    'user_setting',
+    {
+        id: uuid().defaultRandom().primaryKey().notNull(),
+        userId: uuid().notNull(),
+        settings: jsonb().default({ theme: 'dark', language: 'en' }).notNull(),
+        isDisclaimerAccepted: timestamp({ mode: 'string' }),
+    },
+    table => [
+        foreignKey({
+            columns: [table.userId],
+            foreignColumns: [users.id],
+            name: 'user_setting_userId_user_id_fk',
+        }).onDelete('cascade'),
+        unique('user_setting_userId_unique').on(table.userId),
+    ]
+);
+
+export const tags = pgTable(
+    'tag',
+    {
+        id: uuid().defaultRandom().primaryKey().notNull(),
+        name: text().notNull(),
+        tagType: tagTypes('tag_type'),
+    },
+    table => [
+        index('tag_type_idx').using(
+            'btree',
+            table.tagType.asc().nullsLast().op('enum_ops')
+        ),
+        unique('tag_name_unique').on(table.name),
+    ]
+);
+
+export const posts = pgTable(
+    'post',
+    {
+        id: uuid().defaultRandom().primaryKey().notNull(),
+        content: jsonb().default({ en: null, vi: null }).notNull(),
+        likes: integer().default(0).notNull(),
+        dislikes: integer().default(0).notNull(),
+        views: integer().default(0).notNull(),
+        referenceSource: text().notNull(),
+        createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
+        title: jsonb().default({ en: null, vi: null }).notNull(),
+        description: jsonb().default({ en: null, vi: null }).notNull(),
+        type: postType().notNull(),
+        slug: text().notNull(),
+        readingTime: integer().default(1).notNull(),
+        seoTitle: text(),
+        seoDescription: text(),
+        seoKeywords: text().array(),
+        ogImage: text(),
+        canonicalUrl: text(),
+        robots: text(),
+        market: text().default('all').notNull(),
+        status: postStatus().default('ACTIVE'),
+    },
+    table => [unique('post_slug_unique').on(table.slug)]
+);
+
+export const metaData = pgTable(
+    'meta_data',
+    {
+        version: integer().default(1).notNull(),
+        content: jsonb().default({}).notNull(),
+        isPublished: boolean('is_published').default(false).notNull(),
+        createdAt: timestamp('created_at', {
+            withTimezone: true,
+            mode: 'string',
+        })
             .defaultNow()
             .notNull(),
     },
-    table => {
-        return {
-            // Ensure one profile per user
-            userIdUnique: uniqueIndex('user_profile_user_id_unique').on(
-                table.userId
-            ),
-        };
-    }
+    table => [
+        index('idx_content_gin').using(
+            'gin',
+            table.content.asc().nullsLast().op('jsonb_ops')
+        ),
+        index('idx_content_key_published').using(
+            'btree',
+            table.isPublished.asc().nullsLast().op('bool_ops')
+        ),
+    ]
+);
+
+export const consultationsProducts = pgTable(
+    'consultations_products',
+    {
+        consultationId: uuid().notNull(),
+        productId: uuid().notNull(),
+    },
+    table => [
+        foreignKey({
+            columns: [table.consultationId],
+            foreignColumns: [consultations.id],
+            name: 'consultations_products_consultationId_consultation_id_fk',
+        }).onDelete('cascade'),
+        foreignKey({
+            columns: [table.productId],
+            foreignColumns: [consultationServices.id],
+            name: 'consultations_products_productId_consultation_services_id_fk',
+        }).onDelete('cascade'),
+        primaryKey({
+            columns: [table.consultationId, table.productId],
+            name: 'consultations_products_consultationId_productId_pk',
+        }),
+    ]
+);
+
+export const postTags = pgTable(
+    'post_tag',
+    {
+        postId: uuid().notNull(),
+        tagId: uuid().notNull(),
+    },
+    table => [
+        foreignKey({
+            columns: [table.postId],
+            foreignColumns: [posts.id],
+            name: 'post_tag_postId_post_id_fk',
+        }).onDelete('cascade'),
+        foreignKey({
+            columns: [table.tagId],
+            foreignColumns: [tags.id],
+            name: 'post_tag_tagId_tag_id_fk',
+        }).onDelete('cascade'),
+        primaryKey({
+            columns: [table.postId, table.tagId],
+            name: 'post_tag_postId_tagId_pk',
+        }),
+    ]
+);
+
+export const verificationTokens = pgTable(
+    'verificationTokens',
+    {
+        identifier: text().notNull(),
+        token: text().notNull(),
+        expires: timestamp({ mode: 'string' }).notNull(),
+    },
+    table => [
+        primaryKey({
+            columns: [table.identifier, table.token],
+            name: 'verificationTokens_identifier_token_pk',
+        }),
+    ]
 );
 
 export const accounts = pgTable(
     'account',
     {
-        userId: uuid('userId')
-            .notNull()
-            .references(() => users.id, { onDelete: 'cascade' }),
-        type: text('type').$type<AdapterAccount['type']>().notNull(),
-        provider: text('provider').notNull(),
-        providerAccountId: text('providerAccountId').notNull(),
-        refresh_token: text('refresh_token'),
-        access_token: text('access_token'),
-        expires_at: integer('expires_at'),
-        token_type: text('token_type'),
-        scope: text('scope'),
-        id_token: text('id_token'),
-        session_state: text('session_state'),
+        userId: uuid().notNull(),
+        type: text().notNull(),
+        provider: text().notNull(),
+        providerAccountId: text().notNull(),
+        refreshToken: text('refresh_token'),
+        accessToken: text('access_token'),
+        expiresAt: integer('expires_at'),
+        tokenType: text('token_type'),
+        scope: text(),
+        idToken: text('id_token'),
+        sessionState: text('session_state'),
     },
-    account => [
+    table => [
+        foreignKey({
+            columns: [table.userId],
+            foreignColumns: [users.id],
+            name: 'account_userId_user_id_fk',
+        }).onDelete('cascade'),
         primaryKey({
-            columns: [account.provider, account.providerAccountId],
+            columns: [table.provider, table.providerAccountId],
+            name: 'account_provider_providerAccountId_pk',
         }),
     ]
 );
 
-export const sessions = pgTable('sessions', {
-    sessionToken: text('sessionToken').primaryKey(),
-    userId: uuid('userId')
-        .notNull()
-        .references(() => users.id, { onDelete: 'cascade' }),
-    expires: timestamp('expires', { mode: 'date' }).notNull(),
-});
+// Relation
+export const otpCodesRelations = relations(otpCodes, ({ one }) => ({
+    users: one(users, {
+        fields: [otpCodes.userId],
+        references: [users.id],
+    }),
+}));
 
-export const verificationTokens = pgTable(
-    'verificationTokens',
-    {
-        identifier: text('identifier').notNull(),
-        token: text('token').notNull(),
-        expires: timestamp('expires', { mode: 'date' }).notNull(),
-    },
-    vt => [primaryKey({ columns: [vt.identifier, vt.token] })]
-);
-
-export const otpCodes = pgTable('otpCodes', {
-    id: text('id').primaryKey().notNull(),
-    userId: uuid('userId')
-        .notNull()
-        .references(() => users.id, { onDelete: 'cascade' }),
-    code: text('code').notNull(),
-    type: text('type').notNull(),
-    expires: timestamp('expires', { mode: 'date' }).notNull(),
-    verified: boolean('verified').notNull().default(false),
-    createdAt: timestamp('createdAt', { mode: 'date' }).notNull().defaultNow(),
-});
-
-export const consultationServices = pgTable('consultation_services', {
-    id: uuid('id').defaultRandom().primaryKey().notNull(),
-    name: json('name').$type<{ en: string; vi: string }>().notNull(),
-    description: json('description').$type<{ en: string; vi: string }>(),
-    imageUrl: text('imageUrl'),
-    createdAt: timestamp('createdAt', { mode: 'date' }).defaultNow().notNull(),
-});
-
-export const consultations = pgTable('consultation', {
-    id: uuid('id').defaultRandom().primaryKey().notNull(),
-    firstName: text('firstName').notNull(),
-    lastName: text('lastName').notNull(),
-    dateOfBirth: timestamp('dateOfBirth', { mode: 'date' }),
-    email: text('email').notNull(),
-    phoneNumber: text('phoneNumber').notNull(),
-    socialNetwork: text('socialNetwork'),
-    contactMethods: text('contactMethods').array().notNull(),
-    message: text('message'),
-    status: text('status')
-        .$type<'pending' | 'completed' | 'cancelled' | 'failed'>()
-        .notNull(),
-    createdAt: timestamp('createdAt', { mode: 'date' }).defaultNow().notNull(),
-    updatedAt: timestamp('updatedAt', { mode: 'date' }).defaultNow().notNull(),
-});
-
-export const consultationsProducts = pgTable(
-    'consultations_products',
-    {
-        consultationId: uuid('consultationId')
-            .notNull()
-            .references(() => consultations.id, { onDelete: 'cascade' }),
-        productId: uuid('productId')
-            .notNull()
-            .references(() => consultationServices.id, { onDelete: 'cascade' }),
-    },
-    table => [primaryKey({ columns: [table.consultationId, table.productId] })]
-);
-
-export const posts = pgTable('post', {
-    id: uuid('id').defaultRandom().primaryKey().notNull(),
-    title: text('title').notNull(),
-    slug: text('slug').notNull().unique(),
-    description: text('description').notNull(),
-    content: text('content').notNull(),
-    userId: uuid('userId')
-        .notNull()
-        .references(() => users.id, { onDelete: 'cascade' }),
-    likes: integer('likes').default(0).notNull(),
-    dislikes: integer('dislikes').default(0).notNull(),
-    views: integer('views').default(0).notNull(),
-    referenceSource: text('referenceSource').notNull(),
-    type: postTypeEnum('type').notNull(),
-    readingTime: integer('readingTime').notNull().default(1),
-    createdAt: timestamp('createdAt', { mode: 'date' }).defaultNow().notNull(),
-    market: text('market').default('all').notNull(),
-
-    // SEO Metadata Fields
-    seoTitle: text('seoTitle'), // Custom title for SEO
-    seoDescription: text('seoDescription'), // Meta description
-    seoKeywords: text('seoKeywords').array(), // Array of keywords
-    ogImage: text('ogImage'), // Image for social sharing
-    canonicalUrl: text('canonicalUrl'), // Preferred URL
-    robots: text('robots'), // e.g., "index, follow"
-});
-
-export const postTags = pgTable(
-    'post_tag',
-    {
-        postId: uuid('postId')
-            .notNull()
-            .references(() => posts.id, { onDelete: 'cascade' }),
-        tagId: uuid('tagId')
-            .notNull()
-            .references(() => tags.id, { onDelete: 'cascade' }),
-    },
-    table => ({
-        pk: primaryKey({ columns: [table.postId, table.tagId] }),
-    })
-);
-
-export const tags = pgTable('tag', {
-    id: uuid('id').defaultRandom().primaryKey().notNull(),
-    name: text('name').notNull().unique(),
-});
-
-// Relations
-export const usersRelations = relations(users, ({ many }) => ({
-    accounts: many(accounts),
-    sessions: many(sessions),
+export const userRelations = relations(users, ({ many }) => ({
     otpCodes: many(otpCodes),
-    posts: many(posts),
-}));
-
-export const userProfileRelations = relations(userProfiles, ({ one }) => ({
-    user: one(users, { fields: [userProfiles.userId], references: [users.id] }),
-}));
-
-export const accountsRelations = relations(accounts, ({ one }) => ({
-    user: one(users, { fields: [accounts.userId], references: [users.id] }),
+    sessions: many(sessions),
+    userProfiles: many(userProfiles),
+    userSettings: many(userSetting),
+    accounts: many(accounts),
 }));
 
 export const sessionsRelations = relations(sessions, ({ one }) => ({
-    user: one(users, { fields: [sessions.userId], references: [users.id] }),
+    users: one(users, {
+        fields: [sessions.userId],
+        references: [users.id],
+    }),
 }));
 
-export const otpCodesRelations = relations(otpCodes, ({ one }) => ({
-    user: one(users, { fields: [otpCodes.userId], references: [users.id] }),
+export const userProfileRelations = relations(userProfiles, ({ one }) => ({
+    users: one(users, {
+        fields: [userProfiles.userId],
+        references: [users.id],
+    }),
 }));
 
-export const productRelations = relations(consultationServices, ({ many }) => ({
-    consultationProducts: many(consultationsProducts),
+export const userSettingRelations = relations(userSetting, ({ one }) => ({
+    users: one(users, {
+        fields: [userSetting.userId],
+        references: [users.id],
+    }),
 }));
 
 export const consultationsProductsRelations = relations(
@@ -240,7 +362,7 @@ export const consultationsProductsRelations = relations(
             fields: [consultationsProducts.consultationId],
             references: [consultations.id],
         }),
-        product: one(consultationServices, {
+        consultationService: one(consultationServices, {
             fields: [consultationsProducts.productId],
             references: [consultationServices.id],
         }),
@@ -248,17 +370,15 @@ export const consultationsProductsRelations = relations(
 );
 
 export const consultationRelations = relations(consultations, ({ many }) => ({
-    consultationProducts: many(consultationsProducts),
+    consultationsProducts: many(consultationsProducts),
 }));
 
-export const postsRelations = relations(posts, ({ one, many }) => ({
-    user: one(users, { fields: [posts.userId], references: [users.id] }),
-    postTags: many(postTags),
-}));
-
-export const tagRelations = relations(tags, ({ many }) => ({
-    postTags: many(postTags),
-}));
+export const consultationServicesRelations = relations(
+    consultationServices,
+    ({ many }) => ({
+        consultationsProducts: many(consultationsProducts),
+    })
+);
 
 export const postTagRelations = relations(postTags, ({ one }) => ({
     post: one(posts, {
@@ -268,6 +388,21 @@ export const postTagRelations = relations(postTags, ({ one }) => ({
     tag: one(tags, {
         fields: [postTags.tagId],
         references: [tags.id],
+    }),
+}));
+
+export const postRelations = relations(posts, ({ many }) => ({
+    postTags: many(postTags),
+}));
+
+export const tagRelations = relations(tags, ({ many }) => ({
+    postTags: many(postTags),
+}));
+
+export const accountRelations = relations(accounts, ({ one }) => ({
+    users: one(users, {
+        fields: [accounts.userId],
+        references: [users.id],
     }),
 }));
 

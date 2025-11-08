@@ -9,7 +9,7 @@ import {
     CarouselItem,
 } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
-import Image, { StaticImageData } from 'next/image';
+import { StaticImageData } from 'next/image';
 import Autoplay from 'embla-carousel-autoplay';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -36,6 +36,7 @@ interface ReusableCarouselProps {
     indicatorActiveClassName?: string;
     indicatorInactiveClassName?: string;
     navigationButtonClassName?: string;
+    keyValue?: string;
 }
 
 export default function AppCarousel({
@@ -50,6 +51,7 @@ export default function AppCarousel({
     indicatorActiveClassName = 'bg-[var(--brand-color)]',
     indicatorInactiveClassName = 'bg-white',
     navigationButtonClassName = 'bg-black/30 hover:bg-black/50 text-white',
+    keyValue,
 }: ReusableCarouselProps) {
     const plugin = useRef(
         Autoplay({ delay: autoPlayDelay, playOnInit: autoPlay })
@@ -102,6 +104,7 @@ export default function AppCarousel({
             setApi={setCarouselApi}
             className={`w-full overflow-hidden relative ${className}`}
             onMouseEnter={autoPlay ? plugin.current.stop : undefined}
+            key={keyValue}
             onMouseLeave={autoPlay ? () => plugin.current.play() : undefined}
         >
             {showNavigation && (
@@ -143,29 +146,23 @@ export default function AppCarousel({
                                         href={item.link}
                                         className="w-full h-full block"
                                     >
-                                        <Image
-                                            width={1920}
-                                            height={1080}
-                                            src={item.imageUrl}
+                                        <img
+                                            src={item.imageUrl as string}
                                             alt={
                                                 item.alt ||
                                                 `Carousel item ${index + 1}`
                                             }
                                             className={`object-cover h-full w-full ${imageClassName}`}
-                                            unoptimized
                                         />
                                     </Link>
                                 ) : (
-                                    <Image
-                                        width={1920}
-                                        height={1080}
-                                        src={item.imageUrl}
+                                    <img
+                                        src={item.imageUrl as string}
                                         alt={
                                             item.alt ||
                                             `Carousel item ${index + 1}`
                                         }
                                         className={`object-cover h-full w-full ${imageClassName}`}
-                                        unoptimized
                                     />
                                 )}
                                 {(item.title || item.description) && (
