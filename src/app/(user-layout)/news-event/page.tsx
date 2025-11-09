@@ -17,6 +17,7 @@ import AppTabsServerSide, {
 import NewsComp from '@/app/(user-layout)/news-event/components/news';
 import { Pagination } from '@/components/app-pagination-server-side';
 import { BrandLogoFtHat } from '@image/index';
+import { Localized } from '@/types/localized';
 
 interface PageProps {
     searchParams: {
@@ -34,17 +35,9 @@ const Page = async ({ searchParams }: PageProps) => {
     const pageNum = pageIndex ? parseInt(pageIndex, 10) : 0;
     const pageSizeNum = pageSize ? parseInt(pageSize, 10) : 10;
 
-    // Handle type parameter
-    const typeArray = (() => {
-        if (type === undefined || type === null) return ['news', 'events'];
-        if (Array.isArray(type)) return type;
-        if (typeof type === 'string') return type ? [type] : ['news', 'events'];
-        return ['news', 'events'];
-    })();
-
     // Fetch posts
     const postsData: PaginatedResponse<Post> = await getPosts({
-        type: typeArray as ('news' | 'events' | 'community')[],
+        type: ['news'],
         filterBy: filterBy as
             | 'recommended'
             | 'hottest'
@@ -59,8 +52,8 @@ const Page = async ({ searchParams }: PageProps) => {
     const mapPostsToNewsType = (): NewsType[] => {
         if (!postsData?.data) return [];
         return postsData.data.map(post => ({
-            title: post.title,
-            description: post.description,
+            title: post.title as Localized,
+            description: post.description as Localized,
             image: BrandLogoFtHat,
             like: post.likes,
             dislike: post.dislikes,
@@ -121,15 +114,6 @@ const Page = async ({ searchParams }: PageProps) => {
             <NewsEventsBanner />
             <div className="mt-2">
                 <NewsEventFilterDialogComp title={'Filter By'} />
-
-                {/* Type Tabs */}
-                {/*<AppTabsServerSide*/}
-                {/*    tabs={typeTabs}*/}
-                {/*    currentSearchParams={new URLSearchParams(*/}
-                {/*        validSearchParams*/}
-                {/*    ).toString()}*/}
-                {/*    isParentOfSubTab={true}*/}
-                {/*/>*/}
 
                 {/* Filter Tabs */}
                 <AppTabsServerSide

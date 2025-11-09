@@ -1,0 +1,50 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+'use server';
+
+import { db } from '@/lib/db'; // ✅ your Drizzle instance
+import { eq } from 'drizzle-orm';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/next-auth.config';
+import { users } from '@/db/schema';
+import { cleanupDomainUrlFromSuccessCallback } from '@/utils/bunny/cleanup-domain-url-from-success-callback';
+
+export const updateUserAvatar = async (newUrl: string) => {
+    // ✅ Validate input
+    if (!newUrl || typeof newUrl !== 'string') {
+        return { success: false, error: 'Invalid avatar URL' };
+    }
+
+    // ✅ Get current user (Auth.js example)
+    const session = await getServerSession(authOptions);
+    const userId = (session?.user as unknown as any)?.id as string | undefined;
+
+    if (!userId) {
+        return { success: false, error: 'Unauthorized' };
+    }
+
+    const extractBunnyPathForImage =
+        cleanupDomainUrlFromSuccessCallback(newUrl);
+
+    try {
+        const [updatedUser] = await db
+            .update(users)
+            .set({ image: extractBunnyPathForImage }) // ← adjust field name if needed (e.g., `avatar`, `profileImage`)
+            .where(eq(users.id, userId))
+            .returning({ id: users.id, image: users.image });
+
+        if (!updatedUser) {
+            return { success: false, error: 'User not found' };
+        }
+
+        return {
+            success: true,
+            data: { avatarUrl: updatedUser.image },
+        };
+    } catch (error) {
+        console.error('[updateUserAvatar] Error:', error);
+        return {
+            success: false,
+            error: 'Failed to update avatar',
+        };
+    }
+};

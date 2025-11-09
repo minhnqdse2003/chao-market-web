@@ -18,6 +18,9 @@ import { BrandLogoFtHat } from '@image/index';
 import NewsEventFilterDialogComp from '@/app/(user-layout)/news-event/components/news-filter';
 import { NewsType } from '@/app/(user-layout)/news-event/utils/data-utils';
 import { buildURLSearchParams } from '@/utils/api/query-params-build';
+import { Localized } from '@/types/localized';
+import { capitalizeWords } from '@/utils/string-parsing';
+import { getTags } from '@/services/tag/get-tags';
 
 interface PageProps {
     searchParams: {
@@ -35,28 +38,33 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
     const pageNum = pageIndex ? parseInt(pageIndex, 10) : 0;
     const pageSizeNum = pageSize ? parseInt(pageSize, 10) : 10;
 
+    const tagsData = await getTags('community_type');
+
     // Fetch posts filtered by tag
     const postsData: PaginatedResponse<Post> = await getPosts({
-        mainTag: mainTag,
-        filterBy: filterBy as
-            | 'recommended'
-            | 'hottest'
-            | 'mostViewed'
-            | 'topRated'
-            | undefined,
+        mainTag: mainTag ?? tagsData.data?.[0]?.name,
+        filterBy:
+            (filterBy as
+                | 'recommended'
+                | 'hottest'
+                | 'mostViewed'
+                | 'topRated'
+                | undefined) || 'recommended',
         pageIndex: pageNum,
         pageSize: pageSizeNum,
-        type: 'community',
+        type: ['community'],
     });
+
+    // Fetch Community Tags
 
     // Map posts data to NewsType format
     const mapPostsToNewsType = (): NewsType[] => {
         if (!postsData?.data) return [];
 
-        return postsData?.data.map(post => ({
-            title: post.title,
-            description: post.description,
-            image: BrandLogoFtHat, // Placeholder image
+        return postsData.data.map(post => ({
+            title: post.title as Localized,
+            description: post.description as Localized,
+            image: BrandLogoFtHat,
             like: post.likes,
             dislike: post.dislikes,
             views: post.views,
@@ -65,6 +73,7 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
                 : '',
             referenceSource: post.referenceSource,
             slug: post.slug,
+            market: post.market ? capitalizeWords(post.market) : '',
         }));
     };
 
@@ -74,25 +83,25 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
         {
             title: 'Recommended',
             href: hasMainTag
-                ? `/community?mainTag=${mainTag}&filterBy=recommended`
+                ? `/community?${buildURLSearchParams({ mainTag })}&filterBy=recommended`
                 : '/community?filterBy=recommended',
         },
         {
             title: 'Hottest',
             href: hasMainTag
-                ? `/community?mainTag=${mainTag}&filterBy=hottest`
+                ? `/community?${buildURLSearchParams({ mainTag })}&filterBy=hottest`
                 : '/community?filterBy=hottest',
         },
         {
             title: 'Most Viewed',
             href: hasMainTag
-                ? `/community?mainTag=${mainTag}&filterBy=mostViewed`
+                ? `/community?${buildURLSearchParams({ mainTag })}&filterBy=mostViewed`
                 : '/community?filterBy=mostViewed',
         },
         {
             title: 'Top Rated',
             href: hasMainTag
-                ? `/community?mainTag=${mainTag}&filterBy=topRated`
+                ? `/community?${buildURLSearchParams({ mainTag })}&filterBy=topRated`
                 : '/community?filterBy=topRated',
         },
     ];
@@ -114,7 +123,10 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
                 <NewsEventFilterDialogComp title={'Filter by'} />
 
                 {/* Main Tag Tabs */}
-                <CommunityTabs validSearchParams={validSearchParams} />
+                <CommunityTabs
+                    validSearchParams={validSearchParams}
+                    tags={tagsData.data ?? []}
+                />
                 {/* Filter Tabs */}
                 <AppTabsServerSide
                     tabs={filterTabs}

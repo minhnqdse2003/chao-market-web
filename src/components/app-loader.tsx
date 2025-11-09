@@ -1,29 +1,26 @@
-import Image from 'next/image';
-import { BrandLogoFtHat } from '@image/index';
 import '@/styles/_loading-bouncing.scss';
 
 export default function AppLoader() {
     return (
         <div
             className={
-                'w-fit mx-auto h-full flex justify-center items-center animate-pulse flex-col gap-4 pulse-scale'
+                'w-fit mx-auto h-full min-h-svh flex justify-center items-center animate-pulse flex-col gap-4' +
+                ' pulse-scale'
             }
         >
-            <Image
-                src={BrandLogoFtHat}
-                width={150}
-                height={150}
+            <img
+                src="/img/brand-logo-with-hat.svg"
                 className="w-full uppercase h-auto max-w-[24rem]"
                 alt={'Brand-logo'}
             />
             <p className={'text-3xl uppercase flex gap-2'}>
                 Chào Market
-                <div className="text-animation">
+                <span className="text-animation">
                     <span>.</span>
                     <span>.</span>
                     <span>.</span>
                     <span>.</span>
-                </div>
+                </span>
             </p>
         </div>
     );

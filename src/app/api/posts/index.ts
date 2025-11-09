@@ -9,6 +9,7 @@ export async function getPosts(requestParams: PostRequestParams) {
     );
 
     if (!response.ok) {
+        console.error('Failed to fetch posts:', response);
         throw new Error('Failed to fetch posts');
     }
 

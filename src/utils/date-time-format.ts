@@ -53,3 +53,17 @@ export const formatLastUpdatedDate = (date: Date, locale: string) => {
         }
     );
 };
+
+export const getJoinedText = (
+    createdAt: string | Date | null | undefined
+): string => {
+    if (!createdAt) return 'Joined Unknown';
+
+    const date = new Date(createdAt);
+    if (isNaN(date.getTime())) return 'Joined Unknown';
+
+    return `Joined ${date.toLocaleString('en-US', {
+        month: 'long',
+        year: 'numeric',
+    })}`;
+};

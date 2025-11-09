@@ -20,13 +20,6 @@ const getAllPosts = async (request: NextRequest) => {
         request.nextUrl.searchParams.entries()
     );
 
-    if (searchParams.type && typeof searchParams.type === 'string') {
-        const typesArray = searchParams.type.split(',').map(t => t.trim());
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        searchParams.type = typesArray;
-    }
-
     const parsed = postQuerySchema.safeParse(searchParams);
 
     if (!parsed.success) {
@@ -38,8 +31,15 @@ const getAllPosts = async (request: NextRequest) => {
     const conditions = [];
 
     if (createdAt) conditions.push(gte(posts.createdAt, createdAt));
-    if (type && Array.isArray(type) && type.length > 0) {
-        conditions.push(inArray(posts.type, type));
+
+    console.log('hehe-3', type);
+
+    if (type) {
+        conditions.push(
+            Array.isArray(type) && type.length > 0
+                ? inArray(posts.type, type)
+                : eq(posts.type, type)
+        );
     }
 
     const whereClause = conditions.length ? and(...conditions) : undefined;
@@ -52,7 +52,6 @@ const getAllPosts = async (request: NextRequest) => {
             slug: posts.slug,
             description: posts.description,
             content: posts.content,
-            userId: posts.userId,
             likes: posts.likes,
             dislikes: posts.dislikes,
             views: posts.views,

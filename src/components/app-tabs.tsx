@@ -5,7 +5,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 
 export type TabItem = {
-    title: string;
+    title: string | React.ReactNode;
     value: string;
     renderContent: () => Promise<React.ReactNode>;
 };

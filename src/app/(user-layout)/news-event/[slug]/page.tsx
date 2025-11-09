@@ -9,6 +9,8 @@ import { Clock } from 'lucide-react';
 import { dateTimeFormat } from '@/utils/date-time-format';
 import AppInteractionBlock from '@/components/app-interaction-block';
 import TagsAccordion from '@/app/(user-layout)/news-event/[slug]/components/tags';
+import { Localized } from '@/types/localized';
+import AppLocalizeRender from '@/components/app-localize-render';
 
 export interface PageProps {
     params: {
@@ -75,7 +77,7 @@ export default async function NewsEventPage({ params }: PageProps) {
                 {/* Banner Image */}
                 <Image
                     src={NewsEventMockBanner}
-                    alt={post.title || 'details-banner'}
+                    alt={'details-banner'}
                     width={1920}
                     height={1080}
                     className="w-full h-auto mb-8 object-cover"
@@ -86,13 +88,15 @@ export default async function NewsEventPage({ params }: PageProps) {
                 <div className="flex flex-col gap-2 mb-4 w-full relative">
                     <div
                         className={
-                            'flex gap-2 items-center text-[var(--brand-grey-foreground)]'
+                            'flex gap-2 mb-2 items-center text-[var(--brand-grey-foreground)]'
                         }
                     >
                         <Clock className={'size-4'} />
                         {post.readingTime} min read
                     </div>
-                    <h1 className="text-3xl font-bold">{post.title}</h1>
+                    <h1 className="text-3xl font-bold">
+                        <AppLocalizeRender contents={post.title as Localized} />
+                    </h1>
                     <div className="flex items-center text-[var(--brand-grey-foreground)]">
                         <span>Market: {post.market}</span>
                         <span className={'mx-2'} />
@@ -115,13 +119,13 @@ export default async function NewsEventPage({ params }: PageProps) {
                 <div className="flex space-x-16 w-full">
                     {/* Rich Text Content */}
                     <div className="basis-3/4">
-                        <RichTextPreview contents={post.content} />
+                        <RichTextPreview contents={post.content as Localized} />
                     </div>
 
                     {/* Sidebar */}
                     <div className="basis-1/4 space-y-6">
                         {/* Table of Contents */}
-                        <TableOfContents content={post.content} />
+                        <TableOfContents content={post.content as Localized} />
 
                         {/* Tags Section */}
                         <TagsAccordion tags={post.tags} />

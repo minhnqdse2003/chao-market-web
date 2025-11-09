@@ -1,10 +1,19 @@
+'use client';
 import DOMPurify from 'isomorphic-dompurify';
 import '@/components/tiptap-templates/simple/rich-text-content.scss';
+import { useI18n } from '@/context/i18n/context';
+import { Localized } from '@/types/localized';
+import { useEffect, useState } from 'react';
 
-export default function RichTextPreview({ contents }: { contents: string }) {
+export default function RichTextPreview({ contents }: { contents: Localized }) {
     // Add simple IDs to strong elements in the content
+    const { locale } = useI18n();
+    const [localizedContents, setLocalizedContents] = useState<string>(
+        contents[locale as 'en' | 'vi'] as string
+    );
     let index = 0;
-    const contentWithIds = contents.replace(
+
+    const contentWithIds = localizedContents.replace(
         /<strong[^>]*>(.*?)<\/strong>/g,
         match => {
             const id = `title-${index}`;
@@ -12,6 +21,12 @@ export default function RichTextPreview({ contents }: { contents: string }) {
             return `<strong><span id="${id}"></span>${match.slice(8, -9)}</strong>`;
         }
     );
+
+    useEffect(() => {
+        setLocalizedContents(contents[locale as 'en' | 'vi'] as string);
+    }, [locale, contents]);
+
+    console.log(localizedContents);
 
     return (
         <div
