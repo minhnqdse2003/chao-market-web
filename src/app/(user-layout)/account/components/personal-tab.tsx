@@ -23,18 +23,20 @@ import { AppDatePicker } from '@/components/app-date-picker';
 import { z } from 'zod';
 import { FloatingLabelInput } from '@/components/ui/floating-input';
 import { EditEmailDialog } from '@/app/(user-layout)/account/components/edit-email-dialog';
+import { UserViewResponse } from '@/types/user/response/view-response';
+
+const ArrayMaleConstant = ['male', 'female', 'other'];
 
 const personalFormSchema = z.object({
     name: z.string().min(1, { message: 'Name is required' }).max(100),
     birthday: z.date(),
-    gender: z.enum(['male', 'female', 'other']),
+    gender: z.enum(ArrayMaleConstant).optional(),
     otherGender: z.string().optional(),
     email: z.email({ message: 'Invalid email address' }),
     phone: z.string().min(1, { message: 'Phone number is required' }),
-    address: z.string().min(1, { message: 'Address is required' }),
 });
 
-type PersonalFormData = z.infer<typeof personalFormSchema>;
+export type PersonalFormData = z.infer<typeof personalFormSchema>;
 
 const BasicInformationSection = ({
     form,
@@ -197,39 +199,39 @@ const ContactInformationSection = ({
                         </FormItem>
                     )}
                 />
-                <FormField
-                    control={form.control}
-                    name="address"
-                    render={({ field }) => (
-                        <FormItem className="md:col-span-2">
-                            <FormControl>
-                                <FloatingLabelInput
-                                    label={'Address'}
-                                    className="app-text-input"
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
             </div>
         </CardContent>
     </Card>
 );
 
-const PersonalTab = () => {
+const PersonalTab = ({ userData }: { userData: UserViewResponse | null }) => {
     const form = useForm<z.infer<typeof personalFormSchema>>({
         resolver: zodResolver(personalFormSchema),
-        defaultValues: {
-            name: 'John Doe',
-            birthday: new Date(),
-            gender: 'male',
-            otherGender: '',
-            email: 'john.doe@example.com',
-            phone: '+1 (555) 123-4567',
-            address: '123 Main Street, San Francisco, CA 94105',
-        },
+        defaultValues: userData
+            ? ({
+                  name: userData.name ?? '',
+                  birthday: userData.dateOfBirth ?? new Date(), // z.date() requires a Date
+                  email: userData.email ?? '',
+                  gender:
+                      userData.gender &&
+                      ArrayMaleConstant.includes(userData.gender)
+                          ? (userData.gender as (typeof ArrayMaleConstant)[number])
+                          : undefined,
+                  otherGender:
+                      userData.gender &&
+                      !ArrayMaleConstant.includes(userData.gender)
+                          ? (userData.gender as (typeof ArrayMaleConstant)[number])
+                          : undefined,
+                  phone: userData.phone ?? '',
+              } as PersonalFormData)
+            : {
+                  name: 'John Doe',
+                  birthday: new Date(),
+                  gender: 'male',
+                  otherGender: '',
+                  email: 'john.doe@example.com',
+                  phone: '+1 (555) 123-4567',
+              },
     });
 
     const { isDirty } = useFormState({ control: form.control });

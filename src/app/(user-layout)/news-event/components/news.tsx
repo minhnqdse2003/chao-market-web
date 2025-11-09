@@ -1,3 +1,4 @@
+'use client';
 import { NewsType } from '../utils/data-utils';
 import Image from 'next/image';
 import NavSeparator from '@/components/nav-separator';
@@ -6,6 +7,7 @@ import { dateTimeFormat } from '@/utils/date-time-format';
 import AppInteractionBlock from '@/components/app-interaction-block';
 import { endPointBuild } from '@/utils/end-point-build';
 import AppShareButton from '@/components/app-share-button';
+import { useI18n } from '@/context/i18n/context';
 
 const NewsComp = ({
     news,
@@ -14,9 +16,15 @@ const NewsComp = ({
     news: NewsType[];
     baseHref?: string;
 }) => {
+    const { locale } = useI18n();
+    const parsedNews = news.map(item => ({
+        ...item,
+        title: item.title[locale as 'en' | 'vi'],
+        description: item.description[locale as 'en' | 'vi'],
+    }));
     return (
         <>
-            {news.map((item, idx) => (
+            {parsedNews.map((item, idx) => (
                 <div
                     className="flex flex-col w-full items-end cursor-pointer"
                     key={item.title}

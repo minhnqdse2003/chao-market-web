@@ -102,7 +102,9 @@ export default function AppTabsServerSide({
         return tabs[0]?.href;
     };
 
-    const currentTabHref = currentHref ? currentHref : getCurrentTabHref();
+    const currentTabHref = currentHref ?? getCurrentTabHref();
+
+    console.log(tabs);
 
     const dynamicFontSize = `calc(var(--text-sm) + ${size}px)`;
 

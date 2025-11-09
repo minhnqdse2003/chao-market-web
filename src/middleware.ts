@@ -3,6 +3,7 @@ import { withAuth } from 'next-auth/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 
 const AUTH_ROUTES = ['/auth/login', '/auth/signup'];
+const PROTECTED_ROUTES = ['/account'];
 
 export default withAuth(
     async function middleware(request: NextRequest) {
@@ -27,8 +28,11 @@ export default withAuth(
     {
         callbacks: {
             authorized: ({ token, req }) => {
-                // Protect dashboard routes
-                if (req.nextUrl.pathname.startsWith('/dashboard')) {
+                if (
+                    PROTECTED_ROUTES.some(route =>
+                        req.nextUrl.pathname.startsWith(route)
+                    )
+                ) {
                     return !!token;
                 }
 

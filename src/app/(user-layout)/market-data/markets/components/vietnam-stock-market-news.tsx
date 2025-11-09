@@ -36,9 +36,13 @@ export type NewsSourceType =
 
 interface CombinedNewsFeedProps {
     type: NewsSourceType;
+    href?: string;
 }
 
-export default function CombinedNewsFeed({ type }: CombinedNewsFeedProps) {
+export default function CombinedNewsFeed({
+    type,
+    href,
+}: CombinedNewsFeedProps) {
     const {
         data: articles = [] as RSSItem[],
         isLoading,
@@ -46,7 +50,7 @@ export default function CombinedNewsFeed({ type }: CombinedNewsFeedProps) {
         error,
     } = useQuery<RSSItem[], Error>({
         queryKey: ['news', type],
-        queryFn: () => fetchNewsFeed(type),
+        queryFn: () => fetchNewsFeed(type, href),
         staleTime: 0,
         gcTime: 0,
         retry: 3,

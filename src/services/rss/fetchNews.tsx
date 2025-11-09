@@ -211,7 +211,10 @@ const newsSources: Record<NewsSourceType, Source> = {
 };
 
 // The main server action remains clean and unchanged
-export async function fetchNewsFeed(type: NewsSourceType): Promise<RSSItem[]> {
+export async function fetchNewsFeed(
+    type: NewsSourceType,
+    href?: string
+): Promise<RSSItem[]> {
     const source = newsSources[type];
 
     if (!source) {
@@ -219,5 +222,9 @@ export async function fetchNewsFeed(type: NewsSourceType): Promise<RSSItem[]> {
         return [];
     }
 
-    return await fetchRssFeed(source.url, source.name, source.sourceName);
+    return await fetchRssFeed(
+        href ?? source.url,
+        source.name,
+        source.sourceName
+    );
 }

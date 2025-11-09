@@ -1,6 +1,8 @@
+import { Localized } from '@/types/localized';
+
 export type NewsType = {
-    title: string;
-    description: string;
+    title: Localized;
+    description: Localized;
     image: string;
     like: number;
     dislike: number;

@@ -1,30 +1,21 @@
-'use client';
 import AppTabsServerSide, {
     TabServerSide,
 } from '@/components/app-tabs-server-side';
 import React from 'react';
-import { useI18n } from '@/context/i18n/context';
+import { Tag } from '@/db/schema';
 
 export default function CommunityTabs({
     validSearchParams,
+    tags,
 }: {
     validSearchParams: Record<string, string>;
+    tags: Tag[];
 }) {
-    const { t } = useI18n();
-    const mainTagTabs: TabServerSide[] = [
-        {
-            title: t('community.items.chaoConnect.title'),
-            href: '/community?mainTag=chao-connect',
-        },
-        {
-            title: t('community.items.freeCourses.title'),
-            href: '/community?mainTag=free-courses',
-        },
-        {
-            title: t('community.items.workShops.title'),
-            href: '/community?mainTag=workshop',
-        },
-    ];
+    const mainTagTabs: TabServerSide[] = tags.map(item => ({
+        title: item.name,
+        href: `/community?mainTag=${item.name}`,
+    }));
+
     return (
         <AppTabsServerSide
             tabs={mainTagTabs}

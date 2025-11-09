@@ -2,8 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Camera, Calendar, Mail, MapPin } from 'lucide-react';
+import { Calendar, Mail } from 'lucide-react';
 import {
     Dialog,
     DialogContent,
@@ -23,7 +22,17 @@ import {
 } from '@/components/ui/form';
 import { FloatingLabelInput } from '@/components/ui/floating-input';
 import { useForm } from 'react-hook-form';
+import { UserViewResponse } from '@/types/user/response/view-response';
+import AvatarUpload from '@/components/avatar-upload';
+import { useMutation } from '@tanstack/react-query';
+import { uploadToBunnyCDN } from '@/services/bunny/upload-to-cdn';
+import { toast } from 'sonner';
+import { useState } from 'react';
+import { FileWithPreview } from '@/hooks/use-file-upload';
+import { updateUserAvatar } from '@/services/user/update-user-avatar';
+import { getJoinedText } from '@/utils/date-time-format';
 
+// Schema
 const passwordFormSchema = z
     .object({
         currentPassword: z
@@ -41,15 +50,59 @@ const passwordFormSchema = z
         path: ['confirmNewPassword'],
     });
 
+// Types
 type PasswordFormData = z.infer<typeof passwordFormSchema>;
+type DisplayDataType = {
+    name: string;
+    email: string;
+    joinedText: string;
+    avatar: string | null;
+};
 
-export default function ProfileHeader() {
+export default function ProfileHeader({
+    userData,
+}: {
+    userData: UserViewResponse;
+}) {
+    const [count, setCount] = useState(0);
+
+    const displayData: DisplayDataType = {
+        avatar: userData.image,
+        email: userData.email,
+        joinedText: getJoinedText(userData.createdAt),
+        name: userData.name as string,
+    };
+
     const form = useForm<PasswordFormData>({
         resolver: zodResolver(passwordFormSchema),
         defaultValues: {
             currentPassword: '',
             newPassword: '',
             confirmNewPassword: '',
+        },
+    });
+
+    const { mutate: updateUserAvatarMutation } = useMutation({
+        mutationFn: updateUserAvatar,
+        onSuccess: () => {},
+        onError: error => {
+            console.error(error.message || 'Failed to upload user');
+        },
+    });
+
+    const { mutate: uploadToBunnyMutation } = useMutation({
+        mutationFn: uploadToBunnyCDN,
+        onSuccess: data => {
+            if (count === 0) {
+                setCount(1);
+            } else {
+                setCount(0);
+                toast.success('File upload successfully!');
+                updateUserAvatarMutation(data.url!);
+            }
+        },
+        onError: error => {
+            toast.error(error.message || 'Failed to upload user');
         },
     });
 
@@ -77,42 +130,37 @@ export default function ProfileHeader() {
         // }
     };
 
+    const handleUpload = async (file: FileWithPreview | null) => {
+        if (!file) {
+            return;
+        }
+        uploadToBunnyMutation({
+            file: file.file as File,
+            remotePath: `users-avatar/${file.file.name}-${new Date().toISOString()}`,
+            convertToWebP: true,
+        });
+    };
+
     return (
         <Card className={'bg-[var(--brand-grey)]/30'}>
             <CardContent className="p-6 dark:bg-transparent bg-transparent">
                 <div className="flex flex-col items-start gap-6 md:flex-row md:items-center">
-                    <div className="relative">
-                        <Avatar className="h-24 w-24">
-                            <AvatarImage
-                                src="https://bundui-images.netlify.app/avatars/08.png  "
-                                alt="Profile"
-                            />
-                            <AvatarFallback className="text-2xl">
-                                JD
-                            </AvatarFallback>
-                        </Avatar>
-                        <Button
-                            size="icon"
-                            variant="outline"
-                            className="absolute -right-2 -bottom-2 h-8 w-8 rounded-full"
-                        >
-                            <Camera />
-                        </Button>
-                    </div>
+                    <AvatarUpload
+                        defaultAvatar={displayData.avatar ?? undefined}
+                        onFileChange={handleUpload}
+                    />
                     <div className="flex-1 space-y-2">
-                        <h1 className="text-2xl font-bold">John Doe</h1>
+                        <h1 className="text-2xl font-bold">
+                            {displayData.name}
+                        </h1>
                         <div className="text-muted-foreground flex flex-wrap gap-4 text-sm">
                             <div className="flex items-center gap-1">
                                 <Mail className="size-4" />
-                                john.doe@example.com
-                            </div>
-                            <div className="flex items-center gap-1">
-                                <MapPin className="size-4" />
-                                San Francisco, CA
+                                {displayData.email}
                             </div>
                             <div className="flex items-center gap-1">
                                 <Calendar className="size-4" />
-                                Joined March 2023
+                                {displayData.joinedText}
                             </div>
                         </div>
                     </div>

@@ -1,3 +1,4 @@
+'use client';
 // src/components/TableOfContents.tsx
 import React, { useMemo } from 'react';
 import parse, { DOMNode } from 'html-react-parser';
@@ -7,9 +8,11 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from '@/components/ui/accordion';
+import { Localized } from '@/types/localized';
+import { useI18n } from '@/context/i18n/context';
 
 interface TableOfContentsProps {
-    content: string;
+    content: Localized;
 }
 
 interface Headline {
@@ -18,13 +21,14 @@ interface Headline {
 }
 
 export function TableOfContents({ content }: TableOfContentsProps) {
-    // Extract headlines from strong tags with simple IDs
+    const { locale } = useI18n();
+
     const headlines = useMemo<Headline[]>(() => {
         const extractedHeadlines: Headline[] = [];
         if (!content) return [];
 
         let index = 0;
-        parse(content, {
+        parse(content[locale as 'en' | 'vi'], {
             replace: (domNode: DOMNode) => {
                 if (
                     domNode.type === 'tag' &&
@@ -49,7 +53,7 @@ export function TableOfContents({ content }: TableOfContentsProps) {
         });
 
         return extractedHeadlines;
-    }, [content]);
+    }, [content, locale]);
 
     return (
         <Accordion
