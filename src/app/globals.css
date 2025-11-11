@@ -47,7 +47,7 @@
     --brand-color: #ffe400;
     --brand-color-foreground: #fffe41;
     --brand-grey: var(--brand-common-grey);
-    --brand-grey-foreground: #12121290;
+    --brand-grey-foreground: #12121270;
     --brand-grey-light: #c4c4c4;
     --brand-black-bg: #363636;
     --color-brand-floating-btn: #ffe400;
@@ -132,7 +132,7 @@
     --sidebar-ring: oklch(0.556 0 0);
     --brand-text: #ffffff;
     --brand-common-grey: #3f3f3f;
-    --brand-grey-foreground: #a09f9f;
+    --brand-grey-foreground: #a09f9f70;
     --brand-common-dialog: #2e2e2e;
     --brand-common-dropdown: var(--brand-common-dialog);
     --brand-common-dropdown-title: var(--brand-text);
