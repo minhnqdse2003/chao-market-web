@@ -29,7 +29,47 @@ export const generateMockData = async (
             weekday: date.toLocaleDateString('en-US', { weekday: 'long' }),
         });
     }
-    return data;
+    const date = new Date(baseDate);
+
+    return [
+        {
+            date,
+            category: 'News',
+            headline:
+                'Breaking: Central bank announces surprise interest rate cut.',
+            rate: parseFloat((Math.random() * 100).toFixed(2)),
+            view: Math.floor(Math.random() * 3500) + 500, // keep number here
+            weekday: date.toLocaleDateString('en-US', { weekday: 'long' }),
+        },
+        {
+            date,
+            category: 'News',
+            headline:
+                'Tin nóng: Ngân hàng trung ương bất ngờ thông báo giảm lãi suất.',
+            rate: parseFloat((Math.random() * 100).toFixed(2)),
+            view: Math.floor(Math.random() * 3500) + 500, // keep number here
+            weekday: date.toLocaleDateString('en-US', { weekday: 'long' }),
+        },
+        {
+            date,
+            category: 'News',
+            headline:
+                'In-depth analysis: The long-term economic impact of the new global trade agreements on Southeast Asian markets.',
+            rate: parseFloat((Math.random() * 100).toFixed(2)),
+            view: Math.floor(Math.random() * 3500) + 500, // keep number here
+            weekday: date.toLocaleDateString('en-US', { weekday: 'long' }),
+        },
+        {
+            date,
+            category: 'News',
+            headline:
+                'Phân tích chuyên sâu: Tác động kinh tế dài hạn của các hiệp định thương mại toàn cầu mới đối với thị trường Đông Nam Á.',
+            rate: parseFloat((Math.random() * 100).toFixed(2)),
+            view: Math.floor(Math.random() * 3500) + 500, // keep number here
+            weekday: date.toLocaleDateString('en-US', { weekday: 'long' }),
+        },
+        ...data,
+    ];
 };
 
 export const getTabData = async (

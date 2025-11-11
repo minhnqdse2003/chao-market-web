@@ -3,19 +3,19 @@ import { AppFilterOptionsType } from '@/components/app-filter-select';
 
 export const MARKET_OPTIONS: AppFilterOptionsType[] = [
     {
-        name: 'Stocks',
+        name: 'common.marketType.stocks',
         value: 'stocks',
     },
     {
-        name: 'Cryptocurrencies',
+        name: 'common.marketType.cryptocurrencies',
         value: 'cryptocurrencies',
     },
     {
-        name: 'Currencies',
+        name: 'common.marketType.currencies',
         value: 'currencies',
     },
     {
-        name: 'Commodities',
+        name: 'common.marketType.commodities',
         value: 'commodities',
     },
 ];
@@ -41,29 +41,29 @@ export const PROFIT_OPTIONS: AppFilterOptionsType[] = [
         value: '5-20',
     },
     {
-        name: 'Over 20%',
+        name: 'common.over20',
         value: '20-100',
     },
 ];
 
 export const VIEW_OPTIONS: AppFilterOptionsType[] = [
     {
-        name: 'Low to high',
+        name: 'common.lowToHight',
         value: 'low-to-high',
     },
     {
-        name: 'High to low',
+        name: 'common.hightToLow',
         value: 'high-to-low',
     },
 ];
 
 export const ALGO_TRADING_OPTIONS: AppFilterOptionsType[] = [
     {
-        name: 'Less than manual trading',
+        name: 'common.lessThanManual',
         value: 'less',
     },
     {
-        name: 'More than manual trading',
+        name: 'common.moreThanManual',
         value: 'more',
     },
 ];
@@ -78,6 +78,7 @@ const CLIENT_ACCOUNT_GROUP = {
 const NEWS_EVENT_GROUP = {
     DATE: 'Date',
     MARKET: 'Market',
+    DEFAULT: 'Default',
 };
 
 export const SORT_BY_OPTIONS: DropdownOption[] = [
@@ -125,6 +126,11 @@ export const SORT_BY_OPTIONS: DropdownOption[] = [
 
 export const SORT_BY_OPTIONS_NEWS_EVENT: DropdownOption[] = [
     {
+        value: 'featured',
+        label: 'Featured',
+        group: NEWS_EVENT_GROUP.DEFAULT,
+    },
+    {
         value: 'desc',
         label: 'Newest first',
         group: NEWS_EVENT_GROUP.DATE,
@@ -158,10 +164,5 @@ export const SORT_BY_OPTIONS_NEWS_EVENT: DropdownOption[] = [
         value: 'commodities',
         label: 'Commodities',
         group: CLIENT_ACCOUNT_GROUP.MARKET,
-    },
-    {
-        value: 'featured',
-        label: 'Featured',
-        group: CLIENT_ACCOUNT_GROUP.DEFAULT,
     },
 ];

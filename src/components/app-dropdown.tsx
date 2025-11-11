@@ -11,6 +11,7 @@ import {
 import { ChevronsUpDown, LucideIcon } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { useI18n } from '@/context/i18n/context';
 
 // 1. Interface updated to make 'group' optional
 export interface DropdownOption {
@@ -54,6 +55,7 @@ const AppDropdown = ({
     // Determine the initial value: controlled 'value' > 'defaultValue' > first option
     const initialValue = value ?? defaultValue ?? options[0]?.value ?? '';
     const [internalValue, setInternalValue] = useState(initialValue);
+    const { t } = useI18n();
 
     // If 'value' prop is provided, it's a controlled component.
     // Otherwise, it's an uncontrolled component using its internal state.
@@ -89,13 +91,6 @@ const AppDropdown = ({
         return acc;
     }, []);
 
-    // Optional: Sort to bring ungrouped items to the top
-    groupedOptions.sort((a, b) => {
-        if (a.groupName === UNGROUPED_KEY) return -1; // a (ungrouped) comes first
-        if (b.groupName === UNGROUPED_KEY) return 1; // b (ungrouped) comes first
-        return a.groupName.localeCompare(b.groupName); // Alphabetical sort for other groups
-    });
-
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -106,7 +101,7 @@ const AppDropdown = ({
                         buttonClassName
                     )}
                 >
-                    {labelVisible && 'Sort by: '}
+                    {labelVisible && `${t('common.sortBy.label')}`}
                     <p
                         className={cn(
                             'font-semibold',

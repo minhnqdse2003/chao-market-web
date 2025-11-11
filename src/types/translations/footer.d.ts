@@ -39,4 +39,8 @@ export interface FooterTranslations {
     termOfUse: PolicyContent;
     privacyPolicy: PolicyContent;
     cookiePolicy: PolicyContent;
+    getToKnowUs: string;
+    followUs: string;
+    joinGroup: string;
+    copyright: string;
 }

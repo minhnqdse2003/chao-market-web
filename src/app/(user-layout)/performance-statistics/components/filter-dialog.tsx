@@ -2,7 +2,9 @@ import AppDialog from '@/components/app-dialog';
 import { Button } from '@/components/ui/button';
 import { ListFilter, SearchIcon } from 'lucide-react';
 import React from 'react';
-import AppFilterSelect from '@/components/app-filter-select';
+import AppFilterSelect, {
+    AppFilterOptionsType,
+} from '@/components/app-filter-select';
 import AppDateRangePicker from '@/components/app-date-range-picker';
 import {
     ACCOUNT_OPTIONS,
@@ -13,6 +15,8 @@ import {
 } from '@/constant/dropdown-filter-options';
 import { BaseFilterParams, useFilter } from '@/hooks/use-filter';
 import { AutosizeTextarea } from '@/components/auto-resize-textarea';
+import { T } from '@/components/app-translate';
+import { useI18n } from '@/context/i18n/context';
 
 interface FilterParams extends BaseFilterParams {
     market?: string;
@@ -47,12 +51,22 @@ const ClientAccountFilterDialog = ({
         initialSearchValue: '',
         onApply,
     });
+    const { t } = useI18n();
+
+    const parsedToNewOptions = (
+        options: AppFilterOptionsType[]
+    ): AppFilterOptionsType[] => {
+        return options.map(item => ({
+            name: t(item.name),
+            value: item.value,
+        }));
+    };
 
     // Dialog Header
     const headerContent = (
         <div className="w-full flex justify-between items-center">
             <h2 className="text-lg font-semibold" id="filter-dialog-title">
-                Filter By
+                <T keyName={'common.filterBySearch.filterBy'} />
             </h2>
         </div>
     );
@@ -63,7 +77,7 @@ const ClientAccountFilterDialog = ({
             <div className="relative flex items-start border-b dark:[&:hover>svg]:text-[var(--brand-color)] dark:focus-within:[&_svg]:text-[var(--brand-color)]">
                 <SearchIcon className="size-4 text-[var(--brand-grey-foreground)] mt-1.5 flex-shrink-0" />
                 <AutosizeTextarea
-                    placeholder="Search"
+                    placeholder={t('common.search')}
                     value={searchValue}
                     onChange={handleSearchChange}
                     aria-label="Search"
@@ -73,38 +87,38 @@ const ClientAccountFilterDialog = ({
                 />
             </div>
             <AppFilterSelect
-                options={MARKET_OPTIONS}
-                label="Market"
+                options={parsedToNewOptions(MARKET_OPTIONS)}
+                label={t('common.market')}
                 valueOptions={filterParams.market}
                 onChange={value => handleFilterChange('market', value)}
             />
             <AppFilterSelect
-                options={ACCOUNT_OPTIONS}
-                label="Account"
+                options={parsedToNewOptions(ACCOUNT_OPTIONS)}
+                label={t('account.title')}
                 onChange={value => handleFilterChange('account', value)}
                 valueOptions={filterParams.account}
             />
             <AppFilterSelect
-                options={PROFIT_OPTIONS}
-                label="Profit"
+                options={parsedToNewOptions(PROFIT_OPTIONS)}
+                label={t('common.profit')}
                 onChange={value => handleFilterChange('profit', value)}
                 valueOptions={filterParams.profit}
             />
             <AppFilterSelect
-                options={VIEW_OPTIONS}
-                label="Views"
+                options={parsedToNewOptions(VIEW_OPTIONS)}
+                label={t('common.views')}
                 onChange={value => handleFilterChange('views', value)}
                 valueOptions={filterParams.views}
             />
             <AppFilterSelect
-                options={ALGO_TRADING_OPTIONS}
-                label="Algo Trading"
+                options={parsedToNewOptions(ALGO_TRADING_OPTIONS)}
+                label={t('common.algoTrading')}
                 type="radio"
                 onChange={value => handleFilterChange('algoTrading', value)}
                 valueOptions={filterParams.algoTrading}
             />
             <AppDateRangePicker
-                label="Date"
+                label={t('common.date')}
                 value={filterParams.date}
                 onChange={range => handleFilterChange('date', range)}
                 highlightOnActive={true}
@@ -117,17 +131,17 @@ const ClientAccountFilterDialog = ({
         <div className="w-full flex justify-between items-center gap-4">
             <Button
                 variant="ghost"
-                className="dark:text-white text-brand-text hover:bg-[var(--brand-grey)] dark:hover:text-[var(--brand-color)] dark:hover:bg-transparent hover:border-transparent transition-colors! hover:font-semibold duration-300 ease-in-out"
+                className="dark:text-white text-brand-text hover:bg-[var(--brand-grey)] dark:hover:text-[var(--brand-color)] dark:hover:bg-transparent hover:border-transparent transition-colors! font-semibold duration-300 ease-in-out"
                 onClick={handleClearAll}
             >
-                Clear All
+                <T keyName={'common.actions.clearAll'} />
             </Button>
             <Button
                 variant="default"
-                className="dark:hover:bg-[var(--brand-color)] dark:hover:text-black dark:text-[var(--brand-color)] dark:bg-transparent bg-transparent text-black hover:bg-[var(--brand-color)] hover:font-semibold transition-colors! duration-300 ease-in-out"
+                className="dark:hover:bg-[var(--brand-color)] dark:hover:text-black dark:text-[var(--brand-color)] dark:bg-transparent bg-transparent text-black hover:bg-[var(--brand-color)] font-semibold transition-colors! duration-300 ease-in-out"
                 onClick={handleApply}
             >
-                Apply
+                <T keyName={'common.actions.apply'} />
             </Button>
         </div>
     );
@@ -136,7 +150,8 @@ const ClientAccountFilterDialog = ({
         <AppDialog
             trigger={
                 <Button variant="ghost" className="font-normal">
-                    <ListFilter className="mr-2 h-4 w-4" /> Filter:
+                    <ListFilter className="mr-2 h-4 w-4" />{' '}
+                    <T keyName={'common.filter'} />
                 </Button>
             }
             headerContent={headerContent}

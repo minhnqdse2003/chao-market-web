@@ -5,9 +5,8 @@ import { Progress } from '@/components/ui/progress';
 import { EyeIcon, Info, XIcon } from 'lucide-react';
 import React, { useState } from 'react';
 import NavSeparator from '@/components/nav-separator';
-import AppDropdown from '@/components/app-dropdown';
+import AppDropdown, { DropdownOption } from '@/components/app-dropdown';
 import ClientAccountFilterDialog from './components/filter-dialog';
-import { SORT_BY_OPTIONS } from '@/constant/dropdown-filter-options';
 import AppTooltips from '@/components/app-tooltips';
 import { Button } from '@/components/ui/button';
 import { ClientAccountBanner } from '@/components/app-banner';
@@ -263,6 +262,49 @@ export default function Page() {
         });
     };
 
+    const SORT_BY_OPTIONS_NEWS_EVENT_TRANSLATED: DropdownOption[] = [
+        {
+            value: 'featured',
+            label: t('common.sortBy.featured'),
+            group: t('common.default'),
+        },
+        {
+            value: 'desc',
+            label: t('common.dateSort.newestFirst'),
+            group: t('common.dateSort.label'),
+        },
+        {
+            value: 'asc',
+            label: t('common.dateSort.oldestFirst'),
+            group: t('common.dateSort.label'),
+        },
+        {
+            value: 'all',
+            label: t('common.marketType.all'),
+            group: t('common.market'),
+        },
+        {
+            value: 'stocks',
+            label: t('common.marketType.stocks'),
+            group: t('common.market'),
+        },
+        {
+            value: 'cryptocurrencies',
+            label: t('common.marketType.cryptocurrencies'),
+            group: t('common.market'),
+        },
+        {
+            value: 'currencies',
+            label: t('common.marketType.currencies'),
+            group: t('common.market'),
+        },
+        {
+            value: 'commodities',
+            label: t('common.marketType.commodities'),
+            group: t('common.market'),
+        },
+    ];
+
     const selectedData = activeCard !== null ? dataList[activeCard] : null;
 
     return (
@@ -281,10 +323,10 @@ export default function Page() {
                         }
                         onClick={() => handleOnOpenPerformanceStatisticDialog()}
                     >
-                        <T keyName={'performanceNotice.member.title'} />
+                        <T keyName={'performanceNotice.member.reminderText'} />
                     </button>
                     <AppDropdown
-                        options={SORT_BY_OPTIONS}
+                        options={SORT_BY_OPTIONS_NEWS_EVENT_TRANSLATED}
                         defaultValue="featured"
                         buttonClassName="max-h-[20px] font-medium text-sm"
                         contentClassName="w-44"
@@ -340,14 +382,18 @@ export default function Page() {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="flex justify-between text-xs mb-1.5 [&>p]:text-[var(--brand-grey-foreground)]">
-                                        <p>Start Date:</p>
+                                        <p>
+                                            <T keyName={'common.startDate'} />:
+                                        </p>
                                         <strong>
                                             {data.account.startDate}
                                         </strong>
                                     </div>
 
                                     <div className="flex justify-between text-xs mb-1.5 [&>p]:text-[var(--brand-grey-foreground)]">
-                                        <p>Market:</p>
+                                        <p>
+                                            <T keyName={'common.market'} />:
+                                        </p>
                                         <strong
                                             className={
                                                 'rounded-sm dark:text-black text-black' +
@@ -363,28 +409,42 @@ export default function Page() {
                                     </div>
 
                                     <div className="flex justify-between text-xs mb-1.5 [&>p]:text-[var(--brand-grey-foreground)] [&>strong]:text-green-500">
-                                        <p>Deposit:</p>
+                                        <p>
+                                            <T keyName={'common.deposit'} />:
+                                        </p>
                                         <strong className={'font-semibold'}>
                                             {data.account.deposit}
                                         </strong>
                                     </div>
                                     <div className="flex justify-between text-xs [&>p]:text-[var(--brand-grey-foreground)] text-green-500 mb-1.5">
-                                        <p>Profit:</p>
+                                        <p>
+                                            <T keyName={'common.profit'} />:
+                                        </p>
                                         <strong className={'font-semibold'}>
                                             {formatToTwoDecimals(
                                                 data.account.profit
                                             )}
-                                            % / month
+                                            %/
+                                            <T
+                                                keyName={'common.month'}
+                                                options="lowercase-full"
+                                            />
                                         </strong>
                                     </div>
                                     <div className="text-xs font-semibold flex justify-between mb-2">
-                                        <p>Algo Trading</p>
+                                        <p>
+                                            <T keyName={'common.algoTrading'} />
+                                        </p>
                                         <Progress
                                             isValueVisible={true}
                                             value={data.progress}
                                             className="w-1/2 min-h-[18px] bg-white [&>div]:bg-blue-500"
                                         />
-                                        <p>Manual Trading</p>
+                                        <p className="text-end">
+                                            <T
+                                                keyName={'common.manualTrading'}
+                                            />
+                                        </p>
                                     </div>
                                     <div className="flex justify-center items-center text-xs gap-2">
                                         <EyeIcon size={16} />
@@ -434,9 +494,11 @@ export default function Page() {
                             </CardHeader>
                             <CardContent className="p-4 space-y-0.5">
                                 <div className="flex flex-col space-y-1">
+                                    {/* Market Row - Already using t() for Market type label, but the left label needs translating */}
                                     <div className="flex justify-between">
                                         <p className="text-[var(--brand-grey-foreground)]">
-                                            Market:
+                                            <T keyName={'common.market'} />:{' '}
+                                            {/* Assuming common.market is used for "Market" label in details */}
                                         </p>
                                         <strong
                                             className={
@@ -453,64 +515,57 @@ export default function Page() {
                                             )}
                                         </strong>
                                     </div>
+
                                     <div className="flex justify-between">
                                         <p className="text-[var(--brand-grey-foreground)]">
-                                            Start date:
+                                            <T keyName={'common.startDate'} />
+                                            :{' '}
                                         </p>
                                         <strong>
                                             {selectedData?.account.startDate}
                                         </strong>
                                     </div>
+
                                     <div className="flex justify-between [&>p]:text-[var(--brand-grey-foreground)]">
-                                        <p>Deposit:</p>
+                                        <p>
+                                            <T keyName={'common.deposit'} />
+                                            :{' '}
+                                        </p>
                                         <strong>
                                             {selectedData?.account.deposit}
                                         </strong>
                                     </div>
+
                                     <div className="flex justify-between [&>p]:text-[var(--brand-grey-foreground)] [&>strong]:text-red-400">
-                                        <p>Withdraw:</p>
+                                        <p>
+                                            <T keyName={'common.withdraw'} />
+                                            :{' '}
+                                        </p>
                                         <strong>{priceFormat(-2000)} $</strong>
                                     </div>
                                 </div>
                                 <NavSeparator isTrigger={false} />
+
                                 <div className="flex flex-col space-y-1">
                                     <div className="flex justify-between items-center">
                                         <p className="text-[var(--brand-grey-foreground)] flex flex-row items-center">
-                                            Gain:
+                                            <T keyName={'common.gain'} />:{' '}
                                             <AppTooltips
                                                 contents={
                                                     <div className="max-w-[24rem] flex flex-col gap-2">
-                                                        <strong>Gain</strong>
+                                                        <strong>
+                                                            <T
+                                                                keyName={
+                                                                    'common.gain'
+                                                                }
+                                                            />{' '}
+                                                        </strong>
                                                         <p>
-                                                            Time-Weighted Return
-                                                            TWR performance
-                                                            dollar invested
-                                                            system inception
-                                                            measurement required
-                                                            Global Investment
-                                                            Performance
-                                                            Standards CFA
-                                                            Institute cash
-                                                            inflows outflows
-                                                            amounts periods
-                                                            impact return
-                                                            efficiency yield
-                                                            profit growth rate
-                                                            analysis evaluation
-                                                            metric standard
-                                                            benchmark finance
-                                                            investment portfolio
-                                                            rate return
-                                                            calculation
-                                                            assessment
-                                                            monitoring progress
-                                                            achievement success
-                                                            result outcome
-                                                            effectiveness
-                                                            productivity gain
-                                                            loss comparison
-                                                            study review
-                                                            appraisal valuation
+                                                            <T
+                                                                keyName={
+                                                                    'common.gainTooltip'
+                                                                }
+                                                            />
                                                         </p>
                                                     </div>
                                                 }
@@ -530,9 +585,13 @@ export default function Page() {
                                             +52.82%
                                         </strong>
                                     </div>
+
                                     <div className="flex justify-between">
                                         <p className="text-[var(--brand-grey-foreground)]">
-                                            Abs. Gain:
+                                            <T
+                                                keyName={'common.absoluteGain'}
+                                            />
+                                            :
                                         </p>
                                         <strong className="text-green-500">
                                             +46.94%
@@ -540,19 +599,21 @@ export default function Page() {
                                     </div>
                                     <div className="flex justify-between">
                                         <p className="text-[var(--brand-grey-foreground)]">
-                                            Daily:
+                                            <T keyName={'common.daily'} />:{' '}
                                         </p>
                                         <strong>0.14%</strong>
                                     </div>
                                     <div className="flex justify-between">
                                         <p className="text-[var(--brand-grey-foreground)]">
-                                            Monthly:
+                                            <T keyName={'common.monthly'} />
+                                            :{' '}
                                         </p>
                                         <strong>4.18%</strong>
                                     </div>
                                     <div className="flex justify-between [&>strong]:text-red-400">
                                         <p className="text-[var(--brand-grey-foreground)]">
-                                            Drawdown:
+                                            <T keyName={'common.drawdown'} />
+                                            :{' '}
                                         </p>
                                         <strong>
                                             {percentageFormat(-62.95)}
@@ -560,38 +621,82 @@ export default function Page() {
                                     </div>
                                 </div>
                                 <NavSeparator isTrigger={false} />
+
                                 <div className="flex flex-col space-y-1">
                                     <div className="flex justify-between">
                                         <p className="text-[var(--brand-grey-foreground)]">
-                                            Balance:
+                                            <T keyName={'common.balance'} />
+                                            :{' '}
                                         </p>
                                         <strong>156,176.88 USD</strong>
                                     </div>
+
                                     <div className="flex justify-between">
                                         <p className="text-[var(--brand-grey-foreground)]">
-                                            Equity:
+                                            <T keyName={'common.equity'} />
+                                            :{' '}
                                         </p>
                                         <strong>140,810.40 USD (90.16%)</strong>
                                     </div>
                                     <div className="flex justify-between">
                                         <p className="text-[var(--brand-grey-foreground)]">
-                                            Highest:
+                                            <T keyName={'common.highest'} />
+                                            :{' '}
                                         </p>
                                         <strong>
                                             156,176.88 USD (Apr 16, 2025)
                                         </strong>
                                     </div>
+
                                     <div className="flex justify-between">
                                         <p className="text-[var(--brand-grey-foreground)]">
-                                            Profit:
+                                            <T keyName={'common.profit'} />
+                                            :{' '}
                                         </p>
                                         <strong className="text-green-500">
                                             54,245.75 USD
                                         </strong>
                                     </div>
-                                    <div className="flex justify-between">
-                                        <p className="text-[var(--brand-grey-foreground)]">
-                                            Interest:
+                                    <div className="flex justify-between items-center">
+                                        <p className="text-[var(--brand-grey-foreground)] flex items-center">
+                                            <span>
+                                                <T
+                                                    keyName={
+                                                        'common.financingCost'
+                                                    }
+                                                />
+                                                :
+                                            </span>
+                                            <AppTooltips
+                                                contents={
+                                                    <div className="max-w-[24rem] flex flex-col gap-2">
+                                                        <strong>
+                                                            <T
+                                                                keyName={
+                                                                    'common.financingCost'
+                                                                }
+                                                            />{' '}
+                                                        </strong>
+                                                        <p>
+                                                            <T
+                                                                keyName={
+                                                                    'common.financingCostTooltip'
+                                                                }
+                                                            />
+                                                        </p>
+                                                    </div>
+                                                }
+                                                trigger={
+                                                    <Button
+                                                        variant="ghost"
+                                                        className={
+                                                            'dark:hover:bg-transparent dark:hover:text-[var(--brand-color)]'
+                                                        }
+                                                    >
+                                                        <Info className="size-3" />
+                                                    </Button>
+                                                }
+                                            />
                                         </p>
                                         <strong className="text-red-400">
                                             -347.25 USD

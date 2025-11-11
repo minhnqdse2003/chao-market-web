@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -14,6 +15,10 @@ import { useSidebar } from '@/components/ui/sidebar';
 import { useDisclaimerStore } from '@/stores/disclaimer.store';
 import { DISCLAIMER_ACTIONS } from '@/stores/actions/dislaimer.action';
 import { useI18n } from '@/context/i18n/context';
+import { useSession } from 'next-auth/react';
+import { useGetUserSettings } from '@/hooks/use-get-users-settings';
+import { useMutation } from '@tanstack/react-query';
+import { editUserSettings } from '@/services/user/get-user-setting';
 
 type DisclaimerSection = {
     title: string;
@@ -26,6 +31,15 @@ interface DisclaimerDialogProps {
 
 export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
     const { t } = useI18n();
+    const { data } = useSession();
+    const { data: userSettings } = useGetUserSettings(
+        (data?.user as unknown as any).id
+    );
+    const { mutate } = useMutation({
+        mutationFn: editUserSettings,
+        onSuccess: () => {},
+        onError: error => console.log(error.message),
+    });
     const disclaimerTitle = t('disclaimer.title');
     const sections = t('disclaimer.sections') as unknown as DisclaimerSection[];
     const conclusion = t('disclaimer.conclusion');
@@ -33,47 +47,17 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
     const alreadyAgreeButtonText = t('disclaimer.alreadyAgreeButton');
     const leaveButtonText = t('disclaimer.leaveButton');
 
-    const { isRead: isDisclaimerConfirm, dispatch } = useDisclaimerStore();
+    const {
+        isRead: isDisclaimerConfirmOnClient,
+        acceptedDate,
+        dispatch,
+    } = useDisclaimerStore();
     const [isOpen, setIsOpen] = useState(false);
     const { open: isSidebarOpen } = useSidebar();
     const [countdown, setCountdown] = useState(10);
     const [isFirstTime, setIsFirstTime] = useState(false);
     const autoCloseTimeout = useRef<NodeJS.Timeout | null>(null);
     const countdownInterval = useRef<NodeJS.Timeout | null>(null);
-
-    useEffect(() => {
-        const hasSeen = isDisclaimerConfirm;
-        if (!hasSeen) {
-            setIsOpen(true);
-            setIsFirstTime(true);
-            setCountdown(10);
-
-            countdownInterval.current = setInterval(() => {
-                setCountdown(prev => {
-                    if (prev <= 1) {
-                        if (countdownInterval.current) {
-                            clearInterval(countdownInterval.current);
-                            countdownInterval.current = null;
-                        }
-                        return 0;
-                    }
-                    return prev - 1;
-                });
-            }, 1000);
-
-            autoCloseTimeout.current = setTimeout(() => {
-                setIsOpen(false);
-                // sessionStorage is an alternative if needed, but your zustand store handles this
-            }, 10000);
-        }
-
-        return () => {
-            if (autoCloseTimeout.current)
-                clearTimeout(autoCloseTimeout.current);
-            if (countdownInterval.current)
-                clearInterval(countdownInterval.current);
-        };
-    }, []);
 
     const handleClose = () => {
         if (autoCloseTimeout.current) {
@@ -100,6 +84,55 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
     const countdownText = t('common.autoCloseMessage')
         .replace('{countdown}', countdown.toString())
         .replace('{plural}', countdown === 1 ? '' : 's');
+
+    useEffect(() => {
+        const hasSeen = isDisclaimerConfirmOnClient;
+        if (!hasSeen) {
+            setIsOpen(true);
+            setIsFirstTime(true);
+            setCountdown(10);
+
+            countdownInterval.current = setInterval(() => {
+                setCountdown(prev => {
+                    if (prev <= 1) {
+                        if (countdownInterval.current) {
+                            clearInterval(countdownInterval.current);
+                            countdownInterval.current = null;
+                        }
+                        return 0;
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
+
+            autoCloseTimeout.current = setTimeout(() => {
+                setIsOpen(false);
+            }, 10000);
+        }
+
+        return () => {
+            if (autoCloseTimeout.current)
+                clearTimeout(autoCloseTimeout.current);
+            if (countdownInterval.current)
+                clearInterval(countdownInterval.current);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (
+            data?.user &&
+            userSettings &&
+            acceptedDate !== null &&
+            userSettings.isDisclaimerAccepted === null
+        ) {
+            mutate({
+                updates: {
+                    isDisclaimerAccepted: acceptedDate,
+                },
+                userId: (data.user as unknown as any).id,
+            });
+        }
+    }, [data?.user, userSettings]);
 
     return (
         <Dialog open={isOpen} onOpenChange={handleClose}>
@@ -150,32 +183,34 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                             </div>
                         ))}
                     <p
-                        className="text-[var(--brand-grey-foreground)] pt-4 border-t border-[var(--brand-grey-foreground)]/20 dark:[&_*_a]:text-[var(--brand-color)] [&_*_a]:hover:underline"
+                        className="text-[var(--brand-grey-foreground)] pt-4 border-t border-[var(--brand-grey-foreground)]/20 [&_*_a]:text-brand-text dark:[&_*_a]:text-[var(--brand-color)] [&_*_a]:hover:underline"
                         dangerouslySetInnerHTML={{ __html: conclusion }}
                     />
                 </div>
 
-                {isDisclaimerConfirm && (
-                    <p className="text-base dark:text-[var(--brand-color)] text-brand-text text-center">
+                {isDisclaimerConfirmOnClient && (
+                    <p className="text-base dark:text-[var(--brand-color)] text-brand-text font-semibold">
                         {alreadyAgreeButtonText}
                     </p>
                 )}
 
                 <DialogFooter className="flex-row justify-center sm:justify-center gap-4">
-                    {!isDisclaimerConfirm && (
-                        <Button
-                            className="font-bold bg-[var(--brand-color)] text-black text-md hover:bg-[var(--brand-color)] w-fit transition-all! duration-300 ease-in-out"
-                            onClick={handleAgree}
-                        >
-                            {agreeButtonText}
-                        </Button>
+                    {!isDisclaimerConfirmOnClient && (
+                        <>
+                            <Button
+                                className="font-bold bg-[var(--brand-color)] text-black text-md hover:bg-[var(--brand-color)] w-fit transition-all! duration-300 ease-in-out"
+                                onClick={handleAgree}
+                            >
+                                {agreeButtonText}
+                            </Button>
+                            <a
+                                href="https://google.com"
+                                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-transparent border border-transparent dark:hover:text-[var(--brand-color)] text-brand-text"
+                            >
+                                {leaveButtonText}
+                            </a>
+                        </>
                     )}
-                    <a
-                        href="https://google.com"
-                        className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-transparent border border-transparent dark:hover:text-[var(--brand-color)] text-brand-text"
-                    >
-                        {leaveButtonText}
-                    </a>
                 </DialogFooter>
 
                 {isFirstTime && countdown > 0 && (

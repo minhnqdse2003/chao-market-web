@@ -12,6 +12,7 @@ import { useCallback, useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
+import { useI18n } from '@/context/i18n/context';
 
 interface AppDateRangePickerProps {
     onChange: (range: { startDate?: Date; endDate?: Date }) => void;
@@ -35,6 +36,7 @@ const AppDateRangePicker = ({
         start: false,
         end: false,
     });
+    const { t } = useI18n();
 
     const handleOpenPopover = useCallback(
         (key: keyof typeof open, value: boolean) => {
@@ -78,7 +80,7 @@ const AppDateRangePicker = ({
                         >
                             {value?.startDate
                                 ? format(value.startDate, 'dd-MM-yyyy')
-                                : 'Select start date'}
+                                : t('common.selectStartDate')}
                             <CalendarSearch />
                         </Button>
                     </PopoverTrigger>
@@ -145,7 +147,7 @@ const AppDateRangePicker = ({
                         >
                             {value?.endDate
                                 ? format(value.endDate, 'dd-MM-yyyy')
-                                : 'Select end date'}
+                                : t('common.selectEndDate')}
                             <CalendarSearch />
                         </Button>
                     </PopoverTrigger>

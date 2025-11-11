@@ -3,11 +3,12 @@ import { NewsType } from '../utils/data-utils';
 import Image from 'next/image';
 import NavSeparator from '@/components/nav-separator';
 import Link from 'next/link';
-import { dateTimeFormat } from '@/utils/date-time-format';
 import AppInteractionBlock from '@/components/app-interaction-block';
 import { endPointBuild } from '@/utils/end-point-build';
 import AppShareButton from '@/components/app-share-button';
 import { useI18n } from '@/context/i18n/context';
+import { T } from '@/components/app-translate';
+import AppDateTimeDisplayLocalized from '@/components/app-date-time-display-localized';
 
 const NewsComp = ({
     news,
@@ -58,7 +59,7 @@ const NewsComp = ({
                             {/* Description section */}
                             <div
                                 className={
-                                    'text-[var(--brand-grey-foreground)] font-semibold leading-relaxed'
+                                    'text-[var(--brand-grey-foreground)]  font-semibold leading-relaxed'
                                 }
                             >
                                 {item.description}
@@ -69,10 +70,17 @@ const NewsComp = ({
                         {/* Date & Reference source */}
                         <div className="flex w-fit text-sm gap-4 text-[var(--brand-grey-foreground)] font-medium">
                             <p className={'text-brand-text'}>
-                                Market: {item.market}
+                                <T keyName={'common.market'} />: {item.market}
                             </p>
-                            <p>{dateTimeFormat(new Date(item.date))}</p>
-                            <p>Source: {item.referenceSource}</p>
+                            <p>
+                                <AppDateTimeDisplayLocalized
+                                    date={new Date(item.date)}
+                                />
+                            </p>
+                            <p>
+                                <T keyName={'common.source'} />:{' '}
+                                {item.referenceSource}
+                            </p>
                         </div>
                         <AppShareButton slug={item.slug} />
                     </div>

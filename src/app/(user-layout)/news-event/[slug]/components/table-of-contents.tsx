@@ -21,7 +21,7 @@ interface Headline {
 }
 
 export function TableOfContents({ content }: TableOfContentsProps) {
-    const { locale } = useI18n();
+    const { locale, t } = useI18n();
 
     const headlines = useMemo<Headline[]>(() => {
         const extractedHeadlines: Headline[] = [];
@@ -64,7 +64,7 @@ export function TableOfContents({ content }: TableOfContentsProps) {
         >
             <AccordionItem value="item-1">
                 <AccordionTrigger className="text-lg cursor-pointer font-semibold">
-                    Table of Contents
+                    {t('common.tableOfContent')}
                 </AccordionTrigger>
                 <AccordionContent className="text-base font-thin leading-tight pt-4">
                     {headlines.length > 0 ? (

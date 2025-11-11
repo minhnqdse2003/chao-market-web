@@ -561,7 +561,7 @@ function InterestCalculator() {
                                 inputMode="decimal"
                                 label={
                                     locale === 'vi'
-                                        ? 'Vốn đầu tư ban đầu'
+                                        ? 'Vốn Đầu Tư Ban Đầu'
                                         : 'Starting Equity'
                                 }
                                 value={initialCapitalInput}
@@ -781,7 +781,7 @@ function InterestCalculator() {
                     <CardHeader>
                         <CardTitle>
                             {locale === 'vi'
-                                ? 'Biểu đồ dự báo đầu tư'
+                                ? 'Biểu Đồ Dự Báo Đầu Tư'
                                 : 'Investment Projection Chart'}
                         </CardTitle>
                         <CardDescription>
@@ -833,7 +833,7 @@ function InterestCalculator() {
                                         label={{
                                             value:
                                                 locale === 'vi'
-                                                    ? 'Vốn đầu tư'
+                                                    ? 'Vốn Đầu Tư'
                                                     : 'Equity',
                                             angle: -90,
                                             offset: 15,
@@ -901,10 +901,24 @@ function InterestCalculator() {
                                     <Tooltip
                                         formatter={value => [
                                             `$ ${Number(value).toLocaleString('en-US')}`,
-                                            'Value',
+                                            locale === 'vi'
+                                                ? 'Giá trị'
+                                                : 'Value',
                                         ]}
                                         labelFormatter={value =>
-                                            `${timeUnit === 'year' ? 'Year' : timeUnit === 'month' ? 'Month' : 'Day'} ${value}`
+                                            `${
+                                                timeUnit === 'year'
+                                                    ? locale === 'vi'
+                                                        ? 'Năm'
+                                                        : 'Year'
+                                                    : timeUnit === 'month'
+                                                      ? locale === 'vi'
+                                                          ? 'Tháng'
+                                                          : 'Month'
+                                                      : locale === 'vi'
+                                                        ? 'Ngày'
+                                                        : 'Day'
+                                            } ${value}`
                                         }
                                         contentStyle={{
                                             background: '#25252540',
@@ -927,7 +941,7 @@ function InterestCalculator() {
                                         activeDot={{ r: 8 }}
                                         name={
                                             locale === 'vi'
-                                                ? 'Giá trị tài khoản'
+                                                ? 'Giá Trị Tài Khoản'
                                                 : 'Account Value'
                                         }
                                     />
@@ -939,7 +953,7 @@ function InterestCalculator() {
                             <div className="p-3 text-brand-text rounded-md">
                                 <p className="text-sm">
                                     {locale === 'vi'
-                                        ? 'Giá trị đầu tư ban đầu'
+                                        ? 'Giá Trị Đầu Tư Ban Đầu'
                                         : 'Starting Investment'}
                                 </p>
                                 <p className="font-bold dark:text-[var(--brand-color)]">
@@ -958,7 +972,19 @@ function InterestCalculator() {
                                     {timeValueInput ? (
                                         <>
                                             {timeValue}{' '}
-                                            {`${timeUnit}${timeValue !== 1 ? 's' : ''}`}
+                                            {`${
+                                                timeUnit === 'year'
+                                                    ? locale === 'vi'
+                                                        ? 'Năm'
+                                                        : 'Year'
+                                                    : timeUnit === 'month'
+                                                      ? locale === 'vi'
+                                                          ? 'Tháng'
+                                                          : 'Month'
+                                                      : locale === 'vi'
+                                                        ? 'Ngày'
+                                                        : 'Day'
+                                            }${timeValue !== 1 && locale !== 'vi' ? 's' : ''}`}
                                         </>
                                     ) : (
                                         <T keyName={'tool.valueIsNowEmpty'} />
@@ -975,7 +1001,17 @@ function InterestCalculator() {
                                     {growthRateInput ? (
                                         <>
                                             {formatNumber(growthRate)} %/
-                                            {growthUnit}
+                                            {growthUnit === 'year'
+                                                ? locale === 'vi'
+                                                    ? 'Năm'
+                                                    : 'Year'
+                                                : growthUnit === 'month'
+                                                  ? locale === 'vi'
+                                                      ? 'Tháng'
+                                                      : 'Month'
+                                                  : locale === 'vi'
+                                                    ? 'Ngày'
+                                                    : 'Day'}
                                         </>
                                     ) : (
                                         <T keyName={'tool.valueIsNowEmpty'} />
@@ -985,7 +1021,7 @@ function InterestCalculator() {
                             <div className="p-3 text-brand-text rounded-md">
                                 <p className="text-sm">
                                     {locale === 'vi'
-                                        ? 'Giá trị cuối kỳ'
+                                        ? 'Giá Trị Cuối Kỳ'
                                         : 'Final Value'}
                                 </p>
                                 <p className="font-bold dark:text-[var(--brand-color)]">

@@ -67,9 +67,12 @@ export interface AuthValidationTranslations {
     emailInvalid: string;
     passwordTooShort: string;
     passwordsDoNotMatch: string;
+    passwordRequired: string;
     genderOtherRequired: string;
     dobInPast: string;
     dobRequired: string;
     genderRequired: string;
     ageRequirement: string;
+    emailRequired: string;
+    phoneNumberRequired: string;
 }

@@ -19,7 +19,6 @@ import TabAuthMode from '@/app/(user-layout)/auth/components/tab-auth-mode';
 import { sendOtpCode } from '@/services/auth';
 import { SignUpFormData, signUpSchema } from '@/schema/auth-schema';
 import { OtpVerificationFormProps } from '@/app/(user-layout)/auth/components/otp-verification-form';
-import { Checkbox } from '@/components/ui/checkbox';
 import { FloatingLabelInput } from '@/components/ui/floating-input';
 import SocialLogin from '@/app/(user-layout)/auth/components/social-login';
 import { AppDatePicker } from '@/components/app-date-picker';
@@ -39,7 +38,7 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
     const [success, setSuccess] = useState('');
     const [termsAccepted, setTermsAccepted] = useState(false);
 
-    const { locale } = useI18n();
+    const { t, locale } = useI18n();
 
     const form = useForm<SignUpFormData>({
         resolver: zodResolver(signUpSchema),
@@ -428,7 +427,7 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                         </div>
 
                         <div className="flex items-start space-x-3 mt-4">
-                            <Checkbox
+                            {/* <Checkbox
                                 id="terms"
                                 checked={termsAccepted}
                                 onCheckedChange={checked => {
@@ -441,7 +440,27 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                     }
                                 }}
                                 className="mt-1 rounded-full dark:data-[state=checked]:bg-[var(--brand-color)] dark:border-none"
-                            />
+                            /> */}
+                            <RadioGroup
+                                value={String(termsAccepted)}
+                                onValueChange={value => {
+                                    setTermsAccepted(Boolean(value));
+                                    console.log(Boolean(value));
+
+                                    if (
+                                        Boolean(value) &&
+                                        error === 'auth.termsNotAccepted'
+                                    ) {
+                                        setError('');
+                                    }
+                                }}
+                            >
+                                <RadioGroupItem
+                                    value="true"
+                                    id="terms"
+                                    className="cursor-pointer"
+                                />
+                            </RadioGroup>
                             <label
                                 htmlFor="terms"
                                 className="text-sm cursor-pointer text-[var(--brand-grey-foreground)] dark:text-white"
@@ -449,7 +468,7 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                 <T keyName="auth.termsAgreement.start" />{' '}
                                 <span
                                     className={
-                                        'dark:text-[var(--brand-color)] font-medium'
+                                        'dark:text-[var(--brand-color)] text-brand-text font-medium'
                                     }
                                 >
                                     <T
@@ -501,22 +520,26 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                             {loading ? (
                                 <LoadingComponent />
                             ) : (
-                                <T keyName="auth.signup" />
+                                <p className="first-letter:uppercase">
+                                    {t('auth.signup').toLocaleLowerCase()}
+                                </p>
                             )}
                         </Button>
                     </form>
                 </Form>
                 <div className="text-center mt-4">
                     <SocialLogin />
-                    <p className="text-lg text-brand-text font-medium">
+                    <div className="text-lg text-brand-text font-medium flex gap-2 justify-center items-center">
                         <T keyName="auth.alreadyHaveAccount" />{' '}
                         <Link
                             href="/auth/login"
                             className="dark:text-[var(--brand-color)] font-semibold text-black hover:underline"
                         >
-                            <T keyName="auth.login" />
+                            <p className="first-letter:uppercase">
+                                {t('auth.login').toLocaleLowerCase()}
+                            </p>
                         </Link>
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>

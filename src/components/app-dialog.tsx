@@ -18,6 +18,8 @@ interface DialogProps {
     triggerClassName?: string;
     contentContainerClassName?: string;
     floatingCloseButton?: ReactNode;
+    open?: boolean;
+    onOpenChange?: (open: boolean) => void;
 }
 
 const AppDialog = ({
@@ -28,9 +30,11 @@ const AppDialog = ({
     triggerClassName = '',
     contentContainerClassName = '',
     floatingCloseButton,
+    onOpenChange,
+    open,
 }: DialogProps) => {
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogTrigger
                 className={
                     'dark:data-[state=open]:text-[var(--brand-color)] data-[state=open]:text-brand-text'

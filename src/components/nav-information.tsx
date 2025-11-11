@@ -123,6 +123,8 @@ const LanguageSwitcher = () => {
 
 const NavInformation = () => {
     const path = usePathname();
+    const { t } = useI18n();
+
     return (
         <SidebarGroup className="px-2 mb-8">
             <SidebarMenu>
@@ -134,7 +136,7 @@ const NavInformation = () => {
                         className="data-[active=true]:border-l-6 dark:data-[active=true]:border-[var(--brand-color)] data-[active=true]:border-black rounded-none"
                     >
                         <PhoneCall className="mr-2 h-4 w-4" />
-                        <span>Contacts</span>
+                        <span>{t('common.contacts')}</span>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>

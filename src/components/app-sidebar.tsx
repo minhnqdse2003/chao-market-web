@@ -45,7 +45,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
                 name: 'Chào Market',
                 logo: GalleryVerticalEnd,
-                plan: 'Manage Your Risk',
+                plan: t('sidebar.brandGoal'),
             },
         ],
         items: [
@@ -279,12 +279,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                 }
                                 tooltip={
                                     <p className={'font-semibold'}>
-                                        Disclaimer
+                                        {t('disclaimer.title')}
                                     </p>
                                 }
                             >
                                 <Info className={'h-4 w-4'} />
-                                <span>Disclaimer</span>
+                                <span>
+                                    {t('disclaimer.triggerDialogContent')}
+                                </span>
                             </SidebarMenuButton>
                         }
                     />

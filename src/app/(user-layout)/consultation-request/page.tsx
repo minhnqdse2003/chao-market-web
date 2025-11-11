@@ -10,7 +10,7 @@ import CheckOutTransactionForm, {
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import React, { use, useCallback, useEffect, useMemo } from 'react';
-import { redirect, useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import {
     useConsultationRequest,
     useConsultationServices,
@@ -49,7 +49,6 @@ export default function CartItemsPage({ searchParams }: PageProps) {
 
     const { open } = useSidebar();
     const { t, locale } = useI18n();
-    const router = useRouter();
 
     // Cart hooks
     const requestConsultationMutation = useConsultationRequest();
@@ -83,16 +82,11 @@ export default function CartItemsPage({ searchParams }: PageProps) {
             const formatDob = data.dateOfBirth
                 ? new Date(data.dateOfBirth)
                 : undefined;
-            const result = await requestConsultationMutation.mutateAsync({
+            await requestConsultationMutation.mutateAsync({
                 ...data,
                 dateOfBirth: formatDob,
                 consultationProductIds: selectedItems,
             } as PayloadConsultationRequest);
-
-            if (result.data) {
-                console.log('Checkout successful:', result.data);
-                router.push('/cart-items/complete');
-            }
         } catch (error) {
             console.error('Error submitting form:', error);
         }
@@ -136,12 +130,9 @@ export default function CartItemsPage({ searchParams }: PageProps) {
                 <div className="w-full flex justify-between items-center mb-6">
                     <div>
                         <h1 className="text-xl dark:text-[var(--brand-color)] text-black font-bold">
-                            Our Solutions:
+                            {t('ourSolutions.common.title')}:
                         </h1>
-                        <p>
-                            Please select the solutions you would like to be
-                            consulted on.{' '}
-                        </p>
+                        <p>{t('consultationRequest.describeOurSolution')}</p>
                     </div>
                 </div>
 
@@ -211,7 +202,7 @@ export default function CartItemsPage({ searchParams }: PageProps) {
                                                   key={index}
                                                   className="text-xs flex items-start"
                                               >
-                                                  <span className="mr-2">
+                                                  <span className="mr-2 text-[var(--brand-grey-foreground)]">
                                                       •
                                                   </span>
                                                   <span>
@@ -238,12 +229,13 @@ export default function CartItemsPage({ searchParams }: PageProps) {
                                 height={1080}
                                 className="object-contain w-full max-w-3/10 h-[12rem]"
                             />
-                            Your cart is empty
+                            {t('common.contacts')}{' '}
+                            {/* Sử dụng chung, nên dùng t() cho "Your cart is empty" nếu có key */}
                             <Button
                                 onClick={() => redirect('/our-solutions')}
                                 className="bg-[var(--brand-color)] text-black rounded-3xl font-semibold hover:bg-transparent hover:text-[var(--brand-color)] hover:border-[var(--brand-color)] border border-transparent transition-all! duration-300 ease-in-out"
                             >
-                                Continue to Your Services
+                                {t('ourSolutions.common.getStarted')}
                             </Button>
                         </div>
                     )}
@@ -253,9 +245,9 @@ export default function CartItemsPage({ searchParams }: PageProps) {
             <div className="w-1/2 max-w-1/2 flex flex-col overflow-hidden">
                 <div className={'mb-6 w-fit'}>
                     <h1 className="text-xl text-brand-text dark:text-[var(--brand-color)] font-bold">
-                        Your Information:
+                        {t('consultationRequest.yourInformation.title')}
                     </h1>
-                    <p>Please tell us about yourself.</p>
+                    <p>{t('consultationRequest.yourInformation.prompt')}</p>
                 </div>
                 <CheckOutTransactionForm
                     onSubmit={handleSubmit}

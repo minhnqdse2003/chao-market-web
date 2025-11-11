@@ -6,11 +6,12 @@ import { notFound } from 'next/navigation';
 import { getPost } from '@/app/api/posts';
 import { TableOfContents } from '@/app/(user-layout)/news-event/[slug]/components/table-of-contents';
 import { Clock } from 'lucide-react';
-import { dateTimeFormat } from '@/utils/date-time-format';
 import AppInteractionBlock from '@/components/app-interaction-block';
 import TagsAccordion from '@/app/(user-layout)/news-event/[slug]/components/tags';
 import { Localized } from '@/types/localized';
 import AppLocalizeRender from '@/components/app-localize-render';
+import { T } from '@/components/app-translate';
+import AppDateTimeDisplayLocalized from '@/components/app-date-time-display-localized';
 
 export interface PageProps {
     params: {
@@ -92,17 +93,26 @@ export default async function NewsEventPage({ params }: PageProps) {
                         }
                     >
                         <Clock className={'size-4'} />
-                        {post.readingTime} min read
+                        {post.readingTime} <T keyName={'common.minRead'} />
                     </div>
                     <h1 className="text-3xl font-bold">
                         <AppLocalizeRender contents={post.title as Localized} />
                     </h1>
                     <div className="flex items-center text-[var(--brand-grey-foreground)]">
-                        <span>Market: {post.market}</span>
+                        <span>
+                            <T keyName={'common.market'} />: {post.market}
+                        </span>
                         <span className={'mx-2'} />
-                        <span>{dateTimeFormat(new Date(post.createdAt))}</span>
+                        <span>
+                            <AppDateTimeDisplayLocalized
+                                date={new Date(post.createdAt)}
+                            />
+                        </span>
                         <span className={'mx-2'} />
-                        <span>Source: {post.referenceSource}</span>
+                        <span>
+                            <T keyName={'common.source'} />:{' '}
+                            {post.referenceSource}
+                        </span>
                     </div>
                     <AppInteractionBlock
                         like={post.likes}

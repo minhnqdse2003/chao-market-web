@@ -21,6 +21,7 @@ interface RssConfigProps {
 export type MarketConfigProps = {
     tabs: Array<RssConfigProps>;
     financialNews: Array<RssConfigProps>;
+    socials: Array<RssConfigProps>;
 };
 
 // Optional: Define a stricter type for your config (recommended!)

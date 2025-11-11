@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { ReactNode } from 'react';
 
 export interface TabServerSide {
-    title: string;
+    title: string | ReactNode;
     href: string;
 }
 

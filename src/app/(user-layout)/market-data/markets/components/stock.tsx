@@ -188,11 +188,11 @@ const DARK_THEME_CONFIG_STOCK_HEATMAP = {
 };
 
 const LIGHT_THEME_CONFIG_FOREX_HEATMAP = {
-    colorTheme: 'dark',
-    isTransparent: true,
+    colorTheme: 'light',
+    isTransparent: false,
     locale: 'en',
     currencies: ['EUR', 'USD', 'JPY', 'GBP', 'CHF', 'AUD', 'CAD', 'NZD', 'CNY'],
-    backgroundColor: '#0F0F0F',
+    backgroundColor: '#FFFFFF',
     width: '100%',
     height: 800,
 };
@@ -209,7 +209,7 @@ const LIGHT_THEME_CONFIG_CRYPTO_HEATMAP = {
     blockColor: '24h_close_change|5',
     locale: 'en',
     symbolUrl: '',
-    colorTheme: 'dark',
+    colorTheme: 'light',
     hasTopBar: false,
     isDataSetEnabled: false,
     isZoomEnabled: true,
@@ -711,71 +711,6 @@ function Chart({ type }: { type: MARKET_TYPES }) {
         </div>
     );
 }
-
-// function News({ type }: { type: MARKET_TYPES }) {
-//     const container = useRef<HTMLDivElement>(null);
-//     const { theme } = useTheme();
-//
-//     const getCurrentThemeConfig = useCallback(() => {
-//         const isDarkTheme = theme === 'dark';
-//         switch (type) {
-//             case 'crypto':
-//                 return isDarkTheme
-//                     ? DARK_THEME_CONFIG_CRYPTOCURRENCIES_NEWS
-//                     : LIGHT_THEME_CONFIG_CRYPTOCURRENCIES_NEWS;
-//             case 'commodities':
-//                 return isDarkTheme
-//                     ? DARK_THEME_CONFIG_COMMODITIES_NEWS
-//                     : LIGHT_THEME_CONFIG_COMMODITIES_NEWS;
-//             case 'currencies':
-//                 return isDarkTheme
-//                     ? DARK_THEME_CONFIG_CURRENCIES_NEWS
-//                     : LIGHT_THEME_CONFIG_CURRENCIES_NEWS;
-//             case 'us':
-//             default:
-//                 return isDarkTheme
-//                     ? DARK_THEME_CONFIG_NEWS
-//                     : LIGHT_THEME_CONFIG_NEWS;
-//         }
-//     }, []);
-//
-//     useEffect(() => {
-//         if (container.current) {
-//             container.current.innerHTML = '';
-//         }
-//
-//         const script = document.createElement('script');
-//         script.src =
-//             'https://s3.tradingview.com/external-embedding/embed-widget-timeline.js';
-//         script.type = 'text/javascript';
-//         script.async = true;
-//         const config = getCurrentThemeConfig();
-//
-//         const configWithModifiedHeight = {
-//             ...config,
-//             height: calculateAdjustedHeight(),
-//         };
-//
-//         script.innerHTML = JSON.stringify(configWithModifiedHeight);
-//         if (container.current) container.current.appendChild(script);
-//         return () => {
-//             if (container.current) {
-//                 container.current.innerHTML = '';
-//             }
-//         };
-//     }, [theme]);
-//
-//     return (
-//         <div
-//             className="tradingview-widget-container"
-//             ref={container}
-//             style={{ width: '100%', height: '35rem' }}
-//             id={'trading-container-news'}
-//         >
-//             <div className="tradingview-widget-container__widget"></div>
-//         </div>
-//     );
-// }
 
 function NewsWithRssApple({
     type,

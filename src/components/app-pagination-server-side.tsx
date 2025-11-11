@@ -78,14 +78,7 @@ export function Pagination({
             </div>
 
             {/* Desktop View */}
-            <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between animate-slideUp">
-                <div>
-                    <p className="text-sm text-[var(--brand-color)]">
-                        Showing page{' '}
-                        <span className="font-medium">{currentPage}</span> of{' '}
-                        <span className="font-medium">{totalPages}</span>
-                    </p>
-                </div>
+            <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-end animate-slideUp">
                 <div>
                     <nav
                         className="isolate inline-flex -space-x-px rounded-md shadow-sm"

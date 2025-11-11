@@ -8,4 +8,5 @@ export interface DisclaimerTranslation {
     agreeButton: string;
     alreadyAgreeButton: string;
     leaveButton: string;
+    triggerDialogContent: string;
 }

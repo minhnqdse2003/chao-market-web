@@ -3,13 +3,7 @@
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { useState, useEffect } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -17,24 +11,28 @@ import { UserProfile } from '@/db/schema';
 import { FloatingLabelInput } from '@/components/ui/floating-input';
 import { AppDatePicker } from '@/components/app-date-picker';
 import { Label } from '@/components/ui/label';
+import { useI18n } from '@/context/i18n/context';
+import { TranslatedFormMessage } from '@/components/app-translation-message-error';
 
-// Define the validation schema
 const checkoutSchema = z
     .object({
-        firstName: z.string().min(1, 'First name is required'),
-        lastName: z.string().min(1, 'Last name is required'),
+        firstName: z.string().min(1, 'auth.validation.firstNameRequired'),
+        lastName: z.string().min(1, 'auth.validation.lastNameRequired'),
         dateOfBirth: z
-            .date('Invalid date format')
+            .date('auth.validation.dateInvalidFormat') // New specific key for date format error
             .optional()
             .refine(date => !date || date < new Date(), {
-                message: 'Date of birth must be in the past',
+                message: 'auth.validation.dobInPast',
             }),
-        email: z.email('Invalid email address').min(1, 'Email is required'),
-        phoneNumber: z.string().min(1, 'Phone number is required'),
+        email: z
+            .string()
+            .email('validation.invalidEmail')
+            .min(1, 'auth.validation.emailRequired'), // Use generic validation key for email format error, specific for required
+        phoneNumber: z.string().min(1, 'auth.validation.phoneNumberRequired'), // KHÓA MỚI
         socialNetwork: z.string().optional(),
         contactMethods: z
             .array(z.string())
-            .min(1, 'At least one contact method is required'),
+            .min(1, 'consultationRequest.validation.contactMethodRequired'), // KHÓA MỚI
         message: z.string().optional(),
     })
     .refine(
@@ -49,10 +47,11 @@ const checkoutSchema = z
         },
         {
             message:
-                'Social network is required when selected as contact method',
+                'consultationRequest.validation.socialNetworkRequiredWhenSelected', // KHÓA MỚI cho refine error
             path: ['socialNetwork'],
         }
     );
+
 export type CheckoutFormData = z.infer<typeof checkoutSchema>;
 
 interface CheckOutTransactionFormProps {
@@ -67,6 +66,7 @@ export default function CheckOutTransactionForm({
     initialData,
 }: CheckOutTransactionFormProps) {
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { t } = useI18n();
 
     // Create form instance with Zod resolver
     const form = useForm<CheckoutFormData>({
@@ -126,16 +126,21 @@ export default function CheckOutTransactionForm({
                 <FormField
                     control={form.control}
                     name="firstName"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                         <FormItem>
                             <FormControl>
                                 <FloatingLabelInput
-                                    label="First name "
+                                    label={
+                                        t('common.firstName') + ' ' ||
+                                        'First name '
+                                    }
                                     {...field}
                                     className="app-text-input"
                                 />
                             </FormControl>
-                            <FormMessage />
+                            <TranslatedFormMessage
+                                message={fieldState.error?.message}
+                            />
                         </FormItem>
                     )}
                 />
@@ -144,16 +149,21 @@ export default function CheckOutTransactionForm({
                 <FormField
                     control={form.control}
                     name="lastName"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                         <FormItem>
                             <FormControl>
                                 <FloatingLabelInput
-                                    label="Last name "
+                                    label={
+                                        t('common.lastName') + ' ' ||
+                                        'Last name '
+                                    }
                                     {...field}
                                     className="app-text-input"
                                 />
                             </FormControl>
-                            <FormMessage />
+                            <TranslatedFormMessage
+                                message={fieldState.error?.message}
+                            />
                         </FormItem>
                     )}
                 />
@@ -162,7 +172,7 @@ export default function CheckOutTransactionForm({
                 <FormField
                     control={form.control}
                     name="dateOfBirth"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                         <FormItem>
                             <FormControl>
                                 <AppDatePicker
@@ -170,13 +180,18 @@ export default function CheckOutTransactionForm({
                                     buttonClass={
                                         'w-full dark:bg-transparent dark:hover:bg-transparent'
                                     }
-                                    label={'Birthday (optional)'}
+                                    label={
+                                        t('common.dateOfBirth') ||
+                                        'Birthday (optional)'
+                                    }
                                     isFloatingLabel={true}
                                     isMarginVisible={false}
                                     {...field}
                                 />
                             </FormControl>
-                            <FormMessage />
+                            <TranslatedFormMessage
+                                message={fieldState.error?.message}
+                            />
                         </FormItem>
                     )}
                 />
@@ -185,17 +200,22 @@ export default function CheckOutTransactionForm({
                 <FormField
                     control={form.control}
                     name="email"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                         <FormItem>
                             <FormControl>
                                 <FloatingLabelInput
                                     type="email"
-                                    label="Email address "
+                                    label={
+                                        t('common.emailAddress') + ' ' ||
+                                        'Email address '
+                                    }
                                     {...field}
                                     className="app-text-input"
                                 />
                             </FormControl>
-                            <FormMessage />
+                            <TranslatedFormMessage
+                                message={fieldState.error?.message}
+                            />
                         </FormItem>
                     )}
                 />
@@ -204,17 +224,22 @@ export default function CheckOutTransactionForm({
                 <FormField
                     control={form.control}
                     name="phoneNumber"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                         <FormItem>
                             <FormControl>
                                 <FloatingLabelInput
                                     type="number"
-                                    label="Phone number "
+                                    label={
+                                        t('common.phoneNumber') + ' ' ||
+                                        'Phone number '
+                                    }
                                     {...field}
                                     className="app-text-input"
                                 />
                             </FormControl>
-                            <FormMessage />
+                            <TranslatedFormMessage
+                                message={fieldState.error?.message}
+                            />
                         </FormItem>
                     )}
                 />
@@ -223,16 +248,21 @@ export default function CheckOutTransactionForm({
                 <FormField
                     control={form.control}
                     name="socialNetwork"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                         <FormItem>
                             <FormControl>
                                 <FloatingLabelInput
-                                    label="Social network (optional)"
+                                    label={
+                                        t('common.socialNetwork ') ||
+                                        'Social network (optional)'
+                                    }
                                     {...field}
                                     className="app-text-input"
                                 />
                             </FormControl>
-                            <FormMessage />
+                            <TranslatedFormMessage
+                                message={fieldState.error?.message}
+                            />
                         </FormItem>
                     )}
                 />
@@ -241,16 +271,18 @@ export default function CheckOutTransactionForm({
                 <FormField
                     control={form.control}
                     name="contactMethods"
-                    render={() => (
+                    render={({ field, fieldState }) => (
                         <FormItem className="space-y-2">
-                            <div className="text-sm font-medium">
-                                How would you like us to contact you?
+                            <div className="text-sm font-medium text-[var(--brand-grey-foreground)]">
+                                {t(
+                                    'consultationRequest.contactMethod.prompt'
+                                ) || 'How would you like us to contact you?'}
                             </div>
                             <div className="flex flex-wrap gap-4">
                                 <FormField
                                     control={form.control}
                                     name="contactMethods"
-                                    render={({ field }) => (
+                                    render={() => (
                                         <FormItem className="flex items-center space-x-2">
                                             <Checkbox
                                                 id="email"
@@ -276,7 +308,7 @@ export default function CheckOutTransactionForm({
                                                 }}
                                                 className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
                                             />
-                                            <label
+                                            <Label
                                                 htmlFor="email"
                                                 className={`text-sm font-medium cursor-pointer transition-all! duration-200 ease-in-out ${
                                                     field.value?.includes(
@@ -286,15 +318,17 @@ export default function CheckOutTransactionForm({
                                                         : 'text-[var(--brand-grey-foreground)]'
                                                 }`}
                                             >
-                                                Email
-                                            </label>
+                                                {t(
+                                                    'consultationRequest.contactMethod.email'
+                                                ) || 'Email'}
+                                            </Label>
                                         </FormItem>
                                     )}
                                 />
                                 <FormField
                                     control={form.control}
                                     name="contactMethods"
-                                    render={({ field }) => (
+                                    render={() => (
                                         <FormItem className="flex items-center space-x-2">
                                             <Checkbox
                                                 id="phone"
@@ -320,7 +354,7 @@ export default function CheckOutTransactionForm({
                                                 }}
                                                 className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
                                             />
-                                            <label
+                                            <Label
                                                 htmlFor="phone"
                                                 className={`text-sm font-medium cursor-pointer transition-all! duration-200 ease-in-out ${
                                                     field.value?.includes(
@@ -330,15 +364,17 @@ export default function CheckOutTransactionForm({
                                                         : 'text-[var(--brand-grey-foreground)]'
                                                 }`}
                                             >
-                                                Phone
-                                            </label>
+                                                {t(
+                                                    'consultationRequest.contactMethod.phone'
+                                                ) || 'Phone'}
+                                            </Label>
                                         </FormItem>
                                     )}
                                 />
                                 <FormField
                                     control={form.control}
                                     name="contactMethods"
-                                    render={({ field }) => (
+                                    render={() => (
                                         <FormItem className="flex items-center space-x-2">
                                             <Checkbox
                                                 id="social-network"
@@ -364,7 +400,7 @@ export default function CheckOutTransactionForm({
                                                 }}
                                                 className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
                                             />
-                                            <label
+                                            <Label
                                                 htmlFor="social-network"
                                                 className={`text-sm font-medium cursor-pointer transition-all! duration-200 ease-in-out ${
                                                     field.value?.includes(
@@ -374,13 +410,17 @@ export default function CheckOutTransactionForm({
                                                         : 'text-[var(--brand-grey-foreground)]'
                                                 }`}
                                             >
-                                                Social network
-                                            </label>
+                                                {t(
+                                                    'consultationRequest.contactMethod.socialNetwork'
+                                                ) || 'Social network'}
+                                            </Label>
                                         </FormItem>
                                     )}
                                 />
                             </div>
-                            <FormMessage />
+                            <TranslatedFormMessage
+                                message={fieldState.error?.message}
+                            />
                         </FormItem>
                     )}
                 />
@@ -389,7 +429,7 @@ export default function CheckOutTransactionForm({
                 <FormField
                     control={form.control}
                     name="message"
-                    render={({ field }) => {
+                    render={({ field, fieldState }) => {
                         const hasValue = Boolean(field.value);
 
                         return (
@@ -413,11 +453,15 @@ export default function CheckOutTransactionForm({
                                 ${field.value ? 'peer-focus:secondary peer-focus:dark:secondary' : ''}
                             `}
                                         >
-                                            Your message (optional)
+                                            {t(
+                                                'consultationRequest.yourMessage.label'
+                                            ) || 'Your message (optional)'}
                                         </Label>
                                     </div>
                                 </FormControl>
-                                <FormMessage />
+                                <TranslatedFormMessage
+                                    message={fieldState.error?.message}
+                                />
                             </FormItem>
                         );
                     }}
@@ -431,11 +475,12 @@ export default function CheckOutTransactionForm({
                         type="button"
                         onClick={form.handleSubmit(handleSubmit)}
                         disabled={isSubmitting || isDisableSubmitButton}
-                        className="dark:bg-[var(--brand-color)] px-6 py-2 rounded-md disabled:opacity-75 disabled:text-[var(--brand-color)] transition-all! duration-300 ease-in-out font-semibold text-brand-text hover:bg-[var(--brand-color)] not-disabled:cursor-pointer dark:text-black"
+                        className="dark:bg-[var(--brand-color)] px-6 py-2 rounded-md disabled:opacity-75 disabled:text-[var(--brand-color)] transition-all! duration-300 ease-in-out font-semibold text-brand-text hover:bg-[var(--brand-color)] not-disabled:cursor-pointer dark:text-black bg-[var(--brand-color)]"
                     >
                         {isSubmitting
-                            ? 'Processing...'
-                            : 'Request A Consultation'}
+                            ? t('common.sending')
+                            : t('consultationRequest.requestButton') ||
+                              'Request A Consultation'}
                     </button>
                 </div>
             </form>

@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import { useHistoryStore } from '@/stores/history-tracker.store';
 import { usePerformanceStatisticStore } from '@/stores/performance-statistic.store';
 import { PERFORMANCE_STATISTIC_DIALOG_ACTIONS } from '@/stores/actions/performance-statistic.action';
+import AppDialog from '@/components/app-dialog';
 
 export function GuestPerformanceNoticeDialog() {
     const { status } = useSession();
@@ -64,20 +65,26 @@ export function GuestPerformanceNoticeDialog() {
                 <Link
                     href={'/terms-of-use'}
                     className={
-                        'dark:text-[var(--brand-color)] hover:underline font-bold'
+                        'dark:text-[var(--brand-color)] text-brand-text hover:underline font-bold'
                     }
                 >
                     {noticeMember.linkTerms}
                 </Link>
                 .
             </p>
-            <div className={'flex justify-center items-center w-full'}>
-                <p
-                    className={
-                        'dark:text-[var(--brand-color)] text-brand-tex w-full text-center'
-                    }
-                >
-                    {noticeMember.alreadyAgreeButton}.
+            <div
+                className={
+                    'flex justify-start font-semibold items-center w-full'
+                }
+            >
+                <p>
+                    <span
+                        className={
+                            'dark:text-[var(--brand-color)] text-brand-text w-full text-center'
+                        }
+                    >
+                        {noticeMember.alreadyAgreeButton}
+                    </span>
                 </p>
             </div>
         </div>
@@ -134,23 +141,22 @@ export function GuestPerformanceNoticeDialog() {
                         description: descriptionGuestJsx,
                     }}
                     onClickCloseIcon={handleRedirectOnClickAcceptButton}
-                    contentClassName={'w-fit min-w-fit]'}
+                    contentClassName={'w-fit min-w-fit'}
                 />
             )}
             {isNoticeOpen && (
-                <AppAlertDialog
+                <AppDialog
                     open={isNoticeOpen}
-                    onOpenChange={open => {
-                        handleOnOpenChange(open, 'member');
-                    }}
-                    content={{
-                        title: noticeMember.title,
-                        description: descriptionMemberJsx,
-                    }}
-                    onClickCloseIcon={() => {
-                        handleOnOpenChange(false, 'member');
-                    }}
-                    contentClassName={'w-fit'}
+                    onOpenChange={open => handleOnOpenChange(open, 'member')}
+                    trigger={<></>}
+                    headerContent={
+                        <h2 className="text-lg font-semibold">
+                            {noticeMember.title}
+                        </h2>
+                    }
+                    mainContent={descriptionMemberJsx}
+                    footerContent={<></>}
+                    contentContainerClassName="w-fit min-w-[50svw] max-w-[800px]"
                 />
             )}
         </>

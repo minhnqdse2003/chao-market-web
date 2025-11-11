@@ -13,4 +13,5 @@ export interface SidebarTranslations {
     videos: string;
     images: string;
     membersOnly: string;
+    brandGoal: string;
 }

@@ -3,13 +3,14 @@ import AppDialog from '@/components/app-dialog';
 import { Button } from '@/components/ui/button';
 import { ListFilter, SearchIcon } from 'lucide-react';
 import React from 'react';
-import AppFilterSelect from '@/components/app-filter-select';
+import AppFilterSelect, {
+    AppFilterOptionsType,
+} from '@/components/app-filter-select';
 import AppDateRangePicker from '@/components/app-date-range-picker';
 import { BaseFilterParams, useFilter } from '@/hooks/use-filter';
-import { TIME_OPTIONS, SOURCE_OPTIONS } from '../utils/filter-options';
-import AppDropdown from '@/components/app-dropdown';
-import { SORT_BY_OPTIONS_NEWS_EVENT } from '@/constant/dropdown-filter-options';
+import AppDropdown, { DropdownOption } from '@/components/app-dropdown';
 import { AutosizeTextarea } from '@/components/auto-resize-textarea';
+import { useI18n } from '@/context/i18n/context';
 
 interface FilterParams extends BaseFilterParams {
     search?: string;
@@ -26,10 +27,8 @@ const initialValues: FilterParams = {};
 
 const NewsEventFilterDialogComp = ({
     initialSearchValue = initialValues,
-    title = 'Filter News',
 }: {
     initialSearchValue?: FilterParams;
-    title?: string;
 }) => {
     const onApply = (value: unknown) => {
         console.log(value);
@@ -47,10 +46,71 @@ const NewsEventFilterDialogComp = ({
         onApply,
     });
 
+    const { t } = useI18n();
+
+    const TIME_OPTIONS = [
+        { value: 'today', name: t('common.timePresets.today') },
+        { value: 'thisWeek', name: t('common.timePresets.thisWeek') },
+        { value: 'thisMonth', name: t('common.timePresets.thisMonth') },
+        { value: 'custom', name: t('common.timePresets.custom') },
+    ];
+
+    const SOURCE_OPTIONS: AppFilterOptionsType[] = [
+        { value: 'bloomberg', name: 'Bloomberg' },
+        { value: 'vnexpress', name: 'Vnexpress' },
+        { value: 'tygiavang', name: 'Tygiavang' },
+        { value: 'baomoi', name: 'Baomoi' },
+    ];
+
+    const SORT_BY_OPTIONS_NEWS_EVENT_TRANSLATED: DropdownOption[] = [
+        {
+            value: 'featured',
+            label: t('common.sortBy.featured'), // Key for Featured
+            group: t('common.default'),
+        },
+        {
+            value: 'desc',
+            label: t('common.dateSort.newestFirst'),
+            group: t('common.dateSort.label'),
+        },
+        {
+            value: 'asc',
+            label: t('common.dateSort.oldestFirst'),
+            group: t('common.dateSort.label'),
+        },
+        {
+            value: 'all',
+            label: t('common.marketType.all'),
+            group: t('common.market'),
+        },
+        {
+            value: 'stocks',
+            label: t('common.marketType.stocks'),
+            group: t('common.market'),
+        },
+        {
+            value: 'cryptocurrencies',
+            label: t('common.marketType.cryptocurrencies'),
+            group: t('common.market'),
+        },
+        {
+            value: 'currencies',
+            label: t('common.marketType.currencies'),
+            group: t('common.market'),
+        },
+        {
+            value: 'commodities',
+            label: t('common.marketType.commodities'),
+            group: t('common.market'),
+        },
+    ];
+
     // Dialog Header
     const headerContent = (
         <div className="w-full flex justify-between items-center">
-            <h2 className="text-lg font-semibold">{title}</h2>
+            <h2 className="text-lg font-semibold">
+                {t('common.filterBySearch.filterBy')}
+            </h2>
         </div>
     );
 
@@ -60,7 +120,7 @@ const NewsEventFilterDialogComp = ({
             <div className="relative flex items-start border-b dark:[&:hover>svg]:text-[var(--brand-color)] [&:hover>svg]:text-black dark:focus-within:[&_svg]:text-[var(--brand-color)] focus-within:[&_svg]:text-black">
                 <SearchIcon className="size-4 text-[var(--brand-grey-foreground)] mt-1.5 flex-shrink-0" />
                 <AutosizeTextarea
-                    placeholder="Search"
+                    placeholder={t('common.search')}
                     value={filterParams.search}
                     onChange={handleSearchChange}
                     aria-label="Search"
@@ -71,14 +131,14 @@ const NewsEventFilterDialogComp = ({
             </div>
             <AppFilterSelect
                 options={TIME_OPTIONS}
-                label="Time"
+                label={t('common.time')}
                 type="radio"
                 valueOptions={filterParams.time}
                 onChange={value => handleFilterChange('time', value)}
             />
             {filterParams.time === 'custom' && (
                 <AppDateRangePicker
-                    label="Custom Date Range"
+                    label={t('commmon.customDateRange.rangeTitle')}
                     value={filterParams.date}
                     onChange={range => handleFilterChange('date', range)}
                     highlightOnActive={true}
@@ -86,7 +146,7 @@ const NewsEventFilterDialogComp = ({
             )}
             <AppFilterSelect
                 options={SOURCE_OPTIONS}
-                label="Sources"
+                label={t('common.sources')}
                 valueOptions={filterParams.sources}
                 onChange={value => handleFilterChange('sources', value)}
             />
@@ -98,17 +158,17 @@ const NewsEventFilterDialogComp = ({
         <div className="w-full flex justify-between items-center gap-4">
             <Button
                 variant="ghost"
-                className="dark:text-white text-brand-text hover:bg-[var(--brand-grey)] dark:hover:text-[var(--brand-color)] dark:hover:bg-transparent hover:border-transparent hover:shadow-lg transition-colors! hover:font-semibold duration-300 ease-in-out"
+                className="dark:text-white text-brand-text hover:bg-[var(--brand-grey)] dark:hover:text-[var(--brand-color)] dark:hover:bg-transparent hover:border-transparent hover:shadow-lg transition-colors! font-semibold duration-300 ease-in-out"
                 onClick={handleClearAll}
             >
-                Clear All
+                {t('common.actions.clearAll')}
             </Button>
             <Button
                 variant="default"
-                className="dark:hover:bg-[var(--brand-color)] dark:hover:text-black dark:text-[var(--brand-color)] dark:bg-transparent bg-transparent text-black hover:bg-[var(--brand-color)] hover:font-semibold transition-colors! duration-300 ease-in-out"
+                className="dark:hover:bg-[var(--brand-color)] font-semibold dark:hover:text-black dark:text-[var(--brand-color)] dark:bg-transparent bg-transparent text-black hover:bg-[var(--brand-color)] transition-colors! duration-300 ease-in-out"
                 onClick={handleApply}
             >
-                Apply
+                {t('common.actions.apply')}
             </Button>
         </div>
     );
@@ -118,7 +178,8 @@ const NewsEventFilterDialogComp = ({
             <AppDialog
                 trigger={
                     <Button variant="ghost" className="font-normal">
-                        <ListFilter className="mr-2 h-4 w-4" /> Filter:
+                        <ListFilter className="mr-2 h-4 w-4" />{' '}
+                        {t('common.filter')}:
                     </Button>
                 }
                 headerContent={headerContent}
@@ -127,7 +188,7 @@ const NewsEventFilterDialogComp = ({
                 triggerClassName="inline-flex"
             />
             <AppDropdown
-                options={SORT_BY_OPTIONS_NEWS_EVENT}
+                options={SORT_BY_OPTIONS_NEWS_EVENT_TRANSLATED}
                 defaultValue="featured"
                 buttonClassName="max-h-[20px] font-light text-sm"
                 contentClassName="w-44"

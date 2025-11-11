@@ -15,6 +15,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
+import { useI18n } from '@/context/i18n/context';
 
 interface DataTablePaginationProps<TData> {
     table: Table<TData>;
@@ -25,11 +26,14 @@ export function DataTablePagination<TData>({
     table,
     className,
 }: Readonly<DataTablePaginationProps<TData>>) {
+    const { t } = useI18n();
     return (
         <div className={cn('flex items-center justify-end px-2', className)}>
             <div className="flex items-center space-x-6 lg:space-x-8">
                 <div className="flex items-center space-x-2">
-                    <p className="text-sm font-medium">Rows per page</p>
+                    <p className="text-sm font-medium">
+                        {t('common.rowPerPage')}
+                    </p>
                     <Select
                         value={`${table.getState().pagination.pageSize}`}
                         onValueChange={value => {
@@ -66,7 +70,8 @@ export function DataTablePagination<TData>({
                     </Select>
                 </div>
                 <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-                    Page {table.getState().pagination.pageIndex + 1} -{' '}
+                    {t('common.page')}{' '}
+                    {table.getState().pagination.pageIndex + 1} -{' '}
                     {table.getPageCount()}
                 </div>
                 <div className="flex items-center space-x-2">

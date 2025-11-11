@@ -408,6 +408,7 @@ export const accountRelations = relations(accounts, ({ one }) => ({
 
 // Types
 export type User = typeof users.$inferSelect;
+export type UserSettings = typeof userSetting.$inferInsert;
 export type UserProfile = typeof userProfiles.$inferSelect;
 export type Account = typeof accounts.$inferSelect;
 export type Session = typeof sessions.$inferSelect;
@@ -421,6 +422,7 @@ export type Tag = typeof tags.$inferSelect;
 export type PostTag = typeof postTags.$inferSelect;
 
 export type NewUser = typeof users.$inferInsert;
+export type NewUserSettings = typeof userSetting.$inferInsert;
 export type NewUserProfile = typeof userProfiles.$inferInsert;
 export type NewAccount = typeof accounts.$inferInsert;
 export type NewSession = typeof sessions.$inferInsert;

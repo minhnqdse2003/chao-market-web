@@ -31,6 +31,7 @@ import { useState } from 'react';
 import { FileWithPreview } from '@/hooks/use-file-upload';
 import { updateUserAvatar } from '@/services/user/update-user-avatar';
 import { getJoinedText } from '@/utils/date-time-format';
+import { useI18n } from '@/context/i18n/context';
 
 // Schema
 const passwordFormSchema = z
@@ -65,11 +66,12 @@ export default function ProfileHeader({
     userData: UserViewResponse;
 }) {
     const [count, setCount] = useState(0);
+    const { t, locale } = useI18n();
 
     const displayData: DisplayDataType = {
         avatar: userData.image,
         email: userData.email,
-        joinedText: getJoinedText(userData.createdAt),
+        joinedText: `${t('common.joined')} ${getJoinedText(userData.createdAt, locale)}`,
         name: userData.name as string,
     };
 
@@ -171,7 +173,7 @@ export default function ProfileHeader({
                                     'dark:bg-[var(--brand-color)] dark:text-black font-semibold'
                                 }
                             >
-                                Change Password
+                                {t('common.changePassword')}
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-md bg-sidebar">

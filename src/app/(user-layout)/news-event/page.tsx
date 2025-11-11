@@ -18,6 +18,7 @@ import NewsComp from '@/app/(user-layout)/news-event/components/news';
 import { Pagination } from '@/components/app-pagination-server-side';
 import { BrandLogoFtHat } from '@image/index';
 import { Localized } from '@/types/localized';
+import { T } from '@/components/app-translate';
 
 interface PageProps {
     searchParams: {
@@ -84,25 +85,27 @@ const Page = async ({ searchParams }: PageProps) => {
     // Filter Tabs - dynamically build href with or without type
     const filterTabs: TabServerSide[] = [
         {
-            title: 'Recommended',
+            title: <T keyName={'common.recommended'} />,
             href: hasValidType
                 ? `/news-event?type=${currentType}&filterBy=recommended`
                 : '/news-event?filterBy=recommended',
         },
         {
-            title: 'Hottest',
+            title: <T keyName={'common.hottest'} />,
+
             href: hasValidType
                 ? `/news-event?type=${currentType}&filterBy=hottest`
                 : '/news-event?filterBy=hottest',
         },
         {
-            title: 'Most Viewed',
+            title: <T keyName={'common.mostViewed'} />,
+
             href: hasValidType
                 ? `/news-event?type=${currentType}&filterBy=mostViewed`
                 : '/news-event?filterBy=mostViewed',
         },
         {
-            title: 'Top Rated',
+            title: <T keyName={'common.topRated'} />,
             href: hasValidType
                 ? `/news-event?type=${currentType}&filterBy=topRated`
                 : '/news-event?filterBy=topRated',
@@ -113,7 +116,7 @@ const Page = async ({ searchParams }: PageProps) => {
         <div>
             <NewsEventsBanner />
             <div className="mt-2">
-                <NewsEventFilterDialogComp title={'Filter By'} />
+                <NewsEventFilterDialogComp />
 
                 {/* Filter Tabs */}
                 <AppTabsServerSide
@@ -137,8 +140,22 @@ const Page = async ({ searchParams }: PageProps) => {
                 </div>
 
                 {/* Stats */}
-                <div className="mt-4 text-center text-sm text-gray-500">
-                    <p>Total {postsData.totalItems} items</p>
+                <div className="mt-4 text-center text-sm text-[var(--brand-grey-foreground)]">
+                    <p>
+                        <T keyName={'common.total'} options="uppercase-first" />{' '}
+                        {postsData.totalItems}{' '}
+                        {postsData.totalItems <= 1 ? (
+                            <T
+                                keyName={'common.post'}
+                                options="lowercase-full"
+                            />
+                        ) : (
+                            <T
+                                keyName={'common.posts'}
+                                options="lowercase-full"
+                            />
+                        )}
+                    </p>
                 </div>
             </div>
         </div>

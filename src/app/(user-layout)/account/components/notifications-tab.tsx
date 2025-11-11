@@ -3,31 +3,13 @@ import AppDropdown from '@/components/app-dropdown';
 import { TimeAgo } from '@/components/time-ago';
 import AppDateRangePicker from '@/components/app-date-range-picker';
 import React, { useState } from 'react';
+import { useI18n } from '@/context/i18n/context';
 
 // Define the dropdown option type
 interface DropdownOption {
     value: string;
     label: string;
 }
-
-const getNotificationTypeOptions = (): DropdownOption[] => [
-    {
-        value: 'all',
-        label: 'All Notifications',
-    },
-    {
-        value: 'unread',
-        label: 'Unread',
-    },
-    {
-        value: 'emails',
-        label: 'Emails',
-    },
-    {
-        value: 'push',
-        label: 'Push Notifications',
-    },
-];
 
 // Define notification type
 interface Notification {
@@ -44,6 +26,7 @@ const NotificationsTab = () => {
         date: {},
         filterOptions: 'all',
     });
+    const { t } = useI18n();
 
     const handleFilterChange = (key: string, value: unknown) =>
         setFilterParams(prev => ({ ...prev, [key]: value }));
@@ -72,10 +55,30 @@ const NotificationsTab = () => {
         },
     ];
 
+    // Notification filter options
+    const getNotificationTypeOptions = (): DropdownOption[] => [
+        {
+            value: 'all',
+            label: t('common.allNotification'),
+        },
+        {
+            value: 'unread',
+            label: t('common.unread'),
+        },
+        {
+            value: 'emails',
+            label: t('common.emails'),
+        },
+        {
+            value: 'push',
+            label: t('common.pushNotification'),
+        },
+    ];
+
     return (
         <Card className={'bg-transparent'}>
             <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle>Notification Preferences</CardTitle>
+                <CardTitle>{t('account.notificationSection.title')}</CardTitle>
                 <div
                     className={
                         'flex min-w-[37.5rem] gap-2 justify-center items-center'
@@ -103,7 +106,7 @@ const NotificationsTab = () => {
             <CardContent className="space-y-6">
                 <div className="mt-8">
                     <h3 className="text-lg font-medium mb-4">
-                        Recent Notifications
+                        {t('account.notificationSection.recentNotification')}
                     </h3>
                     <div className="space-y-3">
                         {notifications.map((notification, index) => (

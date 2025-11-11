@@ -29,8 +29,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     const t = useMemo(() => {
         return (key: TranslationKey): string => {
             if (!locale) return key as string;
-
-            const keys = key.split('.');
+            const keys = key.trim().split('.');
             let result: any =
                 translations[locale as keyof typeof translations] ||
                 translations.en;

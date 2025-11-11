@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { PiShareFat } from 'react-icons/pi';
+import { T } from './app-translate';
 
 interface AppShareButtonProps {
     slug?: string;
@@ -30,7 +31,7 @@ export default function AppShareButton({ slug }: AppShareButtonProps) {
             onClick={handleShare}
         >
             <PiShareFat className={'size-3'} />
-            Share
+            <T keyName={'common.share'} />
         </Button>
     );
 }

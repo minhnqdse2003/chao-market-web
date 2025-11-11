@@ -3,6 +3,9 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
     experimental: {
         useLightningcss: false,
+        serverActions: {
+            bodySizeLimit: '2mb',
+        },
     },
     images: {
         remotePatterns: [

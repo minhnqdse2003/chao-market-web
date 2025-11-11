@@ -13,6 +13,7 @@ import ToolsTranslations from '@/types/translations/tools';
 import { DisclaimerTranslation } from '@/types/translations/disclaimer';
 import { PerformanceNoticeTranslations } from '@/types/translations/performance-notice-translations';
 import { HelpAndFeedback } from '@/types/translations/help-and-feedback';
+import { BrandSloganTranslations } from './brand-slogan-translations';
 
 export interface TranslationsStructure {
     common: CommonTranslations;
@@ -32,16 +33,17 @@ export interface TranslationsStructure {
     disclaimer: DisclaimerTranslation;
     performanceNotice: PerformanceNoticeTranslations;
     helpAndFeedback: HelpAndFeedback;
+    brandSlogan: BrandSloganTranslations;
 }
 
 type Leaves<T, K extends string = ''> = T extends object
     ? {
-        [P in keyof T]-?: P extends string
-            ? T[P] extends object
-                ? Leaves<T[P], `${K}${K extends '' ? '' : '.'}${P}`>
-                : `${K}${K extends '' ? '' : '.'}${P}`
-            : never;
-    }[keyof T]
+          [P in keyof T]-?: P extends string
+              ? T[P] extends object
+                  ? Leaves<T[P], `${K}${K extends '' ? '' : '.'}${P}`>
+                  : `${K}${K extends '' ? '' : '.'}${P}`
+              : never;
+      }[keyof T]
     : K;
 
 export type TranslationKey = Leaves<TranslationsStructure>;

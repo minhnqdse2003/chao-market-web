@@ -23,11 +23,13 @@ import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { useI18n } from '@/context/i18n/context';
 
 export function NavUser() {
     const { isMobile, open } = useSidebar();
     const { data: session, status } = useSession();
     const pathname = usePathname();
+    const { t } = useI18n();
 
     // We don't need to handle loading state here anymore as it's handled at the AppSidebar level
     // This prevents duplicate loading states
@@ -57,7 +59,7 @@ export function NavUser() {
                             }`
                         )}
                     >
-                        <Link href="/auth/login">Log In</Link>
+                        <Link href="/auth/login">{t('auth.login')}</Link>
                     </Button>
                     <Separator orientation="vertical" className="flex-0.5" />
                     <Button
@@ -75,7 +77,7 @@ export function NavUser() {
                             }`
                         )}
                     >
-                        <Link href="/auth/signup">Sign Up</Link>
+                        <Link href="/auth/signup">{t('auth.signup')}</Link>
                     </Button>
                 </SidebarMenuItem>
             </SidebarMenu>

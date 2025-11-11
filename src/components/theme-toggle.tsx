@@ -11,11 +11,13 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { SidebarMenuButton, useSidebar } from './ui/sidebar';
+import { useI18n } from '@/context/i18n/context';
 
 const ThemeToggle = () => {
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = React.useState(false);
     const { open: isCollapsed, isMobile } = useSidebar();
+    const { t } = useI18n();
 
     React.useEffect(() => {
         setMounted(true);
@@ -53,7 +55,7 @@ const ThemeToggle = () => {
                             ' duration-200 ease-in-out cursor-pointer'
                         }
                     >
-                        <Sun className="mr-2 h-4 w-4" /> Light
+                        <Sun className="mr-2 h-4 w-4" /> {t('common.light')}
                     </DropdownMenuItem>
                     <DropdownMenuItem
                         onClick={() => setTheme('dark')}
@@ -63,7 +65,7 @@ const ThemeToggle = () => {
                             ' duration-200 ease-in-out cursor-pointer'
                         }
                     >
-                        <Moon className="mr-2 h-4 w-4" /> Dark
+                        <Moon className="mr-2 h-4 w-4" /> {t('common.dark')}
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
@@ -82,13 +84,13 @@ const ThemeToggle = () => {
                     value="light"
                     className="text-white bg-[oklch(0.708 0 0)] dark:data-[state=active]:text-[var(--brand-color)] data-[state=active]:border-[var(--brand-grey-foreground)] text-brand-text data-[state=active]:bg-[var(--brand-grey)] dark:data-[state=inactive]:hover:text-[var(--brand-color)] cursor-pointer"
                 >
-                    <Sun className="mr-1 h-4 w-4" /> Light
+                    <Sun className="mr-1 h-4 w-4" /> {t('common.light')}
                 </TabsTrigger>
                 <TabsTrigger
                     value="dark"
                     className=" dark:data-[state=active]:text-[var(--brand-color)] text-black hover:bg-[var(--brand-grey)] cursor-pointer transition-all! duration-300 ease-in-out"
                 >
-                    <Moon className="mr-1 h-4 w-4" /> Dark
+                    <Moon className="mr-1 h-4 w-4" /> {t('common.dark')}
                 </TabsTrigger>
             </TabsList>
         </Tabs>

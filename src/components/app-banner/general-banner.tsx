@@ -1,9 +1,12 @@
+'use client';
 import Image from 'next/image';
 import { HomeBanner } from '@image/index';
 import React from 'react';
 import NavSeparator from '@/components/nav-separator';
+import { useI18n } from '@/context/i18n/context';
 
 export default function GeneralBanner() {
+    const { t } = useI18n();
     return (
         <div className="relative w-full">
             <Image
@@ -13,9 +16,10 @@ export default function GeneralBanner() {
                 height={1080}
                 className="w-full h-auto"
             />
-            <h2 className="absolute left-1/20 top-1/2 tranform -translate-y-1/2 text-brand-text text-3xl tracking-wider font-bold">
-                We prioritise helping you <br /> manage market risks
-            </h2>
+            <h2
+                className="absolute left-1/20 top-1/2 tranform -translate-y-1/2 text-brand-text text-3xl tracking-wider font-bold"
+                dangerouslySetInnerHTML={{ __html: t('brandSlogan.general') }}
+            />
             <NavSeparator isTrigger={false} />
         </div>
     );

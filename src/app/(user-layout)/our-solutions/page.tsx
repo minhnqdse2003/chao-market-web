@@ -59,7 +59,7 @@ const OurSolutionsPage = () => {
                                 'ourSolutions.financialFoundation.outcomes.title'
                             )}
                         </p>
-                        <ul className="list-disc list-inside space-y-0.5 pl-2">
+                        <ul className="list-disc list-inside space-y-0.5 pl-2 ">
                             <li>
                                 <span className="font-medium text-brand-text">
                                     {t(
@@ -558,7 +558,7 @@ const OurSolutionsPage = () => {
     ];
 
     return (
-        <div className="flex flex-col [&>div:not(:last-child)]:pb-4  [&>div:not(:first-child)]:pt-18 [&>div:first-child]:mb-0! [&>div:not(:last-child)]:border-b [&>div:first-child]:border-b-0! [&>div:first-child]:pb-0! border-[var(--brand-grey)] [&>div:nth-child(2)]:pt-[47.5px] [&>div:nth-child(2)]:scroll-mt-39 [&>div:not(:first-child)]:scroll-mt-33">
+        <div className="flex flex-col [&>div:not(:last-child)]:pb-4  [&>div:not(:first-child)]:pt-18 [&>div:first-child]:mb-0! [&>div:not(:last-child)]:border-b [&>div:first-child]:border-b-0! [&>div:first-child]:pb-0! border-[var(--brand-grey)] [&>div:nth-child(2)]:pt-[47.5px] [&>div:nth-child(2)]:scroll-mt-39 [&>div:not(:first-child)]:scroll-mt-33 [&>_*_li::marker]:text-xs ">
             <GeneralBanner />
             {contents.map((item, idx) => (
                 <BlockContents

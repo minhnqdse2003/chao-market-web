@@ -2,9 +2,13 @@
 
 import { AppTabs, TabItem } from '@/components/app-tabs';
 import { calculateAdjustedHeight } from '@/utils/height-utils';
-import { useTheme } from 'next-themes';
 import { use } from 'react';
 import { useRouter } from 'next/navigation';
+import { useMetaData } from '@/hooks/use-meta-data';
+import { useI18n } from '@/context/i18n/context';
+import { getRssLink, GetRssLinkProps } from '@/lib/get-rss-link-from-meta-data';
+import CombinedNewsFeed from '../../market-data/markets/components/vietnam-stock-market-news';
+import AppLoader from '@/components/app-loader';
 
 interface PageProps {
     searchParams: {
@@ -12,13 +16,41 @@ interface PageProps {
     };
 }
 
+const RssFeedRender = ({
+    locale,
+    type,
+    config,
+    title,
+}: Omit<GetRssLinkProps, 'key'> & {
+    title: string;
+    type: 'Facebook' | 'Tiktok' | 'Youtube';
+}) => {
+    const href = getRssLink({
+        key: 'socials',
+        locale,
+        type,
+        config,
+    });
+
+    if (href) {
+        return (
+            <CombinedNewsFeed
+                type={'B01-market-fin-news-global-vn'}
+                href={href}
+            />
+        );
+    }
+    return <p>{title}</p>;
+};
+
 export default function SocialPage({ searchParams }: PageProps) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     const { tab } = use(searchParams);
     const height = calculateAdjustedHeight();
     const router = useRouter();
-    const { theme } = useTheme();
+    const { data: config, isLoading } = useMetaData();
+    const { locale, t } = useI18n();
 
     const tabsList: TabItem[] = height
         ? [
@@ -27,14 +59,12 @@ export default function SocialPage({ searchParams }: PageProps) {
                   value: `facebook`,
                   renderContent: () =>
                       Promise.resolve(
-                          <iframe
-                              key={theme}
-                              width="100%"
-                              height={height}
-                              src="https://rss.app/embed/v1/wall/DbZkOiJKqySE1Yac?theme=light"
-                              frameBorder="0"
-                              className={'bg-transparent'}
-                          ></iframe>
+                          <RssFeedRender
+                              locale={locale}
+                              title={t('common.noFeedFound')}
+                              type="Facebook"
+                              config={config}
+                          />
                       ),
               },
               {
@@ -42,14 +72,12 @@ export default function SocialPage({ searchParams }: PageProps) {
                   value: 'tiktok',
                   renderContent: () =>
                       Promise.resolve(
-                          <iframe
-                              key={theme}
-                              width="100%"
-                              height={height}
-                              frameBorder="0"
-                              className={'bg-transparent'}
-                              src="https://rss.app/embed/v1/wall/et05Kyvc9Tqw33Pa"
-                          ></iframe>
+                          <RssFeedRender
+                              locale={locale}
+                              title={t('common.noFeedFound')}
+                              type="Tiktok"
+                              config={config}
+                          />
                       ),
               },
               {
@@ -57,18 +85,20 @@ export default function SocialPage({ searchParams }: PageProps) {
                   value: 'youtube',
                   renderContent: () =>
                       Promise.resolve(
-                          <iframe
-                              key={theme}
-                              width="100%"
-                              height={height}
-                              frameBorder="0"
-                              className={'bg-transparent'}
-                              src="https://rss.app/embed/v1/wall/Ji9BXyT5x5ofv96e"
-                          ></iframe>
+                          <RssFeedRender
+                              locale={locale}
+                              title={t('common.noFeedFound')}
+                              type="Youtube"
+                              config={config}
+                          />
                       ),
               },
           ]
         : [];
+
+    if (isLoading) {
+        return <AppLoader />;
+    }
 
     return (
         <div>

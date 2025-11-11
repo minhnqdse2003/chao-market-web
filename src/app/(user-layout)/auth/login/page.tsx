@@ -21,7 +21,6 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
 } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -30,11 +29,15 @@ import { Eye, EyeOff } from 'lucide-react';
 import { FloatingLabelInput } from '@/components/ui/floating-input';
 import { T } from '@/components/app-translate';
 import SocialLogin from '@/app/(user-layout)/auth/components/social-login';
+import { TranslatedFormMessage } from '@/components/app-translation-message-error';
+import { useI18n } from '@/context/i18n/context';
 
 // Validation schemas
 const loginSchema = z.object({
-    email: z.email({ message: 'Invalid email address' }),
-    password: z.string().min(1, { message: 'Password is required' }),
+    email: z.email({ message: 'auth.validation.emailInvalid' }),
+    password: z
+        .string()
+        .min(1, { message: 'auth.validation.passwordRequired' }),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -132,6 +135,8 @@ function EmailVerificationStep({
 export default function Login() {
     const router = useRouter();
     const searchParams = useSearchParams();
+    const { t } = useI18n();
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [emailVerified, setEmailVerified] = useState<boolean | null>(null);
@@ -275,18 +280,20 @@ export default function Login() {
                             <FormField
                                 control={form.control}
                                 name="email"
-                                render={({ field }) => (
+                                render={({ field, fieldState }) => (
                                     <FormItem>
                                         <FormControl>
                                             <FloatingLabelInput
                                                 label={
-                                                    <T keyName="common.email" />
+                                                    <T keyName="common.emailAddress" />
                                                 }
                                                 {...field}
                                                 className="app-text-input"
                                             />
                                         </FormControl>
-                                        <FormMessage />
+                                        <TranslatedFormMessage
+                                            message={fieldState.error?.message}
+                                        />
                                     </FormItem>
                                 )}
                             />
@@ -294,7 +301,7 @@ export default function Login() {
                             <FormField
                                 control={form.control}
                                 name="password"
-                                render={({ field }) => (
+                                render={({ field, fieldState }) => (
                                     <FormItem>
                                         <div className="relative">
                                             <FormControl>
@@ -304,7 +311,9 @@ export default function Login() {
                                                             ? 'text'
                                                             : 'password'
                                                     }
-                                                    label="Password"
+                                                    label={
+                                                        <T keyName="common.password" />
+                                                    }
                                                     {...field}
                                                     className="app-text-input pr-10"
                                                 />
@@ -325,7 +334,9 @@ export default function Login() {
                                                 )}
                                             </button>
                                         </div>
-                                        <FormMessage />
+                                        <TranslatedFormMessage
+                                            message={fieldState.error?.message}
+                                        />
                                     </FormItem>
                                 )}
                             />
@@ -352,7 +363,9 @@ export default function Login() {
                                 {loading ? (
                                     <LoadingComponent />
                                 ) : (
-                                    <T keyName={'auth.login'} />
+                                    <p className="first-letter:uppercase">
+                                        {t('auth.login').toLocaleLowerCase()}
+                                    </p>
                                 )}
                             </button>
                         </form>
@@ -361,20 +374,21 @@ export default function Login() {
 
                 <div className="text-center text-brand-text font-medium text-lg flex flex-col gap-4 w-full">
                     <SocialLogin />
-                    <p>
+                    <div className="flex gap-2 justify-center items-center">
                         <T keyName="auth.noAccountPrompt" />{' '}
-                        <Link href="/auth/signup">
-                            <span
-                                className={
-                                    'dark:text-[var(--brand-color)] text-black font-semibold hover:underline' +
-                                    ' dark:hover:text-[var(--brand-color-foreground)] transition-all!' +
-                                    ' duration-300 ease-in-out'
-                                }
-                            >
-                                <T keyName={'auth.signup'} />
-                            </span>
+                        <Link
+                            href="/auth/signup"
+                            className={
+                                'dark:text-[var(--brand-color)] text-black font-semibold hover:underline' +
+                                ' dark:hover:text-[var(--brand-color-foreground)] transition-all!' +
+                                ' duration-300 ease-in-out'
+                            }
+                        >
+                            <p className="first-letter:uppercase">
+                                {t('auth.signup').toLocaleLowerCase()}
+                            </p>
                         </Link>
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@ import { enUS, vi } from 'date-fns/locale';
 
 export const dateTimeFormat = (date: Date) => {
     const formatString = {
-        'day-date-hour-minute': "h:mm a ('UTC'xxx), EEEE, dd.MM.yyyy",
+        'day-date-hour-minute': "h:mm a ('UTC'xxx) EEEE, dd.MM.yyyy",
         day: "dd/MM/yyyy, h:mm a, 'UTC'xxx",
     };
     return formatInTimeZone(
@@ -47,7 +47,7 @@ export const formatLastUpdatedDate = (date: Date, locale: string) => {
     return formatInTimeZone(
         date,
         timeZone,
-        "h:mm a ('UTC'xxx), EEEE, dd.MM.yyyy",
+        "h:mm a ('UTC'xxx) EEEE, dd.MM.yyyy",
         {
             locale: enUS,
         }
@@ -55,14 +55,26 @@ export const formatLastUpdatedDate = (date: Date, locale: string) => {
 };
 
 export const getJoinedText = (
-    createdAt: string | Date | null | undefined
+    createdAt: string | Date | null | undefined,
+    locale: string
 ): string => {
     if (!createdAt) return 'Joined Unknown';
 
     const date = new Date(createdAt);
     if (isNaN(date.getTime())) return 'Joined Unknown';
 
-    return `Joined ${date.toLocaleString('en-US', {
+    let currentLocale;
+    switch (locale) {
+        case 'vi':
+            currentLocale = 'vi-VN';
+            break;
+        case 'en':
+        default:
+            currentLocale = 'en-US';
+            break;
+    }
+
+    return `${date.toLocaleString(currentLocale, {
         month: 'long',
         year: 'numeric',
     })}`;

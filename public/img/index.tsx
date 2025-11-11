@@ -27,7 +27,8 @@ import { default as HomeBanner2 } from './home-banner-2.jpg';
 import { default as HomeBanner3 } from './home-banner-3.jpg';
 
 export { default as SupportIcon } from './support.png';
-
+export { default as WhatsApp } from './whats-app.png';
+export { default as Youtube } from './youtube-icon.png';
 
 import { default as ConsultingService } from './product-service-2.png';
 import { default as MngInvestProfile } from './product-service-1.png';

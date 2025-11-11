@@ -10,20 +10,21 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { ReactNode } from 'react';
 
 interface DataTableColumnHeaderProps<TData, TValue>
     extends React.HTMLAttributes<HTMLDivElement> {
     column: Column<TData, TValue>;
-    title: string;
+    tableTitle: string | ReactNode;
 }
 
 export function DataTableColumnHeader<TData, TValue>({
     column,
-    title,
+    tableTitle,
     className,
 }: Readonly<DataTableColumnHeaderProps<TData, TValue>>) {
     if (!column.getCanSort()) {
-        return <div className={cn(className)}>{title}</div>;
+        return <div className={cn(className)}>{tableTitle}</div>;
     }
 
     return (
@@ -37,7 +38,7 @@ export function DataTableColumnHeader<TData, TValue>({
                         size="sm"
                         className="data-[state=open]:bg-accent font-bold h-8"
                     >
-                        <span>{title}</span>
+                        <span>{tableTitle}</span>
                         {column.getIsSorted() === 'desc' ? (
                             <ArrowDown />
                         ) : column.getIsSorted() === 'asc' ? (

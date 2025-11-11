@@ -21,6 +21,7 @@ import { buildURLSearchParams } from '@/utils/api/query-params-build';
 import { Localized } from '@/types/localized';
 import { capitalizeWords } from '@/utils/string-parsing';
 import { getTags } from '@/services/tag/get-tags';
+import { T } from '@/components/app-translate';
 
 interface PageProps {
     searchParams: {
@@ -81,25 +82,27 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
     const hasMainTag = !!mainTag;
     const filterTabs: TabServerSide[] = [
         {
-            title: 'Recommended',
+            title: <T keyName={'common.recommended'} />,
+
             href: hasMainTag
                 ? `/community?${buildURLSearchParams({ mainTag })}&filterBy=recommended`
                 : '/community?filterBy=recommended',
         },
         {
-            title: 'Hottest',
+            title: <T keyName={'common.hottest'} />,
+
             href: hasMainTag
                 ? `/community?${buildURLSearchParams({ mainTag })}&filterBy=hottest`
                 : '/community?filterBy=hottest',
         },
         {
-            title: 'Most Viewed',
+            title: <T keyName={'common.mostViewed'} />,
             href: hasMainTag
                 ? `/community?${buildURLSearchParams({ mainTag })}&filterBy=mostViewed`
                 : '/community?filterBy=mostViewed',
         },
         {
-            title: 'Top Rated',
+            title: <T keyName={'common.topRated'} />,
             href: hasMainTag
                 ? `/community?${buildURLSearchParams({ mainTag })}&filterBy=topRated`
                 : '/community?filterBy=topRated',
@@ -120,7 +123,7 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
         <div>
             <NewsEventsBanner />
             <div className="mt-2">
-                <NewsEventFilterDialogComp title={'Filter by'} />
+                <NewsEventFilterDialogComp />
 
                 {/* Main Tag Tabs */}
                 <CommunityTabs
@@ -150,8 +153,26 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
                 </div>
 
                 {/* Stats Section */}
-                <div className="mt-4 text-center text-sm text-gray-500">
-                    <p>Total {postsData.totalItems} items</p>
+                <div className="mt-4 text-center text-sm text-[var(--brand-grey-foreground)]">
+                    <p>
+                        {' '}
+                        <T
+                            keyName={'common.total'}
+                            options="uppercase-first"
+                        />{' '}
+                        {postsData.totalItems}{' '}
+                        {postsData.totalItems <= 1 ? (
+                            <T
+                                keyName={'common.post'}
+                                options="lowercase-full"
+                            />
+                        ) : (
+                            <T
+                                keyName={'common.posts'}
+                                options="lowercase-full"
+                            />
+                        )}
+                    </p>
                 </div>
             </div>
         </div>

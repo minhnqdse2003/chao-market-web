@@ -1,14 +1,15 @@
 import { GeneralBanner } from '@/components/app-banner';
 import { Mail, Phone, Users } from 'lucide-react'; // Import relevant Lucide icons
-import { capitalizeWords } from '@/utils/string-parsing';
 import Image from 'next/image';
 import { SupportIcon } from '@image/index';
+import { T } from '@/components/app-translate';
+import { ReactNode } from 'react';
 
 interface ContactCard {
     icon: React.ReactNode;
-    title: string;
-    description: string;
-    contactInfo: string;
+    title: string | ReactNode;
+    description: string | ReactNode;
+    contactInfo: string | ReactNode;
     isLink?: boolean;
     href?: string;
 }
@@ -19,8 +20,8 @@ export default function ContactsPage() {
             icon: (
                 <Users size={60} className="text-[var(--brand-color)] mb-6" />
             ),
-            title: 'Consulting',
-            description: 'Let us help you find the best solutions',
+            title: <T keyName={'common.consulting'} />,
+            description: <T keyName={'common.consultingSubtitle'} />,
             contactInfo: 'consulting@chaomarket.com',
             isLink: true,
             href: 'mailto:consulting@chaomarket.com',
@@ -35,16 +36,16 @@ export default function ContactsPage() {
                     className="size-[3.75rem] mb-6"
                 />
             ),
-            title: 'Support',
-            description: "We're here to help",
+            title: <T keyName={'common.support'} />,
+            description: <T keyName={'common.hereToHelp'} />,
             contactInfo: 'support@chaomarket.com',
             isLink: true,
             href: 'mailto:support@chaomarket.com',
         },
         {
             icon: <Mail size={60} className="text-[var(--brand-color)] mb-6" />,
-            title: 'Contact',
-            description: 'General inquiries',
+            title: <T keyName={'common.contact'} />,
+            description: <T keyName={'common.generalInquiries'} />,
             contactInfo: 'contact@chaomarket.com',
             isLink: true,
             href: 'mailto:contact@chaomarket.com',
@@ -53,8 +54,8 @@ export default function ContactsPage() {
             icon: (
                 <Phone size={60} className="text-[var(--brand-color)] mb-6" />
             ),
-            title: 'Phone',
-            description: 'Mon-Fri from 8am to 5pm',
+            title: <T keyName={'common.phone'} />,
+            description: <T keyName={'common.phoneHours'} />,
             contactInfo: '098 586 5674',
             isLink: true,
             href: 'tel:0985865674',
@@ -83,9 +84,7 @@ export default function ContactsPage() {
                             className="flex basis-1/4 flex-col justify-center gap-2"
                         >
                             {card.icon}
-                            <p className={`font-bold`}>
-                                {capitalizeWords(card.title)}
-                            </p>
+                            <p className={`font-bold`}>{card.title}</p>
                             <p className="text-[var(--brand-grey-foreground)]">
                                 {card.description}
                             </p>
