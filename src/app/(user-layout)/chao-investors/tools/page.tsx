@@ -56,8 +56,13 @@ const toolConfigs: Group[] = [
         items: [
             {
                 key: 'currencyConverterCalc',
-                viSrc: 'https://ssltools.investing.com/currency-converter/?from=12&to=87&force_lang=52&with_powered_by=true',
-                enSrc: 'https://ssltools.investing.com/currency-converter/?from=12&to=87&force_lang=1&with_powered_by=true',
+                viSrc: 'https://wise.com/gb/currency-converter/fx-widget/converter?sourceCurrency=USD&targetCurrency=VND&amount=1',
+                enSrc: 'https://wise.com/gb/currency-converter/fx-widget/converter?sourceCurrency=USD&targetCurrency=VND&amount=1',
+            },
+            {
+                key: 'currencyConverterCalc',
+                viSrc: 'https://wise.com/gb/currency-converter/fx-widget/chart?sourceCurrency=USD&targetCurrency=VND',
+                enSrc: 'https://wise.com/gb/currency-converter/fx-widget/chart?sourceCurrency=USD&targetCurrency=VND',
             },
             {
                 key: 'pipCalculator',
@@ -98,7 +103,15 @@ const toolConfigs: Group[] = [
     },
 ];
 
-function ToolContent({ toolKey, src }: { toolKey: string; src: ToolConfig }) {
+function ToolContent({
+    toolKey,
+    src,
+    idx,
+}: {
+    toolKey: string;
+    src: ToolConfig;
+    idx: number;
+}) {
     const { t, locale } = useI18n();
 
     const processHeight = () => {
@@ -121,7 +134,7 @@ function ToolContent({ toolKey, src }: { toolKey: string; src: ToolConfig }) {
     const processWidth = () => {
         switch (src.key) {
             case 'currencyConverterCalc':
-                return 216;
+                return 320;
             case 'pipCalculator':
                 return 570;
             case 'profitCalculator':
@@ -137,7 +150,7 @@ function ToolContent({ toolKey, src }: { toolKey: string; src: ToolConfig }) {
 
     return (
         <div
-            key={src.key + locale}
+            key={src.key + locale + idx}
             className={'w-full flex flex-col gap-2 items-center'}
         >
             <iframe
@@ -1074,11 +1087,12 @@ export default function InvestorToolsComp({ searchParams }: PageProps) {
                 renderContent: () =>
                     Promise.resolve(
                         <div className={'flex gap-4'}>
-                            {group.items.map(item => (
+                            {group.items.map((item, idx) => (
                                 <ToolContent
-                                    key={item.key}
+                                    key={item.key + idx}
                                     toolKey={item.key}
                                     src={item}
+                                    idx={idx}
                                 />
                             ))}
                         </div>
