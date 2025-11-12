@@ -1,8 +1,9 @@
 import { getUserSettingsOrCreate } from '@/services/user/get-user-setting';
 import { useQuery } from '@tanstack/react-query';
 
-export const useGetUserSettings = (id: string) =>
+export const useGetUserSettings = (id?: string) =>
     useQuery({
-        queryFn: () => getUserSettingsOrCreate(id),
+        queryFn: () => getUserSettingsOrCreate(id!),
         queryKey: ['user-settings-query'],
+        enabled: !!id,
     });

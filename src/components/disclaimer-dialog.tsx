@@ -33,7 +33,7 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
     const { t } = useI18n();
     const { data } = useSession();
     const { data: userSettings } = useGetUserSettings(
-        (data?.user as unknown as any).id
+        (data?.user as unknown as any)?.id
     );
     const { mutate } = useMutation({
         mutationFn: editUserSettings,
