@@ -4,20 +4,11 @@ import { db } from '@/lib/db';
 import { posts } from '@/db/schema';
 import { desc } from 'drizzle-orm';
 
-export const dynamic = 'force-dynamic'; // Disable caching
-export const revalidate = 0; // No static generation
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
 
     // Static pages
     const staticPages: MetadataRoute.Sitemap = [
-        {
-            url: `${baseUrl}/home`,
-            lastModified: new Date().toISOString(),
-            changeFrequency: 'daily',
-            priority: 1,
-        },
         {
             url: `${baseUrl}/our-solutions`,
             lastModified: new Date().toISOString(),
