@@ -70,7 +70,12 @@ const NewsComp = ({
                         {/* Date & Reference source */}
                         <div className="flex w-fit text-sm gap-4 text-[var(--brand-grey-foreground)] font-medium">
                             <p className={'text-brand-text'}>
-                                <T keyName={'common.market'} />: {item.market}
+                                <T keyName={'common.market'} />:{' '}
+                                {
+                                    <T
+                                        keyName={`common.marketType.${item.market.toLowerCase()}`}
+                                    />
+                                }
                             </p>
                             <p>
                                 <AppDateTimeDisplayLocalized

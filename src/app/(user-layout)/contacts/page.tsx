@@ -85,7 +85,7 @@ export default function ContactsPage() {
                         >
                             {card.icon}
                             <p className={`font-bold`}>{card.title}</p>
-                            <p className="text-[var(--brand-grey-foreground)]">
+                            <p className="text-brand-text/90">
                                 {card.description}
                             </p>
                             {/* Render contact info as a link or plain text */}

@@ -37,6 +37,7 @@ interface ToolConfig {
     key: string;
     viSrc: string;
     enSrc: string;
+    groups?: Pick<ToolConfig, 'enSrc' | 'viSrc'>[];
 }
 
 interface Group {
@@ -58,11 +59,12 @@ const toolConfigs: Group[] = [
                 key: 'currencyConverterCalc',
                 viSrc: 'https://wise.com/gb/currency-converter/fx-widget/converter?sourceCurrency=USD&targetCurrency=VND&amount=1',
                 enSrc: 'https://wise.com/gb/currency-converter/fx-widget/converter?sourceCurrency=USD&targetCurrency=VND&amount=1',
-            },
-            {
-                key: 'currencyConverterCalc',
-                viSrc: 'https://wise.com/gb/currency-converter/fx-widget/chart?sourceCurrency=USD&targetCurrency=VND',
-                enSrc: 'https://wise.com/gb/currency-converter/fx-widget/chart?sourceCurrency=USD&targetCurrency=VND',
+                groups: [
+                    {
+                        viSrc: 'https://wise.com/gb/currency-converter/fx-widget/chart?sourceCurrency=USD&targetCurrency=VND',
+                        enSrc: 'https://wise.com/gb/currency-converter/fx-widget/chart?sourceCurrency=USD&targetCurrency=VND',
+                    },
+                ],
             },
             {
                 key: 'pipCalculator',
@@ -117,7 +119,7 @@ function ToolContent({
     const processHeight = () => {
         switch (src.key) {
             case 'currencyConverterCalc':
-                return 400;
+                return calculateAdjustedHeight() - 120;
             case 'pipCalculator':
                 return calculateAdjustedHeight() + 40;
             case 'profitCalculator':
@@ -151,17 +153,43 @@ function ToolContent({
     return (
         <div
             key={src.key + locale + idx}
-            className={'w-full flex flex-col gap-2 items-center'}
+            className={cn('w-fit flex flex-col gap-2 items-center')}
         >
-            <iframe
-                height={processHeight() ?? 600 - 20}
-                width={processWidth()}
-                src={locale === 'vi' ? src.viSrc : src.enSrc}
-                className={cn(
-                    'w-fit flex max-h-[43.75rem] items-center justify-center dark:bg-white',
-                    `w-${processWidth()}`
-                )}
-            />
+            {src.groups ? (
+                <div className="flex gap-2">
+                    <iframe
+                        height={processHeight() ?? 600 - 20}
+                        width={processWidth()}
+                        src={locale === 'vi' ? src.viSrc : src.enSrc}
+                        className={cn(
+                            'w-fit flex max-h-[43.75rem] items-center justify-center dark:bg-white',
+                            `w-${processWidth()}`
+                        )}
+                    />
+                    {src.groups.map((item, idx) => (
+                        <iframe
+                            height={processHeight() ?? 600 - 20}
+                            width={processWidth()}
+                            src={locale === 'vi' ? item.viSrc : item.enSrc}
+                            className={cn(
+                                'w-fit flex max-h-[43.75rem] items-center justify-center dark:bg-white',
+                                `w-${processWidth()}`
+                            )}
+                            key={`${src.key}-group-${idx}`}
+                        />
+                    ))}
+                </div>
+            ) : (
+                <iframe
+                    height={processHeight() ?? 600 - 20}
+                    width={processWidth()}
+                    src={locale === 'vi' ? src.viSrc : src.enSrc}
+                    className={cn(
+                        'w-fit flex max-h-[43.75rem] items-center justify-center dark:bg-white',
+                        `w-${processWidth()}`
+                    )}
+                />
+            )}
             <p className="text-sm text-center max-w-[24rem] text-wrap">
                 {t(
                     `investors.items.toolForInvestor.items.${toolKey}.description`
@@ -643,7 +671,7 @@ function InterestCalculator() {
                                 inputMode="decimal"
                                 label={
                                     locale === 'vi'
-                                        ? `Lãi suất (%/${processUnitLabel(growthUnit, 'vi')})`
+                                        ? `Lãi Suất (%/${processUnitLabel(growthUnit, 'vi')})`
                                         : `Growth Rate (%/${processUnitLabel(growthUnit, 'en')})`
                                 }
                                 value={growthRateInput}
@@ -1086,7 +1114,7 @@ export default function InvestorToolsComp({ searchParams }: PageProps) {
                 value: group.key,
                 renderContent: () =>
                     Promise.resolve(
-                        <div className={'flex gap-4'}>
+                        <div className={'flex justify-evenly gap-4'}>
                             {group.items.map((item, idx) => (
                                 <ToolContent
                                     key={item.key + idx}

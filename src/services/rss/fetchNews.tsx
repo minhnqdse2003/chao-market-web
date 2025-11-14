@@ -8,6 +8,7 @@ export interface RSSItem {
     contentSnippet?: string;
     imageUrl?: string;
     sourceUrl?: string;
+    content?: string;
 }
 
 interface Source {
@@ -90,6 +91,7 @@ const fetchRssFeed = async (
             contentSnippet: item.contentSnippet,
             imageUrl: getImageUrl(item),
             sourceUrl: processSourceUrl(item.link || ''),
+            content: item.content,
         }));
 
         console.log(`${sourceName}: ${JSON.stringify(items, null, 2) || '[]'}`);

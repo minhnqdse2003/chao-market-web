@@ -47,7 +47,7 @@ export default function TermsOfUse() {
                                 {section.title}
                             </h2>
                             <p
-                                className="text-[var(--brand-grey-foreground)] dark:[&>a]:text-[var(--brand-color)] [&>a]:font-bold [&>strong]:text-brand-text [&>a]:text-brand-text [&>a]:hover:underline dark:[&>strong]:text-brand-text [&>strong]:font-normal whitespace-pre-wrap"
+                                className="text-brand-text/90 dark:[&>a]:text-[var(--brand-color)] [&>a]:font-bold [&>strong]:text-brand-text [&>a]:text-brand-text [&>a]:hover:underline dark:[&>strong]:text-brand-text [&>strong]:font-bold whitespace-pre-wrap"
                                 dangerouslySetInnerHTML={{
                                     __html: section.content,
                                 }}

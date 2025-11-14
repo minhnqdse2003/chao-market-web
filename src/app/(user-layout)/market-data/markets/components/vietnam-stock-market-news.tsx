@@ -139,6 +139,14 @@ export default function CombinedNewsFeed({
                                     </a>
                                 </div>
                             )}
+                            {article.content && !article.imageUrl && (
+                                <div
+                                    dangerouslySetInnerHTML={{
+                                        __html: article.content,
+                                    }}
+                                    className="rounded-md border border-transparent w-[320px] h-[160px]"
+                                />
+                            )}
                             <div className={'flex flex-col gap-1'}>
                                 <a
                                     href={article.link}

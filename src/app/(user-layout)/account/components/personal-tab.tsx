@@ -24,6 +24,7 @@ import { z } from 'zod';
 import { FloatingLabelInput } from '@/components/ui/floating-input';
 import { EditEmailDialog } from '@/app/(user-layout)/account/components/edit-email-dialog';
 import { UserViewResponse } from '@/types/user/response/view-response';
+import { T } from '@/components/app-translate';
 
 const ArrayMaleConstant = ['male', 'female', 'other'];
 
@@ -45,9 +46,11 @@ const BasicInformationSection = ({
 }) => (
     <Card className={'bg-transparent'}>
         <CardHeader>
-            <CardTitle>Basic Information</CardTitle>
+            <CardTitle>
+                <T keyName={'common.basicInformationTitle'} />
+            </CardTitle>
             <CardDescription>
-                Update your personal details and profile information.
+                <T keyName={'common.updatePersonalInfoDesc'} />
             </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -59,7 +62,7 @@ const BasicInformationSection = ({
                         <FormItem className="md:col-span-2">
                             <FormControl>
                                 <FloatingLabelInput
-                                    label={'Full Name'}
+                                    label={<T keyName={'common.fullName'} />}
                                     className="app-text-input"
                                     {...field}
                                 />
@@ -77,7 +80,13 @@ const BasicInformationSection = ({
                                 <AppDatePicker
                                     onDateChange={field.onChange}
                                     buttonClass="w-full dark:bg-transparent dark:hover:bg-transparent"
-                                    label="Birthday"
+                                    label={
+                                        <T
+                                            keyName={
+                                                'common.dateOfBirthRequired'
+                                            }
+                                        />
+                                    }
                                     isFloatingLabel={true}
                                     isMarginVisible={false}
                                     {...field}
@@ -92,7 +101,9 @@ const BasicInformationSection = ({
                     name="gender"
                     render={({ field }) => (
                         <FormItem className="space-y-1">
-                            <Label>Gender</Label>
+                            <Label>
+                                <T keyName={'common.gender.label'} />
+                            </Label>
                             <FormControl>
                                 <RadioGroup
                                     onValueChange={field.onChange}
@@ -104,21 +115,31 @@ const BasicInformationSection = ({
                                             value="male"
                                             id="male"
                                         />
-                                        <Label htmlFor="male">Male</Label>
+                                        <Label htmlFor="male">
+                                            <T keyName={'common.gender.male'} />
+                                        </Label>
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem
                                             value="female"
                                             id="female"
                                         />
-                                        <Label htmlFor="female">Female</Label>
+                                        <Label htmlFor="female">
+                                            <T
+                                                keyName={'common.gender.female'}
+                                            />
+                                        </Label>
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem
                                             value="other"
                                             id="other"
                                         />
-                                        <Label htmlFor="other">Other</Label>
+                                        <Label htmlFor="other">
+                                            <T
+                                                keyName={'common.gender.other'}
+                                            />
+                                        </Label>
                                     </div>
                                 </RadioGroup>
                             </FormControl>
@@ -134,7 +155,11 @@ const BasicInformationSection = ({
                             <FormItem className="md:col-span-2">
                                 <FormControl>
                                     <FloatingLabelInput
-                                        label={'Specify Gender'}
+                                        label={
+                                            <T
+                                                keyName={'common.gender.label'}
+                                            />
+                                        }
                                         className="app-text-input"
                                         {...field}
                                     />
@@ -156,9 +181,11 @@ const ContactInformationSection = ({
 }) => (
     <Card className={'bg-transparent'}>
         <CardHeader>
-            <CardTitle>Contact Information</CardTitle>
+            <CardTitle>
+                <T keyName={'common.contactInformationTitle'} />
+            </CardTitle>
             <CardDescription>
-                Update your contact details and communication preferences.
+                <T keyName={'common.updateContactDetailsDesc'} />
             </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -171,7 +198,11 @@ const ContactInformationSection = ({
                             <FormControl>
                                 <div className={'relative w-full'}>
                                     <FloatingLabelInput
-                                        label={'Email'}
+                                        label={
+                                            <T
+                                                keyName={'common.emailAddress'}
+                                            />
+                                        }
                                         className="app-text-input pointer-events-none"
                                         type="email"
                                         {...field}
@@ -190,7 +221,7 @@ const ContactInformationSection = ({
                         <FormItem>
                             <FormControl>
                                 <FloatingLabelInput
-                                    label={'Phone Number'}
+                                    label={<T keyName={'common.phoneNumber'} />}
                                     className="app-text-input"
                                     {...field}
                                 />

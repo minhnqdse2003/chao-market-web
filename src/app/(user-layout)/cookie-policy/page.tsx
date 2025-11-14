@@ -54,7 +54,7 @@ export default function CookiePolicy() {
                             `whitespace-pre-wrap` is essential here to render the
                             bullet points/line breaks from your translation string correctly.
                         */}
-                            <p className="text-[var(--brand-grey-foreground)] whitespace-pre-wrap">
+                            <p className="text-brand-text/90 whitespace-pre-wrap">
                                 {section.content}
                             </p>
                         </section>

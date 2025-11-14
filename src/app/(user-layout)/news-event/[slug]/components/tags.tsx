@@ -5,6 +5,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from '@/components/ui/accordion';
+import { T } from '@/components/app-translate';
 
 interface TagProps {
     label: string;
@@ -66,7 +67,7 @@ export default function TagsAccordion({ tags }: TagsAccordionProps) {
         >
             <AccordionItem value="item-1">
                 <AccordionTrigger className="text-lg cursor-pointer font-semibold">
-                    Tags
+                    <T keyName={'common.tags'} />
                 </AccordionTrigger>
                 <AccordionContent className="pt-4">
                     <div className="flex flex-wrap gap-2">

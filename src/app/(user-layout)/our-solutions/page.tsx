@@ -16,19 +16,19 @@ const OurSolutionsPage = () => {
                 id: '18ff56d7-7c1c-4880-a243-12290893cada',
             },
             children: (
-                <div className="space-y-6 text-[var(--brand-grey-foreground)]">
+                <div className="space-y-6 text-brand-text/90">
                     <p>{t('ourSolutions.financialFoundation.description')}</p>
 
                     {/* Delivery Options Topic */}
                     <div className="space-y-1.5">
-                        <p className="font-medium text-brand-text">
+                        <p className="font-bold text-brand-text">
                             {t(
                                 'ourSolutions.financialFoundation.deliveryOptions.title'
                             )}
                         </p>
                         <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.financialFoundation.deliveryOptions.workshop'
                                     )}
@@ -39,7 +39,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.financialFoundation.deliveryOptions.mentoring'
                                     )}
@@ -54,14 +54,14 @@ const OurSolutionsPage = () => {
 
                     {/* Outcomes Topic */}
                     <div className="space-y-1.5">
-                        <p className="font-medium text-brand-text">
+                        <p className="font-bold text-brand-text">
                             {t(
                                 'ourSolutions.financialFoundation.outcomes.title'
                             )}
                         </p>
                         <ul className="list-disc list-inside space-y-0.5 pl-2 ">
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.financialFoundation.outcomes.roadmap'
                                     )}
@@ -72,7 +72,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.financialFoundation.outcomes.riskAssessment'
                                     )}
@@ -83,7 +83,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.financialFoundation.outcomes.assetKnowledge'
                                     )}
@@ -94,7 +94,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.financialFoundation.outcomes.independentDecision'
                                     )}
@@ -105,7 +105,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.financialFoundation.outcomes.budgetingMastery'
                                     )}
@@ -118,7 +118,7 @@ const OurSolutionsPage = () => {
                         </ul>
                     </div>
 
-                    <p className="font-medium text-brand-text !mt-8">
+                    <p className="font-bold text-[var(--brand-grey-foreground)] !mt-8 dark:text-[var(--brand-color)]/70">
                         {t('ourSolutions.financialFoundation.note')}
                     </p>
                 </div>
@@ -131,19 +131,19 @@ const OurSolutionsPage = () => {
                 id: '35f103a7-8ca5-4072-89a3-02548c28d5ae',
             },
             children: (
-                <div className="space-y-6 text-[var(--brand-grey-foreground)]">
+                <div className="space-y-6 text-brand-text/90">
                     <p>{t('ourSolutions.portfolioStrategy.description')}</p>
 
                     {/* Delivery Options Topic */}
                     <div className="space-y-1.5">
-                        <p className="font-medium text-brand-text">
+                        <p className="font-bold text-brand-text">
                             {t(
                                 'ourSolutions.portfolioStrategy.deliveryOptions.title'
                             )}
                         </p>
                         <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.portfolioStrategy.deliveryOptions.workshop'
                                     )}
@@ -154,7 +154,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.portfolioStrategy.deliveryOptions.mentoring'
                                     )}
@@ -169,12 +169,12 @@ const OurSolutionsPage = () => {
 
                     {/* Outcomes Topic */}
                     <div className="space-y-1.5">
-                        <p className="font-medium text-brand-text">
+                        <p className="font-bold text-brand-text">
                             {t('ourSolutions.portfolioStrategy.outcomes.title')}
                         </p>
                         <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.portfolioStrategy.outcomes.framework'
                                     )}
@@ -185,7 +185,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.portfolioStrategy.outcomes.rebalancing'
                                     )}
@@ -196,7 +196,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.portfolioStrategy.outcomes.toolsProficiency'
                                     )}
@@ -207,7 +207,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.portfolioStrategy.outcomes.riskManagement'
                                     )}
@@ -218,7 +218,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.portfolioStrategy.outcomes.objectiveDecision'
                                     )}
@@ -231,7 +231,7 @@ const OurSolutionsPage = () => {
                         </ul>
                     </div>
 
-                    <p className="font-medium text-brand-text !mt-8">
+                    <p className="font-bold text-[var(--brand-grey-foreground)] !mt-8 dark:text-[var(--brand-color)]/70">
                         {t('ourSolutions.portfolioStrategy.note')}
                     </p>
                 </div>
@@ -244,12 +244,12 @@ const OurSolutionsPage = () => {
                 id: '850f6aa6-f2b5-4b89-a303-98660d887ec7',
             },
             children: (
-                <div className="space-y-6 text-[var(--brand-grey-foreground)]">
+                <div className="space-y-6 text-brand-text/90">
                     <p>{t('ourSolutions.algoTrading.description')}</p>
 
                     {/* Delivery Method Topic */}
                     <div className="space-y-1.5">
-                        <p className="font-medium text-brand-text">
+                        <p className="font-bold text-brand-text">
                             {t('ourSolutions.algoTrading.deliveryMethod.title')}
                         </p>
                         <p>
@@ -259,12 +259,12 @@ const OurSolutionsPage = () => {
 
                     {/* Outcomes Topic */}
                     <div className="space-y-1.5">
-                        <p className="font-medium text-brand-text">
+                        <p className="font-bold text-brand-text">
                             {t('ourSolutions.algoTrading.outcomes.title')}
                         </p>
                         <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.algoTrading.outcomes.codedSystem'
                                     )}
@@ -275,7 +275,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.algoTrading.outcomes.backtestReport'
                                     )}
@@ -286,7 +286,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.algoTrading.outcomes.deployedTool'
                                     )}
@@ -297,7 +297,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.algoTrading.outcomes.systematicExecution'
                                     )}
@@ -308,7 +308,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.algoTrading.outcomes.fullOwnership'
                                     )}
@@ -321,7 +321,7 @@ const OurSolutionsPage = () => {
                         </ul>
                     </div>
 
-                    <p className="font-medium text-brand-text !mt-8">
+                    <p className="font-bold text-[var(--brand-grey-foreground)] !mt-8 dark:text-[var(--brand-color)]/70">
                         {t('ourSolutions.algoTrading.note')}
                     </p>
                 </div>
@@ -334,19 +334,19 @@ const OurSolutionsPage = () => {
                 id: '91aa5027-325b-4cef-9503-8a03e0790074',
             },
             children: (
-                <div className="space-y-6 text-[var(--brand-grey-foreground)]">
+                <div className="space-y-6 text-brand-text/90">
                     <p>{t('ourSolutions.tradingPerformance.description')}</p>
 
                     {/* Delivery Options Topic */}
                     <div className="space-y-1.5">
-                        <p className="font-medium text-brand-text">
+                        <p className="font-bold text-brand-text">
                             {t(
                                 'ourSolutions.tradingPerformance.deliveryOptions.title'
                             )}
                         </p>
                         <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.tradingPerformance.deliveryOptions.workshop'
                                     )}
@@ -357,7 +357,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.tradingPerformance.deliveryOptions.mentoring'
                                     )}
@@ -372,14 +372,14 @@ const OurSolutionsPage = () => {
 
                     {/* Outcomes Topic */}
                     <div className="space-y-1.5">
-                        <p className="font-medium text-brand-text">
+                        <p className="font-bold text-brand-text">
                             {t(
                                 'ourSolutions.tradingPerformance.outcomes.title'
                             )}
                         </p>
                         <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.tradingPerformance.outcomes.performanceView'
                                     )}
@@ -390,7 +390,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.tradingPerformance.outcomes.behavioralPatterns'
                                     )}
@@ -401,7 +401,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.tradingPerformance.outcomes.improvementPlan'
                                     )}
@@ -412,7 +412,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.tradingPerformance.outcomes.selfReviewSkills'
                                     )}
@@ -423,7 +423,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.tradingPerformance.outcomes.tradingDiscipline'
                                     )}
@@ -436,7 +436,7 @@ const OurSolutionsPage = () => {
                         </ul>
                     </div>
 
-                    <p className="font-medium text-brand-text !mt-8">
+                    <p className="font-bold text-[var(--brand-grey-foreground)] !mt-8 dark:text-[var(--brand-color)]/70">
                         {t('ourSolutions.tradingPerformance.note')}
                     </p>
                 </div>
@@ -449,19 +449,19 @@ const OurSolutionsPage = () => {
                 id: 'c3d2e0cc-484d-475c-8051-03c70b4e40d6',
             },
             children: (
-                <div className="space-y-6 text-[var(--brand-grey-foreground)]">
+                <div className="space-y-6 text-brand-text/90">
                     <p>{t('ourSolutions.financialCourse.description')}</p>
 
                     {/* Delivery Options Topic */}
                     <div className="space-y-1.5">
-                        <p className="font-medium text-brand-text">
+                        <p className="font-bold text-brand-text">
                             {t(
                                 'ourSolutions.financialCourse.deliveryOptions.title'
                             )}
                         </p>
                         <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.financialCourse.deliveryOptions.groupClass'
                                     )}
@@ -472,7 +472,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.financialCourse.deliveryOptions.privateMentoring'
                                     )}
@@ -487,12 +487,12 @@ const OurSolutionsPage = () => {
 
                     {/* Outcomes Topic */}
                     <div className="space-y-1.5">
-                        <p className="font-medium text-brand-text">
+                        <p className="font-bold text-brand-text">
                             {t('ourSolutions.financialCourse.outcomes.title')}
                         </p>
                         <ul className="list-disc list-inside space-y-0.5 pl-2">
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.financialCourse.outcomes.foundationalKnowledge'
                                     )}
@@ -503,7 +503,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.financialCourse.outcomes.analysisSkills'
                                     )}
@@ -514,7 +514,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.financialCourse.outcomes.toolProficiency'
                                     )}
@@ -525,7 +525,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.financialCourse.outcomes.strategicFramework'
                                     )}
@@ -536,7 +536,7 @@ const OurSolutionsPage = () => {
                                 )}
                             </li>
                             <li>
-                                <span className="font-medium text-brand-text">
+                                <span className="font-bold text-brand-text">
                                     {t(
                                         'ourSolutions.financialCourse.outcomes.confidenceToInvest'
                                     )}
@@ -549,7 +549,7 @@ const OurSolutionsPage = () => {
                         </ul>
                     </div>
 
-                    <p className="font-medium text-brand-text !mt-8">
+                    <p className="font-bold text-[var(--brand-grey-foreground)] !mt-8 dark:text-[var(--brand-color)]/70">
                         {t('ourSolutions.financialCourse.note')}
                     </p>
                 </div>

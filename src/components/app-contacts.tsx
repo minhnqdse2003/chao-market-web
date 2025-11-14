@@ -9,7 +9,13 @@ import {
 import { useState, useEffect } from 'react';
 import { Speech } from 'lucide-react';
 import Image from 'next/image';
-import { Messenger, Telegram, BrandPhoneCall, Zalo } from '@image/index';
+import {
+    Messenger,
+    Telegram,
+    BrandPhoneCall,
+    Zalo,
+    WhatsApp,
+} from '@image/index';
 import {
     Tooltip,
     TooltipContent,
@@ -96,6 +102,20 @@ export default function ContactButton() {
                 />
             ),
             color: '#ffe400',
+        },
+        {
+            name: t('common.chatOnWhatsApp'), // <-- Use translation
+            href: 'https://wa.me/84985865674',
+            icon: (
+                <Image
+                    src={WhatsApp}
+                    width={50}
+                    height={50}
+                    className="size-5"
+                    alt="whats-app-icon"
+                />
+            ),
+            color: '#25d366',
         },
     ];
 

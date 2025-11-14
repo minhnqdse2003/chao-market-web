@@ -496,7 +496,7 @@ export default function Page() {
                                 <div className="flex flex-col space-y-1">
                                     {/* Market Row - Already using t() for Market type label, but the left label needs translating */}
                                     <div className="flex justify-between">
-                                        <p className="text-[var(--brand-grey-foreground)]">
+                                        <p className="text-brand-text">
                                             <T keyName={'common.market'} />:{' '}
                                             {/* Assuming common.market is used for "Market" label in details */}
                                         </p>
@@ -517,7 +517,7 @@ export default function Page() {
                                     </div>
 
                                     <div className="flex justify-between">
-                                        <p className="text-[var(--brand-grey-foreground)]">
+                                        <p className="text-brand-text">
                                             <T keyName={'common.startDate'} />
                                             :{' '}
                                         </p>
@@ -526,7 +526,7 @@ export default function Page() {
                                         </strong>
                                     </div>
 
-                                    <div className="flex justify-between [&>p]:text-[var(--brand-grey-foreground)]">
+                                    <div className="flex justify-between [&>p]:text-brand-text">
                                         <p>
                                             <T keyName={'common.deposit'} />
                                             :{' '}
@@ -536,7 +536,7 @@ export default function Page() {
                                         </strong>
                                     </div>
 
-                                    <div className="flex justify-between [&>p]:text-[var(--brand-grey-foreground)] [&>strong]:text-red-400">
+                                    <div className="flex justify-between [&>p]:text-brand-text [&>strong]:text-red-400">
                                         <p>
                                             <T keyName={'common.withdraw'} />
                                             :{' '}
@@ -548,19 +548,19 @@ export default function Page() {
 
                                 <div className="flex flex-col space-y-1">
                                     <div className="flex justify-between items-center">
-                                        <p className="text-[var(--brand-grey-foreground)] flex flex-row items-center">
+                                        <p className="text-brand-text flex flex-row items-center">
                                             <T keyName={'common.gain'} />:{' '}
                                             <AppTooltips
                                                 contents={
                                                     <div className="max-w-[24rem] flex flex-col gap-2">
-                                                        <strong>
+                                                        <strong className="font-bold">
                                                             <T
                                                                 keyName={
                                                                     'common.gain'
                                                                 }
                                                             />{' '}
                                                         </strong>
-                                                        <p>
+                                                        <p className="font-thin">
                                                             <T
                                                                 keyName={
                                                                     'common.gainTooltip'
@@ -587,7 +587,7 @@ export default function Page() {
                                     </div>
 
                                     <div className="flex justify-between">
-                                        <p className="text-[var(--brand-grey-foreground)]">
+                                        <p className="text-brand-text">
                                             <T
                                                 keyName={'common.absoluteGain'}
                                             />
@@ -598,20 +598,20 @@ export default function Page() {
                                         </strong>
                                     </div>
                                     <div className="flex justify-between">
-                                        <p className="text-[var(--brand-grey-foreground)]">
+                                        <p className="text-brand-text">
                                             <T keyName={'common.daily'} />:{' '}
                                         </p>
                                         <strong>0.14%</strong>
                                     </div>
                                     <div className="flex justify-between">
-                                        <p className="text-[var(--brand-grey-foreground)]">
+                                        <p className="text-brand-text">
                                             <T keyName={'common.monthly'} />
                                             :{' '}
                                         </p>
                                         <strong>4.18%</strong>
                                     </div>
                                     <div className="flex justify-between [&>strong]:text-red-400">
-                                        <p className="text-[var(--brand-grey-foreground)]">
+                                        <p className="text-brand-text">
                                             <T keyName={'common.drawdown'} />
                                             :{' '}
                                         </p>
@@ -624,7 +624,7 @@ export default function Page() {
 
                                 <div className="flex flex-col space-y-1">
                                     <div className="flex justify-between">
-                                        <p className="text-[var(--brand-grey-foreground)]">
+                                        <p className="text-brand-text">
                                             <T keyName={'common.balance'} />
                                             :{' '}
                                         </p>
@@ -632,14 +632,14 @@ export default function Page() {
                                     </div>
 
                                     <div className="flex justify-between">
-                                        <p className="text-[var(--brand-grey-foreground)]">
+                                        <p className="text-brand-text">
                                             <T keyName={'common.equity'} />
                                             :{' '}
                                         </p>
                                         <strong>140,810.40 USD (90.16%)</strong>
                                     </div>
                                     <div className="flex justify-between">
-                                        <p className="text-[var(--brand-grey-foreground)]">
+                                        <p className="text-brand-text">
                                             <T keyName={'common.highest'} />
                                             :{' '}
                                         </p>
@@ -649,7 +649,7 @@ export default function Page() {
                                     </div>
 
                                     <div className="flex justify-between">
-                                        <p className="text-[var(--brand-grey-foreground)]">
+                                        <p className="text-green-500">
                                             <T keyName={'common.profit'} />
                                             :{' '}
                                         </p>
@@ -658,7 +658,7 @@ export default function Page() {
                                         </strong>
                                     </div>
                                     <div className="flex justify-between items-center">
-                                        <p className="text-[var(--brand-grey-foreground)] flex items-center">
+                                        <p className="text-brand-text flex items-center">
                                             <span>
                                                 <T
                                                     keyName={
@@ -670,14 +670,14 @@ export default function Page() {
                                             <AppTooltips
                                                 contents={
                                                     <div className="max-w-[24rem] flex flex-col gap-2">
-                                                        <strong>
+                                                        <strong className="font-bold">
                                                             <T
                                                                 keyName={
                                                                     'common.financingCost'
                                                                 }
                                                             />{' '}
                                                         </strong>
-                                                        <p>
+                                                        <p className="font-thin">
                                                             <T
                                                                 keyName={
                                                                     'common.financingCostTooltip'

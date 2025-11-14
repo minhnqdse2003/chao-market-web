@@ -89,7 +89,7 @@ export function Pagination({
                             <Link
                                 href={buildPaginationUrl(currentPage - 2)}
                                 onClick={() => handlePageClick(currentPage - 1)}
-                                className="relative inline-flex items-center rounded-l-md px-2 py-2 text-black ring-1 ring-inset ring-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] bg-[var(--brand-color)] focus:z-20 focus:outline-offset-0 transition-transform! duration-200 hover:scale-105"
+                                className="relative inline-flex items-center rounded-l-md px-2 py-2 text-black ring-1 ring-inset dark:ring-[var(--brand-color)] dark:hover:bg-[var(--brand-color-foreground)] dark:bg-[var(--brand-color)] bg-[var(--brand-grey-foreground)] focus:z-20 focus:outline-offset-0 transition-transform! duration-200 hover:scale-105"
                             >
                                 <span className="sr-only">Previous</span>
                                 <ChevronLeft className="h-5 w-5" />
@@ -102,12 +102,12 @@ export function Pagination({
                                 <Link
                                     href={buildPaginationUrl(0)}
                                     onClick={() => handlePageClick(1)}
-                                    className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-[var(--brand-color)] ring-1 ring-inset ring-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] transition-all! duration-200 hover:scale-105"
+                                    className="relative inline-flex items-center px-4 py-2 text-sm font-semibold dark:text-[var(--brand-color)] ring-1 ring-inset dark:ring-[var(--brand-color)] dark:hover:bg-[var(--brand-color-foreground)] transition-all! duration-200 hover:scale-105"
                                 >
                                     1
                                 </Link>
                                 {startPage > 2 && (
-                                    <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-[var(--brand-color)] ring-1 ring-inset ring-[var(--brand-color)]">
+                                    <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold dark:text-[var(--brand-color)] ring-1 ring-inset dark:ring-[var(--brand-color)]">
                                         ...
                                     </span>
                                 )}
@@ -120,10 +120,10 @@ export function Pagination({
                                 key={page}
                                 href={buildPaginationUrl(page - 1)}
                                 onClick={() => handlePageClick(page)}
-                                className={`relative inline-flex items-center px-4 py-2 text-sm ring-1 ring-[var(--brand-color)] font-semibold transition-all! duration-200 hover:scale-105 ${
+                                className={`relative inline-flex items-center px-4 py-2 text-sm ring-1 dark:ring-[var(--brand-color)] font-semibold transition-all! duration-200 hover:scale-105 ${
                                     page === currentPage
-                                        ? 'z-10 bg-[var(--brand-color)] text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-color)] animate-pulse'
-                                        : 'text-[var(--brand-color)] ring-inset ring-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] hover:text-black focus:z-20 focus:outline-offset-0'
+                                        ? 'z-10 dark:bg-[var(--brand-color)] bg-[var(--brand-grey-foreground)] text-black focus-visible:outline-2 focus-visible:outline-offset-2 dark:focus-visible:outline-[var(--brand-color)] animate-pulse'
+                                        : 'dark:text-[var(--brand-color)] ring-inset dark:ring-[var(--brand-color)] dark:hover:bg-[var(--brand-color-foreground)] dark:hover:text-black focus:z-20 hover:bg-[var(--brand-grey-foreground)] focus:outline-offset-0'
                                 }`}
                             >
                                 {page}
@@ -134,14 +134,14 @@ export function Pagination({
                         {endPage < totalPages && (
                             <>
                                 {endPage < totalPages - 1 && (
-                                    <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-[var(--brand-color)] ring-1 ring-inset ring-[var(--brand-color)]">
+                                    <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold dark:text-[var(--brand-color)] ring-1 ring-inset dark:ring-[var(--brand-color)]">
                                         ...
                                     </span>
                                 )}
                                 <Link
                                     href={buildPaginationUrl(totalPages - 1)}
                                     onClick={() => handlePageClick(totalPages)}
-                                    className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-[var(--brand-color)] ring-1 ring-inset ring-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] hover:text-black transition-all! duration-200 hover:scale-105"
+                                    className="relative inline-flex items-center px-4 py-2 text-sm font-semibold dark:text-[var(--brand-color)] ring-1 ring-inset dark:ring-[var(--brand-color)] dark:hover:bg-[var(--brand-color-foreground)] hover:text-black transition-all! duration-200 hover:scale-105"
                                 >
                                     {totalPages}
                                 </Link>
@@ -153,7 +153,7 @@ export function Pagination({
                             <Link
                                 href={buildPaginationUrl(currentPage)}
                                 onClick={() => handlePageClick(currentPage + 1)}
-                                className="relative inline-flex items-center rounded-r-md px-2 py-2 bg-[var(--brand-color)] hover:bg-[var(--brand-color-foreground)] text-black focus:z-20 focus:outline-offset-0 transition-transform! duration-200 hover:scale-105"
+                                className="relative inline-flex items-center rounded-r-md px-2 py-2 dark:bg-[var(--brand-color)] bg-[var(--brand-grey-foreground)] dark:hover:bg-[var(--brand-color-foreground)] text-black focus:z-20 focus:outline-offset-0 transition-transform! duration-200 hover:scale-105"
                             >
                                 <span className="sr-only">Next</span>
                                 <ChevronRight className="h-5 w-5" />

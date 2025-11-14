@@ -11,14 +11,17 @@ export const en: TranslationsStructure = {
         orContinueWith: 'Or continue with',
         firstName: 'First name',
         lastName: 'Last name',
+        fullName: 'Full Name',
         emailAddress: 'Email address',
         confirmPassword: 'Confirm password',
-        dateOfBirth: 'Birthday',
+        dateOfBirth: 'Birthday (optional)',
+        dateOfBirthRequired: 'Birthday',
         gender: {
             male: 'Male',
             female: 'Female',
             other: 'Other',
             selfDescribe: 'Prefer to self-describe',
+            label: 'Gender',
         },
         back: 'Back',
         newPassword: 'New Password',
@@ -67,7 +70,7 @@ export const en: TranslationsStructure = {
             custom: 'Custom',
         },
         customDateRange: {
-            rangeTitle: 'Custom data range',
+            rangeTitle: 'Custome data range',
             startDatePlaceholder: 'Select start date',
             endDatePlaceholder: 'Select end date',
             calendarAriaLabel: 'Date selection calendar',
@@ -141,6 +144,13 @@ export const en: TranslationsStructure = {
         phoneHours: 'Mon-Fri from 8am to 5pm',
         chatOnWhatsApp: 'Chat on WhatsApp',
         information: 'Informations',
+        basicInformationTitle: 'Basic Information',
+        updatePersonalInfoDesc:
+            'Update your personal details and profile information.',
+        contactInformationTitle: 'Contact Information',
+        updateContactDetailsDesc:
+            'Update your contact details and communication preferences.',
+        tags: 'Tags',
     },
     auth: {
         login: 'Log In',

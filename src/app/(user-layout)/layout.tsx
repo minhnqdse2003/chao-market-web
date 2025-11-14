@@ -89,7 +89,7 @@ export default function UserLayout({
                                     dangerouslySetInnerHTML={{
                                         __html: t('helpAndFeedback.endContent'),
                                     }}
-                                    className="w-fit min-w-fit [&>strong]:font-bold"
+                                    className="w-fit min-w-fit [&>strong]:font-bold [&>strong]:dark:text-[var(--brand-color)]/70"
                                 />
                             </div>
                         </DialogContent>

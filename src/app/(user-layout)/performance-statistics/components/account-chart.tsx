@@ -8,8 +8,10 @@ import {
     Tooltip,
     ResponsiveContainer,
 } from 'recharts';
-import { format } from 'date-fns';
 import { useTheme } from 'next-themes';
+import { useI18n } from '@/context/i18n/context';
+import { formatInTimeZone } from 'date-fns-tz';
+import { enUS, vi } from 'date-fns/locale';
 
 export interface ChartDataPoint {
     date: number;
@@ -24,9 +26,22 @@ interface AccountChartProps {
 }
 
 export function AccountChart({ data }: AccountChartProps) {
+    const { t, locale } = useI18n();
     // Format date for x-axis & tooltip
-    const formatDate = (timestamp: number) =>
-        format(new Date(timestamp), 'MMM dd, yy');
+    const formatDate = (timestamp: number) => {
+        try {
+            return formatInTimeZone(
+                new Date(timestamp),
+                'Etc/GMT-7',
+                'MMM dd, yy',
+                {
+                    locale: locale === 'vi' ? vi : enUS,
+                }
+            );
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const { theme } = useTheme();
 
@@ -34,6 +49,12 @@ export function AccountChart({ data }: AccountChartProps) {
     const CustomTooltip = ({ active, payload, label }: any) => {
         if (active && payload && payload.length) {
             const mainDataPoint = data.find(d => d.date === label);
+            // Use t() for Deposit and Withdraw labels
+            const depositLabel = t('common.deposit');
+            const withdrawalLabel = t('common.withdraw');
+            const gainLabel = t('common.gain');
+            const equityLabel = t('common.equity');
+
             return (
                 <div className="dark:bg-brand-dialog bg-white p-2 border dark:border-[var(--brand-color)] border-black rounded-lg">
                     <p className="text-[var(--brand-grey-foreground)] font-bold">
@@ -46,15 +67,15 @@ export function AccountChart({ data }: AccountChartProps) {
                             className={'font-bold'}
                         >
                             {entry.dataKey === 'equityPercentage' &&
-                                `Equity: ${entry.value.toFixed(2)}%`}
+                                `${equityLabel}: ${entry.value.toFixed(2)}%`}
                             {entry.dataKey === 'gainPercentage' &&
-                                `Gain: ${entry.value.toFixed(2)}%`}
+                                `${gainLabel}: ${entry.value.toFixed(2)}%`}
                         </p>
                     ))}
                     {mainDataPoint?.depositAmount &&
                         mainDataPoint.depositAmount > 0 && (
                             <p className="text-green-500 font-bold">
-                                Deposit: $
+                                {depositLabel}: $
                                 {Math.abs(
                                     mainDataPoint.depositAmount
                                 ).toLocaleString()}
@@ -63,7 +84,7 @@ export function AccountChart({ data }: AccountChartProps) {
                     {mainDataPoint?.withdrawalAmount &&
                         mainDataPoint.withdrawalAmount > 0 && (
                             <p className="text-red-500 font-bold">
-                                Withdrawal: $
+                                {withdrawalLabel}: $
                                 {Math.abs(
                                     mainDataPoint.withdrawalAmount
                                 ).toLocaleString()}

@@ -138,7 +138,7 @@ const NewsEventFilterDialogComp = ({
             />
             {filterParams.time === 'custom' && (
                 <AppDateRangePicker
-                    label={t('commmon.customDateRange.rangeTitle')}
+                    label={t('common.customDateRange.rangeTitle')}
                     value={filterParams.date}
                     onChange={range => handleFilterChange('date', range)}
                     highlightOnActive={true}

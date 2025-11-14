@@ -24,6 +24,7 @@ import { Separator } from '@/components/ui/separator';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { useI18n } from '@/context/i18n/context';
+import { T } from './app-translate';
 
 export function NavUser() {
     const { isMobile, open } = useSidebar();
@@ -164,7 +165,7 @@ export function NavUser() {
                                 >
                                     <Link href={'/account?tab=notifications'}>
                                         <Bell />
-                                        Notifications
+                                        <T keyName={'account.notification'} />
                                     </Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
@@ -176,7 +177,7 @@ export function NavUser() {
                                 >
                                     <Link href={'/account?tab=personal'}>
                                         <User />
-                                        Account
+                                        <T keyName={'account.title'} />
                                     </Link>
                                 </DropdownMenuItem>
                             </DropdownMenuGroup>
@@ -192,7 +193,7 @@ export function NavUser() {
                                 }
                             >
                                 <LogOut />
-                                Log out
+                                <T keyName={'common.logOut'} />
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>

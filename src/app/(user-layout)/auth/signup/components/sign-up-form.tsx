@@ -323,7 +323,7 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                                 onDateChange={field.onChange}
                                                 buttonClass="w-full dark:bg-transparent dark:hover:bg-transparent"
                                                 label={
-                                                    <T keyName="common.dateOfBirth" />
+                                                    <T keyName="common.dateOfBirthRequired" />
                                                 }
                                                 isFloatingLabel={true}
                                                 isMarginVisible={false}

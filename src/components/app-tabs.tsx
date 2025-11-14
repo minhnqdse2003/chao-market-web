@@ -17,6 +17,7 @@ type TabComponentProps = {
     defaultValue?: string;
     size?: number;
     onValueChange?: (activeTab: string) => void;
+    tabContainerClassName?: string;
 };
 
 export function AppTabs({
@@ -26,6 +27,7 @@ export function AppTabs({
     defaultValue,
     size = 1,
     onValueChange,
+    tabContainerClassName,
 }: Readonly<TabComponentProps>) {
     const [activeTab, setActiveTab] = useState(
         defaultValue || tabsList[0]?.value
@@ -103,7 +105,11 @@ export function AppTabs({
             </TabsList>
 
             {tabsList.map(tab => (
-                <TabsContent key={tab.value} value={tab.value}>
+                <TabsContent
+                    key={tab.value}
+                    value={tab.value}
+                    className={tabContainerClassName}
+                >
                     {contentMap[tab.value] ?? (
                         <div className="text-muted">Loading...</div>
                     )}

@@ -47,7 +47,7 @@
     --brand-color: #ffe400;
     --brand-color-foreground: #fffe41;
     --brand-grey: var(--brand-common-grey);
-    --brand-grey-foreground: #12121270;
+    --brand-grey-foreground: var(--brand-grey-foreground);
     --brand-grey-light: #c4c4c4;
     --brand-black-bg: #363636;
     --color-brand-floating-btn: #ffe400;
@@ -93,6 +93,7 @@
     --brand-text: #000000;
     /*--brand-common-grey: #E6E5E1;*/
     --brand-common-grey: #e6e5e1;
+    --brand-grey-foreground: #6b6b6b;
     --brand-common-dialog: #ffffff;
     --brand-common-dropdown: var(--brand-common-dialog);
     --brand-common-dropdown-title: var(--brand-text);
@@ -132,7 +133,7 @@
     --sidebar-ring: oklch(0.556 0 0);
     --brand-text: #ffffff;
     --brand-common-grey: #3f3f3f;
-    --brand-grey-foreground: #a09f9f70;
+    --brand-grey-foreground: #b9b9b9;
     --brand-common-dialog: #2e2e2e;
     --brand-common-dropdown: var(--brand-common-dialog);
     --brand-common-dropdown-title: var(--brand-text);

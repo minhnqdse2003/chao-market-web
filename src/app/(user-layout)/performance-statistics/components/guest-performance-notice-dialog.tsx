@@ -60,7 +60,7 @@ export function GuestPerformanceNoticeDialog() {
         <div className={'w-full'}>
             <p className="mb-4 text-[var(--brand-grey-foreground)]">
                 <span>{noticeMember.desc1}</span>{' '}
-                <span className={'text-brand-text'}>{noticeMember.desc2}</span>{' '}
+                <span className={'text-brand-text'}>{noticeMember.desc2}</span>
                 <span>{noticeMember.desc3}</span>{' '}
                 <Link
                     href={'/terms-of-use'}
@@ -73,14 +73,12 @@ export function GuestPerformanceNoticeDialog() {
                 .
             </p>
             <div
-                className={
-                    'flex justify-start font-semibold items-center w-full'
-                }
+                className={'flex justify-start font-medium items-center w-full'}
             >
                 <p>
                     <span
                         className={
-                            'dark:text-[var(--brand-color)] text-brand-text w-full text-center'
+                            'dark:text-[var(--brand-color)]/80 text-brand-text w-full text-center'
                         }
                     >
                         {noticeMember.alreadyAgreeButton}

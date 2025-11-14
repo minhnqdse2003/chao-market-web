@@ -19,7 +19,7 @@ const checkoutSchema = z
         firstName: z.string().min(1, 'auth.validation.firstNameRequired'),
         lastName: z.string().min(1, 'auth.validation.lastNameRequired'),
         dateOfBirth: z
-            .date('auth.validation.dateInvalidFormat') // New specific key for date format error
+            .date('auth.validation.dateInvalidFormat')
             .optional()
             .refine(date => !date || date < new Date(), {
                 message: 'auth.validation.dobInPast',

@@ -7,7 +7,6 @@ import {
     Instagram,
     ThreadBlack,
     TikTok,
-    WhatsApp,
     Youtube,
 } from '@image/index';
 import { Mail, Phone, Users } from 'lucide-react';
@@ -201,20 +200,6 @@ export default function AppFooter() {
                                     >
                                         contact@chaomarket.com
                                     </a>
-                                </span>
-                            </li>
-                            <li className="flex justify-between gap-12">
-                                <span className="flex items-center gap-2">
-                                    <Image
-                                        src={WhatsApp}
-                                        width={50}
-                                        height={50}
-                                        className="size-5"
-                                        alt="whats-app-icon"
-                                    />
-                                </span>
-                                <span className="text-brand-text">
-                                    <T keyName={'common.chatOnWhatsApp'} />{' '}
                                 </span>
                             </li>
                             <li className="flex justify-between gap-12">

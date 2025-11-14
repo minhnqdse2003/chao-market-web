@@ -27,7 +27,7 @@ export const formatLastUpdatedDate = (date: Date, locale: string) => {
     if (locale === 'vi') {
         // Format each part of the date in the target timezone
         const time = formatInTimeZone(date, timeZone, 'h:mm');
-        const period = 'Sáng'; // Hardcoded as per requirement
+        const period = 'Sáng';
         const dayOfWeek = formatInTimeZone(date, timeZone, 'EEEE', {
             locale: vi,
         });
@@ -41,7 +41,7 @@ export const formatLastUpdatedDate = (date: Date, locale: string) => {
         const capitalizedDay =
             dayOfWeek.charAt(0).toUpperCase() + dayOfWeek.slice(1);
 
-        return `${time} ${period} (${utcOffsetString}), ${capitalizedDay}, ${datePart}`;
+        return `${time} ${period} (${utcOffsetString}) ${capitalizedDay}, ${datePart}`;
     }
 
     return formatInTimeZone(

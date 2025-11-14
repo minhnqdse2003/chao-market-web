@@ -8,14 +8,17 @@ export interface CommonTranslations {
     orContinueWith: string;
     firstName: string;
     lastName: string;
+    fullName: string;
     emailAddress: string;
     confirmPassword: string;
     dateOfBirth: string;
+    dateOfBirthRequired: string;
     gender: {
         male: string;
         female: string;
         other: string;
         selfDescribe: string;
+        label: string;
     };
     back: string;
     newPassword: string;
@@ -136,4 +139,9 @@ export interface CommonTranslations {
     phoneHours: string;
     chatOnWhatsApp: string;
     information: string;
+    basicInformationTitle: string;
+    updatePersonalInfoDesc: string;
+    contactInformationTitle: string;
+    updateContactDetailsDesc: string;
+    tags: string;
 }
