@@ -801,4 +801,9 @@ export const en: TranslationsStructure = {
         general: 'We prioritise helping you <br /> manage market risks',
         clientPromise: `“We don’t focus on maximising your profit. <br />We prioritise helping you manage market risks.”`,
     },
+    lossRecovery: {
+        title: 'Loss Recovery Analyzer',
+        description:
+            'A tool to estimate the time and effort required to recover from a loss.',
+    },
 };

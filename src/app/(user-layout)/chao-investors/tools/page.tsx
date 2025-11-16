@@ -32,6 +32,7 @@ import { Button } from '@/components/ui/button';
 import { Info } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { T } from '@/components/app-translate';
+import LossRecoveryCalculator from './components/loss-recovery-calculator';
 
 interface ToolConfig {
     key: string;
@@ -475,10 +476,7 @@ function InterestCalculator() {
     }, [simulations]);
 
     return (
-        <div
-            className="flex flex-col md:flex-row gap-2"
-            style={{ height: `${height}px` }}
-        >
+        <div className="flex flex-col md:flex-row gap-2">
             {/* Left Panel - Controls */}
             <div className="w-full md:w-1/6">
                 <Card className={'bg-transparent dark:bg-transparent h-full'}>
@@ -832,7 +830,7 @@ function InterestCalculator() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div style={{ height: `${height - 200}px` }}>
+                        <div style={{ height: `${height - 74}px` }}>
                             <ResponsiveContainer width="100%" height="100%">
                                 <LineChart
                                     data={chartData}
@@ -1136,6 +1134,12 @@ export default function InvestorToolsComp({ searchParams }: PageProps) {
                 ),
                 value: 'investment interest calc',
                 renderContent: () => Promise.resolve(<InterestCalculator />),
+            },
+            {
+                title: t('lossRecovery.title'),
+                value: 'loss-recovery',
+                renderContent: () =>
+                    Promise.resolve(<LossRecoveryCalculator />),
             },
         ]);
     }, [locale]);

@@ -143,9 +143,7 @@
     * {
         @apply border-border outline-ring/50;
         scroll-behavior: smooth;
-        font-family:
-            -apple-system, BlinkMacSystemFont, 'Trebuchet MS', Roboto, Ubuntu,
-            sans-serif;
+        font-family: 'Inter', sans-serif;
     }
 
     html {

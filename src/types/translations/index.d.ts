@@ -34,6 +34,7 @@ export interface TranslationsStructure {
     performanceNotice: PerformanceNoticeTranslations;
     helpAndFeedback: HelpAndFeedback;
     brandSlogan: BrandSloganTranslations;
+    lossRecovery: LossRecoveryTranslations;
 }
 
 type Leaves<T, K extends string = ''> = T extends object

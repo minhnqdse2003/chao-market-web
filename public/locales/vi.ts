@@ -34,7 +34,7 @@ export const vi: TranslationsStructure = {
         scrollToTop: 'Về Đầu Trang ',
         autoCloseMessage: 'Thông báo này sẽ tự động đóng sau {countdown} giây.',
         search: 'Tra cứu',
-        contacts: 'Liên hệ',
+        contacts: 'Liên Hệ',
         dark: 'Tối',
         light: 'Sáng',
         socialNetwork: 'Mạng xã hội (tùy chọn)',
@@ -799,5 +799,10 @@ export const vi: TranslationsStructure = {
     brandSlogan: {
         general: 'Chúng tôi ưu tiên hỗ trợ bạn <br/> quản lý rủi ro thị trường',
         clientPromise: `“Chúng tôi không tập trung vào việc tối đa hóa lợi nhuận của bạn. <br />Chúng tôi ưu tiên việc hỗ trợ bạn quản lý rủi ro thị trường.”`,
+    },
+    lossRecovery: {
+        title: 'Phân Tích Gỡ Lỗ',
+        description:
+            'Công cụ ước tính thời gian và nỗ lực cần để gỡ lại khoản lỗ.',
     },
 };
