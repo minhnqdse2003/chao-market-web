@@ -54,8 +54,8 @@ export default function ContactButton() {
                 <Image
                     src={Messenger}
                     alt={'messenger'}
-                    width={1920}
-                    height={1080}
+                    width={50}
+                    height={50}
                     className={'object-contain size-8'}
                 />
             ),
@@ -68,8 +68,8 @@ export default function ContactButton() {
                 <Image
                     src={Zalo}
                     alt={'zalo'}
-                    width={1920}
-                    height={1080}
+                    width={50}
+                    height={50}
                     className={'object-contain'}
                 />
             ),
@@ -82,8 +82,8 @@ export default function ContactButton() {
                 <Image
                     src={Telegram}
                     alt={'telegram'}
-                    width={1920}
-                    height={1080}
+                    width={50}
+                    height={50}
                     className={'object-contain size-8'}
                 />
             ),
@@ -96,8 +96,8 @@ export default function ContactButton() {
                 <Image
                     src={BrandPhoneCall}
                     alt={'phone call'}
-                    width={1920}
-                    height={1080}
+                    width={50}
+                    height={50}
                     className={'object-contain size-8'}
                 />
             ),
@@ -111,7 +111,7 @@ export default function ContactButton() {
                     src={WhatsApp}
                     width={50}
                     height={50}
-                    className="size-5"
+                    className={'object-contain size-8'}
                     alt="whats-app-icon"
                 />
             ),

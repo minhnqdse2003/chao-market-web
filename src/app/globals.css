@@ -44,6 +44,11 @@
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
     --radius-xl: calc(var(--radius) + 4px);
+    --text-size-22: 22px;
+    --text-size-20: 20px;
+    --text-size-19: 19px;
+    --text-size-18: 18px;
+    --text-size-16: 16px;
     --brand-color: #ffe400;
     --brand-color-foreground: #fffe41;
     --brand-grey: var(--brand-common-grey);
