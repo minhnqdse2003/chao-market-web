@@ -273,7 +273,7 @@ export default function CheckOutTransactionForm({
                     name="contactMethods"
                     render={({ field, fieldState }) => (
                         <FormItem className="space-y-2">
-                            <div className="text-sm font-medium text-[var(--brand-grey-foreground)]">
+                            <div className="text-sm font-bold text-[var(--brand-grey-foreground)]/50">
                                 {t(
                                     'consultationRequest.contactMethod.prompt'
                                 ) || 'How would you like us to contact you?'}
@@ -306,16 +306,16 @@ export default function CheckOutTransactionForm({
                                                         );
                                                     }
                                                 }}
-                                                className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
+                                                className="border-[var(--brand-grey-foreground)]/50 dark:data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
                                             />
                                             <Label
                                                 htmlFor="email"
-                                                className={`text-sm font-medium cursor-pointer transition-all! duration-200 ease-in-out ${
+                                                className={`font-bold cursor-pointer transition-all! duration-200 ease-in-out ${
                                                     field.value?.includes(
                                                         'email'
                                                     )
                                                         ? 'text-brand-text'
-                                                        : 'text-[var(--brand-grey-foreground)]'
+                                                        : 'text-[var(--brand-grey-foreground)]/50'
                                                 }`}
                                             >
                                                 {t(
@@ -352,16 +352,16 @@ export default function CheckOutTransactionForm({
                                                         );
                                                     }
                                                 }}
-                                                className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
+                                                className="border-[var(--brand-grey-foreground)]/50 dark:data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
                                             />
                                             <Label
                                                 htmlFor="phone"
-                                                className={`text-sm font-medium cursor-pointer transition-all! duration-200 ease-in-out ${
+                                                className={`font-bold cursor-pointer transition-all! duration-200 ease-in-out ${
                                                     field.value?.includes(
                                                         'phone'
                                                     )
                                                         ? 'text-brand-text'
-                                                        : 'text-[var(--brand-grey-foreground)]'
+                                                        : 'text-[var(--brand-grey-foreground)]/50'
                                                 }`}
                                             >
                                                 {t(
@@ -398,16 +398,16 @@ export default function CheckOutTransactionForm({
                                                         );
                                                     }
                                                 }}
-                                                className="border-[var(--brand-grey-foreground)] dark:data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
+                                                className="border-[var(--brand-grey-foreground)]/50 dark:data-[state=checked]:text-black data-[state=checked]:border-transparent! transition-all! duration-200 ease-in-out"
                                             />
                                             <Label
                                                 htmlFor="social-network"
-                                                className={`text-sm font-medium cursor-pointer transition-all! duration-200 ease-in-out ${
+                                                className={`font-bold cursor-pointer transition-all! duration-200 ease-in-out ${
                                                     field.value?.includes(
                                                         'social-network'
                                                     )
                                                         ? 'text-brand-text'
-                                                        : 'text-[var(--brand-grey-foreground)]'
+                                                        : 'text-[var(--brand-grey-foreground)]/50'
                                                 }`}
                                             >
                                                 {t(
@@ -444,7 +444,7 @@ export default function CheckOutTransactionForm({
                                         <Label
                                             htmlFor="message"
                                             className={`
-                                absolute start-2 z-10 origin-[0] bg-white px-2 text-sm text-[var(--brand-grey-foreground)] font-semibold duration-300 dark:bg-sidebar rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 cursor-text transition-all! dark:peer-focus:text-[var(--brand-color)] peer-focus:text-black 
+                                absolute start-2 z-10 origin-[0] bg-white px-2 text-sm text-[var(--brand-grey-foreground)]/50 font-semibold duration-300 dark:bg-sidebar rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 cursor-text transition-all! dark:peer-focus:text-[var(--brand-color)] peer-focus:text-black 
                                 ${
                                     hasValue
                                         ? 'top-2 -translate-y-4 scale-75'

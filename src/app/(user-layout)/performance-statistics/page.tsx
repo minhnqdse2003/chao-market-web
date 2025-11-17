@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { EyeIcon, Info, XIcon } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import NavSeparator from '@/components/nav-separator';
 import AppDropdown, { DropdownOption } from '@/components/app-dropdown';
 import ClientAccountFilterDialog from './components/filter-dialog';
@@ -25,6 +25,7 @@ import Link from 'next/link';
 import { T } from '@/components/app-translate';
 import { usePerformanceStatisticStore } from '@/stores/performance-statistic.store';
 import { PERFORMANCE_STATISTIC_DIALOG_ACTIONS } from '@/stores/actions/performance-statistic.action';
+import { useRouter } from 'next/navigation';
 
 // Mock data generation
 const dataList = [
@@ -247,9 +248,19 @@ const tabsList: TabItem[] = [
     },
 ];
 
-export default function Page() {
+interface PageProps {
+    searchParams: {
+        tab?: string;
+    };
+}
+
+export default function Page({ searchParams }: PageProps) {
     const [activeCard, setActiveCard] = useState<number | null>(null);
     const { t } = useI18n();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const { tab } = use(searchParams);
+    const router = useRouter();
     const { dispatch } = usePerformanceStatisticStore();
 
     const handleCardClick = (index: number) => {
@@ -307,11 +318,19 @@ export default function Page() {
 
     const selectedData = activeCard !== null ? dataList[activeCard] : null;
 
+    const unwrappedSearchParams = { tab: tab || '' };
+
     return (
         <>
             <div className="w-full">
                 <ClientAccountBanner />
-                <AppTabs tabsList={tabsList} />
+                <AppTabs
+                    tabsList={tabsList}
+                    defaultValue={unwrappedSearchParams.tab || undefined}
+                    onValueChange={activeTab => {
+                        router.push(`/performance-statistics?tab=${activeTab}`);
+                    }}
+                />
 
                 <div className="max-h-[4svh] mb-2 flex items-center justify-between w-full">
                     <ClientAccountFilterDialog
@@ -408,7 +427,7 @@ export default function Page() {
                                         </strong>
                                     </div>
 
-                                    <div className="flex justify-between text-xs mb-1.5 [&>p]:text-[var(--brand-grey-foreground)] [&>strong]:text-green-500">
+                                    <div className="flex justify-between text-xs mb-1.5 text-brand-green">
                                         <p>
                                             <T keyName={'common.deposit'} />:
                                         </p>
@@ -416,7 +435,7 @@ export default function Page() {
                                             {data.account.deposit}
                                         </strong>
                                     </div>
-                                    <div className="flex justify-between text-xs [&>p]:text-[var(--brand-grey-foreground)] text-green-500 mb-1.5">
+                                    <div className="flex justify-between text-xs text-brand-green mb-1.5">
                                         <p>
                                             <T keyName={'common.profit'} />:
                                         </p>
@@ -526,7 +545,7 @@ export default function Page() {
                                         </strong>
                                     </div>
 
-                                    <div className="flex justify-between [&>p]:text-brand-text">
+                                    <div className="flex justify-between text-brand-green">
                                         <p>
                                             <T keyName={'common.deposit'} />
                                             :{' '}
@@ -536,7 +555,7 @@ export default function Page() {
                                         </strong>
                                     </div>
 
-                                    <div className="flex justify-between [&>p]:text-brand-text [&>strong]:text-red-400">
+                                    <div className="flex justify-between text-brand-red">
                                         <p>
                                             <T keyName={'common.withdraw'} />
                                             :{' '}
@@ -548,11 +567,11 @@ export default function Page() {
 
                                 <div className="flex flex-col space-y-1">
                                     <div className="flex justify-between items-center">
-                                        <p className="text-brand-text flex flex-row items-center">
+                                        <p className="text-brand-green flex flex-row items-center">
                                             <T keyName={'common.gain'} />:{' '}
                                             <AppTooltips
                                                 contents={
-                                                    <div className="max-w-[24rem] flex flex-col gap-2">
+                                                    <div className="max-w-[32.5rem] leading-5 flex flex-col gap-2">
                                                         <strong className="font-bold">
                                                             <T
                                                                 keyName={
@@ -566,6 +585,7 @@ export default function Page() {
                                                                     'common.gainTooltip'
                                                                 }
                                                             />
+                                                            .
                                                         </p>
                                                     </div>
                                                 }
@@ -581,19 +601,19 @@ export default function Page() {
                                                 }
                                             />
                                         </p>
-                                        <strong className="text-green-500">
+                                        <strong className="text-brand-green">
                                             +52.82%
                                         </strong>
                                     </div>
 
                                     <div className="flex justify-between">
-                                        <p className="text-brand-text">
+                                        <p className="text-brand-green">
                                             <T
                                                 keyName={'common.absoluteGain'}
                                             />
                                             :
                                         </p>
-                                        <strong className="text-green-500">
+                                        <strong className="text-brand-green">
                                             +46.94%
                                         </strong>
                                     </div>
@@ -610,8 +630,8 @@ export default function Page() {
                                         </p>
                                         <strong>4.18%</strong>
                                     </div>
-                                    <div className="flex justify-between [&>strong]:text-red-400">
-                                        <p className="text-brand-text">
+                                    <div className="flex justify-between text-brand-red">
+                                        <p className="text-brand-red">
                                             <T keyName={'common.drawdown'} />
                                             :{' '}
                                         </p>
@@ -649,16 +669,16 @@ export default function Page() {
                                     </div>
 
                                     <div className="flex justify-between">
-                                        <p className="text-green-500">
+                                        <p className="text-brand-green">
                                             <T keyName={'common.profit'} />
                                             :{' '}
                                         </p>
-                                        <strong className="text-green-500">
+                                        <strong className="text-brand-green">
                                             54,245.75 USD
                                         </strong>
                                     </div>
                                     <div className="flex justify-between items-center">
-                                        <p className="text-brand-text flex items-center">
+                                        <p className="text-brand-red flex items-center">
                                             <span>
                                                 <T
                                                     keyName={
@@ -669,7 +689,7 @@ export default function Page() {
                                             </span>
                                             <AppTooltips
                                                 contents={
-                                                    <div className="max-w-[24rem] flex flex-col gap-2">
+                                                    <div className="max-w-[18rem] leading-5 flex flex-col gap-2">
                                                         <strong className="font-bold">
                                                             <T
                                                                 keyName={
@@ -698,7 +718,7 @@ export default function Page() {
                                                 }
                                             />
                                         </p>
-                                        <strong className="text-red-400">
+                                        <strong className="text-brand-red">
                                             -347.25 USD
                                         </strong>
                                     </div>

@@ -54,7 +54,7 @@ interface PageProps {
 
 const toolConfigs: Group[] = [
     {
-        key: 'currencyConverterCalc & pipCalculator',
+        key: 'currencyConverterCalc-pipCalculator',
         items: [
             {
                 key: 'currencyConverterCalc',
@@ -75,7 +75,7 @@ const toolConfigs: Group[] = [
         ],
     },
     {
-        key: 'profitCalculator & pivotalCalculator',
+        key: 'profitCalculator-pivotalCalculator',
         items: [
             {
                 key: 'profitCalculator',
@@ -90,7 +90,7 @@ const toolConfigs: Group[] = [
         ],
     },
     {
-        key: 'fiboCalculator & marginCalculator',
+        key: 'fiboCalculator-marginCalculator',
         items: [
             {
                 key: 'fiboCalculator',
@@ -191,7 +191,7 @@ function ToolContent({
                     )}
                 />
             )}
-            <p className="text-sm text-center max-w-[24rem] text-wrap">
+            <p className="font-bold text-center max-w-[24rem] text-wrap">
                 {t(
                     `investors.items.toolForInvestor.items.${toolKey}.description`
                 )}
@@ -555,6 +555,7 @@ function InterestCalculator() {
                                 }}
                                 className="app-text-input pr-10"
                             />
+
                             <AppDropdown
                                 options={getTimeUnitOptions(
                                     locale as 'vi' | 'en'
@@ -566,9 +567,13 @@ function InterestCalculator() {
                                     )
                                 }
                                 labelVisible={false}
-                                buttonClassName="w-fit justify-between absolute right-5 bottom-1/2 transform translate-y-1/2"
+                                buttonClassName={
+                                    'w-fit justify-between absolute right-5 bottom-1/2 transform translate-y-1/2 ' +
+                                    `${(timeValue === 1 || !timeValueInput) && ' pointer-events-none hidden'}`
+                                }
                                 contentClassName="w-full!"
                             />
+
                             <AppTooltips
                                 contents={
                                     <div className="max-w-[24rem] flex flex-col gap-2">
@@ -585,7 +590,8 @@ function InterestCalculator() {
                                         className={
                                             'dark:hover:bg-transparent absolute' +
                                             ' right-0 bottom-1/2 transform translate-y-1/2' +
-                                            ' dark:hover:text-[var(--brand-color)]'
+                                            ' dark:hover:text-[var(--brand-color)]' +
+                                            `${timeValue === 1 && ' pointer-events-none hidden'}`
                                         }
                                     >
                                         <Info className="size-3" />
@@ -599,9 +605,12 @@ function InterestCalculator() {
                                 type="text"
                                 inputMode="decimal"
                                 label={
-                                    locale === 'vi'
-                                        ? 'Vốn Đầu Tư Ban Đầu'
-                                        : 'Starting Equity'
+                                    <>
+                                        {locale === 'vi'
+                                            ? 'Vốn Đầu Tư Ban Đầu'
+                                            : 'Starting Equity'}{' '}
+                                        ($)
+                                    </>
                                 }
                                 value={initialCapitalInput}
                                 onChange={e => {
@@ -654,7 +663,8 @@ function InterestCalculator() {
                                         className={
                                             'dark:hover:bg-transparent absolute' +
                                             ' right-0 bottom-1/2 transform translate-y-1/2' +
-                                            ' dark:hover:text-[var(--brand-color)]'
+                                            ' dark:hover:text-[var(--brand-color)]' +
+                                            `${initialCapital === 1 && ' pointer-events-none'}`
                                         }
                                     >
                                         <Info className="size-3" />
@@ -714,7 +724,11 @@ function InterestCalculator() {
                                     )
                                 }
                                 labelVisible={false}
-                                buttonClassName="w-fit justify-between absolute right-1 bottom-1/2 transform translate-y-1/2"
+                                buttonClassName={
+                                    'w-fit justify-between absolute hover:cursor-auto right-1 bottom-1/2 transform' +
+                                    ' translate-y-1/2 hover:cursor-pointer' +
+                                    ` ${(growthRate === 1 || !growthRateInput) && ' pointer-events-none hidden'}`
+                                }
                                 contentClassName="w-full!"
                             />
                         </div>
@@ -830,7 +844,7 @@ function InterestCalculator() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div style={{ height: `${height - 74}px` }}>
+                        <div style={{ height: `${height - 174}px` }}>
                             <ResponsiveContainer width="100%" height="100%">
                                 <LineChart
                                     data={chartData}
@@ -968,7 +982,48 @@ function InterestCalculator() {
                                             borderRadius: '14px',
                                         }}
                                     />
-                                    <Legend />
+                                    <Legend
+                                        content={() => (
+                                            <ul className="flex flex-wrap gap-4 justify-center mt-2">
+                                                {[
+                                                    {
+                                                        label:
+                                                            locale === 'vi'
+                                                                ? 'Giá Trị Tài Khoản '
+                                                                : 'Account Value',
+                                                        color:
+                                                            theme === 'dark'
+                                                                ? '#ffe400'
+                                                                : '#000000',
+                                                        strokeDasharray: '0 0',
+                                                    },
+                                                ].map((item, index) => (
+                                                    <li
+                                                        key={index}
+                                                        className="flex items-center  gap-1.5 text-sm font-medium"
+                                                        style={{
+                                                            color: item.color,
+                                                        }}
+                                                    >
+                                                        <svg
+                                                            viewBox="0 0 32 32"
+                                                            className="h-8 w-8 overflow-hidden"
+                                                        >
+                                                            <path
+                                                                strokeWidth="2"
+                                                                fill="none"
+                                                                stroke={
+                                                                    item.color
+                                                                }
+                                                                d="M0,16h10.67A5.33,5.33,0,1,1,21.33,16H32M21.33,16A5.33,5.33,0,1,1,10.67,16"
+                                                            ></path>
+                                                        </svg>
+                                                        {item.label}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    />
                                     <Line
                                         type="monotone"
                                         dataKey="value"
@@ -1129,17 +1184,17 @@ export default function InvestorToolsComp({ searchParams }: PageProps) {
         setTabsList([
             ...newTabsList,
             {
+                title: t('lossRecovery.title'),
+                value: 'loss-recovery',
+                renderContent: () =>
+                    Promise.resolve(<LossRecoveryCalculator />),
+            },
+            {
                 title: t(
                     'investors.items.toolForInvestor.items.investmentCalculator.title'
                 ),
                 value: 'investment interest calc',
                 renderContent: () => Promise.resolve(<InterestCalculator />),
-            },
-            {
-                title: t('lossRecovery.title'),
-                value: 'loss-recovery',
-                renderContent: () =>
-                    Promise.resolve(<LossRecoveryCalculator />),
             },
         ]);
     }, [locale]);

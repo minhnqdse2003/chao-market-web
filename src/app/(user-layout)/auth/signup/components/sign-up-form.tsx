@@ -466,17 +466,18 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                 className="text-sm cursor-pointer text-[var(--brand-grey-foreground)] dark:text-white"
                             >
                                 <T keyName="auth.termsAgreement.start" />{' '}
-                                <span
+                                <Link
                                     className={
-                                        'dark:text-[var(--brand-color)] text-brand-text font-medium'
+                                        'dark:text-[var(--brand-color)] text-brand-text font-bold hover:underline'
                                     }
+                                    href={'/terms-of-use'}
                                 >
                                     <T
                                         keyName={
                                             'auth.termsAgreement.startAgePrivacy'
                                         }
                                     />
-                                </span>{' '}
+                                </Link>{' '}
                                 <T
                                     keyName={
                                         'auth.termsAgreement.startEndContent'
@@ -488,7 +489,7 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                 />{' '}
                                 <Link
                                     href="/terms-of-use"
-                                    className="dark:text-[var(--brand-color)] text-black font-medium hover:underline"
+                                    className="dark:text-[var(--brand-color)] text-black font-bold hover:underline"
                                 >
                                     <T
                                         keyName={
@@ -499,7 +500,7 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                 <T keyName="auth.termsAgreement.and" />{' '}
                                 <Link
                                     href="/privacy-policy"
-                                    className="dark:text-[var(--brand-color)] text-black font-medium hover:underline"
+                                    className="dark:text-[var(--brand-color)] text-black font-bold hover:underline"
                                 >
                                     <T keyName="auth.termsAgreement.privacyNotice" />
                                 </Link>

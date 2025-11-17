@@ -78,7 +78,7 @@ export function AppDatePicker({
                                     open
                                         ? 'dark:border-[var(--brand-color)] dark:text-[var(--brand-color)]' +
                                           ' text-black'
-                                        : 'text-[var(--brand-grey-foreground)]'
+                                        : 'text-[var(--brand-grey-foreground)]/50'
                                 }`,
                                 `dark:aria-invalid:ring-destructive aria-invalid:border-transparent dark:aria-invalid:border-transparent aria-invalid:ring-destructive/20 ring-2 ring-transparent`,
                                 buttonClass

@@ -1,5 +1,4 @@
 'use client';
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -14,12 +13,7 @@ import { useI18n } from '@/context/i18n/context'; // Assuming useI18n is availab
 import { T } from './app-translate';
 
 export default function AppFooter() {
-    const pathname = usePathname();
     const { t } = useI18n(); // Get translation function
-
-    if (pathname.startsWith('/auth') || pathname.startsWith('/post')) {
-        return null;
-    }
 
     // Define social media links with icons
     const socialLinks = [
@@ -152,8 +146,8 @@ export default function AppFooter() {
                                 <span className="flex items-center gap-2">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        className={'size-6'}
-                                        viewBox="0 0 24 24"
+                                        className={'size-5'}
+                                        viewBox="2 2 20 20"
                                     >
                                         <path
                                             fill="currentColor"
@@ -161,7 +155,6 @@ export default function AppFooter() {
                                         />
                                     </svg>
                                     <T keyName={'common.information'} />{' '}
-                                    {/* Assuming 'Information' needs translation */}
                                 </span>
                                 <span>
                                     <a
@@ -253,9 +246,10 @@ export default function AppFooter() {
                 </div>
 
                 {/* Copyright */}
-                <div className="text-center text-sm dark:text-[var(--brand-color)] text-brand-text font-semibold mt-6">
-                    <T keyName={'footer.copyright'} /> {/* APPLIED KEY */}
-                </div>
+                <div
+                    className="text-center text-sm dark:text-[var(--brand-color)] text-brand-text font-semibold mt-6"
+                    dangerouslySetInnerHTML={{ __html: t('footer.copyright') }}
+                />
             </div>
         </footer>
     );

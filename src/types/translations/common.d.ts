@@ -23,6 +23,7 @@ export interface CommonTranslations {
     back: string;
     newPassword: string;
     confirmNewPassword: string;
+    currentPassword: string;
     sending: string;
     phoneNumber: string;
     lastUpdated: string;
@@ -144,4 +145,11 @@ export interface CommonTranslations {
     contactInformationTitle: string;
     updateContactDetailsDesc: string;
     tags: string;
+    updateProfile: string;
+    verify: string;
+    changePasswordSubtitle: string;
+    changeEmail: string;
+    changeEmailSubtitle: string;
+    newEmail: string;
+    confirmNewEmail: string;
 }

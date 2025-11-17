@@ -74,7 +74,7 @@ const ClientAccountFilterDialog = ({
     // Dialog Content
     const mainContent = (
         <div className="flex flex-col gap-4">
-            <div className="relative flex items-start border-b dark:[&:hover>svg]:text-[var(--brand-color)] dark:focus-within:[&_svg]:text-[var(--brand-color)]">
+            <div className="relative flex items-start border-b dark:[&:hover>svg]:text-[var(--brand-color)] dark:focus-within:[&_svg]:text-[var(--brand-color)] hover:dark:[&>textarea]:placeholder:text-[var(--brand-color)]">
                 <SearchIcon className="size-4 text-[var(--brand-grey-foreground)] mt-1.5 flex-shrink-0" />
                 <AutosizeTextarea
                     placeholder={t('common.search')}

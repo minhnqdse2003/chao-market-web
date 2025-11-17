@@ -33,7 +33,7 @@ export function AccountChart({ data }: AccountChartProps) {
             return formatInTimeZone(
                 new Date(timestamp),
                 'Etc/GMT-7',
-                'MMM dd, yy',
+                'dd.MM.yy',
                 {
                     locale: locale === 'vi' ? vi : enUS,
                 }
@@ -204,18 +204,18 @@ export function AccountChart({ data }: AccountChartProps) {
                         type="monotone"
                         data={depositData}
                         dataKey="markerValue"
-                        stroke="var(--color-green-400)"
+                        stroke="var(--brand-green)"
                         strokeWidth={0}
                         dot={{
-                            stroke: 'var(--color-green-400)',
+                            stroke: 'var(--brand-green)',
                             strokeWidth: 2,
                             r: 5,
-                            fill: 'var(--color-green-400)',
+                            fill: 'var(--brand-green)',
                         }}
                         activeDot={{
                             r: 7,
-                            stroke: 'var(--color-green-400)',
-                            fill: 'var(--color-green-400)',
+                            stroke: 'var(--brand-green)',
+                            fill: 'var(--brand-green)',
                         }}
                     />
 
@@ -224,18 +224,18 @@ export function AccountChart({ data }: AccountChartProps) {
                         type="monotone"
                         data={withdrawalData}
                         dataKey="markerValue"
-                        stroke="var(--color-red-400)"
+                        stroke="var(--brand-red)"
                         strokeWidth={0}
                         dot={{
-                            stroke: 'var(--color-red-400)',
+                            stroke: 'var(--brand-red)',
                             strokeWidth: 2,
                             r: 5,
-                            fill: 'var(--color-red-400)',
+                            fill: 'var(--brand-red)',
                         }}
                         activeDot={{
                             r: 7,
-                            stroke: 'var(--color-red-400)',
-                            fill: 'var(--color-red-400)',
+                            stroke: 'var(--brand-red)',
+                            fill: 'var(--brand-red)',
                         }}
                     />
                 </LineChart>

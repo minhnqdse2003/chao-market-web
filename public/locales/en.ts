@@ -26,6 +26,7 @@ export const en: TranslationsStructure = {
         back: 'Back',
         newPassword: 'New Password',
         confirmNewPassword: 'Confirm New Password',
+        currentPassword: 'Current Password',
         sending: 'Sending...',
         phoneNumber: 'Phone number (optional)',
         backToSignUp: '← Back to Sign Up',
@@ -151,6 +152,15 @@ export const en: TranslationsStructure = {
         updateContactDetailsDesc:
             'Update your contact details and communication preferences.',
         tags: 'Tags',
+        updateProfile: 'Update Profile',
+        verify: 'Verify',
+        changePasswordSubtitle:
+            'Please enter your current password and new password.',
+        changeEmail: 'Change Email',
+        changeEmailSubtitle:
+            'Please enter your new email address and confirm it.',
+        newEmail: 'New Email',
+        confirmNewEmail: 'Confirm New Email',
     },
     auth: {
         login: 'Log In',
@@ -493,7 +503,17 @@ export const en: TranslationsStructure = {
                 {
                     title: '3. User Account and Responsibilities',
                     content:
-                        'To access certain features, including the "Performance Statistics" area, you will be required to create an account. By creating an account, you agree to:\n• Provide accurate and current information.\n• Maintain the confidentiality of your password and be responsible for all activities that occur under your account.\n• Acknowledge that the act of checking the box stating "By creating an account, I confirm that I am <strong>at least 18 years old</strong> and I agree to the website\'s <strong>Terms of Use</strong> and <strong>Privacy Policy</strong> during the registration process constitutes a legally binding electronic signature and confirms your full consent to this document.',
+                        'To access certain features, including the "Performance Statistics" area, you will be' +
+                        ' required to create an account. By creating an account, you agree to:\n• Provide accurate' +
+                        ' and current information.\n• Maintain the confidentiality of your password and be' +
+                        ' responsible for all activities that occur under your account.\n• Acknowledge that the act' +
+                        ' of checking the box stating "By creating an account, I confirm that I am <a href="/terms-of-use">at' +
+                        ' least' +
+                        ' 18 years old</a> and I agree to the website\'s <a href="/terms-of-use">Terms of' +
+                        ' Use</a> and <a href="/privacy-policy">Privacy Policy</a> during the registration process' +
+                        ' constitutes' +
+                        ' a' +
+                        ' legally binding electronic signature and confirms your full consent to this document.',
                 },
                 {
                     title: '4. Terms of Access and Use for the "Performance Statistics" Area',
@@ -540,7 +560,9 @@ export const en: TranslationsStructure = {
                     content:
                         'Chào Market ("we," "us," or "our") is committed to protecting the privacy of our users' +
                         ' ("you"). This “Privacy Policy” explains how we collect, use, disclose, and safeguard your' +
-                        ' information when you visit our website Chào Market (chaomarket.com) and use our services.\n\nWe may collect information about you in a variety of ways:\n\n<strong>Personal data you provide to us:</strong>\n• When you register for an account, we collect personally identifiable information such as your <strong>name, email address, and optional phone number.</strong>\n• When you contact us via forms or email, we collect the information you provide during that communication.\n\n<strong>Data collected automatically:</strong>\n• When you access the website, we may automatically collect information such as your <strong>IP address, browser type, operating system, access times, and the pages you have viewed.</strong> This data is used for analytics and security purposes.',
+                        ' information when you visit our website Chào Market (chaomarket.com) and use our' +
+                        ' services.\nWe may collect information about you in a variety of' +
+                        ' ways:\n\n<strong>Personal data you provide to us:</strong>\n• When you register for an account, we collect personally identifiable information such as your <strong>name, email address, and optional phone number.</strong>\n• When you contact us via forms or email, we collect the information you provide during that communication.\n\n<strong>Data collected automatically:</strong>\n• When you access the website, we may automatically collect information such as your <strong>IP address, browser type, operating system, access times, and the pages you have viewed.</strong> This data is used for analytics and security purposes.',
                 },
                 {
                     title: '2. How We Use Your Information',
@@ -585,7 +607,14 @@ export const en: TranslationsStructure = {
                 {
                     title: '2. How We Use Cookies',
                     content:
-                        'Essential Cookies: Necessary for the website to function properly.\nAnalytics Cookies: We use these (e.g., Google Analytics) to understand how visitors interact with our website, which helps us improve our content and services.\nMarketing Cookies (if applicable): These are used to track visitors across websites to display relevant ads.',
+                        '<strong>Essential Cookies:</strong> Necessary for the website to function' +
+                        ' properly.<br/><strong>Analytics' +
+                        ' Cookies:</strong>' +
+                        ' We' +
+                        ' use these (e.g., Google Analytics) to understand how visitors interact with our website,' +
+                        ' which helps us improve our content and services.<br/><strong>Marketing Cookies (if' +
+                        ' applicable):</strong>' +
+                        ' These are used to track visitors across websites to display relevant ads.',
                 },
                 {
                     title: '3. Your Choices',
@@ -598,7 +627,9 @@ export const en: TranslationsStructure = {
         followUs: 'Follow us',
         joinGroup: 'Join Group',
         copyright:
-            '© 2025 Chaomarket.com. All rights reserved. All content on this website is protected by intellectual property laws. Unauthorized copying, reproduction, or distribution of any material is strictly prohibited.',
+            '© 2025 Chaomarket.com. All rights reserved. All content on this website is protected by intellectual' +
+            ' property laws. <br/>Unauthorized copying, reproduction, or distribution of any material is strictly' +
+            ' prohibited.',
     },
     marketData: {
         marketData: {
@@ -760,9 +791,11 @@ export const en: TranslationsStructure = {
         guest: {
             title: 'Members Only Area',
             desc1:
-                'This section contains in-depth analyses and research data, available exclusively to registered' +
-                ' members <br/>who have agreed to our <a href="/terms-of-use">Terms of Use.</a>',
-            desc2: 'Please ',
+                'This area contains in-depth analysis and research data, exclusively for registered members who' +
+                ' are <a href="/terms-of-use">at least 18 years of age</a> and have agreed to our <a' +
+                ' href="/terms-of-use">Terms of Use</a> and' +
+                ' <a href="/privacy-policy">Privacy Policy</a> .',
+            desc2: '',
             linkSignUp: 'Sign Up',
             desc3: ' or ',
             linkLogIn: 'Log In',
@@ -773,10 +806,15 @@ export const en: TranslationsStructure = {
             title: 'Important Data Notice',
             reminderText: 'Important Data Notice',
             desc1: 'The data you are viewing is for',
-            desc2: 'research and academic purposes',
+            desc2: 'research and academic purposes only and does not constitute investment advice',
             desc3:
-                'only, and does not constitute investment advice. Past performance is not indicative of future' +
-                ' results. By proceeding, you reaffirm that you have understood and agreed to our full',
+                '. Past performance is no guarantee of future results.' +
+                '<br/>By continuing, you confirm that you are a registered member, are <a href="/terms-of-use">18 years' +
+                ' or' +
+                ' older</a>,' +
+                ' and agree' +
+                ' to' +
+                ' our <a href="/terms-of-use">Terms of Use</a> and <a href="/privacy-policy">Privacy Policy</a>.',
             linkTerms: 'Terms of Use',
             agreeButton: 'I understand and agree',
             alreadyAgreeButton:
@@ -795,14 +833,14 @@ export const en: TranslationsStructure = {
             ' bottom right corner of your' +
             ' screen.',
         endContent:
-            '<strong>Thank you for your feedback and for choosing Chào Market!</strong>',
+            '<strong>Thank you for your feedback and for choosing Chào Market !</strong>',
     },
     brandSlogan: {
         general: 'We prioritise helping you <br /> manage market risks',
         clientPromise: `“We don’t focus on maximising your profit. <br />We prioritise helping you manage market risks.”`,
     },
     lossRecovery: {
-        title: 'Loss Recovery Analyzer',
+        title: 'Breakeven % Calculator',
         description:
             'A tool to estimate the time and effort required to recover from a loss.',
     },

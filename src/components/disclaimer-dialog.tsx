@@ -140,7 +140,8 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                 sidebar-open={isSidebarOpen.toString()}
                 dialog-open={isOpen.toString()}
                 className={
-                    'flex items-center justify-center gap-2 text-sm cursor-pointer transition-all! duration-300' +
+                    'flex items-center justify-center gap-2 text-2xl font-bold cursor-pointer' +
+                    ' transition-all! duration-300' +
                     ' ease-in-out dark:hover:text-[var(--brand-color)] [&[sidebar-open="true"]]:hover:pb-2 py-1' +
                     ' absolute' +
                     ' left-0 bottom-0 w-[var(--sidebar-width)]' +
@@ -157,12 +158,12 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
             </div>
 
             <DialogContent
-                className="bg-brand-dialog min-w-[70svw] focus-visible:outline-0"
+                className="bg-brand-dialog min-w-[75svw] focus-visible:outline-0 leading-7"
                 onOpenAutoFocus={e => e.preventDefault()}
                 autoFocus={false}
             >
                 <DialogHeader>
-                    <DialogTitle className="text-brand-text text-center text-2xl font-bold">
+                    <DialogTitle className="text-brand-text text-center text-size-22 dark:text-[var(--brand-color)] font-bold">
                         {disclaimerTitle}
                     </DialogTitle>
                 </DialogHeader>
@@ -171,11 +172,11 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                     {Array.isArray(sections) &&
                         sections.map((section, index) => (
                             <div key={index}>
-                                <h3 className="text-lg font-semibold text-brand-text mb-2">
+                                <h3 className="text-size-20 font-bold text-brand-text mb-2">
                                     {section.title}
                                 </h3>
                                 <p
-                                    className="text-[var(--brand-grey-foreground)] [&>strong]:text-brand-text [&>strong]:font-normal"
+                                    className="text-[var(--brand-grey-foreground)] font-medium [&>strong]:font-bold [&>strong]:text-brand-text"
                                     dangerouslySetInnerHTML={{
                                         __html: section.content,
                                     }}
@@ -189,7 +190,7 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                 </div>
 
                 {isDisclaimerConfirmOnClient && (
-                    <p className="text-base dark:text-[var(--brand-color)] text-brand-text font-semibold">
+                    <p className="text-base dark:text-[var(--brand-color)] text-brand-text font-medium">
                         {alreadyAgreeButtonText}
                     </p>
                 )}

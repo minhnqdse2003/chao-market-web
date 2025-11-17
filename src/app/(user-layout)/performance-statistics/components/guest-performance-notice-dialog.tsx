@@ -20,11 +20,7 @@ export function GuestPerformanceNoticeDialog() {
     const router = useRouter();
     const { t } = useI18n();
     const history = useHistoryStore(state => state.history);
-    const {
-        isOpen: isNoticeOpen,
-        dispatch,
-        isAccepted,
-    } = usePerformanceStatisticStore();
+    const { isOpen: isNoticeOpen, dispatch } = usePerformanceStatisticStore();
 
     const notice = t(
         'performanceNotice.guest'
@@ -37,9 +33,9 @@ export function GuestPerformanceNoticeDialog() {
     const linkStyle = 'text-[var(--brand-color)] hover:underline font-semibold';
 
     const descriptionGuestJsx = (
-        <>
+        <div className={'w-full'}>
             <p
-                className="mb-4 dark:[&>a]:text-[var(--brand-color)] text-base [&>a]:hover:underline [&>a]:text-brand-text"
+                className="mb-4 dark:[&>a]:text-[var(--brand-color)] text-base  leading-7 [&>a]:font-bold [&>a]:hover:underline [&>a]:text-brand-text"
                 dangerouslySetInnerHTML={{ __html: notice.desc1 }}
             />
             <p>
@@ -53,24 +49,22 @@ export function GuestPerformanceNoticeDialog() {
                 </Link>
                 {notice.desc4}
             </p>
-        </>
+        </div>
     );
 
     const descriptionMemberJsx = (
         <div className={'w-full'}>
-            <p className="mb-4 text-[var(--brand-grey-foreground)]">
+            <p className="mb-4 text-[var(--brand-grey-foreground)] leading-7">
                 <span>{noticeMember.desc1}</span>{' '}
-                <span className={'text-brand-text'}>{noticeMember.desc2}</span>
-                <span>{noticeMember.desc3}</span>{' '}
-                <Link
-                    href={'/terms-of-use'}
+                <span className={'text-brand-text font-bold'}>
+                    {noticeMember.desc2}
+                </span>
+                <span
+                    dangerouslySetInnerHTML={{ __html: noticeMember.desc3 }}
                     className={
-                        'dark:text-[var(--brand-color)] text-brand-text hover:underline font-bold'
+                        '[&>a]:dark:text-[var(--brand-color)] [&>a]:font-bold [&>a]:hover:underline'
                     }
-                >
-                    {noticeMember.linkTerms}
-                </Link>
-                .
+                />
             </p>
             <div
                 className={'flex justify-start font-medium items-center w-full'}
@@ -78,10 +72,10 @@ export function GuestPerformanceNoticeDialog() {
                 <p>
                     <span
                         className={
-                            'dark:text-[var(--brand-color)]/80 text-brand-text w-full text-center'
+                            'dark:text-[var(--brand-color)] font-medium text-brand-text w-full text-center'
                         }
                     >
-                        {noticeMember.alreadyAgreeButton}
+                        {noticeMember.alreadyAgreeButton}.
                     </span>
                 </p>
             </div>
@@ -118,14 +112,9 @@ export function GuestPerformanceNoticeDialog() {
     }, [status]);
 
     useEffect(() => {
-        if (isAuthenticated && !isAccepted) {
-            handleOnOpenChange(isAuthenticated, 'member');
-        }
-    }, [status]);
-
-    useEffect(() => {
         if (isAuthenticated && isNoticeOpen) {
             handleOnOpenChange(isNoticeOpen, 'member');
+            console.log('set notice: ', isNoticeOpen);
         }
     }, [isNoticeOpen]);
 
@@ -139,7 +128,7 @@ export function GuestPerformanceNoticeDialog() {
                         description: descriptionGuestJsx,
                     }}
                     onClickCloseIcon={handleRedirectOnClickAcceptButton}
-                    contentClassName={'w-fit min-w-fit'}
+                    contentClassName={'w-fit min-w-[60svw]'}
                 />
             )}
             {isNoticeOpen && (
@@ -148,13 +137,13 @@ export function GuestPerformanceNoticeDialog() {
                     onOpenChange={open => handleOnOpenChange(open, 'member')}
                     trigger={<></>}
                     headerContent={
-                        <h2 className="text-lg font-semibold">
+                        <h2 className="text-size-22 font-bold text-brand-text dark:text-[var(--brand-color)] text-center">
                             {noticeMember.title}
                         </h2>
                     }
                     mainContent={descriptionMemberJsx}
                     footerContent={<></>}
-                    contentContainerClassName="w-fit min-w-[50svw] max-w-[800px]"
+                    contentContainerClassName="w-fit min-w-[65svw]"
                 />
             )}
         </>

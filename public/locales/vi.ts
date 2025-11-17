@@ -26,11 +26,12 @@ export const vi: TranslationsStructure = {
         back: 'Quay lại',
         newPassword: 'Mật khẩu mới',
         confirmNewPassword: 'Xác nhận mật khẩu mới',
+        currentPassword: 'Mật khẩu hiện tại',
         sending: 'Đang gửi...',
         phoneNumber: 'Số điện thoại (tùy chọn)',
-        backToSignUp: '← Quay lại trang Đăng ký',
+        backToSignUp: '← Quay lại Đăng Ký',
         lastUpdated: 'Cập nhật lần cuối: {date}',
-        backToHome: '← Quay lại Trang chủ',
+        backToHome: '← Quay lại Trang Chủ',
         scrollToTop: 'Về Đầu Trang ',
         autoCloseMessage: 'Thông báo này sẽ tự động đóng sau {countdown} giây.',
         search: 'Tra cứu',
@@ -151,6 +152,15 @@ export const vi: TranslationsStructure = {
         updateContactDetailsDesc:
             'Cập nhật chi tiết liên hệ và tùy chọn giao tiếp của bạn.',
         tags: ' Thẻ',
+        updateProfile: 'Cập Nhật Thông Tin',
+        verify: 'Xác Nhận',
+        changePasswordSubtitle:
+            'Vui lòng nhập mật khẩu hiện tại và mật khẩu mới của bạn.',
+        changeEmail: 'Đổi Email',
+        changeEmailSubtitle:
+            'Vui lòng nhập địa chỉ email mới của bạn và xác nhận.',
+        newEmail: 'Email Mới',
+        confirmNewEmail: 'Xác Nhận Email Mới',
     },
     auth: {
         login: 'Đăng Nhập',
@@ -492,7 +502,13 @@ export const vi: TranslationsStructure = {
                 {
                     title: '3. Tài Khoản Người Dùng Và Trách Nhiệm',
                     content:
-                        'Để truy cập một số tính năng nhất định, bao gồm khu vực "Hiệu Suất Hệ Thống", bạn sẽ được yêu cầu tạo một tài khoản. Bằng việc tạo tài khoản, bạn đồng ý:\n• Cung cấp thông tin chính xác và cập nhật.\n• Chịu trách nhiệm bảo mật mật khẩu và mọi hoạt động diễn ra dưới tài khoản của bạn.\n• Hành động tick vào ô "Bằng việc tạo tài khoản, tôi xác nhận mình <strong>đủ 18 tuổi</strong> và tôi đồng ý với <strong>Điều Khoản Sử Dụng</strong> và <strong>Chính Sách Bảo Mật</strong> của website." trong quá trình đăng ký có giá trị pháp lý tương đương một chữ ký điện tử, xác nhận sự đồng thuận hoàn toàn của bạn với văn bản này.',
+                        'Để truy cập một số tính năng nhất định, bao gồm khu vực "Hiệu Suất Hệ Thống", bạn sẽ được' +
+                        ' yêu cầu tạo một tài khoản. Bằng việc tạo tài khoản, bạn đồng ý:\n• Cung cấp thông tin' +
+                        ' chính xác và cập nhật.\n• Chịu trách nhiệm bảo mật mật khẩu và mọi hoạt động diễn ra dưới' +
+                        ' tài khoản của bạn.\n• Hành động tick vào ô "Bằng việc tạo tài khoản, tôi xác nhận mình <a' +
+                        ' href="/terms-of-use">đủ 18 tuổi</a> và tôi đồng ý với <a href="/terms-of-use">Điều Khoản Sử Dụng</a>' +
+                        ' và <a href="/privacy-policy">Chính' +
+                        ' Sách Bảo Mật</a> của website." trong quá trình đăng ký có giá trị pháp lý tương đương một chữ ký điện tử, xác nhận sự đồng thuận hoàn toàn của bạn với văn bản này.',
                 },
                 {
                     title: '4. Quy Định Về Việc Truy Cập Và Sử Dụng Khu Vực "Hiệu Suất Hệ Thống"',
@@ -537,7 +553,7 @@ export const vi: TranslationsStructure = {
                 {
                     title: '1. Thông Tin Chúng Tôi Thu Thập',
                     content:
-                        'Chào Market ("chúng tôi") cam kết bảo vệ quyền riêng tư của người dùng ("bạn"). “Chính Sách Bảo Mật” này giải thích cách chúng tôi thu thập, sử dụng, tiết lộ và bảo vệ thông tin của bạn khi bạn truy cập website Chào Market (chaomarket.com) và các dịch vụ của chúng tôi.\n\nChúng tôi có thể thu thập thông tin về bạn theo nhiều cách khác nhau:\n\n<strong>Thông tin cá nhân bạn cung cấp:</strong>\n• Khi bạn đăng ký tài khoản, chúng tôi sẽ thu thập các thông tin định danh cá nhân như <strong>họ tên, địa chỉ email, và số điện thoại (tùy chọn).</strong>\n• Khi bạn liên hệ với chúng tôi qua các biểu mẫu hoặc email, chúng tôi sẽ thu thập thông tin bạn cung cấp trong quá trình trao đổi đó.\n\n<strong>Dữ liệu tự động thu thập:</strong>\n• Khi bạn truy cập website, chúng tôi có thể tự động thu thập các thông tin như <strong>địa chỉ IP, loại trình duyệt, hệ điều hành, thời gian truy cập, và các trang bạn đã xem.</strong> Dữ liệu này được sử dụng cho mục đích phân tích và bảo mật.',
+                        'Chào Market ("chúng tôi") cam kết bảo vệ quyền riêng tư của người dùng ("bạn"). “Chính Sách Bảo Mật” này giải thích cách chúng tôi thu thập, sử dụng, tiết lộ và bảo vệ thông tin của bạn khi bạn truy cập website Chào Market (chaomarket.com) và các dịch vụ của chúng tôi.\nChúng tôi có thể thu thập thông tin về bạn theo nhiều cách khác nhau:\n\n<strong>Thông tin cá nhân bạn cung cấp:</strong>\n• Khi bạn đăng ký tài khoản, chúng tôi sẽ thu thập các thông tin định danh cá nhân như <strong>họ tên, địa chỉ email, và số điện thoại (tùy chọn).</strong>\n• Khi bạn liên hệ với chúng tôi qua các biểu mẫu hoặc email, chúng tôi sẽ thu thập thông tin bạn cung cấp trong quá trình trao đổi đó.\n\n<strong>Dữ liệu tự động thu thập:</strong>\n• Khi bạn truy cập website, chúng tôi có thể tự động thu thập các thông tin như <strong>địa chỉ IP, loại trình duyệt, hệ điều hành, thời gian truy cập, và các trang bạn đã xem.</strong> Dữ liệu này được sử dụng cho mục đích phân tích và bảo mật.',
                 },
                 {
                     title: '2. Chúng Tôi Sử Dụng Thông Tin Của Bạn Như Thế Nào?',
@@ -582,7 +598,12 @@ export const vi: TranslationsStructure = {
                 {
                     title: '2. Cách Chúng Tôi Sử Dụng Cookies',
                     content:
-                        'Cookies Thiết Yếu: Cần thiết để website hoạt động bình thường.\nCookies Phân Tích: Chúng tôi sử dụng các cookies này (ví dụ: Google Analytics) để hiểu cách khách truy cập tương tác với website, giúp chúng tôi cải thiện nội dung và dịch vụ.\nCookies Tiếp Thị (nếu có): Các cookies này được dùng để theo dõi khách truy cập trên các trang web nhằm hiển thị các quảng cáo có liên quan.',
+                        '<strong>Cookies Thiết Yếu:</strong> Cần thiết để website hoạt động bình thường.<br/><strong>Cookies' +
+                        ' Phân Tích:</strong>' +
+                        ' Chúng tôi sử dụng các cookies này (ví dụ: Google Analytics) để hiểu cách khách truy cập' +
+                        ' tương tác với website, giúp chúng tôi cải thiện nội dung và dịch vụ.<br/><strong>Cookies' +
+                        ' Tiếp Thị (nếu có):</strong> Các cookies này được dùng để theo dõi khách truy cập trên các' +
+                        ' trang web nhằm hiển thị các quảng cáo có liên quan.',
                 },
                 {
                     title: '3. Lựa Chọn Của Bạn',
@@ -595,7 +616,9 @@ export const vi: TranslationsStructure = {
         followUs: 'Theo Dõi Chúng Tôi',
         joinGroup: 'Tham Gia Nhóm',
         copyright:
-            '© 2025 Chaomarket.com. Bản quyền đã được bảo hộ. Mọi nội dung trên trang web này được bảo vệ bởi luật sở hữu trí tuệ. Nghiêm cấm mọi hành vi sao chép, tái sản xuất hoặc phân phối bất kỳ tài liệu nào khi chưa được phép.',
+            '© 2025 Chaomarket.com. Bản quyền đã được bảo hộ. Mọi nội dung trên trang web này được bảo vệ bởi luật' +
+            ' sở hữu trí tuệ.<br/>Nghiêm cấm mọi hành vi sao chép, tái sản xuất hoặc phân phối bất kỳ tài liệu nào' +
+            ' khi chưa được phép.',
     },
     marketData: {
         marketData: {
@@ -760,7 +783,14 @@ export const vi: TranslationsStructure = {
             title: 'Khu Vực Dành Cho Thành Viên Đã Đăng Ký',
             desc1:
                 'Khu vực này chứa các phân tích và dữ liệu nghiên cứu chuyên sâu, chỉ dành riêng cho các thành' +
-                ' viên đã đăng ký và đồng ý với <a href="/terms-of-use">Điều Khoản Sử Dụng</a> của chúng tôi.',
+                ' viên từ <a href="/terms-of-use">đủ 18 tuổi trở lên</a> đã đăng ký, đồng ý với <a' +
+                ' href="/terms-of-use">Điều' +
+                ' Khoản Sử' +
+                ' Dụng</a>' +
+                ' và <a href="/privacy-policy">Chính' +
+                ' Sách Bảo' +
+                ' Mật</a> của' +
+                ' chúng tôi.',
             desc2: 'Vui lòng ',
             linkSignUp: 'Đăng Ký',
             desc3: ' tài khoản mới hoặc ',
@@ -773,13 +803,22 @@ export const vi: TranslationsStructure = {
             reminderText: 'Lưu Ý Quan Trọng Về Dữ Liệu',
             desc1: 'Dữ liệu bạn đang xem chỉ dành cho',
             linkTerms: 'Điều Khoản Sử dụng',
-            desc2: 'mục đích nghiên cứu và học thuật',
+            desc2: 'mục đích nghiên cứu và học thuật, không phải là lời khuyên đầu tư',
             desc3:
-                ', không phải là lời khuyên đầu tư. Hiệu suất trong quá khứ không đảm bảo cho kết quả trong tương' +
-                ' lai. Bằng việc tiếp tục, bạn xác nhận lại rằng bạn đã hiểu và đồng ý với đầy đủ',
+                '. Hiệu suất trong quá khứ không đảm bảo cho kết quả trong tương' +
+                ' lai.<br/>Bằng việc tiếp tục, bạn xác nhận rằng bạn đã ' +
+                '<a href="/terms-of-use">đủ 18 tuổi trở lên</a> đã đăng' +
+                ' ký, đồng ý với <a' +
+                ' href="/terms-of-use">Điều' +
+                ' Khoản Sử' +
+                ' Dụng</a>' +
+                ' và <a href="/privacy-policy">Chính' +
+                ' Sách Bảo' +
+                ' Mật</a> của' +
+                ' chúng tôi.',
             agreeButton: 'Tôi đã hiểu và đồng ý',
             alreadyAgreeButton:
-                'Bạn đã đồng ý với thông báo này khi đăng ký tài khoản.',
+                'Bạn đã đồng ý với thông báo này khi đăng ký tài khoản',
         },
         mainSection: {
             independentVerification: 'Kiểm Chứng Độc Lập',
@@ -794,14 +833,14 @@ export const vi: TranslationsStructure = {
             ' ở góc dưới bên phải màn hình' +
             ' của bạn.',
         endContent:
-            '<strong>Cảm ơn bạn đã tin tưởng và góp ý cho Chào Market!</strong>',
+            '<strong>Cảm ơn bạn đã tin tưởng và góp ý cho Chào Market !</strong>',
     },
     brandSlogan: {
         general: 'Chúng tôi ưu tiên hỗ trợ bạn <br/> quản lý rủi ro thị trường',
         clientPromise: `“Chúng tôi không tập trung vào việc tối đa hóa lợi nhuận của bạn. <br />Chúng tôi ưu tiên việc hỗ trợ bạn quản lý rủi ro thị trường.”`,
     },
     lossRecovery: {
-        title: 'Phân Tích Gỡ Lỗ',
+        title: 'Tính % Lãi Để Hòa Vốn',
         description:
             'Công cụ ước tính thời gian và nỗ lực cần để gỡ lại khoản lỗ.',
     },

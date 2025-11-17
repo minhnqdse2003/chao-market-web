@@ -32,10 +32,10 @@ export default function PrivacyPolicy() {
             </Link>
 
             {/* Title from translations */}
-            <h1 className="text-3xl flex flex-col gap-2 font-bold text-brand-text dark:text-[var(--brand-color)] mb-6">
+            <h1 className="text-size-22 flex flex-col gap-2 font-bold text-brand-text dark:text-[var(--brand-color)] mb-6">
                 {t('footer.privacyPolicy.title')}
                 <div className="border-b pb-2 border-[var(--brand-grey-foreground)]">
-                    <p className="text-sm font-normal text-[var(--brand-grey-foreground)]">
+                    <p className="text-sm font-normal text-[var(--brand-grey-foreground)]/70">
                         {lastUpdatedText}
                     </p>
                 </div>
@@ -49,7 +49,7 @@ export default function PrivacyPolicy() {
                                 {section.title}
                             </h2>
                             <p
-                                className="text-brand-text/90 dark:[&>a]:text-[var(--brand-color)] [&>a]:font-bold [&>strong]:text-brand-text [&>a]:text-brand-text [&>a]:hover:underline dark:[&>strong]:text-brand-text [&>strong]:font-bold whitespace-pre-wrap"
+                                className="text-[var(--brand-grey-foreground)] dark:[&>a]:text-[var(--brand-color)] [&>a]:font-bold [&>strong]:text-brand-text [&>a]:text-brand-text [&>a]:hover:underline dark:[&>strong]:text-brand-text [&>strong]:font-bold whitespace-pre-wrap leading-7"
                                 dangerouslySetInnerHTML={{
                                     __html: section.content,
                                 }}

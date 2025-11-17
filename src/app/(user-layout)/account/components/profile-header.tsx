@@ -152,7 +152,7 @@ export default function ProfileHeader({
                         onFileChange={handleUpload}
                     />
                     <div className="flex-1 space-y-2">
-                        <h1 className="text-2xl font-bold">
+                        <h1 className="text-size-22 font-bold">
                             {displayData.name}
                         </h1>
                         <div className="text-muted-foreground flex flex-wrap gap-4 text-sm">
@@ -178,10 +178,11 @@ export default function ProfileHeader({
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-md bg-sidebar">
                             <DialogHeader>
-                                <DialogTitle>Change Password</DialogTitle>
+                                <DialogTitle>
+                                    {t('common.changePassword')}
+                                </DialogTitle>
                                 <DialogDescription>
-                                    Please enter your current password and new
-                                    password.
+                                    {t('common.changePasswordSubtitle')}
                                 </DialogDescription>
                             </DialogHeader>
                             <Form {...form}>
@@ -196,9 +197,9 @@ export default function ProfileHeader({
                                             <FormItem>
                                                 <FormControl>
                                                     <FloatingLabelInput
-                                                        label={
-                                                            'Current Password'
-                                                        }
+                                                        label={t(
+                                                            'common.currentPassword'
+                                                        )}
                                                         className="app-text-input"
                                                         type="password"
                                                         {...field}
@@ -215,7 +216,9 @@ export default function ProfileHeader({
                                             <FormItem>
                                                 <FormControl>
                                                     <FloatingLabelInput
-                                                        label={'New Password'}
+                                                        label={t(
+                                                            'common.newPassword'
+                                                        )}
                                                         className="app-text-input"
                                                         type="password"
                                                         {...field}
@@ -232,9 +235,9 @@ export default function ProfileHeader({
                                             <FormItem>
                                                 <FormControl>
                                                     <FloatingLabelInput
-                                                        label={
-                                                            'Confirm New Password'
-                                                        }
+                                                        label={t(
+                                                            'common.confirmNewPassword'
+                                                        )}
                                                         className="app-text-input"
                                                         type="password"
                                                         {...field}
@@ -249,7 +252,7 @@ export default function ProfileHeader({
                                             type="submit"
                                             className="dark:bg-[var(--brand-color)] dark:text-black font-semibold"
                                         >
-                                            Update Password
+                                            {t('common.changePassword')}
                                         </Button>
                                     </div>
                                 </form>

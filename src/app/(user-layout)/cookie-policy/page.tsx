@@ -33,13 +33,13 @@ export default function CookiePolicy() {
             </Link>
 
             {/* Title from translations */}
-            <h1 className="text-3xl font-bold text-brand-text dark:text-[var(--brand-color)] mb-2">
+            <h1 className="text-size-22 font-bold text-brand-text dark:text-[var(--brand-color)] mb-2">
                 {t('footer.cookiePolicy.title')}
             </h1>
 
             <div className="space-y-6 text-brand-text">
                 <div className="border-b pb-2 border-[var(--brand-grey-foreground)]">
-                    <p className="text-sm text-[var(--brand-grey-foreground)]">
+                    <p className="text-sm text-[var(--brand-grey-foreground)]/70">
                         {lastUpdatedText}
                     </p>
                 </div>
@@ -50,13 +50,12 @@ export default function CookiePolicy() {
                             <h2 className="text-xl font-semibold mb-3">
                                 {section.title}
                             </h2>
-                            {/*
-                            `whitespace-pre-wrap` is essential here to render the
-                            bullet points/line breaks from your translation string correctly.
-                        */}
-                            <p className="text-brand-text/90 whitespace-pre-wrap">
-                                {section.content}
-                            </p>
+                            <p
+                                className="text-[var(--brand-grey-foreground)] whitespace-pre-wrap [&>strong]:font-bold [&>strong]:text-brand-text leading-7"
+                                dangerouslySetInnerHTML={{
+                                    __html: section.content,
+                                }}
+                            />
                         </section>
                     ))}
             </div>

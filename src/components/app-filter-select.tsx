@@ -61,7 +61,7 @@ export default function AppFilterSelect({
                     {options.map((option, idx) => (
                         <div
                             key={option.value}
-                            className="flex items-center space-x-2"
+                            className="flex items-center space-x-2 hover:[&_*_]:dark:text-[var(--brand-color)] hover:[&_*_]:dark:border-[var(--brand-color)] hover:[&_*_]:dark:stroke-[var(--brand-color)] transition-all! ease-in-out duration-300"
                         >
                             <RadioGroupItem
                                 value={option.value}

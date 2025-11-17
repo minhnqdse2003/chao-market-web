@@ -34,7 +34,7 @@ export default function ContactButton() {
     useEffect(() => {
         if (open) {
             // Show items sequentially with delays
-            const timers = [0, 200, 400, 600].map((delay, index) =>
+            const timers = [0, 200, 400, 600, 800].map((delay, index) =>
                 setTimeout(
                     () => setVisibleItems(prev => [...prev, index]),
                     delay
@@ -90,6 +90,20 @@ export default function ContactButton() {
             color: '#2962ff',
         },
         {
+            name: t('common.chatOnWhatsApp'), // <-- Use translation
+            href: 'https://wa.me/84985865674',
+            icon: (
+                <Image
+                    src={WhatsApp}
+                    alt={'whats app icon'}
+                    width={50}
+                    height={50}
+                    className={'object-contain size-8'}
+                />
+            ),
+            color: '#25d366',
+        },
+        {
             name: t('contactButton.methods.callUs'), // <-- Use translation
             href: 'tel:0985865674',
             icon: (
@@ -102,20 +116,6 @@ export default function ContactButton() {
                 />
             ),
             color: '#ffe400',
-        },
-        {
-            name: t('common.chatOnWhatsApp'), // <-- Use translation
-            href: 'https://wa.me/84985865674',
-            icon: (
-                <Image
-                    src={WhatsApp}
-                    width={50}
-                    height={50}
-                    className={'object-contain size-8'}
-                    alt="whats-app-icon"
-                />
-            ),
-            color: '#25d366',
         },
     ];
 
@@ -145,13 +145,13 @@ export default function ContactButton() {
                         </TooltipContent>
                     </Tooltip>
                     <PopoverContent
-                        className="w-fit border-0 bg-transparent p-1.5 dark:bg-transparent shadow-none relative"
+                        className="w-fit h-fit border-0 bg-transparent p-1.5 dark:bg-transparent shadow-none relative"
                         align="start"
                         side="top"
                         sideOffset={4}
                         alignOffset={-6}
                     >
-                        <div className="flex flex-col gap-4">
+                        <div className="flex flex-col gap-4 h-fit">
                             {contactMethods.map((method, index) => (
                                 <div
                                     key={method.href} // <-- Use a stable key like href
@@ -175,9 +175,9 @@ export default function ContactButton() {
                                                     size="icon"
                                                     variant="outline"
                                                     tabIndex={-1}
-                                                    className="w-fit h-fit border-0 rounded-md relative dark:bg-transparent dark:hover:bg-transparent bg-transparent hover:bg-transparent dark:border-transparent border-transparent  transition-all! duration-300 ease-in-out"
+                                                    className="w-fit border-0 rounded-md relative dark:bg-transparent dark:hover:bg-transparent bg-transparent hover:bg-transparent dark:border-transparent border-transparent  transition-all! duration-300 ease-in-out"
                                                 >
-                                                    <span className="w-10 h-10 flex items-center justify-center relative z-10">
+                                                    <span className="w-10 h-10 flex items-center justify-center">
                                                         {method.icon}
                                                     </span>
                                                     <span

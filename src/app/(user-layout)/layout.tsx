@@ -52,11 +52,11 @@ export default function UserLayout({
                                     height={1080}
                                     className="size-16"
                                 />
-                                <DialogTitle className="dark:text-[var(--brand-color)] text-brand-text text-center text-lg font-semibold">
+                                <DialogTitle className="dark:text-[var(--brand-color)] text-brand-text text-center text-size-22 font-semibold">
                                     <p>Chào Market</p>
                                     <p
                                         className={
-                                            'text-sm dark:text-white text-brand-text font-medium'
+                                            'text-size-16 dark:text-white text-brand-text font-medium'
                                         }
                                     >
                                         Manage Your Risk
@@ -67,7 +67,7 @@ export default function UserLayout({
                                 className={
                                     'dark:[&_*_a]:text-[var(--brand-color)] text-[var(--brand-grey-foreground)]' +
                                     ' [&_*_strong]:text-brand-text [&_*_a]:hover:underline' +
-                                    ' [&_*_a]:font-bold [&_*_strong]:font-normal' +
+                                    ' [&_*_a]:font-bold [&_*_strong]:font-bold' +
                                     ' space-y-4 w-fit min-w-fit'
                                 }
                             >
@@ -76,20 +76,21 @@ export default function UserLayout({
                                         __html: t('helpAndFeedback.title'),
                                     }}
                                     className={
-                                        'text-brand-text font-semibold min-w-fit'
+                                        'text-brand-text dark:text-[var(--brand-color)] text-size-20 font-bold' +
+                                        ' min-w-fit'
                                     }
                                 />
                                 <p
                                     dangerouslySetInnerHTML={{
                                         __html: t('helpAndFeedback.desc'),
                                     }}
-                                    className="w-fit min-w-fit [&>strong]:font-normal"
+                                    className="w-fit min-w-fit [&>strong]:font-bold text-nowrap leading-7"
                                 />
                                 <p
                                     dangerouslySetInnerHTML={{
                                         __html: t('helpAndFeedback.endContent'),
                                     }}
-                                    className="w-fit min-w-fit [&>strong]:font-bold [&>strong]:dark:text-[var(--brand-color)]/70"
+                                    className="w-fit min-w-fit [&>strong]:font-medium [&>strong]:dark:text-[var(--brand-color)]"
                                 />
                             </div>
                         </DialogContent>

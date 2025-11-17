@@ -25,6 +25,7 @@ import { FloatingLabelInput } from '@/components/ui/floating-input';
 import { EditEmailDialog } from '@/app/(user-layout)/account/components/edit-email-dialog';
 import { UserViewResponse } from '@/types/user/response/view-response';
 import { T } from '@/components/app-translate';
+import { useI18n } from '@/context/i18n/context';
 
 const ArrayMaleConstant = ['male', 'female', 'other'];
 
@@ -265,6 +266,8 @@ const PersonalTab = ({ userData }: { userData: UserViewResponse | null }) => {
               },
     });
 
+    const { t } = useI18n();
+
     const { isDirty } = useFormState({ control: form.control });
 
     const onSubmit = async (data: PersonalFormData) => {
@@ -304,7 +307,7 @@ const PersonalTab = ({ userData }: { userData: UserViewResponse | null }) => {
                         (!isDirty ? 'opacity-50 cursor-not-allowed' : '')
                     }
                 >
-                    Update Profile
+                    {t('common.updateProfile')}
                 </Button>
             </form>
         </Form>

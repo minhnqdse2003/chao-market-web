@@ -20,6 +20,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Edit } from 'lucide-react';
+import { useI18n } from '@/context/i18n/context';
 
 // Define validation schema for email
 const emailSchema = z
@@ -50,6 +51,7 @@ export const EditEmailDialog = () => {
             confirmNewEmail: '',
         },
     });
+    const { t } = useI18n();
 
     return (
         <Dialog>
@@ -64,14 +66,14 @@ export const EditEmailDialog = () => {
                     }
                 >
                     <Edit />
-                    Verify
+                    {t('common.changeEmail')}
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md bg-sidebar">
                 <DialogHeader>
                     <DialogTitle>Change Email</DialogTitle>
                     <DialogDescription>
-                        Please enter your new email address and confirm it.
+                        {t('common.changeEmailSubtitle')}
                     </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
@@ -86,7 +88,7 @@ export const EditEmailDialog = () => {
                                 <FormItem>
                                     <FormControl>
                                         <FloatingLabelInput
-                                            label={'New Email'}
+                                            label={t('common.newEmail')}
                                             className="app-text-input"
                                             type="email" // Use email type for better mobile keyboard
                                             {...field}
@@ -103,7 +105,7 @@ export const EditEmailDialog = () => {
                                 <FormItem>
                                     <FormControl>
                                         <FloatingLabelInput
-                                            label={'Confirm New Email'}
+                                            label={t('common.confirmNewEmail')}
                                             className="app-text-input"
                                             type="email" // Use email type for better mobile keyboard
                                             {...field}
@@ -120,8 +122,8 @@ export const EditEmailDialog = () => {
                                 disabled={form.formState.isSubmitting} // Optional: disable during submission
                             >
                                 {form.formState.isSubmitting
-                                    ? 'Updating...'
-                                    : 'Update Email'}{' '}
+                                    ? `${t('common.changeEmail')}...`
+                                    : `${t('common.changeEmail')}}`}{' '}
                                 {/* Optional: loading state text */}
                             </Button>
                         </div>

@@ -63,7 +63,12 @@ export default function AppAlertDialog({
                 )}
             >
                 <AlertDialogHeader>
-                    <AlertDialogTitle className={'text-2xl text-center'}>
+                    <AlertDialogTitle
+                        className={
+                            'text-size-22! font-bold dark:text-[var(--brand-color)] text-brand-text' +
+                            ' text-center'
+                        }
+                    >
                         <p
                             dangerouslySetInnerHTML={{ __html: content.title }}
                         />
