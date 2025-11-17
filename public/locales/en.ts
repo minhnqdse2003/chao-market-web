@@ -142,7 +142,7 @@ export const en: TranslationsStructure = {
         contact: 'Contact',
         generalInquiries: 'General inquiries',
         phone: 'Phone',
-        phoneHours: 'Mon-Fri from 8am to 5pm',
+        phoneHours: 'Monday – Friday, from 09:00 to 17:00',
         chatOnWhatsApp: 'Chat on WhatsApp',
         information: 'Informations',
         basicInformationTitle: 'Basic Information',
@@ -161,6 +161,7 @@ export const en: TranslationsStructure = {
             'Please enter your new email address and confirm it.',
         newEmail: 'New Email',
         confirmNewEmail: 'Confirm New Email',
+        avatarUploadLimit: 'PNG, JPG up to',
     },
     auth: {
         login: 'Log In',

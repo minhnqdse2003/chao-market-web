@@ -89,18 +89,30 @@ export default async function NewsEventPage({ params }: PageProps) {
                 <div className="flex flex-col gap-2 mb-4 w-full relative">
                     <div
                         className={
-                            'flex gap-2 mb-2 items-center text-[var(--brand-grey-foreground)]'
+                            'flex text-sm gap-2 mb-2 items-center text-[var(--brand-grey-foreground)]/70'
                         }
                     >
                         <Clock className={'size-4'} />
                         {post.readingTime} <T keyName={'common.minRead'} />
                     </div>
-                    <h1 className="text-3xl font-bold">
+                    <h1 className="text-size-22 text-brand-text dark:text-[var(--brand-color)] font-bold">
                         <AppLocalizeRender contents={post.title as Localized} />
                     </h1>
-                    <div className="flex items-center text-[var(--brand-grey-foreground)]">
+                    <div className="flex items-center text-[var(--brand-grey-foreground)]/70 text-sm">
                         <span>
-                            <T keyName={'common.market'} />: {post.market}
+                            <T keyName={'common.market'} />:{' '}
+                            <span
+                                className={
+                                    'dark:text-[var(--brand-color)]' +
+                                    ' text-brand-text'
+                                }
+                            >
+                                {
+                                    <T
+                                        keyName={`common.marketType.${post.market.toLowerCase()}`}
+                                    />
+                                }
+                            </span>
                         </span>
                         <span className={'mx-2'} />
                         <span>

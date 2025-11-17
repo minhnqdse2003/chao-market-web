@@ -101,7 +101,7 @@
     --brand-text: #000000;
     /*--brand-common-grey: #E6E5E1;*/
     --brand-common-grey: #e6e5e1;
-    --brand-grey-foreground: #6b6b6b;
+    --brand-grey-foreground: color-mix(in oklab, var(--brand-text) 90%, transparent);
     --brand-common-dialog: #ffffff;
     --brand-common-dropdown: var(--brand-common-dialog);
     --brand-common-dropdown-title: var(--brand-text);

@@ -9,14 +9,17 @@ export default function AppLoader() {
             }
         >
             <img
-                src="/img/brand-logo-with-hat.svg"
+                src="/img/brand-logo.svg"
                 className="w-full uppercase h-auto max-w-[24rem]"
                 alt={'Brand-logo'}
             />
-            <p className={'text-3xl uppercase flex gap-2'}>
+            <p
+                className={
+                    'text-3xl text-brand-text dark:text-[var(--brand-color)] flex gap-2'
+                }
+            >
                 Chào Market
                 <span className="text-animation">
-                    <span>.</span>
                     <span>.</span>
                     <span>.</span>
                     <span>.</span>

@@ -142,7 +142,7 @@ export const vi: TranslationsStructure = {
         contact: 'Liên Hệ',
         generalInquiries: 'Các thắc mắc chung',
         phone: 'Điện Thoại',
-        phoneHours: 'Thứ 2 - Thứ 6, từ 8h sáng đến 5h chiều',
+        phoneHours: 'Thứ Hai – Thứ Sáu, từ 09:00 đến 17:00',
         chatOnWhatsApp: 'Nhắn tin qua WhatsApp',
         information: 'Thông Tin',
         basicInformationTitle: 'Thông tin cơ bản',
@@ -161,6 +161,7 @@ export const vi: TranslationsStructure = {
             'Vui lòng nhập địa chỉ email mới của bạn và xác nhận.',
         newEmail: 'Email Mới',
         confirmNewEmail: 'Xác Nhận Email Mới',
+        avatarUploadLimit: 'PNG, JPG tối đa',
     },
     auth: {
         login: 'Đăng Nhập',

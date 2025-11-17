@@ -6,6 +6,7 @@ import { TimeAgo } from '@/components/time-ago';
 import { capitalizeWords } from '@/utils/string-parsing';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import { useI18n } from '@/context/i18n/context';
 
 // Define types for the prop and RSS data
 export type NewsSourceType =
@@ -59,6 +60,7 @@ export default function CombinedNewsFeed({
     });
 
     const { theme } = useTheme();
+    const { locale } = useI18n();
 
     const [erroredImages, setErroredImages] = useState<Set<string>>(new Set());
 
@@ -122,7 +124,7 @@ export default function CombinedNewsFeed({
                                                 erroredImages.has(
                                                     article.imageUrl
                                                 )
-                                                    ? `/img/news-${theme}.png`
+                                                    ? `/img/news-${theme}-${locale}.png`
                                                     : article.imageUrl
                                             }
                                             alt={article.title}
@@ -152,18 +154,22 @@ export default function CombinedNewsFeed({
                                     href={article.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className={`text-brand-text hover:underline font-medium`}
+                                    className={`text-brand-text font-bold hover:underline`}
                                 >
                                     {article.title}
                                 </a>
                                 {article.pubDate && (
-                                    <div className={'flex gap-4'}>
+                                    <div
+                                        className={
+                                            'flex text-[var(--brand-grey-foreground)]/70 gap-4'
+                                        }
+                                    >
                                         <TimeAgo
                                             dateString={article.pubDate}
-                                            className="text-xs text-[var(--brand-grey-foreground)] mt-1"
+                                            className="text-xs mt-1"
                                         />
                                         {article.sourceUrl && (
-                                            <p className="text-xs text-[var(--brand-grey-foreground)] mt-1">
+                                            <p className="text-xs mt-1">
                                                 Source:{' '}
                                                 {capitalizeWords(
                                                     article.sourceUrl
@@ -174,7 +180,7 @@ export default function CombinedNewsFeed({
                                 )}
 
                                 {article.contentSnippet && (
-                                    <p className="text-sm text-[var(--brand-grey-foreground)] mt-1 line-clamp-2">
+                                    <p className="text-brand-text/90 dark:text-[var(--brand-grey-foreground)] font-medium mt-1 line-clamp-2">
                                         {article.contentSnippet}{' '}
                                     </p>
                                 )}

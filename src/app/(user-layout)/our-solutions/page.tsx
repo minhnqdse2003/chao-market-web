@@ -118,7 +118,7 @@ const OurSolutionsPage = () => {
                         </ul>
                     </div>
 
-                    <p className="font-bold text-[var(--brand-grey-foreground)] !mt-8 dark:text-[var(--brand-color)]/70">
+                    <p className="font-medium text-[var(--brand-grey-foreground)] !mt-8 dark:text-[var(--brand-color)]">
                         {t('ourSolutions.financialFoundation.note')}
                     </p>
                 </div>
@@ -231,7 +231,7 @@ const OurSolutionsPage = () => {
                         </ul>
                     </div>
 
-                    <p className="font-bold text-[var(--brand-grey-foreground)] !mt-8 dark:text-[var(--brand-color)]/70">
+                    <p className="font-medium text-[var(--brand-grey-foreground)] !mt-8 dark:text-[var(--brand-color)]">
                         {t('ourSolutions.portfolioStrategy.note')}
                     </p>
                 </div>
@@ -321,7 +321,7 @@ const OurSolutionsPage = () => {
                         </ul>
                     </div>
 
-                    <p className="font-bold text-[var(--brand-grey-foreground)] !mt-8 dark:text-[var(--brand-color)]/70">
+                    <p className="font-medium text-[var(--brand-grey-foreground)] !mt-8 dark:text-[var(--brand-color)]">
                         {t('ourSolutions.algoTrading.note')}
                     </p>
                 </div>
@@ -436,7 +436,7 @@ const OurSolutionsPage = () => {
                         </ul>
                     </div>
 
-                    <p className="font-bold text-[var(--brand-grey-foreground)] !mt-8 dark:text-[var(--brand-color)]/70">
+                    <p className="font-medium text-[var(--brand-grey-foreground)] !mt-8 dark:text-[var(--brand-color)]">
                         {t('ourSolutions.tradingPerformance.note')}
                     </p>
                 </div>
@@ -549,7 +549,7 @@ const OurSolutionsPage = () => {
                         </ul>
                     </div>
 
-                    <p className="font-bold text-[var(--brand-grey-foreground)] !mt-8 dark:text-[var(--brand-color)]/70">
+                    <p className="font-medium text-[var(--brand-grey-foreground)] !mt-8 dark:text-[var(--brand-color)]">
                         {t('ourSolutions.financialCourse.note')}
                     </p>
                 </div>

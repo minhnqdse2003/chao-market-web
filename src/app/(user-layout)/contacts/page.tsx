@@ -1,7 +1,5 @@
 import { GeneralBanner } from '@/components/app-banner';
-import { Mail, Phone, Users } from 'lucide-react'; // Import relevant Lucide icons
-import Image from 'next/image';
-import { SupportIcon } from '@image/index';
+import { Handshake, Mail, Phone, Users } from 'lucide-react'; // Import relevant Lucide icons
 import { T } from '@/components/app-translate';
 import { ReactNode } from 'react';
 
@@ -18,7 +16,10 @@ export default function ContactsPage() {
     const contactCards: ContactCard[] = [
         {
             icon: (
-                <Users size={60} className="text-[var(--brand-color)] mb-6" />
+                <Users
+                    size={60}
+                    className="dark:text-[var(--brand-color)] text-brand-text mb-6"
+                />
             ),
             title: <T keyName={'common.consulting'} />,
             description: <T keyName={'common.consultingSubtitle'} />,
@@ -28,12 +29,11 @@ export default function ContactsPage() {
         },
         {
             icon: (
-                <Image
-                    src={SupportIcon}
-                    width={1920}
-                    height={1080}
-                    alt={'support-icon'}
-                    className="size-[3.75rem] mb-6"
+                <Handshake
+                    size={60}
+                    className={
+                        'dark:text-[var(--brand-color)] text-brand-text mb-6'
+                    }
                 />
             ),
             title: <T keyName={'common.support'} />,
@@ -43,7 +43,12 @@ export default function ContactsPage() {
             href: 'mailto:support@chaomarket.com',
         },
         {
-            icon: <Mail size={60} className="text-[var(--brand-color)] mb-6" />,
+            icon: (
+                <Mail
+                    size={60}
+                    className="dark:text-[var(--brand-color)] text-brand-text mb-6"
+                />
+            ),
             title: <T keyName={'common.contact'} />,
             description: <T keyName={'common.generalInquiries'} />,
             contactInfo: 'contact@chaomarket.com',
@@ -52,7 +57,10 @@ export default function ContactsPage() {
         },
         {
             icon: (
-                <Phone size={60} className="text-[var(--brand-color)] mb-6" />
+                <Phone
+                    size={60}
+                    className="dark:text-[var(--brand-color)] text-brand-text mb-6"
+                />
             ),
             title: <T keyName={'common.phone'} />,
             description: <T keyName={'common.phoneHours'} />,

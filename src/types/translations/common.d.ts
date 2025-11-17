@@ -152,4 +152,5 @@ export interface CommonTranslations {
     changeEmailSubtitle: string;
     newEmail: string;
     confirmNewEmail: string;
+    avatarUploadLimit: string;
 }

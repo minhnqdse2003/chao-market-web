@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import { TriangleAlert, User, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useCallback } from 'react';
+import { useI18n } from '@/context/i18n/context';
 
 interface AvatarUploadProps {
     maxSize?: number;
@@ -35,6 +36,8 @@ export default function AvatarUpload({
     const onFileChangeCallBack = useCallback((files: FileWithPreview[]) => {
         onFileChange?.(files[0] || null);
     }, []);
+
+    const { t } = useI18n();
 
     const [
         { files, isDragging, errors },
@@ -130,7 +133,7 @@ export default function AvatarUpload({
                 )}
             >
                 <p className="text-xs text-muted-foreground">
-                    PNG, JPG up to {formatBytes(maxSize)}
+                    {t('common.avatarUploadLimit')} {formatBytes(maxSize)}
                 </p>
             </div>
 

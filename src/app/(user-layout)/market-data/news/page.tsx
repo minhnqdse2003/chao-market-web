@@ -37,7 +37,7 @@ export default function Page({ searchParams }: PageProps) {
 
             return {
                 title: localized.title,
-                value: item.type,
+                value: item.type + locale,
                 renderContent: () =>
                     Promise.resolve(
                         <CombinedNewsFeed

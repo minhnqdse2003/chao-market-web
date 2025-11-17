@@ -46,7 +46,7 @@ const NewsComp = ({
                         <div className="w-7/10 flex flex-col gap-4">
                             {/* Title section */}
                             <div className="flex justify-between">
-                                <p className="text-xl font-semibold leading-relaxed">
+                                <p className="text-size-20 dark:text-[var(--brand-color)] text-brand-text font-semibold leading-relaxed">
                                     {item.title}
                                 </p>
                                 {/* Interaction block */}
@@ -59,7 +59,7 @@ const NewsComp = ({
                             {/* Description section */}
                             <div
                                 className={
-                                    'text-[var(--brand-grey-foreground)]  font-semibold leading-relaxed'
+                                    'text-[var(--brand-grey-foreground)] leading-relaxed'
                                 }
                             >
                                 {item.description}
@@ -68,14 +68,20 @@ const NewsComp = ({
                     </Link>
                     <div className="w-[calc(70%-2rem)] flex justify-between">
                         {/* Date & Reference source */}
-                        <div className="flex w-fit text-sm gap-4 text-[var(--brand-grey-foreground)] font-medium">
-                            <p className={'text-brand-text'}>
+                        <div className="flex w-fit text-sm gap-4 text-[var(--brand-grey-foreground)]/70 font-medium">
+                            <p>
                                 <T keyName={'common.market'} />:{' '}
-                                {
-                                    <T
-                                        keyName={`common.marketType.${item.market.toLowerCase()}`}
-                                    />
-                                }
+                                <span
+                                    className={
+                                        'text-brand-text dark:text-[var(--brand-color)]'
+                                    }
+                                >
+                                    {
+                                        <T
+                                            keyName={`common.marketType.${item.market.toLowerCase()}`}
+                                        />
+                                    }
+                                </span>
                             </p>
                             <p>
                                 <AppDateTimeDisplayLocalized
