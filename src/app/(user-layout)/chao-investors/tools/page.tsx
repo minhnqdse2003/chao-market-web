@@ -524,32 +524,41 @@ function InterestCalculator() {
                                 value={timeValueInput}
                                 onChange={e => {
                                     const rawValue = e.target.value;
+
                                     const sanitizedValue = rawValue.replace(
-                                        /[^\d\.\,\-]/g,
+                                        /[^\d]/g,
                                         ''
                                     );
+
                                     setTimeValueInput(sanitizedValue);
 
-                                    const numericString = rawValue.replace(
-                                        /,/g,
-                                        ''
-                                    );
-
                                     if (
-                                        numericString === '' ||
-                                        (/^\d*\.?\d*$/.test(numericString) &&
-                                            numericString !== '.')
+                                        sanitizedValue === '' ||
+                                        /^\d+$/.test(sanitizedValue)
                                     ) {
-                                        if (numericString !== '') {
-                                            let parsedValue =
-                                                Number(numericString);
-                                            parsedValue = Math.min(
-                                                Math.max(0, parsedValue),
-                                                60
-                                            );
-                                            if (!isNaN(parsedValue)) {
-                                                setTimeValue(parsedValue);
-                                            }
+                                        const numValue =
+                                            sanitizedValue === ''
+                                                ? ''
+                                                : Number(sanitizedValue);
+
+                                        if (
+                                            sanitizedValue === '' ||
+                                            (numValue !== '' &&
+                                                !isNaN(numValue) &&
+                                                Number.isInteger(numValue))
+                                        ) {
+                                            const clampedValue =
+                                                sanitizedValue === ''
+                                                    ? 0
+                                                    : Math.min(
+                                                          Math.max(
+                                                              0,
+                                                              numValue as number
+                                                          ),
+                                                          60
+                                                      );
+
+                                            setTimeValue(clampedValue);
                                         }
                                     }
                                 }}

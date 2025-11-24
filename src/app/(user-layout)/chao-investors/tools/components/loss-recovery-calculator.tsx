@@ -659,10 +659,7 @@ const LossRecoveryCalculator: React.FC = () => {
                                                             locale === 'vi'
                                                                 ? 'Lãi Đơn'
                                                                 : 'Simple Interest',
-                                                        color:
-                                                            theme === 'dark'
-                                                                ? '#49a74e'
-                                                                : '#358439',
+                                                        color: '#01A90F',
                                                         strokeDasharray: '0 0',
                                                         icon: BsDash,
                                                     },
@@ -671,7 +668,7 @@ const LossRecoveryCalculator: React.FC = () => {
                                                             locale === 'vi'
                                                                 ? 'Lãi Kép'
                                                                 : 'Compound Interest',
-                                                        color: '#db2736',
+                                                        color: '#EE1515',
                                                         strokeDasharray: '0 0',
                                                         icon: BsDash,
                                                     },
