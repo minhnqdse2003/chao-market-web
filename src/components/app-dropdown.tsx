@@ -31,6 +31,7 @@ interface AppDropdownProps {
     onValueChange?: (value: string) => void;
     labelVisible?: boolean;
     shouldSelectedValueHighlight?: boolean;
+    formatDisplayLabel?: (value: string) => string;
 }
 
 // Helper type for grouping
@@ -51,6 +52,7 @@ const AppDropdown = ({
     onValueChange,
     labelVisible = true,
     shouldSelectedValueHighlight = false,
+    formatDisplayLabel,
 }: AppDropdownProps) => {
     // Determine the initial value: controlled 'value' > 'defaultValue' > first option
     const initialValue = value ?? defaultValue ?? options[0]?.value ?? '';
@@ -108,7 +110,9 @@ const AppDropdown = ({
                             `${shouldSelectedValueHighlight && 'dark:text-[var(--brand-color)]'}`
                         )}
                     >
-                        {selectedLabel}
+                        {formatDisplayLabel
+                            ? formatDisplayLabel(selectedLabel)
+                            : selectedLabel}
                     </p>
                     <ChevronsUpDown />
                 </Button>
@@ -141,7 +145,9 @@ const AppDropdown = ({
                                             className={`mr-2 h-4 w-4 ${option.iconColor || ''}`}
                                         />
                                     )}
-                                    {option.label}
+                                    {formatDisplayLabel
+                                        ? formatDisplayLabel(option.label)
+                                        : option.label}
                                 </DropdownMenuRadioItem>
                             ))}
                         </div>

@@ -205,16 +205,22 @@ const LossRecoveryCalculator: React.FC = () => {
                     period,
                     remaining: remainingPortfolio,
                     target: initialPortfolio,
-                    compound: Math.min(
-                        compoundValue,
-                        initialPortfolio +
-                            (initialPortfolio - remainingPortfolio)
-                    ),
-                    simple: Math.min(
-                        simpleValue,
-                        initialPortfolio +
-                            (initialPortfolio - remainingPortfolio)
-                    ),
+                    compound:
+                        maxPeriods + 1 === period + 1
+                            ? compoundValue
+                            : Math.min(
+                                  compoundValue,
+                                  initialPortfolio +
+                                      (initialPortfolio - remainingPortfolio)
+                              ),
+                    simple:
+                        maxPeriods + 1 === period + 1
+                            ? simpleValue
+                            : Math.min(
+                                  simpleValue,
+                                  initialPortfolio +
+                                      (initialPortfolio - remainingPortfolio)
+                              ),
                 };
             }) ?? [],
         [
@@ -227,7 +233,11 @@ const LossRecoveryCalculator: React.FC = () => {
         ]
     );
 
-    const debounceChartData = useDebounce(chartData, 300);
+    const debounceChartData = useDebounce(chartData, 300).map(data => ({
+        ...data,
+        compound: data.compound.toFixed(2),
+    }));
+    console.log('data: ', debounceChartData);
 
     // Y-axis custom ticks: evenly spaced between [remaining, initial + step]
     const calcYAxis = () => {
@@ -269,6 +279,7 @@ const LossRecoveryCalculator: React.FC = () => {
         for (let i = 0; i < 7; i++) {
             ticks.push(current);
             current += step;
+            console.log(current);
             if (current > max + step) break;
         }
 
@@ -294,14 +305,43 @@ const LossRecoveryCalculator: React.FC = () => {
             <p>
                 {locale === 'vi'
                     ? 'Khi bạn lỗ, bạn mất tiền trên vốn ban đầu. Khi gỡ lại, bạn kiếm lãi trên vốn còn lại (đã ít hơn).'
-                    : 'When you incur a loss, you lose money from your initial capital. To recover, you earn profit on the reduced remaining capital.'}
+                    : 'When you incur a loss, you lose money on the initial portfolio. To recover, you earn a return on the remaining portfolio, which is smaller.'}
             </p>
-            <p className="dark:text-[var(--brand-color)] text-brand-text">
+            <p className="dark:text-[var(--brand-color)] text-brand-text font-bold!">
                 {locale === 'vi'
-                    ? '% Chênh Lệch Hòa Vốn = % Lãi Cần Hòa Vốn − % Lỗ / Danh Mục Ban Đầu'
-                    : '% Breakeven Differential = % Profit Needed to Breakeven − % Loss / Initial Portfolio'}
+                    ? 'Chênh Lệch Hòa Vốn (%) = Tỷ Suất Lợi Nhuận Để Hòa Vốn (%) − Lỗ / Danh Mục Ban Đầu (%)'
+                    : 'Break-even Difference (%) = Break-even Return (%) − Loss / Initial Portfolio (%)'}
             </p>
         </div>
+    );
+
+    const targetReturnToBreakEvenTooltip = (
+        <div className="whitespace-break-spaces max-w-[16rem] text-sm">
+            <p className="font-bold w-fit">
+                {locale === 'vi'
+                    ? 'Tỷ lệ phần trăm lợi nhuận cần đạt trên giá trị còn lại của danh mục sau khi lỗ, để bù lỗ và đạt hòa vốn.'
+                    : 'The percentage of return required on the remaining portfolio value after a loss to recover losses and reach break-even.'}
+            </p>
+        </div>
+    );
+
+    const breakEvenPeriodSimpleTooltip = (
+        <p
+            dangerouslySetInnerHTML={{
+                __html:
+                    locale === 'vi'
+                        ? `<strong>Số kỳ hòa vốn > 1:</strong> Lãi Đơn có số kỳ dài hơn do Lãi Kép tận dụng được cơ chế tái đầu tư lợi nhuận (lãi nhập vốn).
+<br/><strong>Số kỳ hòa vốn = 1:</strong> Lãi Đơn có số kỳ bằng Lãi Kép.
+<br/><strong>Số kỳ hòa vốn < 1:</strong> Lãi Đơn có số kỳ ngắn hơn do tốc độ tăng trưởng tuyến tính (đường thẳng) nhanh hơn đà tích lũy (đường cong) của Lãi Kép trong giai đoạn khởi động ngắn hạn.`
+                        : `<strong>Breakeven Period > 1:</strong> Simple Interest requires a longer period as Compound Interest benefits from the mechanism of profit reinvestment (compounding).
+<br/><strong>Breakeven Period = 1:</strong> The Simple Interest period is equal to the Compound Interest period.
+<br/><strong>Breakeven Period < 1:</strong> Simple Interest requires a shorter period because its linear growth (straight line) outpaces the accumulation curve of Compound Interest in this short-term initial phase.`,
+            }}
+            className={
+                'text-nowrap leading-7 text-[var(--brand-grey-foreground)]' +
+                ' [&>strong]:dark:text-[var(--brand-color)] [&>strong]:text-brand-text [&>strong]:font-bold'
+            }
+        />
     );
 
     const expectedReturnTooltip = (
@@ -310,13 +350,21 @@ const LossRecoveryCalculator: React.FC = () => {
                 dangerouslySetInnerHTML={{
                     __html:
                         locale === 'vi'
-                            ? 'Lợi nhuận kỳ vọng mỗi kỳ (ngày, tháng, năm).<br/>Lợi nhuận tích lũy sẽ không tái đầu tư nếu' +
-                              ' chọn' +
-                              ' Lãi Đơn.'
-                            : 'Expected return per period (day, month, year).<br/>Accumulated profits will not be reinvested if Simple Interest is selected.',
+                            ? 'Lợi nhuận kỳ vọng mỗi kỳ (ngày, tháng, năm).<br/><strong>Lãi Đơn:</strong> Lợi' +
+                              ' nhuận tích' +
+                              ' lũy từ các kỳ trước sẽ không được tái đầu tư vào vốn gốc.' +
+                              '<br/><strong>Lãi Kép:</strong> Lợi nhuận tích lũy từ các kỳ trước sẽ được tái đầu tư' +
+                              ' vào vốn' +
+                              ' gốc.'
+                            : 'Expected profit per period (day, month, year).<br/><strong>Simple Interest:</strong>' +
+                              ' cumulative' +
+                              ' profits from previous periods will not be reinvested into the' +
+                              ' principal.<br/><strong>Compound Interest:</strong> cumulative profits from previous' +
+                              ' periods will be reinvested into the principal.',
                 }}
                 className={
-                    'text-nowrap leading-7 text-[var(--brand-grey-foreground)]'
+                    'text-nowrap leading-7 text-[var(--brand-grey-foreground)]' +
+                    ' [&>strong]:dark:text-[var(--brand-color)] [&>strong]:text-brand-text [&>strong]:font-bold'
                 }
             />
         </div>
@@ -342,7 +390,7 @@ const LossRecoveryCalculator: React.FC = () => {
                         <CardDescription>
                             {locale === 'vi'
                                 ? 'Nhập thông tin để phân tích điểm hòa vốn'
-                                : 'Enter details to analyze breakeven point'}
+                                : 'Enter information to analyze the break-even point'}
                             .
                         </CardDescription>
                     </CardHeader>
@@ -394,7 +442,7 @@ const LossRecoveryCalculator: React.FC = () => {
                                     <>
                                         {locale === 'vi'
                                             ? 'Giá Trị Lỗ Hiện Tại'
-                                            : 'Current Loss'}{' '}
+                                            : 'Current Loss Value'}{' '}
                                         (
                                         {lossInputMode === 'percent'
                                             ? '%'
@@ -422,18 +470,18 @@ const LossRecoveryCalculator: React.FC = () => {
                                     ' text-xs' +
                                     ` ${(lossInputValue === 0 || !lossInputValueInput) && ' pointer-events-none hidden'}`
                                 }
-                                contentClassName="w-12"
+                                contentClassName="w-fit min-w-fit pr-4"
                             />
                         </div>
                     </CardContent>
-                    <CardFooter className="border-t">
+                    <CardFooter className="border-t px-4">
                         {/* Summary Cards */}
                         <div className="grid grid-cols-1 gap-1.5 w-full">
                             <SummaryCard
                                 title={
                                     locale === 'vi'
-                                        ? '% Lỗ / Danh Mục Ban Đầu'
-                                        : '% Loss / Initial Portfolio'
+                                        ? 'Lỗ / Danh Mục Ban Đầu'
+                                        : 'Loss / Initial Portfolio'
                                 }
                                 value={`-${lossPercentOfInitial.toFixed(2)}%`}
                                 color="text-red-500"
@@ -442,7 +490,7 @@ const LossRecoveryCalculator: React.FC = () => {
                                 title={
                                     locale === 'vi'
                                         ? 'Số Tiền Lãi Cần Hòa Vốn'
-                                        : 'Profit Needed to Breakeven'
+                                        : 'Required Profit to Break Even'
                                 }
                                 value={`$ ${formatNumber(recoveryAmountNeeded)}`}
                                 color="text-red-500"
@@ -459,19 +507,19 @@ const LossRecoveryCalculator: React.FC = () => {
                             <SummaryCard
                                 title={
                                     locale === 'vi'
-                                        ? '% Lãi Cần Hòa Vốn'
-                                        : '% Profit Needed to Breakeven'
+                                        ? 'Tỷ Suất Lợi Nhuận Hòa Vốn'
+                                        : 'Target Return to Break Even'
                                 }
                                 value={`${recoveryReturnPercent.toFixed(2)}%`}
                                 color="text-green-500"
+                                tooltip={targetReturnToBreakEvenTooltip}
                             />
                             <SummaryCard
                                 title={
                                     <>
-                                        %{' '}
                                         {locale === 'vi'
                                             ? 'Chênh Lệch Hòa Vốn'
-                                            : 'Breakeven Differential'}
+                                            : 'Break-even Differential'}
                                     </>
                                 }
                                 value={`${burdenPercent.toFixed(2)}%`}
@@ -498,24 +546,24 @@ const LossRecoveryCalculator: React.FC = () => {
                             <CardTitle>
                                 {locale === 'vi'
                                     ? 'Biểu Đồ Dự Báo Thời Gian Hòa Vốn'
-                                    : 'Loss Recovery Projection'}
+                                    : 'Break-even Time Forecast Chart'}
                             </CardTitle>
                             <CardDescription
                                 className={'flex gap-2 items-center'}
                             >
                                 {locale === 'vi'
                                     ? 'So sánh Lãi Đơn và Lãi Kép trong việc dự báo thời gian hòa vốn'
-                                    : 'Compare Simple vs. Compound Interest for recovery'}
+                                    : 'Comparison of Simple Interest and Compound Interest in Forecasting Break-even Time'}
                                 .{/* Expected Return */}
                             </CardDescription>
                         </div>
-                        <div className="relative h-fit">
+                        <div className="relative w-full max-w-[30%] h-fit">
                             <FloatingLabelInput
                                 type="text"
                                 label={
                                     locale === 'vi'
-                                        ? 'Lợi Nhuận Dự Kiến (%)'
-                                        : 'Expected Return (%)'
+                                        ? 'Lợi Nhuận Mục Tiêu Cần Hòa Vốn (%)'
+                                        : 'Target Profit Required to Break Even (%)'
                                 }
                                 value={expectedReturnRateInput}
                                 onChange={e =>
@@ -535,11 +583,12 @@ const LossRecoveryCalculator: React.FC = () => {
                                 }
                                 labelVisible={false}
                                 buttonClassName={
-                                    'w-12 h-8 absolute right-10 top-1/2 -translate-y-1/2 bg-muted/30' +
+                                    'w-12 h-8 absolute right-12 top-1/2 -translate-y-1/2 bg-muted/30' +
                                     ' hover:bg-muted text-xs' +
                                     ` ${(!expectedReturnRateInput || expectedReturnRate === 0) && ' pointer-events-none hidden'}`
                                 }
                                 contentClassName="w-20"
+                                formatDisplayLabel={value => `%/${value}`}
                             />
                             <AppTooltips
                                 contents={expectedReturnTooltip}
@@ -601,15 +650,14 @@ const LossRecoveryCalculator: React.FC = () => {
                                             if (val >= 1e6)
                                                 return `$${(val / 1e6).toFixed(1)}M`;
                                             if (val >= 1e3)
-                                                return `$${(val / 1e3).toFixed(0)}K`;
+                                                return `$${(val / 1e3).toFixed(2)}K`;
                                             return `$${val.toFixed(0)}`;
                                         }}
                                     />
                                     <Tooltip
-                                        formatter={value => [
-                                            `$${Number(value).toLocaleString()}`,
-                                            '',
-                                        ]}
+                                        // formatter={value => [
+                                        //     `$${Number(value).toLocaleString()}`,
+                                        // ]}
                                         labelFormatter={label =>
                                             `${locale === 'vi' ? `Kỳ ${renderReturnRateUnit()}` : `Period ${renderReturnRateUnit()}`} ${label}`
                                         }
@@ -668,7 +716,7 @@ const LossRecoveryCalculator: React.FC = () => {
                                                             locale === 'vi'
                                                                 ? 'Lãi Kép'
                                                                 : 'Compound Interest',
-                                                        color: '#EE1515',
+                                                        color: '#ff4141',
                                                         strokeDasharray: '0 0',
                                                         icon: BsDash,
                                                     },
@@ -760,8 +808,8 @@ const LossRecoveryCalculator: React.FC = () => {
                             <SummaryCard
                                 title={
                                     locale === 'vi'
-                                        ? 'Lợi Nhuận Dự Kiến'
-                                        : 'Projected Return'
+                                        ? 'Lợi Nhuận Cần Hòa Vốn'
+                                        : 'Profit Required to Break Even'
                                 }
                                 value={`${recoveryAmountNeeded > 0 ? `$ ${formatNumber(recoveryAmountNeeded)}` : t('tool.valueIsNowEmpty')}`}
                                 color="text-yellow-500"
@@ -771,25 +819,26 @@ const LossRecoveryCalculator: React.FC = () => {
                                 title={
                                     locale === 'vi'
                                         ? 'Kỳ Hoàn Vốn (Lãi Đơn)'
-                                        : 'Breakeven Periods (Simple)'
+                                        : 'Break-even Periods (Simple)'
                                 }
                                 value={
                                     isFinite(periodsToRecoverSimple)
-                                        ? `${periodsToRecoverSimple.toFixed(1)} ${renderReturnRateUnit()}`
+                                        ? `${formatNumber(periodsToRecoverSimple)} ${renderReturnRateUnit()}`
                                         : t('tool.valueIsNowEmpty')
                                 }
                                 color="text-blue-500"
                                 align={'vertical'}
+                                tooltip={breakEvenPeriodSimpleTooltip}
                             />
                             <SummaryCard
                                 title={
                                     locale === 'vi'
                                         ? 'Kỳ Hoàn Vốn (Lãi Kép)'
-                                        : 'Breakeven Periods (Compound)'
+                                        : 'Break-even Periods (Compound)'
                                 }
                                 value={
                                     isFinite(periodsToBreakEven())
-                                        ? `${periodsToBreakEven().toFixed(2)} ${renderReturnRateUnit()}`
+                                        ? `${formatNumber(periodsToBreakEven())} ${renderReturnRateUnit()}`
                                         : t('tool.valueIsNowEmpty')
                                 }
                                 color="text-blue-500"
@@ -824,7 +873,7 @@ const SummaryCard: React.FC<{
     return (
         <div
             className={cn(
-                'p-1 flex gap-2 items-center justify-between',
+                'p-1 flex gap-1 items-center justify-between',
                 `${align === 'vertical' ? 'flex-col gap-0 items-start' : 'flex-row'}`
             )}
         >
@@ -853,7 +902,7 @@ const SummaryCard: React.FC<{
                     />
                 )}
             </div>
-            <p className="text-base  font-bold text-brand-text dark:text-[var(--brand-color)]">
+            <p className="text-sm font-bold text-brand-text dark:text-[var(--brand-color)]">
                 {value}
             </p>
         </div>

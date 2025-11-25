@@ -40,7 +40,7 @@ export function GuestPerformanceNoticeDialog() {
             />
             <p>
                 {notice.desc2}
-                <Link href="/auth/signup" className={linkStyle}>
+                <Link href="/auth/sign-up" className={linkStyle}>
                     {notice.linkSignUp}
                 </Link>
                 {notice.desc3}

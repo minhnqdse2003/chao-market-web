@@ -2,7 +2,7 @@ import { getToken } from 'next-auth/jwt';
 import { withAuth } from 'next-auth/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 
-const AUTH_ROUTES = ['/auth/login', '/auth/signup'];
+const AUTH_ROUTES = ['/auth/login', '/auth/sign-up'];
 const PROTECTED_ROUTES = ['/account'];
 
 export default withAuth(

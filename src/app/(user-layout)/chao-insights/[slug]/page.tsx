@@ -1,13 +1,11 @@
-// app/(user-layout)/news-event/[slug]/page.tsx
+// app/(user-layout)/chao-insights/[slug]/page.tsx
 import RichTextPreview from '@/components/rich-text-preview';
-import Image from 'next/image';
-import { NewsEventMockBanner } from '@image/index';
 import { notFound } from 'next/navigation';
 import { getPost } from '@/app/api/posts';
-import { TableOfContents } from '@/app/(user-layout)/news-event/[slug]/components/table-of-contents';
+import { TableOfContents } from '@/app/(user-layout)/chao-insights/[slug]/components/table-of-contents';
 import { Clock } from 'lucide-react';
 import AppInteractionBlock from '@/components/app-interaction-block';
-import TagsAccordion from '@/app/(user-layout)/news-event/[slug]/components/tags';
+import TagsAccordion from '@/app/(user-layout)/chao-insights/[slug]/components/tags';
 import { Localized } from '@/types/localized';
 import AppLocalizeRender from '@/components/app-localize-render';
 import { T } from '@/components/app-translate';
@@ -76,13 +74,10 @@ export default async function NewsEventPage({ params }: PageProps) {
         return (
             <div className="w-full">
                 {/* Banner Image */}
-                <Image
-                    src={NewsEventMockBanner}
+                <img
+                    src={'/img/news-events-mock-banner.svg'}
                     alt={'details-banner'}
-                    width={1920}
-                    height={1080}
                     className="w-full h-auto mb-8 object-cover"
-                    priority
                 />
 
                 {/* Post Header */}

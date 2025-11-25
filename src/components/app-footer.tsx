@@ -8,7 +8,7 @@ import {
     TikTok,
     Youtube,
 } from '@image/index';
-import { Mail, Phone, Users } from 'lucide-react';
+import { Mail, Users } from 'lucide-react';
 import { useI18n } from '@/context/i18n/context'; // Assuming useI18n is available
 import { T } from './app-translate';
 
@@ -95,7 +95,7 @@ export default function AppFooter() {
                             <T keyName={'footer.getToKnowUs'} />{' '}
                             {/* APPLIED KEY */}
                         </h3>
-                        <ul className="space-y-3 text-normal text-[var(--brand-grey-foreground)] [&>_*_a]:hover:text-brand-text min-w-2/3 [&_*_a:first-child]:font-semibold">
+                        <ul className="space-y-3 text-normal text-[var(--brand-grey-foreground)] [&>_*_a]:hover:text-brand-text min-w-2/3 [&_*_a:first-child]:font-normal">
                             <li>
                                 <Link
                                     href="/about-us"
@@ -141,7 +141,7 @@ export default function AppFooter() {
                             <T keyName={'common.letUsHelpYou'} />{' '}
                             {/* APPLIED KEY */}
                         </h3>
-                        <ul className="space-y-3 text-normal dark:text-[var(--brand-grey-foreground)] text-[var(--brand-grey-foreground)] min-w-2/3 [&_*_span:first-child]:font-semibold [&_*_span:last-child]:font-bold dark:[&_*_span:last-child]:text-brand-text [&>_*_a]:text-brand-text">
+                        <ul className="space-y-3 text-normal dark:text-[var(--brand-grey-foreground)] text-[var(--brand-grey-foreground)] min-w-2/3 [&_*_span:first-child]:font-normal [&_*_span:last-child]:font-semibold dark:[&_*_span:last-child]:text-brand-text [&>_*_a]:text-brand-text">
                             <li className="flex justify-between gap-12">
                                 <span className="flex items-center gap-2">
                                     <svg
@@ -195,20 +195,20 @@ export default function AppFooter() {
                                     </a>
                                 </span>
                             </li>
-                            <li className="flex justify-between gap-12">
-                                <span className="flex items-center gap-2">
-                                    <Phone size={20} />
-                                    <T keyName={'common.phone'} />{' '}
-                                </span>
-                                <span>
-                                    <a
-                                        href="tel:0985865674"
-                                        className="hover:underline"
-                                    >
-                                        +84 98 586 5674
-                                    </a>
-                                </span>
-                            </li>
+                            {/*<li className="flex justify-between gap-12">*/}
+                            {/*    <span className="flex items-center gap-2">*/}
+                            {/*        <Phone size={20} />*/}
+                            {/*        <T keyName={'common.phone'} />{' '}*/}
+                            {/*    </span>*/}
+                            {/*    <span>*/}
+                            {/*        <a*/}
+                            {/*            href="tel:0985865674"*/}
+                            {/*            className="hover:underline"*/}
+                            {/*        >*/}
+                            {/*            +84 98 586 5674*/}
+                            {/*        </a>*/}
+                            {/*    </span>*/}
+                            {/*</li>*/}
                         </ul>
                     </div>
 

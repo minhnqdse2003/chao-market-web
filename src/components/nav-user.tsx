@@ -38,8 +38,8 @@ export function NavUser() {
     if (status === 'unauthenticated' && !isMobile && open) {
         const isLoginActive =
             pathname.startsWith('/auth/login') &&
-            !pathname.startsWith('/auth/signup');
-        const isSignupActive = pathname.startsWith('/auth/signup');
+            !pathname.startsWith('/auth/sign-up');
+        const isSignupActive = pathname.startsWith('/auth/sign-up');
 
         const notMatchAllAuthPath = !isLoginActive && !isSignupActive;
 
@@ -78,7 +78,7 @@ export function NavUser() {
                             }`
                         )}
                     >
-                        <Link href="/auth/signup">{t('auth.signup')}</Link>
+                        <Link href="/auth/sign-up">{t('auth.signup')}</Link>
                     </Button>
                 </SidebarMenuItem>
             </SidebarMenu>

@@ -14,9 +14,8 @@ import { NewsEventsBanner } from '@/components/app-banner';
 import AppTabsServerSide, {
     TabServerSide,
 } from '@/components/app-tabs-server-side';
-import NewsComp from '@/app/(user-layout)/news-event/components/news';
+import NewsComp from '@/app/(user-layout)/chao-insights/components/news';
 import { Pagination } from '@/components/app-pagination-server-side';
-import { BrandLogoFtHat } from '@image/index';
 import { Localized } from '@/types/localized';
 import { T } from '@/components/app-translate';
 
@@ -55,7 +54,7 @@ const Page = async ({ searchParams }: PageProps) => {
         return postsData.data.map(post => ({
             title: post.title as Localized,
             description: post.description as Localized,
-            image: BrandLogoFtHat,
+            image: undefined,
             like: post.likes,
             dislike: post.dislikes,
             views: post.views,
@@ -87,28 +86,28 @@ const Page = async ({ searchParams }: PageProps) => {
         {
             title: <T keyName={'common.recommended'} />,
             href: hasValidType
-                ? `/news-event?type=${currentType}&filterBy=recommended`
-                : '/news-event?filterBy=recommended',
+                ? `/chao-insights?type=${currentType}&filterBy=recommended`
+                : '/chao-insights?filterBy=recommended',
         },
         {
             title: <T keyName={'common.hottest'} />,
 
             href: hasValidType
-                ? `/news-event?type=${currentType}&filterBy=hottest`
-                : '/news-event?filterBy=hottest',
+                ? `/chao-insights?type=${currentType}&filterBy=hottest`
+                : '/chao-insights?filterBy=hottest',
         },
         {
             title: <T keyName={'common.mostViewed'} />,
 
             href: hasValidType
-                ? `/news-event?type=${currentType}&filterBy=mostViewed`
-                : '/news-event?filterBy=mostViewed',
+                ? `/chao-insights?type=${currentType}&filterBy=mostViewed`
+                : '/chao-insights?filterBy=mostViewed',
         },
         {
             title: <T keyName={'common.topRated'} />,
             href: hasValidType
-                ? `/news-event?type=${currentType}&filterBy=topRated`
-                : '/news-event?filterBy=topRated',
+                ? `/chao-insights?type=${currentType}&filterBy=topRated`
+                : '/chao-insights?filterBy=topRated',
         },
     ];
 
@@ -134,7 +133,7 @@ const Page = async ({ searchParams }: PageProps) => {
                     <Pagination
                         currentPage={postsData.pageIndex + 1}
                         totalPages={postsData.totalPages}
-                        basePath="/news-event"
+                        basePath="/chao-insights"
                         searchParams={validSearchParams}
                     />
                 </div>

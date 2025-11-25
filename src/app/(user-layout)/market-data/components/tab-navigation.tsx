@@ -28,7 +28,7 @@ export default function TabNavigation({
         },
         {
             title: t('marketData.marketData.items.financialNews.title'),
-            href: '/market-data/news',
+            href: '/market-data/financial-news',
         },
         {
             title: t('marketData.marketData.items.economicCalendar.title'),

@@ -76,7 +76,7 @@ const AppDateRangePicker = ({
                         <Button
                             variant="outline"
                             id="start-date"
-                            className="w-[calc(50%-1.5rem)] justify-between font-normal"
+                            className="w-[calc(50%-1.5rem)] justify-between font-medium"
                         >
                             {value?.startDate
                                 ? format(value.startDate, 'dd-MM-yyyy')
@@ -141,7 +141,7 @@ const AppDateRangePicker = ({
                             variant="outline"
                             id="end-date"
                             className={cn(
-                                'w-[calc(50%-1.5rem)] justify-between font-normal',
+                                'w-[calc(50%-1.5rem)] justify-between font-medium',
                                 `${isHighLightVisible(value?.endDate)}`
                             )}
                         >

@@ -61,6 +61,7 @@ export default function AppAlertDialog({
                     'bg-brand-dialog w-fit min-w-fit max-w-fit',
                     contentClassName
                 )}
+                onClickActionOverlay={() => onClickCloseIcon?.()}
             >
                 <AlertDialogHeader>
                     <AlertDialogTitle

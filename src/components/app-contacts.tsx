@@ -9,13 +9,7 @@ import {
 import { useState, useEffect } from 'react';
 import { Speech } from 'lucide-react';
 import Image from 'next/image';
-import {
-    Messenger,
-    Telegram,
-    BrandPhoneCall,
-    Zalo,
-    WhatsApp,
-} from '@image/index';
+import { Messenger, Telegram, Zalo, WhatsApp } from '@image/index';
 import {
     Tooltip,
     TooltipContent,
@@ -103,20 +97,20 @@ export default function ContactButton() {
             ),
             color: '#25d366',
         },
-        {
-            name: t('contactButton.methods.callUs'), // <-- Use translation
-            href: 'tel:0985865674',
-            icon: (
-                <Image
-                    src={BrandPhoneCall}
-                    alt={'phone call'}
-                    width={50}
-                    height={50}
-                    className={'object-contain size-8'}
-                />
-            ),
-            color: '#ffe400',
-        },
+        // {
+        //     name: t('contactButton.methods.callUs'), // <-- Use translation
+        //     href: 'tel:0985865674',
+        //     icon: (
+        //         <Image
+        //             src={BrandPhoneCall}
+        //             alt={'phone call'}
+        //             width={50}
+        //             height={50}
+        //             className={'object-contain size-8'}
+        //         />
+        //     ),
+        //     color: '#ffe400',
+        // },
     ];
 
     return (

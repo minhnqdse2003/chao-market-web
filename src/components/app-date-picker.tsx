@@ -87,7 +87,7 @@ export function AppDatePicker({
                         >
                             <div
                                 className={cn(
-                                    'flex gap-1 items-center h-full w-full',
+                                    'flex gap-1 items-center h-full w-full font-medium',
                                     `${isHightlightVisible(date)}`
                                 )}
                             >

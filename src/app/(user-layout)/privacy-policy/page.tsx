@@ -22,7 +22,7 @@ export default function PrivacyPolicy() {
 
     return (
         <div className="w-full h-full">
-            <Link href="/auth/signup">
+            <Link href="/auth/sign-up">
                 <Button
                     variant="outline"
                     className="mb-6 dark:text-[var(--brand-color)] dark:hover:text-black dark:bg-transparent bg-[var(--brand-color)] hover:bg-[var(--brand-color)] dark:hover:bg-[var(--brand-color)] transition-colors! duration-300 ease-in-out dark:border-transparent border-transparent font-semibold"

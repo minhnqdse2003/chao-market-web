@@ -56,14 +56,15 @@ export default function Page({ searchParams }: PageProps) {
         <div className={'w-full flex flex-col gap-4'}>
             <TabNavigation
                 searchParams={{}}
-                currentHref={'/market-data/news'}
+                currentHref={'/market-data/financial-news'}
             />
             <AppTabs
                 tabsList={tabsList}
                 size={1}
                 defaultValue={tab}
                 onValueChange={(value: string) => {
-                    if (value) router.push(`/market-data/news?tab=${value}`);
+                    if (value)
+                        router.push(`/market-data/financial-news?tab=${value}`);
                 }}
             />
         </div>

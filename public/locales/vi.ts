@@ -110,8 +110,8 @@ export const vi: TranslationsStructure = {
         minRead: 'phút đọc',
         tableOfContent: 'Mục Lục',
         profit: 'Lợi nhuận',
-        algoTrading: 'Giao Dịch Thuật Toán',
-        manualTrading: 'Giao Dịch Thủ Công',
+        algoTrading: 'Giao Dịch<br/>Thuật Toán',
+        manualTrading: 'Giao Dịch<br/>Thủ Công',
         over20: 'Trên 20%',
         lowToHight: 'Thấp đến cao',
         hightToLow: 'Cao đến thấp',
@@ -841,7 +841,7 @@ export const vi: TranslationsStructure = {
         clientPromise: `“Chúng tôi không tập trung vào việc tối đa hóa lợi nhuận của bạn. <br />Chúng tôi ưu tiên việc hỗ trợ bạn quản lý rủi ro thị trường.”`,
     },
     lossRecovery: {
-        title: 'Tính % Lãi Để Hòa Vốn',
+        title: 'Tính Điểm Hòa Vốn',
         description:
             'Công cụ ước tính thời gian và nỗ lực cần để gỡ lại khoản lỗ.',
     },

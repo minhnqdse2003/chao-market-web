@@ -53,13 +53,18 @@ function AlertDialogOverlay({
 function AlertDialogContent({
     className,
     overLayClassName,
+    onClickActionOverlay,
     ...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Content> & {
     overLayClassName?: string;
+    onClickActionOverlay?: () => void;
 }) {
     return (
         <AlertDialogPortal>
-            <AlertDialogOverlay className={overLayClassName} />
+            <AlertDialogOverlay
+                className={overLayClassName}
+                onClick={() => onClickActionOverlay?.()}
+            />
             <AlertDialogPrimitive.Content
                 data-slot="alert-dialog-content"
                 className={cn(

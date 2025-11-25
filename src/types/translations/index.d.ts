@@ -2,7 +2,7 @@ import { CommonTranslations } from '@/types/translations/common';
 import { AuthTranslations } from '@/types/translations/auth';
 import { ValidationTranslations } from '@/types/translations/validation';
 import { CartItemsTranslations } from '@/types/translations/cart-items';
-import { OurSolutionsTranslations } from '@/types/translations/our-solutions';
+import { OurSolutionsTranslations } from '@/types/translations/chao-solutions';
 import { SidebarTranslations } from '@/types/translations/sidebar';
 import { BookConsultationTranslations } from '@/types/translations/book-consultations';
 import { FooterTranslations } from '@/types/translations/footer';

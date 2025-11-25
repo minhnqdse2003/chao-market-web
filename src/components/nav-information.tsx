@@ -128,7 +128,7 @@ const NavInformation = () => {
     return (
         <SidebarGroup className="px-2 mb-8">
             <SidebarMenu>
-                <SidebarMenuItem>
+                <SidebarMenuItem className={'font-medium'}>
                     <SidebarMenuButton
                         isActive={path.startsWith('/contacts')}
                         tooltip={<p className={'font-semibold'}>Contacts</p>}

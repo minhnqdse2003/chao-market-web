@@ -841,7 +841,7 @@ export const en: TranslationsStructure = {
         clientPromise: `“We don’t focus on maximising your profit. <br />We prioritise helping you manage market risks.”`,
     },
     lossRecovery: {
-        title: 'Breakeven % Calculator',
+        title: 'Break-even Point Calculator',
         description:
             'A tool to estimate the time and effort required to recover from a loss.',
     },

@@ -71,7 +71,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         title: t(
                             'marketData.marketData.items.financialNews.title'
                         ),
-                        url: '/market-data/news',
+                        url: '/market-data/financial-news',
                     },
                     {
                         title: t(
@@ -102,40 +102,40 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             },
             {
                 title: t('ourSolutions.common.title'),
-                url: '/our-solutions',
+                url: '/chao-solutions',
                 icon: BriefcaseBusiness,
                 children: [
                     {
                         title: t('ourSolutions.financialFoundation.title'),
-                        url: '/our-solutions#1',
+                        url: '/chao-solutions#financial-foundation-mentoring',
                     },
                     {
                         title: t('ourSolutions.portfolioStrategy.title'),
-                        url: '/our-solutions#2',
+                        url: '/chao-solutions#portfolio-strategy-tools',
                     },
                     {
                         title: t('ourSolutions.algoTrading.title'),
-                        url: '/our-solutions#3',
+                        url: '/chao-solutions#algorithmic-trading-solutions',
                     },
                     {
                         title: t('ourSolutions.tradingPerformance.title'),
-                        url: '/our-solutions#4',
+                        url: '/chao-solutions#trading-performance-mentoring',
                     },
                     {
                         title: t('ourSolutions.financialCourse.title'),
-                        url: '/our-solutions#5',
+                        url: '/chao-solutions#financial-investment-courses',
                     },
                 ],
             },
             {
                 title: t('sidebar.newsEvents'),
-                url: '/news-event',
+                url: '/chao-insights',
                 icon: Megaphone,
                 // children: [
-                //     { title: t('sidebar.news'), url: '/news-event?type=news' },
+                //     { title: t('sidebar.news'), url: '/chao-insights?type=news' },
                 //     {
                 //         title: t('sidebar.events'),
-                //         url: '/news-event?type=events',
+                //         url: '/chao-insights?type=events',
                 //     },
                 // ],
             },
@@ -251,7 +251,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                 ' hover:border-[var(--brand-color)]' +
                                 ' mb-4' +
                                 `${
-                                    pathName === '/consultation-request'
+                                    pathName === '/book-a-consultation'
                                         ? ' dark:bg-[var(--brand-color)] bg-[var(--brand-color)] border-[var(--brand-color)]' +
                                           ' dark:text-black text-black'
                                         : ''

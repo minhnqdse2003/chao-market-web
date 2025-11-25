@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { ConsultationServices, EmptyCart } from '@image/index';
 import CheckOutTransactionForm, {
     CheckoutFormData,
-} from '@/app/(user-layout)/consultation-request/components/CheckOutTransactionForm';
+} from '@/app/(user-layout)/book-a-consultation/components/CheckOutTransactionForm';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import React, { use, useCallback, useEffect, useMemo } from 'react';
@@ -200,7 +200,7 @@ export default function CartItemsPage({ searchParams }: PageProps) {
                                           ).map((text, index) => (
                                               <li
                                                   key={index}
-                                                  className="text-sm flex text-[var(--brand-grey-foreground)] items-start"
+                                                  className="text-[12px] flex text-[var(--brand-grey-foreground)] items-start"
                                               >
                                                   <span className="mr-2 text-[var(--brand-grey-foreground)]">
                                                       •
@@ -232,7 +232,7 @@ export default function CartItemsPage({ searchParams }: PageProps) {
                             {t('common.contacts')}{' '}
                             {/* Sử dụng chung, nên dùng t() cho "Your cart is empty" nếu có key */}
                             <Button
-                                onClick={() => redirect('/our-solutions')}
+                                onClick={() => redirect('/chao-solutions')}
                                 className="bg-[var(--brand-color)] text-black rounded-3xl font-semibold hover:bg-transparent hover:text-[var(--brand-color)] hover:border-[var(--brand-color)] border border-transparent transition-all! duration-300 ease-in-out"
                             >
                                 {t('ourSolutions.common.getStarted')}

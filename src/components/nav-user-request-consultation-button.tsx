@@ -13,7 +13,7 @@ export default function ConsultationButton() {
 
     return (
         <Link
-            href="/consultation-request"
+            href="/book-a-consultation"
             className={cn(
                 'gap-2 flex items-center justify-center  font-semibold w-full'
             )}

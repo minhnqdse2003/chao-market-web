@@ -7,6 +7,7 @@ import { capitalizeWords } from '@/utils/string-parsing';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { useI18n } from '@/context/i18n/context';
+import Image from 'next/image';
 
 // Define types for the prop and RSS data
 export type NewsSourceType =
@@ -34,15 +35,21 @@ export type NewsSourceType =
     | 'B02-market-fin-news--global-en'
     | 'B03-market-fin-news-vietnam-vn'
     | 'B04-market-fin-news-vietnam-en';
+type FeedType = 'news' | 'social';
+type TabType = 'Facebook' | 'Tiktok' | 'Youtube';
 
 interface CombinedNewsFeedProps {
     type: NewsSourceType;
     href?: string;
+    feedType?: FeedType;
+    currentTab: TabType;
 }
 
 export default function CombinedNewsFeed({
     type,
     href,
+    feedType = 'news',
+    currentTab,
 }: CombinedNewsFeedProps) {
     const {
         data: articles = [] as RSSItem[],
@@ -75,6 +82,16 @@ export default function CombinedNewsFeed({
     };
 
     const limitedArticles = articles;
+
+    const processEmptyImageSource = () => {
+        switch (feedType) {
+            case 'news':
+                return `/img/news-${theme}-${locale}.png`;
+            case 'social':
+            default:
+                return '/img/brand-logo-with-hat.svg';
+        }
+    };
 
     useEffect(() => {
         setErroredImages(new Set());
@@ -124,7 +141,7 @@ export default function CombinedNewsFeed({
                                                 erroredImages.has(
                                                     article.imageUrl
                                                 )
-                                                    ? `/img/news-${theme}-${locale}.png`
+                                                    ? processEmptyImageSource()
                                                     : article.imageUrl
                                             }
                                             alt={article.title}
@@ -140,6 +157,15 @@ export default function CombinedNewsFeed({
                                         />
                                     </a>
                                 </div>
+                            )}
+                            {!article.imageUrl && currentTab !== 'Youtube' && (
+                                <Image
+                                    width={320}
+                                    height={160}
+                                    src={processEmptyImageSource()}
+                                    alt={'empty-image'}
+                                    className="rounded-md object-contain border border-transparent w-[320px] h-[160px]"
+                                />
                             )}
                             {article.content && !article.imageUrl && (
                                 <div

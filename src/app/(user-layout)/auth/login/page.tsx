@@ -377,7 +377,7 @@ export default function Login() {
                     <div className="flex gap-2 justify-center items-center">
                         <T keyName="auth.noAccountPrompt" />{' '}
                         <Link
-                            href="/auth/signup"
+                            href="/auth/sign-up"
                             className={
                                 'dark:text-[var(--brand-color)] text-black font-semibold hover:underline' +
                                 ' dark:hover:text-[var(--brand-color-foreground)] transition-all!' +

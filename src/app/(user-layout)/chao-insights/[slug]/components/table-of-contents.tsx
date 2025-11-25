@@ -66,9 +66,9 @@ export function TableOfContents({ content }: TableOfContentsProps) {
                 <AccordionTrigger className="text-lg cursor-pointer font-semibold">
                     {t('common.tableOfContent')}
                 </AccordionTrigger>
-                <AccordionContent className="text-base font-thin leading-tight pt-4">
+                <AccordionContent className="text-sm font-thin leading-tight pt-4">
                     {headlines.length > 0 ? (
-                        <ul className="list-decimal list-inside text-[var(--brand-grey-foreground)] font-semibold space-y-4">
+                        <ul className="list-decimal list-inside text-[var(--brand-grey-foreground)] font-normal space-y-4">
                             {headlines.map(headline => (
                                 <li
                                     key={headline.id}

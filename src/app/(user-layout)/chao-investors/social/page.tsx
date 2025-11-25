@@ -37,6 +37,8 @@ const RssFeedRender = ({
             <CombinedNewsFeed
                 type={'B01-market-fin-news-global-vn'}
                 href={href}
+                feedType={'social'}
+                currentTab={type}
             />
         );
     }

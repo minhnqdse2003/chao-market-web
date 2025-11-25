@@ -120,7 +120,7 @@ function ToolContent({
     const processHeight = () => {
         switch (src.key) {
             case 'currencyConverterCalc':
-                return calculateAdjustedHeight() - 120;
+                return calculateAdjustedHeight() + 40;
             case 'pipCalculator':
                 return calculateAdjustedHeight() + 40;
             case 'profitCalculator':
@@ -137,7 +137,7 @@ function ToolContent({
     const processWidth = () => {
         switch (src.key) {
             case 'currencyConverterCalc':
-                return 320;
+                return 420;
             case 'pipCalculator':
                 return 570;
             case 'profitCalculator':
@@ -415,20 +415,6 @@ function InterestCalculator() {
         },
     ];
 
-    const processUnitLabel = (
-        unit: 'year' | 'month' | 'day',
-        locale: 'vi' | 'en'
-    ): string => {
-        switch (unit) {
-            case 'year':
-                return locale === 'vi' ? 'năm' : 'year';
-            case 'month':
-                return locale === 'vi' ? 'tháng' : 'month';
-            case 'day':
-                return locale === 'vi' ? 'ngày' : 'day';
-        }
-    };
-
     /* eslint-disable @typescript-eslint/no-explicit-any */
     const chartData = useDebounce(generateChartData, 300) as unknown as any[];
     const height = calculateAdjustedHeight() + 80;
@@ -587,9 +573,15 @@ function InterestCalculator() {
                                 contents={
                                     <div className="max-w-[24rem] flex flex-col gap-2">
                                         {locale === 'vi' ? (
-                                            <p>Giới hạn hiển thị: 60</p>
+                                            <p>
+                                                Giới hạn hiển thị: 60 (số nguyên
+                                                dương)
+                                            </p>
                                         ) : (
-                                            <p>Display limit: 60</p>
+                                            <p>
+                                                Display limit: 60 (positive
+                                                integer)
+                                            </p>
                                         )}
                                     </div>
                                 }
@@ -688,8 +680,8 @@ function InterestCalculator() {
                                 inputMode="decimal"
                                 label={
                                     locale === 'vi'
-                                        ? `Lãi Suất (%/${processUnitLabel(growthUnit, 'vi')})`
-                                        : `Growth Rate (%/${processUnitLabel(growthUnit, 'en')})`
+                                        ? `Lãi Suất (%)`
+                                        : `Growth Rate (%)`
                                 }
                                 value={growthRateInput}
                                 onChange={e => {
@@ -739,6 +731,7 @@ function InterestCalculator() {
                                     ` ${(growthRate === 1 || !growthRateInput) && ' pointer-events-none hidden'}`
                                 }
                                 contentClassName="w-full!"
+                                formatDisplayLabel={value => `%/${value}`}
                             />
                         </div>
 

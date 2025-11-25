@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Static pages
     const staticPages: MetadataRoute.Sitemap = [
         {
-            url: `${baseUrl}/our-solutions`,
+            url: `${baseUrl}/chao-solutions`,
             lastModified: new Date().toISOString(),
             changeFrequency: 'weekly',
             priority: 0.8,
@@ -22,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.3,
         },
         {
-            url: `${baseUrl}/auth/signup`,
+            url: `${baseUrl}/auth/sign-up`,
             lastModified: new Date().toISOString(),
             changeFrequency: 'yearly',
             priority: 0.3,
@@ -45,7 +45,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             const lastModified = post.createdAt;
 
             return {
-                url: `${baseUrl}/news-event/${post.slug}`,
+                url: `${baseUrl}/chao-insights/${post.slug}`,
                 lastModified: lastModified
                     ? new Date(lastModified).toISOString()
                     : new Date().toISOString(),

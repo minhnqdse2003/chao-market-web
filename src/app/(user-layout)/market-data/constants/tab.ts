@@ -15,7 +15,7 @@ export const MAIN_TABS: TabServerSide[] = [
     },
     {
         title: 'News',
-        href: '/market-data/news',
+        href: '/market-data/financial-news',
     },
     {
         title: 'Economic Calendar',

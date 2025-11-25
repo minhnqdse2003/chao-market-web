@@ -4,7 +4,7 @@ import { useState } from 'react';
 import OtpVerificationForm, {
     OtpVerificationFormProps,
 } from '@/app/(user-layout)/auth/components/otp-verification-form';
-import { SignUpForm } from '@/app/(user-layout)/auth/signup/components/sign-up-form';
+import { SignUpForm } from '@/app/(user-layout)/auth/sign-up/components/sign-up-form';
 
 export default function SignUpPage() {
     const [showOtp, setShowOtp] = useState(false);

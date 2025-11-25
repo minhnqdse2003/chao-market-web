@@ -56,7 +56,8 @@ export function NavMain({
     const params = useSearchParams();
 
     path =
-        (params && path.includes('/news-event')) || path.includes('/community')
+        (params && path.includes('/chao-insights')) ||
+        path.includes('/community')
             ? path + '?' + new URLSearchParams(params).toString()
             : path;
 
@@ -179,7 +180,7 @@ function CollapsibleItem({
             open={isOpen}
             className='group/collapsible [&>button[data-slot="collapsible-trigger"]]:rounded-none [&>button[data-active=true]]:border-l-6 dark:[&>button[data-active=true]]:border-[var(--brand-color)] [&>button[data-active=true]]:border-brand-text [&>button[data-active=true]]:rounded-none [&>button]:cursor-pointer'
         >
-            <SidebarMenuItem>
+            <SidebarMenuItem className={'font-medium'}>
                 {item.children ? (
                     <>
                         <CollapsibleTrigger asChild>

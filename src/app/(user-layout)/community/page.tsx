@@ -12,16 +12,17 @@ import { NewsEventsBanner } from '@/components/app-banner';
 import AppTabsServerSide, {
     TabServerSide,
 } from '@/components/app-tabs-server-side';
-import NewsComp from '@/app/(user-layout)/news-event/components/news';
+import NewsComp from '@/app/(user-layout)/chao-insights/components/news';
 import { Pagination } from '@/components/app-pagination-server-side';
 import { BrandLogoFtHat } from '@image/index';
-import NewsEventFilterDialogComp from '@/app/(user-layout)/news-event/components/news-filter';
-import { NewsType } from '@/app/(user-layout)/news-event/utils/data-utils';
+import NewsEventFilterDialogComp from '@/app/(user-layout)/chao-insights/components/news-filter';
+import { NewsType } from '@/app/(user-layout)/chao-insights/utils/data-utils';
 import { buildURLSearchParams } from '@/utils/api/query-params-build';
 import { Localized } from '@/types/localized';
 import { capitalizeWords } from '@/utils/string-parsing';
 import { getTags } from '@/services/tag/get-tags';
 import { T } from '@/components/app-translate';
+import { processTagValue } from '@/utils/process-tag-name';
 
 interface PageProps {
     searchParams: {
@@ -43,7 +44,7 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
 
     // Fetch posts filtered by tag
     const postsData: PaginatedResponse<Post> = await getPosts({
-        mainTag: mainTag ?? tagsData.data?.[0]?.name,
+        mainTag: mainTag ? processTagValue(mainTag) : tagsData.data?.[0]?.name,
         filterBy:
             (filterBy as
                 | 'recommended'

@@ -451,19 +451,23 @@ export default function Page({ searchParams }: PageProps) {
                                         </strong>
                                     </div>
                                     <div className="text-xs font-semibold flex justify-between mb-2">
-                                        <p>
-                                            <T keyName={'common.algoTrading'} />
-                                        </p>
+                                        <p
+                                            dangerouslySetInnerHTML={{
+                                                __html: t('common.algoTrading'),
+                                            }}
+                                        />
                                         <Progress
                                             isValueVisible={true}
                                             value={data.progress}
                                             className="w-1/2 min-h-[18px] bg-white [&>div]:bg-blue-500"
                                         />
-                                        <p className="text-end">
-                                            <T
-                                                keyName={'common.manualTrading'}
-                                            />
-                                        </p>
+                                        <p
+                                            dangerouslySetInnerHTML={{
+                                                __html: t(
+                                                    'common.manualTrading'
+                                                ),
+                                            }}
+                                        />
                                     </div>
                                     <div className="flex justify-center items-center text-xs gap-2">
                                         <EyeIcon size={16} />

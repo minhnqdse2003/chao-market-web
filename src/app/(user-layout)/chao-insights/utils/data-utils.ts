@@ -3,7 +3,7 @@ import { Localized } from '@/types/localized';
 export type NewsType = {
     title: Localized;
     description: Localized;
-    image: string;
+    image?: string;
     like: number;
     dislike: number;
     views: number;

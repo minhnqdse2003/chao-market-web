@@ -123,6 +123,7 @@ const OurSolutionsPage = () => {
                     </p>
                 </div>
             ),
+            slug: 'financial-foundation-mentoring',
         },
         {
             title: t('ourSolutions.portfolioStrategy.title'),
@@ -236,6 +237,7 @@ const OurSolutionsPage = () => {
                     </p>
                 </div>
             ),
+            slug: 'portfolio-strategy-tools',
         },
         {
             title: t('ourSolutions.algoTrading.title'),
@@ -326,6 +328,7 @@ const OurSolutionsPage = () => {
                     </p>
                 </div>
             ),
+            slug: 'algorithmic-trading-solutions',
         },
         {
             title: t('ourSolutions.tradingPerformance.title'),
@@ -441,6 +444,7 @@ const OurSolutionsPage = () => {
                     </p>
                 </div>
             ),
+            slug: 'trading-performance-mentoring',
         },
         {
             title: t('ourSolutions.financialCourse.title'),
@@ -554,6 +558,7 @@ const OurSolutionsPage = () => {
                     </p>
                 </div>
             ),
+            slug: 'financial-investment-courses',
         },
     ];
 
@@ -567,6 +572,7 @@ const OurSolutionsPage = () => {
                     title={item.title!}
                     id={`${idx + 1}`}
                     params={item.buttonComp?.id}
+                    slug={item.slug}
                 >
                     {item.children}
                 </BlockContents>

@@ -56,7 +56,7 @@ export default function OtpVerificationForm({
             const response = await verifiedOtpCode(data);
 
             if (response.ok) {
-                router.push(`/auth/signup/success?firstName=${firstName}`);
+                router.push(`/auth/sign-up/success?firstName=${firstName}`);
             } else {
                 const result = await response.json();
                 setError(result.error || 'OTP verification failed');
