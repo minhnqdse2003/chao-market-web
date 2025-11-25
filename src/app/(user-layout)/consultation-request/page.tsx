@@ -189,7 +189,7 @@ export default function CartItemsPage({ searchParams }: PageProps) {
                                         ]
                                     }
                                 </Link>
-                                <ul className="flex flex-col gap-0.5 min-w-[15rem] justify-start items-start">
+                                <ul className="flex flex-col gap-0.5 min-w-1/2 justify-start items-start">
                                     {item?.description
                                         ? splitAndTrim(
                                               item.description[
