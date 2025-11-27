@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/accordion';
 import { Localized } from '@/types/localized';
 import { useI18n } from '@/context/i18n/context';
+import { CURRENT_POST_HEADLINE } from '@/constant/current-headline';
 
 interface TableOfContentsProps {
     content: Localized;
@@ -32,7 +33,7 @@ export function TableOfContents({ content }: TableOfContentsProps) {
             replace: (domNode: DOMNode) => {
                 if (
                     domNode.type === 'tag' &&
-                    domNode.name === 'strong' &&
+                    domNode.name === CURRENT_POST_HEADLINE &&
                     domNode.children[0]?.type === 'text'
                 ) {
                     const text = domNode.children[0].data.trim();

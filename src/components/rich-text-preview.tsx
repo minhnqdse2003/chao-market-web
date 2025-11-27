@@ -14,11 +14,11 @@ export default function RichTextPreview({ contents }: { contents: Localized }) {
     let index = 0;
 
     const contentWithIds = localizedContents.replace(
-        /<strong[^>]*>(.*?)<\/strong>/g,
+        /<h1[^>]*>(.*?)<\/h1>/g,
         match => {
             const id = `title-${index}`;
             index++;
-            return `<strong><span id="${id}"></span>${match.slice(8, -9)}</strong>`;
+            return `<h1><span id="${id}"></span>${match}</h1>`;
         }
     );
 

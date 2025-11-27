@@ -10,14 +10,13 @@ export async function getPosts(requestParams: PostRequestParams) {
             transformParams.append('type', item)
         );
     }
-    console.log('trans: ', transformParams);
 
     const response = await fetch(
         `${process.env.NEXTAUTH_URL}/api/posts?${transformParams}`
     );
 
     if (!response.ok) {
-        console.error('Failed to fetch posts:', response);
+        console.error('Failed to fetch posts:', JSON.stringify(response));
         throw new Error('Failed to fetch posts');
     }
 

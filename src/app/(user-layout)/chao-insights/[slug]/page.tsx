@@ -83,6 +83,9 @@ export default async function NewsEventPage({ params }: PageProps) {
                     }
                     alt={'details-banner'}
                     className="w-full aspect-21/9 h-auto max-h-[514px] mb-8 object-cover"
+                    style={{
+                        borderRadius: post.imageUrl ? '1rem' : '0',
+                    }}
                 />
 
                 {/* Post Header */}

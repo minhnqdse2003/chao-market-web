@@ -17,37 +17,27 @@
       color: var(--brand-color);
     }
   }
-
-  & p:has(strong) {
-    padding-top: 0;
-  }
-}
-
-.rich-text-content h1 {
-  font-size: 3rem;
 }
 
 .rich-text-content p {
+  margin-top: 0.75rem;
   font-size: var(--text-size-16);
   color: var(--brand-grey-foreground);
   --tw-leading: calc(var(--spacing) * 7);
   line-height: calc(var(--spacing) * 7);
 }
 
-.rich-text-content p:has(strong) {
-  padding-top: 1rem;
-}
-
-.rich-text-content *:has(strong) {
-  margin-bottom: 0.5rem;
-}
-
 .rich-text-content img {
   margin: 1rem 0;
 }
 
-.rich-text-content strong {
+.rich-text-content h1 {
   font-size: 20px;
+  margin-top: 2rem;
+
+  span {
+    scroll-margin-top: 2rem;
+  }
 
   &:is(.dark *) {
     color: white;

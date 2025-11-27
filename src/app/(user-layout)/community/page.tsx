@@ -1,9 +1,5 @@
 import CommunityTabs from '@/app/(user-layout)/community/components/tabs';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 3600;
-export const fetchCache = 'force-cache';
-
 import React from 'react';
 import { getPosts } from '@/app/api/posts';
 import { Post } from '@/db/schema';

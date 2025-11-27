@@ -1,9 +1,5 @@
 import { capitalizeWords } from '@/utils/string-parsing';
 
-export const dynamic = 'force-dynamic'; // or 'force-dynamic'
-export const revalidate = 3600;
-export const fetchCache = 'force-cache';
-
 import React from 'react';
 import { NewsType } from './utils/data-utils';
 import NewsEventFilterDialogComp from './components/news-filter';

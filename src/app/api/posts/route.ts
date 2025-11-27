@@ -16,138 +16,145 @@ import { createUniqueSlug } from '@/utils/api/slugify';
 import { calculateReadingTime } from '@/utils/api/reading-time';
 
 const getAllPosts = async (request: NextRequest) => {
-    const searchParams = Object.fromEntries(
-        request.nextUrl.searchParams.entries()
-    );
-
-    const parsed = postQuerySchema.safeParse(searchParams);
-
-    if (!parsed.success) {
-        throw new ApiError(400, z.prettifyError(parsed.error));
-    }
-
-    const { pageIndex, pageSize, createdAt, type, filterBy, mainTag } =
-        parsed.data;
-    const conditions = [];
-
-    if (createdAt) conditions.push(gte(posts.createdAt, createdAt));
-
-    if (type) {
-        conditions.push(
-            Array.isArray(type) && type.length > 0
-                ? inArray(posts.type, type)
-                : eq(posts.type, type)
+    try {
+        const searchParams = Object.fromEntries(
+            request.nextUrl.searchParams.entries()
         );
-    }
 
-    const whereClause = conditions.length ? and(...conditions) : undefined;
+        const parsed = postQuerySchema.safeParse(searchParams);
 
-    // Build base query
-    let query = db
-        .select({
-            id: posts.id,
-            title: posts.title,
-            slug: posts.slug,
-            description: posts.description,
-            content: posts.content,
-            likes: posts.likes,
-            dislikes: posts.dislikes,
-            views: posts.views,
-            referenceSource: posts.referenceSource,
-            type: posts.type,
-            readingTime: posts.readingTime,
-            createdAt: posts.createdAt,
-            seoTitle: posts.seoTitle,
-            seoDescription: posts.seoDescription,
-            seoKeywords: posts.seoKeywords,
-            ogImage: posts.ogImage,
-            canonicalUrl: posts.canonicalUrl,
-            robots: posts.robots,
-            market: posts.market,
-            imageUrl: posts.imageUrl,
-        })
-        .from(posts);
+        if (!parsed.success) {
+            throw new ApiError(400, z.prettifyError(parsed.error));
+        }
 
-    // Add join and filter by tag if mainTag is provided
-    if (mainTag) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        query = query
-            .innerJoin(postTags, eq(posts.id, postTags.postId))
-            .innerJoin(tags, eq(postTags.tagId, tags.id))
-            .where(and(whereClause, eq(tags.name, mainTag)));
-    } else {
-        // Apply where clause without tag filtering
-        if (whereClause) {
+        const { pageIndex, pageSize, createdAt, type, filterBy, mainTag } =
+            parsed.data;
+        const conditions = [];
+
+        if (createdAt) conditions.push(gte(posts.createdAt, createdAt));
+
+        if (type) {
+            conditions.push(
+                Array.isArray(type) && type.length > 0
+                    ? inArray(posts.type, type)
+                    : eq(posts.type, type)
+            );
+        }
+
+        const whereClause = conditions.length ? and(...conditions) : undefined;
+
+        // Build base query
+        let query = db
+            .select({
+                id: posts.id,
+                title: posts.title,
+                slug: posts.slug,
+                description: posts.description,
+                content: posts.content,
+                likes: posts.likes,
+                dislikes: posts.dislikes,
+                views: posts.views,
+                referenceSource: posts.referenceSource,
+                type: posts.type,
+                readingTime: posts.readingTime,
+                createdAt: posts.createdAt,
+                seoTitle: posts.seoTitle,
+                seoDescription: posts.seoDescription,
+                seoKeywords: posts.seoKeywords,
+                ogImage: posts.ogImage,
+                canonicalUrl: posts.canonicalUrl,
+                robots: posts.robots,
+                market: posts.market,
+                imageUrl: posts.imageUrl,
+            })
+            .from(posts);
+
+        // Add join and filter by tag if mainTag is provided
+        if (mainTag) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
-            query = query.where(whereClause);
+            query = query
+                .innerJoin(postTags, eq(posts.id, postTags.postId))
+                .innerJoin(tags, eq(postTags.tagId, tags.id))
+                .where(and(whereClause, eq(tags.name, mainTag)));
+        } else {
+            // Apply where clause without tag filtering
+            if (whereClause) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
+                query = query.where(whereClause);
+            }
         }
-    }
 
-    // Apply ordering based on filterBy
-    if (filterBy) {
-        switch (filterBy) {
-            case 'recommended':
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-expect-error
-                query = query.orderBy(desc(posts.likes));
-                break;
-            case 'hottest':
-            case 'mostViewed':
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-expect-error
-                query = query.orderBy(desc(posts.views));
-                break;
-            case 'topRated':
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-expect-error
-                query = query.orderBy(desc(posts.likes));
-                break;
-            default:
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-expect-error
-                query = query.orderBy(desc(posts.createdAt));
-        }
-    } else {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        query = query.orderBy(desc(posts.createdAt));
-    }
-
-    // Execute the query with pagination
-    const items = await query.limit(pageSize).offset(pageIndex * pageSize);
-
-    // Build count query
-    let countQuery = db.select({ count: sql<number>`count(*)` }).from(posts);
-
-    if (mainTag) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        countQuery = countQuery
-            .innerJoin(postTags, eq(posts.id, postTags.postId))
-            .innerJoin(tags, eq(postTags.tagId, tags.id))
-            .where(and(whereClause, eq(tags.name, mainTag)));
-    } else {
-        if (whereClause) {
+        // Apply ordering based on filterBy
+        if (filterBy) {
+            switch (filterBy) {
+                case 'recommended':
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-expect-error
+                    query = query.orderBy(desc(posts.likes));
+                    break;
+                case 'hottest':
+                case 'mostViewed':
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-expect-error
+                    query = query.orderBy(desc(posts.views));
+                    break;
+                case 'topRated':
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-expect-error
+                    query = query.orderBy(desc(posts.likes));
+                    break;
+                default:
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-expect-error
+                    query = query.orderBy(desc(posts.createdAt));
+            }
+        } else {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
-            countQuery = countQuery.where(whereClause);
+            query = query.orderBy(desc(posts.createdAt));
         }
+
+        // Execute the query with pagination
+        const items = await query.limit(pageSize).offset(pageIndex * pageSize);
+
+        // Build count query
+        let countQuery = db
+            .select({ count: sql<number>`count(*)` })
+            .from(posts);
+
+        if (mainTag) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            countQuery = countQuery
+                .innerJoin(postTags, eq(posts.id, postTags.postId))
+                .innerJoin(tags, eq(postTags.tagId, tags.id))
+                .where(and(whereClause, eq(tags.name, mainTag)));
+        } else {
+            if (whereClause) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
+                countQuery = countQuery.where(whereClause);
+            }
+        }
+
+        const total = await countQuery;
+
+        return NextResponse.json(
+            {
+                data: items,
+                pageIndex,
+                pageSize,
+                totalItems: total[0]?.count || 0,
+                totalPages: Math.ceil(total[0]?.count / pageSize),
+            } as PaginatedResponse<Post>,
+            { status: 200 }
+        );
+    } catch (error) {
+        console.log(error);
+        throw new ApiError(500, 'Failed to fetch posts');
     }
-
-    const total = await countQuery;
-
-    return NextResponse.json(
-        {
-            data: items,
-            pageIndex,
-            pageSize,
-            totalItems: total[0]?.count || 0,
-            totalPages: Math.ceil(total[0]?.count / pageSize),
-        } as PaginatedResponse<Post>,
-        { status: 200 }
-    );
 };
 
 const createNewPost = async (request: NextRequest) => {
