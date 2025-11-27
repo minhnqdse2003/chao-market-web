@@ -8,8 +8,8 @@ export const postQuerySchema = z.object({
     createdAt: zodTimeStampModifiedSchema.createdAt,
     type: z
         .union([
-            z.enum(['news', 'events', 'community']),
-            z.array(z.enum(['news', 'events', 'community'])),
+            z.enum(['news', 'events', 'community', 'insight']),
+            z.array(z.enum(['news', 'events', 'community', 'insight'])),
         ])
         .optional(),
     filterBy: z

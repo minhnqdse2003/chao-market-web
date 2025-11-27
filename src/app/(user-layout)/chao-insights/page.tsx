@@ -18,6 +18,7 @@ import NewsComp from '@/app/(user-layout)/chao-insights/components/news';
 import { Pagination } from '@/components/app-pagination-server-side';
 import { Localized } from '@/types/localized';
 import { T } from '@/components/app-translate';
+import { processFinalUrl } from '@/utils/minio/process-final-url';
 
 interface PageProps {
     searchParams: {
@@ -37,7 +38,7 @@ const Page = async ({ searchParams }: PageProps) => {
 
     // Fetch posts
     const postsData: PaginatedResponse<Post> = await getPosts({
-        type: ['news'],
+        type: ['insight'],
         filterBy: filterBy as
             | 'recommended'
             | 'hottest'
@@ -54,7 +55,7 @@ const Page = async ({ searchParams }: PageProps) => {
         return postsData.data.map(post => ({
             title: post.title as Localized,
             description: post.description as Localized,
-            image: undefined,
+            image: post.imageUrl ? processFinalUrl(post.imageUrl) : null,
             like: post.likes,
             dislike: post.dislikes,
             views: post.views,
@@ -77,7 +78,6 @@ const Page = async ({ searchParams }: PageProps) => {
         }
     });
 
-    // --- Refactored Tabs Logic ---
     const currentType = Array.isArray(type) ? type[0] : type;
     const hasValidType = currentType === 'news' || currentType === 'events';
 

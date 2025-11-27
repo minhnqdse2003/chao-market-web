@@ -4,6 +4,14 @@ import { buildURLSearchParams } from '@/utils/api/query-params-build';
 
 export async function getPosts(requestParams: PostRequestParams) {
     const transformParams = buildURLSearchParams(requestParams);
+    transformParams.delete('type');
+    if (Array.isArray(requestParams.type)) {
+        requestParams.type.forEach(item =>
+            transformParams.append('type', item)
+        );
+    }
+    console.log('trans: ', transformParams);
+
     const response = await fetch(
         `${process.env.NEXTAUTH_URL}/api/posts?${transformParams}`
     );

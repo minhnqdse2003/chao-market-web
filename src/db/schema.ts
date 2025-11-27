@@ -17,7 +17,7 @@ import {
 } from 'drizzle-orm/pg-core';
 
 export const postStatus = pgEnum('post_status', ['ACTIVE', 'DEACTIVE']);
-export const postType = pgEnum('post_type', ['news', 'events', 'community']);
+export const postType = pgEnum('post_type', ['insight', 'community']);
 export const tagTypes = pgEnum('tag_types', [
     'tag',
     'news_type',
@@ -198,6 +198,7 @@ export const posts = pgTable(
         robots: text(),
         market: text().default('all').notNull(),
         status: postStatus().default('ACTIVE'),
+        imageUrl: text(),
     },
     table => [unique('post_slug_unique').on(table.slug)]
 );

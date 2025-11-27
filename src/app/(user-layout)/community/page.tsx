@@ -14,7 +14,6 @@ import AppTabsServerSide, {
 } from '@/components/app-tabs-server-side';
 import NewsComp from '@/app/(user-layout)/chao-insights/components/news';
 import { Pagination } from '@/components/app-pagination-server-side';
-import { BrandLogoFtHat } from '@image/index';
 import NewsEventFilterDialogComp from '@/app/(user-layout)/chao-insights/components/news-filter';
 import { NewsType } from '@/app/(user-layout)/chao-insights/utils/data-utils';
 import { buildURLSearchParams } from '@/utils/api/query-params-build';
@@ -23,6 +22,7 @@ import { capitalizeWords } from '@/utils/string-parsing';
 import { getTags } from '@/services/tag/get-tags';
 import { T } from '@/components/app-translate';
 import { processTagValue } from '@/utils/process-tag-name';
+import { processFinalUrl } from '@/utils/minio/process-final-url';
 
 interface PageProps {
     searchParams: {
@@ -63,10 +63,12 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
     const mapPostsToNewsType = (): NewsType[] => {
         if (!postsData?.data) return [];
 
+        console.log(postsData.data);
+
         return postsData.data.map(post => ({
             title: post.title as Localized,
             description: post.description as Localized,
-            image: BrandLogoFtHat,
+            image: post.imageUrl ? processFinalUrl(post.imageUrl) : null,
             like: post.likes,
             dislike: post.dislikes,
             views: post.views,
@@ -112,6 +114,8 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
 
     // Get current posts data
     const newsData = mapPostsToNewsType();
+
+    console.log(newsData);
 
     const validSearchParams: Record<string, string> = {};
     Object.entries(searchParams).forEach(([key, value]) => {

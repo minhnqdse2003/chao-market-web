@@ -137,6 +137,7 @@ export interface CommonTranslations {
     contact: string;
     generalInquiries: string;
     phone: string;
+    workingHours: string;
     phoneHours: string;
     chatOnWhatsApp: string;
     information: string;

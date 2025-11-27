@@ -316,7 +316,7 @@ const LossRecoveryCalculator: React.FC = () => {
     );
 
     const targetReturnToBreakEvenTooltip = (
-        <div className="whitespace-break-spaces max-w-[16rem] text-sm">
+        <div className="whitespace-break-spaces max-w-[16rem]">
             <p className="font-bold w-fit">
                 {locale === 'vi'
                     ? 'Tỷ lệ phần trăm lợi nhuận cần đạt trên giá trị còn lại của danh mục sau khi lỗ, để bù lỗ và đạt hòa vốn.'
@@ -345,7 +345,7 @@ const LossRecoveryCalculator: React.FC = () => {
     );
 
     const expectedReturnTooltip = (
-        <div className="w-fit space-y-1 text-sm">
+        <div className="w-fit space-y-1">
             <p
                 dangerouslySetInnerHTML={{
                     __html:

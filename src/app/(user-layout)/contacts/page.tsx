@@ -1,18 +1,21 @@
+'use client';
 import { GeneralBanner } from '@/components/app-banner';
-import { Handshake, Mail, Phone, Users } from 'lucide-react'; // Import relevant Lucide icons
+import { Clock, Handshake, Mail, Users } from 'lucide-react'; // Import relevant Lucide icons
 import { T } from '@/components/app-translate';
 import { ReactNode } from 'react';
+import { useI18n } from '@/context/i18n/context';
 
 interface ContactCard {
     icon: React.ReactNode;
     title: string | ReactNode;
     description: string | ReactNode;
-    contactInfo: string | ReactNode;
+    contactInfo?: string | ReactNode;
     isLink?: boolean;
     href?: string;
 }
 
 export default function ContactsPage() {
+    const { t } = useI18n();
     const contactCards: ContactCard[] = [
         {
             icon: (
@@ -57,16 +60,18 @@ export default function ContactsPage() {
         },
         {
             icon: (
-                <Phone
+                <Clock
                     size={60}
                     className="dark:text-[var(--brand-color)] text-brand-text mb-6"
                 />
             ),
-            title: <T keyName={'common.phone'} />,
-            description: <T keyName={'common.phoneHours'} />,
-            contactInfo: '098 586 5674',
+            title: <T keyName={'common.workingHours'} />,
+            description: (
+                <span
+                    dangerouslySetInnerHTML={{ __html: t('common.phoneHours') }}
+                />
+            ),
             isLink: true,
-            href: 'tel:0985865674',
         },
     ];
 
@@ -97,9 +102,11 @@ export default function ContactsPage() {
                                 {card.description}
                             </p>
                             {/* Render contact info as a link or plain text */}
-                            <ContactInfoElement {...contactInfoProps}>
-                                {card.contactInfo}
-                            </ContactInfoElement>
+                            {card.contactInfo && (
+                                <ContactInfoElement {...contactInfoProps}>
+                                    {card.contactInfo}
+                                </ContactInfoElement>
+                            )}
                         </div>
                     );
                 })}

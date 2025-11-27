@@ -29,15 +29,13 @@ const NewsComp = ({
             {parsedNews.map((item, idx) => (
                 <div key={item.title}>
                     <Link
-                        className="flex w-full gap-[2rem]"
+                        className="flex w-full gap-8"
                         href={endPointBuild(baseHref, item.slug)}
                     >
                         <div className="flex gap-8 w-full items-center cursor-pointer">
                             {/* Image Block */}
                             {item.image ? (
-                                <Image
-                                    width={100}
-                                    height={100}
+                                <img
                                     className="object-cover w-full max-w-3/12 h-full rounded-lg"
                                     src={item.image}
                                     alt="news-image"

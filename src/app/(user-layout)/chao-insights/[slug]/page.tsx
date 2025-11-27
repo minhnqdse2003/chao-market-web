@@ -10,6 +10,7 @@ import { Localized } from '@/types/localized';
 import AppLocalizeRender from '@/components/app-localize-render';
 import { T } from '@/components/app-translate';
 import AppDateTimeDisplayLocalized from '@/components/app-date-time-display-localized';
+import { processFinalUrl } from '@/utils/minio/process-final-url';
 
 export interface PageProps {
     params: {
@@ -75,9 +76,13 @@ export default async function NewsEventPage({ params }: PageProps) {
             <div className="w-full">
                 {/* Banner Image */}
                 <img
-                    src={'/img/news-events-mock-banner.svg'}
+                    src={
+                        post.imageUrl
+                            ? processFinalUrl(post.imageUrl)
+                            : '/img/news-events-mock-banner.svg'
+                    }
                     alt={'details-banner'}
-                    className="w-full h-auto mb-8 object-cover"
+                    className="w-full aspect-21/9 h-auto max-h-[514px] mb-8 object-cover"
                 />
 
                 {/* Post Header */}

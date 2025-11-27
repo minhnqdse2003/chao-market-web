@@ -32,8 +32,6 @@ const getAllPosts = async (request: NextRequest) => {
 
     if (createdAt) conditions.push(gte(posts.createdAt, createdAt));
 
-    console.log('hehe-3', type);
-
     if (type) {
         conditions.push(
             Array.isArray(type) && type.length > 0
@@ -66,6 +64,7 @@ const getAllPosts = async (request: NextRequest) => {
             canonicalUrl: posts.canonicalUrl,
             robots: posts.robots,
             market: posts.market,
+            imageUrl: posts.imageUrl,
         })
         .from(posts);
 
