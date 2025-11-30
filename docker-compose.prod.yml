@@ -2,7 +2,7 @@ version: '3.8'
 services:
     # --- NEXTJS APP ---
     next-app:
-        image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME}:latest
+        image: ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:latest
         restart: always
         ports:
             - '127.0.0.1:3000:3000'
