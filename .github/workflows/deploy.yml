@@ -30,6 +30,7 @@ jobs:
             - name: Copy Files to VPS
               uses: appleboy/scp-action@master
               with:
+                  port: ${{ secrets.PORT }}
                   host: ${{ secrets.HOST }}
                   username: ${{ secrets.USERNAME }}
                   key: ${{ secrets.SSH_KEY }}
