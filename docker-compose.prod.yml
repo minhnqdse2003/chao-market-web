@@ -2,7 +2,7 @@ version: '3.8'
 services:
     # --- NEXTJS APP ---
     next-app:
-        image: ${FULL_IMAGE_NAME}:latest
+        image: ${IMAGE_NAME}:latest
         restart: always
         ports:
             - '127.0.0.1:3000:3000'
