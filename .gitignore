@@ -45,3 +45,5 @@ next-env.d.ts
 # bun
 bun.lock
 bun.lockb
+nginx.local.conf
+docker-compose.test.yml
