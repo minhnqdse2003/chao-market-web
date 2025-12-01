@@ -59,8 +59,6 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
     const mapPostsToNewsType = (): NewsType[] => {
         if (!postsData?.data) return [];
 
-        console.log(postsData.data);
-
         return postsData.data.map(post => ({
             title: post.title as Localized,
             description: post.description as Localized,
