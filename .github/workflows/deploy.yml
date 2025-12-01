@@ -59,6 +59,7 @@ jobs:
                     # EXPORT DOCKERHUB USERNAME FOR COMPOSE
                     export DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
                     export IMAGE_NAME=${{ github.repository }}
+                    export EMAIL_SERVER_PASSWORD=${{ secrets.EMAIL_SERVER_PASSWORD }}
 
                     # Pull and Restart
                     docker compose -f docker-compose.prod.yml pull next-app
