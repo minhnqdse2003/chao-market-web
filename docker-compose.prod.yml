@@ -41,6 +41,8 @@ services:
     postgres:
         image: postgres:16
         restart: always
+        ports:
+            - '5433:5432'
         environment:
             POSTGRES_USER: ${DB_USER}
             POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -52,6 +54,8 @@ services:
     postgres_web:
         image: postgres:16
         restart: always
+        ports:
+            - '5432:5432'
         environment:
             POSTGRES_USER: ${DB_USER}
             POSTGRES_PASSWORD: ${DB_PASSWORD}
