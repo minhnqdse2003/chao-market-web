@@ -6,7 +6,6 @@ import { eq } from 'drizzle-orm';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/next-auth.config';
 import { users } from '@/db/schema';
-import { cleanupDomainUrlFromSuccessCallback } from '@/utils/bunny/cleanup-domain-url-from-success-callback';
 
 export const updateUserAvatar = async (newUrl: string) => {
     // ✅ Validate input
@@ -22,13 +21,10 @@ export const updateUserAvatar = async (newUrl: string) => {
         return { success: false, error: 'Unauthorized' };
     }
 
-    const extractBunnyPathForImage =
-        cleanupDomainUrlFromSuccessCallback(newUrl);
-
     try {
         const [updatedUser] = await db
             .update(users)
-            .set({ image: extractBunnyPathForImage }) // ← adjust field name if needed (e.g., `avatar`, `profileImage`)
+            .set({ image: newUrl }) // ← adjust field name if needed (e.g., `avatar`, `profileImage`)
             .where(eq(users.id, userId))
             .returning({ id: users.id, image: users.image });
 

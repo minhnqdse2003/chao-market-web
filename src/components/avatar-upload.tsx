@@ -61,9 +61,7 @@ export default function AvatarUpload({
     const currentFile = files[0];
     const previewUrl =
         currentFile?.preview ||
-        (defaultAvatar
-            ? `${process.env.NEXT_PUBLIC_BUNNY_STORAGE_CDN}/${defaultAvatar}`
-            : undefined);
+        (defaultAvatar ? `${defaultAvatar}` : undefined);
 
     const handleRemove = () => {
         if (currentFile) {

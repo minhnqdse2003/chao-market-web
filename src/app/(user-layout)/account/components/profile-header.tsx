@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -24,14 +25,14 @@ import { FloatingLabelInput } from '@/components/ui/floating-input';
 import { useForm } from 'react-hook-form';
 import { UserViewResponse } from '@/types/user/response/view-response';
 import AvatarUpload from '@/components/avatar-upload';
-import { useMutation } from '@tanstack/react-query';
-import { uploadToBunnyCDN } from '@/services/bunny/upload-to-cdn';
 import { toast } from 'sonner';
-import { useState } from 'react';
 import { FileWithPreview } from '@/hooks/use-file-upload';
 import { updateUserAvatar } from '@/services/user/update-user-avatar';
 import { getJoinedText } from '@/utils/date-time-format';
 import { useI18n } from '@/context/i18n/context';
+import { uploadImage } from '@/services/minio';
+import { useState } from 'react';
+import { processFinalUrl } from '@/utils/minio/process-final-url';
 
 // Schema
 const passwordFormSchema = z
@@ -65,8 +66,8 @@ export default function ProfileHeader({
 }: {
     userData: UserViewResponse;
 }) {
-    const [count, setCount] = useState(0);
     const { t, locale } = useI18n();
+    const [count, setCount] = useState(0);
 
     const displayData: DisplayDataType = {
         avatar: userData.image,
@@ -81,30 +82,6 @@ export default function ProfileHeader({
             currentPassword: '',
             newPassword: '',
             confirmNewPassword: '',
-        },
-    });
-
-    const { mutate: updateUserAvatarMutation } = useMutation({
-        mutationFn: updateUserAvatar,
-        onSuccess: () => {},
-        onError: error => {
-            console.error(error.message || 'Failed to upload user');
-        },
-    });
-
-    const { mutate: uploadToBunnyMutation } = useMutation({
-        mutationFn: uploadToBunnyCDN,
-        onSuccess: data => {
-            if (count === 0) {
-                setCount(1);
-            } else {
-                setCount(0);
-                toast.success('File upload successfully!');
-                updateUserAvatarMutation(data.url!);
-            }
-        },
-        onError: error => {
-            toast.error(error.message || 'Failed to upload user');
         },
     });
 
@@ -136,11 +113,22 @@ export default function ProfileHeader({
         if (!file) {
             return;
         }
-        uploadToBunnyMutation({
-            file: file.file as File,
-            remotePath: `users-avatar/${file.file.name}-${new Date().toISOString()}`,
-            convertToWebP: true,
-        });
+        if (count === 0) {
+            setCount(1);
+            return;
+        }
+        try {
+            const result = await uploadImage(file.file as File, 'AVATAR');
+            console.log(result);
+            if (result.success) {
+                await updateUserAvatar(result.path);
+                toast.success('Update avatar successfully');
+            }
+        } catch (e: any) {
+            toast.error(e.message || 'Update avatar failed');
+        } finally {
+            setCount(0);
+        }
     };
 
     return (
@@ -148,7 +136,11 @@ export default function ProfileHeader({
             <CardContent className="p-6 dark:bg-transparent bg-transparent">
                 <div className="flex flex-col items-start gap-6 md:flex-row md:items-center">
                     <AvatarUpload
-                        defaultAvatar={displayData.avatar ?? undefined}
+                        defaultAvatar={
+                            displayData.avatar
+                                ? processFinalUrl(displayData.avatar)
+                                : undefined
+                        }
                         onFileChange={handleUpload}
                     />
                     <div className="flex-1 space-y-2">

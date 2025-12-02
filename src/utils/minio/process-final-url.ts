@@ -1,3 +1,3 @@
 export const processFinalUrl = (path: string) => {
-    return `${process.env.MINIO_USE_SSL === 'true' ? 'https' : 'http'}://${process.env.MINIO_ENDPOINT}:${process.env.MINIO_PORT}/${process.env.MINIO_BUCKET}/${path}`;
+    return `${process.env.NEXT_PUBLIC_MINIO_USE_SSL === 'true' ? 'https' : 'http'}://${process.env.NEXT_PUBLIC_MINIO_ENDPOINT}:${process.env.NEXT_PUBLIC_MINIO_PORT}/${process.env.NEXT_PUBLIC_MINIO_BUCKET}/${path}`;
 };
