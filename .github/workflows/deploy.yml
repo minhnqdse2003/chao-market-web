@@ -30,6 +30,7 @@ jobs:
             - name: Copy Files to VPS
               uses: appleboy/scp-action@master
               with:
+                  port: ${{ secrets.PORT }}
                   host: ${{ secrets.HOST }}
                   username: ${{ secrets.USERNAME }}
                   key: ${{ secrets.SSH_KEY }}
@@ -44,20 +45,23 @@ jobs:
                   username: ${{ secrets.USERNAME }}
                   key: ${{ secrets.SSH_KEY }}
                   script: |
-                      mkdir -p /app
-                      cd /app
-                      # Login to Pull
-                      echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+                    mkdir -p /app
+                    cd /app
+                    
+                    # 3. Login to Docker Hub on VPS (to pull private images)
+                    echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-                      # Write Env File from GitHub Secrets
-                      echo "${{ secrets.PROD_ENV }}" > .env
+                    # Create .env file
+                    echo "${{ secrets.PROD_ENV }}" > .env
+                    
+                    # Export vars (Need to pass Username to Docker Compose)
+                    export $(cat .env | xargs)
+                    # EXPORT DOCKERHUB USERNAME FOR COMPOSE
+                    export DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
+                    export IMAGE_NAME=${{ github.repository }}
+                    export EMAIL_SERVER_PASSWORD="${{ secrets.EMAIL_SERVER_PASSWORD }}"
 
-                      # Export Variables for Docker Compose
-                      export $(cat .env | xargs)
-                      export GITHUB_REPOSITORY_OWNER=${{ github.repository_owner }}
-                      export GITHUB_REPOSITORY_NAME=$(echo ${{ github.repository }} | cut -d'/' -f2)
-
-                      # Update & Restart
-                      docker compose -f docker-compose.prod.yml pull next-app
-                      docker compose -f docker-compose.prod.yml up -d --remove-orphans
-                      docker image prune -f
+                    # Pull and Restart
+                    docker compose -f docker-compose.prod.yml pull next-app
+                    docker compose -f docker-compose.prod.yml up -d --remove-orphans
+                    docker image prune -f
