@@ -44,7 +44,7 @@ const NewsComp = ({
                                 <Image
                                     width={100}
                                     height={100}
-                                    className="object-contain w-full max-w-3/12 max-h-[170.9px] rounded-lg"
+                                    className="object-contain w-full max-w-[300px] max-h-[140px] rounded-lg"
                                     src={BrandLogoFtHat}
                                     alt="news-image"
                                 />

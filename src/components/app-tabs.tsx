@@ -70,7 +70,9 @@ export function AppTabs({
             <TabsList
                 className={cn(
                     'bg-transparent [&>button:last-child]:mr-0 border-[var(--brand-grey-foreground)]' +
-                        ' border-b rounded-none p-0 w-fit min-w-1/2 mb-2 justify-between',
+                        ' border-b rounded-none p-0 md:w-fit w-full md:min-w-1/2 mb-2 justify-between' +
+                        ' overflow-x-auto overflow-y-hidden no-scrollbar' +
+                        ' md:overflow-visible ',
                     `${shouldBorderVisible ? '' : 'border-transparent'}`
                 )}
             >

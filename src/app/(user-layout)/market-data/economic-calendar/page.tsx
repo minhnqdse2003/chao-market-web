@@ -20,9 +20,9 @@ export default function Page() {
                 searchParams={{}}
                 currentHref={'/market-data/economic-calendar'}
             />
-            <div className={'flex justify-between gap-4'}>
+            <div className={'flex flex-col md:flex-row justify-between gap-4'}>
                 <CalendarComp />
-                <div className="flex w-full flex-col rounded-md overflow-hidden items-center">
+                <div className="flex w-full rounded-md overflow-hidden items-center">
                     {locale === 'vi' ? (
                         <iframe
                             src="https://sslecal2.investing.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone&countries=33,14,4,34,38,32,6,11,51,5,39,72,60,110,43,35,71,22,36,26,12,9,37,25,178,10,17&calType=day&timeZone=27&lang=52"

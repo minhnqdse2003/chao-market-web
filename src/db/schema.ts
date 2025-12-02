@@ -30,6 +30,10 @@ export const userStatus = pgEnum('user_status', [
     'DEACTIVE',
     'BANNED',
 ]);
+export const userInteractionsType = pgEnum('user_interactions_type', [
+    'LIKE',
+    'DISLIKE',
+]);
 
 export const users = pgTable(
     'user',
@@ -201,6 +205,29 @@ export const posts = pgTable(
         imageUrl: text(),
     },
     table => [unique('post_slug_unique').on(table.slug)]
+);
+
+export const userInteractions = pgTable(
+    'post_interactions',
+    {
+        id: uuid().defaultRandom().primaryKey().notNull(),
+        userId: uuid().notNull(),
+        postId: uuid().notNull(),
+        type: userInteractionsType().notNull(),
+        createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
+    },
+    table => [
+        foreignKey({
+            columns: [table.postId],
+            foreignColumns: [posts.id],
+            name: 'user_interactions_postId_post_id_fk',
+        }),
+        foreignKey({
+            columns: [table.userId],
+            foreignColumns: [users.id],
+            name: 'user_interactions_userId_user_id_fk',
+        }),
+    ]
 );
 
 export const metaData = pgTable(

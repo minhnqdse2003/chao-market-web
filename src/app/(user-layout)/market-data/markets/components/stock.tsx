@@ -110,7 +110,6 @@ export const LIGHT_THEME_CONFIG_OVERVIEW = {
     support_host: 'https://www.tradingview.com',
     showSymbolLogo: true,
     showChart: true,
-    height: 600,
 };
 
 const DARK_THEME_CONFIG_OVERVIEW = {

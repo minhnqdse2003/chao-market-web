@@ -91,7 +91,7 @@ export default function AppFooter() {
                 <div className="flex flex-col md:flex-row md:justify-between md:px-8">
                     {/* Get to Know Us Column */}
                     <div className="mb-8 md:mb-0">
-                        <h3 className="font-semibold uppercase text-brand-text text-center mb-4 text-lg">
+                        <h3 className="font-semibold uppercase text-brand-text mb-4 text-lg">
                             <T keyName={'footer.getToKnowUs'} />{' '}
                             {/* APPLIED KEY */}
                         </h3>
@@ -142,7 +142,7 @@ export default function AppFooter() {
                             {/* APPLIED KEY */}
                         </h3>
                         <ul className="space-y-3 text-normal dark:text-[var(--brand-grey-foreground)] text-[var(--brand-grey-foreground)] min-w-2/3 [&_*_span:first-child]:font-normal [&_*_span:last-child]:font-semibold dark:[&_*_span:last-child]:text-brand-text [&>_*_a]:text-brand-text">
-                            <li className="flex justify-between gap-12">
+                            <li className="flex justify-between">
                                 <span className="flex items-center gap-2">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +165,7 @@ export default function AppFooter() {
                                     </a>
                                 </span>
                             </li>
-                            <li className="flex justify-between gap-12">
+                            <li className="flex justify-between">
                                 <span className="flex items-center gap-2">
                                     <Users size={20} />
                                     <T keyName={'common.consulting'} />{' '}
@@ -180,7 +180,7 @@ export default function AppFooter() {
                                     </a>
                                 </span>
                             </li>
-                            <li className="flex justify-between gap-12">
+                            <li className="flex justify-between">
                                 <span className="flex items-center gap-2">
                                     <Mail size={20} />
                                     <T keyName={'common.contact'} />{' '}

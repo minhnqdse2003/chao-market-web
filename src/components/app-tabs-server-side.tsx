@@ -114,7 +114,7 @@ export default function AppTabsServerSide({
             <div
                 className={`${isSubTab ? '' : 'border-b border-[var(--brand-grey)]'}`}
             >
-                <nav className="-mb-px flex space-x-8">
+                <nav className="-mb-px flex space-x-8 overflow-x-auto no-scrollbar">
                     {tabs.map(tab => (
                         <Link
                             key={tab.href}
