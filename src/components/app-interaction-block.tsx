@@ -1,45 +1,176 @@
-import { Eye, ThumbsDownIcon, ThumbsUpIcon } from 'lucide-react';
-import { formatNumberOfViews } from '@/utils/number-parsing';
-import AppShareButton from '@/components/app-share-button';
+// components/PostInteractionManager.tsx
+'use client';
 
-interface AppInteractionBlockProps {
-    like: number;
-    dislike: number;
-    views: number;
+import { Eye, ThumbsDownIcon, ThumbsUpIcon } from 'lucide-react';
+import { useState, useTransition } from 'react';
+import { formatNumberOfViews } from '@/utils/number-parsing';
+import { useSession } from 'next-auth/react'; // Import useSession
+import { useRouter } from 'next/navigation';
+import {
+    togglePostDislike,
+    togglePostLike,
+} from '@/services/posts/toggle-like-service';
+import { toast } from 'sonner'; // Import useRouter for client-side navigation
+
+interface PostInteractionManagerProps {
+    postId: string;
+    initialLike: number;
+    initialDislike: number;
+    initialViews: number;
+    initialInteractionType: 'LIKE' | 'DISLIKE' | null;
     containerClass?: string;
-    isShareButtonVisible?: boolean;
 }
 
-export default function AppInteractionBlock(item: AppInteractionBlockProps) {
+export default function PostInteractionManager({
+    postId,
+    initialLike,
+    initialDislike,
+    initialViews,
+    initialInteractionType,
+    containerClass,
+}: PostInteractionManagerProps) {
+    // --- Authentication and Navigation Hooks ---
+    const { data: session, status } = useSession();
+    const router = useRouter();
+
+    // Global state for this specific post's interactions
+    const [likeCount, setLikeCount] = useState(initialLike);
+    const [dislikeCount, setDislikeCount] = useState(initialDislike);
+    const [currentInteraction, setCurrentInteraction] = useState(
+        initialInteractionType
+    );
+
+    const [isPending, startTransition] = useTransition();
+
+    const checkAuth = () => {
+        if (status === 'loading') {
+            return false;
+        }
+        if (!session) {
+            router.push('/auth/login');
+            return false;
+        }
+        return true;
+    };
+
+    const handleLike = () => {
+        if (!checkAuth() || isPending) return; // Check auth first
+
+        startTransition(async () => {
+            const result = await togglePostLike(postId);
+
+            if (result.success) {
+                switch (result?.status) {
+                    case 'LIKE':
+                        setLikeCount(prev => prev + 1);
+                        setCurrentInteraction('LIKE');
+                        break;
+                    case 'UN-LIKE':
+                        setLikeCount(prev => prev - 1);
+                        setCurrentInteraction(null);
+                        break;
+                    case 'CHANGED_FROM_DISLIKE_TO_LIKE':
+                        setLikeCount(prev => prev + 1);
+                        setDislikeCount(prev => prev - 1);
+                        setCurrentInteraction('LIKE');
+                        break;
+                }
+            } else {
+                // Check if the server action failed due to auth (although checkAuth should catch this)
+                if (result.error?.includes('Authentication')) {
+                    // router.push('/auth/login');
+                } else {
+                    toast.error(result.error);
+                }
+            }
+        });
+    };
+
+    // --- Dislike Handler ---
+    const handleDislike = () => {
+        if (!checkAuth() || isPending) return; // Check auth first
+
+        startTransition(async () => {
+            const result = await togglePostDislike(postId);
+
+            if (result.success) {
+                switch (result?.status) {
+                    case 'DISLIKE':
+                        // New Dislike
+                        setDislikeCount(prev => prev + 1);
+                        setCurrentInteraction('DISLIKE');
+                        break;
+                    case 'UN-DISLIKE':
+                        // Undisliked
+                        setDislikeCount(prev => prev - 1);
+                        setCurrentInteraction(null);
+                        break;
+                    case 'CHANGED_FROM_LIKE_TO_DISLIKE':
+                        setDislikeCount(prev => prev + 1);
+                        setLikeCount(prev => prev - 1);
+                        setCurrentInteraction('DISLIKE');
+                        break;
+                }
+            } else {
+                if (result.error?.includes('Authentication')) {
+                    // router.push('/auth/login');
+                } else {
+                    toast.error(result.error);
+                }
+            }
+        });
+    };
+
+    const isLiked = currentInteraction === 'LIKE';
+    const isDisliked = currentInteraction === 'DISLIKE';
+
+    // Disable buttons if a transition is pending OR if the session is still loading
+    const actionDisabled = isPending || status === 'loading';
+
     return (
         <div
-            className={
-                item.containerClass ?? 'flex gap-4 [&_*_svg]:size-3 text-sm'
-            }
+            className={containerClass ?? 'flex gap-4 [&_*_svg]:size-3 text-sm'}
         >
-            {/* Share Button */}
-            {item.isShareButtonVisible && <AppShareButton />}
+            {/* --- Like Button --- */}
+            <button
+                onClick={handleLike}
+                disabled={actionDisabled}
+                className={`flex items-center gap-1 transition-colors ${isLiked ? 'text-[var(--brand-color)]' : 'text-gray-500'} ${actionDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+                <div>
+                    <ThumbsUpIcon
+                        className={
+                            isLiked ? 'fill-[var(--brand-color)]' : 'fill-none'
+                        }
+                    />
+                </div>
+                {likeCount}
+            </button>
 
-            {/* Like */}
-            <div className="flex items-center gap-1">
+            {/* --- Dislike Button --- */}
+            <button
+                onClick={handleDislike}
+                disabled={actionDisabled}
+                className={`flex items-center gap-1 transition-colors ${isDisliked ? 'text-[var(--brand-color)]' : 'text-gray-500'} ${actionDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
                 <div>
-                    <ThumbsUpIcon />
+                    <ThumbsDownIcon
+                        className={
+                            isDisliked
+                                ? 'fill-[var(--brand-color)]'
+                                : 'fill-none'
+                        }
+                    />
                 </div>
-                {item.like}
-            </div>
-            {/* Dislike */}
-            <div className="flex items-center gap-1">
-                <div>
-                    <ThumbsDownIcon />
-                </div>
-                {item.dislike}
-            </div>
-            {/* Views */}
-            <div className="flex items-center gap-1">
+                {dislikeCount}
+            </button>
+
+            {/* Views (Non-interactive) */}
+            <div className="flex items-center gap-1 text-gray-500">
                 <div>
                     <Eye />
                 </div>
-                {formatNumberOfViews(item.views)}
+                {formatNumberOfViews(initialViews)}
             </div>
         </div>
     );

@@ -3,13 +3,13 @@ import { NewsType } from '../utils/data-utils';
 import Image from 'next/image';
 import NavSeparator from '@/components/nav-separator';
 import Link from 'next/link';
-import AppInteractionBlock from '@/components/app-interaction-block';
 import { endPointBuild } from '@/utils/end-point-build';
 import AppShareButton from '@/components/app-share-button';
 import { useI18n } from '@/context/i18n/context';
 import { T } from '@/components/app-translate';
 import AppDateTimeDisplayLocalized from '@/components/app-date-time-display-localized';
 import { BrandLogoFtHat } from '@image/index';
+import PostInteractionManager from '@/components/app-interaction-block';
 
 const NewsComp = ({
     news,
@@ -58,10 +58,14 @@ const NewsComp = ({
                                             {item.title}
                                         </p>
                                         {/* Interaction block */}
-                                        <AppInteractionBlock
-                                            dislike={item.dislike}
-                                            like={item.like}
-                                            views={item.views}
+                                        <PostInteractionManager
+                                            initialDislike={item.dislike}
+                                            initialLike={item.like}
+                                            initialViews={item.views}
+                                            postId={item.id}
+                                            initialInteractionType={
+                                                item.currentInteractionType
+                                            }
                                         />
                                     </div>
                                     {/* Description section */}

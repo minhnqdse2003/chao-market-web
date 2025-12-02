@@ -1,13 +1,21 @@
-import { dislikePost } from './dislike';
-import { likePost } from './like';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+'use server';
+
 import { Post, Tag } from '@/db/schema';
 import { BaseResponse } from '@/types/base-response';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/next-auth.config';
 
-const getPost = async (
+export const getPost = async (
     postId: string
 ): Promise<BaseResponse<Post & { tags: Tag[] }>> => {
+    const session = await getServerSession(authOptions);
+    const currentUserId = (session?.user as unknown as any)?.id as
+        | string
+        | undefined;
+
     const response = await fetch(
-        `${process.env.NEXTAUTH_URL}/api/posts/${postId}`
+        `${process.env.NEXTAUTH_URL}/api/posts/${postId}${currentUserId ? `?xUid=${currentUserId}` : ''}`
     );
 
     if (!response.ok) {
@@ -16,33 +24,3 @@ const getPost = async (
 
     return response.json();
 };
-
-const updatePost = async (postId: string, data: Partial<Post>) => {
-    const response = await fetch(`/api/posts/${postId}`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-        throw new Error('Failed to update post');
-    }
-
-    return response.json();
-};
-
-const deletePost = async (postId: string) => {
-    const response = await fetch(`/api/posts/${postId}`, {
-        method: 'DELETE',
-    });
-
-    if (!response.ok) {
-        throw new Error('Failed to delete post');
-    }
-
-    return response.json();
-};
-
-export { getPost, updatePost, deletePost, likePost, dislikePost };

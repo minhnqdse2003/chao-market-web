@@ -1,7 +1,6 @@
 import CommunityTabs from '@/app/(user-layout)/community/components/tabs';
 
 import React from 'react';
-import { getPosts } from '@/app/api/posts';
 import { Post } from '@/db/schema';
 import { PaginatedResponse } from '@/types/pagination';
 import { NewsEventsBanner } from '@/components/app-banner';
@@ -19,6 +18,7 @@ import { getTags } from '@/services/tag/get-tags';
 import { T } from '@/components/app-translate';
 import { processTagValue } from '@/utils/process-tag-name';
 import { processFinalUrl } from '@/utils/minio/process-final-url';
+import { getPosts } from '@/app/api/posts';
 
 interface PageProps {
     searchParams: {
@@ -60,6 +60,7 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
         if (!postsData?.data) return [];
 
         return postsData.data.map(post => ({
+            id: post.id,
             title: post.title as Localized,
             description: post.description as Localized,
             image: post.imageUrl ? processFinalUrl(post.imageUrl) : null,
@@ -72,6 +73,7 @@ const CommunityPage = async ({ searchParams }: PageProps) => {
             referenceSource: post.referenceSource,
             slug: post.slug,
             market: post.market ? capitalizeWords(post.market) : '',
+            currentInteractionType: post.currentInteractionType,
         }));
     };
 

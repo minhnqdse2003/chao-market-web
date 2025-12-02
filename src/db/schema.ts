@@ -445,7 +445,9 @@ export type OtpCode = typeof otpCodes.$inferSelect;
 export type ConsultationServices = typeof consultationServices.$inferSelect;
 export type ConsultationsProducts = typeof consultationsProducts.$inferSelect;
 export type Consultation = typeof consultations.$inferSelect;
-export type Post = typeof posts.$inferSelect;
+export type Post = typeof posts.$inferSelect & {
+    currentInteractionType: 'LIKE' | 'DISLIKE' | null;
+};
 export type Tag = typeof tags.$inferSelect;
 export type PostTag = typeof postTags.$inferSelect;
 
