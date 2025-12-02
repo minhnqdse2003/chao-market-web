@@ -1,0 +1,1 @@
+ALTER TABLE "user" RENAME COLUMN "isBanned" TO "banUntil";

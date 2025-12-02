@@ -1,0 +1,1 @@
+CREATE INDEX "tag_type_idx" ON "tag" USING btree ("tag_type");

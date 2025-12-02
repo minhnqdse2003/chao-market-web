@@ -1,0 +1,1 @@
+ALTER TABLE "user_setting" RENAME COLUMN "updatedAt" TO "isDisclaimerAccepted";

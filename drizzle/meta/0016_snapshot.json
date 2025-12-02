@@ -1,6 +1,6 @@
 {
-  "id": "9f731b69-275a-424e-9e3d-349bfb2482c2",
-  "prevId": "1b8bdb28-7087-44ae-a6c5-81d111087fa4",
+  "id": "7f6a5c95-b05e-424b-bbbb-f7d99ddc0e58",
+  "prevId": "126ea3bc-b39f-4961-9c84-9f3238a4b4e7",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -298,6 +298,78 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.meta_data": {
+      "name": "meta_data",
+      "schema": "",
+      "columns": {
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "content": {
+          "name": "content",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "is_published": {
+          "name": "is_published",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "idx_content_key_published": {
+          "name": "idx_content_key_published",
+          "columns": [
+            {
+              "expression": "is_published",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_content_gin": {
+          "name": "idx_content_gin",
+          "columns": [
+            {
+              "expression": "content",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "gin",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.otpCodes": {
       "name": "otpCodes",
       "schema": "",
@@ -387,12 +459,6 @@
           "notNull": true,
           "default": "'{\"en\":null,\"vi\":null}'::jsonb"
         },
-        "userId": {
-          "name": "userId",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
         "likes": {
           "name": "likes",
           "type": "integer",
@@ -440,6 +506,12 @@
           "primaryKey": false,
           "notNull": true,
           "default": "'{\"en\":null,\"vi\":null}'::jsonb"
+        },
+        "imageUrl": {
+          "name": "imageUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "type": {
           "name": "type",
@@ -503,24 +575,18 @@
           "primaryKey": false,
           "notNull": true,
           "default": "'all'"
+        },
+        "status": {
+          "name": "status",
+          "type": "post_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'ACTIVE'"
         }
       },
       "indexes": {},
-      "foreignKeys": {
-        "post_userId_user_id_fk": {
-          "name": "post_userId_user_id_fk",
-          "tableFrom": "post",
-          "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "post_slug_unique": {
@@ -656,9 +722,32 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "tag_type": {
+          "name": "tag_type",
+          "type": "tag_types",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "tag_type_idx": {
+          "name": "tag_type_idx",
+          "columns": [
+            {
+              "expression": "tag_type",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
@@ -1012,13 +1101,32 @@
     }
   },
   "enums": {
+    "public.post_status": {
+      "name": "post_status",
+      "schema": "public",
+      "values": [
+        "ACTIVE",
+        "DEACTIVE"
+      ]
+    },
     "public.post_type": {
       "name": "post_type",
       "schema": "public",
       "values": [
+        "insight",
+        "community",
         "news",
-        "events",
-        "community"
+        "events"
+      ]
+    },
+    "public.tag_types": {
+      "name": "tag_types",
+      "schema": "public",
+      "values": [
+        "tag",
+        "news_type",
+        "market_type",
+        "community_type"
       ]
     },
     "public.user_role": {

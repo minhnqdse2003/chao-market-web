@@ -22,11 +22,13 @@ export default function UserLayout({
 }>) {
     const { t } = useI18n();
     return (
-        <div className="flex w-full max-w-svw">
+        <div className="flex w-full max-w-svw text-sm md:text-base">
             <AppSidebar />
             <div className="flex flex-col w-full dark:bg-sidebar ">
                 <div className="flex flex-col w-full dark:bg-sidebar relative">
-                    <div className="min-h-svh px-12 py-8">{children}</div>
+                    <div className="min-h-svh px-8 md:px-12 py-8">
+                        {children}
+                    </div>
 
                     {/* Dialog Container*/}
                     <Dialog>

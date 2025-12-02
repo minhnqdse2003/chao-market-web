@@ -1,1 +1,0 @@
-ALTER TABLE "consultation" DROP COLUMN "totalAmount";
