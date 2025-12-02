@@ -1,67 +1,68 @@
 name: Deploy Production
 on:
-    push:
-        branches: ['production']
+  push:
+  pull_request:
+    branches: [ 'production' ]
 
 env:
-    IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-    build-and-deploy:
-        runs-on: ubuntu-latest
-        permissions:
-            contents: read
-            packages: write
-        steps:
-            - uses: actions/checkout@v3
-            - name: Log in to Docker
-              uses: docker/login-action@v2
-              with:
-                  username: ${{ secrets.DOCKERHUB_USERNAME }}
-                  password: ${{ secrets.DOCKERHUB_TOKEN }}
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Log in to Docker
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-            - name: Build and Push Image
-              uses: docker/build-push-action@v4
-              with:
-                  context: .
-                  push: true
-                  tags: ${{ env.IMAGE_NAME }}:latest
+      - name: Build and Push Image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ env.IMAGE_NAME }}:latest
 
-            - name: Copy Files to VPS
-              uses: appleboy/scp-action@master
-              with:
-                  port: ${{ secrets.PORT }}
-                  host: ${{ secrets.HOST }}
-                  username: ${{ secrets.USERNAME }}
-                  key: ${{ secrets.SSH_KEY }}
-                  source: './docker-compose.prod.yml,./init-minio'
-                  target: '/app'
+      - name: Copy Files to VPS
+        uses: appleboy/scp-action@master
+        with:
+          port: ${{ secrets.PORT }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          source: './docker-compose.prod.yml,./init-minio'
+          target: '/app'
 
-            - name: Deploy on VPS
-              uses: appleboy/ssh-action@master
-              with:
-                  port: ${{ secrets.PORT }}
-                  host: ${{ secrets.HOST }}
-                  username: ${{ secrets.USERNAME }}
-                  key: ${{ secrets.SSH_KEY }}
-                  script: |
-                    mkdir -p /app
-                    cd /app
-                    
-                    # 3. Login to Docker Hub on VPS (to pull private images)
-                    echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-
-                    # Create .env file
-                    echo "${{ secrets.PROD_ENV }}" > .env
-                    
-                    # Export vars (Need to pass Username to Docker Compose)
-                    export $(cat .env | xargs)
-                    # EXPORT DOCKERHUB USERNAME FOR COMPOSE
-                    export DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
-                    export IMAGE_NAME=${{ github.repository }}
-                    export EMAIL_SERVER_PASSWORD="${{ secrets.EMAIL_SERVER_PASSWORD }}"
-
-                    # Pull and Restart
-                    docker compose -f docker-compose.prod.yml pull next-app
-                    docker compose -f docker-compose.prod.yml up -d --remove-orphans
-                    docker image prune -f
+      - name: Deploy on VPS
+        uses: appleboy/ssh-action@master
+        with:
+          port: ${{ secrets.PORT }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            mkdir -p /app
+            cd /app
+            
+            # 3. Login to Docker Hub on VPS (to pull private images)
+            echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+            
+            # Create .env file
+            echo "${{ secrets.PROD_ENV }}" > .env
+            
+            # Export vars (Need to pass Username to Docker Compose)
+            export $(cat .env | xargs)
+            # EXPORT DOCKERHUB USERNAME FOR COMPOSE
+            export DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
+            export IMAGE_NAME=${{ github.repository }}
+            export EMAIL_SERVER_PASSWORD="${{ secrets.EMAIL_SERVER_PASSWORD }}"
+            
+            # Pull and Restart
+            docker compose -f docker-compose.prod.yml pull next-app
+            docker compose -f docker-compose.prod.yml up -d --remove-orphans
+            docker image prune -f
