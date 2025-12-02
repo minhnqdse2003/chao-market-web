@@ -16,4 +16,5 @@ export const postQuerySchema = z.object({
         .enum(['recommended', 'hottest', 'mostViewed', 'topRated'])
         .optional(),
     mainTag: z.string().optional(),
+    xUid: z.string().optional(),
 });

@@ -1,16 +1,16 @@
 // app/(user-layout)/chao-insights/[slug]/page.tsx
 import RichTextPreview from '@/components/rich-text-preview';
 import { notFound } from 'next/navigation';
-import { getPost } from '@/app/api/posts';
 import { TableOfContents } from '@/app/(user-layout)/chao-insights/[slug]/components/table-of-contents';
 import { Clock } from 'lucide-react';
-import AppInteractionBlock from '@/components/app-interaction-block';
 import TagsAccordion from '@/app/(user-layout)/chao-insights/[slug]/components/tags';
 import { Localized } from '@/types/localized';
 import AppLocalizeRender from '@/components/app-localize-render';
 import { T } from '@/components/app-translate';
 import AppDateTimeDisplayLocalized from '@/components/app-date-time-display-localized';
 import { processFinalUrl } from '@/utils/minio/process-final-url';
+import PostInteractionManager from '@/components/app-interaction-block';
+import { getPost } from '@/app/api/posts/[id]';
 
 export interface PageProps {
     params: {
@@ -129,13 +129,15 @@ export default async function NewsEventPage({ params }: PageProps) {
                             {post.referenceSource}
                         </span>
                     </div>
-                    <AppInteractionBlock
-                        like={post.likes}
-                        dislike={post.dislikes}
-                        views={post.views}
+                    <PostInteractionManager
+                        initialLike={post.likes}
+                        initialDislike={post.dislikes}
+                        initialViews={post.views}
                         containerClass={
                             'absolute top-0 right-0 flex gap-4 [&_*_svg]:size-4 text-sm'
                         }
+                        postId={post.id}
+                        initialInteractionType={post.currentInteractionType}
                         isShareButtonVisible={true}
                     />
                 </div>

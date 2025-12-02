@@ -1,5 +1,6 @@
-// app/api/posts/route.ts (or wherever your route handler is)
-import { Post, posts, postTags, tags } from '@/db/schema';
+'use server';
+
+import { Post, posts, postTags, tags, userInteractions } from '@/db/schema';
 import { withAuth } from '@/lib/api-route-middleware';
 import { db } from '@/lib/db';
 import { BaseResponse } from '@/types/base-response';
@@ -27,8 +28,15 @@ const getAllPosts = async (request: NextRequest) => {
             throw new ApiError(400, z.prettifyError(parsed.error));
         }
 
-        const { pageIndex, pageSize, createdAt, type, filterBy, mainTag } =
-            parsed.data;
+        const {
+            pageIndex,
+            pageSize,
+            createdAt,
+            type,
+            filterBy,
+            mainTag,
+            xUid,
+        } = parsed.data;
         const conditions = [];
 
         if (createdAt) conditions.push(gte(posts.createdAt, createdAt));
@@ -43,31 +51,48 @@ const getAllPosts = async (request: NextRequest) => {
 
         const whereClause = conditions.length ? and(...conditions) : undefined;
 
+        const baseQuery = {
+            id: posts.id,
+            title: posts.title,
+            slug: posts.slug,
+            description: posts.description,
+            content: posts.content,
+            likes: posts.likes,
+            dislikes: posts.dislikes,
+            views: posts.views,
+            referenceSource: posts.referenceSource,
+            type: posts.type,
+            readingTime: posts.readingTime,
+            createdAt: posts.createdAt,
+            seoTitle: posts.seoTitle,
+            seoDescription: posts.seoDescription,
+            seoKeywords: posts.seoKeywords,
+            ogImage: posts.ogImage,
+            canonicalUrl: posts.canonicalUrl,
+            robots: posts.robots,
+            market: posts.market,
+            imageUrl: posts.imageUrl,
+        };
         // Build base query
-        let query = db
-            .select({
-                id: posts.id,
-                title: posts.title,
-                slug: posts.slug,
-                description: posts.description,
-                content: posts.content,
-                likes: posts.likes,
-                dislikes: posts.dislikes,
-                views: posts.views,
-                referenceSource: posts.referenceSource,
-                type: posts.type,
-                readingTime: posts.readingTime,
-                createdAt: posts.createdAt,
-                seoTitle: posts.seoTitle,
-                seoDescription: posts.seoDescription,
-                seoKeywords: posts.seoKeywords,
-                ogImage: posts.ogImage,
-                canonicalUrl: posts.canonicalUrl,
-                robots: posts.robots,
-                market: posts.market,
-                imageUrl: posts.imageUrl,
-            })
-            .from(posts);
+        let query = db.select(baseQuery).from(posts);
+
+        if (xUid) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            query = db
+                .select({
+                    ...baseQuery,
+                    currentInteractionType: userInteractions.type,
+                })
+                .from(posts)
+                .leftJoin(
+                    userInteractions,
+                    and(
+                        eq(posts.id, userInteractions.postId),
+                        eq(userInteractions.userId, xUid)
+                    )
+                );
+        }
 
         // Add join and filter by tag if mainTag is provided
         if (mainTag) {
@@ -119,6 +144,17 @@ const getAllPosts = async (request: NextRequest) => {
         // Execute the query with pagination
         const items = await query.limit(pageSize).offset(pageIndex * pageSize);
 
+        const finalItems = items.map(item => ({
+            ...item,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            currentInteractionType: item?.currentInteractionType
+                ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-expect-error
+                  item.currentInteractionType
+                : null,
+        }));
+
         // Build count query
         let countQuery = db
             .select({ count: sql<number>`count(*)` })
@@ -143,12 +179,12 @@ const getAllPosts = async (request: NextRequest) => {
 
         return NextResponse.json(
             {
-                data: items,
+                data: finalItems,
                 pageIndex,
                 pageSize,
                 totalItems: total[0]?.count || 0,
                 totalPages: Math.ceil(total[0]?.count / pageSize),
-            } as PaginatedResponse<Post>,
+            } as unknown as PaginatedResponse<Post>,
             { status: 200 }
         );
     } catch (error) {

@@ -29,6 +29,7 @@ export const withAuth = (
 
             return await handler(req, context);
         } catch (error) {
+            console.log('Middleware logs: ', error);
             if (error instanceof ApiError) {
                 return NextResponse.json(
                     { message: error.message },

@@ -1,9 +1,9 @@
-import { Post, posts, postTags, tags } from '@/db/schema';
+import { Post, posts, postTags, tags, userInteractions } from '@/db/schema';
 import { withAuth } from '@/lib/api-route-middleware';
 import { db } from '@/lib/db';
 import { BaseResponse } from '@/types/base-response';
 import { UpdatePost, updatePostSchema } from '@/types/post/request/update-post';
-import { eq } from 'drizzle-orm';
+import { and, eq, getTableColumns } from 'drizzle-orm';
 import { getToken } from 'next-auth/jwt';
 import { ApiError } from 'next/dist/server/api-utils';
 import { NextRequest, NextResponse } from 'next/server';
@@ -14,6 +14,9 @@ const getPostByIdOrSlug = async (
     { params }: { params: { id: string } }
 ) => {
     const { id } = params;
+    const searchParams = Object.fromEntries(
+        request.nextUrl.searchParams.entries()
+    );
 
     if (!id) {
         throw new ApiError(400, 'Post ID or slug is required');
@@ -24,7 +27,23 @@ const getPostByIdOrSlug = async (
 
     let post;
 
-    if (isUuid) {
+    if (searchParams?.xUid) {
+        [post] = await db
+            .select({
+                ...getTableColumns(posts),
+                currentInteractionType: userInteractions.type,
+            })
+            .from(posts)
+            .leftJoin(
+                userInteractions,
+                and(
+                    eq(posts.id, userInteractions.postId),
+                    eq(userInteractions.userId, searchParams.xUid)
+                )
+            )
+            .where(isUuid ? eq(posts.id, id) : eq(posts.slug, id))
+            .limit(1);
+    } else if (isUuid) {
         // Fetch by ID
         [post] = await db.select().from(posts).where(eq(posts.id, id)).limit(1);
     } else {
