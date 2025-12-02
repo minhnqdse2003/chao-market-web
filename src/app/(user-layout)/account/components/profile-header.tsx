@@ -31,7 +31,6 @@ import { updateUserAvatar } from '@/services/user/update-user-avatar';
 import { getJoinedText } from '@/utils/date-time-format';
 import { useI18n } from '@/context/i18n/context';
 import { uploadImage } from '@/services/minio';
-import { useState } from 'react';
 import { processFinalUrl } from '@/utils/minio/process-final-url';
 
 // Schema
@@ -67,7 +66,6 @@ export default function ProfileHeader({
     userData: UserViewResponse;
 }) {
     const { t, locale } = useI18n();
-    const [count, setCount] = useState(0);
 
     const displayData: DisplayDataType = {
         avatar: userData.image,
@@ -113,21 +111,14 @@ export default function ProfileHeader({
         if (!file) {
             return;
         }
-        if (count === 0) {
-            setCount(1);
-            return;
-        }
         try {
             const result = await uploadImage(file.file as File, 'AVATAR');
-            console.log(result);
             if (result.success) {
                 await updateUserAvatar(result.path);
                 toast.success('Update avatar successfully');
             }
         } catch (e: any) {
             toast.error(e.message || 'Update avatar failed');
-        } finally {
-            setCount(0);
         }
     };
 

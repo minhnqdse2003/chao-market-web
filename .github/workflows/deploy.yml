@@ -1,7 +1,6 @@
 name: Deploy Production
 on:
   push:
-  pull_request:
     branches: [ 'production' ]
 
 env:
