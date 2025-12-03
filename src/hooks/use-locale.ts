@@ -9,14 +9,24 @@ export function useLocale() {
 
     useEffect(() => {
         // Get initial locale from cookie or browser
-        const storedLocale = Cookies.get(COOKIE.COOKIE_NAME);
+        const storedLocale = Cookies.get(COOKIE.LOCALE_KEY_NAME);
 
-        setLocaleState(storedLocale || 'en');
+        const getLanguageFromBrowser = () => {
+            const browserLocale = navigator.language ?? 'en';
+
+            if (browserLocale.startsWith('vi')) {
+                return 'vi';
+            } else {
+                return 'en';
+            }
+        };
+
+        setLocaleState(storedLocale || getLanguageFromBrowser());
     }, []);
 
     const setLocale = (newLocale: string) => {
         setLocaleState(newLocale);
-        Cookies.set(COOKIE.COOKIE_NAME, newLocale, {
+        Cookies.set(COOKIE.LOCALE_KEY_NAME, newLocale, {
             expires: 365,
             sameSite: 'strict',
             path: '/',

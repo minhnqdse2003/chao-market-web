@@ -357,9 +357,9 @@ const LossRecoveryCalculator: React.FC = () => {
                               ' vào vốn' +
                               ' gốc.'
                             : 'Expected profit per period (day, month, year).<br/><strong>Simple Interest:</strong>' +
-                              ' cumulative' +
+                              ' Accumulated' +
                               ' profits from previous periods will not be reinvested into the' +
-                              ' principal.<br/><strong>Compound Interest:</strong> cumulative profits from previous' +
+                              ' principal.<br/><strong>Compound Interest:</strong> Accumulated profits from previous' +
                               ' periods will be reinvested into the principal.',
                 }}
                 className={
