@@ -163,6 +163,8 @@ export const en: TranslationsStructure = {
         newEmail: 'New Email',
         confirmNewEmail: 'Confirm New Email',
         avatarUploadLimit: 'PNG, JPG up to',
+        welcomeToChaoMarket: 'Welcome to Chào Market',
+        yourAccountHasBeenCreated: 'Your account has been created',
     },
     auth: {
         login: 'Log In',

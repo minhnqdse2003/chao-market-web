@@ -163,6 +163,8 @@ export const vi: TranslationsStructure = {
         newEmail: 'Email Mới',
         confirmNewEmail: 'Xác Nhận Email Mới',
         avatarUploadLimit: 'PNG, JPG tối đa',
+        welcomeToChaoMarket: 'Chào mừng đến với Chào Market',
+        yourAccountHasBeenCreated: 'Tài khoản của bạn đã được tạo thành công',
     },
     auth: {
         login: 'Đăng Nhập',

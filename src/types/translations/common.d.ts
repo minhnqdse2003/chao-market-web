@@ -154,4 +154,6 @@ export interface CommonTranslations {
     newEmail: string;
     confirmNewEmail: string;
     avatarUploadLimit: string;
+    welcomeToChaoMarket: string;
+    yourAccountHasBeenCreated: string;
 }

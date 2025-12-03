@@ -63,7 +63,7 @@ export default function Countdown({
             disabled={isDisabled}
             className={`cursor-pointer dark:text-[var(--brand-color)] font-bold hover:underline ${
                 isDisabled
-                    ? 'opacity-50 cursor-not-allowed pointer-events-none'
+                    ? 'opacity-75 cursor-not-allowed pointer-events-none'
                     : 'hover:underline'
             } ${className}`}
         >

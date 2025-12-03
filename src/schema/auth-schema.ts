@@ -8,13 +8,13 @@ export const signUpSchema = z
         firstName: z
             .string()
             .min(1, { message: 'auth.validation.firstNameRequired' })
-            .regex(/^[a-zA-Z\s]+$/, {
+            .regex(/^[\p{L}\s]+$/u, {
                 message: 'auth.validation.firstNameInvalid',
             }),
         lastName: z
             .string()
             .min(1, { message: 'auth.validation.lastNameRequired' })
-            .regex(/^[a-zA-Z\s]+$/, {
+            .regex(/^[\p{L}\s]+$/u, {
                 message: 'auth.validation.lastNameInvalid',
             }),
         email: z.email({ message: 'auth.validation.emailInvalid' }),

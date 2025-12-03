@@ -1,8 +1,10 @@
+'use client';
 import TabAuthMode from '@/app/(user-layout)/auth/components/tab-auth-mode';
 import Image from 'next/image';
 import { CompleteCheckout } from '@image/index';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useI18n } from '@/context/i18n/context';
 
 interface PageProps {
     searchParams: {
@@ -12,6 +14,7 @@ interface PageProps {
 
 export default function SuccessPage({ searchParams }: PageProps) {
     const { firstName } = searchParams;
+    const { t } = useI18n();
 
     return (
         <div
@@ -21,7 +24,7 @@ export default function SuccessPage({ searchParams }: PageProps) {
                 <TabAuthMode />
                 <div className={'max-h-8'}>
                     <p className="text-2xl font-bold">
-                        Welcome to Chào Market,{' '}
+                        {t('common.welcomeToChaoMarket')},{' '}
                         <span className="text-[var(--brand-color)]">
                             {firstName}
                         </span>{' '}
@@ -32,7 +35,7 @@ export default function SuccessPage({ searchParams }: PageProps) {
                             'text-[var(--brand-grey-foreground)] text-lg'
                         }
                     >
-                        Your account has been created.
+                        {t('common.yourAccountHasBeenCreated')}.
                     </p>
                 </div>
             </div>
@@ -55,7 +58,7 @@ export default function SuccessPage({ searchParams }: PageProps) {
                         className="bg-[var(--brand-color)] min-h-[2.5rem] hover:bg-[var(--brand-color-foreground)] text-black font-semibold transition-all! duration-300 ease-in-out rounded-3xl text-lg"
                         asChild
                     >
-                        <Link href={'/auth/login'}>Log in</Link>
+                        <Link href={'/auth/login'}>{t('auth.login')}</Link>
                     </Button>
                 </div>
                 <div className={'h-[8.9375rem]'} />
