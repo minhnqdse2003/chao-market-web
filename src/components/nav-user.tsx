@@ -35,7 +35,7 @@ export function NavUser() {
     // We don't need to handle loading state here anymore as it's handled at the AppSidebar level
     // This prevents duplicate loading states
 
-    if (status === 'unauthenticated' && !isMobile && open) {
+    if (status === 'unauthenticated' && open) {
         const isLoginActive =
             pathname.startsWith('/auth/login') &&
             !pathname.startsWith('/auth/sign-up');
@@ -56,7 +56,8 @@ export function NavUser() {
                                 isLoginActive || notMatchAllAuthPath
                                     ? 'dark:bg-[var(--brand-color)] bg-[var(--brand-color)]' +
                                       ' dark:hover:bg-[var(--brand-color)] hover:bg-[var(--brand-color)] dark:hover:text-black'
-                                    : 'text-brand-text dark:hover:text-[var(--brand-color)] hover:bg-[var(--brand-grey)]'
+                                    : 'text-brand-text dark:hover:text-[var(--brand-color)]' +
+                                      ' hover:bg-[var(--brand-grey)]'
                             }`
                         )}
                     >

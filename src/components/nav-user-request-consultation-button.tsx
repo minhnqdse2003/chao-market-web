@@ -15,7 +15,7 @@ export default function ConsultationButton() {
         <Link
             href="/book-a-consultation"
             className={cn(
-                'gap-2 flex items-center justify-center  font-semibold w-full'
+                'gap-2 flex items-center justify-center text-xs md:text-sm font-semibold w-full'
             )}
         >
             <CalendarPlus className="h-4 w-4" />

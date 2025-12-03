@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export interface TabServerSide {
     title: string | ReactNode;
@@ -28,6 +29,7 @@ export default function AppTabsServerSide({
 }: AppTabsServerSideProps) {
     // Parse current search params
     const searchParams = new URLSearchParams(currentSearchParams);
+    const isMobile = useIsMobile();
 
     // Get current tab values from URL parameters
     const currentType = searchParams.get('type') || '';
@@ -105,9 +107,9 @@ export default function AppTabsServerSide({
 
     const currentTabHref = currentHref ?? getCurrentTabHref();
 
-    console.log(tabs);
-
-    const dynamicFontSize = `calc(var(--text-sm) + ${size}px)`;
+    const dynamicFontSize = isMobile
+        ? `calc(var(--text-xs) - 1px + ${size}px)`
+        : `calc(var(--text-sm) + ${size}px)`;
 
     return (
         <div className={isParentOfSubTab ? '' : cn('mb-8', subTabClassName)}>

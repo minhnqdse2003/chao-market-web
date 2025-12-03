@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export type TabItem = {
     title: string | React.ReactNode;
@@ -35,6 +36,7 @@ export function AppTabs({
     const [contentMap, setContentMap] = useState<
         Record<string, React.ReactNode>
     >({});
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         if (
@@ -58,7 +60,9 @@ export function AppTabs({
         loadContent();
     }, [activeTab, tabsList, contentMap]);
 
-    const dynamicFontSize = `calc(var(--text-sm) + ${size}px)`;
+    const dynamicFontSize = isMobile
+        ? `calc(var(--text-xs) + ${size}px)`
+        : `calc(var(--text-sm) + ${size}px)`;
 
     return (
         <Tabs
@@ -90,7 +94,7 @@ export function AppTabs({
                                 ' dark:data-[state=active]:text-[var(--brand-color)]' +
                                 ' dark:data-[state=active]:border-[var(--brand-color)]' +
                                 ' dark:data-[state=inactive]:border-transparent',
-                            'px-4 mr-4 py-2 transition-colors! text-base  font-bold' +
+                            'px-4 mr-4 py-2 transition-colors! text-base font-bold' +
                                 ' dark:hover:data-[state=inactive]:text-[var(--brand-color)]' +
                                 ' dark:hover:data-[state=inactive]:border-[var(--brand-color)]' +
                                 ' data-[state=inactive]:hover:text-black data-[state=inactive]:hover:border-black',
