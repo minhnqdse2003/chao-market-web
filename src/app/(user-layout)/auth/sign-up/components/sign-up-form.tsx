@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
@@ -27,6 +27,9 @@ import { T } from '@/components/app-translate';
 import { TranslationKey } from '@/types/translations';
 import { TranslatedFormMessage } from '@/components/app-translation-message-error';
 import { useI18n } from '@/context/i18n/context';
+import { SESSION_FORM_SIGN_UP } from '@/constant/session-form';
+import { isEqual } from 'lodash';
+import { Eye, EyeOff } from 'lucide-react'; // Import the icons
 
 interface SignUpFormProps {
     onSignUpSuccess: (user: OtpVerificationFormProps) => void;
@@ -38,22 +41,30 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
     const [success, setSuccess] = useState('');
     const [termsAccepted, setTermsAccepted] = useState(false);
 
+    // State to manage password visibility for the first password field
+    const [showPassword, setShowPassword] = useState(false);
+    // State to manage password visibility for the confirm password field
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
     const { t, locale } = useI18n();
 
+    const baseFormData = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        gender: undefined,
+        otherGender: '',
+        dateOfBirth: undefined,
+        phoneNumber: '',
+    };
     const form = useForm<SignUpFormData>({
         resolver: zodResolver(signUpSchema),
-        defaultValues: {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            gender: undefined,
-            otherGender: '',
-            dateOfBirth: undefined,
-            phoneNumber: '',
-        },
+        defaultValues: baseFormData,
     });
+
+    const formDataListener = form.watch();
 
     const genderValue = form.watch('gender');
 
@@ -94,6 +105,7 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
             const result = await response.json();
 
             if (response.ok) {
+                removeFromSessionStorage();
                 setSuccess('auth.signupSuccessMessage');
                 await handleSendOtp(data.email);
                 onSignUpSuccess({
@@ -123,6 +135,61 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
             setError('auth.failedToSendOtp');
         }
     };
+
+    const setToSessionStorage = (formData: SignUpFormData) => {
+        const newFormData = {
+            ...formData,
+            dateOfBirth: formData.dateOfBirth
+                ? formData.dateOfBirth.toISOString()
+                : null,
+        };
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, confirmPassword, ...nonSensitiveValueStored } =
+            newFormData;
+
+        if (typeof sessionStorage !== 'undefined') {
+            sessionStorage.setItem(
+                SESSION_FORM_SIGN_UP,
+                JSON.stringify(nonSensitiveValueStored)
+            );
+        }
+    };
+
+    const extractFromSessionStorage = (): Partial<SignUpFormData> => {
+        if (typeof sessionStorage !== 'undefined') {
+            const storedValue = sessionStorage.getItem(SESSION_FORM_SIGN_UP);
+            if (storedValue) {
+                const parsed = JSON.parse(storedValue);
+                return {
+                    ...parsed,
+                    password: '',
+                    confirmPassword: '',
+                    dateOfBirth: parsed.dateOfBirth
+                        ? new Date(parsed.dateOfBirth)
+                        : undefined,
+                };
+            }
+        }
+
+        return baseFormData;
+    };
+
+    const removeFromSessionStorage = () =>
+        sessionStorage.removeItem(SESSION_FORM_SIGN_UP);
+
+    // Set form data to hold sign up form state
+    useEffect(() => {
+        if (!isEqual(formDataListener, baseFormData))
+            setToSessionStorage(formDataListener);
+    }, [formDataListener]);
+
+    useEffect(() => {
+        if (typeof sessionStorage !== 'undefined') {
+            const storedValue = extractFromSessionStorage();
+            form.reset(storedValue);
+        }
+    }, []);
 
     return (
         <div className="flex flex-col w-full h-full [&_*_h2]:text-2xl [&_*_h2]:font-extrabold [&_*_h2]:text-brand-text">
@@ -216,7 +283,7 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                         <FormControl>
                                             <RadioGroup
                                                 onValueChange={field.onChange}
-                                                defaultValue={field.value}
+                                                value={field.value}
                                                 className="flex items-center flex-wrap"
                                             >
                                                 <FormItem className="flex items-center space-x-1 space-y-0">
@@ -381,21 +448,43 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                 )}
                             />
 
+                            {/* PASSWORD FIELD with TOGGLE */}
                             <FormField
                                 control={form.control}
                                 name="password"
                                 render={({ field, fieldState }) => (
                                     <FormItem>
-                                        <FormControl>
-                                            <FloatingLabelInput
-                                                type="password"
-                                                label={
-                                                    <T keyName="common.password" />
+                                        <div className="relative">
+                                            <FormControl>
+                                                <FloatingLabelInput
+                                                    type={
+                                                        showPassword
+                                                            ? 'text'
+                                                            : 'password'
+                                                    }
+                                                    label={
+                                                        <T keyName="common.password" />
+                                                    }
+                                                    className="app-text-input pr-10"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    setShowPassword(
+                                                        !showPassword
+                                                    )
                                                 }
-                                                className="app-text-input"
-                                                {...field}
-                                            />
-                                        </FormControl>
+                                                className="absolute inset-y-0 right-0 pr-3 cursor-pointer flex items-center"
+                                            >
+                                                {showPassword ? (
+                                                    <EyeOff className="h-5 w-5 text-[var(--brand-grey-foreground)]" />
+                                                ) : (
+                                                    <Eye className="h-5 w-5 text-[var(--brand-grey-foreground)]" />
+                                                )}
+                                            </button>
+                                        </div>
                                         <TranslatedFormMessage
                                             message={fieldState.error?.message}
                                         />
@@ -403,21 +492,43 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                                 )}
                             />
 
+                            {/* CONFIRM PASSWORD FIELD with TOGGLE */}
                             <FormField
                                 control={form.control}
                                 name="confirmPassword"
                                 render={({ field, fieldState }) => (
                                     <FormItem>
-                                        <FormControl>
-                                            <FloatingLabelInput
-                                                type="password"
-                                                label={
-                                                    <T keyName="common.confirmPassword" />
+                                        <div className="relative">
+                                            <FormControl>
+                                                <FloatingLabelInput
+                                                    type={
+                                                        showConfirmPassword
+                                                            ? 'text'
+                                                            : 'password'
+                                                    }
+                                                    label={
+                                                        <T keyName="common.confirmPassword" />
+                                                    }
+                                                    className="app-text-input pr-10"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    setShowConfirmPassword(
+                                                        !showConfirmPassword
+                                                    )
                                                 }
-                                                className="app-text-input"
-                                                {...field}
-                                            />
-                                        </FormControl>
+                                                className="absolute inset-y-0 right-0 pr-3 cursor-pointer flex items-center"
+                                            >
+                                                {showConfirmPassword ? (
+                                                    <EyeOff className="h-5 w-5 text-[var(--brand-grey-foreground)]" />
+                                                ) : (
+                                                    <Eye className="h-5 w-5 text-[var(--brand-grey-foreground)]" />
+                                                )}
+                                            </button>
+                                        </div>
                                         <TranslatedFormMessage
                                             message={fieldState.error?.message}
                                         />
@@ -427,25 +538,10 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                         </div>
 
                         <div className="flex items-start space-x-3 mt-4">
-                            {/* <Checkbox
-                                id="terms"
-                                checked={termsAccepted}
-                                onCheckedChange={checked => {
-                                    setTermsAccepted(checked as boolean);
-                                    if (
-                                        checked &&
-                                        error === 'auth.termsNotAccepted'
-                                    ) {
-                                        setError('');
-                                    }
-                                }}
-                                className="mt-1 rounded-full dark:data-[state=checked]:bg-[var(--brand-color)] dark:border-none"
-                            /> */}
                             <RadioGroup
                                 value={String(termsAccepted)}
                                 onValueChange={value => {
                                     setTermsAccepted(Boolean(value));
-                                    console.log(Boolean(value));
 
                                     if (
                                         Boolean(value) &&

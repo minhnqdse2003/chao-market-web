@@ -25,6 +25,7 @@ interface AppDatePickerProps {
     highlightOnActive?: boolean;
     isMarginVisible?: boolean;
     defaultValue?: Date;
+    value?: Date;
 }
 
 export function AppDatePicker({
@@ -36,6 +37,7 @@ export function AppDatePicker({
     highlightOnActive = false,
     isMarginVisible = true,
     defaultValue,
+    value,
     ...props
 }: AppDatePickerProps) {
     const [open, setOpen] = React.useState(false);
@@ -56,7 +58,7 @@ export function AppDatePicker({
     };
 
     if (isFloatingLabel) {
-        const shouldFloat = date || open;
+        const shouldFloat = date || value || open;
 
         return (
             <div
@@ -92,9 +94,15 @@ export function AppDatePicker({
                                 )}
                             >
                                 <CalendarIcon className="h-4 w-4" />
-                                {date ? (
+                                {value ? (
+                                    format(value, 'dd/MM/yyyy')
+                                ) : date ? (
                                     format(date, 'dd/MM/yyyy')
                                 ) : (
+                                    <></>
+                                )}
+
+                                {!value && !date && (
                                     <span className="opacity-0">
                                         DD/MM/YYYY
                                     </span>

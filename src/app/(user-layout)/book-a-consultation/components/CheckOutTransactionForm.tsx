@@ -13,6 +13,8 @@ import { AppDatePicker } from '@/components/app-date-picker';
 import { Label } from '@/components/ui/label';
 import { useI18n } from '@/context/i18n/context';
 import { TranslatedFormMessage } from '@/components/app-translation-message-error';
+import { isEqual } from 'lodash';
+import { SESSION_FORM_BOOK_A_CONSULTATION } from '@/constant/session-form';
 
 const checkoutSchema = z
     .object({
@@ -68,10 +70,66 @@ export default function CheckOutTransactionForm({
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { t } = useI18n();
 
+    const baseFormData = {
+        firstName: '',
+        lastName: '',
+        dateOfBirth: undefined,
+        email: '',
+        phoneNumber: '',
+        socialNetwork: '',
+        contactMethods: [],
+        message: '',
+    };
     // Create form instance with Zod resolver
     const form = useForm<CheckoutFormData>({
         resolver: zodResolver(checkoutSchema),
-        defaultValues: {
+        defaultValues: baseFormData,
+    });
+
+    const setCheckoutToSessionStorage = (formData: CheckoutFormData) => {
+        const newFormData = {
+            ...formData,
+            dateOfBirth: formData.dateOfBirth
+                ? formData.dateOfBirth.toISOString()
+                : null,
+        };
+
+        if (typeof sessionStorage !== 'undefined') {
+            sessionStorage.setItem(
+                SESSION_FORM_BOOK_A_CONSULTATION,
+                JSON.stringify(newFormData)
+            );
+        }
+    };
+
+    const extractCheckoutFromSessionStorage = (): Partial<CheckoutFormData> => {
+        if (typeof sessionStorage !== 'undefined') {
+            const storedValue = sessionStorage.getItem(
+                SESSION_FORM_BOOK_A_CONSULTATION
+            );
+            if (storedValue) {
+                const parsed = JSON.parse(storedValue);
+                return {
+                    ...parsed,
+                    dateOfBirth: parsed.dateOfBirth
+                        ? new Date(parsed.dateOfBirth)
+                        : undefined,
+                };
+            }
+        }
+
+        return baseFormData;
+    };
+
+    const checkoutFormDataListener = form.watch();
+
+    useEffect(() => {
+        const storedData = extractCheckoutFromSessionStorage();
+        form.reset(storedData);
+    }, []);
+
+    useEffect(() => {
+        const baseCheckoutData = {
             firstName: '',
             lastName: '',
             dateOfBirth: undefined,
@@ -80,10 +138,13 @@ export default function CheckOutTransactionForm({
             socialNetwork: '',
             contactMethods: [],
             message: '',
-        },
-    });
+        };
 
-    // Auto-fill form when initialData changes
+        if (!isEqual(checkoutFormDataListener, baseCheckoutData)) {
+            setCheckoutToSessionStorage(checkoutFormDataListener);
+        }
+    }, [checkoutFormDataListener]);
+
     useEffect(() => {
         if (initialData) {
             form.reset({
