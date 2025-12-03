@@ -53,7 +53,7 @@ const NewsComp = ({
                             <div className="w-full min-h-[18svh] gap-4 justify-between flex flex-col">
                                 <div className="w-full flex flex-col gap-4">
                                     {/* Title section */}
-                                    <div className="flex justify-between">
+                                    <div className="flex justify-between relative">
                                         <p className="text-size-20 dark:text-[var(--brand-color)] text-brand-text font-semibold leading-relaxed">
                                             {item.title}
                                         </p>
@@ -65,6 +65,9 @@ const NewsComp = ({
                                             postId={item.id}
                                             initialInteractionType={
                                                 item.currentInteractionType
+                                            }
+                                            containerClass={
+                                                'absolute top-0 right-0 z-10 flex gap-4 [&_*_svg]:size-4 text-sm'
                                             }
                                         />
                                     </div>

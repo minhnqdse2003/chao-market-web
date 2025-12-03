@@ -208,6 +208,7 @@ function CollapsibleItem({
                                 }
                                 isActive={path.startsWith(item.url)}
                                 onClick={handleClick}
+                                className={'text-xs'}
                             >
                                 {item.icon && <item.icon />}
                                 <span>{item.title}</span>
@@ -247,6 +248,7 @@ function CollapsibleItem({
                         tooltip={
                             <p className={'font-semibold'}>{item.title}</p>
                         }
+                        className={'text-xs md:text-sm'}
                     >
                         {item.icon && <item.icon />}
                         <span>{item.title}</span>

@@ -163,7 +163,7 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                 autoFocus={false}
             >
                 <DialogHeader>
-                    <DialogTitle className="text-brand-text text-center text-size-22 dark:text-[var(--brand-color)] font-bold">
+                    <DialogTitle className="text-brand-text text-center text-lg md:text-size-22 dark:text-[var(--brand-color)] font-bold">
                         {disclaimerTitle}
                     </DialogTitle>
                 </DialogHeader>
@@ -172,11 +172,11 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                     {Array.isArray(sections) &&
                         sections.map((section, index) => (
                             <div key={index}>
-                                <h3 className="text-size-20 font-bold text-brand-text mb-2">
+                                <h3 className="text-base md:text-size-20 font-bold text-brand-text mb-2">
                                     {section.title}
                                 </h3>
                                 <p
-                                    className="text-[var(--brand-grey-foreground)] font-medium [&>strong]:font-bold [&>strong]:text-brand-text"
+                                    className="text-[var(--brand-grey-foreground)] text-sm md:text-base font-medium [&>strong]:font-bold [&>strong]:text-brand-text"
                                     dangerouslySetInnerHTML={{
                                         __html: section.content,
                                     }}
@@ -184,13 +184,13 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                             </div>
                         ))}
                     <p
-                        className="text-[var(--brand-grey-foreground)] pt-4 border-t border-[var(--brand-grey-foreground)]/20 [&_*_a]:text-brand-text dark:[&_*_a]:text-[var(--brand-color)] [&_*_a]:hover:underline"
+                        className="text-[var(--brand-grey-foreground)] pt-4 border-t border-[var(--brand-grey-foreground)]/20 [&_*_a]:text-brand-text dark:[&_*_a]:text-[var(--brand-color)] [&_*_a]:hover:underline text-sm md:text-base"
                         dangerouslySetInnerHTML={{ __html: conclusion }}
                     />
                 </div>
 
                 {isDisclaimerConfirmOnClient && (
-                    <p className="text-base dark:text-[var(--brand-color)] text-brand-text font-medium">
+                    <p className="text-sm md:text-base dark:text-[var(--brand-color)] text-brand-text font-medium">
                         {alreadyAgreeButtonText}
                     </p>
                 )}

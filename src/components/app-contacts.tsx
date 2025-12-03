@@ -124,7 +124,7 @@ export default function ContactButton() {
                                 <Button
                                     size="icon"
                                     variant="outline"
-                                    className="h-12 w-12 rounded-full dark:bg-[var(--brand-color)] dark:text-black dark:hover:bg-[var(--brand-color-foreground)] dark:hover:text-black border-transparent transition-all! duration-300 ease-in-out bg-[var(--brand-color)] text-black hover:bg-[var(--brand-color-foreground)] hover:text-black"
+                                    className="size-12 rounded-full dark:bg-[var(--brand-color)] dark:text-black dark:hover:bg-[var(--brand-color-foreground)] dark:hover:text-black border-transparent transition-all! duration-300 ease-in-out bg-[var(--brand-color)] text-black hover:bg-[var(--brand-color-foreground)] hover:text-black"
                                 >
                                     <Speech
                                         strokeWidth={2.5}

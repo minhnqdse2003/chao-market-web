@@ -16,7 +16,7 @@ import { useI18n } from '@/context/i18n/context';
 const ThemeToggle = () => {
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = React.useState(false);
-    const { open: isCollapsed, isMobile } = useSidebar();
+    const { open: isCollapsed } = useSidebar();
     const { t } = useI18n();
 
     React.useEffect(() => {
@@ -27,7 +27,7 @@ const ThemeToggle = () => {
 
     const currentTheme =
         theme === 'light' || theme === 'dark' ? theme : 'light';
-    const isCompact = isMobile || !isCollapsed;
+    const isCompact = !isCollapsed;
 
     if (isCompact) {
         return (
