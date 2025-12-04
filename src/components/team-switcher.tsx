@@ -51,7 +51,7 @@ export function NavHead({
                             />
                         </div>
                         <div className="grid flex-1 text-left text-sm md:text-lg leading-tight text-brand-text">
-                            <span className="truncate7 font-semibold dark:text-[var(--brand-color)]">
+                            <span className="truncate font-semibold dark:text-[var(--brand-color)]">
                                 {teams.name}
                             </span>
                             <span className="truncate text-xs md:text-sm">

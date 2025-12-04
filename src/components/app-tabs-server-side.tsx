@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 export interface TabServerSide {
     title: string | ReactNode;
@@ -25,11 +24,9 @@ export default function AppTabsServerSide({
     isSubTab = false,
     currentHref,
     subTabClassName = '',
-    size = 1,
 }: AppTabsServerSideProps) {
     // Parse current search params
     const searchParams = new URLSearchParams(currentSearchParams);
-    const isMobile = useIsMobile();
 
     // Get current tab values from URL parameters
     const currentType = searchParams.get('type') || '';
@@ -107,10 +104,6 @@ export default function AppTabsServerSide({
 
     const currentTabHref = currentHref ?? getCurrentTabHref();
 
-    const dynamicFontSize = isMobile
-        ? `calc(var(--text-xs) - 1px + ${size}px)`
-        : `calc(var(--text-sm) + ${size}px)`;
-
     return (
         <div className={isParentOfSubTab ? '' : cn('mb-8', subTabClassName)}>
             <div
@@ -138,9 +131,8 @@ export default function AppTabsServerSide({
                                           : 'dark:hover:border-[var(--brand-color)] dark:hover:text-[var(--brand-color)]' +
                                             ' text-[var(--brand-grey-foreground)] border-transparent' +
                                             ' hover:border-brand-text hover:text-brand-text'
-                                } whitespace-nowrap py-4 px-1 border-b-2 text-center transition-all! font-bold duration-300 ease-in-out min-w-[9rem]`
+                                } whitespace-nowrap py-2 md:py-4 px-1 border-b-2 text-center transition-all! font-bold duration-300 ease-in-out min-w-fit md:min-w-[9rem] text-xs md:text-sm`
                             )}
-                            style={{ fontSize: dynamicFontSize }}
                         >
                             {tab.title}
                         </Link>

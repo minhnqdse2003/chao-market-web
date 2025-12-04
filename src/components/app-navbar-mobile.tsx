@@ -70,7 +70,7 @@ export default function AppNavbarMobile() {
             className={`
                 w-full bg-sidebar flex items-center justify-between
                 sticky top-0 left-0 
-                h-[10svh] py-2 md:hidden z-50 
+                h-[10svh] py-2 lg:hidden z-50 
                 transition-all! duration-300 ease-in-out 
                 shadow-sm px-4 
                 ${transitionClass}

@@ -246,7 +246,7 @@ export default function AppFooter() {
 
             {/* Copyright for Mobile */}
             <div
-                className="text-center text-xs md:text-base dark:text-[var(--brand-color)] text-brand-text font-semibold my-4 mb-12"
+                className="text-center text-xs md:text-base dark:text-[var(--brand-color)] text-brand-text font-semibold my-4"
                 dangerouslySetInnerHTML={{ __html: t('footer.copyright') }}
             />
         </div>
@@ -345,7 +345,7 @@ export default function AppFooter() {
     );
 
     return (
-        <footer className="dark:bg-sidebar border-t px-4 py-6 md:py-10">
+        <footer className="dark:bg-sidebar border-t px-12 py-10">
             {isMobile ? mobileComp : defaultComp}
         </footer>
     );

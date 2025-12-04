@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 export type TabItem = {
     title: string | React.ReactNode;
@@ -26,7 +25,6 @@ export function AppTabs({
     shouldBorderVisible = true,
     isHorizontal = false,
     defaultValue,
-    size = 1,
     onValueChange,
     tabContainerClassName,
 }: Readonly<TabComponentProps>) {
@@ -36,7 +34,6 @@ export function AppTabs({
     const [contentMap, setContentMap] = useState<
         Record<string, React.ReactNode>
     >({});
-    const isMobile = useIsMobile();
 
     useEffect(() => {
         if (
@@ -60,10 +57,6 @@ export function AppTabs({
         loadContent();
     }, [activeTab, tabsList, contentMap]);
 
-    const dynamicFontSize = isMobile
-        ? `calc(var(--text-xs) + ${size}px)`
-        : `calc(var(--text-sm) + ${size}px)`;
-
     return (
         <Tabs
             value={activeTab}
@@ -74,9 +67,9 @@ export function AppTabs({
             <TabsList
                 className={cn(
                     'bg-transparent [&>button:last-child]:mr-0 border-[var(--brand-grey-foreground)]' +
-                        ' border-b rounded-none p-0 md:w-fit w-full md:min-w-1/2 mb-2 justify-between' +
+                        ' border-b rounded-none p-0 lg:w-fit w-full lg:min-w-1/2 mb-2 justify-between' +
                         ' overflow-x-auto overflow-y-hidden no-scrollbar' +
-                        ' md:overflow-visible ',
+                        ' lg:overflow-visible',
                     `${shouldBorderVisible ? '' : 'border-transparent'}`
                 )}
             >
@@ -97,7 +90,8 @@ export function AppTabs({
                             'px-4 mr-4 py-2 transition-colors! text-base font-bold' +
                                 ' dark:hover:data-[state=inactive]:text-[var(--brand-color)]' +
                                 ' dark:hover:data-[state=inactive]:border-[var(--brand-color)]' +
-                                ' data-[state=inactive]:hover:text-black data-[state=inactive]:hover:border-black',
+                                ' data-[state=inactive]:hover:text-black data-[state=inactive]:hover:border-black' +
+                                ' text-xs md:text-sm',
                             `${shouldBorderVisible ? '' : 'border-transparent!'}`
                         )}
                         onClick={() => {
@@ -105,7 +99,6 @@ export function AppTabs({
                             onValueChange && onValueChange(tab.value);
                         }}
                         style={{
-                            fontSize: dynamicFontSize,
                             width: `calc(100% / ${tabsList.length})px`,
                             maxWidth: `calc(100% / ${tabsList.length})px`,
                             minWidth: `calc(100% / ${tabsList.length})px`,

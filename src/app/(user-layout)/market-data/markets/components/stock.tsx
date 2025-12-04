@@ -535,18 +535,17 @@ function OverViews({ type }: { type: MARKET_TYPES }) {
 
     if (type === 'crypto') {
         return (
-            <div className={'w-full flex gap-2'}>
+            <div className={'w-full flex flex-col md:flex-row gap-2'}>
                 <div
                     id="tradingview-market-overview"
-                    className="tradingview-widget-container"
+                    className="tradingview-widget-container w-full md:w-[60%] h-[40.5rem]"
                     ref={container}
-                    style={{ width: '60%', height: '40.5rem' }}
                 >
                     <div className="tradingview-widget-container__widget"></div>
                 </div>
                 <div
                     className={cn(
-                        'w-full max-w-2/5 max-h-[41.0625rem] overflow-y-scroll'
+                        'w-full md:max-w-2/5 max-h-[41.0625rem] overflow-y-scroll'
                     )}
                     style={{ height: `${height}px` }}
                 >
@@ -871,9 +870,9 @@ function Screener({ type }: { type: MARKET_TYPES }) {
 
 function VietnamOverview() {
     return (
-        <div className={'w-full flex gap-2 mx-auto'}>
+        <div className={'w-full flex flex-col md:flex-row gap-2 mx-auto'}>
             <VietnamTradingView isDivided={true} />
-            <VietnamComp />
+            <VietnamComp containerClassName={'md:w-1/2 w-full'} />
         </div>
     );
 }

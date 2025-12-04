@@ -28,35 +28,45 @@ const NewsComp = ({
         <>
             {parsedNews.map((item, idx) => (
                 <div key={item.title}>
-                    <Link
-                        className="flex w-full gap-8"
-                        href={endPointBuild(baseHref, item.slug)}
-                    >
-                        <div className="flex gap-8 w-full items-center cursor-pointer">
+                    <div className="flex w-full gap-8">
+                        <div className="flex flex-col lg:flex-row gap-8 w-full items-center">
                             {/* Image Block */}
-                            {item.image ? (
-                                <img
-                                    className="object-cover w-full max-w-3/12 h-full rounded-lg"
-                                    src={item.image}
-                                    alt="news-image"
-                                />
-                            ) : (
-                                <Image
-                                    width={100}
-                                    height={100}
-                                    className="object-contain w-full max-w-[300px] max-h-[140px] rounded-lg"
-                                    src={BrandLogoFtHat}
-                                    alt="news-image"
-                                />
-                            )}
+                            <Link
+                                href={endPointBuild(baseHref, item.slug)}
+                                className={
+                                    'w-full max-h-[200px] lg:max-w-[300px] lg:max-h-[140px]'
+                                }
+                            >
+                                {item.image ? (
+                                    <img
+                                        className="object-cover w-full h-full rounded-lg"
+                                        src={item.image}
+                                        alt="news-image"
+                                    />
+                                ) : (
+                                    <Image
+                                        width={100}
+                                        height={100}
+                                        className="object-contain w-full h-full max-h-[140px] rounded-lg"
+                                        src={BrandLogoFtHat}
+                                        alt="news-image"
+                                    />
+                                )}
+                            </Link>
 
                             <div className="w-full min-h-[18svh] gap-4 justify-between flex flex-col">
                                 <div className="w-full flex flex-col gap-4">
                                     {/* Title section */}
                                     <div className="flex justify-between relative">
-                                        <p className="text-size-20 dark:text-[var(--brand-color)] text-brand-text font-semibold leading-relaxed">
+                                        <Link
+                                            href={endPointBuild(
+                                                baseHref,
+                                                item.slug
+                                            )}
+                                            className="text-base lg:text-size-20 dark:text-[var(--brand-color)] text-brand-text font-semibold leading-relaxed"
+                                        >
                                             {item.title}
-                                        </p>
+                                        </Link>
                                         {/* Interaction block */}
                                         <PostInteractionManager
                                             initialDislike={item.dislike}
@@ -67,14 +77,14 @@ const NewsComp = ({
                                                 item.currentInteractionType
                                             }
                                             containerClass={
-                                                'absolute top-0 right-0 z-10 flex gap-4 [&_*_svg]:size-4 text-sm'
+                                                'lg:absolute top-0 right-0 z-10 flex gap-4 [&_*_svg]:size-4 text-sm'
                                             }
                                         />
                                     </div>
                                     {/* Description section */}
                                     <div
                                         className={
-                                            'text-[var(--brand-grey-foreground)] leading-relaxed'
+                                            'text-[var(--brand-grey-foreground)] text-sm leading-relaxed'
                                         }
                                     >
                                         {item.description}
@@ -83,7 +93,11 @@ const NewsComp = ({
 
                                 {/* Date & Reference source */}
                                 <div className="flex w-full text-sm justify-between text-[var(--brand-grey-foreground)]/70 font-normal items-center">
-                                    <div className={'flex w-fit text-sm gap-4'}>
+                                    <div
+                                        className={
+                                            'flex w-fit text-xs lg:text-sm gap-4'
+                                        }
+                                    >
                                         <p>
                                             <T keyName={'common.market'} />:{' '}
                                             <span className={'text-brand-text'}>
@@ -99,7 +113,7 @@ const NewsComp = ({
                                                 date={new Date(item.date)}
                                             />
                                         </p>
-                                        <p>
+                                        <p className={'hidden lg:block'}>
                                             <T keyName={'common.source'} />:{' '}
                                             {item.referenceSource}
                                         </p>
@@ -109,7 +123,7 @@ const NewsComp = ({
                                 </div>
                             </div>
                         </div>
-                    </Link>
+                    </div>
                     {idx !== news.length - 1 && (
                         <NavSeparator isTrigger={false} />
                     )}

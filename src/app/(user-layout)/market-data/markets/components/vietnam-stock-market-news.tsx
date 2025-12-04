@@ -173,7 +173,7 @@ export default function CombinedNewsFeed({
                                     dangerouslySetInnerHTML={{
                                         __html: article.content,
                                     }}
-                                    className="rounded-md border border-transparent w-[320px] h-[160px]"
+                                    className="rounded-md border border-transparent w-[320px] h-[160px] mb-4 md:mb-0"
                                 />
                             )}
                             <div className={'flex flex-col gap-1'}>
@@ -188,7 +188,7 @@ export default function CombinedNewsFeed({
                                 {article.pubDate && (
                                     <div
                                         className={
-                                            'flex text-[var(--brand-grey-foreground)]/70 gap-4'
+                                            'flex flex-col md:flex-row text-[var(--brand-grey-foreground)]/70 gap-4'
                                         }
                                     >
                                         <TimeAgo

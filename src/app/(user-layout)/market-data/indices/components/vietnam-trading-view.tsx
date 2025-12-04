@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
-import { calculateAdjustedHeight, processHeight } from '@/utils/height-utils';
+import { processHeight } from '@/utils/height-utils';
 import { useTheme } from 'next-themes';
 import { MARKET_SYMBOL, TMarketSymbolKey } from '@/constant/market-query';
 import { LIGHT_THEME_CONFIG_OVERVIEW } from '@/app/(user-layout)/market-data/markets/components/stock';
@@ -47,7 +47,7 @@ function VietNamTradingView({ isDivided = false, numberOfSubTabs }: PageProps) {
                     originalTitle: 'Forex',
                 },
             ],
-            width: `${isDivided ? '50%' : calculateAdjustedHeight() + 250}`,
+            width: '100%',
             height: `${isDivided ? processHeight(numberOfSubTabs) : 100}`,
         });
 
