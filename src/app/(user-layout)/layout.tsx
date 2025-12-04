@@ -28,7 +28,7 @@ export default function UserLayout({
             <div className="flex flex-col w-full dark:bg-sidebar ">
                 <div className="flex flex-col w-full dark:bg-sidebar relative">
                     <AppNavbarMobile />
-                    <div className="min-h-svh px-8 md:px-12 py-8">
+                    <div className="min-h-svh px-2 md:px-12 py-8">
                         {children}
                     </div>
 
@@ -36,7 +36,7 @@ export default function UserLayout({
                     <Dialog>
                         <DialogTrigger asChild>
                             <Button
-                                className="fixed top-1/2 right-0 transition-all! ease-out duration-300 transform translate-x-1/7 md:translate-x-6/7 hover:translate-x-0 -translate-y-1/2
+                                className="fixed top-1/2 right-0 transition-all! z-11 ease-out duration-300 transform translate-x-1/7 lg:translate-x-6/7 hover:translate-x-0 -translate-y-1/2
              bg-brand-floating-btn text-black px-4 py-1 rounded-none rounded-l-xl
              shadow-lg hover:bg-brand-floating-btn font-semibold vertical-text h-fit"
                                 aria-label="Open dialog"

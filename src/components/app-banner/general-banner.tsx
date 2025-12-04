@@ -17,7 +17,7 @@ export default function GeneralBanner() {
                 className="w-full h-auto"
             />
             <h2
-                className="absolute left-1/20 top-1/2 tranform -translate-y-1/2 text-brand-text text-3xl tracking-wider font-bold"
+                className="absolute left-1/20 top-1/2 tranform -translate-y-1/2 text-brand-text text-lg lg:text-3xl tracking-wider font-bold"
                 dangerouslySetInnerHTML={{ __html: t('brandSlogan.general') }}
             />
             <NavSeparator isTrigger={false} />

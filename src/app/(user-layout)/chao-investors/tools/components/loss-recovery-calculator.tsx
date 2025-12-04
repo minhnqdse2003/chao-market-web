@@ -30,8 +30,6 @@ import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 import { calculateAdjustedHeight } from '@/utils/height-utils';
 import { useDebounce } from '@uidotdev/usehooks';
-import { BsDash } from 'react-icons/bs';
-import { AiOutlineDash } from 'react-icons/ai';
 
 const LossRecoveryCalculator: React.FC = () => {
     const { locale, t } = useI18n();
@@ -377,9 +375,9 @@ const LossRecoveryCalculator: React.FC = () => {
     ];
 
     return (
-        <div className="flex flex-col md:flex-row gap-4 h-full">
+        <div className="flex flex-col lg:flex-row gap-4 h-full">
             {/* LEFT: Controls */}
-            <div className="w-full md:w-[23%]">
+            <div className="w-full lg:w-[23%]">
                 <Card className="bg-transparent dark:bg-transparent h-full">
                     <CardHeader>
                         <CardTitle>
@@ -387,7 +385,7 @@ const LossRecoveryCalculator: React.FC = () => {
                                 ? 'Thông Tin Danh Mục Đầu Tư'
                                 : 'Portfolio Information'}
                         </CardTitle>
-                        <CardDescription>
+                        <CardDescription className={'text-xs lg:text-sm'}>
                             {locale === 'vi'
                                 ? 'Nhập thông tin để phân tích điểm hòa vốn'
                                 : 'Enter information to analyze the break-even point'}
@@ -536,20 +534,24 @@ const LossRecoveryCalculator: React.FC = () => {
             </div>
 
             {/* RIGHT: Results + Chart */}
-            <div className="w-full md:w-3/4 flex flex-col gap-4">
+            <div className="w-full lg:w-3/4 flex flex-col gap-4">
                 {/* Chart */}
                 <Card className="bg-transparent dark:bg-transparent flex-1">
                     <div
-                        className={'flex gap-4 px-6 items-center max-h-[42px]'}
+                        className={
+                            'flex flex-col lg:flex-row gap-4 px-6 items-center lg:max-h-[42px]'
+                        }
                     >
-                        <div className={'w-fit h-fit space-y-1.5'}>
+                        <div className={'w-full lg:w-fit h-fit space-y-1.5'}>
                             <CardTitle>
                                 {locale === 'vi'
                                     ? 'Biểu Đồ Dự Báo Thời Gian Hòa Vốn'
                                     : 'Break-even Time Forecast Chart'}
                             </CardTitle>
                             <CardDescription
-                                className={'flex gap-2 items-center'}
+                                className={
+                                    'flex gap-2 items-center text-xs lg:text-sm'
+                                }
                             >
                                 {locale === 'vi'
                                     ? 'So sánh Lãi Đơn và Lãi Kép trong việc dự báo thời gian hòa vốn'
@@ -557,7 +559,7 @@ const LossRecoveryCalculator: React.FC = () => {
                                 .{/* Expected Return */}
                             </CardDescription>
                         </div>
-                        <div className="relative w-full max-w-[30%] h-fit">
+                        <div className="relative w-full lg:max-w-[30%] h-fit">
                             <FloatingLabelInput
                                 type="text"
                                 label={
@@ -655,9 +657,6 @@ const LossRecoveryCalculator: React.FC = () => {
                                         }}
                                     />
                                     <Tooltip
-                                        // formatter={value => [
-                                        //     `$${Number(value).toLocaleString()}`,
-                                        // ]}
                                         labelFormatter={label =>
                                             `${locale === 'vi' ? `Kỳ ${renderReturnRateUnit()}` : `Period ${renderReturnRateUnit()}`} ${label}`
                                         }
@@ -675,65 +674,65 @@ const LossRecoveryCalculator: React.FC = () => {
                                         }}
                                     />
                                     <Legend
-                                        content={() => (
-                                            <ul className="flex flex-wrap gap-4 justify-center mt-2">
-                                                {[
-                                                    {
-                                                        label:
-                                                            locale === 'vi'
-                                                                ? 'Danh Mục Còn Lại'
-                                                                : 'Remaining',
-                                                        color:
-                                                            theme === 'dark'
-                                                                ? '#ffe400'
-                                                                : '#000000',
-                                                        strokeDasharray: '0 0',
-                                                        icon: BsDash,
-                                                    },
-                                                    {
-                                                        label:
-                                                            locale === 'vi'
-                                                                ? 'Hòa Vốn'
-                                                                : 'Break-Even',
-                                                        color:
-                                                            theme === 'dark'
-                                                                ? '#ffffff'
-                                                                : '#000000',
-                                                        strokeDasharray: '4 2',
-                                                        icon: AiOutlineDash,
-                                                    },
-                                                    {
-                                                        label:
-                                                            locale === 'vi'
-                                                                ? 'Lãi Đơn'
-                                                                : 'Simple Interest',
-                                                        color: '#01A90F',
-                                                        strokeDasharray: '0 0',
-                                                        icon: BsDash,
-                                                    },
-                                                    {
-                                                        label:
-                                                            locale === 'vi'
-                                                                ? 'Lãi Kép'
-                                                                : 'Compound Interest',
-                                                        color: '#ff4141',
-                                                        strokeDasharray: '0 0',
-                                                        icon: BsDash,
-                                                    },
-                                                ].map((item, index) => (
-                                                    <li
-                                                        key={index}
-                                                        className="flex items-center  gap-1.5 text-sm font-medium"
-                                                        style={{
-                                                            color: item.color,
-                                                        }}
-                                                    >
-                                                        <item.icon className="size-6" />
-                                                        {item.label}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        )}
+                                    // content={() => (
+                                    //     <ul className="flex flex-wrap gap-4 justify-center mt-2">
+                                    //         {[
+                                    //             {
+                                    //                 label:
+                                    //                     locale === 'vi'
+                                    //                         ? 'Danh Mục Còn Lại'
+                                    //                         : 'Remaining',
+                                    //                 color:
+                                    //                     theme === 'dark'
+                                    //                         ? '#ffe400'
+                                    //                         : '#000000',
+                                    //                 strokeDasharray: '0 0',
+                                    //                 icon: BsDash,
+                                    //             },
+                                    //             {
+                                    //                 label:
+                                    //                     locale === 'vi'
+                                    //                         ? 'Hòa Vốn'
+                                    //                         : 'Break-Even',
+                                    //                 color:
+                                    //                     theme === 'dark'
+                                    //                         ? '#ffffff'
+                                    //                         : '#000000',
+                                    //                 strokeDasharray: '4 2',
+                                    //                 icon: AiOutlineDash,
+                                    //             },
+                                    //             {
+                                    //                 label:
+                                    //                     locale === 'vi'
+                                    //                         ? 'Lãi Đơn'
+                                    //                         : 'Simple Interest',
+                                    //                 color: '#01A90F',
+                                    //                 strokeDasharray: '0 0',
+                                    //                 icon: BsDash,
+                                    //             },
+                                    //             {
+                                    //                 label:
+                                    //                     locale === 'vi'
+                                    //                         ? 'Lãi Kép'
+                                    //                         : 'Compound Interest',
+                                    //                 color: '#ff4141',
+                                    //                 strokeDasharray: '0 0',
+                                    //                 icon: BsDash,
+                                    //             },
+                                    //         ].map((item, index) => (
+                                    //             <li
+                                    //                 key={index}
+                                    //                 className="flex items-center  gap-1.5 text-sm font-medium"
+                                    //                 style={{
+                                    //                     color: item.color,
+                                    //                 }}
+                                    //             >
+                                    //                 <item.icon className="size-6" />
+                                    //                 {item.label}
+                                    //             </li>
+                                    //         ))}
+                                    //     </ul>
+                                    // )}
                                     />
 
                                     <Line
@@ -804,7 +803,11 @@ const LossRecoveryCalculator: React.FC = () => {
                                     : 'Portfolio Value'}
                             </p>
                         </div>
-                        <div className={'flex justify-between'}>
+                        <div
+                            className={
+                                'flex flex-col lg:flex-row justify-between'
+                            }
+                        >
                             <SummaryCard
                                 title={
                                     locale === 'vi'
@@ -874,14 +877,13 @@ const SummaryCard: React.FC<{
         <div
             className={cn(
                 'p-1 flex gap-1 items-center justify-between',
-                `${align === 'vertical' ? 'flex-col gap-0 items-start' : 'flex-row'}`
+                `${align === 'vertical' ? 'flex-row lg:flex-col gap-0 items-start' : 'flex-row'}`
             )}
         >
-            <div className="flex items-start">
+            <div className="flex items-center">
                 <span
                     className={cn(
-                        'font-medium text-sm text-brand-text',
-                        `${align === 'vertical' ? 'text-sm' : ''}`
+                        'font-medium text-xs lg:text-sm text-brand-text'
                     )}
                 >
                     {title}
@@ -902,7 +904,7 @@ const SummaryCard: React.FC<{
                     />
                 )}
             </div>
-            <p className="text-sm font-bold text-brand-text dark:text-[var(--brand-color)]">
+            <p className="text-xs lg:text-sm font-bold text-brand-text dark:text-[var(--brand-color)]">
                 {value}
             </p>
         </div>

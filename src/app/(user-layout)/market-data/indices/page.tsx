@@ -48,10 +48,13 @@ export default function Page({ searchParams }: PageProps) {
             {(tab === 'global' || !tab) && <GlobalComp />}
             {tab === 'usa' && <USAComp />}
             <div
-                className={`${tab === 'vi' ? 'flex min-h-svh gap-2 mx-auto w-full' : 'hidden'}`}
+                className={`${tab === 'vi' ? 'flex flex-col md:flex-row min-h-svh gap-2 mx-auto w-full' : 'hidden'}`}
             >
                 <VietnamTradingView isDivided={true} numberOfSubTabs={1} />
-                <VietnamComp numberOfSubTab={1} />
+                <VietnamComp
+                    numberOfSubTab={1}
+                    containerClassName={'w-full md:w-1/2'}
+                />
             </div>
         </div>
     );

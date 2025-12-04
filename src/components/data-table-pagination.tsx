@@ -29,9 +29,9 @@ export function DataTablePagination<TData>({
     const { t } = useI18n();
     return (
         <div className={cn('flex items-center justify-end px-2', className)}>
-            <div className="flex items-center space-x-6 lg:space-x-8">
+            <div className="flex items-center md:space-x-6 lg:space-x-8">
                 <div className="flex items-center space-x-2">
-                    <p className="text-sm font-medium">
+                    <p className="text-xs md:text-sm font-medium">
                         {t('common.rowPerPage')}
                     </p>
                     <Select
@@ -40,7 +40,7 @@ export function DataTablePagination<TData>({
                             table.setPageSize(Number(value));
                         }}
                     >
-                        <SelectTrigger className="h-8 w-[70px] justify-evenly font-semibold">
+                        <SelectTrigger className="h-8 md:w-[70px] justify-evenly font-semibold">
                             <SelectValue
                                 placeholder={
                                     table.getState().pagination.pageSize

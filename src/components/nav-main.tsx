@@ -208,7 +208,7 @@ function CollapsibleItem({
                                 }
                                 isActive={path.startsWith(item.url)}
                                 onClick={handleClick}
-                                className={'text-xs'}
+                                className={'text-xs md:text-sm'}
                             >
                                 {item.icon && <item.icon />}
                                 <span>{item.title}</span>
@@ -232,7 +232,7 @@ function CollapsibleItem({
                                                 router.push(subItem.url)
                                             }
                                         >
-                                            <span className="text-xs">
+                                            <span className="text-xs md:text-sm">
                                                 {subItem.title}
                                             </span>
                                         </SidebarMenuSubButton>

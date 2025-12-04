@@ -154,17 +154,17 @@ function ToolContent({
     return (
         <div
             key={src.key + locale + idx}
-            className={cn('w-fit flex flex-col gap-2 items-center')}
+            className={cn('w-full lg:w-fit flex flex-col gap-2 items-center')}
         >
             {src.groups ? (
-                <div className="flex gap-2">
+                <div className="flex flex-col lg:flex-row gap-2">
                     <iframe
                         height={processHeight() ?? 600 - 20}
                         width={processWidth()}
                         src={locale === 'vi' ? src.viSrc : src.enSrc}
                         className={cn(
                             'w-fit flex max-h-[43.75rem] items-center justify-center dark:bg-white',
-                            `w-${processWidth()}`
+                            `w-${processWidth()} md:max-w-${processWidth()} max-w-full`
                         )}
                     />
                     {src.groups.map((item, idx) => (
@@ -174,7 +174,7 @@ function ToolContent({
                             src={locale === 'vi' ? item.viSrc : item.enSrc}
                             className={cn(
                                 'w-fit flex max-h-[43.75rem] items-center justify-center dark:bg-white',
-                                `w-${processWidth()}`
+                                `w-${processWidth()} md:max-w-${processWidth()} max-w-full`
                             )}
                             key={`${src.key}-group-${idx}`}
                         />
@@ -187,7 +187,7 @@ function ToolContent({
                     src={locale === 'vi' ? src.viSrc : src.enSrc}
                     className={cn(
                         'w-fit flex max-h-[43.75rem] items-center justify-center dark:bg-white',
-                        `w-${processWidth()}`
+                        `w-${processWidth()} md:max-w-${processWidth()} max-w-full`
                     )}
                 />
             )}
@@ -1169,7 +1169,11 @@ export default function InvestorToolsComp({ searchParams }: PageProps) {
                 value: group.key,
                 renderContent: () =>
                     Promise.resolve(
-                        <div className={'flex justify-evenly gap-4'}>
+                        <div
+                            className={
+                                'flex flex-col lg:flex-row justify-evenly gap-4'
+                            }
+                        >
                             {group.items.map((item, idx) => (
                                 <ToolContent
                                     key={item.key + idx}
