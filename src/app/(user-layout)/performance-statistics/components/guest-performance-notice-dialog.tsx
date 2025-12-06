@@ -35,10 +35,10 @@ export function GuestPerformanceNoticeDialog() {
     const descriptionGuestJsx = (
         <div className={'w-full'}>
             <p
-                className="mb-4 dark:[&>a]:text-[var(--brand-color)] text-base  leading-7 [&>a]:font-bold [&>a]:hover:underline [&>a]:text-brand-text"
+                className="mb-4 dark:[&>a]:text-[var(--brand-color)] text-sm lg:text-base leading-7 [&>a]:font-bold [&>a]:hover:underline [&>a]:text-brand-text"
                 dangerouslySetInnerHTML={{ __html: notice.desc1 }}
             />
-            <p>
+            <p className={'text-sm lg:text-base'}>
                 {notice.desc2}
                 <Link href="/auth/sign-up" className={linkStyle}>
                     {notice.linkSignUp}
@@ -128,7 +128,9 @@ export function GuestPerformanceNoticeDialog() {
                         description: descriptionGuestJsx,
                     }}
                     onClickCloseIcon={handleRedirectOnClickAcceptButton}
-                    contentClassName={'w-fit min-w-[60svw]'}
+                    contentClassName={
+                        'w-full min-w-[95svw] lg:w-fit lg:min-w-[60svw]'
+                    }
                 />
             )}
             {isNoticeOpen && (

@@ -32,11 +32,19 @@
 }
 
 .rich-text-content h1 {
-  font-size: 20px;
+  font-size: 16px;
   margin-top: 2rem;
 
   span {
-    scroll-margin-top: 2rem;
+    scroll-margin-top: 5.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 20px;
+
+    span {
+      scroll-margin-top: 2rem;
+    }
   }
 
   &:is(.dark *) {

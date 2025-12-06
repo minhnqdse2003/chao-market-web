@@ -27,17 +27,17 @@ export default function AppFilterSelect({
         return (
             <Tabs
                 defaultValue={options[0].value}
-                className="max-w-xs w-full"
+                className="w-full"
                 value={valueOptions}
                 onValueChange={value => onChange(value)}
             >
                 <p className="text-sm font-semibold">{label}</p>
-                <TabsList className="p-0 h-auto bg-brand-dialog shadow-none gap-1">
+                <TabsList className="p-0 h-auto bg-brand-dialog flex flex-wrap items-start justify-start shadow-none gap-1 rounded-none">
                     {options.map(tab => (
                         <TabsTrigger
                             key={tab.value}
                             value={tab.value}
-                            className="border px-4 py-2 rounded-lg cursor-pointer border-transparent data-[state=active]:text-brand-text data-[state=active]:shadow-sm dark:data-[state=active]:text-[var(--brand-color)] dark:data-[state=inactive]:hover:bg-transparent dark:data-[state=inactive]:hover:text-[var(--brand-color)] data-[state=inactive]:text-[var(--brand-grey-foreground)] data-[state=inactive]:hover:text-brand-text data-[state=active]:bg-[var(--brand-grey)] transition-all! duration-300 ease-in-out"
+                            className="border px-4 py-2 rounded-lg cursor-pointer border-transparent data-[state=active]:text-brand-text data-[state=active]:shadow-sm dark:data-[state=active]:text-[var(--brand-color)] dark:data-[state=inactive]:hover:bg-transparent dark:data-[state=inactive]:hover:text-[var(--brand-color)] data-[state=inactive]:text-[var(--brand-grey-foreground)] data-[state=inactive]:hover:text-brand-text data-[state=active]:bg-[var(--brand-grey)] transition-all! duration-300 ease-in-out text-xs lg:text-sm"
                         >
                             <p className="font-light">{tab.name}</p>
                         </TabsTrigger>

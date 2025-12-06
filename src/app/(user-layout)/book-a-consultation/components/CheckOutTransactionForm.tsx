@@ -371,7 +371,7 @@ export default function CheckOutTransactionForm({
                                             />
                                             <Label
                                                 htmlFor="email"
-                                                className={`font-bold cursor-pointer transition-all! duration-200 ease-in-out ${
+                                                className={`font-bold cursor-pointer text-xs lg:text-sm transition-all! duration-200 ease-in-out ${
                                                     field.value?.includes(
                                                         'email'
                                                     )
@@ -417,7 +417,7 @@ export default function CheckOutTransactionForm({
                                             />
                                             <Label
                                                 htmlFor="phone"
-                                                className={`font-bold cursor-pointer transition-all! duration-200 ease-in-out ${
+                                                className={`font-bold cursor-pointer text-xs lg:text-sm transition-all! duration-200 ease-in-out ${
                                                     field.value?.includes(
                                                         'phone'
                                                     )
@@ -463,7 +463,7 @@ export default function CheckOutTransactionForm({
                                             />
                                             <Label
                                                 htmlFor="social-network"
-                                                className={`font-bold cursor-pointer transition-all! duration-200 ease-in-out ${
+                                                className={`font-bold cursor-pointer text-xs lg:text-sm transition-all! duration-200 ease-in-out ${
                                                     field.value?.includes(
                                                         'social-network'
                                                     )
@@ -500,12 +500,12 @@ export default function CheckOutTransactionForm({
                                         <Textarea
                                             {...field}
                                             id={'message'}
-                                            className="peer border focus-visible:ring-0 focus-visible:border-black! dark:focus-visible:border-[var(--brand-color)]! dark:bg-transparent! dark:border-[var(--brand-grey)] text-brand-text min-h-24 pt-4 px-3 text-sm focus:text-base transition-all duration-300"
+                                            className="peer border focus-visible:ring-0 focus-visible:border-black! dark:focus-visible:border-[var(--brand-color)]! dark:bg-transparent! dark:border-[var(--brand-grey)] text-brand-text min-h-24 pt-4 px-3 text-xs lg:text-sm focus:text-base transition-all duration-300"
                                         />
                                         <Label
                                             htmlFor="message"
                                             className={`
-                                absolute start-2 z-10 origin-[0] bg-white px-2 text-sm text-[var(--brand-grey-foreground)]/50 font-semibold duration-300 dark:bg-sidebar rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 cursor-text transition-all! dark:peer-focus:text-[var(--brand-color)] peer-focus:text-black 
+                                absolute start-2 z-10 origin-[0] bg-white px-2 text-xs lg:text-sm text-[var(--brand-grey-foreground)]/50 font-semibold duration-300 dark:bg-sidebar rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 cursor-text transition-all! dark:peer-focus:text-[var(--brand-color)] peer-focus:text-black 
                                 ${
                                     hasValue
                                         ? 'top-2 -translate-y-4 scale-75'

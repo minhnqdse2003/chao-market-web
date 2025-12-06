@@ -92,16 +92,16 @@ export default async function NewsEventPage({ params }: PageProps) {
                 <div className="flex flex-col gap-2 mb-4 w-full relative">
                     <div
                         className={
-                            'flex text-sm gap-2 mb-2 items-center text-[var(--brand-grey-foreground)]/70'
+                            'flex text-xs lg:text-sm gap-2 mb-2 items-center text-[var(--brand-grey-foreground)]/70'
                         }
                     >
                         <Clock className={'size-4'} />
                         {post.readingTime} <T keyName={'common.minRead'} />
                     </div>
-                    <h1 className="text-size-22 text-brand-text dark:text-[var(--brand-color)] font-bold">
+                    <h1 className="text-lg lg:text-size-22 text-brand-text dark:text-[var(--brand-color)] font-bold">
                         <AppLocalizeRender contents={post.title as Localized} />
                     </h1>
-                    <div className="flex items-center text-[var(--brand-grey-foreground)]/70 text-sm">
+                    <div className="flex items-center text-[var(--brand-grey-foreground)]/70 text-xs lg:text-sm">
                         <span>
                             <T keyName={'common.market'} />:{' '}
                             <span
@@ -134,7 +134,7 @@ export default async function NewsEventPage({ params }: PageProps) {
                         initialDislike={post.dislikes}
                         initialViews={post.views}
                         containerClass={
-                            'absolute top-0 right-0 flex gap-4 [&_*_svg]:size-4 text-sm'
+                            'lg:absolute top-0 right-0 flex gap-4 [&_*_svg]:size-4 text-sm'
                         }
                         postId={post.id}
                         initialInteractionType={post.currentInteractionType}
@@ -143,14 +143,14 @@ export default async function NewsEventPage({ params }: PageProps) {
                 </div>
 
                 {/* Main Content */}
-                <div className="flex space-x-16 w-full">
+                <div className="flex flex-col-reverse lg:flex-row space-x-4 lg:space-x-16 w-full">
                     {/* Rich Text Content */}
-                    <div className="basis-3/4">
+                    <div className="lg:basis-3/4">
                         <RichTextPreview contents={post.content as Localized} />
                     </div>
 
                     {/* Sidebar */}
-                    <div className="basis-1/4 space-y-6">
+                    <div className="lg:basis-1/4 space-y-6">
                         {/* Table of Contents */}
                         <TableOfContents content={post.content as Localized} />
 

@@ -122,63 +122,68 @@ export default function CartItemsPage({ searchParams }: PageProps) {
     return (
         <div
             className={cn(
-                'overflow-x-hidden flex gap-8 mx-auto',
-                `${open ? 'w-[calc(100svw-var(--sidebar-width)-7rem)]' : 'w-[calc(100svw-var(--sidebar-width)+1rem)]'}`
+                'overflow-x-hidden flex flex-col lg:flex-row gap-8 mx-auto w-full',
+                `${open ? 'lg:max-w-[calc(100svw-var(--sidebar-width)-7rem)]' : 'lg:max-w-[calc(100svw-var(--sidebar-width)+1rem)]'}`
             )}
         >
-            <div className="w-1/2 max-w-1/2 overflow-hidden">
+            {/* Solutions List Section */}
+            <div className="w-full lg:w-1/2 max-w-full lg:max-w-1/2 overflow-hidden">
                 <div className="w-full flex justify-between items-center mb-6">
                     <div>
-                        <h1 className="text-xl dark:text-[var(--brand-color)] text-black font-bold">
+                        <h1 className="text-lg lg:text-xl dark:text-[var(--brand-color)] text-black font-bold">
                             {t('ourSolutions.common.title')}:
                         </h1>
-                        <p>{t('consultationRequest.describeOurSolution')}</p>
+                        <p className="text-sm sm:text-base">
+                            {t('consultationRequest.describeOurSolution')}
+                        </p>
                     </div>
                 </div>
 
-                <div className="space-y-4 max-h-[80svh] overflow-y-auto overflow-x-hidden px-4">
+                <div className="space-y-4 sm:max-h-[70vh] lg:max-h-[80svh] overflow-y-auto overflow-x-hidden px-4">
                     {filteredItem.map(item => (
                         <div
                             key={item.id}
                             className={cn(
-                                'flex items-center border rounded-lg bg-[var(--brand-grey)] p-4 shadow-sm' +
+                                'flex flex-col sm:flex-row items-start sm:items-center border rounded-lg bg-[var(--brand-grey)] p-4 shadow-sm' +
                                     ' relative transition-all duration-300 ease-in-out',
                                 `${isChecked(item.id) && 'dark:border-[var(--brand-color)] border-brand-text'}`
                             )}
                         >
-                            <Checkbox
-                                id={`item-${item.id}`}
-                                checked={isChecked(item.id)}
-                                onClick={() => toggleItemSelection(item.id)}
-                                className="mr-4 dark:data-[state=checked]:bg-[var(--brand-color)] dark:data-[state=checked]:border-[var(--brand-color)] dark:data-[state=checked]:text-black cursor-pointer border-[var(--brand-grey-foreground)]"
-                            />
+                            <div className="flex items-center w-full sm:w-auto mb-3 sm:mb-0">
+                                <Checkbox
+                                    id={`item-${item.id}`}
+                                    checked={isChecked(item.id)}
+                                    onClick={() => toggleItemSelection(item.id)}
+                                    className="mr-4 dark:data-[state=checked]:bg-[var(--brand-color)] dark:data-[state=checked]:border-[var(--brand-color)] dark:data-[state=checked]:text-black cursor-pointer border-[var(--brand-grey-foreground)]"
+                                />
 
-                            <div className="shrink-0">
-                                {item.url ? (
-                                    <Image
-                                        src={
-                                            ConsultationServices[
-                                                item.url as keyof typeof ConsultationServices
-                                            ]
-                                        }
-                                        alt={item.id + 'image'}
-                                        width={64}
-                                        height={64}
-                                        className="w-16 h-16 object-cover rounded-md"
-                                    />
-                                ) : (
-                                    <div className="w-16 h-16 bg-gray-200 rounded-md flex items-center justify-center mr-4">
-                                        <span className="text-gray-500 text-xs">
-                                            No image
-                                        </span>
-                                    </div>
-                                )}
+                                <div className="shrink-0">
+                                    {item.url ? (
+                                        <Image
+                                            src={
+                                                ConsultationServices[
+                                                    item.url as keyof typeof ConsultationServices
+                                                ]
+                                            }
+                                            alt={item.id + 'image'}
+                                            width={64}
+                                            height={64}
+                                            className="w-16 h-16 object-cover rounded-md"
+                                        />
+                                    ) : (
+                                        <div className="w-16 h-16 bg-gray-200 rounded-md flex items-center justify-center">
+                                            <span className="text-gray-500 text-xs">
+                                                No image
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
 
-                            <div className="ml-4 flex-1 flex justify-between items-center min-w-0">
+                            <div className="ml-0 sm:ml-4 flex-1 flex flex-col sm:flex-row justify-between items-start sm:items-center min-w-0 mt-3 sm:mt-0">
                                 <Link
                                     className={cn(
-                                        'font-semibold dark:text-[var(--brand-color)] text-brand-text hover:underline'
+                                        'font-semibold dark:text-[var(--brand-color)] text-brand-text hover:underline mb-2 sm:mb-0'
                                     )}
                                     href={item.navigationUrl || '#'}
                                 >
@@ -189,7 +194,7 @@ export default function CartItemsPage({ searchParams }: PageProps) {
                                         ]
                                     }
                                 </Link>
-                                <ul className="flex flex-col gap-0.5 min-w-1/2 justify-start items-start">
+                                <ul className="flex flex-col gap-0.5 min-w-0">
                                     {item?.description
                                         ? splitAndTrim(
                                               item.description[
@@ -205,7 +210,7 @@ export default function CartItemsPage({ searchParams }: PageProps) {
                                                   <span className="mr-2 text-[var(--brand-grey-foreground)]">
                                                       •
                                                   </span>
-                                                  <span>
+                                                  <span className="break-words">
                                                       {addDotsLastSentence(
                                                           capitalizeFirstLetterOnly(
                                                               text
@@ -230,10 +235,9 @@ export default function CartItemsPage({ searchParams }: PageProps) {
                                 className="object-contain w-full max-w-3/10 h-[12rem]"
                             />
                             {t('common.contacts')}{' '}
-                            {/* Sử dụng chung, nên dùng t() cho "Your cart is empty" nếu có key */}
                             <Button
                                 onClick={() => redirect('/chao-solutions')}
-                                className="bg-[var(--brand-color)] text-black rounded-3xl font-semibold hover:bg-transparent hover:text-[var(--brand-color)] hover:border-[var(--brand-color)] border border-transparent transition-all! duration-300 ease-in-out"
+                                className="bg-[var(--brand-color)] text-black rounded-3xl font-semibold hover:bg-transparent hover:text-[var(--brand-color)] hover:border-[var(--brand-color)] border border-transparent transition-all duration-300 ease-in-out mt-4"
                             >
                                 {t('ourSolutions.common.getStarted')}
                             </Button>
@@ -242,12 +246,15 @@ export default function CartItemsPage({ searchParams }: PageProps) {
                 </div>
             </div>
 
-            <div className="w-1/2 max-w-1/2 flex flex-col overflow-hidden">
+            {/* Information Form Section */}
+            <div className="w-full lg:w-1/2 max-w-full lg:max-w-1/2 flex flex-col overflow-hidden">
                 <div className={'mb-6 w-fit'}>
-                    <h1 className="text-xl text-brand-text dark:text-[var(--brand-color)] font-bold">
+                    <h1 className="text-lg lg:text-xl text-brand-text dark:text-[var(--brand-color)] font-bold">
                         {t('consultationRequest.yourInformation.title')}
                     </h1>
-                    <p>{t('consultationRequest.yourInformation.prompt')}</p>
+                    <p className="text-sm lg:text-base">
+                        {t('consultationRequest.yourInformation.prompt')}
+                    </p>
                 </div>
                 <CheckOutTransactionForm
                     onSubmit={handleSubmit}

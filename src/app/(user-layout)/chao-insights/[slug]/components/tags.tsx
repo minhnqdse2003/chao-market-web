@@ -66,7 +66,7 @@ export default function TagsAccordion({ tags }: TagsAccordionProps) {
             defaultValue={'item-1'}
         >
             <AccordionItem value="item-1">
-                <AccordionTrigger className="text-lg cursor-pointer font-semibold">
+                <AccordionTrigger className="text-sm lg:text-lg cursor-pointer font-semibold">
                     <T keyName={'common.tags'} />
                 </AccordionTrigger>
                 <AccordionContent className="pt-4">
@@ -76,7 +76,7 @@ export default function TagsAccordion({ tags }: TagsAccordionProps) {
                                 key={tag.id}
                                 label={`#${tag.name}`}
                                 className={
-                                    'text-[var(--brand-grey-foreground)] text-sm! font-normal' +
+                                    'text-[var(--brand-grey-foreground)] text-xs lg:text-sm! font-normal' +
                                     ' dark:hover:text-[var(--brand-color)] hover:text-black hover:cursor-pointer' +
                                     ' transition-colors! duration-300'
                                 }

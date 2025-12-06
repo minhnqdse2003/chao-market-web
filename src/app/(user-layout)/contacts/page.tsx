@@ -79,8 +79,10 @@ export default function ContactsPage() {
         <div className="w-full h-full">
             <GeneralBanner />
             {/* Keep the original layout structure */}
-            <p className="font-semibold text-2xl mb-4">Let us help you</p>
-            <div className='flex flex-row dark:[&>div[data-slot="Card"]]:bg-[var(--brand-black-bg)] [&>div[data-slot="Card"]]:bg-[var(--brand-grey)]  [&>div[data-slot="Card"]]:px-8 [&>div[data-slot="Card"]]:shadow-sm [&>div[data-slot="Card"]]:py-10 [&>div[data-slot="Card"]]:rounded-2xl gap-2'>
+            <p className="font-semibold text-xl  lg:text-2xl mb-4">
+                Let us help you
+            </p>
+            <div className='flex flex-col lg:flex-row dark:[&>div[data-slot="Card"]]:bg-[var(--brand-black-bg)] [&>div[data-slot="Card"]]:bg-[var(--brand-grey)]  [&>div[data-slot="Card"]]:px-8 [&>div[data-slot="Card"]]:shadow-sm [&>div[data-slot="Card"]]:py-10 [&>div[data-slot="Card"]]:rounded-2xl gap-2'>
                 {contactCards.map((card, index) => {
                     const ContactInfoElement = card.isLink ? 'a' : 'p';
                     const contactInfoProps = card.isLink
