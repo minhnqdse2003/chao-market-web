@@ -116,7 +116,7 @@ const NewsEventFilterDialogComp = ({
 
     // Dialog Content
     const mainContent = (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 w-full">
             <div className="relative flex items-start border-b dark:[&:hover>svg]:text-[var(--brand-color)] dark:hover:[&>textarea]:placeholder:text-[var(--brand-color)] [&:hover>svg]:text-black dark:focus-within:[&_svg]:text-[var(--brand-color)] focus-within:[&_svg]:text-black">
                 <SearchIcon className="size-4 text-[var(--brand-grey-foreground)] mt-1.5 flex-shrink-0" />
                 <AutosizeTextarea

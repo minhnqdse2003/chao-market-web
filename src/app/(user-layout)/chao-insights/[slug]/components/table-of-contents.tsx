@@ -64,7 +64,7 @@ export function TableOfContents({ content }: TableOfContentsProps) {
             defaultValue={'item-1'}
         >
             <AccordionItem value="item-1">
-                <AccordionTrigger className="text-lg cursor-pointer font-semibold">
+                <AccordionTrigger className="text-sm lg:text-lg cursor-pointer font-semibold">
                     {t('common.tableOfContent')}
                 </AccordionTrigger>
                 <AccordionContent className="text-sm font-thin leading-tight pt-4">

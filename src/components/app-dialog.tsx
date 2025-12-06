@@ -56,7 +56,8 @@ const AppDialog = ({
                 className={cn(
                     'bg-brand-dialog max-h-[90svh] [&>.dialog-header]:pt-0 [&>.dialog-footer]:p-0' +
                         ' [&>.dialog-content]:p-0' +
-                        ' [&_.dialog-footer]:m-0 [&_[data-slot="dialog-close"]]:cursor-pointer min-w-xl',
+                        ' [&_.dialog-footer]:m-0 [&_[data-slot="dialog-close"]]:cursor-pointer lg:w-fit' +
+                        ' lg:min-w-xl',
                     contentContainerClassName
                 )}
                 onOpenAutoFocus={e => e.preventDefault()}
@@ -69,20 +70,20 @@ const AppDialog = ({
                     </DialogTitle>
                 )}
                 {headerContent && (
-                    <div className="dialog-header">{headerContent}</div>
+                    <div className="dialog-header w-full">{headerContent}</div>
                 )}
                 {mainContent && (
-                    <div className="dialog-content">{mainContent}</div>
+                    <div className="dialog-content w-full max-w-full">
+                        {mainContent}
+                    </div>
                 )}
                 {footerContent && (
-                    <div className="dialog-footer mt-4 dark:[&>_*_button:hover]:font-semibold">
+                    <div className="dialog-footer w-full max-w-full mt-4 dark:[&>_*_button:hover]:font-semibold">
                         {footerContent}
                     </div>
                 )}
                 {floatingCloseButton && (
-                    <DialogClose className={'hehe'}>
-                        {floatingCloseButton}
-                    </DialogClose>
+                    <DialogClose>{floatingCloseButton}</DialogClose>
                 )}
             </DialogContent>
         </Dialog>

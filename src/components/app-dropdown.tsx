@@ -100,7 +100,8 @@ const AppDropdown = ({
                     variant="ghost"
                     className={cn(
                         'dark:hover:text-[var(--brand-color)] transition-colors! duration-300 ease-in-out',
-                        buttonClassName
+                        buttonClassName,
+                        'lg:text-sm text-xs'
                     )}
                 >
                     {labelVisible && `${t('common.sortBy.label')}`}

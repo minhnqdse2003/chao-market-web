@@ -5,19 +5,21 @@ export default function AppLoader() {
     return (
         <div
             className={
-                'w-fit mx-auto h-full min-h-svh flex justify-center items-center animate-pulse gap-4' +
+                'w-fit mx-auto h-full max-h-[calc(100%-8rem)] lg:max-h-full lg:min-h-svh flex justify-center' +
+                ' items-center' +
+                ' animate-pulse gap-4' +
                 ' pulse-scale'
             }
         >
             <img
                 src="/img/brand-logo.svg"
-                className="w-full uppercase h-auto max-w-[24rem]"
+                className="w-full uppercase h-auto max-w-[3rem] lg:max-w-[24rem]"
                 alt={'Brand-logo'}
             />
             <div className={'w-fit'}>
                 <p
                     className={
-                        'text-2xl text-brand-text dark:text-[var(--brand-color)] font-semibold flex' +
+                        'text-lg lg:text-2xl text-brand-text dark:text-[var(--brand-color)] font-semibold flex' +
                         ' whitespace-nowrap gap-2'
                     }
                 >
@@ -28,7 +30,7 @@ export default function AppLoader() {
                         <span>.</span>
                     </span>
                 </p>
-                <span className={'text-base whitespace-nowrap'}>
+                <span className={'text-sm lg:text-base whitespace-nowrap'}>
                     <T keyName={'sidebar.brandGoal'} />
                 </span>
             </div>
