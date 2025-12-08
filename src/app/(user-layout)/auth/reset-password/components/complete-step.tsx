@@ -20,7 +20,7 @@ export default function CompletionStep() {
                 alt={'reset-password-complete'}
                 width={1920}
                 height={1080}
-                className={'h-2/7 mx-auto object-contain'}
+                className={'h-[250px] lg:h-2/7 mx-auto object-contain'}
             />
 
             <div className="flex flex-col space-y-4 w-full">

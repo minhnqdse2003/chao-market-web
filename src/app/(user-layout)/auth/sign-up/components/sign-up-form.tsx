@@ -192,7 +192,7 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
     }, []);
 
     return (
-        <div className="flex flex-col w-full h-full [&_*_h2]:text-2xl [&_*_h2]:font-extrabold [&_*_h2]:text-brand-text">
+        <div className="flex flex-col w-full h-full [&_*_h2]:text-lg lg:[&_*_h2]:text-2xl [&_*_h2]:font-extrabold [&_*_h2]:text-brand-text">
             <div className={'h-fit'}>
                 <TabAuthMode />
                 <div className="mt-2 w-full">
@@ -224,7 +224,7 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                     >
                         <div
                             className={
-                                'max-h-[27.5rem] px-2 overflow-y-auto py-1 space-y-4'
+                                'lg:max-h-[27.5rem] px-2 overflow-y-auto py-1 space-y-4'
                             }
                         >
                             <div className="flex space-x-2">
@@ -559,7 +559,7 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                             </RadioGroup>
                             <label
                                 htmlFor="terms"
-                                className="text-sm cursor-pointer text-[var(--brand-grey-foreground)] dark:text-white"
+                                className="text-xs lg:text-sm cursor-pointer text-[var(--brand-grey-foreground)] dark:text-white"
                             >
                                 <T keyName="auth.termsAgreement.start" />{' '}
                                 <Link
@@ -626,7 +626,7 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
                 </Form>
                 <div className="text-center mt-4">
                     <SocialLogin />
-                    <div className="text-lg text-brand-text font-medium flex gap-2 justify-center items-center">
+                    <div className="text-base lg:text-lg text-brand-text font-medium flex gap-2 justify-center items-center">
                         <T keyName="auth.alreadyHaveAccount" />{' '}
                         <Link
                             href="/auth/login"
