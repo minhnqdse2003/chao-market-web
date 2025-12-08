@@ -15,7 +15,7 @@ export default function SocialLogin() {
                     <div className="w-full border-t border-[var(--brand-grey-foreground)]" />
                 </div>
                 <div className="relative flex w-fit mx-auto px-2 justify-center text-sm dark:bg-sidebar bg-white font-semibold">
-                    <span className="px-2 text-brand-text text-lg">
+                    <span className="px-2 text-brand-text text-lg lg:text-lg">
                         <T keyName={'common.orContinueWith'} />
                     </span>
                 </div>

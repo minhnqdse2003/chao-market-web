@@ -18,10 +18,10 @@ const ResetPasswordPage = () => {
     const [otp, setOtp] = useState('');
 
     return (
-        <div className="flex flex-col w-full h-full [&_*_h2]:text-2xl [&_*_h2]:font-extrabold [&_*_h2]:text-brand-text">
-            <div className="h-full w-full flex flex-col justify-evenly [&>.form-container]:min-h-[15.375rem] [&>.form-container]:max-h-[15.375rem]  [&>.form-container]:my-0 [&>.form-container]:flex [&>.form-container]:flex-col [&>.form-container]:justify-end pt-8">
+        <div className="flex flex-col w-full h-full [&_*_h2]:text-lg lg:[&_*_h2]:text-2xl [&_*_h2]:font-extrabold [&_*_h2]:text-brand-text">
+            <div className="h-full w-full flex flex-col gap-2 lg:justify-evenly lg:[&>.form-container]:min-h-[15.375rem] lg:[&>.form-container]:max-h-[15.375rem] [&>.form-container]:my-0 [&>.form-container]:flex [&>.form-container]:flex-col [&>.form-container]:justify-end pt-8">
                 <TabAuthMode />
-                <div className={cn('w-full max-h-[32px] mt-2')}>
+                <div className={cn('w-full lg:max-h-[32px] mt-2')}>
                     <h2>
                         {step === 'email' && (
                             <T keyName="auth.resetPassword.title" />
@@ -37,7 +37,7 @@ const ResetPasswordPage = () => {
                         )}
                         {step !== 'complete' && <>{'.'}</>}
                     </h2>
-                    <p className="text-[var(--brand-grey-foreground)] mt-2">
+                    <p className="text-[var(--brand-grey-foreground)] text-sm mt-2">
                         {step === 'email' && (
                             <T keyName="auth.resetPassword.emailSubtitle" />
                         )}
@@ -92,8 +92,8 @@ const ResetPasswordPage = () => {
                 )}
 
                 {step !== 'complete' && (
-                    <div className="text-center min-h-[11rem] max-h-[11rem]">
-                        <p className="text-lg text-[var(--brand-grey-foreground)] font-semibold">
+                    <div className="text-center lg:min-h-[11rem] lg:max-h-[11rem]">
+                        <p className="text-base lg:text-lg text-[var(--brand-grey-foreground)] font-semibold">
                             <T keyName="auth.resetPassword.rememberPassword" />{' '}
                             <Link
                                 href="/auth/login"

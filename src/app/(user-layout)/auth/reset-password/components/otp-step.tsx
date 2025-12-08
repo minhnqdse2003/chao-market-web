@@ -140,7 +140,7 @@ export default function ResetPasswordOtpStep({
                 </Form>
             </div>
 
-            <div className="text-center h-0">
+            <div className="text-center lg:h-0">
                 <p className="text-sm text-brand-text">
                     <T keyName="auth.didNotReceiveCode" />{' '}
                     <Countdown

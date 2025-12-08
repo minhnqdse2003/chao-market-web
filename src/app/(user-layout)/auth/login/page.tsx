@@ -263,7 +263,7 @@ export default function Login() {
                 )}
 
                 <TabAuthMode />
-                <h2 className="mt-2 text-2xl font-bold text-brand-text">
+                <h2 className="mt-2 text-lg lg:text-2xl font-bold text-brand-text">
                     <T keyName="auth.welcomeBack" />
                 </h2>
                 {emailVerified === false && loginData ? (
@@ -374,7 +374,7 @@ export default function Login() {
 
                 <div className="text-center text-brand-text font-medium text-lg flex flex-col gap-4 w-full">
                     <SocialLogin />
-                    <div className="flex gap-2 justify-center items-center">
+                    <div className="flex gap-2 justify-center text-base items-center">
                         <T keyName="auth.noAccountPrompt" />{' '}
                         <Link
                             href="/auth/sign-up"
