@@ -1,8 +1,10 @@
 // app/robots.ts
 
 import { MetadataRoute } from 'next';
+import { headers } from 'next/headers';
 
 export default function robots(): MetadataRoute.Robots {
+    headers();
     const baseUrl = process.env.NEXTAUTH_URL;
 
     if (!baseUrl) {

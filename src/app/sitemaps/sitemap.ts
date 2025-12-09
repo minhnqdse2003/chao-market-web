@@ -3,13 +3,12 @@ import { MetadataRoute } from 'next';
 import { db } from '@/lib/db';
 import { posts } from '@/db/schema';
 import { desc } from 'drizzle-orm';
+import { headers } from 'next/headers';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    headers();
     const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
 
-    console.log('base url:', baseUrl);
-
-    // Static pages
     const staticPages: MetadataRoute.Sitemap = [
         {
             url: `${baseUrl}/chao-solutions`,
@@ -32,7 +31,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
 
     try {
-        // Fetch posts for dynamic news-event pages
         const postsData = await db
             .select({
                 slug: posts.slug,
@@ -42,9 +40,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             .orderBy(desc(posts.createdAt))
             .limit(1000);
 
-        console.log('post data: ', JSON.stringify(postsData));
-
-        // Generate dynamic pages
         const dynamicPages: MetadataRoute.Sitemap = postsData.map(post => {
             const lastModified = post.createdAt;
 
