@@ -29,9 +29,8 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # --- CRITICAL: FIX BUILD FAILURES ---
 # If your app needs NEXT_PUBLIC_ vars during build, default them to avoid crashes
 # (They will be overwritten by Nginx/Browser at runtime anyway)
-ENV NEXT_PUBLIC_API_URL=http://localhost
-ENV NEXTAUTH_SECRET=build_placeholder_secret
-ENV NEXTAUTH_URL=http://localhost
+ENV NEXT_PUBLIC_API_URL=https://chaomarket.com
+ENV NEXTAUTH_URL=https://chaomarket.com
 
 # Now run the build
 RUN pnpm run build
