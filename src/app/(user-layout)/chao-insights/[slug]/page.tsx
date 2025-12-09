@@ -143,14 +143,14 @@ export default async function NewsEventPage({ params }: PageProps) {
                 </div>
 
                 {/* Main Content */}
-                <div className="flex flex-col-reverse lg:flex-row space-x-4 lg:space-x-16 w-full">
+                <div className="flex flex-col-reverse lg:flex-row space-x-4 lg:space-x-16 w-full relative">
                     {/* Rich Text Content */}
                     <div className="lg:basis-3/4">
                         <RichTextPreview contents={post.content as Localized} />
                     </div>
 
                     {/* Sidebar */}
-                    <div className="lg:basis-1/4 space-y-6">
+                    <div className="lg:basis-1/4 lg:sticky top-12 right-0 h-fit space-y-6">
                         {/* Table of Contents */}
                         <TableOfContents content={post.content as Localized} />
 

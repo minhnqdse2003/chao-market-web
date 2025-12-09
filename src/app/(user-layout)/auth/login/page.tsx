@@ -255,7 +255,7 @@ export default function Login() {
 
     return (
         <div className="flex flex-col w-full h-full">
-            <div className="h-full w-full flex flex-col justify-evenly pt-8">
+            <div className="h-full w-full flex flex-col gap-4 justify-evenly pt-8">
                 {error && (
                     <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
                         {error}

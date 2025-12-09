@@ -195,7 +195,7 @@ export function SignUpForm({ onSignUpSuccess }: SignUpFormProps) {
         <div className="flex flex-col w-full h-full [&_*_h2]:text-lg lg:[&_*_h2]:text-2xl [&_*_h2]:font-extrabold [&_*_h2]:text-brand-text">
             <div className={'h-fit'}>
                 <TabAuthMode />
-                <div className="mt-2 w-full">
+                <div className="mt-4 w-full">
                     <h2>
                         <T keyName="auth.createAccountTitle" />
                     </h2>

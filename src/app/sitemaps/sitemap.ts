@@ -7,6 +7,8 @@ import { desc } from 'drizzle-orm';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
 
+    console.log('base url:', baseUrl);
+
     // Static pages
     const staticPages: MetadataRoute.Sitemap = [
         {
@@ -40,6 +42,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             .orderBy(desc(posts.createdAt))
             .limit(1000);
 
+        console.log('post data: ', JSON.stringify(postsData));
+
         // Generate dynamic pages
         const dynamicPages: MetadataRoute.Sitemap = postsData.map(post => {
             const lastModified = post.createdAt;
@@ -53,6 +57,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                 priority: 0.7,
             };
         });
+
+        console.log('Dynamic Pages: ', dynamicPages);
 
         return [...staticPages, ...dynamicPages];
     } catch (error) {
