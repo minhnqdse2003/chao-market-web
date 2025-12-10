@@ -852,9 +852,7 @@ function InterestCalculator() {
                                     data={chartData}
                                     margin={{
                                         top: 5,
-                                        right: 30,
-                                        left: 20,
-                                        bottom: 5,
+                                        left: 35,
                                     }}
                                 >
                                     <CartesianGrid
@@ -884,20 +882,20 @@ function InterestCalculator() {
                                         }}
                                     />
                                     <YAxis
-                                        allowDataOverflow
                                         label={{
                                             value:
                                                 locale === 'vi'
                                                     ? 'Vốn Đầu Tư'
                                                     : 'Equity',
                                             angle: -90,
-                                            offset: 15,
+                                            offset: 25,
                                             position: 'left',
                                             style: {
                                                 textAnchor: 'middle',
                                                 fontWeight: 'bold',
                                             },
                                         }}
+                                        domain={['0', '0']}
                                         ticks={calcYAxis()}
                                         tickFormatter={value => {
                                             const K = 1000;

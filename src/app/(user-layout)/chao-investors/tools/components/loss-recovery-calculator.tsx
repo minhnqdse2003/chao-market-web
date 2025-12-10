@@ -14,22 +14,22 @@ import {
 import { Separator } from '@/components/ui/separator';
 import AppTooltips from '@/components/app-tooltips';
 import { Button } from '@/components/ui/button';
-import { Info } from 'lucide-react';
+import { Info, Minus } from 'lucide-react';
 import React, { useState, useEffect, useMemo, ReactNode } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
 import {
-    LineChart,
-    Line,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    Legend,
-    ResponsiveContainer,
-} from 'recharts';
+    ChartConfig,
+    ChartContainer,
+    ChartLegend,
+    ChartLegendContent,
+    ChartTooltip,
+    ChartTooltipContent,
+} from '@/components/ui/chart';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 import { calculateAdjustedHeight } from '@/utils/height-utils';
 import { useDebounce } from '@uidotdev/usehooks';
+import { TbLineDashed } from 'react-icons/tb';
 
 const LossRecoveryCalculator: React.FC = () => {
     const { locale, t } = useI18n();
@@ -81,7 +81,6 @@ const LossRecoveryCalculator: React.FC = () => {
     // Parse & clamp inputs safely
     const handleInitialPortfolioChange = (raw: string) => {
         const clean = raw.replace(/[^\d\.\-]/g, '');
-
         const val = Number(clean.replace(/,/g, ''));
         if (!isNaN(val) && val >= 0 && val <= 1_000_000_000) {
             setInitialPortfolioInput(clean);
@@ -91,12 +90,10 @@ const LossRecoveryCalculator: React.FC = () => {
 
     const handlelossInputValueInputChange = (raw: string) => {
         const clean = raw.replace(/[^\d\.\-]/g, '');
-
         const val = Number(clean.replace(/,/g, ''));
         if (!isNaN(val) && val >= 0 && lossInputMode === 'percent') {
             setLossInputValue(Math.min(val, 100));
             if (val <= 100) setLossInputValueInput(clean);
-
             return;
         }
         if (!isNaN(val) && val >= 0 && val <= initialPortfolio) {
@@ -145,17 +142,14 @@ const LossRecoveryCalculator: React.FC = () => {
             : (lossAmount / initialPortfolio) * 100;
 
     const recoveryAmountNeeded = lossAmount;
-
     const remainingPortfolio = Math.max(0, initialPortfolio - lossAmount);
-
     const recoveryReturnPercent =
         remainingPortfolio > 0
             ? (recoveryAmountNeeded / remainingPortfolio) * 100
             : 0;
-
     const burdenPercent = recoveryReturnPercent - lossPercentOfInitial;
 
-    // === SIMPLE INTEREST CALCULATION (for chart) ===
+    // === SIMPLE INTEREST CALCULATION ===
     const simpleInterestPerPeriod =
         remainingPortfolio * (expectedReturnRate / 100);
     const periodsToRecoverSimple =
@@ -163,7 +157,7 @@ const LossRecoveryCalculator: React.FC = () => {
             ? recoveryAmountNeeded / simpleInterestPerPeriod
             : Infinity;
 
-    // === COMPOUND INTEREST CALCULATION (for chart) ===
+    // === COMPOUND INTEREST CALCULATION ===
     const periodsToBreakEven = () => {
         const r = expectedReturnRate / 100;
         if (
@@ -228,22 +222,22 @@ const LossRecoveryCalculator: React.FC = () => {
             expectedReturnRate,
             returnRateUnit,
             maxPeriods,
+            simpleInterestPerPeriod,
+            remainingPortfolio,
         ]
     );
 
     const debounceChartData = useDebounce(chartData, 300).map(data => ({
         ...data,
-        compound: data.compound.toFixed(2),
+        compound: Number(data.compound.toFixed(2)),
+        simple: Number(data.simple.toFixed(2)),
     }));
-    console.log('data: ', debounceChartData);
 
-    // Y-axis custom ticks: evenly spaced between [remaining, initial + step]
+    // Y-axis custom ticks logic
     const calcYAxis = () => {
         if (!Array.isArray(chartData) || chartData.length === 0) {
             return [0, 100];
         }
-
-        // Extract valid numeric values for 'simple' and 'compound'
         const values = chartData
             .flatMap(d => [
                 typeof d.simple === 'number' ? d.simple : NaN,
@@ -251,46 +245,56 @@ const LossRecoveryCalculator: React.FC = () => {
             ])
             .filter(v => isFinite(v));
 
-        // If no valid data, fallback
-        if (values.length === 0) {
-            return [0, 100];
-        }
+        if (values.length === 0) return [0, 100];
 
         const min = Math.min(...values);
         const max = Math.max(...values, 0);
 
-        // Avoid zero or negative range
         if (max <= min) {
             const buffer = Math.max(1, Math.abs(min) * 0.1);
             return [min - buffer, max + buffer];
         }
 
         const step = (max - min) / 5;
-        if (step === 0) {
-            return [min - 1, max + 1]; // fallback safe range
-        }
+        if (step === 0) return [min - 1, max + 1];
 
         const ticks = [];
         let current = min;
-
-        // Prevent infinite loop: limit to 7 ticks max
         for (let i = 0; i < 7; i++) {
             ticks.push(current);
             current += step;
-            console.log(current);
             if (current > max + step) break;
         }
-
-        // Ensure last tick covers max
         if (ticks[ticks.length - 1] > max - step) {
             ticks.push(max + step);
         }
-
-        // Remove duplicates & sort
-        const uniqueTicks = [...new Set(ticks)].sort((a, b) => a - b);
-
-        return uniqueTicks;
+        return [...new Set(ticks)].sort((a, b) => a - b);
     };
+
+    // === CHART CONFIG ===
+    // Define colors and labels for shadcn chart
+    const chartConfig = {
+        remaining: {
+            label: locale === 'vi' ? 'Danh Mục Còn Lại' : 'Remaining',
+            color: theme === 'dark' ? '#ffe400' : '#000000',
+            icon: Minus,
+        },
+        target: {
+            label: locale === 'vi' ? 'Hòa Vốn' : 'Break-Even',
+            color: theme === 'dark' ? '#ffffff' : '#000000',
+            icon: TbLineDashed,
+        },
+        simple: {
+            label: locale === 'vi' ? 'Lãi Đơn' : 'Simple Interest',
+            color: theme === 'dark' ? '#49a74e' : '#358439',
+            icon: Minus,
+        },
+        compound: {
+            label: locale === 'vi' ? 'Lãi Kép' : 'Compound Interest',
+            color: '#db2736',
+            icon: Minus,
+        },
+    } satisfies ChartConfig;
 
     // === TOOLTIP CONTENTS ===
     const burdenTooltip = (
@@ -556,7 +560,7 @@ const LossRecoveryCalculator: React.FC = () => {
                                 {locale === 'vi'
                                     ? 'So sánh Lãi Đơn và Lãi Kép trong việc dự báo thời gian hòa vốn'
                                     : 'Comparison of Simple Interest and Compound Interest in Forecasting Break-even Time'}
-                                .{/* Expected Return */}
+                                .
                             </CardDescription>
                         </div>
                         <div className="relative w-full lg:max-w-[30%] h-fit">
@@ -609,25 +613,16 @@ const LossRecoveryCalculator: React.FC = () => {
                             />
                         </div>
                     </div>
-                    <CardContent className="pl-8">
+                    <CardContent className="pl-8 pt-6">
                         <div
                             style={{ height: height - 182 }}
-                            className={'relative'}
+                            className={'relative w-full'}
                         >
-                            <ResponsiveContainer
-                                width="100%"
-                                height="100%"
-                                className={'relative'}
+                            <ChartContainer
+                                config={chartConfig}
+                                className="h-full w-full"
                             >
-                                <LineChart
-                                    data={debounceChartData}
-                                    margin={{
-                                        top: 5,
-                                        right: 20,
-                                        left: 10,
-                                        bottom: 5,
-                                    }}
-                                >
+                                <LineChart data={debounceChartData}>
                                     <CartesianGrid
                                         strokeDasharray="3 3"
                                         stroke="#92929250"
@@ -640,12 +635,16 @@ const LossRecoveryCalculator: React.FC = () => {
                                             offset: -5,
                                             style: {
                                                 fontWeight: 'bold',
-                                                color: 'red',
+                                                fill: 'var(--brand-text)', // adapted color
                                             },
                                         }}
+                                        tickLine={false}
+                                        axisLine={false}
+                                        tickMargin={8}
                                     />
                                     <YAxis
                                         ticks={calcYAxis()}
+                                        domain={['dataMin', 'auto']}
                                         tickFormatter={val => {
                                             if (val >= 1e9)
                                                 return `$${(val / 1e9).toFixed(1)}B`;
@@ -656,147 +655,63 @@ const LossRecoveryCalculator: React.FC = () => {
                                             return `$${val.toFixed(0)}`;
                                         }}
                                     />
-                                    <Tooltip
-                                        labelFormatter={label =>
-                                            `${locale === 'vi' ? `Kỳ ${renderReturnRateUnit()}` : `Period ${renderReturnRateUnit()}`} ${label}`
+                                    <ChartTooltip
+                                        cursor={true}
+                                        content={
+                                            <ChartTooltipContent
+                                                hideLabel
+                                                indicator="dot"
+                                                className={'text-sm bg-sidebar'}
+                                            />
                                         }
-                                        contentStyle={{
-                                            background:
-                                                theme === 'dark'
-                                                    ? '#252525'
-                                                    : '#fff',
-                                            color:
-                                                theme === 'dark'
-                                                    ? '#fff'
-                                                    : '#000',
-                                            borderRadius: '10px',
-                                            border: '1px solid #ddd',
-                                        }}
                                     />
-                                    <Legend
-                                    // content={() => (
-                                    //     <ul className="flex flex-wrap gap-4 justify-center mt-2">
-                                    //         {[
-                                    //             {
-                                    //                 label:
-                                    //                     locale === 'vi'
-                                    //                         ? 'Danh Mục Còn Lại'
-                                    //                         : 'Remaining',
-                                    //                 color:
-                                    //                     theme === 'dark'
-                                    //                         ? '#ffe400'
-                                    //                         : '#000000',
-                                    //                 strokeDasharray: '0 0',
-                                    //                 icon: BsDash,
-                                    //             },
-                                    //             {
-                                    //                 label:
-                                    //                     locale === 'vi'
-                                    //                         ? 'Hòa Vốn'
-                                    //                         : 'Break-Even',
-                                    //                 color:
-                                    //                     theme === 'dark'
-                                    //                         ? '#ffffff'
-                                    //                         : '#000000',
-                                    //                 strokeDasharray: '4 2',
-                                    //                 icon: AiOutlineDash,
-                                    //             },
-                                    //             {
-                                    //                 label:
-                                    //                     locale === 'vi'
-                                    //                         ? 'Lãi Đơn'
-                                    //                         : 'Simple Interest',
-                                    //                 color: '#01A90F',
-                                    //                 strokeDasharray: '0 0',
-                                    //                 icon: BsDash,
-                                    //             },
-                                    //             {
-                                    //                 label:
-                                    //                     locale === 'vi'
-                                    //                         ? 'Lãi Kép'
-                                    //                         : 'Compound Interest',
-                                    //                 color: '#ff4141',
-                                    //                 strokeDasharray: '0 0',
-                                    //                 icon: BsDash,
-                                    //             },
-                                    //         ].map((item, index) => (
-                                    //             <li
-                                    //                 key={index}
-                                    //                 className="flex items-center  gap-1.5 text-sm font-medium"
-                                    //                 style={{
-                                    //                     color: item.color,
-                                    //                 }}
-                                    //             >
-                                    //                 <item.icon className="size-6" />
-                                    //                 {item.label}
-                                    //             </li>
-                                    //         ))}
-                                    //     </ul>
-                                    // )}
+                                    <ChartLegend
+                                        content={
+                                            <ChartLegendContent className="gap-8 text-sm" />
+                                        }
                                     />
 
                                     <Line
-                                        type="monotone"
-                                        dataKey="target"
-                                        stroke={
-                                            theme === 'dark' ? '#fff' : '#000'
-                                        }
-                                        strokeDasharray="4 2"
-                                        dot={false}
-                                        name={
-                                            locale === 'vi'
-                                                ? 'Hòa Vốn'
-                                                : 'Break-Even'
-                                        }
-                                        legendType="line"
-                                    />
-                                    <Line
-                                        type="monotone"
                                         dataKey="remaining"
-                                        stroke={
-                                            theme === 'dark'
-                                                ? '#ffe400'
-                                                : '#000'
-                                        }
+                                        type="monotone"
+                                        stroke={chartConfig.remaining.color}
+                                        strokeWidth={2}
                                         strokeDasharray="0 0"
                                         dot={false}
-                                        name={
-                                            locale === 'vi'
-                                                ? 'Danh Mục Còn Lại'
-                                                : 'Remaining'
-                                        }
-                                        legendType="line"
                                     />
                                     <Line
+                                        dataKey="target"
                                         type="monotone"
-                                        dataKey="compound"
-                                        stroke="#db2736"
-                                        dot={{ r: 4 }}
-                                        name={
-                                            locale === 'vi'
-                                                ? 'Lãi Kép'
-                                                : 'Compound Interest'
-                                        }
-                                        legendType="line"
+                                        stroke={chartConfig.target.color}
+                                        strokeWidth={2}
+                                        strokeDasharray="4 2"
+                                        dot={false}
                                     />
                                     <Line
-                                        type="monotone"
                                         dataKey="simple"
-                                        stroke={
-                                            theme === 'dark'
-                                                ? '#49a74e'
-                                                : '#358439'
-                                        }
-                                        dot={{ r: 4 }}
-                                        name={
-                                            locale === 'vi'
-                                                ? 'Lãi Đơn'
-                                                : 'Simple Interest'
-                                        }
-                                        legendType="line"
+                                        type="monotone"
+                                        stroke={chartConfig.simple.color}
+                                        strokeWidth={2}
+                                        dot={{
+                                            r: 4,
+                                            fill: chartConfig.simple.color,
+                                        }}
+                                        activeDot={{ r: 6 }}
+                                    />
+                                    <Line
+                                        dataKey="compound"
+                                        type="monotone"
+                                        stroke={chartConfig.compound.color}
+                                        strokeWidth={2}
+                                        dot={{
+                                            r: 4,
+                                            fill: chartConfig.compound.color,
+                                        }}
+                                        activeDot={{ r: 6 }}
                                     />
                                 </LineChart>
-                            </ResponsiveContainer>
+                            </ChartContainer>
+
                             <p className="absolute left-0 top-1/2 transform -translate-x-3/5 -translate-y-1/2 -rotate-90 font-bold leading-relaxed text-brand-text dark:text-[#666]">
                                 {locale === 'vi'
                                     ? 'Giá Trị Danh Mục'
@@ -805,7 +720,7 @@ const LossRecoveryCalculator: React.FC = () => {
                         </div>
                         <div
                             className={
-                                'flex flex-col lg:flex-row justify-between'
+                                'flex flex-col lg:flex-row justify-between mt-4'
                             }
                         >
                             <SummaryCard
