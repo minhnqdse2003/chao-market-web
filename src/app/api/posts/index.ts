@@ -1,3 +1,4 @@
+'use server';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Post } from '@/db/schema';
 import { PostRequestParams } from '@/types/post/request/post-params';
