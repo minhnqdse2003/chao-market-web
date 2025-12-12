@@ -17,4 +17,5 @@ export const postQuerySchema = z.object({
         .optional(),
     mainTag: z.string().optional(),
     xUid: z.string().optional(),
+    xGuestId: z.string().optional(),
 });

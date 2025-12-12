@@ -5,7 +5,6 @@ import { Eye, ThumbsUpIcon } from 'lucide-react';
 import { useState, useTransition } from 'react';
 import { formatNumberOfViews } from '@/utils/number-parsing';
 import { useSession } from 'next-auth/react'; // Import useSession
-import { useRouter } from 'next/navigation';
 import { togglePostLike } from '@/services/posts/toggle-like-service';
 import { toast } from 'sonner'; // Import useRouter for client-side navigation
 
@@ -26,8 +25,7 @@ export default function PostInteractionManager({
     containerClass,
 }: PostInteractionManagerProps) {
     // --- Authentication and Navigation Hooks ---
-    const { data: session, status } = useSession();
-    const router = useRouter();
+    const { status } = useSession();
 
     // Global state for this specific post's interactions
     const [likeCount, setLikeCount] = useState(initialLike);
@@ -37,20 +35,7 @@ export default function PostInteractionManager({
 
     const [isPending, startTransition] = useTransition();
 
-    const checkAuth = () => {
-        if (status === 'loading') {
-            return false;
-        }
-        if (!session) {
-            router.push('/auth/login');
-            return false;
-        }
-        return true;
-    };
-
     const handleLike = () => {
-        if (!checkAuth() || isPending) return; // Check auth first
-
         startTransition(async () => {
             const result = await togglePostLike(postId);
 
@@ -70,9 +55,8 @@ export default function PostInteractionManager({
                         break;
                 }
             } else {
-                // Check if the server action failed due to auth (although checkAuth should catch this)
                 if (result.error?.includes('Authentication')) {
-                    // router.push('/auth/login');
+                    toast.message('Thank for interacting with us!');
                 } else {
                     toast.error(result.error);
                 }

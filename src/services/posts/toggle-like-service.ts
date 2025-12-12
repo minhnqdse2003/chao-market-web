@@ -3,116 +3,178 @@
 'use server';
 
 import { db } from '@/lib/db';
-import { userInteractions } from '@/db/schema'; // Your Drizzle schema
+import { userInteractions } from '@/db/schema';
 import { and, eq } from 'drizzle-orm';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/next-auth.config';
+import { cookies } from 'next/headers';
+import { createHash } from 'crypto';
 
 type InteractionType = 'LIKE' | 'DISLIKE';
 
-// --- CORE LOGIC HELPER FUNCTION ---
-// This centralizes the logic for checking and updating interactions
+// --- CORE LOGIC HELPER FUNCTION (UPDATED FOR GUESTS) ---
 async function handlePostInteraction(
-    userId: string,
+    identifier: string,
+    isGuest: boolean,
     postId: string,
     actionType: InteractionType
 ) {
     const oppositeType: InteractionType =
         actionType === 'LIKE' ? 'DISLIKE' : 'LIKE';
 
+    // Build query condition for this user/guest
+    const identifierCondition = isGuest
+        ? eq(userInteractions.guestIdentifier, identifier)
+        : eq(userInteractions.userId, identifier);
+
     // 1. Check for existing interaction
     const [existingInteraction] = await db
         .select()
         .from(userInteractions)
-        .where(
-            and(
-                eq(userInteractions.userId, userId),
-                eq(userInteractions.postId, postId)
-            )
-        )
+        .where(and(eq(userInteractions.postId, postId), identifierCondition))
         .limit(1);
 
     if (existingInteraction) {
         if (existingInteraction.type === actionType) {
-            // Case 1: User is clicking the SAME action again (e.g., Liking an already Liked post)
-            // This usually means UNDOING the action (Unliking/Undisliking).
+            // Case 1: UNDO (Unliking already liked post)
             await db
                 .delete(userInteractions)
                 .where(
                     and(
-                        eq(userInteractions.userId, userId),
-                        eq(userInteractions.postId, postId)
+                        eq(userInteractions.postId, postId),
+                        identifierCondition
                     )
                 );
-            return { status: `UN-${actionType}` as const }; // e.g., 'UN-LIKE'
+            return { status: `UN-${actionType}` as const };
         } else if (existingInteraction.type === oppositeType) {
-            // Case 2: User is switching actions (e.g., Changing Dislike to Like)
+            // Case 2: Switch (Dislike → Like)
             await db
                 .update(userInteractions)
                 .set({ type: actionType })
                 .where(
                     and(
-                        eq(userInteractions.userId, userId),
-                        eq(userInteractions.postId, postId)
+                        eq(userInteractions.postId, postId),
+                        identifierCondition
                     )
                 );
             return {
                 status: `CHANGED_FROM_${oppositeType}_TO_${actionType}` as const,
             };
         }
-
-        // If the existing interaction is 'VIEW' or another type, we proceed to case 3 (insert)
     }
 
-    // Case 3: No existing interaction, or the existing interaction is neutral/irrelevant.
+    // Case 3: New interaction (delete old if exists, insert new)
+    await db
+        .delete(userInteractions)
+        .where(and(eq(userInteractions.postId, postId), identifierCondition));
+
     await db.insert(userInteractions).values({
-        userId,
+        userId: isGuest ? null : identifier,
+        guestIdentifier: isGuest ? identifier : null,
         postId,
         type: actionType,
     });
+
     return { status: actionType };
 }
 
-// --- PUBLIC SERVER ACTION 1: LIKE ---
+// --- PUBLIC SERVER ACTION 1: LIKE (NO AUTH REQUIRED) ---
 export async function togglePostLike(postId: string) {
+    'use server';
     try {
         const session = await getServerSession(authOptions);
-        const userId = (session?.user as unknown as any)?.id as
-            | string
-            | undefined;
+        const cookieStore = await cookies();
 
-        if (userId === undefined)
-            throw new Error('Authentication required or server error.');
+        // Determine identifier
+        let identifier: string;
+        let isGuest = false;
 
-        const result = await handlePostInteraction(userId, postId, 'LIKE');
+        if ((session?.user as unknown as any)?.id) {
+            identifier = (session?.user as unknown as any).id as string;
+        } else {
+            // Guest: use cookie or generate from headers
+            let guestId = cookieStore.get('guestId')?.value;
+
+            if (!guestId) {
+                // Generate consistent guest ID (IP + UA hash)
+                const headersList = new Headers();
+                const ip = headersList.get('x-forwarded-for') || 'unknown';
+                const userAgent = headersList.get('user-agent') || 'unknown';
+                guestId = createHash('sha256')
+                    .update(ip + userAgent)
+                    .digest('hex')
+                    .slice(0, 32);
+
+                cookieStore.set('guestId', guestId, {
+                    httpOnly: true,
+                    maxAge: 60 * 60 * 24 * 365, // 1 year
+                    secure: process.env.NODE_ENV === 'production',
+                });
+            }
+            identifier = guestId;
+            isGuest = true;
+        }
+
+        const result = await handlePostInteraction(
+            identifier,
+            isGuest,
+            postId,
+            'LIKE'
+        );
         return { success: true, ...result };
     } catch (error) {
         console.error('Error toggling like:', error);
         return {
             success: false,
-            error: 'Authentication required or server error.',
+            error: 'Failed to toggle like.',
         };
     }
 }
 
-// --- PUBLIC SERVER ACTION 2: DISLIKE ---
+// --- PUBLIC SERVER ACTION 2: DISLIKE (NO AUTH REQUIRED) ---
 export async function togglePostDislike(postId: string) {
     try {
         const session = await getServerSession(authOptions);
-        const userId = (session?.user as unknown as any)?.id as
-            | string
-            | undefined;
+        const cookieStore = await cookies();
 
-        if (userId === undefined)
-            throw new Error('Authentication required or server error.');
+        // Same identifier logic
+        let identifier: string;
+        let isGuest = false;
 
-        const result = await handlePostInteraction(userId, postId, 'DISLIKE');
+        if ((session?.user as unknown as any)?.id) {
+            identifier = (session?.user as unknown as any).id as string;
+        } else {
+            let guestId = cookieStore.get('guestId')?.value;
+            if (!guestId) {
+                const headersList = new Headers();
+                const ip = headersList.get('x-forwarded-for') || 'unknown';
+                const userAgent = headersList.get('user-agent') || 'unknown';
+                guestId = createHash('sha256')
+                    .update(ip + userAgent)
+                    .digest('hex')
+                    .slice(0, 32);
+                cookieStore.set('guestId', guestId, {
+                    httpOnly: true,
+                    maxAge: 60 * 60 * 24 * 365,
+                    secure: process.env.NODE_ENV === 'production',
+                });
+            }
+            identifier = guestId;
+            isGuest = true;
+        }
+
+        const result = await handlePostInteraction(
+            identifier,
+            isGuest,
+            postId,
+            'DISLIKE'
+        );
         return { success: true, ...result };
     } catch (error) {
         console.error('Error toggling dislike:', error);
         return {
             success: false,
-            error: 'Authentication required or server error.',
+            error: 'Failed to toggle dislike.',
         };
     }
 }

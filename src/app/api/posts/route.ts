@@ -36,6 +36,7 @@ const getAllPosts = async (request: NextRequest) => {
             filterBy,
             mainTag,
             xUid,
+            xGuestId,
         } = parsed.data;
         const conditions = [];
 
@@ -92,6 +93,22 @@ const getAllPosts = async (request: NextRequest) => {
                         eq(userInteractions.userId, xUid)
                     )
                 );
+        } else if (xGuestId) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            query = db
+                .select({
+                    ...baseQuery,
+                    currentInteractionType: userInteractions.type,
+                })
+                .from(posts)
+                .leftJoin(
+                    userInteractions,
+                    and(
+                        eq(posts.id, userInteractions.postId),
+                        eq(userInteractions.guestIdentifier, xGuestId)
+                    )
+                );
         }
 
         // Add join and filter by tag if mainTag is provided
@@ -117,7 +134,7 @@ const getAllPosts = async (request: NextRequest) => {
                 case 'recommended':
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-expect-error
-                    query = query.orderBy(desc(posts.likes));
+                    query = query.orderBy(desc(posts.createdAt));
                     break;
                 case 'hottest':
                 case 'mostViewed':

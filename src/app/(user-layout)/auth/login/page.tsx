@@ -31,6 +31,7 @@ import { T } from '@/components/app-translate';
 import SocialLogin from '@/app/(user-layout)/auth/components/social-login';
 import { TranslatedFormMessage } from '@/components/app-translation-message-error';
 import { useI18n } from '@/context/i18n/context';
+import { TranslationKey } from '@/types/translations';
 
 // Validation schemas
 const loginSchema = z.object({
@@ -73,10 +74,13 @@ function EmailVerificationStep({
                 onVerificationComplete();
             } else {
                 const data = await response.json();
-                setError(data.error || 'OTP verification failed');
+                setError(
+                    data.error ||
+                        ('auth.otpVerificationFailed' as TranslationKey)
+                );
             }
         } catch {
-            setError('Failed to verify OTP');
+            setError('auth.failedToVerifyOtp' as TranslationKey);
         } finally {
             setLoading(false);
         }
@@ -114,7 +118,7 @@ function EmailVerificationStep({
 
             {error && (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                    {error}
+                    {t(error)}
                 </div>
             )}
 
@@ -124,7 +128,11 @@ function EmailVerificationStep({
                     disabled={loading}
                     className="flex-1 text-black min-h-[40px] bg-[var(--brand-color)] disabled:bg-transparent disabled:p-0 cursor-pointer rounded-3xl font-bold py-2 px-4 disabled:opacity-50 my-6"
                 >
-                    {loading ? <LoadingComponent /> : 'Continue'}
+                    {loading ? (
+                        <LoadingComponent />
+                    ) : (
+                        <T keyName={'common.continue'} />
+                    )}
                 </button>
             </div>
         </div>

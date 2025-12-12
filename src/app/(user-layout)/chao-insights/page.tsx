@@ -1,3 +1,5 @@
+'use server';
+
 import { capitalizeWords } from '@/utils/string-parsing';
 
 import React from 'react';
