@@ -1,3 +1,4 @@
+'use server';
 import NewsEventPage, {
     generateMetadata as generateNewsEventMetadata,
     PageProps,

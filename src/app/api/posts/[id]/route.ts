@@ -43,6 +43,22 @@ const getPostByIdOrSlug = async (
             )
             .where(isUuid ? eq(posts.id, id) : eq(posts.slug, id))
             .limit(1);
+    } else if (searchParams?.xGuestId) {
+        [post] = await db
+            .select({
+                ...getTableColumns(posts),
+                currentInteractionType: userInteractions.type,
+            })
+            .from(posts)
+            .leftJoin(
+                userInteractions,
+                and(
+                    eq(posts.id, userInteractions.postId),
+                    eq(userInteractions.guestIdentifier, searchParams.xGuestId)
+                )
+            )
+            .where(isUuid ? eq(posts.id, id) : eq(posts.slug, id))
+            .limit(1);
     } else if (isUuid) {
         // Fetch by ID
         [post] = await db.select().from(posts).where(eq(posts.id, id)).limit(1);

@@ -23,6 +23,8 @@ import { sendOtpCode } from '@/services/auth';
 import { OtpFormData, otpSchema } from '@/schema/auth-schema';
 import TabAuthMode from '@/app/(user-layout)/auth/components/tab-auth-mode';
 import Countdown from '@/components/app-countdown';
+import { useI18n } from '@/context/i18n/context';
+import { TranslationKey } from '@/types/translations';
 
 export interface OtpVerificationFormProps {
     email: string;
@@ -38,6 +40,7 @@ export default function OtpVerificationForm({
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const router = useRouter();
+    const { t } = useI18n();
 
     const form = useForm<OtpFormData>({
         resolver: zodResolver(otpSchema),
@@ -59,11 +62,14 @@ export default function OtpVerificationForm({
                 router.push(`/auth/sign-up/success?firstName=${firstName}`);
             } else {
                 const result = await response.json();
-                setError(result.error || 'OTP verification failed');
+                setError(
+                    result.error ||
+                        ('auth.otpVerificationFailed' as TranslationKey)
+                );
             }
         } catch (error: unknown) {
             console.log(error);
-            setError('Failed to verify OTP');
+            setError('auth.failedToVerifyOtp' as TranslationKey);
         } finally {
             setLoading(false);
         }
@@ -75,18 +81,16 @@ export default function OtpVerificationForm({
         try {
             const response = await sendOtpCode(email);
             if (response.ok) {
-                setSuccess('Verification code resent successfully!');
+                setSuccess('auth.otpResentSuccess' as TranslationKey);
             } else {
-                setError('Failed to resend verification code');
+                setError('auth.failedToResendOtp' as TranslationKey);
             }
         } catch {
-            setError('Failed to resend verification code');
+            setError('auth.failedToResendOtp' as TranslationKey);
         } finally {
             setLoading(false);
         }
     };
-
-    console.log(loading);
 
     return (
         <div className="w-full h-full flex flex-col pt-18 space-y-8 [&_*_h2]:text-3xl [&_*_h2]:font-extrabold [&_*_h2]:text-white">
@@ -94,7 +98,7 @@ export default function OtpVerificationForm({
                 <TabAuthMode />
                 <div className="w-full">
                     <p className="mt-2 text-2xl font-bold">
-                        Verify your email.
+                        {t('auth.verifyEmailTitle')}.
                     </p>
                 </div>
             </div>
@@ -102,13 +106,13 @@ export default function OtpVerificationForm({
             <div className="space-y-4 w-full pt-24">
                 {error && (
                     <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                        {error}
+                        {t(error)}
                     </div>
                 )}
 
                 {success && (
                     <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-                        {success}
+                        {t(success)}
                     </div>
                 )}
 
@@ -120,7 +124,11 @@ export default function OtpVerificationForm({
                         }
                     >
                         <p className="text-sm text-[var(--brand-grey-foreground)] font-light">
-                            We&apos;ve sent a verification code to{' '}
+                            <span
+                                dangerouslySetInnerHTML={{
+                                    __html: t('auth.weHaveSendOtpToYourEmail'),
+                                }}
+                            />{' '}
                             <span className="font-bold text-white">
                                 {email}.
                             </span>
@@ -153,7 +161,11 @@ export default function OtpVerificationForm({
                                 disabled={loading}
                                 className="flex-1 text-black bg-[var(--brand-color)] my-6 min-h-[2.5rem] cursor-pointer rounded-3xl font-bold py-2 px-4 disabled:bg-transparent disabled:p-0 disabled:opacity-50 hover:bg-[var(--brand-color-foreground)] transition-colors! duration-300 ease-in-out"
                             >
-                                {loading ? <LoadingComponent /> : 'Continue'}
+                                {loading ? (
+                                    <LoadingComponent />
+                                ) : (
+                                    t('common.continue')
+                                )}
                             </Button>
                         </div>
                     </form>
@@ -162,12 +174,12 @@ export default function OtpVerificationForm({
 
             <div className="text-center">
                 <p className="text-sm text-brand-text">
-                    I didn&apos;t receive a code.{' '}
+                    {t('auth.didNotReceiveCode')}{' '}
                     <Countdown
                         initialTime={60}
                         onResend={handleResendOtp}
                         disabled={loading}
-                        buttonLabel="Resend OTP"
+                        buttonLabel={t('auth.resendOtp')}
                         autoStart={true}
                     />
                 </p>

@@ -1,3 +1,4 @@
+'use server';
 // app/(user-layout)/chao-insights/[slug]/page.tsx
 import RichTextPreview from '@/components/rich-text-preview';
 import { notFound } from 'next/navigation';

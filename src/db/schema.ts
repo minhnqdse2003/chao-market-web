@@ -211,7 +211,8 @@ export const userInteractions = pgTable(
     'post_interactions',
     {
         id: uuid().defaultRandom().primaryKey().notNull(),
-        userId: uuid().notNull(),
+        userId: uuid(),
+        guestIdentifier: text('guest_identifier'),
         postId: uuid().notNull(),
         type: userInteractionsType().notNull(),
         createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
@@ -227,6 +228,16 @@ export const userInteractions = pgTable(
             foreignColumns: [users.id],
             name: 'user_interactions_userId_user_id_fk',
         }),
+        uniqueIndex('unique_user_post_type').on(
+            table.userId,
+            table.postId,
+            table.type
+        ),
+        uniqueIndex('unique_guest_post_type').on(
+            table.guestIdentifier,
+            table.postId,
+            table.type
+        ),
     ]
 );
 

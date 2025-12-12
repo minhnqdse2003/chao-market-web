@@ -22,6 +22,7 @@ export interface AuthTranslations {
     failedToSendOtp: string;
     alreadyHaveAccount: string;
     verifyEmailTitle: string;
+    weHaveSendOtpToYourEmail: string;
     otpResentSuccess: string;
     failedToResendOtp: string;
     didNotReceiveCode: string;

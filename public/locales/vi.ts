@@ -192,6 +192,7 @@ export const vi: TranslationsStructure = {
         failedToSendOtp: 'Gửi mã xác minh thất bại',
         alreadyHaveAccount: 'Đã có tài khoản?',
         verifyEmailTitle: 'Xác minh email của bạn',
+        weHaveSendOtpToYourEmail: `Chúng tôi đã gửi mã xác minh đến`,
         otpResentSuccess: 'Đã gửi lại mã xác minh thành công!',
         failedToResendOtp: 'Gửi lại mã xác minh thất bại',
         didNotReceiveCode: 'Tôi không nhận được mã',
@@ -842,6 +843,7 @@ export const vi: TranslationsStructure = {
     brandSlogan: {
         general: 'Chúng tôi ưu tiên hỗ trợ bạn <br/> quản lý rủi ro thị trường',
         clientPromise: `“Chúng tôi không tập trung vào việc tối đa hóa lợi nhuận của bạn. <br />Chúng tôi ưu tiên việc hỗ trợ bạn quản lý rủi ro thị trường.”`,
+        auth: `Chúng tôi ưu tiên giúp bạn<br />quản lý rủi ro thị trường.`,
     },
     lossRecovery: {
         title: 'Tính Điểm Hòa Vốn',

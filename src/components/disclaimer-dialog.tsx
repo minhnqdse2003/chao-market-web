@@ -215,9 +215,10 @@ export default function DisclaimerDialog({ trigger }: DisclaimerDialogProps) {
                 </DialogFooter>
 
                 {isFirstTime && countdown > 0 && (
-                    <p className="text-sm text-[var(--brand-grey-foreground)] border-t pt-4 text-center mt-2">
-                        {countdownText}
-                    </p>
+                    <p
+                        className="text-sm text-[var(--brand-grey-foreground)] [&>span]:dark:text-[var(--brand-color)] [&>span]:text-brand-text [&>span]:font-bold border-t pt-4 text-center mt-2"
+                        dangerouslySetInnerHTML={{ __html: countdownText }}
+                    />
                 )}
             </DialogContent>
         </Dialog>

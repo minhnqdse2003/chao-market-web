@@ -11,7 +11,6 @@ export default withAuth(
             req: request,
         });
         const { pathname } = request.nextUrl;
-
         const isAuthRoute = AUTH_ROUTES.includes(pathname);
         const isAuthenticated = !!token;
 

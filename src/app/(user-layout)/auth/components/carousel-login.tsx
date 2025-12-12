@@ -10,11 +10,13 @@ import Image from 'next/image';
 import { LoginTheme } from '@image/index';
 import React, { useEffect, useState } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
+import { useI18n } from '@/context/i18n/context';
 
 export default function CarouselLogin() {
     const plugin = React.useRef(Autoplay({ delay: 2000, playOnInit: true }));
     const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const { t } = useI18n();
 
     const scrollToIndex = (index: number) => {
         if (carouselApi) {
@@ -79,11 +81,12 @@ export default function CarouselLogin() {
                             }`}
                         />
                     ))}
-                    <h2 className="absolute text-3xl top-0 font-bold italic transform -translate-y-[calc(100%+50%)] text-center">
-                        We prioritise helping you
-                        <br />
-                        manage market risks.
-                    </h2>
+                    <h2
+                        className="absolute text-3xl top-0 font-bold italic transform -translate-y-[calc(100%+50%)] text-center"
+                        dangerouslySetInnerHTML={{
+                            __html: t('brandSlogan.auth'),
+                        }}
+                    />
                 </div>
             </div>
             <div className="text-carousel-overlay z-1 rounded-3xl overflow-hidden  pointer-events-none absolute top-0 left-0 w-full h-full flex items-center justify-center" />

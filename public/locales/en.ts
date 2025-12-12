@@ -34,7 +34,7 @@ export const en: TranslationsStructure = {
         backToHome: '← Back to Home',
         scrollToTop: 'Back To Top',
         autoCloseMessage:
-            'This will automatically close in {countdown} second{plural}.',
+            'This will automatically close in <span>{countdown} second{plural}<span/>.',
         search: 'Search',
         contacts: 'Contacts',
         dark: 'Dark',
@@ -192,6 +192,7 @@ export const en: TranslationsStructure = {
         failedToSendOtp: 'Failed to send verification code',
         alreadyHaveAccount: 'Already have an account?',
         verifyEmailTitle: 'Verify your email',
+        weHaveSendOtpToYourEmail: `We&apos;ve sent a verification code to`,
         otpResentSuccess: 'Verification code resent successfully!',
         failedToResendOtp: 'Failed to resend verification code',
         didNotReceiveCode: "I didn't receive a code",
@@ -842,6 +843,7 @@ export const en: TranslationsStructure = {
     brandSlogan: {
         general: 'We prioritise helping you <br /> manage market risks',
         clientPromise: `“We don’t focus on maximising your profit. <br />We prioritise helping you manage market risks.”`,
+        auth: `We prioritise helping you<br />manage market risks.`,
     },
     lossRecovery: {
         title: 'Break-even Point Calculator',
