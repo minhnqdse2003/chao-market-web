@@ -6,7 +6,6 @@ import { buildURLSearchParams } from '@/utils/api/query-params-build';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/next-auth.config';
 import { cookies } from 'next/headers';
-import { createHash } from 'crypto';
 
 export async function getPosts(requestParams: PostRequestParams) {
     'use server';
@@ -31,22 +30,7 @@ export async function getPosts(requestParams: PostRequestParams) {
         currentUserId = (session?.user as unknown as any)?.id as string;
     } else {
         // Guest: get or generate identifier
-        let guestId = cookieStore.get('guestId')?.value;
-        if (!guestId) {
-            const headersList = new Headers();
-            const ip = headersList.get('x-forwarded-for') || 'unknown';
-            const userAgent = headersList.get('user-agent') || 'unknown';
-            guestId = createHash('sha256')
-                .update(ip + userAgent)
-                .digest('hex')
-                .slice(0, 32);
-            cookieStore.set('guestId', guestId, {
-                httpOnly: true,
-                maxAge: 60 * 60 * 24 * 365,
-                secure: process.env.NODE_ENV === 'production',
-            });
-        }
-        guestIdentifier = guestId;
+        guestIdentifier = cookieStore.get('guestId')?.value;
     }
 
     // Add identifier params

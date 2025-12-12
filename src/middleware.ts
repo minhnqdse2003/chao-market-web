@@ -14,15 +14,31 @@ export default withAuth(
         const isAuthRoute = AUTH_ROUTES.includes(pathname);
         const isAuthenticated = !!token;
 
+        let response = NextResponse.next();
+
         if (pathname === '/') {
-            return NextResponse.redirect(
+            response = NextResponse.redirect(
                 new URL(isAuthenticated ? '/home' : '/home', request.url)
             );
+        } else if (isAuthenticated && isAuthRoute) {
+            response = NextResponse.redirect(new URL('/home', request.url));
         }
 
-        if (isAuthenticated && isAuthRoute) {
-            return NextResponse.redirect(new URL('/home', request.url));
+        const currentGuestId = request.cookies.get('guestId')?.value;
+
+        if (!isAuthenticated && !currentGuestId) {
+            const newGuestId = crypto.randomUUID();
+
+            response.cookies.set('guestId', newGuestId, {
+                httpOnly: true,
+                maxAge: 60 * 60 * 24 * 365,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'lax',
+                path: '/',
+            });
         }
+
+        return response;
     },
     {
         callbacks: {
