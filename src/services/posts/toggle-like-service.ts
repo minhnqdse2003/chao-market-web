@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 'use server';
 
 import { db } from '@/lib/db';
@@ -8,7 +7,6 @@ import { and, eq } from 'drizzle-orm';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/next-auth.config';
 import { cookies } from 'next/headers';
-import { createHash } from 'crypto';
 
 type InteractionType = 'LIKE' | 'DISLIKE';
 
@@ -80,7 +78,6 @@ async function handlePostInteraction(
 
 // --- PUBLIC SERVER ACTION 1: LIKE (NO AUTH REQUIRED) ---
 export async function togglePostLike(postId: string) {
-    'use server';
     try {
         const session = await getServerSession(authOptions);
         const cookieStore = await cookies();
@@ -93,25 +90,7 @@ export async function togglePostLike(postId: string) {
             identifier = (session?.user as unknown as any).id as string;
         } else {
             // Guest: use cookie or generate from headers
-            let guestId = cookieStore.get('guestId')?.value;
-
-            if (!guestId) {
-                // Generate consistent guest ID (IP + UA hash)
-                const headersList = new Headers();
-                const ip = headersList.get('x-forwarded-for') || 'unknown';
-                const userAgent = headersList.get('user-agent') || 'unknown';
-                guestId = createHash('sha256')
-                    .update(ip + userAgent)
-                    .digest('hex')
-                    .slice(0, 32);
-
-                cookieStore.set('guestId', guestId, {
-                    httpOnly: true,
-                    maxAge: 60 * 60 * 24 * 365, // 1 year
-                    secure: process.env.NODE_ENV === 'production',
-                });
-            }
-            identifier = guestId;
+            identifier = cookieStore.get('guestId')?.value as unknown as any;
             isGuest = true;
         }
 
@@ -144,22 +123,7 @@ export async function togglePostDislike(postId: string) {
         if ((session?.user as unknown as any)?.id) {
             identifier = (session?.user as unknown as any).id as string;
         } else {
-            let guestId = cookieStore.get('guestId')?.value;
-            if (!guestId) {
-                const headersList = new Headers();
-                const ip = headersList.get('x-forwarded-for') || 'unknown';
-                const userAgent = headersList.get('user-agent') || 'unknown';
-                guestId = createHash('sha256')
-                    .update(ip + userAgent)
-                    .digest('hex')
-                    .slice(0, 32);
-                cookieStore.set('guestId', guestId, {
-                    httpOnly: true,
-                    maxAge: 60 * 60 * 24 * 365,
-                    secure: process.env.NODE_ENV === 'production',
-                });
-            }
-            identifier = guestId;
+            identifier = cookieStore.get('guestId')?.value as unknown as any;
             isGuest = true;
         }
 
