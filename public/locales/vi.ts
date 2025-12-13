@@ -33,7 +33,8 @@ export const vi: TranslationsStructure = {
         lastUpdated: 'Cập nhật lần cuối: {date}',
         backToHome: '← Quay lại Trang Chủ',
         scrollToTop: 'Về Đầu Trang ',
-        autoCloseMessage: 'Thông báo này sẽ tự động đóng sau {countdown} giây.',
+        autoCloseMessage:
+            'Thông báo này sẽ tự động đóng sau <span>{countdown} giây</span>.',
         search: 'Tra cứu',
         contacts: 'Liên Hệ',
         dark: 'Tối',

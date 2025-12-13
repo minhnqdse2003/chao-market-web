@@ -78,7 +78,7 @@ export function DataTable<TData, TValue>({
                                 {row.getVisibleCells().map(cell => (
                                     <TableCell
                                         key={cell.id}
-                                        className="text-center"
+                                        className="text-start lg:text-center"
                                     >
                                         {flexRender(
                                             cell.column.columnDef.cell,
