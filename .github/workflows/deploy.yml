@@ -4,7 +4,8 @@ on:
     branches: [ 'production' ]
 
 env:
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME_WEB: minhnqdse2003/chao-market-web
+  IMAGE_NAME_ADMIN: minhnqdse2003/chao-market-admin
 
 jobs:
   build-and-deploy:
