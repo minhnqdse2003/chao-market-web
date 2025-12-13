@@ -58,7 +58,8 @@ jobs:
             export $(cat .env | xargs)
             # EXPORT DOCKERHUB USERNAME FOR COMPOSE
             export DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
-            export IMAGE_NAME=${{ github.repository }}
+            export IMAGE_NAME_WEB=${{env.IMAGE_NAME_WEB}}
+            export IMAGE_NAME_ADMIN=${{env.IMAGE_NAME_ADMIN}}
             export EMAIL_SERVER_PASSWORD="${{ secrets.EMAIL_SERVER_PASSWORD }}"
             
             # Pull and Restart
