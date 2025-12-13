@@ -1,109 +1,137 @@
 version: '3.8'
 services:
-    # --- NEXTJS APP ---
-    next-app:
-        image: ${IMAGE_NAME}:latest
-        restart: always
-        ports:
-            - '127.0.0.1:3000:3000'
-        environment:
-            - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@postgres_web:5432/${DB_NAME_WEB}
-            - NEXT_PUBLIC_API_URL=https://chaomarket.com
-            - NEXTAUTH_URL=${NEXTAUTH_URL}
-            - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
-            # --- GOOGLE CONFIG ---
-            - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
-            - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+  # --- NEXTJS APP ---
+  next-app:
+    image: ${IMAGE_NAME}:latest
+    restart: always
+    ports:
+      - '127.0.0.1:3000:3000'
+    environment:
+      - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@postgres_web:5432/${DB_NAME_WEB}
+      - NEXT_PUBLIC_API_URL=https://chaomarket.com
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      # --- GOOGLE CONFIG ---
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
 
-            # Facebook OAuth
-            - FACEBOOK_CLIENT_ID=${FACEBOOK_CLIENT_ID}
-            - FACEBOOK_CLIENT_SECRET=${FACEBOOK_CLIENT_SECRET}
+      # Facebook OAuth
+      - FACEBOOK_CLIENT_ID=${FACEBOOK_CLIENT_ID}
+      - FACEBOOK_CLIENT_SECRET=${FACEBOOK_CLIENT_SECRET}
 
-            # Email Configuration (for OTP)
-            - EMAIL_SERVER_HOST=${EMAIL_SERVER_HOST}
-            - EMAIL_SERVER_PORT=${EMAIL_SERVER_PORT}
-            - EMAIL_SERVER_USER=${EMAIL_SERVER_USER}
-            - EMAIL_SERVER_PASSWORD=${EMAIL_SERVER_PASSWORD}
-            - EMAIL_FROM=${EMAIL_FROM}
+      # Email Configuration (for OTP)
+      - EMAIL_SERVER_HOST=${EMAIL_SERVER_HOST}
+      - EMAIL_SERVER_PORT=${EMAIL_SERVER_PORT}
+      - EMAIL_SERVER_USER=${EMAIL_SERVER_USER}
+      - EMAIL_SERVER_PASSWORD=${EMAIL_SERVER_PASSWORD}
+      - EMAIL_FROM=${EMAIL_FROM}
 
-            # --- MINIO CONFIG ---
-            - NEXT_PUBLIC_MINIO_ENDPOINT=${NEXT_PUBLIC_MINIO_ENDPOINT}
-            - NEXT_PUBLIC_MINIO_PORT=${NEXT_PUBLIC_MINIO_PORT}
-            - NEXT_PUBLIC_MINIO_USE_SSL=true
-            - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
-            - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
-            - NEXT_PUBLIC_MINIO_BUCKET=${NEXT_PUBLIC_MINIO_BUCKET}
-        depends_on:
-            - postgres
-            - postgres_web
+      # --- MINIO CONFIG ---
+      - NEXT_PUBLIC_MINIO_ENDPOINT=${NEXT_PUBLIC_MINIO_ENDPOINT}
+      - NEXT_PUBLIC_MINIO_PORT=${NEXT_PUBLIC_MINIO_PORT}
+      - NEXT_PUBLIC_MINIO_USE_SSL=true
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+      - NEXT_PUBLIC_MINIO_BUCKET=${NEXT_PUBLIC_MINIO_BUCKET}
+    depends_on:
+      - postgres
+      - postgres_web
+  next-app-admin:
+    image: ${IMAGE_NAME}:latest
+    restart: always
+    ports:
+      - '127.0.0.1:3001:3001'
+    environment:
+      - ADMIN_DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
+      - WEB_DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@postgres_web:5432/${DB_NAME_WEB}
+      - NEXT_PUBLIC_API_URL=https://chaomarket.com
+      - NODE_ENV=production
+      # --- BUNNY STORAGE SETUP ---
+      - BUNNY_REGION=${BUNNY_REGION}
+      - BUNNY_STORAGE_ZONE_NAME=${BUNNY_STORAGE_ZONE_NAME}
+      - BUNNY_STORAGE_API_KEY=${BUNNY_STORAGE_API_KEY}
+      - NEXT_PUBLIC_BUNNY_STORAGE_CDN=${NEXT_PUBLIC_BUNNY_STORAGE_CDN}
+      # --- RESEND ---
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - RESEND_BRAND_SEND_EMAIL=${RESEND_BRAND_SEND_EMAIL}
+      # --- MINIO CONFIG ---
+      - NEXT_PUBLIC_MINIO_ENDPOINT=${NEXT_PUBLIC_MINIO_ENDPOINT}
+      - NEXT_PUBLIC_MINIO_PORT=${NEXT_PUBLIC_MINIO_PORT}
+      - NEXT_PUBLIC_MINIO_USE_SSL=true
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+      - NEXT_PUBLIC_MINIO_BUCKET=${NEXT_PUBLIC_MINIO_BUCKET}
+    depends_on:
+      - postgres
+      - postgres_web
 
-    # --- POSTGRES CORE ---
-    postgres:
-        image: postgres:16
-        restart: always
-        ports:
-            - '5433:5432'
-        environment:
-            POSTGRES_USER: ${DB_USER}
-            POSTGRES_PASSWORD: ${DB_PASSWORD}
-            POSTGRES_DB: ${DB_NAME}
-        volumes:
-            - postgres_data:/var/lib/postgresql/data
+  # --- POSTGRES CORE ---
+  postgres:
+    image: postgres:16
+    restart: always
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
-    # --- POSTGRES WEB ---
-    postgres_web:
-        image: postgres:16
-        restart: always
-        ports:
-            - '5432:5432'
-        environment:
-            POSTGRES_USER: ${DB_USER}
-            POSTGRES_PASSWORD: ${DB_PASSWORD}
-            POSTGRES_DB: ${DB_NAME_WEB}
-        volumes:
-            - postgres_data_web:/var/lib/postgresql/data
+  # --- POSTGRES WEB ---
+  postgres_web:
+    image: postgres:16
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME_WEB}
+    volumes:
+      - postgres_data_web:/var/lib/postgresql/data
 
-    # --- PGADMIN ---
-    pgadmin:
-        image: dpage/pgadmin4:8.12
-        restart: always
-        environment:
-            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
-            PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
-            PGADMIN_CONFIG_SERVER_MODE: 'True'
-        ports:
-            - '127.0.0.1:5050:80'
-        volumes:
-            - pgadmin_data:/var/lib/pgadmin
+  # --- PGADMIN ---
+  pgadmin:
+    image: dpage/pgadmin4:8.12
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_CONFIG_SERVER_MODE: 'True'
+    ports:
+      - '127.0.0.1:5050:80'
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
 
-    # --- MINIO ---
-    minio:
-        image: quay.io/minio/minio:latest
-        container_name: minio
-        restart: always
-        command: server /data --console-address ":9001"
-        environment:
-            MINIO_ROOT_USER: ${MINIO_ROOT_USER}
-            MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
-            MINIO_SERVER_URL: 'https://s3.chaomarket.com'
-            MINIO_BROWSER_REDIRECT_URL: 'https://console.chaomarket.com'
-        ports:
-            - '127.0.0.1:9000:9000'
-            - '127.0.0.1:9001:9001'
-        volumes:
-            - minio_data:/data
+  # --- MINIO ---
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: minio
+    restart: always
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      MINIO_SERVER_URL: 'https://s3.chaomarket.com'
+      MINIO_BROWSER_REDIRECT_URL: 'https://console.chaomarket.com'
+    ports:
+      - '127.0.0.1:9000:9000'
+      - '127.0.0.1:9001:9001'
+    volumes:
+      - minio_data:/data
 
-    # --- MINIO INIT SCRIPT ---
-    initialize-minio:
-        image: minio/mc:latest
-        depends_on:
-            - minio
-        volumes:
-            - ./init-minio/create-buckets.sh:/create-buckets.sh
-        entrypoint: ['/bin/sh', '/create-buckets.sh']
+  # --- MINIO INIT SCRIPT ---
+  initialize-minio:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    volumes:
+      - ./init-minio/create-buckets.sh:/create-buckets.sh
+    entrypoint: [ '/bin/sh', '/create-buckets.sh' ]
 
 volumes:
-    postgres_data:
-    postgres_data_web:
-    pgadmin_data:
-    minio_data:
+  postgres_data:
+  postgres_data_web:
+  pgadmin_data:
+  minio_data:
