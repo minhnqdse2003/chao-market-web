@@ -2,7 +2,7 @@ version: '3.8'
 services:
   # --- NEXTJS APP ---
   next-app:
-    image: ${IMAGE_NAME}:latest
+    image: ${IMAGE_NAME_WEB}:latest
     restart: always
     ports:
       - '127.0.0.1:3000:3000'
@@ -37,7 +37,7 @@ services:
       - postgres
       - postgres_web
   next-app-admin:
-    image: ${IMAGE_NAME}:latest
+    image: ${IMAGE_NAME_ADMIN}:latest
     restart: always
     ports:
       - '127.0.0.1:3001:3001'
