@@ -4,8 +4,8 @@ on:
     branches: [ 'production' ]
 
 env:
-  IMAGE_NAME_WEB: minhnqdse2003/chao-market-web
-  IMAGE_NAME_ADMIN: minhnqdse2003/chao-market-admin
+  IMAGE_NAME_WEB: 'minhnqdse2003/chao-market-web'
+  IMAGE_NAME_ADMIN: 'minhnqdse2003/chao-market-admin'
 
 jobs:
   build-and-deploy:
@@ -26,7 +26,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.IMAGE_NAME_WEB }}:latest
 
       - name: Copy Files to VPS
         uses: appleboy/scp-action@master

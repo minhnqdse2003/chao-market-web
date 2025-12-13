@@ -40,7 +40,7 @@ services:
     image: ${IMAGE_NAME_ADMIN}:latest
     restart: always
     ports:
-      - '127.0.0.1:3001:3001'
+      - '127.0.0.1:3001:3000'
     environment:
       - ADMIN_DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
       - WEB_DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@postgres_web:5432/${DB_NAME_WEB}
