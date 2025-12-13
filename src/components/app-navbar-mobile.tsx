@@ -76,32 +76,44 @@ export default function AppNavbarMobile() {
                 ${transitionClass}
             `}
         >
-            <div className={'h-full flex items-center gap-2'}>
-                <Image
-                    src={LogoBrand}
-                    alt="Logo Brand"
-                    width={100}
-                    height={100}
-                    className={cn('dark:bg-sidebar bg-sidebar h-[70%] w-auto')}
-                />
-                <Link href={'/home'} className={'flex flex-col'}>
-                    <p
-                        className={
-                            'dark:text-[var(--brand-color)] text-brand-text font-bold'
-                        }
-                    >
-                        Chào Market
-                    </p>
-                    <p className={'text-xs'}>{t('sidebar.brandGoal')}</p>
-                </Link>
+            <div className={'flex gap-2 items-center h-full'}>
+                <Button
+                    variant={'ghost'}
+                    onClick={toggleSidebar}
+                    className={'h-full w-8'}
+                >
+                    <TextAlignJustify className={'size-5'} />
+                </Button>
+                <div className={'h-full flex items-center gap-2'}>
+                    <Image
+                        src={LogoBrand}
+                        alt="Logo Brand"
+                        width={100}
+                        height={100}
+                        className={cn(
+                            'dark:bg-sidebar bg-sidebar h-[70%] w-auto'
+                        )}
+                    />
+                    <Link href={'/home'} className={'flex flex-col'}>
+                        <p
+                            className={
+                                'dark:text-[var(--brand-color)] text-brand-text font-bold'
+                            }
+                        >
+                            Chào Market
+                        </p>
+                        <p className={'text-xs'}>{t('sidebar.brandGoal')}</p>
+                    </Link>
+                </div>
             </div>
-            <Button
-                variant={'ghost'}
-                onClick={toggleSidebar}
-                className={'h-full w-8'}
+            <Link
+                className={
+                    'bg-[var(--brand-color)] font-bold text-sm p-4 rounded-sm text-black'
+                }
+                href={'/chao-solutions'}
             >
-                <TextAlignJustify className={'size-5'} />
-            </Button>
+                Our Solutions
+            </Link>
         </div>
     );
 }

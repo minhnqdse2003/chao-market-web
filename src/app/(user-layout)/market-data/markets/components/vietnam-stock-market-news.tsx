@@ -78,7 +78,7 @@ export default function CombinedNewsFeed({
         const target = e.target as HTMLImageElement;
         target.src = `/img/news-${theme}.png`;
         target.className =
-            'rounded-md object-contain max-w-[300px] max-h-[140px]';
+            'rounded-md object-contain w-full lg:min-w-[300px] lg:max-w-[300px] max-h-[140px]';
         setErroredImages(prev => new Set(prev).add(url));
     };
 
@@ -128,7 +128,7 @@ export default function CombinedNewsFeed({
                     {limitedArticles.map((article, index) => (
                         <li
                             key={index}
-                            className="border-b pb-2 last:border-0 last:pb-0 flex gap-4 flex-col md:flex-row"
+                            className="border-b pb-2 last:border-0 last:pb-0 flex gap-4 flex-col lg:flex-row"
                         >
                             {article.imageUrl && (
                                 <div className="flex-shrink-0">
@@ -148,7 +148,7 @@ export default function CombinedNewsFeed({
                                             alt={article.title}
                                             width={1920}
                                             height={1080}
-                                            className="rounded-md object-cover border border-transparent max-w-[300px] max-h-[140px]"
+                                            className="rounded-md object-cover border border-transparent w-full lg:min-w-[300px] lg:w-[300px] lg:max-w-[300px] max-h-[140px]"
                                             onError={e =>
                                                 handleImageError(
                                                     article.imageUrl || '',
@@ -165,7 +165,7 @@ export default function CombinedNewsFeed({
                                     height={160}
                                     src={processEmptyImageSource()}
                                     alt={'empty-image'}
-                                    className="rounded-md object-contain border border-transparent max-w-[300px] max-h-[140px]"
+                                    className="rounded-md object-contain border border-transparent w-full lg:w-[300px] lg:max-w-[300px] max-h-[140px]"
                                 />
                             )}
                             {article.content && !article.imageUrl && (
