@@ -5,7 +5,6 @@ import {
     uuid,
     text,
     timestamp,
-    json,
     foreignKey,
     boolean,
     uniqueIndex,
@@ -24,6 +23,7 @@ export const tagTypes = pgEnum('tag_types', [
     'news_type',
     'market_type',
     'community_type',
+    'product_type',
 ]);
 export const userRole = pgEnum('user_role', ['ADMIN', 'USER']);
 export const userStatus = pgEnum('user_status', [
@@ -98,6 +98,7 @@ export const consultationServices = pgTable('consultation_services', {
     instructorId: uuid().references(() => instructors.id, {
         onDelete: 'set null',
     }),
+    type: text().notNull().default('Holistic'),
     createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
 });
 
@@ -307,16 +308,16 @@ export const consultationsProducts = pgTable(
     {
         consultationId: uuid().notNull(),
         productId: uuid().notNull(),
-        purchasedName: jsonb().notNull(),
+        purchasedName: jsonb(),
         originalPrice: numeric('original_price', {
             precision: 19,
             scale: 4,
-        }).notNull(),
+        }),
         purchasedPrice: numeric('purchased_price', {
             precision: 19,
             scale: 4,
-        }).notNull(),
-        wasDiscounted: boolean().default(false).notNull(),
+        }),
+        wasDiscounted: boolean().default(false),
     },
     table => [
         foreignKey({

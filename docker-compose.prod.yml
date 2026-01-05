@@ -33,6 +33,8 @@ services:
       - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
       - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
       - NEXT_PUBLIC_MINIO_BUCKET=${NEXT_PUBLIC_MINIO_BUCKET}
+      - SEPAY_MERCHANT_ID=${SEPAY_MERCHANT_ID}
+      - SEPAY_SECRET_KEY=${SEPAY_SECRET_KEY}
     depends_on:
       - postgres
       - postgres_web

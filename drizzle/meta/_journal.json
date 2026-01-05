@@ -141,6 +141,20 @@
       "when": 1766417531957,
       "tag": "0019_faulty_hellcat",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1766441778786,
+      "tag": "0020_naive_rage",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1767582829563,
+      "tag": "0021_rich_shape",
+      "breakpoints": true
     }
   ]
 }
