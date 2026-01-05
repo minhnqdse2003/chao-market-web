@@ -5,7 +5,6 @@ import {
     uuid,
     text,
     timestamp,
-    json,
     foreignKey,
     boolean,
     uniqueIndex,
@@ -14,6 +13,7 @@ import {
     integer,
     primaryKey,
     pgEnum,
+    numeric,
 } from 'drizzle-orm/pg-core';
 
 export const postStatus = pgEnum('post_status', ['ACTIVE', 'DEACTIVE']);
@@ -23,6 +23,7 @@ export const tagTypes = pgEnum('tag_types', [
     'news_type',
     'market_type',
     'community_type',
+    'product_type',
 ]);
 export const userRole = pgEnum('user_role', ['ADMIN', 'USER']);
 export const userStatus = pgEnum('user_status', [
@@ -33,6 +34,13 @@ export const userStatus = pgEnum('user_status', [
 export const userInteractionsType = pgEnum('user_interactions_type', [
     'LIKE',
     'DISLIKE',
+]);
+
+export const transactionStatus = pgEnum('transaction_status', [
+    'PENDING',
+    'COMPLETED',
+    'FAILED',
+    'REFUNDED',
 ]);
 
 export const users = pgTable(
@@ -74,10 +82,39 @@ export const consultations = pgTable('consultation', {
 
 export const consultationServices = pgTable('consultation_services', {
     id: uuid().defaultRandom().primaryKey().notNull(),
-    name: json().notNull(),
-    description: json(),
+    name: jsonb().notNull(), // i18n support
+    marketType: text(), // e.g., 'CRYPTO', 'FOREX'
+    resource: text(),
+    shortDescription: jsonb(),
+    description: jsonb(),
+    instructionLink: text(),
+    downloadLabel: jsonb().default({ en: 'Link', vi: 'Link' }),
+    downloadLink: text(),
+    views: integer().default(0).notNull(),
+    price: numeric('price', { precision: 19, scale: 4 }).notNull().default('0'),
+    discountPrice: numeric('discount_price', { precision: 19, scale: 4 }),
+    isDiscountPriceVisible: boolean().default(false).notNull(),
     imageUrl: text(),
+    instructorId: uuid().references(() => instructors.id, {
+        onDelete: 'set null',
+    }),
+    type: text().notNull().default('Holistic'),
     createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
+});
+
+export const transactions = pgTable('transaction', {
+    id: uuid().defaultRandom().primaryKey().notNull(),
+    consultationId: uuid()
+        .notNull()
+        .references(() => consultations.id, { onDelete: 'cascade' }),
+    userId: uuid().references(() => users.id, { onDelete: 'set null' }),
+    amount: numeric('amount', { precision: 19, scale: 4 }).notNull(),
+    currency: text().default('VND').notNull(),
+    status: transactionStatus().default('PENDING').notNull(),
+    paymentGateway: text(),
+    gatewayTransactionId: text(),
+    createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
+    updatedAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
 });
 
 export const otpCodes = pgTable(
@@ -271,6 +308,16 @@ export const consultationsProducts = pgTable(
     {
         consultationId: uuid().notNull(),
         productId: uuid().notNull(),
+        purchasedName: jsonb(),
+        originalPrice: numeric('original_price', {
+            precision: 19,
+            scale: 4,
+        }),
+        purchasedPrice: numeric('purchased_price', {
+            precision: 19,
+            scale: 4,
+        }),
+        wasDiscounted: boolean().default(false),
     },
     table => [
         foreignKey({
@@ -357,6 +404,15 @@ export const accounts = pgTable(
     ]
 );
 
+export const instructors = pgTable('instructor', {
+    id: uuid().defaultRandom().primaryKey().notNull(),
+    name: text().notNull(),
+    bio: text(),
+    avatarUrl: text(),
+    expertise: text().array(),
+    createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
+});
+
 // Relation
 export const otpCodesRelations = relations(otpCodes, ({ one }) => ({
     users: one(users, {
@@ -441,6 +497,21 @@ export const tagRelations = relations(tags, ({ many }) => ({
 export const accountRelations = relations(accounts, ({ one }) => ({
     users: one(users, {
         fields: [accounts.userId],
+        references: [users.id],
+    }),
+}));
+
+export const instructorRelations = relations(instructors, ({ many }) => ({
+    services: many(consultationServices),
+}));
+
+export const transactionRelations = relations(transactions, ({ one }) => ({
+    consultation: one(consultations, {
+        fields: [transactions.consultationId],
+        references: [consultations.id],
+    }),
+    user: one(users, {
+        fields: [transactions.userId],
         references: [users.id],
     }),
 }));
