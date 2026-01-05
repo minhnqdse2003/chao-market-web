@@ -1,11 +1,14 @@
-import { sepayClient } from '@/lib/sepay-client';
+export const dynamic = 'force-dynamic';
+
+import { getSePayClient } from '@/lib/sepay-client';
 
 export default function PaymentPage() {
+    const sepayClient = getSePayClient();
     const checkoutURL = sepayClient.checkout.initCheckoutUrl();
 
     const checkoutFormfields = sepayClient.checkout.initOneTimePaymentFields({
         payment_method: 'BANK_TRANSFER',
-        order_invoice_number: 'DH123',
+        order_invoice_number: 'DH1234',
         order_amount: 10000,
         currency: 'VND',
         order_description: 'Thanh toan don hang DH123',

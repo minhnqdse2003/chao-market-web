@@ -27,6 +27,9 @@ jobs:
           context: .
           push: true
           tags: ${{ env.IMAGE_NAME_WEB }}:latest
+          build-args: |
+            SEPAY_MERCHANT_ID=${{ secrets.SEPAY_MERCHANT_ID }}
+            SEPAY_SECRET_KEY=${{ secrets.SEPAY_SECRET_KEY }}
 
       - name: Copy Files to VPS
         uses: appleboy/scp-action@master
