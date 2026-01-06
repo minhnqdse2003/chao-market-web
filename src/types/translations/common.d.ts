@@ -156,4 +156,8 @@ export interface CommonTranslations {
     avatarUploadLimit: string;
     welcomeToChaoMarket: string;
     yourAccountHasBeenCreated: string;
+    type: string;
+    price: string;
+    description: string;
+    instruction: string;
 }

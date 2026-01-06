@@ -83,7 +83,7 @@ export const consultations = pgTable('consultation', {
 export const consultationServices = pgTable('consultation_services', {
     id: uuid().defaultRandom().primaryKey().notNull(),
     name: jsonb().notNull(), // i18n support
-    marketType: text(), // e.g., 'CRYPTO', 'FOREX'
+    marketType: text(),
     resource: text(),
     shortDescription: jsonb(),
     description: jsonb(),

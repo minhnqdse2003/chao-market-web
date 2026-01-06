@@ -165,6 +165,10 @@ export const en: TranslationsStructure = {
         avatarUploadLimit: 'PNG, JPG up to',
         welcomeToChaoMarket: 'Welcome to Chào Market',
         yourAccountHasBeenCreated: 'Your account has been created',
+        type: 'Type',
+        price: 'Price',
+        description: 'Description',
+        instruction: 'Guide',
     },
     auth: {
         login: 'Log In',

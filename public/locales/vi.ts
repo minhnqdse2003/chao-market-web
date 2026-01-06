@@ -166,6 +166,10 @@ export const vi: TranslationsStructure = {
         avatarUploadLimit: 'PNG, JPG tối đa',
         welcomeToChaoMarket: 'Chào mừng đến với Chào Market',
         yourAccountHasBeenCreated: 'Tài khoản của bạn đã được tạo thành công',
+        type: 'Phân Loại',
+        price: 'Giá Tiền',
+        description: 'Mô Tả',
+        instruction: 'Hướng Dẫn Cài Đặt',
     },
     auth: {
         login: 'Đăng Nhập',

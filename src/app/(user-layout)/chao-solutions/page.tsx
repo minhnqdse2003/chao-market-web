@@ -1,13 +1,45 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 'use client';
 
-import BlockContents, { BlockContentsProps } from './components/block-contents';
-import { GeneralBanner } from '@/components/app-banner';
+import React, { use } from 'react';
+import { useRouter } from 'next/navigation';
 import { useI18n } from '@/context/i18n/context';
+import { AppTabs, TabItem } from '@/components/app-tabs';
+import { GeneralBanner } from '@/components/app-banner';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { BlockContentsProps } from '@/app/(user-layout)/chao-solutions/components/block-contents';
+import { useConsultationServicesModularApproach } from '@/hooks/react-query/consultation/use-consultation-services';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Eye, Tag, XIcon } from 'lucide-react';
+import { MdAddShoppingCart } from 'react-icons/md';
 
-const OurSolutionsPage = () => {
-    const { t } = useI18n();
+interface PageProps {
+    searchParams: Promise<{
+        tab?: string;
+    }>;
+}
 
-    // Define the content structure with translation keys
+/**
+ * 1. HOLISTIC APPROACH COMPONENT
+ * Contains the original 5 static content blocks mapped into an Accordion
+ */
+const HolisticContent = ({ t }: { t: (key: string) => any }) => {
     const contents: Partial<BlockContentsProps>[] = [
         {
             title: t('ourSolutions.financialFoundation.title'),
@@ -563,22 +595,280 @@ const OurSolutionsPage = () => {
     ];
 
     return (
-        <div className="flex flex-col [&>div:not(:last-child)]:pb-4  [&>div:not(:first-child)]:pt-18 [&>div:first-child]:mb-0! [&>div:not(:last-child)]:border-b [&>div:first-child]:border-b-0! [&>div:first-child]:pb-0! border-[var(--brand-grey)] [&>div:nth-child(2)]:pt-[47.5px] [&>div:nth-child(2)]:scroll-mt-39 [&>div:not(:first-child)]:scroll-mt-33 [&>_*_li::marker]:text-xs ">
-            <GeneralBanner />
-            {contents.map((item, idx) => (
-                <BlockContents
-                    key={idx}
-                    buttonComp={item.buttonComp!}
-                    title={item.title!}
-                    id={`${idx + 1}`}
-                    params={item.buttonComp?.id}
-                    slug={item.slug}
-                >
-                    {item.children}
-                </BlockContents>
-            ))}
+        <div>
+            <Accordion type="single" collapsible className="w-full space-y-6">
+                {contents.map((item, idx) => (
+                    <AccordionItem
+                        key={idx}
+                        value={item.slug}
+                        id={item.slug}
+                        className="border rounded-xl px-4 lg:px-8 bg-white dark:bg-transparent transition-all shadow-sm"
+                    >
+                        <AccordionTrigger className="hover:no-underline py-4">
+                            <span className="text-base lg:text-lg dark:text-[var(--brand-color)] text-brand-text font-bold text-left tracking-tight">
+                                {item.title}
+                            </span>
+                        </AccordionTrigger>
+                        <AccordionContent className="pb-4">
+                            <div className="dark:text-[var(--brand-grey-foreground)] text-brand-text text-sm lg:text-base tracking-normal lg:tracking-wide leading-6 lg:leading-8 [&_ul]:list-disc [&_ul]:list-inside">
+                                {item.children}
+                            </div>
+                            <div className="mt-10">
+                                <Link
+                                    href={`/book-a-consultation?selectedItemId=${item.buttonComp.id}`}
+                                >
+                                    <Button className="bg-[var(--brand-color)] hover:bg-[var(--brand-color)] transition-all duration-300 ease-in-out rounded-3xl px-8 py-3 w-fit text-brand-text dark:text-black font-semibold shadow-lg text-sm lg:text-base">
+                                        {t('ourSolutions.common.getStarted')}
+                                    </Button>
+                                </Link>
+                            </div>
+                        </AccordionContent>
+                    </AccordionItem>
+                ))}
+            </Accordion>
         </div>
     );
 };
 
-export default OurSolutionsPage;
+/**
+ * 2. MODULAR APPROACH COMPONENT
+ * Placeholder for Instructor-led services
+ */
+const ModularContent = () => {
+    const { data } = useConsultationServicesModularApproach();
+    const { locale, t } = useI18n();
+    const [activeId, setActiveId] = React.useState<string | null>(null);
+
+    // Get the actual selected object from the data list
+    const selectedItem = data?.data?.find((item: any) => item.id === activeId);
+
+    const formatPrice = (price: string) => {
+        if (!price) return '0';
+        return new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+        }).format(parseFloat(price));
+    };
+
+    const handleCardClick = (id: string) => {
+        setActiveId(activeId === id ? null : id);
+    };
+
+    return (
+        <div className="w-full flex flex-row max-h-[80svh] overflow-hidden p-2 lg:p-6">
+            <div
+                className={`flex flex-wrap items-start content-start gap-4 transition-all duration-500 overflow-y-auto pr-2
+                    ${activeId ? 'w-full lg:w-2/3' : 'w-full'}`}
+            >
+                {data?.data?.map((item: any) => (
+                    <Card
+                        key={item.id}
+                        onClick={() => handleCardClick(item.id)}
+                        className={`h-fit min-h-[520px] cursor-pointer transition-all! p-0 pb-4 duration-300 ease-in-out overflow-hidden border-2
+                            ${activeId === item.id ? 'border-[var(--brand-color)] shadow-md' : 'border-transparent dark:bg-[var(--brand-black-bg)] bg-white'}
+                            ${activeId ? 'w-full md:w-[calc(50%-1rem)]' : 'w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)]'}`}
+                    >
+                        {/* Card Image */}
+                        <div className="w-full aspect-video overflow-hidden">
+                            <img
+                                src={item.imageUrl}
+                                alt={item.name[locale]}
+                                className="object-cover w-full h-full hover:scale-105 transition-transform! duration-500"
+                            />
+                        </div>
+
+                        <CardHeader className="p-4 space-y-2">
+                            <div className="flex justify-between gap-2 [&>div]:flex [&>div]:gap-2 [&>div]:text-sm">
+                                <div>
+                                    {t('common.market')}:
+                                    <Badge
+                                        variant="secondary"
+                                        className="text-[10px] uppercase"
+                                    >
+                                        {item.marketType}
+                                    </Badge>
+                                </div>
+                                <div>
+                                    {t('common.type')}:
+                                    <Badge
+                                        variant="outline"
+                                        className="text-[10px] uppercase border-[var(--brand-color)] text-[var(--brand-color)]"
+                                    >
+                                        {item.type}
+                                    </Badge>
+                                </div>
+                            </div>
+                            <CardTitle className="line-clamp-1 text-sm lg:text-base font-bold">
+                                {item.name.en}
+                            </CardTitle>
+                        </CardHeader>
+
+                        <CardContent className="px-4 pb-2">
+                            <CardDescription className="line-clamp-2 text-xs">
+                                {item.shortDescription[locale]}
+                            </CardDescription>
+                        </CardContent>
+
+                        <CardFooter className="p-4 pt-0 flex justify-between items-center border-t mt-2">
+                            <div className="flex items-center dark:text-[var(--brand-color)] font-bold text-sm">
+                                <Tag className="w-3 h-3 mr-1" />
+                                {formatPrice(item.price)}
+                            </div>
+                            <div className="flex items-center text-muted-foreground text-[10px]">
+                                <Eye className="w-3 h-3 mr-1" />
+                                {item.views}
+                            </div>
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
+
+            {/* RIGHT SIDE: THE DETAILS PANEL */}
+            <div
+                data-state={activeId !== null ? 'active' : 'inactive'}
+                className="overflow-y-auto transition-all duration-500 ease-in-out
+                    [&[data-state=inactive]]:w-0 [&[data-state=inactive]]:opacity-0
+                    [&[data-state=active]]:w-full lg:[&[data-state=active]]:w-1/3 [&[data-state=active]]:opacity-100 [&[data-state=active]]:ml-4"
+            >
+                {selectedItem && (
+                    <Card className="w-full min-h-full border-black dark:border-[var(--brand-color)] p-0 pb-4 dark:bg-[var(--brand-black-bg)] bg-white sticky top-0">
+                        <CardHeader className="relative p-6">
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="absolute top-2 right-2 h-8 w-8"
+                                onClick={() => setActiveId(null)}
+                            >
+                                <XIcon className="size-4" />
+                            </Button>
+
+                            <Badge className="w-fit mb-2">
+                                {selectedItem.marketType}
+                            </Badge>
+                            <CardTitle className="text-xl lg:text-2xl text-[var(--brand-color)]">
+                                {(selectedItem.name as unknown as any)[locale]}
+                            </CardTitle>
+                            <CardDescription className="text-sm mt-2 italic">
+                                {(selectedItem.shortDescription as any)[locale]}
+                            </CardDescription>
+                        </CardHeader>
+
+                        <CardContent className="p-6 space-y-6">
+                            {/* Stats Info */}
+                            <div className="grid grid-cols-2 gap-4 py-4 border-y border-dashed">
+                                <div>
+                                    <p className="text-[10px] text-muted-foreground uppercase">
+                                        {t('common.price') || 'Price'}
+                                    </p>
+                                    <p className="font-bold text-lg text-[var(--brand-color)]">
+                                        {formatPrice(selectedItem.price)}
+                                    </p>
+                                </div>
+                                <div>
+                                    <p className="text-[10px] text-muted-foreground uppercase">
+                                        {t('common.type') || 'Type'}
+                                    </p>
+                                    <p className="font-medium text-sm">
+                                        {selectedItem.type}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* HTML Description Content */}
+                            <div className="prose prose-sm dark:prose-invert max-w-full">
+                                <h3 className="text-sm font-bold mb-2 uppercase tracking-wider">
+                                    {t('common.description') || 'Description'}
+                                </h3>
+                                <div
+                                    className="text-sm leading-relaxed"
+                                    dangerouslySetInnerHTML={{
+                                        __html: (
+                                            selectedItem.description as unknown as any
+                                        )[locale],
+                                    }}
+                                />
+                            </div>
+
+                            {/* Action Button */}
+                            <div className="h-fit flex flex-col gap-2">
+                                <div className={'pb-4 border-b border-dashed'}>
+                                    <Button className="w-full bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black font-bold rounded-xl transition-all! hover:bg-[var(--brand-color)]">
+                                        <MdAddShoppingCart /> Add to Cart
+                                    </Button>
+                                </div>
+                                {selectedItem.instructionLink && (
+                                    <Link
+                                        href={
+                                            selectedItem.instructionLink || '#'
+                                        }
+                                        target="_blank"
+                                        className="w-full"
+                                    >
+                                        <Button className="w-full bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black font-bold rounded-xl transition-all! hover:bg-[var(--brand-color)]">
+                                            {t('common.instruction')}
+                                        </Button>
+                                    </Link>
+                                )}
+                                {selectedItem.downloadLink && (
+                                    <Link
+                                        href={selectedItem.downloadLink || '#'}
+                                    >
+                                        <Button className="w-full transition-all! bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black hover:bg-[var(--brand-color)] font-bold rounded-xl">
+                                            {(
+                                                selectedItem?.downloadLabel as any
+                                            )[locale] || 'Get Started'}
+                                        </Button>
+                                    </Link>
+                                )}
+                            </div>
+                        </CardContent>
+                    </Card>
+                )}
+            </div>
+        </div>
+    );
+};
+/**
+ * MAIN PAGE EXPORT
+ */
+export default function OurSolutionsPage({ searchParams }: PageProps) {
+    // Next.js 15 Async Params handling
+    const resolvedParams = use(searchParams);
+    const tab = resolvedParams.tab || 'holistic';
+
+    const router = useRouter();
+    const { t } = useI18n();
+
+    // Map content to AppTabs structure
+    const tabsList: TabItem[] = [
+        {
+            title: 'Holistic Approach',
+            value: 'holistic',
+            renderContent: () => Promise.resolve(<HolisticContent t={t} />),
+        },
+        {
+            title: 'Modular Approach',
+            value: `modular`,
+            renderContent: () => Promise.resolve(<ModularContent />),
+        },
+    ];
+
+    return (
+        <div className="flex flex-col w-full">
+            {/* 1. Header Banner */}
+            <GeneralBanner />
+
+            {/* 2. Tabs Section */}
+            <AppTabs
+                tabsList={tabsList}
+                size={2}
+                defaultValue={tab}
+                onValueChange={(value: string) => {
+                    if (value) {
+                        router.push('/chao-solutions?tab=' + value);
+                    }
+                }}
+            />
+        </div>
+    );
+}

@@ -45,6 +45,7 @@ export default function CartItemsPage({ searchParams }: PageProps) {
     const { data: response, isLoading: isConsultationServicesLoading } =
         useConsultationServices();
     const selectedItems = useConsultationStore(state => state.selectedItems);
+    console.log(selectedItems);
     const dispatch = useConsultationStore(state => state.dispatch);
 
     const { open } = useSidebar();
@@ -85,7 +86,9 @@ export default function CartItemsPage({ searchParams }: PageProps) {
             await requestConsultationMutation.mutateAsync({
                 ...data,
                 dateOfBirth: formatDob,
-                consultationProductIds: selectedItems,
+                consultationProductIds: selectedItems.filter(
+                    item => item !== 'undefined'
+                ),
             } as PayloadConsultationRequest);
         } catch (error) {
             console.error('Error submitting form:', error);

@@ -10,3 +10,14 @@ export function useConsultationServices() {
         },
     });
 }
+
+export function useConsultationServicesModularApproach() {
+    return useAppQuery({
+        queryKey: [APP_QUERY_KEY.CONSULTATION_SERVICES_MODULAR],
+        queryFn: async () => {
+            return await consultationServicesApis.getAllConsultationServices(
+                'Modular'
+            );
+        },
+    });
+}

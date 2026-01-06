@@ -1,15 +1,27 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { ApiError } from 'next/dist/server/api-utils';
 import { BaseResponse } from '@/types/base-response';
 import { withAuth } from '@/lib/api-route-middleware';
 import { db } from '@/lib/db';
 import { ConsultationServices, consultationServices } from '@/db/schema';
+import { eq, not } from 'drizzle-orm';
 
-async function getAllConsultationServices() {
+async function getAllConsultationServices(request: NextRequest) {
     try {
+        const searchParams = Object.fromEntries(
+            request.nextUrl.searchParams.entries()
+        );
+
+        const { type } = searchParams;
+
+        const whereClause = type
+            ? not(eq(consultationServices.type, 'Holistic'))
+            : eq(consultationServices.type, 'Holistic');
+
         const services = await db
             .select()
             .from(consultationServices)
+            .where(whereClause)
             .orderBy(consultationServices.createdAt);
 
         return NextResponse.json(
