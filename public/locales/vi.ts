@@ -855,4 +855,16 @@ export const vi: TranslationsStructure = {
         description:
             'Công cụ ước tính thời gian và nỗ lực cần để gỡ lại khoản lỗ.',
     },
+    cart: {
+        title: 'Dịch vụ đã chọn',
+        empty: {
+            title: 'Giỏ hàng của bạn đang trống',
+            description: 'Dường như bạn chưa thêm dịch vụ nào vào giỏ hàng.',
+            button: 'Khám phá các giải pháp',
+        },
+        itemType: 'Dịch vụ một lần',
+        subtotal: 'Tạm tính',
+        checkout: 'Tiến hành thanh toán',
+        secureNotice: 'Thanh toán an toàn với dữ liệu được bảo mật mã hóa.',
+    },
 };

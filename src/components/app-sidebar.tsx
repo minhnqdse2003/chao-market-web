@@ -33,6 +33,7 @@ import NavInformation from './nav-information';
 import ConsultationButton from '@/components/nav-user-request-consultation-button';
 import DisclaimerDialog from '@/components/disclaimer-dialog';
 import { usePathname } from 'next/navigation';
+import CartCounter from '@/components/cart-counter';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const { status } = useSession();
@@ -238,28 +239,36 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarHeader>
                         <NavHead headers={data.headers} />
                         <SearchForm />
-                        <SidebarMenuButton
-                            tooltip={
-                                <p className={'font-semibold'}>
-                                    Book a Consultation
-                                </p>
-                            }
+                        <div
                             className={
-                                'dark:bg-transparent dark:text-[var(--brand-color)] dark:hover:text-black hover:text-black' +
-                                ' dark:hover:bg-[var(--brand-color)] hover:bg-[var(--brand-color)] transition-all! duration-300 ease-in-out border' +
-                                ' border-brand-text dark:border-[var(--brand-color)]' +
-                                ' hover:border-[var(--brand-color)]' +
-                                ' mb-4' +
-                                `${
-                                    pathName === '/book-a-consultation'
-                                        ? ' dark:bg-[var(--brand-color)] bg-[var(--brand-color)] border-[var(--brand-color)]' +
-                                          ' dark:text-black text-black'
-                                        : ''
-                                }`
+                                'flex gap-2 items-center justify-center flex-wrap'
                             }
                         >
-                            <ConsultationButton />
-                        </SidebarMenuButton>
+                            <SidebarMenuButton
+                                tooltip={
+                                    <p className={'font-semibold'}>
+                                        Book a Consultation
+                                    </p>
+                                }
+                                className={
+                                    'dark:bg-transparent dark:text-[var(--brand-color)] flex-3/4 mb-0!' +
+                                    ' dark:hover:text-black hover:text-black' +
+                                    ' dark:hover:bg-[var(--brand-color)] hover:bg-[var(--brand-color)] transition-all! duration-300 ease-in-out border' +
+                                    ' border-brand-text dark:border-[var(--brand-color)]' +
+                                    ' hover:border-[var(--brand-color)]' +
+                                    ' mb-4' +
+                                    `${
+                                        pathName === '/book-a-consultation'
+                                            ? ' dark:bg-[var(--brand-color)] bg-[var(--brand-color)] border-[var(--brand-color)]' +
+                                              ' dark:text-black text-black'
+                                            : ''
+                                    }`
+                                }
+                            >
+                                <ConsultationButton />
+                            </SidebarMenuButton>
+                            <CartCounter />
+                        </div>
                         <NavUser />
                     </SidebarHeader>
                     <NavSeparator />

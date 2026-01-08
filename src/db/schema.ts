@@ -413,6 +413,14 @@ export const instructors = pgTable('instructor', {
     createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
 });
 
+export const affiliateCodes = pgTable('affiliate_code', {
+    id: uuid().defaultRandom().primaryKey().notNull(),
+    code: text().notNull().unique(),
+    discountPercent: integer().notNull().default(0),
+    isActive: boolean().default(true).notNull(),
+    expiresAt: timestamp({ mode: 'string' }),
+});
+
 // Relation
 export const otpCodesRelations = relations(otpCodes, ({ one }) => ({
     users: one(users, {

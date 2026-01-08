@@ -14,6 +14,7 @@ import { DisclaimerTranslation } from '@/types/translations/disclaimer';
 import { PerformanceNoticeTranslations } from '@/types/translations/performance-notice-translations';
 import { HelpAndFeedback } from '@/types/translations/help-and-feedback';
 import { BrandSloganTranslations } from './brand-slogan-translations';
+import { CartTranslations } from '@/types/translations/cart-translation';
 
 export interface TranslationsStructure {
     common: CommonTranslations;
@@ -35,6 +36,7 @@ export interface TranslationsStructure {
     helpAndFeedback: HelpAndFeedback;
     brandSlogan: BrandSloganTranslations;
     lossRecovery: LossRecoveryTranslations;
+    cart: CartTranslations;
 }
 
 type Leaves<T, K extends string = ''> = T extends object

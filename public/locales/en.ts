@@ -854,4 +854,16 @@ export const en: TranslationsStructure = {
         description:
             'A tool to estimate the time and effort required to recover from a loss.',
     },
+    cart: {
+        title: 'Selected Services',
+        empty: {
+            title: 'Your cart is empty',
+            description: "Looks like you haven't added any services yet.",
+            button: 'Browse Services',
+        },
+        itemType: 'One-time Service',
+        subtotal: 'Subtotal',
+        checkout: 'Proceed to Checkout',
+        secureNotice: 'Secure Payment with encrypted data protection.',
+    },
 };

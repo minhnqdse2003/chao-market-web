@@ -3,6 +3,7 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { ClassValue } from 'clsx';
 
 export interface InputProps
     extends React.InputHTMLAttributes<HTMLInputElement> {}
@@ -57,14 +58,15 @@ FloatingLabel.displayName = 'FloatingLabel';
 
 type FloatingLabelInputProps = InputProps & {
     label?: string | React.ReactNode;
+    containerClassName?: ClassValue;
 };
 
 const FloatingLabelInput = React.forwardRef<
     React.ElementRef<typeof FloatingInput>,
     FloatingLabelInputProps
->(({ id, label, ...props }, ref) => {
+>(({ id, containerClassName, label, ...props }, ref) => {
     return (
-        <div className="relative">
+        <div className={cn('relative', containerClassName)}>
             <FloatingInput ref={ref} id={id} {...props} />
             <FloatingLabel htmlFor={id}>{label}</FloatingLabel>
         </div>

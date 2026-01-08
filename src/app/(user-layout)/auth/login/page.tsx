@@ -143,6 +143,7 @@ function EmailVerificationStep({
 export default function Login() {
     const router = useRouter();
     const searchParams = useSearchParams();
+    const callbackUrl = searchParams.get('callbackUrl');
     const { t } = useI18n();
 
     const [loading, setLoading] = useState(false);
@@ -195,6 +196,8 @@ export default function Login() {
 
                 if (!signInResult?.ok) {
                     setError('Invalid credentials');
+                } else if (callbackUrl) {
+                    router.push(callbackUrl);
                 } else {
                     router.push('/performance-statistics');
                 }

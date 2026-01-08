@@ -28,7 +28,7 @@ export default function UserLayout({
             <div className="flex flex-col w-full dark:bg-sidebar ">
                 <div className="flex flex-col w-full dark:bg-sidebar relative">
                     <AppNavbarMobile />
-                    <div className="min-h-svh px-6 lg:px-12 lg:py-6">
+                    <div className="min-h-svh px-6 pt-4 lg:px-12 lg:py-6">
                         {children}
                     </div>
 

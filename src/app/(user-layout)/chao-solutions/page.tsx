@@ -28,6 +28,9 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Eye, Tag, XIcon } from 'lucide-react';
 import { MdAddShoppingCart } from 'react-icons/md';
+import { signIn, useSession } from 'next-auth/react';
+import { useCartStore } from '@/stores/cart.store';
+import { CART_ACTIONS } from '@/stores/actions/cart.action';
 
 interface PageProps {
     searchParams: Promise<{
@@ -615,7 +618,7 @@ const HolisticContent = ({ t }: { t: (key: string) => any }) => {
                             </div>
                             <div className="mt-10">
                                 <Link
-                                    href={`/book-a-consultation?selectedItemId=${item.buttonComp.id}`}
+                                    href={`/book-a-consultation?selectedItemId=${item?.buttonComp?.id}`}
                                 >
                                     <Button className="bg-[var(--brand-color)] hover:bg-[var(--brand-color)] transition-all duration-300 ease-in-out rounded-3xl px-8 py-3 w-fit text-brand-text dark:text-black font-semibold shadow-lg text-sm lg:text-base">
                                         {t('ourSolutions.common.getStarted')}
@@ -637,6 +640,8 @@ const HolisticContent = ({ t }: { t: (key: string) => any }) => {
 const ModularContent = () => {
     const { data } = useConsultationServicesModularApproach();
     const { locale, t } = useI18n();
+    const { status } = useSession();
+    const dispatch = useCartStore(state => state.dispatch);
     const [activeId, setActiveId] = React.useState<string | null>(null);
 
     // Get the actual selected object from the data list
@@ -652,6 +657,19 @@ const ModularContent = () => {
 
     const handleCardClick = (id: string) => {
         setActiveId(activeId === id ? null : id);
+    };
+
+    const handleOnClickAddToCart = (id?: string) => {
+        if (id && status === 'authenticated') {
+            dispatch({
+                type: CART_ACTIONS.ADD_ITEM,
+                payload: id,
+            });
+            return;
+        }
+        return signIn(undefined, {
+            callbackUrl: `/chao-solutions?tab=modular`,
+        });
     };
 
     return (
@@ -792,7 +810,14 @@ const ModularContent = () => {
                             {/* Action Button */}
                             <div className="h-fit flex flex-col gap-2">
                                 <div className={'pb-4 border-b border-dashed'}>
-                                    <Button className="w-full bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black font-bold rounded-xl transition-all! hover:bg-[var(--brand-color)]">
+                                    <Button
+                                        className="w-full bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black font-bold rounded-xl transition-all! hover:bg-[var(--brand-color)]"
+                                        onClick={() =>
+                                            handleOnClickAddToCart(
+                                                selectedItem.id
+                                            )
+                                        }
+                                    >
                                         <MdAddShoppingCart /> Add to Cart
                                     </Button>
                                 </div>
