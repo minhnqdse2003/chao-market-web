@@ -33,13 +33,11 @@ const NewsComp = ({
                             {/* Image Block */}
                             <Link
                                 href={endPointBuild(baseHref, item.slug)}
-                                className={
-                                    'w-full max-h-[200px] lg:max-w-[300px] lg:max-h-[140px]'
-                                }
+                                className={'w-full h-full lg:max-w-[300px]'}
                             >
                                 {item.image ? (
                                     <img
-                                        className="object-cover w-full h-full rounded-lg"
+                                        className="object-cover w-full h-full rounded-lg aspect-16/9"
                                         src={item.image}
                                         alt="news-image"
                                     />
@@ -47,7 +45,7 @@ const NewsComp = ({
                                     <Image
                                         width={100}
                                         height={100}
-                                        className="object-contain w-full h-full max-h-[140px] rounded-lg"
+                                        className="object-contain w-full h-full rounded-lg aspect-16/9"
                                         src={BrandLogoFtHat}
                                         alt="news-image"
                                     />
@@ -63,7 +61,7 @@ const NewsComp = ({
                                                 baseHref,
                                                 item.slug
                                             )}
-                                            className="text-base lg:text-size-20 dark:text-[var(--brand-color)] text-brand-text font-semibold leading-relaxed"
+                                            className="text-base lg:text-size-20 dark:text-[var(--brand-color)] text-brand-text font-semibold leading-relaxed max-w-3/4"
                                         >
                                             {item.title}
                                         </Link>

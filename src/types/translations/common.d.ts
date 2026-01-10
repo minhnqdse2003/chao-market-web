@@ -119,8 +119,11 @@ export interface CommonTranslations {
     month: string;
     withdraw: string;
     gain: string;
+    gainTooltipTitle: string;
     gainTooltip: string;
     absoluteGain: string;
+    absoluteGainTitleTooltip: string;
+    absoluteGainTooltipContent: string;
     daily: string;
     drawdown: string;
     balance: string;

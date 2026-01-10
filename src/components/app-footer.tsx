@@ -8,7 +8,7 @@ import {
     TikTok,
     Youtube,
 } from '@image/index';
-import { Mail, Users } from 'lucide-react';
+import { Clock, Mail, Users } from 'lucide-react';
 import { useI18n } from '@/context/i18n/context'; // Assuming useI18n is available
 import { T } from './app-translate';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -142,6 +142,12 @@ export default function AppFooter() {
             i18nKey: 'common.contact',
             email: 'contact@chaomarket.com',
             href: 'mailto:contact@chaomarket.com',
+        },
+        {
+            icon: <Clock size={20} />,
+            i18nKey: 'common.workingHours',
+            email: t('common.phoneHours').replace('<br/>', ' '),
+            href: '#',
         },
         // {
         //     icon: <Phone size={20} />,

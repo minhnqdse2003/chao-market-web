@@ -579,18 +579,19 @@ export default function Page({ searchParams }: PageProps) {
                                                         <strong className="font-bold">
                                                             <T
                                                                 keyName={
-                                                                    'common.gain'
+                                                                    'common.gainTooltipTitle'
                                                                 }
                                                             />{' '}
                                                         </strong>
-                                                        <p className="font-thin">
-                                                            <T
-                                                                keyName={
-                                                                    'common.gainTooltip'
-                                                                }
-                                                            />
-                                                            .
-                                                        </p>
+                                                        <p
+                                                            className="font-thin [&>strong]:text-xs text-wrap"
+                                                            dangerouslySetInnerHTML={{
+                                                                __html:
+                                                                    t(
+                                                                        'common.gainTooltip'
+                                                                    ) + '.',
+                                                            }}
+                                                        />
                                                     </div>
                                                 }
                                                 trigger={
@@ -610,12 +611,43 @@ export default function Page({ searchParams }: PageProps) {
                                         </strong>
                                     </div>
 
-                                    <div className="flex justify-between">
-                                        <p className="text-brand-green">
+                                    <div className="flex justify-between items-center">
+                                        <p className="text-brand-green flex flex-row items-center">
                                             <T
                                                 keyName={'common.absoluteGain'}
                                             />
                                             :
+                                            <AppTooltips
+                                                contents={
+                                                    <div className="max-w-[32.5rem] leading-5 flex flex-col gap-2">
+                                                        <strong className="font-bold">
+                                                            <T
+                                                                keyName={
+                                                                    'common.absoluteGainTitleTooltip'
+                                                                }
+                                                            />{' '}
+                                                        </strong>
+                                                        <p
+                                                            className="font-thin [&>strong]:text-xs text-wrap"
+                                                            dangerouslySetInnerHTML={{
+                                                                __html: t(
+                                                                    'common.absoluteGainTooltipContent'
+                                                                ),
+                                                            }}
+                                                        />
+                                                    </div>
+                                                }
+                                                trigger={
+                                                    <Button
+                                                        variant="ghost"
+                                                        className={
+                                                            'dark:hover:bg-transparent dark:hover:text-[var(--brand-color)]'
+                                                        }
+                                                    >
+                                                        <Info className="size-3" />
+                                                    </Button>
+                                                }
+                                            />
                                         </p>
                                         <strong className="text-brand-green">
                                             +46.94%
@@ -701,13 +733,14 @@ export default function Page({ searchParams }: PageProps) {
                                                                 }
                                                             />{' '}
                                                         </strong>
-                                                        <p className="font-thin">
-                                                            <T
-                                                                keyName={
+                                                        <p
+                                                            className="font-thin [&>ul]:list-disc [&>ul]:list-inside [&>_*_strong]:text-xs text-wrap [&>strong]:text-xs"
+                                                            dangerouslySetInnerHTML={{
+                                                                __html: t(
                                                                     'common.financingCostTooltip'
-                                                                }
-                                                            />
-                                                        </p>
+                                                                ),
+                                                            }}
+                                                        />
                                                     </div>
                                                 }
                                                 trigger={

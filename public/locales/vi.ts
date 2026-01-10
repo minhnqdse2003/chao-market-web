@@ -123,16 +123,30 @@ export const vi: TranslationsStructure = {
         month: 'Tháng',
         withdraw: 'Tiền Rút',
         gain: 'Tăng Trưởng',
-        gainTooltip: `Hiệu suất TWR (Tỷ suất sinh lời có trọng số theo thời gian) so với số tiền đã đầu tư, tính từ thời điểm bắt đầu hệ thống, yêu cầu đo lường, Tiêu chuẩn Hiệu suất Đầu tư Toàn cầu CFA Viện, các dòng tiền vào/ra, số lượng, các giai đoạn, tác động đến lợi nhuận, hiệu quả, năng suất, tỷ lệ tăng trưởng lợi nhuận, phân tích, đánh giá, chỉ số tiêu chuẩn, tài chính chuẩn mực, danh mục đầu tư, tỷ suất lợi nhuận, tính toán, thẩm định, giám sát tiến độ, thành tựu thành công, kết quả đầu ra, tính hiệu quả, lợi ích năng suất, so sánh thua lỗ, nghiên cứu xem xét, định giá thẩm định`,
+        gainTooltipTitle: 'Tăng Trưởng (Tỷ Suất Sinh Lời Theo Thời Gian)',
+        gainTooltip: `Chỉ số đo lường hiệu suất tăng trưởng kép của tài khoản dựa trên tiêu chuẩn <strong>GIPS®</strong>.<br/>
+Phương pháp <strong>Tỷ Suất Sinh Lời Theo Thời Gian (Time-Weighted Return)</strong> loại bỏ hoàn toàn tác động làm méo
+lệch con số của các khoản nạp/rút tiền, giúp đánh giá chính xác kỹ năng giao dịch của Trader một cách công bằng.`,
         absoluteGain: 'Tăng Trưởng Tuyệt Đối',
+        absoluteGainTooltipContent:
+            'Chỉ số phản ánh tổng phần trăm lợi nhuận thực tế tính trên dòng vốn đầu tư, viết tắt của' +
+            ' <strong>Return On Investment (ROI).</strong><br/>' +
+            'Khác với <strong>Tỷ Suất Sinh Lời Theo Thời Gian (Time-Weighted Return)</strong>, chỉ số này cho biết mức sinh lời cụ thể' +
+            'trên số tiền bạn bỏ ra và chịu ảnh hưởng trực tiếp bởi quy mô và thời điểm của các khoản nạp thêm vốn.',
+        absoluteGainTitleTooltip:
+            'Tăng Trưởng Tuyệt Đối (Tỷ Suất Sinh Lời Trên Vốn Đầu Tư)',
         daily: 'Hàng Ngày',
         drawdown: 'Sụt Giảm',
         balance: 'Số Dư',
         equity: 'Vốn',
         highest: 'Cao Nhất',
         financingCost: 'Chi Phí Tài Trợ',
-        financingCostTooltip:
-            'Đây là chi phí liên quan đến việc giữ một vị thế (thường là qua đêm). Tùy thuộc vào loại tài sản, nó có thể là phí qua đêm (tiền tệ hoặc hàng hóa), phí funding (tiền mã hóa), hoặc phí tài trợ (cổ phiếu).',
+        financingCostTooltip: `Khoản chi phí (hoặc thu nhập) phát sinh khi duy trì một <strong>vị thế có sử dụng đòn bẩy</strong> qua thời điểm chốt sổ (thường
+là qua đêm). Nó phản ánh chi phí vay vốn và chênh lệch lãi suất giữa các tài sản.<br/><ul>
+            <li><strong>Ngoại hối (Forex):</strong>  Gọi là <strong>Phí Swap</strong>.</li>
+            <li><strong>Tiền mã hóa (Crypto):</strong>  Gọi là <strong>Funding Rate</strong> (thường tính mỗi 8 giờ).</li>
+            <li><strong>Cổ phiếu/Chỉ số:</strong>  Gọi là <strong>Lãi vay Margin</strong>.</li>
+        </ul>`,
         monthly: 'Hàng Tháng',
         letUsHelpYou: 'Hãy để chúng tôi giúp bạn',
         consulting: 'Tư Vấn',

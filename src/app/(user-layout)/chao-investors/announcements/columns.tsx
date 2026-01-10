@@ -73,6 +73,9 @@ export const columns: ColumnDef<HomeNewFlow>[] = [
                 tableTitle={<T keyName={'common.headline'} />}
             />
         ),
+        cell: ({ row }) => {
+            return <p className={'text-start'}>{row.original.headline}</p>;
+        },
     },
     {
         accessorKey: 'view',

@@ -3,6 +3,10 @@ import { AppFilterOptionsType } from '@/components/app-filter-select';
 
 export const MARKET_OPTIONS: AppFilterOptionsType[] = [
     {
+        name: 'common.marketType.all',
+        value: 'all',
+    },
+    {
         name: 'common.marketType.stocks',
         value: 'stocks',
     },

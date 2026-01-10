@@ -145,7 +145,7 @@ export function GuestPerformanceNoticeDialog() {
                     }
                     mainContent={descriptionMemberJsx}
                     footerContent={<></>}
-                    contentContainerClassName="w-fit min-w-[65svw]"
+                    contentContainerClassName="w-full min-w-[65svw]!"
                 />
             )}
         </>

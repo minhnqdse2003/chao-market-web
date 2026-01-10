@@ -104,7 +104,7 @@ const AppDropdown = ({
                         'lg:text-sm text-xs'
                     )}
                 >
-                    {labelVisible && `${t('common.sortBy.label')}`}
+                    {labelVisible && `${t('common.sortBy.label')}`}:
                     <p
                         className={cn(
                             'font-semibold',

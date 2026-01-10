@@ -112,7 +112,7 @@ const ClientAccountFilterDialog = ({
             />
             <AppFilterSelect
                 options={parsedToNewOptions(ALGO_TRADING_OPTIONS)}
-                label={t('common.algoTrading')}
+                label={t('common.algoTrading').replace('<br/>', ' ')}
                 type="radio"
                 onChange={value => handleFilterChange('algoTrading', value)}
                 valueOptions={filterParams.algoTrading}

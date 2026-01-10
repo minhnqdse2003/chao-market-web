@@ -123,16 +123,29 @@ export const en: TranslationsStructure = {
         month: 'Month',
         withdraw: 'Withdraw',
         gain: 'Gain',
-        gainTooltip: `TWR performance dollar invested system inception measurement required Global Investment Performance Standards CFA Institute cash inflows outflows amounts periods impact return efficiency yield profit growth rate analysis evaluation metric standard benchmark finance investment portfolio rate return calculation assessment monitoring progress achievement success result outcome effectiveness productivity gain loss comparison study review appraisal valuation`,
+        gainTooltipTitle: 'Gain (Time-Weighted Return)',
+        gainTooltip: `This metric measures the compound growth of the account based on <strong>GIPS® standards</strong>.<br/>
+The <strong>Time-Weighted Return (TWR)</strong> method mathematically eliminates the distorting effects of deposits and
+withdrawals, providing a fair and accurate assessment of the Trader's performance skill.`,
         absoluteGain: 'Absolute Gain',
+        absoluteGainTitleTooltip: 'Absolute Gain (Return On Investment)',
+        absoluteGainTooltipContent:
+            'This metric reflects the total percentage profit on invested capital, known as <strong>Return On' +
+            ' Investment (ROI)</strong>.<br/>' +
+            'Unlike <strong>Time-Weighted Return (TWR)</strong>, it indicates the specific return on your deposits and is directly influenced\n' +
+            'by the timing and size of additional capital injections.',
         daily: 'Daily',
         drawdown: 'Drawdown',
         balance: 'Balance',
         equity: 'Equity',
         highest: 'Highest',
         financingCost: 'Financing Cost',
-        financingCostTooltip:
-            'This is the cost associated with holding a position (usually overnight). Depending on the asset, it may be the swap fee (currencies or commodities), funding rate (cryptocurrencies), or financing charge (stocks).',
+        financingCostTooltip: `The cost incurred (or interest earned) for holding a <strong>leveraged position</strong> open past a specific interval (typically
+overnight or daily rollover). It reflects the cost of borrowing capital and the interest rate differential between assets.<br/><ul>
+            <li><strong>Forex/Commodities:</strong> Known as <strong>Swap Fee</strong>.</li>
+            <li><strong>Crypto (Perpetuals):</strong> Known as <strong>Funding Rate</strong> (often settled every 8 hours).</li>
+            <li><strong>Stocks/Indices:</strong> Known as <strong>Financing Charge</strong> (interest on margin).</li>
+        </ul>`,
         monthly: 'Monthly',
         letUsHelpYou: 'Let us help you',
         consulting: 'Consulting',

@@ -117,6 +117,35 @@ export default function CombinedNewsFeed({
         );
     }
 
+    const processSourceUrl = (sourceUrl: string): string => {
+        if (!sourceUrl) return 'Source';
+
+        const url = sourceUrl.toLowerCase();
+
+        if (url.includes('facebook.com')) {
+            return capitalizeWords(
+                ' https://www.facebook.com/ChaoMarket.Official'
+            );
+        }
+
+        if (url.includes('tiktok.com')) {
+            return capitalizeWords(' https://www.tiktok.com/@chaomarket.com');
+        }
+
+        if (url.includes('youtube.com') || url.includes('youtube')) {
+            return capitalizeWords('https://www.youtube.com/@ChaoMarket');
+        }
+
+        try {
+            const domain = new URL(sourceUrl).hostname
+                .replace('www.', '')
+                .split('.')[0];
+            return capitalizeWords(domain);
+        } catch {
+            return 'Source';
+        }
+    };
+
     return (
         <div className="p-4 rounded-lg bg-transparent">
             {limitedArticles.length === 0 ? (
@@ -183,7 +212,11 @@ export default function CombinedNewsFeed({
                                     rel="noopener noreferrer"
                                     className={`text-brand-text font-bold hover:underline`}
                                 >
-                                    {article.title}
+                                    {article.title
+                                        .split(' ')
+                                        .slice(0, 14)
+                                        .join(' ')}
+                                    ...
                                 </a>
                                 {article.pubDate && (
                                     <div
@@ -198,7 +231,7 @@ export default function CombinedNewsFeed({
                                         {article.sourceUrl && (
                                             <p className="text-xs mt-1">
                                                 Source:{' '}
-                                                {capitalizeWords(
+                                                {processSourceUrl(
                                                     article.sourceUrl
                                                 )}
                                             </p>
