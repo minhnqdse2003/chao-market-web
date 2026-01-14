@@ -11,7 +11,7 @@ import {
     consultationServices,
     affiliateCodes,
 } from '@/db/schema';
-import { inArray, eq, and } from 'drizzle-orm';
+import { inArray, eq, and, isNotNull } from 'drizzle-orm';
 import { authOptions } from '@/lib/next-auth.config';
 import { getSePayClient } from '@/lib/sepay-client';
 
@@ -32,7 +32,16 @@ export async function POST(request: NextRequest) {
             const [userData] = await tx
                 .select()
                 .from(users)
-                .where(eq(users.id, (session?.user as unknown as any).id));
+                .where(
+                    and(
+                        eq(users.id, (session?.user as unknown as any).id),
+                        isNotNull(users.emailVerified)
+                    )
+                );
+
+            if (!userData) {
+                throw new Error('User not found or email not verified');
+            }
 
             // 2. Fetch services to get REAL prices
             const selectedServices = await tx
@@ -105,10 +114,10 @@ export async function POST(request: NextRequest) {
                 .values({
                     consultationId: newConsultation.id,
                     userId: (session?.user as unknown as any)?.id,
-                    amount: finalTotal.toFixed(4), // SECURE: Calculated on server
+                    amount: finalTotal.toFixed(4),
                     currency: 'VND',
                     status: 'PENDING',
-                    paymentGateway: 'VNPAY',
+                    paymentGateway: 'SEPAY',
                 })
                 .returning();
 
@@ -120,9 +129,9 @@ export async function POST(request: NextRequest) {
                 order_amount: finalTotal,
                 currency: 'VND',
                 order_description: `Thanh toan dich vu ${newConsultation.id.slice(0, 8)}`,
-                success_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment/success`,
-                error_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment/error`,
-                cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/cart`,
+                success_url: `${process.env.NEXTAUTH_URL}/payment/success`,
+                error_url: `${process.env.NEXTAUTH_URL}/payment/error`,
+                cancel_url: `${process.env.NEXTAUTH_URL}/cart`,
             });
 
             return { checkoutURL, formFields };

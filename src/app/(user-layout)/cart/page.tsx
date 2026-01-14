@@ -75,7 +75,7 @@ export default function CartDetails() {
             });
 
             document.body.appendChild(form);
-            form.submit(); // triggers the redirect to SePay
+            form.submit();
         } catch (error: any) {
             toast.error(error.message);
             setIsCheckingOut(false);
