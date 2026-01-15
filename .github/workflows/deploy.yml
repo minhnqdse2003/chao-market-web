@@ -65,6 +65,8 @@ jobs:
             export IMAGE_NAME_WEB=${{env.IMAGE_NAME_WEB}}
             export IMAGE_NAME_ADMIN=${{env.IMAGE_NAME_ADMIN}}
             export EMAIL_SERVER_PASSWORD="${{ secrets.EMAIL_SERVER_PASSWORD }}"
+            export GOOGLE_SHEETS_CLIENT_EMAIL="${{secrets.GOOGLE_SHEETS_CLIENT_EMAIL}}"
+            export GOOGLE_SHEETS_PRIVATE_KEY="${{secrets.GOOGLE_SHEETS_PRIVATE_KEY}}"
             
             # Pull and Restart
             docker compose -f docker-compose.prod.yml pull next-app
