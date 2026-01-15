@@ -90,6 +90,7 @@ export const consultationServices = pgTable('consultation_services', {
     instructionLink: text(),
     downloadLabel: jsonb().default({ en: 'Link', vi: 'Link' }),
     downloadLink: text(),
+    driveLink: text(),
     views: integer().default(0).notNull(),
     price: numeric('price', { precision: 19, scale: 4 }).notNull().default('0'),
     discountPrice: numeric('discount_price', { precision: 19, scale: 4 }),
@@ -113,6 +114,8 @@ export const transactions = pgTable('transaction', {
     status: transactionStatus().default('PENDING').notNull(),
     paymentGateway: text(),
     gatewayTransactionId: text(),
+    accessGrantedAt: timestamp({ mode: 'string' }),
+    accessError: text(),
     createdAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
     updatedAt: timestamp({ mode: 'string' }).defaultNow().notNull(),
 });

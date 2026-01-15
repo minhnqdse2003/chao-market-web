@@ -9,6 +9,7 @@ const APP_CONSULTATION_QUERY_KEY = {
 
 const APP_USER_QUERY_KEY = {
     USER_PROFILE: 'user-profile',
+    USER_TRANSACTIONS: 'user-transactions',
 };
 
 export const APP_QUERY_KEY = {

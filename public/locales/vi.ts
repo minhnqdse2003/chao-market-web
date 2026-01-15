@@ -184,6 +184,7 @@ là qua đêm). Nó phản ánh chi phí vay vốn và chênh lệch lãi suất
         price: 'Giá Tiền',
         description: 'Mô Tả',
         instruction: 'Hướng Dẫn Cài Đặt',
+        paid: 'Đã thanh toán',
     },
     auth: {
         login: 'Đăng Nhập',
@@ -880,5 +881,15 @@ là qua đêm). Nó phản ánh chi phí vay vốn và chênh lệch lãi suất
         subtotal: 'Tạm tính',
         checkout: 'Tiến hành thanh toán',
         secureNotice: 'Thanh toán an toàn với dữ liệu được bảo mật mã hóa.',
+    },
+    resources: {
+        title: 'Dịch vụ đã mua',
+        purchasedOn: 'Đã mua vào ngày',
+        accessLink: 'Mở Google Drive',
+        empty: {
+            title: 'Không tìm thấy tài nguyên nào',
+            description: 'Bạn chưa mua bất kỳ giải pháp mô-đun nào.',
+            button: 'Xem các giải pháp',
+        },
     },
 };

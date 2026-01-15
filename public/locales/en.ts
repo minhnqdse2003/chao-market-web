@@ -182,6 +182,7 @@ overnight or daily rollover). It reflects the cost of borrowing capital and the 
         price: 'Price',
         description: 'Description',
         instruction: 'Guide',
+        paid: 'Paid',
     },
     auth: {
         login: 'Log In',
@@ -878,5 +879,15 @@ overnight or daily rollover). It reflects the cost of borrowing capital and the 
         subtotal: 'Subtotal',
         checkout: 'Proceed to Checkout',
         secureNotice: 'Secure Payment with encrypted data protection.',
+    },
+    resources: {
+        title: 'My Purchased',
+        purchasedOn: 'Purchased on',
+        accessLink: 'Open Google Drive',
+        empty: {
+            title: 'No Resources Found',
+            description: "You haven't purchased any modular solutions yet.",
+            button: 'Browse Solutions',
+        },
     },
 };

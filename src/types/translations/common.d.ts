@@ -163,4 +163,5 @@ export interface CommonTranslations {
     price: string;
     description: string;
     instruction: string;
+    paid: string;
 }

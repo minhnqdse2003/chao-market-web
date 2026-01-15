@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { transactions } from '@/db/schema';
 import { eq } from 'drizzle-orm';
+import { google } from 'googleapis';
 
 type NotificationType = 'ORDER_PAID' | 'TRANSACTION_VOID';
 
@@ -46,6 +47,40 @@ export interface Transaction {
     card_brand: any;
 }
 
+function extractDriveId(urlInput: string): string | null {
+    try {
+        const url = new URL(urlInput);
+        const pathParts = url.pathname.split('/');
+        const dIndex = pathParts.indexOf('d');
+        const folderIndex = pathParts.indexOf('folders');
+        if (dIndex !== -1 && pathParts[dIndex + 1])
+            return pathParts[dIndex + 1];
+        if (folderIndex !== -1 && pathParts[folderIndex + 1])
+            return pathParts[folderIndex + 1];
+        return url.searchParams.get('id');
+    } catch {
+        return null;
+    }
+}
+
+async function grantDriveAccess(email: string, driveLink: string) {
+    const driveId = extractDriveId(driveLink);
+    if (!driveId) return;
+
+    const auth = new google.auth.JWT({
+        email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
+        key: process.env.GOOGLE_SHEETS_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+        scopes: ['https://www.googleapis.com/auth/drive'],
+    });
+
+    const drive = google.drive({ version: 'v3', auth });
+
+    await drive.permissions.create({
+        fileId: driveId,
+        requestBody: { role: 'reader', type: 'user', emailAddress: email },
+    });
+}
+
 export async function POST(req: NextRequest) {
     try {
         const apiKey = req.headers.get('X-Secret-Key');
@@ -61,11 +96,20 @@ export async function POST(req: NextRequest) {
 
         await db.transaction(async tx => {
             // 1. Check if transaction exists
-            const [existing] = await tx
-                .select()
-                .from(transactions)
-                .where(eq(transactions.id, transactionId))
-                .limit(1);
+            const existing = await tx.query.transactions.findFirst({
+                where: eq(transactions.id, transactionId),
+                with: {
+                    consultation: {
+                        with: {
+                            consultationsProducts: {
+                                with: {
+                                    consultationService: true,
+                                },
+                            },
+                        },
+                    },
+                },
+            });
 
             if (!existing) {
                 return {
@@ -95,6 +139,39 @@ export async function POST(req: NextRequest) {
                         updatedAt: new Date().toISOString(),
                     })
                     .where(eq(transactions.id, transactionId));
+
+                const userEmail = existing.consultation?.email;
+                const products =
+                    existing.consultation?.consultationsProducts || [];
+
+                if (userEmail && products.length > 0) {
+                    let allSuccessful = true;
+                    let errorLog = '';
+
+                    for (const item of products) {
+                        const driveLink = item.consultationService?.driveLink;
+                        if (driveLink) {
+                            try {
+                                await grantDriveAccess(userEmail, driveLink);
+                            } catch (driveErr: any) {
+                                allSuccessful = false;
+                                errorLog += `[Product ${item.productId}]: ${driveErr.message}; `;
+                            }
+                        }
+                    }
+
+                    // Record the result of the access attempt
+                    await tx
+                        .update(transactions)
+                        .set({
+                            accessGrantedAt: allSuccessful
+                                ? new Date().toISOString()
+                                : null,
+                            accessError: allSuccessful ? null : errorLog,
+                            updatedAt: new Date().toISOString(),
+                        })
+                        .where(eq(transactions.id, transactionId));
+                }
 
                 return {
                     status: 200,
