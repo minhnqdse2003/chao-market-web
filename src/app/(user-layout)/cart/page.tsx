@@ -149,20 +149,20 @@ export default function CartDetails() {
                                     alt={
                                         (service.name as unknown as any)[locale]
                                     }
-                                    className="h-full w-full aspect-16/9 object-cover max-w-40 rounded-md"
+                                    className="h-full w-full aspect-16/9 object-cover max-w-16 lg:max-w-40 rounded-md"
                                 />
                             )}
                             <div className="flex-1 space-y-1">
-                                <p className="font-medium leading-none">
+                                <p className="font-medium lg:text-sm text-xs leading-none">
                                     {(service.name as unknown as any)[locale]}
                                 </p>
-                                <p className="text-sm text-muted-foreground">
+                                <p className="text-xs lg:text-sm text-muted-foreground">
                                     {t('cart.itemType')}
                                 </p>
                             </div>
 
                             <div className="flex items-center gap-4">
-                                <p className="font-bold dark:text-[var(--brand-color)] text-brand-text whitespace-nowrap">
+                                <p className="font-bold dark:text-[var(--brand-color)] text-xs lg:text-sm text-brand-text whitespace-nowrap">
                                     {formatVND(service.price || 0)}
                                 </p>
                                 <Button
@@ -194,16 +194,16 @@ export default function CartDetails() {
                         containerClassName={'w-full bg-sidebar'}
                     />
                     <div className="flex w-full justify-between items-end">
-                        <span className="text-muted-foreground font-medium">
+                        <span className="text-muted-foreground font-medium text-xs lg:text-sm">
                             {t('cart.subtotal')}
                         </span>
-                        <span className="text-xl dark:text-[var(--brand-color)] text-brand-text font-black tracking-tight">
+                        <span className="text-sm lg:text-base dark:text-[var(--brand-color)] text-brand-text font-black tracking-tight">
                             {formatVND(totalPrice)}
                         </span>
                     </div>
 
                     <Button
-                        className="w-full h-12 text-lg font-semibold text-black bg-[var(--brand-color)] hover:bg-[var(--brand-color)]/80 transition-all shadow-md"
+                        className="w-full h-12 text-sm lg:text-lg font-semibold text-black bg-[var(--brand-color)] hover:bg-[var(--brand-color)]/80 transition-all shadow-md"
                         onClick={onCheckout}
                         disabled={isCheckingOut}
                     >

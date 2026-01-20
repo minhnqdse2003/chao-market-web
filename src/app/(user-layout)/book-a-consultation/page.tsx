@@ -90,6 +90,14 @@ export default function CartItemsPage({ searchParams }: PageProps) {
                     item => item !== 'undefined'
                 ),
             } as PayloadConsultationRequest);
+
+            toast.success(t('common.bookAConsultationSuccessTitle'), {
+                description: t('common.bookAConsultationSuccessDesc'),
+            });
+
+            dispatch({
+                type: CONSULTATION_ACTIONS.CLEAR_ITEMS,
+            });
         } catch (error) {
             console.error('Error submitting form:', error);
         }

@@ -164,4 +164,9 @@ export interface CommonTranslations {
     description: string;
     instruction: string;
     paid: string;
+    fullSolution: string;
+    customSolution: string;
+    bookAConsultationSuccessTitle: string;
+    bookAConsultationSuccessDesc: string;
+    addToCart: string;
 }

@@ -185,6 +185,13 @@ là qua đêm). Nó phản ánh chi phí vay vốn và chênh lệch lãi suất
         description: 'Mô Tả',
         instruction: 'Hướng Dẫn Cài Đặt',
         paid: 'Đã thanh toán',
+        customSolution: 'Giải Pháp Tùy Chọn',
+        fullSolution: 'Giải Pháp Trọn Gói',
+        bookAConsultationSuccessTitle: 'Đăng Ký Thành Công!',
+        bookAConsultationSuccessDesc:
+            'Cảm ơn bạn đã quan tâm. Đội ngũ Chào Market sẽ liên hệ lại với bạn trong thời' +
+            ' gian sớm nhất.',
+        addToCart: 'Thêm vào Giỏ Hàng',
     },
     auth: {
         login: 'Đăng Nhập',

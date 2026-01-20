@@ -12,7 +12,5 @@ export function useConsultationRequest() {
     >({
         mutationFn: (payload: z.infer<typeof consultationRequestSchema>) =>
             consultationsRequestApis.ConsultationsRequest(payload),
-        onSuccessMessage: 'Consultation request submitted successfully',
-        onErrorMessage: 'Consultation request submission failed',
     });
 }

@@ -69,7 +69,7 @@ export function AppTabs({
                     'bg-transparent [&>button:last-child]:mr-0 border-[var(--brand-grey-foreground)]' +
                         ' border-b rounded-none p-0 mb-2 justify-between' +
                         ' overflow-x-auto overflow-y-hidden no-scrollbar' +
-                        ' lg:overflow-visible',
+                        ' lg:overflow-visible max-w-full',
                     `${shouldBorderVisible ? '' : 'border-transparent'}`
                 )}
             >

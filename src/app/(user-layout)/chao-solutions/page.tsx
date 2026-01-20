@@ -668,7 +668,7 @@ const ModularContent = () => {
             return;
         }
         return signIn(undefined, {
-            callbackUrl: `/chao-solutions?tab=modular`,
+            callbackUrl: `/chao-solutions?tab=modular_${locale}`,
         });
     };
 
@@ -682,16 +682,16 @@ const ModularContent = () => {
                     <Card
                         key={item.id}
                         onClick={() => handleCardClick(item.id)}
-                        className={`h-fit min-h-[520px] cursor-pointer transition-all! p-0 pb-4 duration-300 ease-in-out overflow-hidden border-2
+                        className={`h-fit min-h-[320px] cursor-pointer transition-all! p-0 pb-4 duration-300 ease-in-out overflow-hidden border-2
                             ${activeId === item.id ? 'border-[var(--brand-color)] shadow-md' : 'border-transparent dark:bg-[var(--brand-black-bg)] bg-white'}
                             ${activeId ? 'w-full md:w-[calc(50%-1rem)]' : 'w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)]'}`}
                     >
                         {/* Card Image */}
-                        <div className="w-full aspect-video overflow-hidden">
+                        <div className="w-full  overflow-hidden">
                             <img
                                 src={item.imageUrl}
                                 alt={item.name[locale]}
-                                className="object-cover w-full h-full hover:scale-105 transition-transform! duration-500"
+                                className="object-cover aspect-video w-full max-h-[200px] h-full hover:scale-105 transition-transform! duration-500"
                             />
                         </div>
 
@@ -717,7 +717,7 @@ const ModularContent = () => {
                                 </div>
                             </div>
                             <CardTitle className="line-clamp-1 text-sm lg:text-base font-bold">
-                                {item.name.en}
+                                {item.name[locale]}
                             </CardTitle>
                         </CardHeader>
 
@@ -809,42 +809,48 @@ const ModularContent = () => {
 
                             {/* Action Button */}
                             <div className="h-fit flex flex-col gap-2">
-                                <div className={'pb-4 border-b border-dashed'}>
-                                    <Button
-                                        className="w-full bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black font-bold rounded-xl transition-all! hover:bg-[var(--brand-color)]"
-                                        onClick={() =>
-                                            handleOnClickAddToCart(
-                                                selectedItem.id
-                                            )
-                                        }
-                                    >
-                                        <MdAddShoppingCart /> Add to Cart
-                                    </Button>
+                                <div
+                                    className={
+                                        'pb-4 border-b border-dashed flex flex-col gap-2'
+                                    }
+                                >
+                                    {selectedItem.instructionLink && (
+                                        <Link
+                                            href={
+                                                selectedItem.instructionLink ||
+                                                '#'
+                                            }
+                                            target="_blank"
+                                            className="w-full"
+                                        >
+                                            <Button className="w-full bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black font-bold rounded-xl transition-all! hover:bg-[var(--brand-color)]">
+                                                {t('common.instruction')}
+                                            </Button>
+                                        </Link>
+                                    )}
+                                    {selectedItem.downloadLink && (
+                                        <Link
+                                            href={
+                                                selectedItem.downloadLink || '#'
+                                            }
+                                        >
+                                            <Button className="w-full transition-all! bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black hover:bg-[var(--brand-color)] font-bold rounded-xl">
+                                                {(
+                                                    selectedItem?.downloadLabel as any
+                                                )[locale] || 'Get Started'}
+                                            </Button>
+                                        </Link>
+                                    )}
                                 </div>
-                                {selectedItem.instructionLink && (
-                                    <Link
-                                        href={
-                                            selectedItem.instructionLink || '#'
-                                        }
-                                        target="_blank"
-                                        className="w-full"
-                                    >
-                                        <Button className="w-full bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black font-bold rounded-xl transition-all! hover:bg-[var(--brand-color)]">
-                                            {t('common.instruction')}
-                                        </Button>
-                                    </Link>
-                                )}
-                                {selectedItem.downloadLink && (
-                                    <Link
-                                        href={selectedItem.downloadLink || '#'}
-                                    >
-                                        <Button className="w-full transition-all! bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black hover:bg-[var(--brand-color)] font-bold rounded-xl">
-                                            {(
-                                                selectedItem?.downloadLabel as any
-                                            )[locale] || 'Get Started'}
-                                        </Button>
-                                    </Link>
-                                )}
+                                <Button
+                                    className="w-full bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black font-bold rounded-xl transition-all! hover:bg-[var(--brand-color)]"
+                                    onClick={() =>
+                                        handleOnClickAddToCart(selectedItem.id)
+                                    }
+                                >
+                                    <MdAddShoppingCart />{' '}
+                                    {t('common.addToCart')}
+                                </Button>
                             </div>
                         </CardContent>
                     </Card>
@@ -862,18 +868,18 @@ export default function OurSolutionsPage({ searchParams }: PageProps) {
     const tab = resolvedParams.tab || 'holistic';
 
     const router = useRouter();
-    const { t } = useI18n();
+    const { t, locale } = useI18n();
 
     // Map content to AppTabs structure
     const tabsList: TabItem[] = [
         {
-            title: 'Holistic Approach',
-            value: 'holistic',
+            title: t('common.fullSolution'),
+            value: 'holistic_' + locale,
             renderContent: () => Promise.resolve(<HolisticContent t={t} />),
         },
         {
-            title: 'Modular Approach',
-            value: `modular`,
+            title: t('common.customSolution'),
+            value: `modular_` + locale,
             renderContent: () => Promise.resolve(<ModularContent />),
         },
     ];

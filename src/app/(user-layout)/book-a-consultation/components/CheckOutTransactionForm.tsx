@@ -167,6 +167,7 @@ export default function CheckOutTransactionForm({
     // Function to handle form submission
     const handleSubmit = async (data: CheckoutFormData) => {
         setIsSubmitting(true);
+
         try {
             await onSubmit(data);
             form.reset();
