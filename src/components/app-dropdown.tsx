@@ -32,6 +32,7 @@ interface AppDropdownProps {
     labelVisible?: boolean;
     shouldSelectedValueHighlight?: boolean;
     formatDisplayLabel?: (value: string) => string;
+    shouldDisplayGroupLabel?: boolean;
 }
 
 // Helper type for grouping
@@ -53,6 +54,7 @@ const AppDropdown = ({
     labelVisible = true,
     shouldSelectedValueHighlight = false,
     formatDisplayLabel,
+    shouldDisplayGroupLabel = false,
 }: AppDropdownProps) => {
     // Determine the initial value: controlled 'value' > 'defaultValue' > first option
     const initialValue = value ?? defaultValue ?? options[0]?.value ?? '';
@@ -77,6 +79,9 @@ const AppDropdown = ({
     const selectedLabel =
         options.find(option => option.value === selectedValue)?.label ??
         selectedValue;
+    const selectedOption = options.find(
+        option => option.value === selectedValue
+    );
 
     // 2. Updated Grouping Logic
     const groupedOptions = options.reduce<GroupedOptions[]>((acc, option) => {
@@ -111,6 +116,8 @@ const AppDropdown = ({
                             `${shouldSelectedValueHighlight && 'dark:text-[var(--brand-color)]'}`
                         )}
                     >
+                        {shouldDisplayGroupLabel &&
+                            `${selectedOption?.group} - `}
                         {formatDisplayLabel
                             ? formatDisplayLabel(selectedLabel)
                             : selectedLabel}

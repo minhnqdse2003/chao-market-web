@@ -14,6 +14,7 @@ import { useHistoryStore } from '@/stores/history-tracker.store';
 import { usePerformanceStatisticStore } from '@/stores/performance-statistic.store';
 import { PERFORMANCE_STATISTIC_DIALOG_ACTIONS } from '@/stores/actions/performance-statistic.action';
 import AppDialog from '@/components/app-dialog';
+import { Button } from '@/components/ui/button';
 
 export function GuestPerformanceNoticeDialog() {
     const { status } = useSession();
@@ -30,7 +31,8 @@ export function GuestPerformanceNoticeDialog() {
         'performanceNotice.member'
     ) as unknown as MemberNoticeTranslations;
 
-    const linkStyle = 'text-[var(--brand-color)] hover:underline font-semibold';
+    const linkStyle =
+        'dark:text-black text-white dark:bg-[var(--brand-color)] hover:underline font-semibold';
 
     const descriptionGuestJsx = (
         <div className={'w-full'}>
@@ -38,16 +40,24 @@ export function GuestPerformanceNoticeDialog() {
                 className="mb-4 dark:[&>a]:text-[var(--brand-color)] text-sm lg:text-base leading-7 [&>a]:font-bold [&>a]:hover:underline [&>a]:text-brand-text"
                 dangerouslySetInnerHTML={{ __html: notice.desc1 }}
             />
-            <p className={'text-sm lg:text-base'}>
-                {notice.desc2}
-                <Link href="/auth/sign-up" className={linkStyle}>
-                    {notice.linkSignUp}
+            <p
+                className={
+                    'text-sm lg:text-base flex w-full justify-center gap-4'
+                }
+            >
+                <Link href="/auth/login">
+                    <Button className={linkStyle}>{notice.linkLogIn}</Button>
                 </Link>
-                {notice.desc3}
-                <Link href="/auth/login" className={linkStyle}>
-                    {notice.linkLogIn}
+                <Link href="/auth/sign-up">
+                    <Button
+                        className={
+                            'bg-transparent shadow-none text-brand-text hover:bg-transparent' +
+                            ' dark:hover:text-[var(--brand-color)] hover:underline'
+                        }
+                    >
+                        {notice.linkSignUp}
+                    </Button>
                 </Link>
-                {notice.desc4}
             </p>
         </div>
     );

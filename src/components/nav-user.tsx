@@ -61,7 +61,7 @@ export function NavUser() {
                             }`
                         )}
                     >
-                        <Link href="/auth/login">{t('auth.login')}</Link>
+                        <a href="/auth/login">{t('auth.login')}</a>
                     </Button>
                     <Separator orientation="vertical" className="flex-0.5" />
                     <Button
@@ -79,7 +79,7 @@ export function NavUser() {
                             }`
                         )}
                     >
-                        <Link href="/auth/sign-up">{t('auth.signup')}</Link>
+                        <a href="/auth/sign-up">{t('auth.signup')}</a>
                     </Button>
                 </SidebarMenuItem>
             </SidebarMenu>

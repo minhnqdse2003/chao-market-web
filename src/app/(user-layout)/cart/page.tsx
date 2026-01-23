@@ -23,12 +23,14 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FloatingLabelInput } from '@/components/ui/floating-input';
 import { toast } from 'sonner';
+import { signIn, useSession } from 'next-auth/react';
 
 export default function CartDetails() {
     const { data, isLoading } = useSelectedConsultationServices();
     const { locale, t } = useI18n();
     const router = useRouter();
     const { dispatch, itemIds } = useCartStore();
+    const { status } = useSession();
 
     const [affiliateCode, setAffiliateCode] = useState('');
     const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -81,6 +83,12 @@ export default function CartDetails() {
             setIsCheckingOut(false);
         }
     };
+
+    if (status === 'unauthenticated') {
+        return signIn(undefined, {
+            callbackUrl: `/cart`,
+        });
+    }
 
     // 1. Loading State
     if (isLoading) {

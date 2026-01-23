@@ -1,10 +1,27 @@
 import { BaseResponse } from '@/types/base-response';
 import { ConsultationServices } from '@/db/schema';
+import { GetConsultationFilterRequestParams } from '@/types/custom-solution/request';
 
 const API_BASE = '/api/consultation-services';
 
-const getAllConsultationServices = async (type?: 'Holistic' | 'Modular') => {
-    const requestEndpoint = type ? `${API_BASE}?type=${type}` : API_BASE;
+const getAllConsultationServices = async (
+    type?: 'Holistic' | 'Modular',
+    filterParams?: GetConsultationFilterRequestParams
+) => {
+    const finalRequestParams = {
+        ...filterParams,
+        mainType: type ?? undefined,
+    };
+
+    const searchParams = new URLSearchParams();
+
+    Object.entries(finalRequestParams).forEach(([key, value]) => {
+        if (value) {
+            searchParams.append(key, value.toString());
+        }
+    });
+
+    const requestEndpoint = `${API_BASE}?${searchParams.toString()}`;
     const response = await fetch(requestEndpoint);
 
     const JsonParsedObject = await response.json();

@@ -2,7 +2,7 @@
 
 'use client';
 
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useI18n } from '@/context/i18n/context';
 import { AppTabs, TabItem } from '@/components/app-tabs';
@@ -26,11 +26,23 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Eye, Tag, XIcon } from 'lucide-react';
+import { Eye, Tag } from 'lucide-react';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { signIn, useSession } from 'next-auth/react';
 import { useCartStore } from '@/stores/cart.store';
 import { CART_ACTIONS } from '@/stores/actions/cart.action';
+import {
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    DialogDescription,
+} from '@/components/ui/dialog';
+import { capitalizeWords } from '@/utils/string-parsing';
+import ConsultationFilterDialog from '@/app/(user-layout)/chao-solutions/components/custom-solution-dialog';
+import { GetConsultationFilterRequestParams } from '@/types/custom-solution/request';
+import AppDropdown, { DropdownOption } from '@/components/app-dropdown';
+import LoadingComponent from '@/components/loading-spiner';
+import { cn } from '@/lib/utils';
 
 interface PageProps {
     searchParams: Promise<{
@@ -42,6 +54,8 @@ interface PageProps {
  * 1. HOLISTIC APPROACH COMPONENT
  * Contains the original 5 static content blocks mapped into an Accordion
  */
+
+const accordionTriggerStyle = `hover:cursor-pointer py-4 justify-start items-center`;
 const HolisticContent = ({ t }: { t: (key: string) => any }) => {
     const contents: Partial<BlockContentsProps>[] = [
         {
@@ -605,10 +619,10 @@ const HolisticContent = ({ t }: { t: (key: string) => any }) => {
                         key={idx}
                         value={item.slug}
                         id={item.slug}
-                        className="border rounded-xl px-4 lg:px-8 bg-white dark:bg-transparent transition-all shadow-sm"
+                        className="rounded-none px-4 lg:px-8 transition-all"
                     >
-                        <AccordionTrigger className="hover:no-underline py-4">
-                            <span className="text-base lg:text-lg dark:text-[var(--brand-color)] text-brand-text font-bold text-left tracking-tight">
+                        <AccordionTrigger className={accordionTriggerStyle}>
+                            <span className="text-base lg:text-lg text-brand-text font-bold text-left tracking-tight">
                                 {item.title}
                             </span>
                         </AccordionTrigger>
@@ -638,14 +652,73 @@ const HolisticContent = ({ t }: { t: (key: string) => any }) => {
  * Placeholder for Instructor-led services
  */
 const ModularContent = () => {
-    const { data } = useConsultationServicesModularApproach();
+    const initialFilterParams: GetConsultationFilterRequestParams = {
+        type: 'all',
+        dateSort: 'desc',
+        market: 'All',
+    };
+    const [consultationFilterParams, setConsultationFilterParams] =
+        useState<GetConsultationFilterRequestParams>(initialFilterParams);
+    const { data, isLoading } = useConsultationServicesModularApproach(
+        consultationFilterParams
+    );
     const { locale, t } = useI18n();
     const { status } = useSession();
+    const router = useRouter();
     const dispatch = useCartStore(state => state.dispatch);
     const [activeId, setActiveId] = React.useState<string | null>(null);
 
-    // Get the actual selected object from the data list
     const selectedItem = data?.data?.find((item: any) => item.id === activeId);
+
+    const ALL_SORT_OPTIONS: DropdownOption[] = [
+        // Date Group
+        {
+            value: 'date_desc',
+            label: t('common.hightToLow'),
+            group: t('common.date'),
+        },
+        {
+            value: 'date_asc',
+            label: t('common.lowToHight'),
+            group: t('common.date'),
+        },
+
+        // Price Group
+        {
+            value: 'price_desc',
+            label: t('common.hightToLow'),
+            group: t('common.price'),
+        },
+        {
+            value: 'price_asc',
+            label: t('common.lowToHight'),
+            group: t('common.price'),
+        },
+
+        // Views Group
+        {
+            value: 'views_desc',
+            label: t('common.hightToLow'),
+            group: t('common.views'),
+        },
+        {
+            value: 'views_asc',
+            label: t('common.lowToHight'),
+            group: t('common.views'),
+        },
+    ];
+
+    const handleUpdateSort = (combinedValue: string) => {
+        const [field, direction] = combinedValue.split('_');
+
+        setConsultationFilterParams(prev => ({
+            ...prev,
+            // Reset all sort fields and set the active one
+            dateSort: field === 'date' ? direction : undefined,
+            priceSort: field === 'price' ? direction : undefined,
+            viewSort: field === 'views' ? direction : undefined,
+        }));
+    };
 
     const formatPrice = (price: string) => {
         if (!price) return '0';
@@ -656,7 +729,7 @@ const ModularContent = () => {
     };
 
     const handleCardClick = (id: string) => {
-        setActiveId(activeId === id ? null : id);
+        setActiveId(id);
     };
 
     const handleOnClickAddToCart = (id?: string) => {
@@ -668,26 +741,64 @@ const ModularContent = () => {
             return;
         }
         return signIn(undefined, {
-            callbackUrl: `/chao-solutions?tab=modular_${locale}`,
+            callbackUrl: `/chao-solutions?tab=modular`,
         });
     };
 
+    const handleOnClickBuyNow = async (id: string) => {
+        await handleOnClickAddToCart(id);
+        router.push(`/cart`);
+    };
+
+    if (isLoading) return <LoadingComponent />;
+
     return (
-        <div className="w-full flex flex-row max-h-[80svh] overflow-hidden p-2 lg:p-6">
-            <div
-                className={`flex flex-wrap items-start content-start gap-4 transition-all duration-500 overflow-y-auto pr-2
-                    ${activeId ? 'w-full lg:w-2/3' : 'w-full'}`}
-            >
+        <div className="w-full p-2 lg:px-4">
+            {/* GRID LAYOUT - Now always full width */}
+            <div className={'w-full flex justify-between items-center mb-2'}>
+                <ConsultationFilterDialog
+                    onApply={data =>
+                        setConsultationFilterParams(prev => ({
+                            ...prev,
+                            ...data,
+                        }))
+                    }
+                    initialSearchValue={consultationFilterParams}
+                />
+
+                <AppDropdown
+                    options={ALL_SORT_OPTIONS}
+                    defaultValue={
+                        consultationFilterParams.dateSort
+                            ? `date_${consultationFilterParams.dateSort}`
+                            : consultationFilterParams.priceSort
+                              ? `price_${consultationFilterParams.priceSort}`
+                              : consultationFilterParams.viewSort
+                                ? `views_${consultationFilterParams.viewSort}`
+                                : 'date_desc'
+                    }
+                    value={
+                        consultationFilterParams.dateSort
+                            ? `date_${consultationFilterParams.dateSort}`
+                            : consultationFilterParams.priceSort
+                              ? `price_${consultationFilterParams.priceSort}`
+                              : consultationFilterParams.viewSort
+                                ? `views_${consultationFilterParams.viewSort}`
+                                : 'date_desc'
+                    }
+                    buttonClassName="h-9 min-w-[180px] font-semibold"
+                    onValueChange={handleUpdateSort}
+                    shouldDisplayGroupLabel={true}
+                />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {data?.data?.map((item: any) => (
                     <Card
                         key={item.id}
                         onClick={() => handleCardClick(item.id)}
-                        className={`h-fit min-h-[320px] cursor-pointer transition-all! p-0 pb-4 duration-300 ease-in-out overflow-hidden border-2
-                            ${activeId === item.id ? 'border-[var(--brand-color)] shadow-md' : 'border-transparent dark:bg-[var(--brand-black-bg)] bg-white'}
-                            ${activeId ? 'w-full md:w-[calc(50%-1rem)]' : 'w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)]'}`}
+                        className={`h-fit min-h-[320px] cursor-pointer transition-all! p-0 pb-4 duration-300 ease-in-out overflow-hidden border-2 border-transparent dark:bg-[var(--brand-black-bg)] bg-white hover:border-[var(--brand-color)] hover:shadow-md`}
                     >
-                        {/* Card Image */}
-                        <div className="w-full  overflow-hidden">
+                        <div className="w-full overflow-hidden">
                             <img
                                 src={item.imageUrl}
                                 alt={item.name[locale]}
@@ -696,23 +807,23 @@ const ModularContent = () => {
                         </div>
 
                         <CardHeader className="p-4 space-y-2">
-                            <div className="flex justify-between gap-2 [&>div]:flex [&>div]:gap-2 [&>div]:text-sm">
+                            <div className="flex justify-between gap-2 [&>div]:flex [&>div]:gap-2 [&>div]:text-xs lg:[&>div]:text-sm">
                                 <div>
                                     {t('common.market')}:
                                     <Badge
                                         variant="secondary"
-                                        className="text-[10px] uppercase"
+                                        className="text-[10px]"
                                     >
-                                        {item.marketType}
+                                        {capitalizeWords(item.marketType)}
                                     </Badge>
                                 </div>
                                 <div>
                                     {t('common.type')}:
                                     <Badge
                                         variant="outline"
-                                        className="text-[10px] uppercase border-[var(--brand-color)] text-[var(--brand-color)]"
+                                        className="text-[10px] border-none text-[var(--brand-color)]"
                                     >
-                                        {item.type}
+                                        {capitalizeWords(item.type)}
                                     </Badge>
                                 </div>
                             </div>
@@ -728,11 +839,11 @@ const ModularContent = () => {
                         </CardContent>
 
                         <CardFooter className="p-4 pt-0 flex justify-between items-center border-t mt-2">
-                            <div className="flex items-center dark:text-[var(--brand-color)] font-bold text-sm">
+                            <div className="flex items-center dark:text-[var(--brand-color)] font-bold text-base">
                                 <Tag className="w-3 h-3 mr-1" />
                                 {formatPrice(item.price)}
                             </div>
-                            <div className="flex items-center text-muted-foreground text-[10px]">
+                            <div className="flex items-center text-muted-foreground text-sm">
                                 <Eye className="w-3 h-3 mr-1" />
                                 {item.views}
                             </div>
@@ -741,124 +852,184 @@ const ModularContent = () => {
                 ))}
             </div>
 
-            {/* RIGHT SIDE: THE DETAILS PANEL */}
-            <div
-                data-state={activeId !== null ? 'active' : 'inactive'}
-                className="overflow-y-auto transition-all duration-500 ease-in-out
-                    [&[data-state=inactive]]:w-0 [&[data-state=inactive]]:opacity-0
-                    [&[data-state=active]]:w-full lg:[&[data-state=active]]:w-1/3 [&[data-state=active]]:opacity-100 [&[data-state=active]]:ml-4"
+            {/* DETAIL DIALOG */}
+            <Dialog
+                open={!!activeId}
+                onOpenChange={open => !open && setActiveId(null)}
             >
-                {selectedItem && (
-                    <Card className="w-full min-h-full border-black dark:border-[var(--brand-color)] p-0 pb-4 dark:bg-[var(--brand-black-bg)] bg-white sticky top-0">
-                        <CardHeader className="relative p-6">
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="absolute top-2 right-2 h-8 w-8"
-                                onClick={() => setActiveId(null)}
-                            >
-                                <XIcon className="size-4" />
-                            </Button>
-
-                            <Badge className="w-fit mb-2">
-                                {selectedItem.marketType}
-                            </Badge>
-                            <CardTitle className="text-xl lg:text-2xl text-[var(--brand-color)]">
-                                {(selectedItem.name as unknown as any)[locale]}
-                            </CardTitle>
-                            <CardDescription className="text-sm mt-2 italic">
-                                {(selectedItem.shortDescription as any)[locale]}
-                            </CardDescription>
-                        </CardHeader>
-
-                        <CardContent className="p-6 space-y-6">
-                            {/* Stats Info */}
-                            <div className="grid grid-cols-2 gap-4 py-4 border-y border-dashed">
-                                <div>
-                                    <p className="text-[10px] text-muted-foreground uppercase">
-                                        {t('common.price') || 'Price'}
-                                    </p>
-                                    <p className="font-bold text-lg text-[var(--brand-color)]">
-                                        {formatPrice(selectedItem.price)}
-                                    </p>
-                                </div>
-                                <div>
-                                    <p className="text-[10px] text-muted-foreground uppercase">
-                                        {t('common.type') || 'Type'}
-                                    </p>
-                                    <p className="font-medium text-sm">
-                                        {selectedItem.type}
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* HTML Description Content */}
-                            <div className="prose prose-sm dark:prose-invert max-w-full">
-                                <h3 className="text-sm font-bold mb-2 uppercase tracking-wider">
-                                    {t('common.description') || 'Description'}
-                                </h3>
-                                <div
-                                    className="text-sm leading-relaxed"
-                                    dangerouslySetInnerHTML={{
-                                        __html: (
-                                            selectedItem.description as unknown as any
-                                        )[locale],
-                                    }}
-                                />
-                            </div>
-
-                            {/* Action Button */}
-                            <div className="h-fit flex flex-col gap-2">
-                                <div
-                                    className={
-                                        'pb-4 border-b border-dashed flex flex-col gap-2'
+                <DialogContent className="max-w-full lg:max-w-2xl max-h-[90svh] overflow-y-auto p-0 border-none bg-transparent">
+                    {selectedItem && (
+                        <Card className="w-full border-black dark:border-[var(--brand-color)] p-0 pb-4 dark:bg-[var(--brand-black-bg)] bg-white">
+                            <CardHeader className="p-6">
+                                <Badge className="w-fit mb-2">
+                                    {selectedItem.marketType}
+                                </Badge>
+                                <DialogTitle className="text-xl lg:text-2xl text-[var(--brand-color)]">
+                                    {(selectedItem.name as any)[locale]}
+                                </DialogTitle>
+                                <DialogDescription className="text-sm mt-2 italic">
+                                    {
+                                        (selectedItem.shortDescription as any)[
+                                            locale
+                                        ]
                                     }
+                                </DialogDescription>
+                            </CardHeader>
+
+                            <CardContent className="p-6 space-y-6">
+                                {/* Stats Info */}
+                                <div className="grid grid-cols-2 gap-4 py-4 border-y border-dashed">
+                                    <div>
+                                        <p className="text-[10px] text-muted-foreground uppercase">
+                                            {t('common.price') || 'Price'}
+                                        </p>
+                                        <p className="font-bold text-lg text-[var(--brand-color)]">
+                                            {formatPrice(selectedItem.price)}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p className="text-[10px] text-muted-foreground uppercase">
+                                            {t('common.type') || 'Type'}
+                                        </p>
+                                        <p className="font-medium text-sm">
+                                            {selectedItem.type}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* HTML Description Content */}
+                                <Accordion
+                                    type="single"
+                                    collapsible
+                                    defaultValue="description"
+                                    className="w-full"
                                 >
-                                    {selectedItem.instructionLink && (
-                                        <Link
-                                            href={
-                                                selectedItem.instructionLink ||
-                                                '#'
-                                            }
-                                            target="_blank"
+                                    <AccordionItem
+                                        value="description"
+                                        className="border-none"
+                                    >
+                                        <AccordionTrigger
+                                            className={cn(
+                                                accordionTriggerStyle,
+                                                'py-0'
+                                            )}
+                                        >
+                                            {t('common.description') ||
+                                                'Description'}
+                                        </AccordionTrigger>
+                                        <AccordionContent className="pt-2">
+                                            <div className="prose prose-sm dark:prose-invert max-w-full">
+                                                <div
+                                                    className="text-sm leading-relaxed text-brand-text/90"
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: (
+                                                            selectedItem.description as any
+                                                        )[locale],
+                                                    }}
+                                                />
+                                            </div>
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                </Accordion>
+
+                                {/* Action Buttons */}
+                                <div className="h-fit flex flex-col gap-4">
+                                    {/* Secondary Actions: Instructions & Downloads in Accordion */}
+                                    {(selectedItem.instructionLink ||
+                                        selectedItem.downloadLink) && (
+                                        <Accordion
+                                            type="single"
+                                            collapsible
                                             className="w-full"
                                         >
-                                            <Button className="w-full bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black font-bold rounded-xl transition-all! hover:bg-[var(--brand-color)]">
-                                                {t('common.instruction')}
-                                            </Button>
-                                        </Link>
+                                            <AccordionItem
+                                                value="guide"
+                                                className="border-none"
+                                            >
+                                                <AccordionTrigger
+                                                    className={cn(
+                                                        accordionTriggerStyle,
+                                                        'py-0'
+                                                    )}
+                                                >
+                                                    {t('common.instruction') ||
+                                                        'Guide'}
+                                                </AccordionTrigger>
+                                                <AccordionContent className="pt-2 flex flex-col gap-2">
+                                                    {selectedItem.instructionLink && (
+                                                        <Link
+                                                            href={
+                                                                selectedItem.instructionLink
+                                                            }
+                                                            target="_blank"
+                                                            className="w-full"
+                                                        >
+                                                            <Button className="w-full bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black font-bold rounded-xl transition-all! hover:bg-[var(--brand-color)]">
+                                                                {t(
+                                                                    'common.instruction'
+                                                                )}
+                                                            </Button>
+                                                        </Link>
+                                                    )}
+                                                    {selectedItem.downloadLink && (
+                                                        <Link
+                                                            href={
+                                                                selectedItem.downloadLink
+                                                            }
+                                                            className="w-full"
+                                                        >
+                                                            <Button className="w-full transition-all! bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black hover:bg-[var(--brand-color)] font-bold rounded-xl">
+                                                                {(
+                                                                    selectedItem?.downloadLabel as any
+                                                                )[locale] ||
+                                                                    'Get Started'}
+                                                            </Button>
+                                                        </Link>
+                                                    )}
+                                                </AccordionContent>
+                                            </AccordionItem>
+                                        </Accordion>
                                     )}
-                                    {selectedItem.downloadLink && (
-                                        <Link
-                                            href={
-                                                selectedItem.downloadLink || '#'
+
+                                    {/* Primary Action: Add to Cart (Always visible at the bottom) */}
+                                    <div
+                                        className={
+                                            'w-full flex justify-between gap-4 items-center'
+                                        }
+                                    >
+                                        <Button
+                                            variant={'outline'}
+                                            className="hover:opacity-90 font-bold rounded-xl transition-all! py-6"
+                                            onClick={() =>
+                                                handleOnClickAddToCart(
+                                                    selectedItem.id
+                                                )
                                             }
                                         >
-                                            <Button className="w-full transition-all! bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black hover:bg-[var(--brand-color)] font-bold rounded-xl">
-                                                {(
-                                                    selectedItem?.downloadLabel as any
-                                                )[locale] || 'Get Started'}
-                                            </Button>
-                                        </Link>
-                                    )}
+                                            <MdAddShoppingCart className="mr-2 size-5" />
+                                            {t('common.addToCart')}
+                                        </Button>
+                                        <Button
+                                            className="flex-1 bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black font-bold rounded-xl transition-all! hover:bg-[var(--brand-color)] py-6"
+                                            onClick={() =>
+                                                handleOnClickBuyNow(
+                                                    selectedItem.id
+                                                )
+                                            }
+                                        >
+                                            {t('common.buyNow')}
+                                        </Button>
+                                    </div>
                                 </div>
-                                <Button
-                                    className="w-full bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black font-bold rounded-xl transition-all! hover:bg-[var(--brand-color)]"
-                                    onClick={() =>
-                                        handleOnClickAddToCart(selectedItem.id)
-                                    }
-                                >
-                                    <MdAddShoppingCart />{' '}
-                                    {t('common.addToCart')}
-                                </Button>
-                            </div>
-                        </CardContent>
-                    </Card>
-                )}
-            </div>
+                            </CardContent>
+                        </Card>
+                    )}
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };
+
 /**
  * MAIN PAGE EXPORT
  */
@@ -874,13 +1045,14 @@ export default function OurSolutionsPage({ searchParams }: PageProps) {
     const tabsList: TabItem[] = [
         {
             title: t('common.fullSolution'),
-            value: 'holistic_' + locale,
-            renderContent: () => Promise.resolve(<HolisticContent t={t} />),
+            value: 'holistic',
+            renderContent: () =>
+                Promise.resolve(locale && <HolisticContent t={t} />),
         },
         {
             title: t('common.customSolution'),
-            value: `modular_` + locale,
-            renderContent: () => Promise.resolve(<ModularContent />),
+            value: `modular`,
+            renderContent: () => Promise.resolve(locale && <ModularContent />),
         },
     ];
 
@@ -894,6 +1066,7 @@ export default function OurSolutionsPage({ searchParams }: PageProps) {
                 tabsList={tabsList}
                 size={2}
                 defaultValue={tab}
+                value={tab}
                 onValueChange={(value: string) => {
                     if (value) {
                         router.push('/chao-solutions?tab=' + value);

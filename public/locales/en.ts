@@ -189,6 +189,7 @@ overnight or daily rollover). It reflects the cost of borrowing capital and the 
         bookAConsultationSuccessDesc:
             'Thank you for your interest. The Chào Market team will contact you as soon as possible.',
         addToCart: 'Add to Cart',
+        buyNow: 'Buy Now',
     },
     auth: {
         login: 'Log In',

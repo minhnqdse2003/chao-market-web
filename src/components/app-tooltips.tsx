@@ -25,7 +25,8 @@ const AppTooltips = ({
                         'bg-[var(--brand-grey)] [&>span>svg]:bg-[var(--brand-grey)]' +
                             ' [&>span>svg]:fill-[var(--brand-grey)] text-[var(--brand-grey-foreground)]' +
                             ' dark:bg-brand-dialog dark:[&>span>svg]:bg-brand-dialog' +
-                            ' dark:[&>span>svg]:fill-brand-dialog [&>_*_p]:font-medium [&>_*_strong]:text-sm',
+                            ' dark:[&>span>svg]:fill-brand-dialog [&>_*_p]:font-medium [&>_*_strong]:text-sm' +
+                            ' dark:border-white border-black border',
                         className
                     )}
                 >

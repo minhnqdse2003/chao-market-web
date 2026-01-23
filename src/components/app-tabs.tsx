@@ -18,6 +18,7 @@ type TabComponentProps = {
     size?: number;
     onValueChange?: (activeTab: string) => void;
     tabContainerClassName?: string;
+    value?: string;
 };
 
 export function AppTabs({
@@ -25,6 +26,7 @@ export function AppTabs({
     shouldBorderVisible = true,
     isHorizontal = false,
     defaultValue,
+    value,
     onValueChange,
     tabContainerClassName,
 }: Readonly<TabComponentProps>) {
@@ -59,7 +61,7 @@ export function AppTabs({
 
     return (
         <Tabs
-            value={activeTab}
+            value={value ?? activeTab}
             onValueChange={setActiveTab}
             className="w-full gap-4"
             orientation={isHorizontal ? 'horizontal' : 'vertical'}

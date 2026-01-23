@@ -37,9 +37,17 @@ const NewsComp = ({
                             >
                                 {item.image ? (
                                     <img
-                                        className="object-cover w-full h-full rounded-lg aspect-16/9"
+                                        className={`w-full h-full rounded-lg aspect-16/9 object-cover`}
                                         src={item.image}
                                         alt="news-image"
+                                        onError={e => {
+                                            const target = e.currentTarget;
+                                            target.src =
+                                                BrandLogoFtHat.src ||
+                                                BrandLogoFtHat;
+                                            target.className =
+                                                'object-contain w-full h-full rounded-lg aspect-16/9';
+                                        }}
                                     />
                                 ) : (
                                     <Image

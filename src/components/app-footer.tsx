@@ -192,20 +192,20 @@ export default function AppFooter() {
                         <T keyName={'common.letUsHelpYou'} />
                     </AccordionTrigger>
                     <AccordionContent>
-                        <ul className="space-y-3 pt-2 text-[var(--brand-grey-foreground)]">
+                        <ul className="space-y-3 pt-2 text-[var(--brand-grey-foreground)] text-xs">
                             {contactInfo.map((item, index) => (
                                 <li
                                     key={index}
                                     className="flex justify-between items-center pr-2"
                                 >
+                                    {/*{item.icon}*/}
                                     <span className="flex items-center gap-2">
-                                        {item.icon}
                                         <T keyName={item.i18nKey} />
                                     </span>
                                     <span>
                                         <a
                                             href={item.href}
-                                            className="hover:underline text-brand-text font-semibold text-sm"
+                                            className="hover:underline text-brand-text font-semibold text-xs"
                                         >
                                             {item.email}
                                         </a>
@@ -291,7 +291,7 @@ export default function AppFooter() {
                         {contactInfo.map((item, index) => (
                             <li
                                 key={index}
-                                className="flex justify-between gap-4"
+                                className="flex justify-between gap-8"
                             >
                                 <span className="flex items-center gap-2">
                                     {item.icon}

@@ -12,7 +12,12 @@ const APP_USER_QUERY_KEY = {
     USER_TRANSACTIONS: 'user-transactions',
 };
 
+const APP_TAG_QUERY_KEY = {
+    GET_PRODUCT_TAGS: 'tags-product',
+};
+
 export const APP_QUERY_KEY = {
     ...APP_CONSULTATION_QUERY_KEY,
     ...APP_USER_QUERY_KEY,
+    ...APP_TAG_QUERY_KEY,
 };

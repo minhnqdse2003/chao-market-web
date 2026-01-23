@@ -107,24 +107,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 icon: BriefcaseBusiness,
                 children: [
                     {
-                        title: t('ourSolutions.financialFoundation.title'),
-                        url: '/chao-solutions#financial-foundation-mentoring',
+                        title: t('common.fullSolution'),
+                        url: '/chao-solutions?tab=holistic',
                     },
                     {
-                        title: t('ourSolutions.portfolioStrategy.title'),
-                        url: '/chao-solutions#portfolio-strategy-tools',
-                    },
-                    {
-                        title: t('ourSolutions.algoTrading.title'),
-                        url: '/chao-solutions#algorithmic-trading-solutions',
-                    },
-                    {
-                        title: t('ourSolutions.tradingPerformance.title'),
-                        url: '/chao-solutions#trading-performance-mentoring',
-                    },
-                    {
-                        title: t('ourSolutions.financialCourse.title'),
-                        url: '/chao-solutions#financial-investment-courses',
+                        title: t('common.customSolution'),
+                        url: '/chao-solutions?tab=modular',
                     },
                 ],
             },
@@ -132,13 +120,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 title: t('sidebar.newsEvents'),
                 url: '/chao-insights',
                 icon: Megaphone,
-                // children: [
-                //     { title: t('sidebar.news'), url: '/chao-insights?type=news' },
-                //     {
-                //         title: t('sidebar.events'),
-                //         url: '/chao-insights?type=events',
-                //     },
-                // ],
             },
             {
                 title: t('sidebar.community'),

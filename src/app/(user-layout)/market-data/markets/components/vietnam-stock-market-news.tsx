@@ -3,7 +3,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchNewsFeed, RSSItem } from '@/services/rss/fetchNews';
 import { TimeAgo } from '@/components/time-ago';
-import { capitalizeWords } from '@/utils/string-parsing';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { useI18n } from '@/context/i18n/context';
@@ -123,24 +122,22 @@ export default function CombinedNewsFeed({
         const url = sourceUrl.toLowerCase();
 
         if (url.includes('facebook.com')) {
-            return capitalizeWords(
-                ' https://www.facebook.com/ChaoMarket.Official'
-            );
+            return 'https://www.facebook.com/ChaoMarket.Official';
         }
 
         if (url.includes('tiktok.com')) {
-            return capitalizeWords(' https://www.tiktok.com/@chaomarket.com');
+            return ' https://www.tiktok.com/@chaomarket.com';
         }
 
         if (url.includes('youtube.com') || url.includes('youtube')) {
-            return capitalizeWords('https://www.youtube.com/@ChaoMarket');
+            return 'https://www.youtube.com/@ChaoMarket';
         }
 
         try {
             const domain = new URL(sourceUrl).hostname
                 .replace('www.', '')
                 .split('.')[0];
-            return capitalizeWords(domain);
+            return domain;
         } catch {
             return 'Source';
         }
@@ -229,12 +226,17 @@ export default function CombinedNewsFeed({
                                             className="text-xs mt-1"
                                         />
                                         {article.sourceUrl && (
-                                            <p className="text-xs mt-1">
+                                            <a
+                                                className="text-xs mt-1 hover:underline"
+                                                href={article.sourceUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
                                                 Source:{' '}
                                                 {processSourceUrl(
                                                     article.sourceUrl
                                                 )}
-                                            </p>
+                                            </a>
                                         )}
                                     </div>
                                 )}

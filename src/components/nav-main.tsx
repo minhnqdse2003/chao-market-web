@@ -57,7 +57,8 @@ export function NavMain({
 
     path =
         (params && path.includes('/chao-insights')) ||
-        path.includes('/community')
+        path.includes('/community') ||
+        path.includes('/chao-solutions')
             ? path + '?' + new URLSearchParams(params).toString()
             : path;
 

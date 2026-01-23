@@ -82,7 +82,7 @@ export const vi: TranslationsStructure = {
             apply: 'Áp Dụng',
         },
         sortBy: {
-            label: 'Xắp sếp theo:',
+            label: 'Sắp Xếp theo',
             featured: 'Nổi bật',
         },
         dateSort: {
@@ -192,6 +192,7 @@ là qua đêm). Nó phản ánh chi phí vay vốn và chênh lệch lãi suất
             'Cảm ơn bạn đã quan tâm. Đội ngũ Chào Market sẽ liên hệ lại với bạn trong thời' +
             ' gian sớm nhất.',
         addToCart: 'Thêm vào Giỏ Hàng',
+        buyNow: 'Mua Ngay',
     },
     auth: {
         login: 'Đăng Nhập',

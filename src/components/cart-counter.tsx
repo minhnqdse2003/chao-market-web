@@ -8,32 +8,21 @@ import { useCartStore } from '@/stores/cart.store';
 import Link from 'next/link';
 import { ClassValue } from 'clsx';
 import { cn } from '@/lib/utils';
+import { useSession } from 'next-auth/react';
 
 export default function CartCounter({ className }: { className?: ClassValue }) {
     const [isMounted, setIsMounted] = useState(false);
     const itemIds = useCartStore(state => state.itemIds);
+    const { status } = useSession();
 
     // Prevent Hydration Mismatch
     useEffect(() => {
         setIsMounted(true);
     }, []);
 
-    if (!isMounted) {
-        return (
-            <Button
-                variant="ghost"
-                size="icon"
-                className={cn(
-                    'relative bg-[var(--brand-color)] hover:bg-[var(--brand-color)]/80' +
-                        ' dark:text-[var(--brand-color)] dark:border-[var(--brand-color)] h-8',
-                    className
-                )}
-            >
-                <ShoppingCart className="h-4 w-4" />
-            </Button>
-        );
+    if (status === 'unauthenticated' || !isMounted) {
+        return null;
     }
-
     return (
         <Link href="/cart">
             <Button

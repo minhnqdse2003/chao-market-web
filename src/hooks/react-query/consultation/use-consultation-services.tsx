@@ -2,6 +2,8 @@ import { useAppQuery } from '@/hooks/react-query/use-custom-query';
 import { APP_QUERY_KEY } from '@/constant';
 import { consultationServicesApis } from '@/app/api/consultation-services';
 import { useCartStore } from '@/stores/cart.store';
+import { GetConsultationFilterRequestParams } from '@/types/custom-solution/request';
+import { validationSearchParamsWithAllValue } from '@/utils/validation-search-params';
 
 export function useConsultationServices() {
     return useAppQuery({
@@ -12,12 +14,18 @@ export function useConsultationServices() {
     });
 }
 
-export function useConsultationServicesModularApproach() {
+export function useConsultationServicesModularApproach(
+    filterParams?: GetConsultationFilterRequestParams
+) {
+    const requestParams = filterParams
+        ? validationSearchParamsWithAllValue(filterParams)
+        : undefined;
     return useAppQuery({
-        queryKey: [APP_QUERY_KEY.CONSULTATION_SERVICES_MODULAR],
+        queryKey: [APP_QUERY_KEY.CONSULTATION_SERVICES_MODULAR, requestParams],
         queryFn: async () => {
             return await consultationServicesApis.getAllConsultationServices(
-                'Modular'
+                'Modular',
+                requestParams
             );
         },
     });

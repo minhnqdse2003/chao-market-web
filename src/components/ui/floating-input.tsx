@@ -35,7 +35,7 @@ const FloatingLabel = React.forwardRef<
         <Label
             className={cn(
                 'peer-focus:secondary peer-focus:dark:secondary absolute start-2 top-0 z-10 origin-[0]' +
-                    ' -translate-y-1/2 scale-75 transform dark:bg-sidebar bg-white px-2 text-xs lg:text-sm' +
+                    ' -translate-y-1/2 scale-75 transform dark:bg-sidebar px-2 peer-focus:bg-white text-xs lg:text-sm' +
                     ' text-[var(--brand-grey-foreground)]/50 font-semibold' +
                     ' duration-300' +
                     ' peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2' +

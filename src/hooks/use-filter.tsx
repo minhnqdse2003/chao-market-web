@@ -57,6 +57,8 @@ export const useFilter = <TFilter extends BaseFilterParams>({
     return {
         filterParams,
         searchValue,
+        setFilterParams,
+        setSearchValue,
         handleSearchChange,
         handleFilterChange,
         handleClearAll,

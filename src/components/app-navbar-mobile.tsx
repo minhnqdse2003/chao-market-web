@@ -108,7 +108,7 @@ export default function AppNavbarMobile() {
             </div>
             <Link
                 className={
-                    'bg-[var(--brand-color)] font-bold text-sm p-4 rounded-sm text-black'
+                    'bg-[var(--brand-color)] font-bold text-sm p-2 rounded-sm text-black'
                 }
                 href={'/chao-solutions'}
             >
