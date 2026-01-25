@@ -18,7 +18,6 @@ interface Source {
 }
 
 const parser = new Parser();
-const CORS_PROXY = '';
 
 // A helper function to extract the image URL using a fallback strategy
 const getImageUrl = (item: Parser.Item): string | undefined => {
@@ -45,12 +44,22 @@ const fetchRssFeed = async (
     sourceName: string,
     sourceUrl?: string
 ): Promise<RSSItem[]> => {
+    const MY_PROXY = 'https://chaomarket.com/rss-proxy/';
+
+    const getProxiedUrl = (url: string) => {
+        if (url.includes('rss.app')) {
+            // Replaces "https://rss.app/" with "https://chaomarket.com/rss-proxy/"
+            return url.replace('https://rss.app/', MY_PROXY);
+        }
+        return url;
+    };
+
     try {
         if (Array.isArray(rssUrl)) {
             // Handle multiple URLs
             const feeds = await Promise.all(
                 rssUrl.map(async url => {
-                    const proxyUrl = CORS_PROXY + url;
+                    const proxyUrl = getProxiedUrl(url);
                     return parser.parseURL(proxyUrl);
                 })
             );
@@ -72,7 +81,7 @@ const fetchRssFeed = async (
         }
 
         // Handle single URL
-        const proxyUrl = CORS_PROXY + rssUrl;
+        const proxyUrl = getProxiedUrl(rssUrl as string);
         const feed = await parser.parseURL(proxyUrl);
         const processSourceUrl = (src: string) => {
             if (sourceUrl) return sourceUrl;
