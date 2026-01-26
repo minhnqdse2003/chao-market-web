@@ -9,6 +9,7 @@ export interface CommonTranslations {
     firstName: string;
     lastName: string;
     fullName: string;
+    name: string;
     emailAddress: string;
     confirmPassword: string;
     dateOfBirth: string;
@@ -94,6 +95,10 @@ export interface CommonTranslations {
         currencies: string;
         cryptocurrencies: string;
         commodities: string;
+    };
+    viewSort: {
+        mostViewedFirst: string;
+        leastViewedFirst: string;
     };
     recommended: string;
     hottest: string;

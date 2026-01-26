@@ -1,0 +1,1 @@
+ALTER TABLE "consultation_services" ADD COLUMN "guideInstruction" jsonb;

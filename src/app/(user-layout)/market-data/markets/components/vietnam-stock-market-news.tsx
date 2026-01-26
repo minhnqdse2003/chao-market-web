@@ -7,6 +7,7 @@ import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { useI18n } from '@/context/i18n/context';
 import Image from 'next/image';
+import { capitalizeWords } from '@/utils/string-parsing';
 
 // Define types for the prop and RSS data
 export type NewsSourceType =
@@ -139,7 +140,7 @@ export default function CombinedNewsFeed({
                 .split('.')[0];
             return domain;
         } catch {
-            return 'Source';
+            return capitalizeWords(sourceUrl);
         }
     };
 

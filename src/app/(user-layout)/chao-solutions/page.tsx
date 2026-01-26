@@ -55,8 +55,9 @@ interface PageProps {
  * Contains the original 5 static content blocks mapped into an Accordion
  */
 
-const accordionTriggerStyle = `hover:cursor-pointer py-4 justify-start items-center`;
-const HolisticContent = ({ t }: { t: (key: string) => any }) => {
+const accordionTriggerStyle = `hover:cursor-pointer py-4 justify-start items-center dark:[&[data-state='open']]:text-[var(--brand-color)] dark:[&[data-state='open']>_*_]:text-[var(--brand-color)] [&[data-state='open']]:underline dark:hover:text-[var(--brand-color)] dark:hover:[&>_*_]:text-[var(--brand-color)] dark:decoration-[var(--brand-color)]`;
+const HolisticContent = () => {
+    const { t } = useI18n();
     const contents: Partial<BlockContentsProps>[] = [
         {
             title: t('ourSolutions.financialFoundation.title'),
@@ -674,12 +675,12 @@ const ModularContent = () => {
         // Date Group
         {
             value: 'date_desc',
-            label: t('common.hightToLow'),
+            label: t('common.dateSort.newestFirst'),
             group: t('common.date'),
         },
         {
             value: 'date_asc',
-            label: t('common.lowToHight'),
+            label: t('common.dateSort.oldestFirst'),
             group: t('common.date'),
         },
 
@@ -698,12 +699,12 @@ const ModularContent = () => {
         // Views Group
         {
             value: 'views_desc',
-            label: t('common.hightToLow'),
+            label: t('common.viewSort.mostViewedFirst'),
             group: t('common.views'),
         },
         {
             value: 'views_asc',
-            label: t('common.lowToHight'),
+            label: t('common.viewSort.leastViewedFirst'),
             group: t('common.views'),
         },
     ];
@@ -724,6 +725,7 @@ const ModularContent = () => {
         if (!price) return '0';
         return new Intl.NumberFormat('vi-VN', {
             style: 'currency',
+            currencyDisplay: 'code',
             currency: 'VND',
         }).format(parseFloat(price));
     };
@@ -796,7 +798,13 @@ const ModularContent = () => {
                     <Card
                         key={item.id}
                         onClick={() => handleCardClick(item.id)}
-                        className={`h-fit min-h-[320px] cursor-pointer transition-all! p-0 pb-4 duration-300 ease-in-out overflow-hidden border-2 border-transparent dark:bg-[var(--brand-black-bg)] bg-white hover:border-[var(--brand-color)] hover:shadow-md`}
+                        className={cn(
+                            `h-fit min-h-[320px] cursor-pointer transition-all! p-0 pb-4 duration-300 ease-in-out overflow-hidden border-2 border-transparent dark:bg-[var(--brand-black-bg)] bg-white dark:hover:border-[var(--brand-color)] hover:border-black hover:shadow-md`,
+                            {
+                                'dark:border-[var(--brand-color)] border-black':
+                                    activeId === item.id,
+                            }
+                        )}
                     >
                         <div className="w-full overflow-hidden">
                             <img
@@ -808,23 +816,40 @@ const ModularContent = () => {
 
                         <CardHeader className="p-4 space-y-2">
                             <div className="flex justify-between gap-2 [&>div]:flex [&>div]:gap-2 [&>div]:text-xs lg:[&>div]:text-sm">
-                                <div>
-                                    {t('common.market')}:
+                                <div
+                                    className={
+                                        'flex justify-between items-center'
+                                    }
+                                >
+                                    <p
+                                        className={
+                                            'dark:text-[var(--brand-grey-foreground)] text-brand-text'
+                                        }
+                                    >
+                                        {t('common.market')}:
+                                    </p>
                                     <Badge
-                                        variant="secondary"
-                                        className="text-[10px]"
+                                        variant="outline"
+                                        className="font-bold text-xs border-brand-text text-brand-text"
                                     >
                                         {capitalizeWords(item.marketType)}
                                     </Badge>
                                 </div>
-                                <div>
-                                    {t('common.type')}:
-                                    <Badge
-                                        variant="outline"
-                                        className="text-[10px] border-none text-[var(--brand-color)]"
+                                <div
+                                    className={
+                                        'flex justify-between items-center'
+                                    }
+                                >
+                                    <p
+                                        className={
+                                            'dark:text-[var(--brand-grey-foreground)] text-brand-text'
+                                        }
                                     >
+                                        {t('common.type')}:
+                                    </p>
+                                    <p className={'font-bold text-xs'}>
                                         {capitalizeWords(item.type)}
-                                    </Badge>
+                                    </p>
                                 </div>
                             </div>
                             <CardTitle className="line-clamp-1 text-sm lg:text-base font-bold">
@@ -833,7 +858,7 @@ const ModularContent = () => {
                         </CardHeader>
 
                         <CardContent className="px-4 pb-2">
-                            <CardDescription className="line-clamp-2 text-xs">
+                            <CardDescription className="line-clamp-2 text-sm ">
                                 {item.shortDescription[locale]}
                             </CardDescription>
                         </CardContent>
@@ -859,44 +884,58 @@ const ModularContent = () => {
             >
                 <DialogContent className="max-w-full lg:max-w-2xl max-h-[90svh] overflow-y-auto p-0 border-none bg-transparent">
                     {selectedItem && (
-                        <Card className="w-full border-black dark:border-[var(--brand-color)] p-0 pb-4 dark:bg-[var(--brand-black-bg)] bg-white">
-                            <CardHeader className="p-6">
-                                <Badge className="w-fit mb-2">
-                                    {selectedItem.marketType}
-                                </Badge>
-                                <DialogTitle className="text-xl lg:text-2xl text-[var(--brand-color)]">
+                        <Card className="w-full p-0 py-4 dark:bg-[var(--brand-black-bg)] bg-white gap-4">
+                            <CardHeader className="p-6 pb-2">
+                                <div
+                                    className={
+                                        'flex justify-between items-center mb-6'
+                                    }
+                                >
+                                    <div
+                                        className={
+                                            'flex items-center gap-2 text-xs'
+                                        }
+                                    >
+                                        <p className="text-muted-foreground text-sm">
+                                            {t('common.market') || 'Market'}:
+                                        </p>
+                                        <Badge
+                                            variant="outline"
+                                            className="font-bold border-brand-text text-brand-text"
+                                        >
+                                            {selectedItem.marketType}
+                                        </Badge>
+                                    </div>
+                                    <div
+                                        className={
+                                            'flex items-center gap-2 text-xs'
+                                        }
+                                    >
+                                        <p className="text-muted-foreground text-sm">
+                                            {t('common.type') || 'Type'}:
+                                        </p>
+                                        <p className="font-bold">
+                                            {selectedItem.type}
+                                        </p>
+                                    </div>
+                                </div>
+                                <DialogTitle className="text-xl lg:text-[22px]">
                                     {(selectedItem.name as any)[locale]}
                                 </DialogTitle>
-                                <DialogDescription className="text-sm mt-2 italic">
+
+                                <DialogDescription className="text-sm mt-2 italic mb-4">
                                     {
                                         (selectedItem.shortDescription as any)[
                                             locale
                                         ]
                                     }
                                 </DialogDescription>
+                                <p className="font-bold lg:text-xl  text-[var(--brand-color)]">
+                                    {formatPrice(selectedItem.price)}
+                                </p>
                             </CardHeader>
 
-                            <CardContent className="p-6 space-y-6">
-                                {/* Stats Info */}
-                                <div className="grid grid-cols-2 gap-4 py-4 border-y border-dashed">
-                                    <div>
-                                        <p className="text-[10px] text-muted-foreground uppercase">
-                                            {t('common.price') || 'Price'}
-                                        </p>
-                                        <p className="font-bold text-lg text-[var(--brand-color)]">
-                                            {formatPrice(selectedItem.price)}
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <p className="text-[10px] text-muted-foreground uppercase">
-                                            {t('common.type') || 'Type'}
-                                        </p>
-                                        <p className="font-medium text-sm">
-                                            {selectedItem.type}
-                                        </p>
-                                    </div>
-                                </div>
-
+                            <CardContent className="px-6 space-y-4 max-h-[40svh] overflow-y-auto">
                                 {/* HTML Description Content */}
                                 <Accordion
                                     type="single"
@@ -920,7 +959,7 @@ const ModularContent = () => {
                                         <AccordionContent className="pt-2">
                                             <div className="prose prose-sm dark:prose-invert max-w-full">
                                                 <div
-                                                    className="text-sm leading-relaxed text-brand-text/90"
+                                                    className="text-sm leading-relaxed text-brand-text/90 [&>_*_]:list-decimal [&>_*_]:list-inside"
                                                     dangerouslySetInnerHTML={{
                                                         __html: (
                                                             selectedItem.description as any
@@ -934,9 +973,7 @@ const ModularContent = () => {
 
                                 {/* Action Buttons */}
                                 <div className="h-fit flex flex-col gap-4">
-                                    {/* Secondary Actions: Instructions & Downloads in Accordion */}
-                                    {(selectedItem.instructionLink ||
-                                        selectedItem.downloadLink) && (
+                                    {(selectedItem?.guideInstruction as any) && (
                                         <Accordion
                                             type="single"
                                             collapsible
@@ -956,72 +993,48 @@ const ModularContent = () => {
                                                         'Guide'}
                                                 </AccordionTrigger>
                                                 <AccordionContent className="pt-2 flex flex-col gap-2">
-                                                    {selectedItem.instructionLink && (
-                                                        <Link
-                                                            href={
-                                                                selectedItem.instructionLink
-                                                            }
-                                                            target="_blank"
-                                                            className="w-full"
-                                                        >
-                                                            <Button className="w-full bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black font-bold rounded-xl transition-all! hover:bg-[var(--brand-color)]">
-                                                                {t(
-                                                                    'common.instruction'
-                                                                )}
-                                                            </Button>
-                                                        </Link>
-                                                    )}
-                                                    {selectedItem.downloadLink && (
-                                                        <Link
-                                                            href={
-                                                                selectedItem.downloadLink
-                                                            }
-                                                            className="w-full"
-                                                        >
-                                                            <Button className="w-full transition-all! bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black hover:bg-[var(--brand-color)] font-bold rounded-xl">
-                                                                {(
-                                                                    selectedItem?.downloadLabel as any
-                                                                )[locale] ||
-                                                                    'Get Started'}
-                                                            </Button>
-                                                        </Link>
-                                                    )}
+                                                    <div className="prose prose-sm dark:prose-invert max-w-full">
+                                                        <div
+                                                            className="text-sm leading-relaxed text-brand-text/90 [&>_*_]:list-decimal [&>_*_]:list-inside"
+                                                            dangerouslySetInnerHTML={{
+                                                                __html: (
+                                                                    selectedItem.guideInstruction as any
+                                                                )[locale],
+                                                            }}
+                                                        />
+                                                    </div>
                                                 </AccordionContent>
                                             </AccordionItem>
                                         </Accordion>
                                     )}
-
-                                    {/* Primary Action: Add to Cart (Always visible at the bottom) */}
-                                    <div
-                                        className={
-                                            'w-full flex justify-between gap-4 items-center'
-                                        }
-                                    >
-                                        <Button
-                                            variant={'outline'}
-                                            className="hover:opacity-90 font-bold rounded-xl transition-all! py-6"
-                                            onClick={() =>
-                                                handleOnClickAddToCart(
-                                                    selectedItem.id
-                                                )
-                                            }
-                                        >
-                                            <MdAddShoppingCart className="mr-2 size-5" />
-                                            {t('common.addToCart')}
-                                        </Button>
-                                        <Button
-                                            className="flex-1 bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black font-bold rounded-xl transition-all! hover:bg-[var(--brand-color)] py-6"
-                                            onClick={() =>
-                                                handleOnClickBuyNow(
-                                                    selectedItem.id
-                                                )
-                                            }
-                                        >
-                                            {t('common.buyNow')}
-                                        </Button>
-                                    </div>
                                 </div>
                             </CardContent>
+                            <CardFooter>
+                                <div
+                                    className={'w-full flex justify-end gap-4'}
+                                >
+                                    <Button
+                                        variant={'outline'}
+                                        className="w-[8.8125rem] hover:opacity-90 font-bold rounded-xl transition-all! py-1"
+                                        onClick={() =>
+                                            handleOnClickAddToCart(
+                                                selectedItem.id
+                                            )
+                                        }
+                                    >
+                                        <MdAddShoppingCart className="mr-2 size-5" />
+                                        {t('common.addToCart')}
+                                    </Button>
+                                    <Button
+                                        className="w-[8.8125rem] bg-[var(--brand-color)] hover:opacity-90 text-black dark:bg-[var(--brand-color)] dark:text-black font-bold rounded-xl transition-all! hover:bg-[var(--brand-color)] py-1"
+                                        onClick={() =>
+                                            handleOnClickBuyNow(selectedItem.id)
+                                        }
+                                    >
+                                        {t('common.buyNow')}
+                                    </Button>
+                                </div>
+                            </CardFooter>
                         </Card>
                     )}
                 </DialogContent>
@@ -1034,25 +1047,21 @@ const ModularContent = () => {
  * MAIN PAGE EXPORT
  */
 export default function OurSolutionsPage({ searchParams }: PageProps) {
-    // Next.js 15 Async Params handling
     const resolvedParams = use(searchParams);
     const tab = resolvedParams.tab || 'holistic';
-
     const router = useRouter();
-    const { t, locale } = useI18n();
+    const { t } = useI18n();
 
-    // Map content to AppTabs structure
     const tabsList: TabItem[] = [
         {
             title: t('common.fullSolution'),
             value: 'holistic',
-            renderContent: () =>
-                Promise.resolve(locale && <HolisticContent t={t} />),
+            renderContent: () => Promise.resolve(<HolisticContent />),
         },
         {
             title: t('common.customSolution'),
             value: `modular`,
-            renderContent: () => Promise.resolve(locale && <ModularContent />),
+            renderContent: () => Promise.resolve(<ModularContent />),
         },
     ];
 
@@ -1065,7 +1074,7 @@ export default function OurSolutionsPage({ searchParams }: PageProps) {
             <AppTabs
                 tabsList={tabsList}
                 size={2}
-                defaultValue={tab}
+                defaultValue={'holistic'}
                 value={tab}
                 onValueChange={(value: string) => {
                     if (value) {

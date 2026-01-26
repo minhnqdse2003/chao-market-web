@@ -7,7 +7,6 @@ import AppFilterSelect, {
 } from '@/components/app-filter-select';
 import AppDateRangePicker from '@/components/app-date-range-picker';
 import {
-    ACCOUNT_OPTIONS,
     ALGO_TRADING_OPTIONS,
     MARKET_OPTIONS,
     PROFIT_OPTIONS,
@@ -93,12 +92,6 @@ const ClientAccountFilterDialog = ({
                 onChange={value => handleFilterChange('market', value)}
             />
             <AppFilterSelect
-                options={parsedToNewOptions(ACCOUNT_OPTIONS)}
-                label={t('account.title')}
-                onChange={value => handleFilterChange('account', value)}
-                valueOptions={filterParams.account}
-            />
-            <AppFilterSelect
                 options={parsedToNewOptions(PROFIT_OPTIONS)}
                 label={t('common.profit')}
                 onChange={value => handleFilterChange('profit', value)}
@@ -150,7 +143,7 @@ const ClientAccountFilterDialog = ({
         <AppDialog
             trigger={
                 <Button variant="ghost" className="font-normal">
-                    <ListFilter className="mr-2 h-4 w-4" />{' '}
+                    <ListFilter className="lg:mr-2 lg:size-4 size-3" />{' '}
                     <T keyName={'common.filter'} />
                 </Button>
             }

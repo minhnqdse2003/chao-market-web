@@ -19,7 +19,9 @@ const AppTooltips = ({
     return (
         <TooltipProvider>
             <Tooltip>
-                <TooltipTrigger asChild>{trigger}</TooltipTrigger>
+                <TooltipTrigger autoFocus={false} asChild>
+                    {trigger}
+                </TooltipTrigger>
                 <TooltipContent
                     className={cn(
                         'bg-[var(--brand-grey)] [&>span>svg]:bg-[var(--brand-grey)]' +

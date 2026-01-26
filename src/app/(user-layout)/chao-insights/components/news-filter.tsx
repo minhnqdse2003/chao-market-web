@@ -64,44 +64,24 @@ const NewsEventFilterDialogComp = ({
 
     const SORT_BY_OPTIONS_NEWS_EVENT_TRANSLATED: DropdownOption[] = [
         {
-            value: 'featured',
-            label: t('common.sortBy.featured'), // Key for Featured
-            group: t('common.default'),
-        },
-        {
-            value: 'desc',
+            value: 'date_desc',
             label: t('common.dateSort.newestFirst'),
             group: t('common.dateSort.label'),
         },
         {
-            value: 'asc',
+            value: 'date_asc',
             label: t('common.dateSort.oldestFirst'),
             group: t('common.dateSort.label'),
         },
         {
-            value: 'all',
-            label: t('common.marketType.all'),
-            group: t('common.market'),
+            value: 'name_desc',
+            label: 'Z-A',
+            group: t('common.name'),
         },
         {
-            value: 'stocks',
-            label: t('common.marketType.stocks'),
-            group: t('common.market'),
-        },
-        {
-            value: 'cryptocurrencies',
-            label: t('common.marketType.cryptocurrencies'),
-            group: t('common.market'),
-        },
-        {
-            value: 'currencies',
-            label: t('common.marketType.currencies'),
-            group: t('common.market'),
-        },
-        {
-            value: 'commodities',
-            label: t('common.marketType.commodities'),
-            group: t('common.market'),
+            value: 'name_asc',
+            label: 'A-Z',
+            group: t('common.name'),
         },
     ];
 
@@ -189,7 +169,7 @@ const NewsEventFilterDialogComp = ({
             />
             <AppDropdown
                 options={SORT_BY_OPTIONS_NEWS_EVENT_TRANSLATED}
-                defaultValue="featured"
+                defaultValue="date_desc"
                 buttonClassName="max-h-[20px] font-light text-sm"
                 contentClassName="w-44"
                 onValueChange={value => handleFilterChange('sortBy', value)}

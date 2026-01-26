@@ -30,9 +30,12 @@ export function AppTabs({
     onValueChange,
     tabContainerClassName,
 }: Readonly<TabComponentProps>) {
-    const [activeTab, setActiveTab] = useState(
+    const [internalTab, setInternalTab] = useState(
         defaultValue || tabsList[0]?.value
     );
+
+    const currentTab = value ?? internalTab;
+
     const [contentMap, setContentMap] = useState<
         Record<string, React.ReactNode>
     >({});
@@ -40,29 +43,37 @@ export function AppTabs({
     useEffect(() => {
         if (
             tabsList.length > 0 &&
-            tabsList.find(t => t.value === activeTab) === undefined
+            !tabsList.find(t => t.value === currentTab)
         ) {
-            setActiveTab(tabsList[0].value);
-            setContentMap({});
+            const firstValue = tabsList[0].value;
+            setInternalTab(firstValue);
         }
-    }, [tabsList]);
+    }, [tabsList, currentTab]);
 
     useEffect(() => {
         const loadContent = async () => {
-            const tab = tabsList.find(t => t.value === activeTab);
-            if (tab && !contentMap[activeTab]) {
+            const tab = tabsList.find(t => t.value === currentTab);
+
+            if (tab && !contentMap[currentTab]) {
                 const content = await tab.renderContent();
-                setContentMap(prev => ({ ...prev, [activeTab]: content }));
+                setContentMap(prev => ({ ...prev, [currentTab]: content }));
             }
         };
 
         loadContent();
-    }, [activeTab, tabsList, contentMap]);
+    }, [currentTab, tabsList]);
+
+    const handleTabChange = (val: string) => {
+        setInternalTab(val);
+        if (onValueChange) {
+            onValueChange(val);
+        }
+    };
 
     return (
         <Tabs
-            value={value ?? activeTab}
-            onValueChange={setActiveTab}
+            value={currentTab}
+            onValueChange={handleTabChange}
             className="w-full gap-4"
             orientation={isHorizontal ? 'horizontal' : 'vertical'}
         >
@@ -96,15 +107,6 @@ export function AppTabs({
                                 ' text-xs md:text-sm',
                             `${shouldBorderVisible ? '' : 'border-transparent!'}`
                         )}
-                        onClick={() => {
-                            /* eslint-disable-next-line @typescript-eslint/no-unused-expressions */
-                            onValueChange && onValueChange(tab.value);
-                        }}
-                        style={{
-                            width: `calc(100% / ${tabsList.length})px`,
-                            maxWidth: `calc(100% / ${tabsList.length})px`,
-                            minWidth: `calc(100% / ${tabsList.length})px`,
-                        }}
                     >
                         {tab.title}
                     </TabsTrigger>
@@ -118,7 +120,9 @@ export function AppTabs({
                     className={tabContainerClassName}
                 >
                     {contentMap[tab.value] ?? (
-                        <div className="text-muted">Loading...</div>
+                        <div className="py-10 text-center text-muted-foreground">
+                            Loading...
+                        </div>
                     )}
                 </TabsContent>
             ))}

@@ -27,8 +27,8 @@ import { T } from '@/components/app-translate';
 import { usePerformanceStatisticStore } from '@/stores/performance-statistic.store';
 import { PERFORMANCE_STATISTIC_DIALOG_ACTIONS } from '@/stores/actions/performance-statistic.action';
 import { useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
-// Mock data generation
 const dataList = [
     {
         avatar: {
@@ -225,44 +225,24 @@ export default function Page({ searchParams }: PageProps) {
 
     const SORT_BY_OPTIONS_NEWS_EVENT_TRANSLATED: DropdownOption[] = [
         {
-            value: 'featured',
-            label: t('common.sortBy.featured'),
-            group: t('common.default'),
-        },
-        {
-            value: 'desc',
+            value: 'date_desc',
             label: t('common.dateSort.newestFirst'),
             group: t('common.dateSort.label'),
         },
         {
-            value: 'asc',
+            value: 'date_asc',
             label: t('common.dateSort.oldestFirst'),
             group: t('common.dateSort.label'),
         },
         {
-            value: 'all',
-            label: t('common.marketType.all'),
-            group: t('common.market'),
+            value: 'name_desc',
+            label: 'Z-A',
+            group: t('common.name'),
         },
         {
-            value: 'stocks',
-            label: t('common.marketType.stocks'),
-            group: t('common.market'),
-        },
-        {
-            value: 'cryptocurrencies',
-            label: t('common.marketType.cryptocurrencies'),
-            group: t('common.market'),
-        },
-        {
-            value: 'currencies',
-            label: t('common.marketType.currencies'),
-            group: t('common.market'),
-        },
-        {
-            value: 'commodities',
-            label: t('common.marketType.commodities'),
-            group: t('common.market'),
+            value: 'name_asc',
+            label: 'A-Z',
+            group: t('common.name'),
         },
     ];
 
@@ -286,14 +266,14 @@ export default function Page({ searchParams }: PageProps) {
                         onApply={(value: unknown) => console.log(value)}
                     />
                     <button
-                        className="text-brand-text font-bold dark:hover:text-[var(--brand-color)] cursor-pointer"
+                        className="text-brand-text lg:text-sm text-xs truncate font-bold dark:hover:text-[var(--brand-color)] cursor-pointer"
                         onClick={() => handleOnOpenPerformanceStatisticDialog()}
                     >
                         <T keyName={'performanceNotice.member.reminderText'} />
                     </button>
                     <AppDropdown
                         options={SORT_BY_OPTIONS_NEWS_EVENT_TRANSLATED}
-                        defaultValue="featured"
+                        defaultValue="date_desc"
                         buttonClassName="max-h-[20px] font-medium text-sm"
                         contentClassName="w-44"
                         onValueChange={value =>
@@ -308,7 +288,13 @@ export default function Page({ searchParams }: PageProps) {
                         <Card
                             key={index}
                             onClick={() => handleCardClick(index)}
-                            className="h-fit dark:border-[var(--brand-grey)] border-black/10 py-4 cursor-pointer transition-all! dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] duration-300 ease-in-out hover:border-[var(--brand-color)]"
+                            className={cn(
+                                'h-fit dark:border-[var(--brand-grey)] py-4 cursor-pointer' +
+                                    ' transition-all! dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)]' +
+                                    ' duration-300 ease-in-out hover:border-[var(--brand-color)]',
+                                activeCard === index &&
+                                    'dark:border-[var(--brand-color)] border-black'
+                            )}
                         >
                             <CardHeader className="flex justify-between h-fit w-full mb-2 items-center">
                                 <div className="flex items-center justify-center gap-2 w-fit">
@@ -402,12 +388,16 @@ export default function Page({ searchParams }: PageProps) {
                     open={activeCard !== null}
                     onOpenChange={open => !open && setActiveCard(null)}
                 >
-                    <DialogContent className="max-w-[90svw] lg:max-w-xl max-h-[90svh] overflow-y-auto p-0 border-none bg-transparent">
+                    <DialogContent
+                        autoFocus={false}
+                        className="max-w-[90svw] lg:max-w-xl max-h-[90svh] overflow-y-auto p-0 border-none bg-transparent"
+                        onOpenAutoFocus={e => e.preventDefault()}
+                    >
                         {selectedData && (
                             <Card className="w-full border-[var(--brand-grey)] dark:bg-[var(--brand-black-bg)] bg-[var(--brand-grey)] text-xs p-0 overflow-hidden shadow-2xl">
                                 <CardHeader className="flex relative flex-row items-center justify-between p-6 pb-2">
                                     <div className="flex flex-col gap-2">
-                                        <h2 className="font-semibold text-xl text-[var(--brand-color)]">
+                                        <h2 className="font-semibold text-xl dark:text-[var(--brand-color)]">
                                             {selectedData.account.name}
                                         </h2>
                                         {selectedData.isIndependentVerification
