@@ -31,7 +31,7 @@ export function AccountChartWithDialog({
                     </div>
                 </div>
             </DialogTrigger>
-            <DialogContent className="max-w-[90svw] lg:min-w-4xl max-h-[90vh] bg-brand-dialog">
+            <DialogContent className="max-w-[90svw] lg:min-w-[90svw] max-h-[90vh] bg-brand-dialog">
                 <DialogHeader>
                     <DialogTitle>{title}</DialogTitle>
                 </DialogHeader>

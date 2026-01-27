@@ -14,6 +14,8 @@ import {
     primaryKey,
     pgEnum,
     numeric,
+    varchar,
+    date,
 } from 'drizzle-orm/pg-core';
 
 export const postStatus = pgEnum('post_status', ['ACTIVE', 'DEACTIVE']);
@@ -41,6 +43,13 @@ export const transactionStatus = pgEnum('transaction_status', [
     'COMPLETED',
     'FAILED',
     'REFUNDED',
+]);
+
+export const metricTypeEnum = pgEnum('metric_type', [
+    'equity_growth',
+    'growth',
+    'deposit',
+    'withdrawal',
 ]);
 
 export const users = pgTable(
@@ -422,6 +431,53 @@ export const affiliateCodes = pgTable('affiliate_code', {
     expiresAt: timestamp({ mode: 'string' }),
 });
 
+export const clientAccount = pgTable('client_account', {
+    id: varchar('id', { length: 50 }).primaryKey(),
+    name: text('name').notNull(),
+    url: text('url'),
+    scrapedAt: timestamp('scraped_at', { withTimezone: true }),
+    createdAt: timestamp('created_at').defaultNow(),
+});
+
+export const clientAccountStats = pgTable('client_account_stats', {
+    accountId: varchar('account_id', { length: 50 })
+        .primaryKey()
+        .references(() => clientAccount.id, { onDelete: 'cascade' }),
+    gain: numeric('gain', { precision: 15, scale: 2 }),
+    absGain: numeric('abs_gain', { precision: 15, scale: 2 }),
+    daily: numeric('daily', { precision: 15, scale: 2 }),
+    monthly: numeric('monthly', { precision: 15, scale: 2 }),
+    drawdown: numeric('drawdown', { precision: 15, scale: 2 }),
+    balance: numeric('balance', { precision: 15, scale: 2 }),
+    equity: numeric('equity', { precision: 15, scale: 2 }),
+    profit: numeric('profit', { precision: 15, scale: 2 }),
+    depositsTotal: numeric('deposits_total', { precision: 15, scale: 2 }),
+    withdrawalsTotal: numeric('withdrawals_total', { precision: 15, scale: 2 }),
+    updatedAt: timestamp('updated_at', { withTimezone: true }),
+});
+
+export const clientAccountMetrics = pgTable(
+    'client_account_metrics',
+    {
+        accountId: varchar('account_id', { length: 50 })
+            .notNull()
+            .references(() => clientAccount.id, { onDelete: 'cascade' }),
+        metricDate: date('metric_date').notNull(),
+        type: metricTypeEnum('type').notNull(),
+        value: numeric('value', { precision: 15, scale: 2 }).notNull(),
+    },
+    table => ({
+        metricSearchIdx: index('metric_search_idx').on(
+            table.accountId,
+            table.type,
+            table.metricDate
+        ),
+        pk: primaryKey({
+            columns: [table.accountId, table.metricDate, table.type],
+        }),
+    })
+);
+
 // Relation
 export const otpCodesRelations = relations(otpCodes, ({ one }) => ({
     users: one(users, {
@@ -429,6 +485,17 @@ export const otpCodesRelations = relations(otpCodes, ({ one }) => ({
         references: [users.id],
     }),
 }));
+
+export const clientAccountRelations = relations(
+    clientAccount,
+    ({ one, many }) => ({
+        stats: one(clientAccountStats, {
+            fields: [clientAccount.id],
+            references: [clientAccountStats.accountId],
+        }),
+        metrics: many(clientAccountMetrics),
+    })
+);
 
 export const userRelations = relations(users, ({ many }) => ({
     otpCodes: many(otpCodes),

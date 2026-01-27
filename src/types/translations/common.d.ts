@@ -175,4 +175,5 @@ export interface CommonTranslations {
     bookAConsultationSuccessDesc: string;
     addToCart: string;
     buyNow: string;
+    accountPerformance: string;
 }

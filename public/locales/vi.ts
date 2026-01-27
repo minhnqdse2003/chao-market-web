@@ -198,6 +198,7 @@ là qua đêm). Nó phản ánh chi phí vay vốn và chênh lệch lãi suất
             ' gian sớm nhất.',
         addToCart: 'Thêm vào Giỏ Hàng',
         buyNow: 'Mua Ngay',
+        accountPerformance: 'Lịch Sử Giao Dịch',
     },
     auth: {
         login: 'Đăng Nhập',
