@@ -10,7 +10,9 @@ import { useI18n } from '@/context/i18n/context';
 
 export default function Page() {
     const searchParams = useSearchParams();
+
     const tab = searchParams.get('tab') ?? 'us';
+    const subTab = searchParams.get('sub') ?? 'overview';
 
     const { data: metaData, isLoading } = useMetaData();
     const { locale } = useI18n();
@@ -35,12 +37,13 @@ export default function Page() {
             />
             <TabNavigation searchParams={{ tab }} subTabs={SUB_TABS} />
             {metaData?.market.tabs
-                .filter(item => item.type === tab) // ✅ now reactive
+                .filter(item => item.type === tab)
                 .map(item => (
                     <StockComp
                         key={item.type}
                         type={item.type}
                         config={metaData}
+                        activeTab={subTab}
                     />
                 ))}
         </>

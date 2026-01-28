@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useTheme } from 'next-themes';
 import { MARKET_SYMBOL, TMarketSymbolKey } from '@/constant/market-query';
 import { calculateAdjustedHeight } from '@/utils/height-utils';
@@ -15,6 +15,7 @@ import Script from 'next/script';
 import { cn } from '@/lib/utils';
 import { MetaDataConfig } from '@/services/meta_data';
 import { getRssLink } from '@/lib/get-rss-link-from-meta-data';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const USA_SYMBOL_KEYS: TMarketSymbolKey[] = [
     'INDEX_DXY',
@@ -321,68 +322,6 @@ const DARK_THEME_CONFIG_COMMODITIES_CHART = {
     gridColor: 'rgba(242, 242, 242, 0.06)',
     symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
 };
-
-// const LIGHT_THEME_CONFIG_NEWS = {
-//     displayMode: 'adaptive',
-//     feedMode: 'market',
-//     colorTheme: 'light',
-//     isTransparent: false,
-//     locale: 'en',
-//     market: 'stock',
-//     width: '100%',
-//     height: 520,
-// };
-//
-// const DARK_THEME_CONFIG_NEWS = {
-//     ...LIGHT_THEME_CONFIG_NEWS,
-//     colorTheme: 'dark',
-// };
-//
-// const LIGHT_THEME_CONFIG_CURRENCIES_NEWS = {
-//     ...LIGHT_THEME_CONFIG_NEWS,
-//     market: 'forex',
-// };
-//
-// const DARK_THEME_CONFIG_CURRENCIES_NEWS = {
-//     ...DARK_THEME_CONFIG_NEWS,
-//     market: 'forex',
-// };
-//
-// const LIGHT_THEME_CONFIG_CRYPTOCURRENCIES_NEWS = {
-//     ...LIGHT_THEME_CONFIG_NEWS,
-//     market: 'crypto',
-// };
-//
-// const DARK_THEME_CONFIG_CRYPTOCURRENCIES_NEWS = {
-//     ...DARK_THEME_CONFIG_NEWS,
-//     market: 'crypto',
-// };
-//
-// const LIGHT_THEME_CONFIG_NEWS_SYMBOL = {
-//     displayMode: 'adaptive',
-//     feedMode: 'symbol',
-//     symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
-//     colorTheme: 'light',
-//     isTransparent: false,
-//     locale: 'en',
-//     width: '100%',
-//     height: 800,
-// };
-//
-// const DARK_THEME_CONFIG_NEWS_SYMBOL = {
-//     ...LIGHT_THEME_CONFIG_NEWS_SYMBOL,
-//     colorTheme: 'dark',
-// };
-//
-// const LIGHT_THEME_CONFIG_COMMODITIES_NEWS = {
-//     ...LIGHT_THEME_CONFIG_NEWS_SYMBOL,
-//     symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
-// };
-//
-// const DARK_THEME_CONFIG_COMMODITIES_NEWS = {
-//     ...DARK_THEME_CONFIG_NEWS_SYMBOL,
-//     symbol: MARKET_SYMBOL.OANDA_XAUUSD.name,
-// };
 
 export const LIGHT_THEME_CONFIG_ECONOMY_CALENDAR = {
     colorTheme: 'light',
@@ -885,53 +824,28 @@ function ChartVietNam() {
     );
 }
 
-export function VietNamStockMarketNewsFeed(config?: MetaDataConfig) {
-    const { locale } = useI18n();
-    const href = getRssLink({
-        key: 'financialNews',
-        locale,
-        type: 'vietname',
-        config,
-    });
-
-    if (href)
-        return (
-            <CombinedNewsFeed
-                type={'B01-market-fin-news-global-vn'}
-                href={getRssLink({
-                    key: 'financialNews',
-                    locale,
-                    type: 'vietname',
-                    config,
-                })}
-            />
-        );
-
-    return locale === 'vi' ? (
-        <CombinedNewsFeed type={'B03-market-fin-news-vietnam-vn'} />
-    ) : (
-        <CombinedNewsFeed type={'B04-market-fin-news-vietnam-en'} />
-    );
-}
-
 function StockComp({
     type,
     config,
+    activeTab,
 }: {
     type: MARKET_TYPES;
     config?: MetaDataConfig;
+    activeTab: string;
 }) {
     const { t } = useI18n();
-    const [defaultValue, setDefaultValue] = useState(
-        sessionStorage.getItem('stock-type') || 'overview'
-    );
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
 
-    const setSessionStorageItem = (value: string) =>
-        sessionStorage.setItem('stock-type', value);
+    const onDefaultValueChange = (newSubTabValue: string) => {
+        const params = new URLSearchParams(searchParams.toString());
 
-    const onDefaultValueChange = (activeTab: string) => {
-        setDefaultValue(activeTab);
-        setSessionStorageItem(activeTab);
+        params.set('sub', newSubTabValue);
+
+        const finalPath = `${pathname}?${params.toString()}`;
+
+        router.push(finalPath, { scroll: false });
     };
 
     const tabsList: TabItem[] = [
@@ -996,7 +910,7 @@ function StockComp({
     return (
         <AppTabs
             tabsList={tabsList}
-            defaultValue={defaultValue}
+            defaultValue={activeTab}
             onValueChange={onDefaultValueChange}
         />
     );
